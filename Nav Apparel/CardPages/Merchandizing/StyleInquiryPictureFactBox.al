@@ -1,6 +1,6 @@
 page 50603 "Style Picture FactBox"
 {
-    PageType = Cardpart;
+    PageType = CardPart;
     SourceTable = "Style Master";
     Caption = 'Upload Images';
 

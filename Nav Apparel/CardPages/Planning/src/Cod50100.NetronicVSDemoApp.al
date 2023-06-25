@@ -436,23 +436,108 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
     procedure LoadEntities(pEntities: JsonArray)
     var
-        // i: Integer;
-        // j: Integer;
-        // lchLetter: Char;
         ldnEntity: JsonObject;
         tempEntityToken: JsonToken;
         TempString: Text;
         PlanningQueueRec: Record "Planning Queue";
+        PlanningQueueSortRec: Record "Planning Queue Sort";
         StyleMasRec: Record "Style Master";
         Brand: text[200];
+        QueueNo: BigInteger;
     begin
+        //Delete all for the user in sort table
+        PlanningQueueSortRec.Reset();
+        PlanningQueueSortRec.SetRange("User ID", UserId);
+        if PlanningQueueSortRec.FindSet() then
+            PlanningQueueSortRec.DeleteAll();
+
+        //Get Max QueueNo of sort table
+        PlanningQueueSortRec.Reset();
+        if PlanningQueueSortRec.FindLast() then
+            QueueNo := PlanningQueueSortRec."Queue No.";
+
+        //get all for the user from queue table and insert to the sort table
+        PlanningQueueRec.Reset();
+        PlanningQueueRec.SetRange("User ID", UserId);
+        if PlanningQueueRec.FindSet() then begin
+            repeat
+                QueueNo += 1;
+                PlanningQueueSortRec.Init();
+                PlanningQueueSortRec."Queue No." := QueueNo;
+                PlanningQueueSortRec."Style No." := PlanningQueueRec."Style No.";
+                PlanningQueueSortRec."Style Name" := PlanningQueueRec."Style Name";
+                PlanningQueueSortRec."PO No." := PlanningQueueRec."PO No.";
+                PlanningQueueSortRec."Lot No." := PlanningQueueRec."Lot No.";
+                PlanningQueueSortRec.Qty := PlanningQueueRec.Qty;
+                PlanningQueueSortRec.SMV := PlanningQueueRec.SMV;
+                PlanningQueueSortRec.Carder := PlanningQueueRec.Carder;
+                PlanningQueueSortRec."TGTSEWFIN Date" := PlanningQueueRec."TGTSEWFIN Date";
+                PlanningQueueSortRec."Learning Curve No." := PlanningQueueRec."Learning Curve No.";
+                PlanningQueueSortRec.Eff := PlanningQueueRec.Eff;
+                PlanningQueueSortRec.HoursPerDay := PlanningQueueRec.HoursPerDay;
+                PlanningQueueSortRec.Front := PlanningQueueRec.Front;
+                PlanningQueueSortRec.Back := PlanningQueueRec.Back;
+                PlanningQueueSortRec.Waistage := PlanningQueueRec.Waistage;
+                PlanningQueueSortRec."User ID" := UserId;
+                PlanningQueueSortRec.Factory := PlanningQueueRec.Factory;
+                PlanningQueueSortRec.Target := PlanningQueueRec.Target;
+                PlanningQueueSortRec."Secondary UserID" := PlanningQueueRec."Secondary UserID";
+                PlanningQueueSortRec."Created Date" := WorkDate();
+                PlanningQueueSortRec."Created User" := UserId;
+                PlanningQueueSortRec.Insert();
+            until PlanningQueueRec.Next() = 0;
+        end;
+
+        //Delete all for the user in queue table
+        PlanningQueueRec.Reset();
+        PlanningQueueRec.SetRange("User ID", UserId);
+        if PlanningQueueRec.FindSet() then
+            PlanningQueueRec.DeleteAll();
+
+        //Get Max QueueNo of queue table
+        QueueNo := 0;
+        PlanningQueueRec.Reset();
+        if PlanningQueueRec.FindLast() then
+            QueueNo := PlanningQueueRec."Queue No.";
+
+        //get all for the user from sort table and insert to the queue table
+        PlanningQueueSortRec.Reset();
+        PlanningQueueSortRec.SetRange("User ID", UserId);
+        PlanningQueueSortRec.SetCurrentKey("Style Name", "PO No.", "TGTSEWFIN Date");
+        PlanningQueueSortRec.Ascending(true);
+        if PlanningQueueSortRec.FindSet() then begin
+            repeat
+                QueueNo += 1;
+                PlanningQueueRec.Init();
+                PlanningQueueRec."Queue No." := QueueNo;
+                PlanningQueueRec."Style No." := PlanningQueueSortRec."Style No.";
+                PlanningQueueRec."Style Name" := PlanningQueueSortRec."Style Name";
+                PlanningQueueRec."PO No." := PlanningQueueSortRec."PO No.";
+                PlanningQueueRec."Lot No." := PlanningQueueSortRec."Lot No.";
+                PlanningQueueRec.Qty := PlanningQueueSortRec.Qty;
+                PlanningQueueRec.SMV := PlanningQueueSortRec.SMV;
+                PlanningQueueRec.Carder := PlanningQueueSortRec.Carder;
+                PlanningQueueRec."TGTSEWFIN Date" := PlanningQueueSortRec."TGTSEWFIN Date";
+                PlanningQueueRec."Learning Curve No." := PlanningQueueSortRec."Learning Curve No.";
+                PlanningQueueRec.Eff := PlanningQueueSortRec.Eff;
+                PlanningQueueRec.HoursPerDay := PlanningQueueSortRec.HoursPerDay;
+                PlanningQueueRec.Front := PlanningQueueSortRec.Front;
+                PlanningQueueRec.Back := PlanningQueueSortRec.Back;
+                PlanningQueueRec.Waistage := PlanningQueueSortRec.Waistage;
+                PlanningQueueRec."User ID" := UserId;
+                PlanningQueueRec.Factory := PlanningQueueSortRec.Factory;
+                PlanningQueueRec.Target := PlanningQueueSortRec.Target;
+                PlanningQueueRec."Secondary UserID" := PlanningQueueSortRec."Secondary UserID";
+                PlanningQueueRec."Created Date" := WorkDate();
+                PlanningQueueRec."Created User" := UserId;
+                PlanningQueueRec.Insert();
+            until PlanningQueueSortRec.Next() = 0;
+        end;
 
         PlanningQueueRec.Reset();
         PlanningQueueRec.SetRange("User ID", UserId);
-
         if PlanningQueueRec.FindSet() then begin
             repeat
-
                 StyleMasRec.Reset();
                 StyleMasRec.SetRange("No.", PlanningQueueRec."Style No.");
                 if StyleMasRec.FindSet() then
@@ -465,41 +550,13 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnEntity.Add('ID', PlanningQueueRec."Queue No.");
                 ldnEntity.Add('PM_TableColor', '#2672ab');
                 ldnEntity.Add('PM_TableTextColor', 'white');
-                //ldnEntity.Add('PM_MinimumRowHeight', '19');
                 ldnEntity.Add('AddIn_TableText', TempString);
                 ldnEntity.Get('ID', tempEntityToken);
                 ldnEntity.Add('AddIn_ContextMenuID', 'CM_Entity');
                 ldnEntity.Add('AddIn_TooltipText', 'Brand : ' + FORMAT(Brand) + '<br>' + 'Style : ' + FORMAT(PlanningQueueRec."Style Name") + '<br>' + 'LOT : ' + FORMAT(PlanningQueueRec."Lot No.") + '<br>' + 'PO : ' + FORMAT(PlanningQueueRec."PO No.") + '<br>' + 'Ship Date : ' + FORMAT(PlanningQueueRec."TGTSEWFIN Date") + '<br>' + 'Qty : ' + FORMAT(PlanningQueueRec.Qty - Round(PlanningQueueRec.Waistage, 1)) + '<br>' + 'Qty With Waistage : ' + FORMAT(PlanningQueueRec.Qty));
                 pEntities.Add(ldnEntity);
-
             until PlanningQueueRec.Next() = 0;
         end;
-
-        // FOR i := 65 TO 70 DO BEGIN
-        //     lchLetter := i;
-        //     ldnEntity := createJsonObject();
-        //     ldnEntity.Add('ID', 'BA_Job_' + FORMAT(lchLetter));
-        //     ldnEntity.Get('ID', tempEntityToken);
-        //     ldnEntity.Add('PM_TableColor', 'darkgreen');
-        //     ldnEntity.Add('PM_TableTextColor', 'white');
-        //     ldnEntity.Add('AddIn_TooltipText', 'Backlog job:<br>' + FORMAT(tempEntityToken.AsValue().AsText()));
-        //     ldnEntity.Add('AddIn_TableText', 'Job ' + FORMAT(lchLetter));
-        //     IF (i = 66) THEN
-        //         ldnEntity.Add('PM_CollapseState', 1);
-        //     pEntities.Add(ldnEntity);
-        //     FOR j := 1 TO 3 DO BEGIN
-        //         ldnEntity := createJsonObject();
-        //         ldnEntity.Add('ID', 'BA_Job_' + FORMAT(lchLetter) + '_Task_' + FORMAT(j));
-        //         ldnEntity.Add('PM_TableColor', 'seagreen');
-        //         ldnEntity.Add('PM_TableTextColor', 'white');
-        //         ldnEntity.Add('AddIn_TableText', 'Task ' + FORMAT(j));
-        //         ldnEntity.Get('ID', tempEntityToken);
-        //         ldnEntity.Add('AddIn_TooltipText', 'Backlog task:<br>' + FORMAT(tempEntityToken.AsValue().AsText()));
-        //         ldnEntity.Add('ParentID', 'BA_Job_' + FORMAT(lchLetter));
-        //         ldnEntity.Add('AddIn_ContextMenuID', 'CM_Entity');
-        //         pEntities.Add(ldnEntity);
-        //     END
-        // END
     end;
 
     procedure LoadContextMenus(pContextMenus: JsonArray)
@@ -508,57 +565,6 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         ldnContextMenuItem: JsonObject;
         tempEntries: JsonArray;
     begin
-        //ldnContextMenu.Add('ID', 'CM_ResourceGroup');
-
-        // ldnContextMenuItem.Add('Text', 'ResourceGroup CM-Entry 01');
-        // ldnContextMenuItem.Add('Code', 'RG_01');
-        // ldnContextMenuItem.Add('SortCode', 'a');
-        // tempEntries.Add(ldnContextMenuItem);
-
-        // ldnContextMenuItem := createJsonObject();
-        // ldnContextMenuItem.Add('Text', 'ResourceGroup CM-Entry 02');
-        // ldnContextMenuItem.Add('Code', 'RG_02');
-        // ldnContextMenuItem.Add('SortCode', 'b');
-        // tempEntries.Add(ldnContextMenuItem);
-
-        // ldnContextMenu.Add('Items', tempEntries);
-        // pContextMenus.Add(ldnContextMenu);
-
-        // ldnContextMenu := createJsonObject();
-        // ldnContextMenu.Add('ID', 'CM_Resource');
-        // tempEntries := createJsonArray();
-        // ldnContextMenuItem := createJsonObject();
-        // ldnContextMenuItem.Add('Text', 'Resource CM-Entry 01');
-        // ldnContextMenuItem.Add('Code', 'R_01');
-        // ldnContextMenuItem.Add('SortCode', 'a');
-        // tempEntries.Add(ldnContextMenuItem);
-
-        // ldnContextMenuItem := createJsonObject();
-        // ldnContextMenuItem.Add('Text', 'Resource CM-Entry 02');
-        // ldnContextMenuItem.Add('Code', 'R_02');
-        // ldnContextMenuItem.Add('SortCode', 'b');
-        // tempEntries.Add(ldnContextMenuItem);
-
-        // ldnContextMenu.Add('Items', tempEntries);
-        // pContextMenus.Add(ldnContextMenu);
-
-        // ldnContextMenu := createJsonObject();
-        // ldnContextMenu.Add('ID', 'CM_Activity');
-        // tempEntries := createJsonArray();
-        // ldnContextMenuItem := createJsonObject();
-        // ldnContextMenuItem.Add('Text', 'Activity CM-Entry 01');
-        // ldnContextMenuItem.Add('Code', 'A_01');
-        // ldnContextMenuItem.Add('SortCode', 'a');
-        // tempEntries.Add(ldnContextMenuItem);
-        // ldnContextMenuItem := createJsonObject();
-        // ldnContextMenuItem.Add('Text', 'Activity CM-Entry 02');
-        // ldnContextMenuItem.Add('Code', 'A_02');
-        // ldnContextMenuItem.Add('SortCode', 'b');
-        // tempEntries.Add(ldnContextMenuItem);
-        // ldnContextMenu.Add('Items', tempEntries);
-        // pContextMenus.Add(ldnContextMenu);
-
-
         //Allocation
         ldnContextMenu := createJsonObject();
         ldnContextMenu.Add('ID', 'CM_Allocation');

@@ -13,6 +13,12 @@ page 50346 "Plan Target List part"
         {
             repeater(General)
             {
+                field(ResourceName; ResourceName)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Line';
+                }
+
                 field(PlanDate; rec.PlanDate)
                 {
                     ApplicationArea = All;
@@ -52,15 +58,24 @@ page 50346 "Plan Target List part"
 
     trigger OnAfterGetRecord()
     var
+        WorkCEnterRec: Record "Work Center";
     begin
         Hours := (rec."Finish Time" - rec."Start Time") / (60 * 60 * 1000);
+
+        //Get Resource Name
+        WorkCEnterRec.Reset();
+        WorkCEnterRec.SetRange("No.", rec."Resource No.");
+        if WorkCEnterRec.FindSet() then
+            ResourceName := WorkCEnterRec.Name;
     end;
+
 
     trigger OnOpenPage()
     var
     begin
         rec.SetFilter("Line No.", LineNo);
     end;
+
 
     procedure PassParameters(LineNoPara: Text);
     var
@@ -72,4 +87,5 @@ page 50346 "Plan Target List part"
         LineNo1: BigInteger;
         LineNo: Text;
         Hours: Decimal;
+        ResourceName: Text[50];
 }

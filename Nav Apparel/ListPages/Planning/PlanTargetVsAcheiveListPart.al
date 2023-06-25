@@ -83,8 +83,7 @@ page 50348 "Plan Target Vs Acheive"
     trigger OnAfterGetRecord()
     var
         WorkCEnterRec: Record "Work Center";
-        StyleRec: Record "Style Master";
-       
+        StyleRec: Record "Style Master";       
     begin
         Variance := rec.ProdUpdQty - rec.qty;
 

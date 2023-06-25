@@ -257,10 +257,11 @@ page 50489 "All PO List"
                         //if StyleMasterPORec.Qty > x then begin
 
                         //Insert new line to Queue
+                        QueueNo += 1;
                         PlanningQueueNewRec.Init();
                         PlanningQueueNewRec."Queue No." := QueueNo;
-                        PlanningQueueNewRec."Style No." := TempRec.Style_No;
-                        PlanningQueueNewRec."Style Name" := StyleMasterRec."Style No.";
+                        PlanningQueueNewRec."Style No." := TempRec.No;
+                        PlanningQueueNewRec."Style Name" := TempRec.Style_No;
                         PlanningQueueNewRec."PO No." := TempRec.PONo;
                         PlanningQueueNewRec."Lot No." := TempRec.Lot_No;
                         PlanningQueueNewRec.Qty := TempRec.Qty;

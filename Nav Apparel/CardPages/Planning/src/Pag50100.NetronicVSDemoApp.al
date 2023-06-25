@@ -2879,11 +2879,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     end;
                                 end
                                 else begin   //Many records in the queue
-
                                     repeat
-
                                         if PlanningQueueRec."Queue No." <> ID then begin
-
                                             //Add qty to existing record
                                             PlanningQueueNewRec.Reset();
                                             PlanningQueueNewRec.SetRange("Queue No.", PlanningQueueRec."Queue No.");
@@ -2896,16 +2893,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             PlanningQueueNewRec.DeleteAll();
                                             break;
                                         end
-
                                     until PlanningQueueRec.Next() = 0;
-
                                 end;
 
                                 LoadData(false, false, false, true, false);
                                 SetconVSControlAddInSettings();
-
                             end;
-
                         end;
 
                         if _contextMenuItemCode = 'E_01' then begin   //Properties
@@ -3199,31 +3192,32 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             if PlanningQueueRec.FindLast() then
                                 QueueNo := PlanningQueueRec."Queue No.";
 
-                            //Add remaining qty to the Queue
-                            PlanningQueueRec.Init();
-                            PlanningQueueRec."Queue No." := QueueNo + 1;
-                            PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
-                            PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
-                            PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
-                            PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
-                            PlanningQueueRec.Qty := QTY;
-                            PlanningQueueRec.SMV := PlanningLinesRec.SMV;
-                            PlanningQueueRec.Carder := PlanningLinesRec.Carder;
-                            PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
-                            PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
-                            PlanningQueueRec.Eff := PlanningLinesRec.Eff;
-                            PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
-                            PlanningQueueRec.Front := PlanningLinesRec.Front;
-                            PlanningQueueRec.Back := PlanningLinesRec.Back;
-                            PlanningQueueRec.Waistage := 0;
-                            PlanningQueueRec.Factory := PlanningLinesRec.Factory;
-                            PlanningQueueRec."User ID" := UserId;
-                            PlanningQueueRec.Target := PlanningLinesRec.Target;
-                            PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                            PlanningQueueRec."Created Date" := WorkDate();
-                            PlanningQueueRec."Created User" := UserId;
-                            PlanningQueueRec.Insert();
-
+                            if QTY > 0 then begin
+                                //Add remaining qty to the Queue
+                                PlanningQueueRec.Init();
+                                PlanningQueueRec."Queue No." := QueueNo + 1;
+                                PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
+                                PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
+                                PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
+                                PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
+                                PlanningQueueRec.Qty := QTY;
+                                PlanningQueueRec.SMV := PlanningLinesRec.SMV;
+                                PlanningQueueRec.Carder := PlanningLinesRec.Carder;
+                                PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
+                                PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
+                                PlanningQueueRec.Eff := PlanningLinesRec.Eff;
+                                PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
+                                PlanningQueueRec.Front := PlanningLinesRec.Front;
+                                PlanningQueueRec.Back := PlanningLinesRec.Back;
+                                PlanningQueueRec.Waistage := 0;
+                                PlanningQueueRec.Factory := PlanningLinesRec.Factory;
+                                PlanningQueueRec."User ID" := UserId;
+                                PlanningQueueRec.Target := PlanningLinesRec.Target;
+                                PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                PlanningQueueRec."Created Date" := WorkDate();
+                                PlanningQueueRec."Created User" := UserId;
+                                PlanningQueueRec.Insert();
+                            end;
 
                             //Update StyleMsterPO table
                             StyleMasterPORec.Reset();
@@ -3549,7 +3543,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
     trigger OnInit()
     var
-    //ProdOutHeaderRec: Record ProductionOutHeader;
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
 
         //Filter Criteria - Dates
@@ -3574,7 +3569,19 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         gintconVSControlAddInEntitiesTableWidth := 250;
         gintconVSControlAddInEntitiesTableViewWidth := 250;
 
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
 
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
 
     end;
 

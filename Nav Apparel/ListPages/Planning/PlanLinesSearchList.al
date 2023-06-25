@@ -5,7 +5,6 @@ page 50840 "Plan Lines - Search List"
     SourceTableView = sorting("Resource Name", StartDateTime);
     DeleteAllowed = false;
     InsertAllowed = false;
-    //ModifyAllowed = false;
     Caption = 'Search By Style/Return To Queue';
 
     layout
@@ -25,6 +24,12 @@ page 50840 "Plan Lines - Search List"
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Line';
+                }
+
+                field(Buyer; Buyer)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Style Name"; rec."Style Name")
@@ -48,11 +53,51 @@ page 50840 "Plan Lines - Search List"
                     Caption = 'PO No';
                 }
 
+                field(OrderQty; OrderQty)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Order Qty';
+                }
+
                 field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Planned Qty';
+                }
+
+                field(Carder; rec.Carder)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'MC';
+                }
+
+                field(Eff; rec.Eff)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Planned EFF%';
+                }
+
+                field(SMV; rec.SMV)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Learning Curve No."; rec."Learning Curve No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Learning Curve';
+                }
+
+                field(BPCD; BPCD)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("StartDateTime"; rec.StartDateTime)
@@ -65,6 +110,13 @@ page 50840 "Plan Lines - Search List"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field(ShipDate; ShipDate)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Ship Date';
                 }
             }
         }
@@ -151,31 +203,32 @@ page 50840 "Plan Lines - Search List"
                                 if PlanningQueueRec.FindLast() then
                                     QueueNo := PlanningQueueRec."Queue No.";
 
-                                //Add remaining qty to the Queue
-                                PlanningQueueRec.Init();
-                                PlanningQueueRec."Queue No." := QueueNo + 1;
-                                PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
-                                PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
-                                PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
-                                PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
-                                PlanningQueueRec.Qty := QTY;
-                                PlanningQueueRec.SMV := PlanningLinesRec.SMV;
-                                PlanningQueueRec.Carder := PlanningLinesRec.Carder;
-                                PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
-                                PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
-                                PlanningQueueRec.Eff := PlanningLinesRec.Eff;
-                                PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
-                                PlanningQueueRec.Front := PlanningLinesRec.Front;
-                                PlanningQueueRec.Back := PlanningLinesRec.Back;
-                                PlanningQueueRec.Waistage := 0;
-                                PlanningQueueRec.Factory := PlanningLinesRec.Factory;
-                                PlanningQueueRec."User ID" := UserId;
-                                PlanningQueueRec.Target := PlanningLinesRec.Target;
-                                PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                                PlanningQueueRec."Created Date" := WorkDate();
-                                PlanningQueueRec."Created User" := UserId;
-                                PlanningQueueRec.Insert();
-
+                                if QTY > 0 then begin
+                                    //Add remaining qty to the Queue
+                                    PlanningQueueRec.Init();
+                                    PlanningQueueRec."Queue No." := QueueNo + 1;
+                                    PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
+                                    PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
+                                    PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
+                                    PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
+                                    PlanningQueueRec.Qty := QTY;
+                                    PlanningQueueRec.SMV := PlanningLinesRec.SMV;
+                                    PlanningQueueRec.Carder := PlanningLinesRec.Carder;
+                                    PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
+                                    PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
+                                    PlanningQueueRec.Eff := PlanningLinesRec.Eff;
+                                    PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
+                                    PlanningQueueRec.Front := PlanningLinesRec.Front;
+                                    PlanningQueueRec.Back := PlanningLinesRec.Back;
+                                    PlanningQueueRec.Waistage := 0;
+                                    PlanningQueueRec.Factory := PlanningLinesRec.Factory;
+                                    PlanningQueueRec."User ID" := UserId;
+                                    PlanningQueueRec.Target := PlanningLinesRec.Target;
+                                    PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                    PlanningQueueRec."Created Date" := WorkDate();
+                                    PlanningQueueRec."Created User" := UserId;
+                                    PlanningQueueRec.Insert();
+                                end;
 
                                 //Update StyleMsterPO table
                                 StyleMasterPORec.Reset();
@@ -333,6 +386,43 @@ page 50840 "Plan Lines - Search List"
     end;
 
 
+    trigger OnAfterGetRecord()
+    var
+        StyeMastePORec: Record "Style Master PO";
+        StyeMasteRec: Record "Style Master";
+        NavAppSetupRec: Record "NavApp Setup";
+    begin
+        NavAppSetupRec.Reset();
+        NavAppSetupRec.FindSet();
+
+        StyeMasteRec.Reset();
+        StyeMasteRec.SetRange("No.", rec."Style No.");
+        if StyeMasteRec.FindSet() then
+            Buyer := StyeMasteRec."Buyer Name"
+        else
+            Buyer := '';
+
+        StyeMastePORec.Reset();
+        StyeMastePORec.SetRange("Style No.", rec."Style No.");
+        StyeMastePORec.SetRange("Lot No.", rec."Lot No.");
+        if StyeMastePORec.FindSet() then begin
+            OrderQty := StyeMastePORec.Qty;
+            BPCD := StyeMastePORec.BPCD;
+            ShipDate := StyeMastePORec."Ship Date";
+            //rec."TGTSEWFIN Date" := ShipDate - NavAppSetupRec."Sewing Finished"
+        end
+        else begin
+            BPCD := 0D;
+            OrderQty := 0;
+            ShipDate := 0D;
+        end;
+    end;
+
+
     var
         FactoryCode: Code[20];
+        Buyer: Text[500];
+        OrderQty: BigInteger;
+        BPCD: Date;
+        ShipDate: Date;
 }
