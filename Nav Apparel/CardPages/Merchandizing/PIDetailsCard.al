@@ -313,7 +313,17 @@ page 50996 "PI Details Card"
                 PurchaseHeadRec."Assigned PI No." := '';
                 PurchaseHeadRec.Modify();
             until PurchaseHeadRec.Next() = 0;
+
+            //Mihiranga 2023/07/26
+            PIPoDetailsRec.Reset();
+            PIPoDetailsRec.SetRange("PI No.", PurchaseHeadRec."PI No.");
+            if PIPoDetailsRec.FindSet() then begin
+                repeat
+                    PIPoDetailsRec.DeleteAll();
+                until PIPoDetailsRec.Next() = 0;
+            end;
         end;
+
 
         PIPoDetailsRec.Reset();
         PIPoDetailsRec.SetRange("PI No.", rec."No.");
