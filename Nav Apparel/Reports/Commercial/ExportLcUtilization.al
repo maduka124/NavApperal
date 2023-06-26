@@ -39,6 +39,16 @@ report 50628 ExportLcUtilizationReport
             { }
             column(No_; "Contract No")
             { }
+            column(Qty; Qty)
+            { }
+            column(UniPrice; UniPrice)
+            { }
+            column(tot; Qty * UniPrice)
+            { }
+            column(Style_No_; StyleNo)
+            { }
+            column(OrderQty; OrderQty)
+            { }
             dataitem(B2BLCMaster; B2BLCMaster)
             {
                 DataItemLinkReference = "Contract/LCMaster";
@@ -48,7 +58,6 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(Opening_Date_B2B; "Opening Date")
                 { }
-
                 column(Remarks; Remarks)
                 { }
                 column(Balance; Balance)
@@ -61,89 +70,67 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(PIValue; PIValue)
                 { }
-                dataitem(B2BLCPI; B2BLCPI)
-                {
-                    DataItemLinkReference = B2BLCMaster;
-                    DataItemLink = "B2BNo." = field("No.");
-                    DataItemTableView = sorting("B2BNo.");
-                    // column(MainCatName; MainCatName)
-                    // { }
-                    dataitem("PI Po Item Details"; "PI Po Item Details")
-                    {
-                        DataItemLinkReference = B2BLCPI;
-                        DataItemLink = "PI No." = field("PI No.");
-                        DataItemTableView = sorting("PI No.");
-                        column(MainCatName; "Main Category Name")
-                        { }
-                        column(B2B_LC_Value; Value)
-                        { }
-
-                    }
-                    // trigger OnAfterGetRecord()
-
-                    // begin
-                    //     PiPORec.SetRange("PI No.", "No.");
-                    //     if PiPORec.FindLast() then begin
-                    //         MainCatName := PiPORec."Main Category Name";
-                    //         // Message('test');
-                    //     end;
-                    // end;
-
-                }
+                column(MainCatName; MainCatName)
+                { }
+                column(B2B_LC_Value; Value)
+                { }
 
                 trigger OnAfterGetRecord()
 
                 begin
+                    B2bRec.Reset();
+                    B2bRec.SetRange("B2BNo.", "No.");
+                    if B2bRec.FindSet() then begin
+                        PiPORec.reset();
+                        PiPORec.SetRange("PI No.", B2bRec."PI No.");
+                        if PiPORec.FindSet() then begin
+                            MainCatName := PiPORec."Main Category Name";
+                            Value := PiPORec.Value;
+                        end;
+                    end;
+
                     LCPIRec.SetRange("B2BNo.", "No.");
                     if LCPIRec.FindFirst() then begin
                         PIValue += LCPIRec."PI Value";
                     end;
                 end;
             }
-            dataitem("Contract/LCStyle"; "Contract/LCStyle")
-            {
-                DataItemLinkReference = "Contract/LCMaster";
-                DataItemLink = "No." = field("No.");
-                DataItemTableView = sorting("No.");
-                column(Qty; Qty)
-                { }
-                column(UniPrice; UniPrice)
-                { }
-                column(tot; Qty * UniPrice)
-                { }
-                column(Style_No_; "Style No.")
-                { }
-                column(OrderQty; OrderQty)
-                { }
-
-
-                trigger OnAfterGetRecord()
-
-                begin
-
-                    StylePoRec.SetRange("Style No.", "Style No.");
-                    if StylePoRec.FindFirst() then begin
-                        UniPrice := StylePoRec."Unit Price";
-                    end;
-                    stylerec.SetRange("No.", "Contract/LCStyle"."Style No.");
-                    if stylerec.FindFirst() then begin
-                        OrderQty := stylerec."Order Qty";
-                        ShipDate := stylerec."Ship Date";
-                    end;
-
-
-                end;
-
-            }
             trigger OnAfterGetRecord()
             begin
 
-
-                ContractAmountRec.SetRange("No.", "Contract/LCMaster"."No.");
-                if ContractAmountRec.FindFirst() then begin
-                    Amount := ContractAmountRec.Amount;
+                ContractLcRec.Reset();
+                ContractLcRec.SetRange("No.", No);
+                if ContractLcRec.FindSet() then begin
+                    Qty := ContractLcRec.Qty;
 
                 end;
+
+
+                ContractLcRec.Reset();
+                ContractLcRec.SetRange("No.", No);
+                if ContractLcRec.FindSet() then begin
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", ContractLcRec."Style No.");
+                    if StylePoRec.FindSet() then begin
+                        UniPrice := StylePoRec."Unit Price";
+                    end;
+
+                    stylerec.Reset();
+                    stylerec.SetRange("No.", ContractLcRec."Style No.");
+                    if stylerec.FindSet() then begin
+                        OrderQty := stylerec."Order Qty";
+                        ShipDate := stylerec."Ship Date";
+                        StyleNo := stylerec."Style No.";
+                    end;
+                end;
+
+
+                ContractAmountRec.Reset();
+                ContractAmountRec.SetRange("No.", "No.");
+                if ContractAmountRec.FindSet() then begin
+                    Amount := ContractAmountRec.Amount;
+                end;
+
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
@@ -193,6 +180,14 @@ report 50628 ExportLcUtilizationReport
 
 
     var
+
+        Value: Decimal;
+        MainCatName: Text[50];
+        B2bRec: Record B2BLCPI;
+        StyleNo: Text[50];
+        UnitPrize: Decimal;
+        Qty: BigInteger;
+        ContractLcRec: Record "Contract/LCStyle";
         stylerec: Record "Style Master";
         OrderQty: BigInteger;
         ShipDate: Date;
@@ -205,5 +200,4 @@ report 50628 ExportLcUtilizationReport
         LCPIRec: Record B2BLCPI;
         PIValue: Decimal;
         PiPORec: Record "PI Po Item Details";
-        MainCatName: Text[50];
 }
