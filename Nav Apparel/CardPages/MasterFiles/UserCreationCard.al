@@ -7,7 +7,8 @@ page 50978 "Create User Card"
     // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purchase Line" = rmID;
-    Permissions = tabledata "Sales Invoice Header" = rmID;
+    // Permissions = tabledata "Sales Invoice Header" = rmID;
+    Permissions = tabledata "Purchase Header" = RIMD;
 
     layout
     {
@@ -79,6 +80,11 @@ page 50978 "Create User Card"
                 //     ApplicationArea = All;
                 //     Caption = 'Purchase Order No';
                 // }
+                field(PONo; PONo)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Purchase Order No';
+                }
             }
         }
     }
@@ -120,6 +126,27 @@ page 50978 "Create User Card"
 
             //     end;
             // }
+
+            action("Remove Assigned PI No")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    PurchaseHeaderRec: Record "Purchase Header";
+                begin
+
+                    PurchaseHeaderRec.Reset();
+                    PurchaseHeaderRec.SetRange("No.", PONo);
+                    if PurchaseHeaderRec.FindSet() then begin
+                        repeat
+                            PurchaseHeaderRec."Assigned PI No." := '';
+                            PurchaseHeaderRec.Modify();
+                        until PurchaseHeaderRec.Next() = 0;
+                        Message('Purchase Header Record Updated');
+                    end;
+                end;
+            }
             action("Brand Name Update In Sales Invoice Header")
             {
                 ApplicationArea = All;
@@ -407,6 +434,7 @@ page 50978 "Create User Card"
 
 
     var
+        PONo: Code[20];
         PurchaseNo: Code[20];
         ExportRefNo: Code[50];
         Password: Text[50];
