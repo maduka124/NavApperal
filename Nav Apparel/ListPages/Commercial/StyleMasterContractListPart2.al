@@ -42,6 +42,7 @@ page 50505 "StyleMasterContract ListPart 2"
 
                 trigger OnAction()
                 var
+                    BomRec: Record BOM;
                     "StyleMasterRec": Record "Style Master";
                     "Contract/LCMasterRec": Record "Contract/LCMaster";
                     "Contract/LCStyleRec": Record "Contract/LCStyle";
@@ -56,6 +57,12 @@ page 50505 "StyleMasterContract ListPart 2"
                 begin
                     //validate Style before remove
                     Status := false;
+
+                    BomRec.Reset();
+                    BomRec.SetRange("Style No.", Rec."Style No.");
+                    if BomRec.FindSet() then begin
+                        Error('Cannot delete Style. This Style added to the Bom');
+                    end;
 
                     "Contract/LCStyleRec".Reset();
                     "Contract/LCStyleRec".SetRange("No.", Rec."No.");
