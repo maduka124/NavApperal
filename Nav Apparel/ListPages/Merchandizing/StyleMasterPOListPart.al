@@ -172,6 +172,7 @@ page 51069 "Style Master PO ListPart"
                         NavAppProdPlanRec.Reset();
                         NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlanRec.SetRange("PO No.", rec."PO No.");
+                        NavAppProdPlanRec.SetFilter(ProdUpd, '=%1', 0);
                         if NavAppProdPlanRec.FindSet() then
                             Error('PO already planned. Cannot change quantity.');
 
@@ -246,6 +247,7 @@ page 51069 "Style Master PO ListPart"
                         NavAppProdPlanRec.Reset();
                         NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlanRec.SetRange("PO No.", rec."PO No.");
+                        NavAppProdPlanRec.SetFilter(ProdUpd, '=%1', 0);
                         if NavAppProdPlanRec.FindSet() then
                             Error('PO already planned. Cannot change Ship Date.');
 
