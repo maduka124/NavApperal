@@ -1,10 +1,10 @@
-table 51323 "Order Shipping Export"
+table 51323 "Order Shipping Export Line"
 {
     DataClassification = ToBeClassified;
 
     fields
     {
-        field(1; "Invoice No"; Code[20])
+        field(1; "Invoice No"; text[35])
         {
             DataClassification = ToBeClassified;
         }
@@ -13,7 +13,7 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
 
         }
-        field(4; "No of CTN"; Integer)
+        field(4; "No of CTN"; Decimal)
         {
             DataClassification = ToBeClassified;
 
@@ -23,7 +23,7 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
 
         }
-        field(6; "BL No"; Code[20])
+        field(6; "BL No"; Text[50])
         {
             DataClassification = ToBeClassified;
 
@@ -53,7 +53,7 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
 
         }
-        field(12; Destination; Text[50])
+        field(12; Destination; Code[20])
         {
             DataClassification = ToBeClassified;
 
@@ -113,7 +113,7 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
 
         }
-        field(24; "Currant Account"; Text[100])
+        field(24; "Currant Ac Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
 
@@ -168,12 +168,93 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }
+        field(35; "Contract Lc No"; Text[35])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(36; Season; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(37; Buyer; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(38; "Buyer No"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(39; "Style Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(40; "Po No"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(41; "Po Qty"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(42; "Unit Price"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(43; "Order value"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(44; "Ship Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(45; "Ship Qty"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(46; "Ship value"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(47; "Commission"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(48; "Discount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(49; "Ex FTY Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(51; Mode; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = Sea,Air,"Sea-Air","Air-Sea","By Road";
+            OptionCaption = 'Sea,Air,"Sea-Air","Air-Sea","By Road"';
+        }
+        field(52; "Bank Ref Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        field(53; "No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+
+        }
 
     }
 
     keys
     {
-        key(Key1; SeqNo)
+        key(Key1; SeqNo, No)
         {
             Clustered = true;
         }

@@ -672,6 +672,12 @@ page 50964 "NavApp Setup Card"
                     Caption = 'LaySheet Nos';
                     TableRelation = "No. Series".Code;
                 }
+                field("OrderShippingExport Nos."; Rec."OrderShippingExport Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Order Shipping Export No';
+                    TableRelation = "No. Series".Code;
+                }
             }
         }
     }

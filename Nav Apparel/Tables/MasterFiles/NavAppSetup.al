@@ -668,6 +668,11 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        field(71012698; "OrderShippingExport Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 
     keys
