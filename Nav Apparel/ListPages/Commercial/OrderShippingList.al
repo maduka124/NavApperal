@@ -269,14 +269,14 @@ page 51324 OrderShippingList
 
         // MaxSeqNo := 0;
 
-        // Delete Old Records
-        OrderSummaryRec.Reset();
-        // OrderSummaryRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
-        // OrderSummaryRec.SetRange(No, Rec."No.");
-        if OrderSummaryRec.FindSet() then begin
-            OrderSummaryRec.DeleteAll();
-            CurrPage.Update();
-        end;
+        // // Delete Old Records
+        // OrderSummaryRec.Reset();
+        // // OrderSummaryRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        // // OrderSummaryRec.SetRange(No, Rec."No.");
+        // if OrderSummaryRec.FindSet() then begin
+        //     OrderSummaryRec.DeleteAll();
+        //     CurrPage.Update();
+        // end;
 
         //Get Max Seq No
         OrderSummaryRec.Reset();
@@ -302,7 +302,7 @@ page 51324 OrderShippingList
                         if LcRec.FindSet() then begin
                             OrderSummaryRec."Contract Lc No" := LcRec."Contract No";
                             OrderSummaryRec.Season := StyleRec."Season Name";
-                            OrderSummaryRec."Buyer No" := StyleRec."Brand No.";
+                            OrderSummaryRec."Buyer No" := StyleRec."Buyer No.";
                             OrderSummaryRec.Buyer := StyleRec."Buyer Name";
                             OrderSummaryRec."Style Name" := StyleRec."Style No.";
                             OrderSummaryRec."Po No" := StylePoRec."PO No.";

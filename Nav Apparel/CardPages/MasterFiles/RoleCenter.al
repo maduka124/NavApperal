@@ -2344,13 +2344,18 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "GIT Baseon PI List";
                     ApplicationArea = all;
                 }
+                action("OMS")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Order Shipping Export List")
                 {
                     Caption = 'Order Shipping Export List';
                     RunObject = Page OrderShippingList;
                     ApplicationArea = all;
                 }
-
 
                 action("Sales Order List")
                 {
