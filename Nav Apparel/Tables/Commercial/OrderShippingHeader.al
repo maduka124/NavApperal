@@ -46,8 +46,7 @@ table 51328 "Order Shipping Export Header"
         field(4; "Buyer Name"; Text[100])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Customer.Name;
-            ValidateTableRelation = false;
+           
 
         }
         field(5; "Contract No"; Code[20])
