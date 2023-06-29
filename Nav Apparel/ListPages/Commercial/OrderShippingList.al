@@ -27,6 +27,7 @@ page 51324 OrderShipping
                 field("Buyer No"; Rec."Buyer No")
                 {
                     ApplicationArea = All;
+                    Visible = false;
 
                 }
                 field(Buyer; Rec.Buyer)
@@ -283,109 +284,109 @@ page 51324 OrderShipping
 
 
 
-        // //Check whether user logged in or not
-        // LoginSessionsRec.Reset();
-        // LoginSessionsRec.SetRange(SessionID, SessionId());
+    // //Check whether user logged in or not
+    // LoginSessionsRec.Reset();
+    // LoginSessionsRec.SetRange(SessionID, SessionId());
 
-        // if not LoginSessionsRec.FindSet() then begin  //not logged in
-        //     Clear(LoginRec);
-        //     LoginRec.LookupMode(true);
-        //     LoginRec.RunModal();
-        // end;
-
-
-        // // Delete Old Records
-        // OrderSummaryRec.Reset();
-        // OrderSummaryRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
-        // if OrderSummaryRec.FindSet() then
-        //     OrderSummaryRec.DeleteAll();
-
-        // //Get Max Seq No
-        // OrderSummaryRec.Reset();
-        // if OrderSummaryRec.FindLast() then
-        //     MaxSeqNo := OrderSummaryRec."SeqNo";
-
-        // StyleRec.Reset();
-        // StyleRec.SetRange(Status, StyleRec.Status::Confirmed);
-        // if StylePoRec.FindSet() then begin
-        //     repeat
-        //         MaxSeqNo += 1;
-        //         OrderSummaryRec.Init();
-        //         OrderSummaryRec.SeqNo := MaxSeqNo;
-
-        //         LcRec.Reset();
-        //         LcRec.SetRange("No.", StyleRec.AssignedContractNo);
-        //         if LcRec.FindSet() then begin
-        //             OrderSummaryRec."Contract Lc No" := LcRec."Contract No";
+    // if not LoginSessionsRec.FindSet() then begin  //not logged in
+    //     Clear(LoginRec);
+    //     LoginRec.LookupMode(true);
+    //     LoginRec.RunModal();
+    // end;
 
 
-        //             OrderSummaryRec.Season := StyleRec."Season Name";
-        //             OrderSummaryRec."Buyer No" := StyleRec."Brand No.";
-        //             OrderSummaryRec.Buyer := StyleRec."Buyer Name";
-        //             OrderSummaryRec."Style Name" := StyleRec."Style No.";
+    // // Delete Old Records
+    // OrderSummaryRec.Reset();
+    // OrderSummaryRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+    // if OrderSummaryRec.FindSet() then
+    //     OrderSummaryRec.DeleteAll();
 
-        //             StylePoRec.Reset();
-        //             StylePoRec.SetRange("Style No.", StyleRec."No.");
-        //             if StyleRec.FindSet() then begin
-        //                 OrderSummaryRec."Po No" := StylePoRec."PO No.";
-        //                 OrderSummaryRec."Po Qty" := StylePoRec.Qty;
-        //                 OrderSummaryRec."Unit Price" := StylePoRec."Unit Price";
-        //                 OrderSummaryRec."Ship Date" := StylePoRec."Ship Date";
-        //                 OrderSummaryRec."Ship Qty" := StylePoRec."Shipped Qty";
-        //                 OrderSummaryRec.Mode := StylePoRec.Mode;
+    // //Get Max Seq No
+    // OrderSummaryRec.Reset();
+    // if OrderSummaryRec.FindLast() then
+    //     MaxSeqNo := OrderSummaryRec."SeqNo";
 
-        //             end;
+    // StyleRec.Reset();
+    // StyleRec.SetRange(Status, StyleRec.Status::Confirmed);
+    // if StylePoRec.FindSet() then begin
+    //     repeat
+    //         MaxSeqNo += 1;
+    //         OrderSummaryRec.Init();
+    //         OrderSummaryRec.SeqNo := MaxSeqNo;
 
-        //             BomEstimateRec.Reset();
-        //             BomEstimateRec.SetRange("Style No.", StyleRec."No.");
-        //             if BomEstimateRec.FindSet() then begin
-        //                 OrderSummaryRec.Commission := BomEstimateRec."Commission %";
-
-        //             end;
-
-        //             SalesInvRec.Reset();
-        //             SalesInvRec.SetRange("Style No", StyleRec."No.");
-        //             SalesInvRec.SetRange("Contract No", LcRec."Contract No");
-        //             if SalesInvRec.FindSet() then begin
-        //                 OrderSummaryRec."Invoice No" := SalesInvRec."Your Reference";
-        //                 OrderSummaryRec."Invoice Date" := SalesInvRec."Shipment Date";
-        //                 OrderSummaryRec."No of CTN" := SalesInvRec."No of Cartons";
-        //                 OrderSummaryRec.CBM := SalesInvRec.CBM;
-        //                 OrderSummaryRec."BL No" := SalesInvRec."BL No";
-        //                 OrderSummaryRec."BL Date" := SalesInvRec."BL Date";
-        //                 OrderSummaryRec."Exp No" := SalesInvRec."Exp No";
-        //                 OrderSummaryRec."Exp Date" := SalesInvRec."Exp Date";
-        //                 OrderSummaryRec.Destination := SalesInvRec."Location Code";
+    //         LcRec.Reset();
+    //         LcRec.SetRange("No.", StyleRec.AssignedContractNo);
+    //         if LcRec.FindSet() then begin
+    //             OrderSummaryRec."Contract Lc No" := LcRec."Contract No";
 
 
-        //                 BankRefHRec.Reset();
-        //                 BankRefHRec.SetRange("Buyer No", LcRec."Buyer No.");
-        //                 BankRefHRec.SetRange("LC/Contract No.", LcRec."Contract No");
-        //                 BankRefHRec.SetRange("No.", SalesInvRec.BankRefNo);
-        //                 if BankRefHRec.FindSet() then begin
-        //                     OrderSummaryRec."Doc Sub Bank Date" := BankRefHRec."Reference Date";
-        //                     OrderSummaryRec."Doc Sub Buyer Date" := BankRefHRec."Reference Date";
-        //                     OrderSummaryRec."Bank Ref" := BankRefHRec."No.";
-        //                     OrderSummaryRec."Bank Ref Date" := BankRefHRec."Reference Date";
-        //                     OrderSummaryRec."Maturity Date" := BankRefHRec."Maturity Date";
-        //                     OrderSummaryRec.Remarks := BankRefHRec.Remarks;
+    //             OrderSummaryRec.Season := StyleRec."Season Name";
+    //             OrderSummaryRec."Buyer No" := StyleRec."Brand No.";
+    //             OrderSummaryRec.Buyer := StyleRec."Buyer Name";
+    //             OrderSummaryRec."Style Name" := StyleRec."Style No.";
 
-        //                     BankRefColRec.Reset();
-        //                     BankRefColRec.SetRange("BankRefNo.", BankRefHRec."No.");
-        //                     if BankRefColRec.FindSet() then begin
-        //                         OrderSummaryRec."Realise Amount" := BankRefColRec."Release Amount";
-        //                         OrderSummaryRec."Realise Date" := BankRefColRec."Release Date";
-        //                         OrderSummaryRec."Exchange Rate" := BankRefColRec."Exchange Rate";
-        //                         OrderSummaryRec."Margin Acc" := BankRefColRec."Margin A/C Amount";
-        //                         OrderSummaryRec."FC Acc" := BankRefColRec."FC A/C Amount";
-        //                         OrderSummaryRec."Currant Ac Amount" := BankRefColRec."Current A/C Amount";
-        //                     end;
+    //             StylePoRec.Reset();
+    //             StylePoRec.SetRange("Style No.", StyleRec."No.");
+    //             if StyleRec.FindSet() then begin
+    //                 OrderSummaryRec."Po No" := StylePoRec."PO No.";
+    //                 OrderSummaryRec."Po Qty" := StylePoRec.Qty;
+    //                 OrderSummaryRec."Unit Price" := StylePoRec."Unit Price";
+    //                 OrderSummaryRec."Ship Date" := StylePoRec."Ship Date";
+    //                 OrderSummaryRec."Ship Qty" := StylePoRec."Shipped Qty";
+    //                 OrderSummaryRec.Mode := StylePoRec.Mode;
 
-        //                 end;
-        //             end;
-        //         end;
-        //         OrderSummaryRec.Insert();
-        //     until StyleRec.Next() = 0;
-        // end;
+    //             end;
+
+    //             BomEstimateRec.Reset();
+    //             BomEstimateRec.SetRange("Style No.", StyleRec."No.");
+    //             if BomEstimateRec.FindSet() then begin
+    //                 OrderSummaryRec.Commission := BomEstimateRec."Commission %";
+
+    //             end;
+
+    //             SalesInvRec.Reset();
+    //             SalesInvRec.SetRange("Style No", StyleRec."No.");
+    //             SalesInvRec.SetRange("Contract No", LcRec."Contract No");
+    //             if SalesInvRec.FindSet() then begin
+    //                 OrderSummaryRec."Invoice No" := SalesInvRec."Your Reference";
+    //                 OrderSummaryRec."Invoice Date" := SalesInvRec."Shipment Date";
+    //                 OrderSummaryRec."No of CTN" := SalesInvRec."No of Cartons";
+    //                 OrderSummaryRec.CBM := SalesInvRec.CBM;
+    //                 OrderSummaryRec."BL No" := SalesInvRec."BL No";
+    //                 OrderSummaryRec."BL Date" := SalesInvRec."BL Date";
+    //                 OrderSummaryRec."Exp No" := SalesInvRec."Exp No";
+    //                 OrderSummaryRec."Exp Date" := SalesInvRec."Exp Date";
+    //                 OrderSummaryRec.Destination := SalesInvRec."Location Code";
+
+
+    //                 BankRefHRec.Reset();
+    //                 BankRefHRec.SetRange("Buyer No", LcRec."Buyer No.");
+    //                 BankRefHRec.SetRange("LC/Contract No.", LcRec."Contract No");
+    //                 BankRefHRec.SetRange("No.", SalesInvRec.BankRefNo);
+    //                 if BankRefHRec.FindSet() then begin
+    //                     OrderSummaryRec."Doc Sub Bank Date" := BankRefHRec."Reference Date";
+    //                     OrderSummaryRec."Doc Sub Buyer Date" := BankRefHRec."Reference Date";
+    //                     OrderSummaryRec."Bank Ref" := BankRefHRec."No.";
+    //                     OrderSummaryRec."Bank Ref Date" := BankRefHRec."Reference Date";
+    //                     OrderSummaryRec."Maturity Date" := BankRefHRec."Maturity Date";
+    //                     OrderSummaryRec.Remarks := BankRefHRec.Remarks;
+
+    //                     BankRefColRec.Reset();
+    //                     BankRefColRec.SetRange("BankRefNo.", BankRefHRec."No.");
+    //                     if BankRefColRec.FindSet() then begin
+    //                         OrderSummaryRec."Realise Amount" := BankRefColRec."Release Amount";
+    //                         OrderSummaryRec."Realise Date" := BankRefColRec."Release Date";
+    //                         OrderSummaryRec."Exchange Rate" := BankRefColRec."Exchange Rate";
+    //                         OrderSummaryRec."Margin Acc" := BankRefColRec."Margin A/C Amount";
+    //                         OrderSummaryRec."FC Acc" := BankRefColRec."FC A/C Amount";
+    //                         OrderSummaryRec."Currant Ac Amount" := BankRefColRec."Current A/C Amount";
+    //                     end;
+
+    //                 end;
+    //             end;
+    //         end;
+    //         OrderSummaryRec.Insert();
+    //     until StyleRec.Next() = 0;
+    // end;
     // end;
 }
