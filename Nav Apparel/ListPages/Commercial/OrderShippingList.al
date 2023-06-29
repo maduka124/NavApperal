@@ -287,10 +287,10 @@ page 51324 OrderShippingList
         // StyleRec.SetRange("Style No.", Rec."Style Name");
         StyleRec.SetRange(Status, StyleRec.Status::Confirmed);
         if StyleRec.FindSet() then begin
-            StylePoRec.Reset();
-            StylePoRec.SetRange("Style No.", StyleRec."No.");
-            if StylePoRec.FindSet() then begin
-                repeat
+            repeat
+                StylePoRec.Reset();
+                StylePoRec.SetRange("Style No.", StyleRec."No.");
+                if StylePoRec.FindSet() then begin
                     repeat
                         MaxSeqNo += 1;
                         OrderSummaryRec.Init();
@@ -372,8 +372,8 @@ page 51324 OrderShippingList
                         end;
                         OrderSummaryRec.Insert();
                     until StylePoRec.Next() = 0;
-                until StyleRec.Next() = 0;
-            end;
+                end;
+            until StyleRec.Next() = 0;
         end;
     end;
 

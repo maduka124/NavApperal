@@ -2346,7 +2346,7 @@ page 50968 "Nav Apperal Role Center"
                 }
                 action("Order Shipping Export List")
                 {
-                    Caption = 'Order Shipping Export';
+                    Caption = 'Order Shipping Export List';
                     RunObject = Page OrderShippingList;
                     ApplicationArea = all;
                 }
