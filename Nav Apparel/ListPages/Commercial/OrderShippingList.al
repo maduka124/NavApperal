@@ -16,12 +16,13 @@ page 51324 OrderShippingList
                 field("Contract Lc No"; Rec."Contract Lc No")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
                 }
                 field(Season; Rec.Season)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Buyer No"; Rec."Buyer No")
                 {
@@ -32,132 +33,132 @@ page 51324 OrderShippingList
                 field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Po No"; Rec."Po No")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Po Qty"; Rec."Po Qty")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Order value"; Rec."Po Qty" * Rec."Unit Price")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Ship Date"; Rec."Ship Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Ship Qty"; Rec."Ship Qty")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Ship value"; Rec."Ship Qty" * Rec."Unit Price")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field(Commission; Rec.Commission)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field(Discount; Rec.Discount)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Ex FTY Date"; Rec."Ex FTY Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Invoice No"; Rec."Invoice No")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Invoice Date"; Rec."Invoice Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("No of CTN"; Rec."No of CTN")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field(CBM; Rec.CBM)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field(Mode; Rec.Mode)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("BL No"; Rec."BL No")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("BL Date"; Rec."BL Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Doc Sub Buyer Date"; Rec."Doc Sub Buyer Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Doc Sub Bank Date"; Rec."Doc Sub Bank Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Exp No"; Rec."Exp No")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Exp Date"; Rec."Exp Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field(Destination; Rec.Destination)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Bank Ref"; Rec."Bank Ref")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Bank Ref Date"; Rec."Bank Ref Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("DHL No"; Rec."DHL No")
                 {
@@ -172,67 +173,67 @@ page 51324 OrderShippingList
                 field("Maturity Date"; Rec."Maturity Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Realise Amount"; Rec."Realise Amount")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Realise Date"; Rec."Realise Date")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Exchange Rate"; Rec."Exchange Rate")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Sundry Acc"; Rec."Sundry Acc")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Margin Acc"; Rec."Margin Acc")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("FC Acc"; Rec."FC Acc")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Currant Ac Amount"; Rec."Currant Ac Amount")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Excess/Short"; Rec."Excess/Short")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field(Diff; Rec.Diff)
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("No of Stlye"; Rec."No of Stlye")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
                 field("Lc Fty"; Rec."Lc Fty")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
 
             }
