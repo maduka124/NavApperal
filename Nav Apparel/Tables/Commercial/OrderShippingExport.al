@@ -254,7 +254,7 @@ table 51323 "Order Shipping Export Line"
 
     keys
     {
-        key(Key1; SeqNo, No)
+        key(PK; SeqNo, No)
         {
             Clustered = true;
         }
