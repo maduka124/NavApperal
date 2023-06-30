@@ -24,9 +24,7 @@ report 50623 CapacityGapDetailsReport
             column(stDate; stDate)
             { }
             column(endDate; endDate)
-            { }
-            // column(FirstDate; FirstDate)
-            // { }
+            { }         
             column(LastDate; "End Date" - "Start Date")
             { }
             column(CompLogo; comRec.Picture)
@@ -49,8 +47,8 @@ report 50623 CapacityGapDetailsReport
                 { }
                 column(sumFirstDate; sumFirstDate)
                 { }
-                trigger OnAfterGetRecord()
 
+                trigger OnAfterGetRecord()
                 begin
                     NavAppLineRec.SetRange("Line No.", "NavApp Prod Plans Details"."Line No.");
                     if NavAppLineRec.FindFirst() then begin
@@ -137,8 +135,8 @@ report 50623 CapacityGapDetailsReport
 
 
             }
+            
             trigger OnAfterGetRecord()
-
             begin
                 StyleMasterRec.SetRange("No.", "NavApp Planning Lines"."Style No.");
                 if StyleMasterRec.FindFirst() then begin
@@ -151,7 +149,6 @@ report 50623 CapacityGapDetailsReport
                 if WorkCenterRec.FindFirst() then begin
                     WorkCenterName := WorkCenterRec.Name;
                 end;
-
             end;
 
             trigger OnPreDataItem()
@@ -173,29 +170,16 @@ report 50623 CapacityGapDetailsReport
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-
                     }
+
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-
                     }
                 }
             }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
+        }       
     }
 
 
@@ -221,6 +205,4 @@ report 50623 CapacityGapDetailsReport
         sumFirstDate: Integer;
         comRec: Record "Company Information";
         WorkCenterRec: Record "Work Center";
-
-
 }

@@ -5,6 +5,7 @@ report 50624 TargetSheetReport
     Caption = 'Target Sheet Report';
     RDLCLayout = 'Report_Layouts/Planning/TargetSheetReport.rdl';
     DefaultLayout = RDLC;
+
     dataset
     {
         dataitem("Style Master"; "Style Master")
@@ -19,11 +20,13 @@ report 50624 TargetSheetReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+
             dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("No.");
+
                 column(Style_Name; "Style Name")
                 { }
                 column(Resource_No_; "Resource No.")
@@ -36,7 +39,6 @@ report 50624 TargetSheetReport
                 { }
                 column(Qty; Qty)
                 { }
-
                 //Done by sachith on 17/05/23
                 column(ProdUpdQty; ProdUpdQty)
                 { }
@@ -45,12 +47,9 @@ report 50624 TargetSheetReport
                 column(LineName; LineName)
                 { }
 
-
                 trigger OnAfterGetRecord()
                 var
-
                 begin
-
                     WorkCenterRec.SetRange("No.", "NavApp Prod Plans Details"."Resource No.");
                     if WorkCenterRec.FindFirst() then begin
                         LineName := WorkCenterRec.Name;
@@ -66,21 +65,15 @@ report 50624 TargetSheetReport
                         end
                         else
                             Diff := ("NavApp Prod Plans Details".Target - "NavApp Prod Plans Details".Qty) * -1;
-
-
-
                 end;
-
-
             }
-            trigger OnPreDataItem()
 
+            trigger OnPreDataItem()
             begin
                 SetRange("No.", FilterCode);
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -102,23 +95,10 @@ report 50624 TargetSheetReport
                         ApplicationArea = All;
                         Caption = 'Style No';
                         TableRelation = "Style Master"."No.";
-
                     }
                 }
             }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
+        }      
     }
 
 
@@ -129,7 +109,4 @@ report 50624 TargetSheetReport
         LineName: Text[50];
         FilterCode: Code[50];
         comRec: Record "Company Information";
-
-
-
 }

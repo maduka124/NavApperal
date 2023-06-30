@@ -21,11 +21,17 @@ report 50622 DayWiseProductionReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(stDate; stDate)
+            { }
+            column(endDate; endDate)
+            { }
+
             dataitem("Style Master PO"; "Style Master PO")
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("Style No.");
+
                 column(cutting; "Cut Out Qty")
                 { }
                 column(Sewing; "Sawing Out Qty")
@@ -34,20 +40,14 @@ report 50622 DayWiseProductionReport
                 { }
                 column(PO_No_; "PO No.")
                 { }
-                column(stDate; stDate)
-                { }
-                column(endDate; endDate)
-                { }
-
-
             }
+
             trigger OnPreDataItem()
             begin
                 SetRange("Created Date", stDate, endDate);
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -68,37 +68,20 @@ report 50622 DayWiseProductionReport
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-
                     }
+
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
     }
 
-
     var
-
         stDate: Date;
         endDate: Date;
         comRec: Record "Company Information";
-
-
 }

@@ -12,11 +12,26 @@ report 50627 ProductionAndShipmentDetails
         {
             column(Buyer_Name; "Buyer Name")
             { }
+
+            dataitem("NavApp Planning Lines"; "NavApp Planning Lines")
+            {
+                DataItemLinkReference = "Style Master";
+                DataItemLink = "Style No." = field("No.");
+                DataItemTableView = sorting("Line No.");
+
+                trigger OnPreDataItem()
+                begin
+                    if FactoryFilter <> '' then
+                        SetRange(Factory, FactoryFilter);
+                end;
+            }
+
             dataitem("Style Master PO"; "Style Master PO")
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = where("Cut Out Qty" = filter(> 0));
+
                 column(cutting; CutOutQty)
                 { }
                 column(Sewing; SawOutQty)
@@ -194,7 +209,6 @@ report 50627 ProductionAndShipmentDetails
             begin
                 SetRange("Buyer No.", BuyerNo);
             end;
-
         }
     }
 
@@ -207,6 +221,38 @@ report 50627 ProductionAndShipmentDetails
                 group(GroupName)
                 {
                     Caption = 'Filter By';
+
+                    field(FactoryFilter; FactoryFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Factory';
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            LocationRec: Record Location;
+                            LocationRec2: Record Location;
+                            UserRec: Record "User Setup";
+                        begin
+                            UserRec.Reset();
+                            UserRec.Get(UserId);
+
+                            LocationRec2.Reset();
+                            LocationRec2.SetFilter("Sewing Unit", '=%1', true);
+                            LocationRec2.FindSet();
+
+                            LocationRec.Reset();
+                            LocationRec.SetRange(Code, UserRec."Factory Code");
+                            LocationRec.SetFilter("Sewing Unit", '=%1', true);
+                            if LocationRec.FindSet() then begin
+                                if Page.RunModal(15, LocationRec) = Action::LookupOK then
+                                    FactoryFilter := LocationRec.Code
+                            end
+                            else
+                                if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
+                                    FactoryFilter := LocationRec2.Code;
+                                end;
+                        end;
+                    }
 
                     field(BuyerNo; BuyerNo)
                     {
@@ -265,6 +311,6 @@ report 50627 ProductionAndShipmentDetails
         stDate: Date;
         endDate: Date;
         comRec: Record "Company Information";
-
+        FactoryFilter: Code[20];
         BuyerNo: Code[20];
 }

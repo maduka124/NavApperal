@@ -3,18 +3,15 @@ report 50646 DayWiseSewingTarget
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Day Wise Sewing Target Report';
-
     RDLCLayout = 'Report_Layouts/Planning/DayWiseSewingTarget.rdl';
     DefaultLayout = RDLC;
-
 
     dataset
     {
         dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
         {
-
             DataItemTableView = sorting("No.");
-            column(Factory_Name; FactoryName)
+            column(Factory_Name; "Factory No.")
             { }
             column(Buyer_Name; BuyerName)
             { }
@@ -22,12 +19,15 @@ report 50646 DayWiseSewingTarget
             { }
             column(Order_Qty; OrderQty)
             { }
-
+            column(StyleOrderQty; StyleOrderQty)
+            { }
             column(Line_No_; "Line No.")
             { }
             column(Style_Name; "Style Name")
             { }
             column(Style_No_; "Style No.")
+            { }
+            column(Lot_No_; "Lot No.")
             { }
             column(Month; Month)
             { }
@@ -99,62 +99,40 @@ report 50646 DayWiseSewingTarget
             { }
 
             trigger OnAfterGetRecord()
-
             begin
                 Year := 0;
                 Year := Date2DMY(PlanDate, 3);
-
                 Month := '';
-
                 MonthNo := Date2DMY(PlanDate, 2);
-                if MonthNo = 1 then begin
-                    Month := 'Jan'
-                end
-                else
-                    if MonthNo = 2 then begin
+
+                case MonthNo of
+                    1:
+                        Month := 'Jan';
+                    2:
                         Month := 'Feb';
-                    end
-                    else
-                        if MonthNo = 3 then begin
-                            Month := 'March';
-                        end
-                        else
-                            if MonthNo = 4 then begin
-                                Month := 'Apr';
-                            end
-                            else
-                                if MonthNo = 5 then begin
-                                    Month := 'May';
-                                end
-                                else
-                                    if MonthNo = 6 then begin
-                                        Month := 'Jun';
-                                    end
-                                    else
-                                        if MonthNo = 7 then begin
-                                            Month := 'Jul';
-                                        end
-                                        else
-                                            if MonthNo = 8 then begin
-                                                Month := 'Aug';
-                                            end
-                                            else
-                                                if MonthNo = 9 then begin
-                                                    Month := 'Sep';
-                                                end
-                                                else
-                                                    if MonthNo = 10 then begin
-                                                        Month := 'Oct';
-                                                    end
-                                                    else
-                                                        if MonthNo = 11 then begin
-                                                            Month := 'Nov';
-                                                        end
-                                                        else
-                                                            Month := 'DeC';
+                    3:
+                        Month := 'March';
+                    4:
+                        Month := 'Apr';
+                    5:
+                        Month := 'May';
+                    6:
+                        Month := 'Jun';
+                    7:
+                        Month := 'Jul';
+                    8:
+                        Month := 'Aug';
+                    9:
+                        Month := 'Sep';
+                    10:
+                        Month := 'Oct';
+                    11:
+                        Month := 'Nov';
+                    12:
+                        Month := 'Dec';
+                end;
 
                 DayQty := Qty;
-
                 one := 0;
                 two := 0;
                 three := 0;
@@ -188,167 +166,119 @@ report 50646 DayWiseSewingTarget
                 thirtyone := 0;
 
                 DayNo := Date2DMY(PlanDate, 1);
-
-                if DayNo = 1 then begin
-                    one := DayQty;
-                end
-                else
-                    if DayNo = 2 then begin
+                case DayNo of
+                    1:
+                        one := DayQty;
+                    2:
                         two := DayQty;
-                    end
-                    else
-                        if DayNo = 3 then begin
-                            three := DayQty;
-                        end
-                        else
-                            if DayNo = 4 then begin
-                                four := DayQty;
-                            end
-                            else
-                                if DayNo = 5 then begin
-                                    five := DayQty;
-                                end
-                                else
-                                    if DayNo = 6 then begin
-                                        six := DayQty;
-                                    end
-                                    else
-                                        if DayNo = 7 then begin
-                                            seven := DayQty;
-                                        end
-                                        else
-                                            if DayNo = 8 then begin
-                                                eight := DayQty;
-                                            end
-                                            else
-                                                if DayNo = 9 then begin
-                                                    nine := DayQty;
-                                                end
-                                                else
-                                                    if DayNo = 10 then begin
-                                                        ten := DayQty;
-                                                    end
-                                                    else
-                                                        if DayNo = 11 then begin
-                                                            eleven := DayQty;
-                                                        end
-                                                        else
-                                                            if DayNo = 12 then begin
-                                                                twelve := DayQty;
-                                                            end
-                                                            else
-                                                                if DayNo = 13 then begin
-                                                                    thirteen := DayQty;
-                                                                end
-                                                                else
-                                                                    if DayNo = 14 then begin
-                                                                        fourteen := DayQty;
-                                                                    end
-                                                                    else
-                                                                        if DayNo = 15 then begin
-                                                                            fifteen := DayQty;
-                                                                        end
-                                                                        else
-                                                                            if DayNo = 16 then begin
-                                                                                sixteen := DayQty;
-                                                                            end
-                                                                            else
-                                                                                if DayNo = 17 then begin
-                                                                                    seventeen := DayQty;
-                                                                                end
-                                                                                else
-                                                                                    if DayNo = 18 then begin
-                                                                                        eighteen := DayQty;
-                                                                                    end
-                                                                                    else
-                                                                                        if DayNo = 19 then begin
-                                                                                            nineteen := DayQty;
-                                                                                        end
-                                                                                        else
-                                                                                            if DayNo = 20 then begin
-                                                                                                twenty := DayQty;
-                                                                                            end
-                                                                                            else
-                                                                                                if DayNo = 21 then begin
-                                                                                                    twentyone := DayQty;
-                                                                                                end
-                                                                                                else
-                                                                                                    if DayNo = 22 then begin
-                                                                                                        twentytwo := DayQty;
-                                                                                                    end
-                                                                                                    else
-                                                                                                        if DayNo = 23 then begin
-                                                                                                            twenythree := DayQty;
-                                                                                                        end
-                                                                                                        else
-                                                                                                            if DayNo = 24 then begin
-                                                                                                                twentyfour := DayQty;
-                                                                                                            end
-                                                                                                            else
-                                                                                                                if DayNo = 25 then begin
-                                                                                                                    twentyfive := DayQty;
-                                                                                                                end
-                                                                                                                else
-                                                                                                                    if DayNo = 26 then begin
-                                                                                                                        twentysix := DayQty;
-                                                                                                                    end
-                                                                                                                    else
-                                                                                                                        if DayNo = 27 then begin
-                                                                                                                            twentyseven := DayQty;
-                                                                                                                        end
-                                                                                                                        else
-                                                                                                                            if DayNo = 28 then begin
-                                                                                                                                twentyeight := DayQty;
-                                                                                                                            end
-                                                                                                                            else
-                                                                                                                                if DayNo = 29 then begin
-                                                                                                                                    twentynine := DayQty;
-                                                                                                                                end
-                                                                                                                                else
-                                                                                                                                    if DayNo = 30 then begin
-                                                                                                                                        thirty := DayQty;
-                                                                                                                                    end
-                                                                                                                                    else
-                                                                                                                                        if DayNo = 31 then begin
-                                                                                                                                            thirtyone := DayQty;
-                                                                                                                                        end;
+                    3:
+                        three := DayQty;
+                    4:
+                        four := DayQty;
+                    5:
+                        five := DayQty;
+                    6:
+                        six := DayQty;
+                    7:
+                        seven := DayQty;
+                    8:
+                        eight := DayQty;
+                    9:
+                        nine := DayQty;
+                    10:
+                        ten := DayQty;
+                    11:
+                        eleven := DayQty;
+                    12:
+                        twelve := DayQty;
+                    13:
+                        thirteen := DayQty;
+                    14:
+                        fourteen := DayQty;
+                    15:
+                        fifteen := DayQty;
+                    16:
+                        sixteen := DayQty;
+                    17:
+                        seventeen := DayQty;
+                    18:
+                        eighteen := DayQty;
+                    19:
+                        nineteen := DayQty;
+                    20:
+                        twenty := DayQty;
+                    21:
+                        twentyone := DayQty;
+                    22:
+                        twentytwo := DayQty;
+                    23:
+                        twenythree := DayQty;
+                    24:
+                        twentyfour := DayQty;
+                    25:
+                        twentyfive := DayQty;
+                    26:
+                        twentysix := DayQty;
+                    27:
+                        twentyseven := DayQty;
+                    28:
+                        twentyeight := DayQty;
+                    29:
+                        twentynine := DayQty;
+                    30:
+                        thirty := DayQty;
+                    31:
+                        thirtyone := DayQty;
+                end;
 
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
+                StylePoRec.SetRange("Lot No.", "Lot No.");
                 if StylePoRec.FindFirst() then begin
                     SawingOut := StylePoRec."Sawing Out Qty";
-                end;
-
+                    OrderQty := StylePoRec."Qty"
+                end
+                else
+                    SawingOut := 0;
 
                 StyleRec.SetRange("No.", "Style No.");
                 if StyleRec.FindFirst() then begin
-                    FactoryName := StyleRec."Factory Name";
+                    // FactoryName := StyleRec."Factory Name";
                     BuyerName := StyleRec."Buyer Name";
-                    OrderQty := StyleRec."Order Qty";
+                    StyleOrderQty := StyleRec."Order Qty"
                 end;
+
                 comRec.Get;
                 comRec.CalcFields(Picture);
-
-
             end;
 
             trigger OnPreDataItem()
             begin
-                if stDate <> 0D then
+                if (stDate = 0D) and (endDate <> 0D) then
+                    Error('Invalid Start Date.');
+
+                if (stDate <> 0D) and (endDate = 0D) then
+                    Error('Invalid End Date.');
+
+                if (stDate > endDate) then
+                    Error('Invalid Date Period.');
+
+                if (stDate <> 0D) and (endDate <> 0D) then
                     SetRange(PlanDate, stDate, endDate);
+
                 if FTY <> '' then
                     SetRange("Factory No.", FTY);
+
                 if Style <> '' then
                     SetRange("Style No.", Style);
+
                 if LotFilter <> '' then
                     SetRange("Lot No.", LotFilter);
+
+                SetFilter("Qty", '>%1', 0);
             end;
-
-
         }
-
     }
-
 
 
     requestpage
@@ -364,50 +294,77 @@ report 50646 DayWiseSewingTarget
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
-                        TableRelation = Location.Code;
-
-
+                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
                     }
 
                     field(Style; Style)
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
-                        TableRelation = "Style Master"."No.";
 
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
+                            StyleVar: Code[20];
+                        begin
+                            NavAppProdPlansDetRec.Reset();
+                            NavAppProdPlansDetRec.SetFilter("Factory No.", '=%1', FTY);
+                            NavAppProdPlansDetRec.SetCurrentKey("Style No.");
+                            NavAppProdPlansDetRec.Ascending(true);
+                            if NavAppProdPlansDetRec.FindSet() then begin
+                                repeat
+                                    if StyleVar <> NavAppProdPlansDetRec."Style No." then begin
+                                        NavAppProdPlansDetRec.MARK(TRUE);
+                                        StyleVar := NavAppProdPlansDetRec."Style No.";
+                                    end;
+                                until NavAppProdPlansDetRec.Next() = 0;
+                                NavAppProdPlansDetRec.MARKEDONLY(TRUE);
 
+                                if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
+                                    Style := NavAppProdPlansDetRec."Style No.";
+                                end;
+                            end;
+                        end;
                     }
+
                     field(LotFilter; LotFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Lot No';
-                        TableRelation = "Style Master PO"."Lot No.";
 
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            StyleMasterPORec: Record "Style Master PO";
+                            Lot: Code[20];
+                        begin
+                            StyleMasterPORec.Reset();
+                            StyleMasterPORec.SetRange("Style No.", Style);
+                            StyleMasterPORec.SetCurrentKey("Lot No.");
+                            StyleMasterPORec.Ascending(true);
+                            if StyleMasterPORec.FindSet() then begin
+                                repeat
+                                    StyleMasterPORec.MARK(TRUE);
+                                until StyleMasterPORec.Next() = 0;
+                                StyleMasterPORec.MARKEDONLY(TRUE);
+
+                                if Page.RunModal(51336, StyleMasterPORec) = Action::LookupOK then begin
+                                    LotFilter := StyleMasterPORec."Lot No.";
+                                end;
+                            end;
+                        end;
                     }
+
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-
                     }
+
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
@@ -463,6 +420,7 @@ report 50646 DayWiseSewingTarget
         Style: Code[20];
         StylePoRec: Record "Style Master PO";
         SawingOut: BigInteger;
+        StyleOrderQty: BigInteger;
 
 
 }

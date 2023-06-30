@@ -229,11 +229,13 @@ report 50621 ProductionPlanReport
                             LocationRec2: Record Location;
                             UserRec: Record "User Setup";
                         begin
-                            LocationRec.Reset();
                             UserRec.Reset();
                             UserRec.Get(UserId);
 
                             LocationRec2.Reset();
+                            LocationRec2.SetFilter("Sewing Unit", '=%1', true);
+                            LocationRec2.FindSet();
+
                             LocationRec.Reset();
                             LocationRec.SetRange(Code, UserRec."Factory Code");
                             LocationRec.SetFilter("Sewing Unit", '=%1', true);

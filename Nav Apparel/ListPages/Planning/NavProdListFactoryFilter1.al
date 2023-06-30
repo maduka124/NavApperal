@@ -2,6 +2,7 @@ page 50519 "Nav Prod Filter PO"
 {
     PageType = List;
     SourceTable = "NavApp Prod Plans Details";
+    Caption = 'Style Filter';
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;
