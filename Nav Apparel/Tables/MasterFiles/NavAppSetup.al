@@ -652,11 +652,13 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+
         field(71012695; "BundleGuideCard Nos."; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+
         field(71012696; "BundleCardGMTType Nos."; Code[20])
         {
             DataClassification = ToBeClassified;
@@ -668,10 +670,21 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+
         field(71012698; "OrderShippingExport Nos."; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
+        }
+
+        field(71012699; "Capacity Book SMV"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012700; "Capacity Book Eff"; Decimal)
+        {
+            DataClassification = ToBeClassified;
         }
     }
 

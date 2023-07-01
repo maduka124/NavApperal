@@ -22,7 +22,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>CAPACITY GAP DETAILS</Value>
+                    <Value>CAPACITY GAP DETAILS REPORT</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>18pt</FontSize>
@@ -38,7 +38,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.3175cm</Top>
-            <Left>2.38719cm</Left>
+            <Left>2.70469cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.67897cm</Width>
             <Style>
@@ -59,7 +59,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Period</Value>
+                    <Value>Period : From</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>11pt</FontSize>
@@ -74,7 +74,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!stDate.Value</Value>
+                    <Value>=Fields!stDateFilter.Value</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>11pt</FontSize>
@@ -82,7 +82,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> to</Value>
+                    <Value> To</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>11pt</FontSize>
@@ -97,7 +97,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!endDate.Value</Value>
+                    <Value>=Fields!endDateFilter.Value</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>11pt</FontSize>
@@ -128,27 +128,27 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.80348cm</Width>
+                  <Width>4.37154cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.83867cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.60583cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.66846cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.55296cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.94852cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.52917cm</Height>
+                  <Height>0.61384cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -379,7 +379,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Req_Pcs</Value>
+                                  <Value>Req. Pcs</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -434,7 +434,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Oper_Hours</Value>
+                                  <Value>Oper. Hours</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -507,7 +507,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!Factory_Name.Value</Value>
+                                  <Value>=Fields!Factory_No_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -617,14 +617,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="firDate">
+                        <Textbox Name="StartDate">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!firDate.Value</Value>
+                                  <Value>=Fields!StartDate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>d</Format>
@@ -636,7 +636,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>firDate</rd:DefaultName>
+                          <rd:DefaultName>StartDate</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -672,14 +672,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Lasdate">
+                        <Textbox Name="EndDate">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Lasdate.Value</Value>
+                                  <Value>=Fields!EndDate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>d</Format>
@@ -691,7 +691,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Lasdate</rd:DefaultName>
+                          <rd:DefaultName>EndDate</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -727,14 +727,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FirstDate">
+                        <Textbox Name="Days">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FirstDate.Value</Value>
+                                  <Value>=Fields!Days.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>d</Format>
@@ -742,11 +742,11 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FirstDate</rd:DefaultName>
+                          <rd:DefaultName>Days</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -789,7 +789,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Qty.Value</Value>
+                                  <Value>=sum(Fields!Pcs.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -797,7 +797,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -844,7 +844,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!OperHours.Value)</Value>
+                                  <Value>=Sum(Fields!Carder.Value*Fields!HoursPerDay.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -852,7 +852,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -913,7 +913,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -963,7 +963,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FirstDate.Value)</Value>
+                                  <Value>=Sum(Fields!Days.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -973,7 +973,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1020,7 +1020,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Qty.Value)</Value>
+                                  <Value>=sum(Fields!Pcs.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1030,7 +1030,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1140,14 +1140,20 @@
               <TablixMembers>
                 <TablixMember />
                 <TablixMember>
-                  <Group Name="Factory_Name">
+                  <Group Name="Factory_No_">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Factory_Name.Value</GroupExpression>
+                      <GroupExpression>=Fields!Factory_No_.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Factory_Name.Value</Value>
+                      <Value>=Fields!Factory_No_.Value</Value>
+                    </SortExpression>
+                    <SortExpression>
+                      <Value>=Fields!DisplaySeq.Value</Value>
+                    </SortExpression>
+                    <SortExpression>
+                      <Value>=Fields!StartDate.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
@@ -1160,6 +1166,17 @@
                           <GroupExpression>=Fields!Line_No_.Value</GroupExpression>
                         </GroupExpressions>
                       </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!Factory_No_.Value</Value>
+                        </SortExpression>
+                        <SortExpression>
+                          <Value>=Fields!DisplaySeq.Value</Value>
+                        </SortExpression>
+                        <SortExpression>
+                          <Value>=Fields!StartDate.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
                     </TablixMember>
                     <TablixMember>
                       <Visibility>
@@ -1172,10 +1189,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.56328cm</Top>
+            <Top>2.88078cm</Top>
             <Left>0.7112cm</Left>
-            <Height>2.25834cm</Height>
-            <Width>18.30348cm</Width>
+            <Height>2.34301cm</Height>
+            <Width>17.98598cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -1188,7 +1205,7 @@
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
             <Top>0cm</Top>
-            <Left>15.61729cm</Left>
+            <Left>15.29979cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
             <ZIndex>3</ZIndex>
@@ -1199,14 +1216,14 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>5.17087cm</Height>
+        <Height>5.86937cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>19.96718cm</Width>
+      <Width>19.66173cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -1239,7 +1256,7 @@
               <Top>0.17639cm</Top>
               <Left>0.04974cm</Left>
               <Height>1.03188cm</Height>
-              <Width>8.5725cm</Width>
+              <Width>5.461cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1275,7 +1292,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox71</rd:DefaultName>
               <Top>0.22931cm</Top>
-              <Left>9.06886cm</Left>
+              <Left>7.79886cm</Left>
               <Height>0.97896cm</Height>
               <Width>6.37646cm</Width>
               <ZIndex>1</ZIndex>
@@ -1325,7 +1342,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
               <Top>0.17639cm</Top>
-              <Left>17.69864cm</Left>
+              <Left>16.56979cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
@@ -1411,53 +1428,62 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="Factory_No_">
+          <DataField>Factory_No_</DataField>
+        </Field>
         <Field Name="Resource_No_">
           <DataField>Resource_No_</DataField>
-        </Field>
-        <Field Name="Start_Date">
-          <DataField>Start_Date</DataField>
-        </Field>
-        <Field Name="End_Date">
-          <DataField>End_Date</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="stDate">
-          <DataField>stDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="LastDate">
-          <DataField>LastDate</DataField>
         </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
         </Field>
-        <Field Name="OperHours">
-          <DataField>OperHours</DataField>
+        <Field Name="BookingEff">
+          <DataField>BookingEff</DataField>
         </Field>
-        <Field Name="OperHoursFormat">
-          <DataField>OperHoursFormat</DataField>
+        <Field Name="BookingEffFormat">
+          <DataField>BookingEffFormat</DataField>
+        </Field>
+        <Field Name="BookingSMV">
+          <DataField>BookingSMV</DataField>
+        </Field>
+        <Field Name="BookingSMVFormat">
+          <DataField>BookingSMVFormat</DataField>
+        </Field>
+        <Field Name="HoursPerDay">
+          <DataField>HoursPerDay</DataField>
+        </Field>
+        <Field Name="HoursPerDayFormat">
+          <DataField>HoursPerDayFormat</DataField>
+        </Field>
+        <Field Name="Carder">
+          <DataField>Carder</DataField>
         </Field>
         <Field Name="Line_No_">
           <DataField>Line_No_</DataField>
         </Field>
-        <Field Name="firDate">
-          <DataField>firDate</DataField>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
         </Field>
-        <Field Name="FirstDate">
-          <DataField>FirstDate</DataField>
+        <Field Name="EndDate">
+          <DataField>EndDate</DataField>
         </Field>
-        <Field Name="Lasdate">
-          <DataField>Lasdate</DataField>
+        <Field Name="Days">
+          <DataField>Days</DataField>
         </Field>
-        <Field Name="sumFirstDate">
-          <DataField>sumFirstDate</DataField>
+        <Field Name="stDateFilter">
+          <DataField>stDateFilter</DataField>
+        </Field>
+        <Field Name="endDateFilter">
+          <DataField>endDateFilter</DataField>
+        </Field>
+        <Field Name="DisplaySeq">
+          <DataField>DisplaySeq</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Pcs">
+          <DataField>Pcs</DataField>
         </Field>
       </Fields>
       <Query>

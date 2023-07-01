@@ -678,6 +678,16 @@ page 50964 "NavApp Setup Card"
                     Caption = 'Order Shipping Export No';
                     TableRelation = "No. Series".Code;
                 }
+
+                field("Capacity Book SMV"; rec."Capacity Book SMV")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Capacity Book Eff"; rec."Capacity Book Eff")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
