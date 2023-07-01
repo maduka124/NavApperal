@@ -46,6 +46,10 @@ report 50624 TargetSheetReport
                 { }
                 column(LineName; LineName)
                 { }
+                column(DisplaySeq; DisplaySeq)
+                { }
+                column(Factory_No_; "Factory No.")
+                { }
 
                 trigger OnAfterGetRecord()
                 var
@@ -53,18 +57,15 @@ report 50624 TargetSheetReport
                     WorkCenterRec.SetRange("No.", "NavApp Prod Plans Details"."Resource No.");
                     if WorkCenterRec.FindFirst() then begin
                         LineName := WorkCenterRec.Name;
+                        DisplaySeq := WorkCenterRec."Work Center Seq No";
                     end;
 
-                    Diff := 0;
-                    if "NavApp Prod Plans Details".Target = "NavApp Prod Plans Details".Qty then begin
-                        Diff := 0;
-                    end
-                    else
-                        if "NavApp Prod Plans Details".Target < "NavApp Prod Plans Details".Qty then begin
-                            Diff := "NavApp Prod Plans Details".Qty;
-                        end
-                        else
-                            Diff := ("NavApp Prod Plans Details".Target - "NavApp Prod Plans Details".Qty) * -1;
+                    Diff := ("NavApp Prod Plans Details".ProdUpdQty - "NavApp Prod Plans Details".Qty);
+                end;
+
+                trigger OnPreDataItem()
+                begin
+                    SetFilter("Qty", '>%1', 0);
                 end;
             }
 
@@ -94,11 +95,21 @@ report 50624 TargetSheetReport
                     {
                         ApplicationArea = All;
                         Caption = 'Style No';
-                        TableRelation = "Style Master"."No.";
+                        TableRelation = "Style Master"."No." where(Status = filter(Confirmed));
+
+                        trigger OnValidate()
+                        var
+                            NavAppProdRec: Record "NavApp Prod Plans Details";
+                        begin
+                            NavAppProdRec.Reset();
+                            NavAppProdRec.SetRange("Style No.", FilterCode);
+                            if not NavAppProdRec.FindSet() then
+                                Error('Style not planned.');
+                        end;
                     }
                 }
             }
-        }      
+        }
     }
 
 
@@ -109,4 +120,5 @@ report 50624 TargetSheetReport
         LineName: Text[50];
         FilterCode: Code[50];
         comRec: Record "Company Information";
+        DisplaySeq: Integer;
 }
