@@ -630,6 +630,41 @@ page 50968 "Nav Apperal Role Center"
                     //     ApplicationArea = all;
                     // }
 
+                    group("Capacity By Pcs Reports")
+                    {
+                        action("Month Wise Order Booking Report")
+                        {
+                            Caption = 'Month Wise Order Booking Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsAllBookingReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Sewing Balance Report")
+                        {
+                            Caption = 'Month Wise Sewing Balance Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToSewingReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Ship Balance Report")
+                        {
+                            Caption = 'Month Wise Ship Balance Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToShipReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Merchant Group Report")
+                        {
+                            Caption = 'Month Wise Merchant Group Booking Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsGroupWiseReport;
+                            ApplicationArea = all;
+                        }
+                    }
+
                     action("Delivery Details")
                     {
                         Caption = 'Delivery Details';
@@ -851,6 +886,43 @@ page 50968 "Nav Apperal Role Center"
                         Enabled = true;
                         RunObject = report AccessoriesStatusReportNew;
                         ApplicationArea = all;
+                    }
+
+                    group("Capacity By Pcs Reports1")
+                    {
+                        Caption = 'Capacity By Pcs Reports';
+
+                        action("Month Wise Order Booking Report1")
+                        {
+                            Caption = 'Month Wise Order Booking Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsAllBookingReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Sewing Balance Repor1")
+                        {
+                            Caption = 'Month Wise Sewing Balance Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToSewingReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Ship Balance Report1")
+                        {
+                            Caption = 'Month Wise Ship Balance Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToShipReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Merchant Group Report1")
+                        {
+                            Caption = 'Month Wise Merchant Group Booking Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsGroupWiseReport;
+                            ApplicationArea = all;
+                        }
                     }
 
                     action("Capacity Gap Details Report")
