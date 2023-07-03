@@ -20,6 +20,8 @@ report 51337 CapacityByPcsAllBookingReport
             { }
             column(Brand_Name; "Brand Name")
             { }
+            column(GroupHead; GroupHead)
+            { }
             column(JAN; JAN)
             { }
             column(FEB; FEB)
@@ -57,10 +59,25 @@ report 51337 CapacityByPcsAllBookingReport
             end;
 
             trigger OnAfterGetRecord()
-
             begin
+                GroupHead := '';
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                //Get Customer's merchand group
+                BuyerRec.Reset();
+                BuyerRec.SetRange("No.", "Buyer Code");
+                if BuyerRec.FindSet() then begin
+                    //Get Group Head 
+                    MerchandGroupRec.Reset();
+                    MerchandGroupRec.SetRange("Group Id", BuyerRec."Group Id");
+                    if not MerchandGroupRec.FindSet() then
+                        Error('Invalid Merchandizer Group ID.');
+                end
+                else
+                    Error('Invalid Buyer code.');
+
+                GroupHead := MerchandGroupRec."Group Head";
             end;
         }
     }
@@ -145,6 +162,8 @@ report 51337 CapacityByPcsAllBookingReport
                 Monthrec.Insert();
             end;
         end;
+
+        YearVar := Y;
     end;
 
 
@@ -162,4 +181,7 @@ report 51337 CapacityByPcsAllBookingReport
     var
         YearVar: Integer;
         comRec: Record "Company Information";
+        MerchandGroupRec: Record MerchandizingGroupTable;
+        BuyerRec: Record Customer;
+        GroupHead: Text[200];
 }

@@ -18,6 +18,8 @@ report 51340 CapacityByPcsGroupWiseReport
             { }
             column(Group_Name; "Group Name")
             { }
+            column(GroupHead; "Group Head")
+            { }
             column(JAN; JAN)
             { }
             column(FEB; FEB)
@@ -168,6 +170,8 @@ report 51340 CapacityByPcsGroupWiseReport
                 Monthrec.Insert();
             end;
         end;
+
+        YearVar := Y;
     end;
 
 
