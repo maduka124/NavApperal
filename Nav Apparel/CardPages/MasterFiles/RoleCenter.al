@@ -3129,7 +3129,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-
+                action("Capacity Dashboard (Group/Factory Wise/Line Wise)")
+                {
+                    Caption = 'Capacity Dashboard (Group/Factory Wise/Line Wise)';
+                    RunObject = Page CapacityDashboardList;
+                    ApplicationArea = all;
+                }
 
                 action("Factory Wise Production Planning1")
                 {

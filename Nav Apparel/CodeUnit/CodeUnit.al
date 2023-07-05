@@ -119,6 +119,28 @@ codeunit 50618 NavAppCodeUnit
             exit('strongaccent');
     end;
 
+    procedure ChangeColorGroupWiseCap(OpList: Record "GroupWiseCapacity"): Text[50]
+    var
+    begin
+        if OpList.Month = 'Total' then
+            exit('strongaccent');
+    end;
+
+    procedure ChangeColorFactoryWiseCap(OpList: Record FactoryWiseCapacity): Text[50]
+    var
+    begin
+        if OpList.Factory = 'TOTAL' then
+            exit('strongaccent');
+    end;
+
+    procedure ChangeColorLineWiseCap(OpList: Record LineWiseCapacity): Text[50]
+    var
+    begin
+        if OpList.Factory = 'TOTAL' then
+            exit('strongaccent');
+    end;
+
+
     procedure ChangeColorSJC(OpList: Record SewingJobCreationLine3): Text[50]
     var
     begin
@@ -970,7 +992,7 @@ codeunit 50618 NavAppCodeUnit
 
         end;
 
-     
+
     end;
 
 

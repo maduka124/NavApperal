@@ -64,12 +64,12 @@ table 51341 GroupWiseCapacity
             DataClassification = ToBeClassified;
         }
 
-        field(13; "Avg Plan Mnts"; BigInteger)
+        field(13; "Avg Plan Mnts"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(14; "Avg Prod. Mnts"; BigInteger)
+        field(14; "Avg Prod. Mnts"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
