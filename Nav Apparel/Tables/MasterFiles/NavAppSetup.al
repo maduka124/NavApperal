@@ -686,6 +686,11 @@ table 51139 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(71012701; "LC Master Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 
     keys

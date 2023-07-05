@@ -2416,6 +2416,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "GIT Baseon PI List";
                     ApplicationArea = all;
                 }
+                action("LC Master")
+                {
+                    Caption = 'LC Master';
+                    RunObject = Page "LC List";
+                    ApplicationArea = all;
+                }
                 action("OMS")
                 {
                     Caption = 'OMS List';

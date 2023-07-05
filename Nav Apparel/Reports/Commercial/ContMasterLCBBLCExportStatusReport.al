@@ -25,10 +25,12 @@ report 50630 ExportStatusReport1
             { }
             column(CompLogo; comRec.Picture)
             { }
-            // column()
-            // { }
-            // column()
-            // { }
+            column(Qty; Qty)
+            { }
+            column(UniPrice; UniPrice)
+            { }
+            column(tot; Qty * UniPrice)
+            { }
             dataitem(B2BLCMaster; B2BLCMaster)
             {
                 DataItemTableView = sorting("No.");
@@ -50,60 +52,38 @@ report 50630 ExportStatusReport1
                 column(B2B_LC_Value; "B2B LC Value")
                 { }
             }
-
-            dataitem("Contract/LCStyle"; "Contract/LCStyle")
+            dataitem(BankRefCollectionHeader; BankRefCollectionHeader)
             {
                 DataItemLinkReference = "Contract/LCMaster";
-                DataItemLink = "No." = field("No.");
-                DataItemTableView = sorting("No.");
-                column(Qty; Qty)
-                { }
-                column(UniPrice; UniPrice)
-                { }
-                column(tot; Qty * UniPrice)
-                { }
-                dataitem("Sales Invoice Header"; "Sales Invoice Header")
-                {
-                    DataItemLinkReference = "Contract/LCStyle";
-                    DataItemLink = "Style No" = field("Style No.");
-                    DataItemTableView = sorting("No.");
-                    dataitem(BankRefCollectionLine; BankRefCollectionLine)
-                    {
-                        DataItemLinkReference = "Sales Invoice Header";
-                        DataItemLink = "Invoice No" = field("No.");
-                        DataItemTableView = sorting("BankRefNo.");
+                DataItemLink = "LC/Contract No." = field("Contract No");
+                DataItemTableView = sorting("BankRefNo.");
 
-                        column(Margin_A_C_Amount; "Margin A/C Amount")
-                        { }
-                        column(Invoice_No; "Invoice No")
-                        { }
-                        column(Invoice_Amount; "Invoice Amount")
-                        { }
-                        column(BankRefNo_; "BankRefNo.")
-                        { }
-                        column(Release_Amount; "Release Amount")
-                        { }
-                        column(FC_A_C_Amount; "FC A/C Amount")
-                        { }
-                        column(Current_A_C_Amount; "Current A/C Amount")
-                        { }
-                      
+                column(Margin_A_C_Amount; "Margin A/C Amount")
+                { }
+                column(Invoice_No; FtyInvoiceNo)
+                { }
+                column(Invoice_Amount; Total)
+                { }
+                column(BankRefNo_; "BankRefNo.")
+                { }
+                column(Release_Amount; "Release Amount")
+                { }
+                column(FC_A_C_Amount; "FC A/C Amount")
+                { }
+                column(Current_A_C_Amount; "Current A/C Amount")
+                { }
 
-                    }
-                }
                 trigger OnAfterGetRecord()
 
                 begin
-
-                    StyleRec.SetRange("Style No.", "Style No.");
-                    if StyleRec.FindFirst() then begin
-                        UniPrice := StyleRec."Unit Price";
+                    BankRefColLineRec.Reset();
+                    BankRefColLineRec.SetRange("BankRefNo.", "BankRefNo.");
+                    if BankRefColLineRec.FindSet() then begin
+                        FtyInvoiceNo := BankRefColLineRec."Factory Invoice No";
                     end;
-
-
                 end;
-
             }
+
             trigger OnPreDataItem()
 
             begin
@@ -115,6 +95,16 @@ report 50630 ExportStatusReport1
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                ConStRec.Reset();
+                ConStRec.SetRange("No.", "No.");
+                if ConStRec.FindSet() then begin
+                    Qty := ConStRec.Qty;
+                    StyleRec.SetRange("Style No.", ConStRec."Style No.");
+                    if StyleRec.FindFirst() then begin
+                        UniPrice := StyleRec."Unit Price";
+                    end;
+                end;
             end;
 
         }
@@ -156,10 +146,12 @@ report 50630 ExportStatusReport1
 
 
     var
+        FtyInvoiceNo: Text[50];
+        BankRefColLineRec: Record BankRefCollectionLine;
         StyleRec: Record "Style Master PO";
         UniPrice: Decimal;
         ConStRec: Record "Contract/LCStyle";
-        Qt: BigInteger;
+        Qty: BigInteger;
         No: Code[50];
         comRec: Record "Company Information";
 

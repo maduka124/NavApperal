@@ -4107,6 +4107,21 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
         </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="UniPrice">
+          <DataField>UniPrice</DataField>
+        </Field>
+        <Field Name="UniPriceFormat">
+          <DataField>UniPriceFormat</DataField>
+        </Field>
+        <Field Name="tot">
+          <DataField>tot</DataField>
+        </Field>
+        <Field Name="totFormat">
+          <DataField>totFormat</DataField>
+        </Field>
         <Field Name="B2B_LC_No">
           <DataField>B2B_LC_No</DataField>
         </Field>
@@ -4133,21 +4148,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="B2B_LC_ValueFormat">
           <DataField>B2B_LC_ValueFormat</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="UniPrice">
-          <DataField>UniPrice</DataField>
-        </Field>
-        <Field Name="UniPriceFormat">
-          <DataField>UniPriceFormat</DataField>
-        </Field>
-        <Field Name="tot">
-          <DataField>tot</DataField>
-        </Field>
-        <Field Name="totFormat">
-          <DataField>totFormat</DataField>
         </Field>
         <Field Name="Margin_A_C_Amount">
           <DataField>Margin_A_C_Amount</DataField>

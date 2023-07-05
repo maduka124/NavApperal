@@ -688,6 +688,13 @@ page 50964 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                 }
+                field("LC Master Nos."; Rec."LC Master Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'LC Master No';
+                    TableRelation = "No. Series".Code;
+                }
+
             }
         }
     }
