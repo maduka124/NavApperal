@@ -4,6 +4,9 @@ page 51344 FactoryWiseCapacityListpart
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = FactoryWiseCapacity;
+    Editable = false;
+    InsertAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
@@ -14,63 +17,63 @@ page 51344 FactoryWiseCapacityListpart
                 field(Factory; rec.Factory)
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field(Month; rec.Month)
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Capacity Pcs"; rec."Capacity Pcs")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Planned Pcs"; rec."Planned Pcs")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Achieved Pcs"; rec."Achieved Pcs")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Diff."; rec."Diff.")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Avg SMV"; rec."Avg SMV")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Plan Eff."; rec."Plan Eff.")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
             }
         }
     }
 
 
-    actions
-    {
-        area(Processing)
-        {
-            action("Refresh Data")
-            {
-                Image = RefreshText;
-                ApplicationArea = all;
+    trigger OnAfterGetRecord()
+    var
+    begin
+        StyleExprTxt := ChangeColor.ChangeColorFactoryWiseCap(rec)
+    end;
 
-                trigger OnAction()
-                var
 
-                begin
-
-                end;
-            }
-        }
-    }
+    VAR
+        StyleExprTxt: Text[50];
+        ChangeColor: Codeunit NavAppCodeUnit;
 }

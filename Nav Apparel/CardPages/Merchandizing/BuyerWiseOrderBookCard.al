@@ -1537,5 +1537,7 @@ page 51165 "BuyerWiseOrderBooking"
 
             end;
         end;
+
+        rec.Year := Y;
     end;
 }
