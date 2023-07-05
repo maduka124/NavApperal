@@ -138,6 +138,7 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
         //Done By Sachith on 02/02/23
         modify("Vendor No.")
         {
+            
             trigger OnAfterValidate()
             var
                 vendor: Record Vendor;
