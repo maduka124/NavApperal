@@ -86,6 +86,15 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                 var
                     ReqRec: Record "Requisition Line";
                 begin
+
+                    ReqRec.Reset();
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := false;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                    end;
+
                     ReqRec.Reset();
                     ReqRec.SetRange(StyleName, Rec.StyleName);
 
@@ -100,29 +109,6 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                 end;
             }
 
-            action("De-Select All")
-            {
-                Caption = 'De-Select All (Style)';
-                Image = RemoveLine;
-                ApplicationArea = All;
-
-                trigger OnAction();
-                var
-                    ReqRec: Record "Requisition Line";
-                begin
-                    ReqRec.Reset();
-                    //ReqRec.SetRange("No.", "No.");
-                    ReqRec.SetRange(StyleName, Rec.StyleName);
-                    ReqRec.FindSet();
-
-                    repeat
-                        ReqRec."Accept Action Message" := false;
-                        ReqRec.Modify();
-                    until ReqRec.Next() = 0;
-
-                    CurrPage.Update();
-                end;
-            }
             action("Item Select")
             {
                 Caption = 'Select All (Item)';
@@ -134,31 +120,18 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                     ReqRec: Record "Requisition Line";
                 begin
                     ReqRec.Reset();
-                    ReqRec.SetRange("No.", Rec."No.");
                     if ReqRec.FindSet() then begin
                         repeat
-                            ReqRec."Accept Action Message" := true;
+                            ReqRec."Accept Action Message" := false;
                             ReqRec.Modify();
                         until ReqRec.Next() = 0;
-                        CurrPage.Update();
                     end;
-                end;
-            }
-            action("Item De-Select")
-            {
-                Caption = 'De-Select All (Item)';
-                Image = RemoveLine;
-                ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    ReqRec: Record "Requisition Line";
-                begin
                     ReqRec.Reset();
                     ReqRec.SetRange("No.", Rec."No.");
                     if ReqRec.FindSet() then begin
                         repeat
-                            ReqRec."Accept Action Message" := false;
+                            ReqRec."Accept Action Message" := true;
                             ReqRec.Modify();
                         until ReqRec.Next() = 0;
                         CurrPage.Update();
@@ -176,6 +149,14 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                     ReqRec: Record "Requisition Line";
                 begin
                     ReqRec.Reset();
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := false;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                    end;
+
+                    ReqRec.Reset();
                     ReqRec.SetRange("Vendor No.", Rec."Vendor No.");
                     if ReqRec.FindSet() then begin
                         repeat
@@ -188,7 +169,7 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
             }
             action("Vendor De-Select")
             {
-                Caption = 'De-Select All (Vendor)';
+                Caption = 'De-Select All';
                 Image = RemoveLine;
                 ApplicationArea = All;
 
@@ -197,7 +178,6 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                     ReqRec: Record "Requisition Line";
                 begin
                     ReqRec.Reset();
-                    ReqRec.SetRange("Vendor No.", Rec."Vendor No.");
                     if ReqRec.FindSet() then begin
                         repeat
                             ReqRec."Accept Action Message" := false;
