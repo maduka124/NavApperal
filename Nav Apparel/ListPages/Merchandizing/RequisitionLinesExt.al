@@ -36,6 +36,14 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                 ApplicationArea = ALL;
             }
         }
+        addafter("Vendor No.")
+        {
+            field("Vendor Name"; Rec."Vendor Name")
+            {
+                ApplicationArea = All;
+                Editable = false;
+            }
+        }
 
         modify(Description)
         {
@@ -70,7 +78,7 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
         {
             action("Select All")
             {
-                Caption = 'Select All';
+                Caption = 'Select All (Style)';
                 Image = SelectMore;
                 ApplicationArea = All;
 
@@ -78,6 +86,15 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                 var
                     ReqRec: Record "Requisition Line";
                 begin
+
+                    ReqRec.Reset();
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := false;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                    end;
+
                     ReqRec.Reset();
                     ReqRec.SetRange(StyleName, Rec.StyleName);
 
@@ -92,26 +109,82 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                 end;
             }
 
-            action("De-Select All")
+            action("Item Select")
+            {
+                Caption = 'Select All (Item)';
+                Image = SelectMore;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ReqRec: Record "Requisition Line";
+                begin
+                    ReqRec.Reset();
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := false;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                    end;
+
+                    ReqRec.Reset();
+                    ReqRec.SetRange("No.", Rec."No.");
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := true;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                        CurrPage.Update();
+                    end;
+                end;
+            }
+            action("Vendor Select")
+            {
+                Caption = 'Select All (Vendor)';
+                Image = SelectMore;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ReqRec: Record "Requisition Line";
+                begin
+                    ReqRec.Reset();
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := false;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                    end;
+
+                    ReqRec.Reset();
+                    ReqRec.SetRange("Vendor No.", Rec."Vendor No.");
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := true;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                        CurrPage.Update();
+                    end;
+                end;
+            }
+            action("Vendor De-Select")
             {
                 Caption = 'De-Select All';
                 Image = RemoveLine;
                 ApplicationArea = All;
 
-                trigger OnAction();
+                trigger OnAction()
                 var
                     ReqRec: Record "Requisition Line";
                 begin
                     ReqRec.Reset();
-                    //ReqRec.SetRange("No.", "No.");
-                    ReqRec.FindSet();
-
-                    repeat
-                        ReqRec."Accept Action Message" := false;
-                        ReqRec.Modify();
-                    until ReqRec.Next() = 0;
-
-                    CurrPage.Update();
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := false;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                        CurrPage.Update();
+                    end;
                 end;
             }
         }
