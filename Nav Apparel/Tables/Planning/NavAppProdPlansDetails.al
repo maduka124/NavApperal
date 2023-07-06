@@ -116,7 +116,18 @@ table 50345 "NavApp Prod Plans Details"
         {
             DataClassification = ToBeClassified;
         }
+
         field(23; "Brand Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(24; "LCurve Start Time"; Time)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(25; "LCurve Hours Per Day"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
