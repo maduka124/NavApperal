@@ -241,7 +241,7 @@ page 51324 OrderShippingList
     }
     trigger OnOpenPage()
     var
-        SalesInvoiceLineRec: Record "Sales Invoice Line";
+        ShipmentLineRec: Record "Sales Shipment Line";
         BankRefColRec: Record BankRefCollectionHeader;
         BankRefHRec: Record BankReferenceHeader;
         SalesInvRec: Record "Sales Invoice Header";
@@ -334,13 +334,13 @@ page 51324 OrderShippingList
                                 OrderSummaryRec."Exp Date" := SalesInvRec."Exp Date";
                                 OrderSummaryRec.Destination := SalesInvRec."Location Code";
 
-                                SalesInvoiceLineRec.Reset();
-                                SalesInvoiceLineRec.SetRange("Document No.", SalesInvRec."No.");
-                                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                                if SalesInvoiceLineRec.FindSet() then begin
+                                ShipmentLineRec.Reset();
+                                ShipmentLineRec.SetRange("Order No.", SalesInvRec."Order No.");
+                                ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
+                                if ShipmentLineRec.FindSet() then begin
                                     repeat
-                                        ShQty += SalesInvoiceLineRec.Quantity;
-                                    until SalesInvoiceLineRec.Next() = 0;
+                                        ShQty += ShipmentLineRec.Quantity;
+                                    until ShipmentLineRec.Next() = 0;
                                 end;
                                 OrderSummaryRec."Ship Qty" := ShQty;
                                 OrderSummaryRec."Ship value" := ShQty * StylePoRec."Unit Price";
