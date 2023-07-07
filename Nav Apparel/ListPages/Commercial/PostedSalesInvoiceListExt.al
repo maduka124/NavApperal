@@ -109,15 +109,15 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
 
     trigger OnAfterGetRecord()
     var
-        SalesInvoiceLineRec: Record "Sales Invoice Line";
+        ShipmentLineRec: Record "Sales Shipment Line";
     begin
-        SalesInvoiceLineRec.Reset();
-        SalesInvoiceLineRec.SetRange("Document No.", Rec."No.");
-        SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-        if SalesInvoiceLineRec.FindSet() then begin
+        ShipmentLineRec.Reset();
+        ShipmentLineRec.SetRange("Order No.", Rec."Order No.");
+        ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
+        if ShipmentLineRec.FindSet() then begin
             repeat
-                Rec."Ship Qty" += SalesInvoiceLineRec.Quantity;
-            until SalesInvoiceLineRec.Next() = 0;
+                Rec."Ship Qty" += ShipmentLineRec.Quantity;
+            until ShipmentLineRec.Next() = 0;
         end;
     end;
 
