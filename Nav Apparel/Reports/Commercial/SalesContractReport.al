@@ -90,15 +90,24 @@ report 51245 SalesContractReport
                         Color := AssormentDetailRec."Colour Name";
                     end;
 
-                    ShipQty := 0;
-                    SalesInvoiceLineRec.Reset();
-                    SalesInvoiceLineRec.SetRange("Document No.", "No.");
-                    SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                    if SalesInvoiceLineRec.FindFirst() then begin
-                        repeat
-                            ShipQty += SalesInvoiceLineRec.Quantity;
-                        until SalesInvoiceLineRec.Next() = 0;
+                    // ShipQty := 0;
+                    // SalesInvoiceLineRec.Reset();
+                    // SalesInvoiceLineRec.SetRange("Document No.", "No.");
+                    // SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                    // if SalesInvoiceLineRec.FindFirst() then begin
+                    //     repeat
+                    //         ShipQty += SalesInvoiceLineRec.Quantity;
+                    //     until SalesInvoiceLineRec.Next() = 0;
 
+                    // end;
+                    ShipQty := 0;
+                    ShipmentLineRec.Reset();
+                    ShipmentLineRec.SetRange("Order No.", "Order No.");
+                    ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
+                    if ShipmentLineRec.FindSet() then begin
+                        repeat
+                            ShipQty += ShipmentLineRec.Quantity;
+                        until ShipmentLineRec.Next() = 0;
                     end;
                 end;
 
@@ -154,6 +163,7 @@ report 51245 SalesContractReport
 
 
     var
+        ShipmentLineRec: Record "Sales Shipment Line";
         ShipDate: Date;
         PoQty: BigInteger;
         SalesInvoiceLineRec: Record "Sales Invoice Line";
