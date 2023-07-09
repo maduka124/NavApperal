@@ -13,11 +13,10 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
 
         }
-        // field(4; "No of CTN"; Integer)
-        // {
-        //     DataClassification = ToBeClassified;
-
-        // }
+        field(4; "No of CTN"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
         field(5; "CBM"; Decimal)
         {
             DataClassification = ToBeClassified;
@@ -53,7 +52,7 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
 
         }
-        field(12; Destination; Text[20])
+        field(12; Destination; Text[50])
         {
             DataClassification = ToBeClassified;
 
@@ -260,11 +259,17 @@ table 51323 "Order Shipping Export"
 
         }
 
+        field(56; "Currant Account"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
     }
 
     keys
     {
-        key(PK; SeqNo, No)
+        key(PK; SeqNo)
         {
             Clustered = true;
         }
