@@ -1158,5 +1158,5 @@ permissionset 50100 GeneratedPermission
         page BundleGuideReportLookup = X,
         page LaysheetLookupList = X,
         page "Sales Invoice Header List" = X,
-        table "Order Shipping Export Line" = X;
+        table "Order Shipping Export" = X;
 }

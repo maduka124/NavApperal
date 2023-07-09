@@ -1,4 +1,4 @@
-table 50407 "Order Shipping Export"
+table 50407 "Order Shipping Export1"
 {
     DataClassification = ToBeClassified;
 

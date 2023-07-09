@@ -63,7 +63,7 @@ page 51358 "Order Shipping Export"
                     BomEstimateRec: Record "BOM Estimate Cost";
                     LcRec: Record "Contract/LCMaster";
                     StyleRec: Record "Style Master";
-                    OrderSummaryRec: Record "Order Shipping Export Line";
+                    OrderSummaryRec: Record "Order Shipping Export";
                     StylePoRec: Record "Style Master PO";
                     ContractStyleRec: Record "Contract/LCStyle";
                     LoginRec: Page "Login Card";
@@ -138,7 +138,7 @@ page 51358 "Order Shipping Export"
                                         if SalesInvRec.FindSet() then begin
                                             OrderSummaryRec."Invoice No" := SalesInvRec."Your Reference";
                                             OrderSummaryRec."Invoice Date" := SalesInvRec."Shipment Date";
-                                            OrderSummaryRec."No of CTN" := SalesInvRec."No of Cartons";
+                                            OrderSummaryRec."No of CTN1" := SalesInvRec."No of Cartons";
                                             OrderSummaryRec.CBM := SalesInvRec.CBM;
                                             OrderSummaryRec."BL No" := SalesInvRec."BL No";
                                             OrderSummaryRec."BL Date" := SalesInvRec."BL Date";
@@ -166,7 +166,7 @@ page 51358 "Order Shipping Export"
                                                     OrderSummaryRec."Exchange Rate" := BankRefColRec."Exchange Rate";
                                                     OrderSummaryRec."Margin Acc" := BankRefColRec."Margin A/C Amount";
                                                     OrderSummaryRec."FC Acc" := BankRefColRec."FC A/C Amount";
-                                                    OrderSummaryRec."Currant Ac Amount" := BankRefColRec."Current A/C Amount";
+                                                    OrderSummaryRec."Currant Ac Amount1" := BankRefColRec."Current A/C Amount";
                                                 end;
                                             end;
                                         end;
@@ -220,7 +220,7 @@ page 51358 "Order Shipping Export"
 
     trigger OnDeleteRecord(): Boolean
     var
-        OrderShipingRec: Record "Order Shipping Export Line";
+        OrderShipingRec: Record "Order Shipping Export";
     begin
         OrderShipingRec.Reset();
         if OrderShipingRec.FindSet() then begin

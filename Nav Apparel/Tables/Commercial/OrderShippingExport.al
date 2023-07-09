@@ -1,10 +1,10 @@
-table 51323 "Order Shipping Export Line"
+table 51323 "Order Shipping Export"
 {
     DataClassification = ToBeClassified;
 
     fields
     {
-        field(1; "Invoice No"; text[35])
+        field(1; "Invoice No"; Code[35])
         {
             DataClassification = ToBeClassified;
         }
@@ -13,17 +13,17 @@ table 51323 "Order Shipping Export Line"
             DataClassification = ToBeClassified;
 
         }
-        field(4; "No of CTN"; Decimal)
-        {
-            DataClassification = ToBeClassified;
+        // field(4; "No of CTN"; Integer)
+        // {
+        //     DataClassification = ToBeClassified;
 
-        }
+        // }
         field(5; "CBM"; Decimal)
         {
             DataClassification = ToBeClassified;
 
         }
-        field(6; "BL No"; Text[50])
+        field(6; "BL No"; Code[50])
         {
             DataClassification = ToBeClassified;
 
@@ -53,7 +53,7 @@ table 51323 "Order Shipping Export Line"
             DataClassification = ToBeClassified;
 
         }
-        field(12; Destination; Code[20])
+        field(12; Destination; Text[20])
         {
             DataClassification = ToBeClassified;
 
@@ -113,7 +113,7 @@ table 51323 "Order Shipping Export Line"
             DataClassification = ToBeClassified;
 
         }
-        field(24; "Currant Ac Amount"; Decimal)
+        field(24; "Currant Ac Amount"; Text[100])
         {
             DataClassification = ToBeClassified;
 
@@ -245,6 +245,16 @@ table 51323 "Order Shipping Export Line"
 
         }
         field(53; "No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        field(54; "Currant Ac Amount1"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        field(55; "No of CTN1"; Decimal)
         {
             DataClassification = ToBeClassified;
 
