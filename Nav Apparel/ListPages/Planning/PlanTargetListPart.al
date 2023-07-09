@@ -35,7 +35,7 @@ page 50346 "Plan Target List part"
                     ApplicationArea = All;
                 }
 
-                field(Hours; Hours)
+                field(HoursPerDay; rec.HoursPerDay)
                 {
                     ApplicationArea = All;
                     Caption = 'Hours';

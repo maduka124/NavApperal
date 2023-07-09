@@ -365,7 +365,7 @@ page 50489 "All PO List"
                 else begin
                     Temp := StyleMasterPORec.Qty - StyleMasterPORec."Sawing Out Qty" - StyleMasterPORec.QueueQty - StyleMasterPORec.PlannedQty;
                     QtyWithWaistage := Temp;
-                    QtyWithWaistage := QtyWithWaistage + (StyleMasterPORec.Qty * Waistage) / 10;
+                    QtyWithWaistage := QtyWithWaistage + (StyleMasterPORec.Qty * Waistage) / 100;
                     QtyWithWaistage := Round(QtyWithWaistage, 1);
                     //x := StyleMasterPORec.PlannedQty + StyleMasterPORec."Sawing Out Qty" + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
                 end;
