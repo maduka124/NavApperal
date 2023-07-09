@@ -70,14 +70,24 @@ report 50724 ContractExportStatus
                 end;
 
                 ShipQty := 0;
-                SalesInvoiceLineRec.Reset();
-                SalesInvoiceLineRec.SetRange("Document No.", "No.");
-                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                if SalesInvoiceLineRec.FindSet() then begin
+                // SalesInvoiceLineRec.Reset();
+                // SalesInvoiceLineRec.SetRange("Document No.", "No.");
+                // SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                // if SalesInvoiceLineRec.FindSet() then begin
+                //     repeat
+                //         ShipQty += SalesInvoiceLineRec.Quantity;
+                //     until SalesInvoiceLineRec.Next() = 0;
+                // end;
+
+                ShipmentLineRec.Reset();
+                ShipmentLineRec.SetRange("Order No.", "Order No.");
+                ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
+                if ShipmentLineRec.FindSet() then begin
                     repeat
-                        ShipQty += SalesInvoiceLineRec.Quantity;
-                    until SalesInvoiceLineRec.Next() = 0;
+                        ShipQty += ShipmentLineRec.Quantity;
+                    until ShipmentLineRec.Next() = 0;
                 end;
+
 
                 RoundOrderValue := POQty * RoundUnitPrice;
                 RoundShip := ShipQty * RoundUnitPrice;
@@ -158,6 +168,7 @@ report 50724 ContractExportStatus
 
 
     var
+        ShipmentLineRec: Record "Sales Shipment Line";
         ShipDate: Date;
         ShipQty: BigInteger;
         SalesInvoiceLineRec: Record "Sales Invoice Line";

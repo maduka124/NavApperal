@@ -146,15 +146,24 @@ report 50629 ExportSummartReport
                     POQty += StylePoRec.Qty;
                 end;
 
-                ShipQty := 0;
-                SalesInvoiceLineRec.Reset();
-                SalesInvoiceLineRec.SetRange("Document No.", "No.");
-                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                if SalesInvoiceLineRec.FindFirst() then begin
-                    repeat
-                        ShipQty += SalesInvoiceLineRec.Quantity;
-                    until SalesInvoiceLineRec.Next() = 0;
+                // ShipQty := 0;
+                // SalesInvoiceLineRec.Reset();
+                // SalesInvoiceLineRec.SetRange("Document No.", "No.");
+                // SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                // if SalesInvoiceLineRec.FindFirst() then begin
+                //     repeat
+                //         ShipQty += SalesInvoiceLineRec.Quantity;
+                //     until SalesInvoiceLineRec.Next() = 0;
+                // end;
 
+                ShipQty := 0;
+                SalesShipmentLineRec.Reset();
+                SalesShipmentLineRec.SetRange("Order No.", "Order No.");
+                SalesShipmentLineRec.SetRange(Type, SalesShipmentLineRec.Type::Item);
+                if SalesShipmentLineRec.FindSet() then begin
+                    repeat
+                        ShipQty += SalesShipmentLineRec.Quantity;
+                    until SalesShipmentLineRec.Next() = 0;
                 end;
 
                 if "PO No" = POLc then
@@ -397,6 +406,7 @@ report 50629 ExportSummartReport
     }
 
     var
+        SalesShipmentLineRec: Record "Sales Shipment Line";
         BrandNameFilter: Text[50];
         ContractRec: Record "Contract/LCMaster";
         FactoryInvFilter: Text[35];
