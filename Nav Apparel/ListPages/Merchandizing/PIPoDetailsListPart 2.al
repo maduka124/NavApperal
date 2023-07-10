@@ -45,6 +45,7 @@ page 51054 "PI Po Details ListPart 2"
 
                 trigger OnAction()
                 var
+                    Pipo1Rec: Record PIPODetails1;
                     PurchaseHeaderRec: Record "Purchase Header";
                     PIDetailsHeadRec: Record "PI Details Header";
                     PIPOItemDetRec: Record "PI Po Item Details";
@@ -56,6 +57,7 @@ page 51054 "PI Po Details ListPart 2"
 
                     PIPODetailsRec.Reset();
                     PIPODetailsRec.SetRange("PI No.", rec."PI No.");
+                    PIPODetailsRec.SetRange("PO No.", Rec."PO No.");
                     PIPODetailsRec.SetFilter(Select, '=%1', true);
 
                     if PIPODetailsRec.FindSet() then begin
@@ -72,10 +74,27 @@ page 51054 "PI Po Details ListPart 2"
                     else
                         Error('Select records.');
 
+                    PIPODetailsRec.Reset();
+                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
+                    PIPODetailsRec.SetRange("PO No.", Rec."PO No.");
+                    PIPODetailsRec.SetFilter(Select, '=%1', true);
+
+                    if PIPODetailsRec.FindSet() then begin
+                        repeat
+                            //Update Purchase order pi no
+                            Pipo1Rec.Reset();
+                            Pipo1Rec.SetRange("PO No.", PIPODetailsRec."PO No.");
+                            if Pipo1Rec.FindSet() then begin
+                                Pipo1Rec."Assigned PI No." := '';
+                                Pipo1Rec.Modify();
+                            end;
+                        until PIPODetailsRec.Next() = 0;
+                    end;
 
                     //Delete from line table
                     PIPODetailsRec.Reset();
                     PIPODetailsRec.SetRange("PI No.", rec."PI No.");
+                    PIPODetailsRec.SetRange("PO No.", rec."PO No.");
                     PIPODetailsRec.SetFilter(Select, '=%1', true);
                     PIPODetailsRec.DeleteAll();
 

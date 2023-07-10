@@ -161,6 +161,14 @@ table 51079 "PI Details Header"
             TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
+        field(71012610; "Style Filter"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(71012611; "MerchantGrp"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 
