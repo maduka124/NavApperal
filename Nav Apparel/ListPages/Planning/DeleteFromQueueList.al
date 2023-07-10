@@ -4,7 +4,6 @@ page 51306 "Delete From Queue List"
     PageType = Card;
     SourceTable = "Planning Queue";
     InsertAllowed = false;
-    //ModifyAllowed = false;
     DeleteAllowed = false;
 
     layout
@@ -25,13 +24,6 @@ page 51306 "Delete From Queue List"
                     Editable = false;
                 }
 
-                // field("Queue No."; rec."Queue No.")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'Queue No';
-                // }
-
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -51,25 +43,6 @@ page 51306 "Delete From Queue List"
                     ApplicationArea = All;
                     Editable = false;
                 }
-
-                // field("ResourceName"; ResourceName)
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'Line';
-                // }
-
-                // field("Start Date"; rec."Start Date")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
-
-                // field("Finish Date"; rec."Finish Date")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
             }
         }
     }
@@ -78,6 +51,40 @@ page 51306 "Delete From Queue List"
     {
         area(Processing)
         {
+            action("Select All")
+            {
+                ApplicationArea = all;
+                Image = SelectMore;
+                Caption = 'Select All';
+
+                trigger OnAction()
+                var
+                    PlanningQueueRec: Record "Planning Queue";
+                begin
+                    PlanningQueueRec.Reset();
+                    PlanningQueueRec.SetFilter("User ID", '=%1', rec."User ID");
+                    if PlanningQueueRec.FindSet() then
+                        PlanningQueueRec.ModifyAll(Select, true);
+                end;
+            }
+
+            action("De-Select All")
+            {
+                ApplicationArea = all;
+                Image = RemoveLine;
+                Caption = 'De-Select All';
+
+                trigger OnAction()
+                var
+                    PlanningQueueRec: Record "Planning Queue";
+                begin
+                    PlanningQueueRec.Reset();
+                    PlanningQueueRec.SetFilter("User ID", '=%1', rec."User ID");
+                    if PlanningQueueRec.FindSet() then
+                        PlanningQueueRec.ModifyAll(Select, false);
+                end;
+            }
+
             action("Delete From Queue")
             {
                 ApplicationArea = all;
@@ -92,7 +99,6 @@ page 51306 "Delete From Queue List"
                     StyleMasterPORec: Record "Style Master PO";
                     QTYVar: Decimal;
                 begin
-
                     if (Dialog.CONFIRM('Do you want to delete?', true) = true) then begin
 
                         QTYVar := 0;

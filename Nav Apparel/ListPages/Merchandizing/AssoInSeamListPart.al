@@ -22,10 +22,8 @@ page 51016 AssoInSeamListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
-
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
-
 
                         //Check whether Color size ratio created for the style/lot
                         AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
@@ -33,19 +31,18 @@ page 51016 AssoInSeamListPart
                         if AssorColorSizeRatioRec.FindSet() then
                             Message('Color Size Ratio has been done for this Style/PO, run the "Color/Size Qty Ratio" process again after adding a size.');
 
-
-                        //Check for whether BOm created for the style
-                        BOMRec.SetRange("Style No.", rec."Style No.");
-                        if BOMRec.FindSet() then begin
-                            BOMAutoGenRec.Reset();
-                            BOMAutoGenRec.SetRange("No.", BOMRec.No);
-                            if BOMAutoGenRec.FindSet() then begin
-                                repeat
-                                    if BOMAutoGenRec."Included in PO" = true then
-                                        Error('MRP Posting has been completed for BOM : %1. To add new Size, run the Reverse MRP process for BOM : %1.', BOMRec.No);
-                                until BOMAutoGenRec.Next() = 0;
-                            end;
-                        end;
+                        // //Check for whether BOm created for the style
+                        // BOMRec.SetRange("Style No.", rec."Style No.");
+                        // if BOMRec.FindSet() then begin
+                        //     BOMAutoGenRec.Reset();
+                        //     BOMAutoGenRec.SetRange("No.", BOMRec.No);
+                        //     if BOMAutoGenRec.FindSet() then begin
+                        //         repeat
+                        //             if BOMAutoGenRec."Included in PO" = true then
+                        //                 Error('MRP Posting has been completed for BOM : %1. To add new Size, run the Reverse MRP process for BOM : %1.', BOMRec.No);
+                        //         until BOMAutoGenRec.Next() = 0;
+                        //     end;
+                        // end;
 
                         AssDetInseamRec.Reset();
                         AssDetInseamRec.SetRange("Style No.", rec."Style No.");
