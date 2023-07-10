@@ -26,7 +26,11 @@ page 51352 "LC List"
                     ApplicationArea = All;
                     Caption = 'LC No';
                 }
-
+                field("Contract No"; Rec."Contract No")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Contract No';
+                }
                 field("Contract Value"; Rec."Contract Value")
                 {
                     ApplicationArea = All;
