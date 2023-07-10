@@ -125,6 +125,11 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(24; "Order Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

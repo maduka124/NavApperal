@@ -69,6 +69,13 @@ page 50489 "All PO List"
                     Editable = false;
                 }
 
+                field("Order Qty"; Rec."Order Qty")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Order Qty';
+                }
+
                 field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
@@ -383,6 +390,7 @@ page 50489 "All PO List"
                     // Rec.Qty := TempQuery.Qty - TempQuery.PlannedQty - TempQuery.SawingOutQty;   
                     // Rec.Qty := TempQuery.Qty - TempQuery.SawingOutQty;  //Nevil asked to remove paln qty
                     Rec.Qty := QtyWithWaistage;
+                    Rec."Order Qty" := StyleMasterPORec.Qty;
                     Rec.Waistage := (Temp * Waistage) / 100;
                     Rec.Select := TempQuery.Select;
                     Rec.ShipDate := TempQuery.ShipDate;
