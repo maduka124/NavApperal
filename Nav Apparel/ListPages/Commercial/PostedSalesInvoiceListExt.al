@@ -130,7 +130,7 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
         SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
         if SalesInVLineRec.FindSet() then begin
             repeat
-                Rec."Invoice Qty" += SalesInVLineRec.Quantity;
+            Rec."Invoice Qty" += SalesInVLineRec.Quantity;
             until SalesInVLineRec.Next() = 0;
         end;
     end;

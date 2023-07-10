@@ -279,7 +279,7 @@ table 51350 LCMaster
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", "Contract No", "Contract Value", Buyer)
+        fieldgroup(DropDown; "LC No", "Contract Value", Buyer)
         {
 
         }
