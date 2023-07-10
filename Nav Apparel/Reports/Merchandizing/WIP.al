@@ -129,7 +129,8 @@ report 50641 WIPReport
             begin
                 //UserReC.Get(UserId);
                 //"Style Master".SetRange("Factory Code", UserReC."Factory Code");
-                SetRange("No.", STFilter);
+                if STFilter <> '' then
+                    SetRange("No.", STFilter);
             end;
         }
     }
