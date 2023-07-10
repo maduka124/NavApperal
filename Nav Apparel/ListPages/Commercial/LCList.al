@@ -30,6 +30,7 @@ page 51352 "LC List"
                 field("Contract Value"; Rec."Contract Value")
                 {
                     ApplicationArea = All;
+                    Caption = 'Master LC Value';
                 }
                 field("UD No"; Rec."UD No")
                 {

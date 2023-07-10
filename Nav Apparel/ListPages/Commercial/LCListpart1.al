@@ -49,6 +49,10 @@ page 51353 "LC ListPart 1"
                     LCStyle2Rec: Record "LC Style 2";
                     LCMasterRec: Record LCMaster;
                     Line: BigInteger;
+                    CodeUnitNav: Codeunit NavAppCodeUnit;
+                    ContractNo1: Code[20];
+                    CodeUnit2Nav: Codeunit NavAppCodeUnit2;
+                    "B2BLC%": Decimal;
                 begin
                     Line := 0;
                     LCStyleRec3.Reset();
@@ -64,6 +68,7 @@ page 51353 "LC ListPart 1"
                             LCStyle2Rec.Init();
                             Line += 1;
                             LCStyle2Rec."Line No" := Line;
+                            ContractNo1 := LCStyle."LC No";
                             LCStyle2Rec."No." := LCStyle."No.";
                             LCStyle2Rec."Style No." := LCStyle."style No.";
                             LCStyle2Rec."Style Name" := LCStyle."Style Name";
@@ -88,6 +93,8 @@ page 51353 "LC ListPart 1"
 
                     end;
 
+                    CodeUnitNav.CalQtyMasterLC(ContractNo1);
+
                     // LCStyle.Reset();
                     // LCStyle.SetRange("Buyer No.", Rec."Buyer No.");
                     // LCStyle.SetFilter(Select, '=%1', true);
@@ -95,6 +102,16 @@ page 51353 "LC ListPart 1"
                     //     LCStyle.ModifyAll(Select, false);
                     // end;
 
+
+                    //Calculate B2BLC %
+                    "B2BLC%" := CodeUnit2Nav.CalB2BLC_PerccentageMasterLC(ContractNo1);
+                    LCMasterRec.Reset();
+                    LCMasterRec.SetRange("No.", ContractNo1);
+                    LCMasterRec.FindSet();
+                    LCMasterRec.BBLC := "B2BLC%";
+                    LCMasterRec.Modify();
+
+                    CurrPage.Update();
 
                 end;
             }
