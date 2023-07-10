@@ -160,6 +160,11 @@ page 51351 "LC Card"
                         if LCStyleRec1.FindLast() then begin
                             Line := LCStyleRec1."Line No";
                         end;
+                        //Delete All
+                        LCStyleRec.Reset();
+                        if LCStyleRec.FindSet() then begin
+                            LCStyleRec.DeleteAll();
+                        end;
 
                         ContractRec.Reset();
                         ContractRec.SetRange("Contract No", Rec."Contract No");
@@ -405,6 +410,7 @@ page 51351 "LC Card"
                 field("Contract Value"; rec."Contract Value")
                 {
                     ApplicationArea = All;
+                    Caption = 'Master LC Value';
                 }
 
                 field("Auto Calculate Value"; rec."Auto Calculate Value")

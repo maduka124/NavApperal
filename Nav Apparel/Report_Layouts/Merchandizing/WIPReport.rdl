@@ -3271,6 +3271,9 @@
                       <Value>=Fields!Ship_Date.Value</Value>
                     </SortExpression>
                   </SortExpressions>
+                  <Visibility>
+                    <Hidden>=Fields!PO_No.Value=""</Hidden>
+                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>

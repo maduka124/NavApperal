@@ -82,6 +82,11 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             TableRelation = "Contract/LCMaster"."Contract No";
             ValidateTableRelation = false;
         }
+        field(50017; "LC Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
 
         modify("Your Reference")
         {
@@ -92,27 +97,42 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
         modify("External Document No.")
         {
             Caption = 'LC No';
+            TableRelation = LCMaster."No." where(Buyer = field("Sell-to Customer Name"));
+
+            trigger OnAfterValidate()
+            var
+                LCRec: Record LCMaster;
+            begin
+                LCRec.Reset();
+                LCRec.SetRange("No.", Rec."External Document No.");
+                if LCRec.FindSet() then begin
+                    Rec."LC Name" := LCRec."LC No";
+                end;
+            end;
+
         }
+
     }
-
-
-    // trigger OnInsert()
-    // var
-    //     UserSetupRec: Record "User Setup";
-    // begin
-
-    //     UserSetupRec.Reset();
-    //     UserSetupRec.SetRange("User ID", UserId);
-    //     if UserSetupRec.FindSet() then begin
-
-    //         if UserSetupRec."Merchandizer Group Name" = '' then
-    //             Error('Merchandizer Group not setup in the User Setup.');
-
-    //         "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
-    //     end
-    //     else
-    //         Error('Merchandizer Group not setup in the User Setup.');
-    // end;
 }
+
+
+// trigger OnInsert()
+// var
+//     UserSetupRec: Record "User Setup";
+// begin
+
+//     UserSetupRec.Reset();
+//     UserSetupRec.SetRange("User ID", UserId);
+//     if UserSetupRec.FindSet() then begin
+
+//         if UserSetupRec."Merchandizer Group Name" = '' then
+//             Error('Merchandizer Group not setup in the User Setup.');
+
+//         "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+//     end
+//     else
+//         Error('Merchandizer Group not setup in the User Setup.');
+// end;
+
 
 

@@ -130,6 +130,10 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         {
             DataClassification = ToBeClassified;
         }
+        field(50028; "Invoice Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
 
 
 

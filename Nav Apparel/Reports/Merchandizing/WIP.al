@@ -122,6 +122,8 @@ report 50641 WIPReport
                     if ContractRec.FindFirst() then begin
                         ContractNo := ContractRec."Contract No";
                     end;
+
+
                 end;
             end;
 
@@ -129,7 +131,8 @@ report 50641 WIPReport
             begin
                 //UserReC.Get(UserId);
                 //"Style Master".SetRange("Factory Code", UserReC."Factory Code");
-                SetRange("No.", STFilter);
+                // if STFilter <> '' then
+                //     SetRange("No.", STFilter);
             end;
         }
     }

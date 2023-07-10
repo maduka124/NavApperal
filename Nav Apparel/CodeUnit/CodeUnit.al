@@ -420,6 +420,52 @@ codeunit 50618 NavAppCodeUnit
 
     end;
 
+    //
+    procedure CalQtyMasterLC(ContractNoPara: Code[20])
+    var
+        LCMasterRec: Record LCMaster;
+        "Contract/LCStyleRec": Record "LC Style 2";
+        StyleMasterPORFec: Record "Style Master PO";
+        TotalQty: BigInteger;
+        AutoValue: Decimal;
+    begin
+
+        //Get total order qty
+        "Contract/LCStyleRec".Reset();
+        "Contract/LCStyleRec".SetRange("LC No", ContractNoPara);
+
+        if "Contract/LCStyleRec".FindSet() then begin
+            repeat
+                TotalQty += "Contract/LCStyleRec".Qty;
+
+                //Get Style PO Qty Value
+                StyleMasterPORFec.Reset();
+                StyleMasterPORFec.SetCurrentKey("Style No.");
+                StyleMasterPORFec.SetRange("Style No.", "Contract/LCStyleRec"."Style No.");
+
+                if StyleMasterPORFec.FindSet() then begin
+                    repeat
+                        AutoValue += StyleMasterPORFec.Qty * StyleMasterPORFec."Unit Price";
+                    until StyleMasterPORFec.Next() = 0;
+                end;
+            until "Contract/LCStyleRec".Next() = 0;
+        end;
+
+
+        //Update Qty;
+        LCMasterRec.Reset();
+        LCMasterRec.SetRange("No.", ContractNoPara);
+        if LCMasterRec.FindSet() then begin
+            LCMasterRec."Auto Calculate Value" := AutoValue;
+            LCMasterRec."Contract Value" := AutoValue;
+            LCMasterRec."Quantity (Pcs)" := TotalQty;
+            LCMasterRec.Modify();
+        end;
+
+    end;
+
+    //
+
     procedure CalQtyB2B(B2BNoPara: Code[20])
     var
         B2BLCMasterRec: Record B2BLCMaster;

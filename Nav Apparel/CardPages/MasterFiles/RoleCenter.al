@@ -493,6 +493,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page MerchandizingGroupPage;
                     ApplicationArea = all;
                 }
+                action("OMS Merchandizing")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("StockSummary")
                 {
                     Caption = 'Stock Summary';
@@ -822,7 +828,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Hourly Production Plan list";
                     ApplicationArea = all;
                 }
-
+                action("OMS Planning")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Pre-Production Follow Up")
                 {
                     RunObject = page PreProductionfollowupList;
@@ -1065,7 +1076,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page FabricMappingList;
                     ApplicationArea = all;
                 }
-
+                action("OMS CAD")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Ratio Creation")
                 {
                     Caption = 'Ratio Creation';
@@ -1115,7 +1131,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Gate Pass List";
                     ApplicationArea = all;
                 }
-
+                action("OMS Common")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Purchase Orders2")
                 {
                     Caption = 'Purchase Orders';
@@ -1156,6 +1177,12 @@ page 50968 "Nav Apperal Role Center"
             {
                 Caption = 'Procurement';
                 // Done By Sachith on 03/02/23
+                action("OMS Procurment")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Posted Purchase Receipts2")
                 {
                     Caption = 'Good Receipts';
@@ -1284,6 +1311,12 @@ page 50968 "Nav Apperal Role Center"
                 //     ApplicationArea = all;
                 // }
 
+                action("OMS Store")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Posted Purchase Receipts")
                 {
                     Caption = 'Good Receipts';
@@ -1540,7 +1573,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Lay Sheet List";
                     ApplicationArea = all;
                 }
-
+                action("OMS Cutting")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Roll Picking Cutting")
                 {
                     Caption = 'Roll Picking';
@@ -1676,7 +1714,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Hourly Production list";
                     ApplicationArea = all;
                 }
-
+                action("OMS Sewing")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action(" Washing Requisition")
                 {
                     Caption = ' Washing Requisition';
@@ -1765,7 +1808,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Daily Shipping Out";
                     ApplicationArea = all;
                 }
-
+                action("OMS Finishing")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Output Journal")
                 {
                     Caption = 'Output Journal';
@@ -1859,7 +1907,12 @@ page 50968 "Nav Apperal Role Center"
                 //     RunObject = Page "Sample Request";
                 //     ApplicationArea = all;
                 // }
-
+                action("OMS Sample")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Sample Production")
                 {
                     Caption = 'Sample Production';
@@ -2087,7 +2140,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "New Breakdown";
                     ApplicationArea = all;
                 }
-
+                action("OMS IE")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Style SMV Pending List")
                 {
                     Caption = 'SMV Pending Style List';
@@ -2160,6 +2218,12 @@ page 50968 "Nav Apperal Role Center"
             {
                 Caption = 'Washing';
 
+                action("OMS Washing")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Sample Requests")
                 {
                     Caption = ' Washing Requisition';
@@ -2306,6 +2370,12 @@ page 50968 "Nav Apperal Role Center"
             {
                 Caption = 'Service Mgt';
 
+                action("OMS Service")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
+                    ApplicationArea = all;
+                }
                 action("Item2")
                 {
                     Caption = 'Item';
@@ -2418,7 +2488,7 @@ page 50968 "Nav Apperal Role Center"
                 }
                 action("LC Master")
                 {
-                    Caption = 'LC Master';
+                    Caption = 'Master LC';
                     RunObject = Page "LC List";
                     ApplicationArea = all;
                 }
@@ -2606,6 +2676,12 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Fabric Shade / Shrinkage';
                     RunObject = Page FabShadeShrinkageList;
+                    ApplicationArea = all;
+                }
+                action("OMS Quality")
+                {
+                    Caption = 'OMS List';
+                    RunObject = Page OMSList;
                     ApplicationArea = all;
                 }
 

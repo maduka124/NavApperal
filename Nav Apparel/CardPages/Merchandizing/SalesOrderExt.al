@@ -4,6 +4,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
     layout
     {
 
+
         //Done By Sachith on 24/03/23
         addafter(Status)
         {
@@ -135,7 +136,13 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
                 end;
             end;
         }
-
+        addafter("External Document No.")
+        {
+            field("LC Name"; Rec."LC Name")
+            {
+                ApplicationArea = All;
+            }
+        }
 
         addafter(Lot)
         {
@@ -245,7 +252,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
 
             trigger OnAfterAction()
             var
-            
+
                 salesRec: Record "Sales Invoice Header";
                 PaymentRec: Record "Payment Terms";
                 contracRec: Record "Contract/LCMaster";
