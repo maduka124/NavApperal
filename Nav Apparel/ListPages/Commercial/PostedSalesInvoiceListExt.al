@@ -53,6 +53,10 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
             {
                 ApplicationArea = All;
             }
+            field("Invoice Qty"; Rec."Invoice Qty")
+            {
+                ApplicationArea = All;
+            }
             field("Ship Qty"; Rec."Ship Qty")
             {
                 ApplicationArea = All;
@@ -110,6 +114,7 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
     trigger OnAfterGetRecord()
     var
         ShipmentLineRec: Record "Sales Shipment Line";
+        SalesInVLineRec: Record "Sales Invoice Line";
     begin
         ShipmentLineRec.Reset();
         ShipmentLineRec.SetRange("Order No.", Rec."Order No.");
@@ -118,6 +123,15 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
             repeat
                 Rec."Ship Qty" += ShipmentLineRec.Quantity;
             until ShipmentLineRec.Next() = 0;
+        end;
+
+        SalesInVLineRec.Reset();
+        SalesInVLineRec.SetRange("Order No.", Rec."Order No.");
+        SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
+        if SalesInVLineRec.FindSet() then begin
+            repeat
+                Rec."Invoice Qty" += SalesInVLineRec.Quantity;
+            until SalesInVLineRec.Next() = 0;
         end;
     end;
 
