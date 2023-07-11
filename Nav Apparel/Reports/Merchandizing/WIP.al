@@ -42,19 +42,19 @@ report 50641 WIPReport
 
                 column(SHMode; SHMode)
                 { }
-                column(Cut_In_Qty; "Cut In Qty")
+                column(Cut_In_Qty; CutIn)
                 { }
-                column(Wash_In_Qty; "Wash In Qty")
+                column(Wash_In_Qty; WashIn)
                 { }
-                column(Wash_Out_Qty; "Wash Out Qty")
+                column(Wash_Out_Qty; WashOut)
                 { }
                 column(Shipped_Qty; "Shipped Qty")
                 { }
                 column(Ship_Date; "Ship Date")
                 { }
-                column(Sawing_In_Qty; "Sawing In Qty")
+                column(Sawing_In_Qty; SawIn)
                 { }
-                column(Sawing_Out_Qty; "Sawing Out Qty")
+                column(Sawing_Out_Qty; SawOut)
                 { }
                 column(Finish_Qty; "Finish Qty")
                 { }
@@ -107,6 +107,60 @@ report 50641 WIPReport
                     end;
 
                     RoundUnitPrice := Round("Unit Price", 0.01, '=');
+
+                    ProdRec.Reset();
+                    ProdRec.SetRange("Style No.", "Style No.");
+                    ProdRec.SetRange("PO No", "PO No.");
+                    ProdRec.SetRange(Type, ProdRec.Type::Cut);
+                    if ProdRec.FindSet() then begin
+                        // repeat
+                        CutIn := ProdRec."Output Qty";
+                        // until ProdRec.Next() = 0;
+                    end;
+
+                    // ProdRec.Reset();
+                    // ProdRec.SetRange("Style No.", "Style No.");
+                    // ProdRec.SetRange("PO No", "PO No.");
+                    // ProdRec.SetRange(Type, ProdRec.Type::Emb);
+                    // if ProdRec.FindSet() then begin
+                    //     // repeat
+                    //     OMSRec."EMB IN" := ProdRec."Input Qty";
+                    //     OMSRec."EMB OUT" := ProdRec."Output Qty";
+                    //     // until ProdRec.Next() = 0;
+                    // end;
+
+                    ProdRec.Reset();
+                    ProdRec.SetRange("Style No.", "Style No.");
+                    ProdRec.SetRange("PO No", "PO No.");
+                    ProdRec.SetRange(Type, ProdRec.Type::Wash);
+                    if ProdRec.FindSet() then begin
+                        // repeat
+                        WashIn := ProdRec."Input Qty";
+                        WashOut := ProdRec."Output Qty";
+                        // until ProdRec.Next() = 0;
+                    end;
+
+                    // ProdRec.Reset();
+                    // ProdRec.SetRange("Style No.", "Style No.");
+                    // ProdRec.SetRange("PO No", "PO No.");
+                    // ProdRec.SetRange(Type, ProdRec.Type::Print);
+                    // if ProdRec.FindSet() then begin
+                    //     // repeat
+                    //     OMSRec."Print IN" := ProdRec."Input Qty";
+                    //     OMSRec."Print OUT" := ProdRec."Output Qty";
+                    //     // until ProdRec.Next() = 0;
+                    // end;
+
+                    ProdRec.Reset();
+                    ProdRec.SetRange("Style No.", "Style No.");
+                    ProdRec.SetRange("PO No", "PO No.");
+                    ProdRec.SetRange(Type, ProdRec.Type::Saw);
+                    if ProdRec.FindSet() then begin
+                        // repeat
+                        SawIn := ProdRec."Input Qty";
+                        SawOut := ProdRec."Output Qty";
+                        // until ProdRec.Next() = 0;
+                    end;
                 end;
 
             }
@@ -186,6 +240,15 @@ report 50641 WIPReport
     end;
 
     var
+        CutIn: BigInteger;
+        WashIn: BigInteger;
+        WashOut: BigInteger;
+        SawIn: BigInteger;
+        SawOut: BigInteger;
+        // CutIn: BigInteger;
+        // CutIn: BigInteger;
+
+        ProdRec: Record ProductionOutHeader;
         ShipMode: Option;
         SHMode: Text[50];
         comRec: Record "Company Information";

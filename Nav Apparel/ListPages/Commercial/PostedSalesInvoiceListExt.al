@@ -56,6 +56,7 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
             field("Invoice Qty"; Rec."Invoice Qty")
             {
                 ApplicationArea = All;
+                Visible = false;
             }
             field("Ship Qty"; Rec."Ship Qty")
             {
@@ -116,21 +117,21 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
         ShipmentLineRec: Record "Sales Shipment Line";
         SalesInVLineRec: Record "Sales Invoice Line";
     begin
-        ShipmentLineRec.Reset();
-        ShipmentLineRec.SetRange("Order No.", Rec."Order No.");
-        ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
-        if ShipmentLineRec.FindSet() then begin
-            repeat
-                Rec."Ship Qty" += ShipmentLineRec.Quantity;
-            until ShipmentLineRec.Next() = 0;
-        end;
+        // ShipmentLineRec.Reset();
+        // ShipmentLineRec.SetRange("Order No.", Rec."Order No.");
+        // ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
+        // if ShipmentLineRec.FindSet() then begin
+        //     repeat
+        //         Rec."Ship Qty" += ShipmentLineRec.Quantity;
+        //     until ShipmentLineRec.Next() = 0;
+        // end;
 
         SalesInVLineRec.Reset();
         SalesInVLineRec.SetRange("Order No.", Rec."Order No.");
         SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
         if SalesInVLineRec.FindSet() then begin
             repeat
-            Rec."Invoice Qty" += SalesInVLineRec.Quantity;
+                Rec."Ship Qty" += SalesInVLineRec.Quantity;
             until SalesInVLineRec.Next() = 0;
         end;
     end;
