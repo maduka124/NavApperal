@@ -272,7 +272,8 @@ page 50489 "All PO List"
                         PlanningQueueNewRec."PO No." := TempRec.PONo;
                         PlanningQueueNewRec."Lot No." := TempRec.Lot_No;
                         PlanningQueueNewRec.Qty := TempRec.Qty;
-                        PlanningQueueNewRec.Waistage := 0;
+                        PlanningQueueNewRec.Waistage := TempRec.Waistage;
+                        // PlanningQueueNewRec.Waistage := 0;  
                         PlanningQueueNewRec.SMV := TempRec.SMV;
                         PlanningQueueNewRec.Factory := Factory;
                         PlanningQueueNewRec."TGTSEWFIN Date" := StyleMasterPORec."Ship Date" - NavAppSetupRec."Sewing Finished";
@@ -437,6 +438,7 @@ page 50489 "All PO List"
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Style_No), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Lot_No), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(PONo), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption("Order Qty"), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Qty), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption("Sewing Out Qty"), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Mode), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
@@ -456,6 +458,7 @@ page 50489 "All PO List"
                 TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Style_No, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
                 TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Lot_No, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
                 TempExcelBuffer.AddColumn(StyleMasterQuaryRec.PONo, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec."Order Qty", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Number);
                 TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Qty, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Number);
                 TempExcelBuffer.AddColumn(StyleMasterQuaryRec."Sewing Out Qty", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Number);
                 TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Mode, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);

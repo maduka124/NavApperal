@@ -553,7 +553,12 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnEntity.Add('AddIn_TableText', TempString);
                 ldnEntity.Get('ID', tempEntityToken);
                 ldnEntity.Add('AddIn_ContextMenuID', 'CM_Entity');
-                ldnEntity.Add('AddIn_TooltipText', 'Brand : ' + FORMAT(Brand) + '<br>' + 'Style : ' + FORMAT(PlanningQueueRec."Style Name") + '<br>' + 'LOT : ' + FORMAT(PlanningQueueRec."Lot No.") + '<br>' + 'PO : ' + FORMAT(PlanningQueueRec."PO No.") + '<br>' + 'Ship Date : ' + FORMAT(PlanningQueueRec."TGTSEWFIN Date") + '<br>' + 'Order Qty : ' + FORMAT(PlanningQueueRec.Qty - Round(PlanningQueueRec.Waistage, 1)) + '<br>' + 'Plan Quantity : ' + FORMAT(PlanningQueueRec.Qty));
+                ldnEntity.Add('AddIn_TooltipText', 'Brand : ' + FORMAT(Brand) + '<br>' + 'Style : ' +
+                FORMAT(PlanningQueueRec."Style Name") + '<br>' + 'LOT : ' + FORMAT(PlanningQueueRec."Lot No.")
+                + '<br>' + 'PO : ' + FORMAT(PlanningQueueRec."PO No.") + '<br>' + 'Ship Date : '
+                + FORMAT(PlanningQueueRec."TGTSEWFIN Date") + '<br>' + 'Order Qty : '
+                + FORMAT(PlanningQueueRec.Qty - Round(PlanningQueueRec.Waistage, 1)) + '<br>' + 'Plan Quantity : '
+                + FORMAT(PlanningQueueRec.Qty));
                 pEntities.Add(ldnEntity);
             until PlanningQueueRec.Next() = 0;
         end;

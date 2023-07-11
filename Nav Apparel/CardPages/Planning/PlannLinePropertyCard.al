@@ -332,8 +332,8 @@ page 50343 "Planning Line Property Card"
                                         LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
                                         LCurveStartTime := LocationRec."Start Time";
 
-                                        if LcurveTemp > 0 then
-                                            LCurveFinishDate += 1;
+                                        //if LcurveTemp > 0 then
+                                        LCurveFinishDate += 1;
 
                                         //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                         HrsPerDay := 0;
