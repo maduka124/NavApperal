@@ -45,6 +45,7 @@ page 51328 OMSList
                 field("Style No"; Rec."Style No")
                 {
                     ApplicationArea = All;
+                    Visible = false;
 
                 }
                 field("Style Des"; Rec."Style Des")
@@ -170,11 +171,13 @@ page 51328 OMSList
                 field("Comm Cash"; Rec."Comm Cash")
                 {
                     ApplicationArea = All;
+                    Visible = false;
 
                 }
                 field("Comm Lc"; Rec."Comm Lc")
                 {
                     ApplicationArea = All;
+                    Visible = false;
 
                 }
             }
@@ -278,9 +281,9 @@ page 51328 OMSList
                             StylePoRec1.Reset();
                             StylePoRec1.SetRange("Style No.", StyleRec."No.");
                             if StylePoRec1.FindSet() then begin
-                                repeat
-                                    POQtyTot += StylePoRec1.Qty;
-                                until StylePoRec1.Next() = 0;
+                                // repeat
+                                POQtyTot := StylePoRec1.Qty;
+                                // until StylePoRec1.Next() = 0;
                             end;
 
                             SalesInvRec.Reset();
