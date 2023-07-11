@@ -30,7 +30,7 @@ table 51350 LCMaster
         field(5; "Buyer"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
+            TableRelation = Customer.Name;
             ValidateTableRelation = false;
         }
 
