@@ -2545,15 +2545,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         // ///////////////////Check whether new allocation conflicts other allocation  
                         TempHours := 0;
 
-                        // JobPlaLineRec.Reset();
-                        // JobPlaLineRec.SetRange("Resource No.", ResourceNo);
-                        // JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, JobPlaLineRec."Start Time"), CreateDateTime(TempDate, JobPlaLineRec."Finish Time"));
-                        // JobPlaLineRec.SetCurrentKey(StartDateTime);
-                        // JobPlaLineRec.Ascending(true);
-                        // JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
-
-                        // if JobPlaLineRec.FindSet() then begin         //conflicts yes, then get all allocations for the line
-
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetRange("Resource No.", ResourceNo);
                         JobPlaLineRec.SetFilter("StartDateTime", '>=%1', CreateDateTime(dtStart, JobPlaLineRec."Start Time"));
@@ -2610,22 +2601,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                         //Calculate hourly gap between prevous and current allocation
                                         if Prev_FinishedDateTime <> 0DT then begin
-                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
-                                                // HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
-                                                // HoursGap := HoursGap / 3600000;
-
-                                                // if (HoursGap IN [0.0001 .. 0.99]) then
-                                                //     HoursGap := 1;
-
-                                                // HoursGap := round(HoursGap, 1, '>');
-
-                                                HoursGap := 0;
-                                            end
+                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then 
+                                                HoursGap := 0                                         
                                             else begin
 
-                                                XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
-                                                //Message(Format((Curr_StartDateTime - Prev_FinishedDateTime) / 3600000));
-                                                //if (Curr_StartDateTime - Prev_FinishedDateTime) / 3600000 > 48 then begin
+                                                XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);                                              
                                                 HoursPerDay2 := 0;
 
                                                 for X := 1 To XX do begin
@@ -2641,7 +2621,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     end;
 
                                                     if HoursPerDay1 > 0 then begin
-
                                                         if X = 1 then  //First Date
                                                             HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
                                                         else
@@ -2658,12 +2637,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     HoursGap := 1;
 
                                                 HoursGap := round(HoursGap, 1, '>');
-                                                HoursGap := HoursGap + HoursPerDay2;
-                                                //end
-                                                //else
-                                                //    HoursGap := 0;
+                                                HoursGap := HoursGap + HoursPerDay2;                                             
                                             end;
-
                                         end;
 
                                         if HoursGap < 20 then
@@ -2875,7 +2850,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         end;
 
                                         repeat
-
                                             ResourceRec.Reset();
                                             ResourceRec.SetRange("No.", ResourceNo);
                                             ResourceRec.FindSet();
