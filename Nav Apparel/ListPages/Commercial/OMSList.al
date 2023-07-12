@@ -269,6 +269,7 @@ page 51328 OMSList
                             OMSRec."Cut Qty" := StylePoRec."Cut In Qty";
                             OMSRec.FOB := StylePoRec."Unit Price";
                             OMSRec."EX Date" := StylePoRec."Ship Date";
+                            OMSRec."Poly OUT" := StylePoRec."Finish Qty";
 
                             POQtyTot := 0;
                             StylePoRec1.Reset();
@@ -332,6 +333,7 @@ page 51328 OMSList
                             OMSRec."Cut Qty" := StylePoRec."Cut In Qty";
                             OMSRec.FOB := StylePoRec."Unit Price";
                             OMSRec."EX Date" := StylePoRec."Ship Date";
+                            OMSRec."Poly OUT" := StylePoRec."Finish Qty";
 
                             POQtyTot := 0;
                             StylePoRec1.Reset();
