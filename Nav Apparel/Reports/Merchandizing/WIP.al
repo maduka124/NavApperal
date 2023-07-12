@@ -31,7 +31,7 @@ report 50641 WIPReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-            column(LC_No_Contract; ContractNo)
+            column(LC_No_Contract; ContractName)
             { }
 
             dataitem("Style Master PO"; "Style Master PO")
@@ -108,12 +108,6 @@ report 50641 WIPReport
 
                     RoundUnitPrice := Round("Unit Price", 0.01, '=');
 
-
-
-
-
-
-
                 end;
 
             }
@@ -123,16 +117,14 @@ report 50641 WIPReport
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                LcStyleRec.SetRange("Style No.", "No.");
-                if LcStyleRec.FindFirst() then begin
-                    ContractRec.SetRange("No.", LcStyleRec."No.");
-                    if ContractRec.FindFirst() then begin
-                        ContractNo := ContractRec."Contract No";
-                    end;
-
-
+                ContractRec.SetRange("No.", AssignedContractNo);
+                if ContractRec.FindFirst() then begin
+                    ContractName := ContractRec."Contract No";
                 end;
+
+
             end;
+
 
             trigger OnPreDataItem()
             begin
@@ -206,7 +198,7 @@ report 50641 WIPReport
         SalesInvoiceRec: Record "Sales Invoice Header";
         ExtDate: Date;
         ContractRec: Record "Contract/LCMaster";
-        ContractNo: Text[100];
+        ContractName: Text[100];
         LcStyleRec: Record "Contract/LCStyle";
         RoundUnitPrice: Decimal;
 
