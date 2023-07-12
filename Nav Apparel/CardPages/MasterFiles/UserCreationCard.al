@@ -327,30 +327,7 @@ page 50978 "Create User Card"
 
             //         Message('Completed');
             //     end;
-            // }     
-
-            action("Assign Factory")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
-
-                trigger OnAction()
-                var
-                    NavApp: Record "NavApp Planning Lines";
-                begin
-                    NavApp.Reset();
-                    NavApp.SetRange("Line No.", 9577);
-                    if NavApp.FindSet() then begin
-                        NavApp.Factory := 'VDSL';
-                        NavApp."Resource No." := 'TEAM-06';
-                        NavApp.Modify();
-                    end;
-
-                    Message('Completed');
-                end;
-            }
-
-
+            // }  
         }
     }
 
