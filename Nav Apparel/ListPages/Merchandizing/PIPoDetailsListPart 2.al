@@ -56,8 +56,8 @@ page 51054 "PI Po Details ListPart 2"
                 begin
 
                     PIPODetailsRec.Reset();
-                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
-                    PIPODetailsRec.SetRange("PO No.", Rec."PO No.");
+                    // PIPODetailsRec.SetRange("PI No.", rec."PI No.");
+                    // PIPODetailsRec.SetRange("PO No.", Rec."PO No.");
                     PIPODetailsRec.SetFilter(Select, '=%1', true);
 
                     if PIPODetailsRec.FindSet() then begin
@@ -75,8 +75,8 @@ page 51054 "PI Po Details ListPart 2"
                         Error('Select records.');
 
                     PIPODetailsRec.Reset();
-                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
-                    PIPODetailsRec.SetRange("PO No.", Rec."PO No.");
+                    // PIPODetailsRec.SetRange("PI No.", rec."PI No.");
+                    // PIPODetailsRec.SetRange("PO No.", Rec."PO No.");
                     PIPODetailsRec.SetFilter(Select, '=%1', true);
 
                     if PIPODetailsRec.FindSet() then begin
@@ -93,8 +93,8 @@ page 51054 "PI Po Details ListPart 2"
 
                     //Delete from line table
                     PIPODetailsRec.Reset();
-                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
-                    PIPODetailsRec.SetRange("PO No.", rec."PO No.");
+                    // PIPODetailsRec.SetRange("PI No.", rec."PI No.");
+                    // PIPODetailsRec.SetRange("PO No.", rec."PO No.");
                     PIPODetailsRec.SetFilter(Select, '=%1', true);
                     PIPODetailsRec.DeleteAll();
 

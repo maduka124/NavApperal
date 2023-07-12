@@ -18,7 +18,7 @@ table 51079 "PI Details Header"
         field(71012583; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where("Merchandizer Group Name" = field("Merchandizer Group Name"), "Buyer No." = field("Buyer No."));
+            TableRelation = "Style Master"."Style No." where("Merchandizer Group Name" = field("Merchandizer Group Name"), "Buyer No." = field("Buyer No."), Status = filter(Confirmed));
             ValidateTableRelation = false;
         }
 

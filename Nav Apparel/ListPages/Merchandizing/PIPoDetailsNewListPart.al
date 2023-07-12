@@ -44,6 +44,7 @@ page 51357 "PI Po Details ListPart 1 New"
 
                 trigger OnAction()
                 var
+                    Pipo2Rec: Record PIPODetails1;
                     Pipo1Rec: Record PIPODetails1;
                     PurchaseHeaderRec: Record "Purchase Header";
                     PIDetailsHeadRec: Record "PI Details Header";
@@ -53,14 +54,12 @@ page 51357 "PI Po Details ListPart 1 New"
                     TotalValue: Decimal;
                     TotPOValue: Decimal;
                 begin
+
                     Pipo1Rec.Reset();
                     Pipo1Rec.SetCurrentKey("Buy-from Vendor No.");
                     Pipo1Rec.SetRange("Buy-from Vendor No.", rec."Buy-from Vendor No.");
-                    Pipo1Rec.SetRange("PO No.", Rec."PO No.");
                     Pipo1Rec.SetFilter(Select, '=%1', true);
-
                     if Pipo1Rec.FindSet() then begin
-
                         repeat
                             //add new po to the PI
                             PIPODetailsRec.Init();
@@ -72,7 +71,7 @@ page 51357 "PI Po Details ListPart 1 New"
                             PIPODetailsRec."Created User" := UserId;
                             PIPODetailsRec.Insert();
 
-                            Rec."Assigned PI No." := Pipo1Rec."PI No.";
+                            Pipo1Rec."Assigned PI No." := Pipo1Rec."PI No.";
                             Pipo1Rec.Modify();
 
                         until Pipo1Rec.Next() = 0;
@@ -92,12 +91,16 @@ page 51357 "PI Po Details ListPart 1 New"
                     else
                         Error('Select records.');
 
+
+
                     //Update Select as false
                     Pipo1Rec.Reset();
-                    // Pipo1Rec.SetRange("Buy-from Vendor No.", rec."Buy-from Vendor No.");
+                    Pipo1Rec.SetRange("Buy-from Vendor No.", rec."Buy-from Vendor No.");
                     Pipo1Rec.SetFilter(Select, '=%1', true);
                     if Pipo1Rec.FindSet() then
-                        Pipo1Rec.ModifyAll(Select, false);
+                        repeat
+                            Pipo1Rec.ModifyAll(Select, false);
+                        until Pipo1Rec.Next() = 0;
 
                     //Update PO_PI_Item table
                     NavAppCodeUnitRec.Update_PI_PO_Items(rec."PI No.");

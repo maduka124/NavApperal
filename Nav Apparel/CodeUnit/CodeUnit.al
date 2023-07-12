@@ -327,7 +327,6 @@ codeunit 50618 NavAppCodeUnit
         PIPoDetailsRec.SetRange("PI No.", PINo);
 
         if PIPoDetailsRec.FindSet() then begin
-
             repeat
 
                 PurchaseLineRec.Reset();
