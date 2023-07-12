@@ -121,6 +121,7 @@ page 50371 "Prod Update Card"
         Count: Integer;
         TempTIme: Time;
         TimeEnd1: Time;
+        TimeEnd2: Time;
         dtEnd1: Date;
         RowCount: Integer;
         N: Integer;
@@ -152,17 +153,17 @@ page 50371 "Prod Update Card"
         if ProdOutHeaderRec.FindSet() then begin
             repeat
                 if ProdOutHeaderRec."Factory Name" = '' then
-                    Error('Entries exists with blank Factory. Entry No : %1', ProdOutHeaderRec."No.");
+                    Error('Prod. Out Entries exists with blank Factory. Entry No : %1', ProdOutHeaderRec."No.");
 
                 if ProdOutHeaderRec."Resource Name" = '' then
-                    Error('Entries exists with blank Line. Entry No : %1', ProdOutHeaderRec."No.");
+                    Error('Prod. Out Entries exists with blank Line. Entry No : %1', ProdOutHeaderRec."No.");
             until ProdOutHeaderRec.Next() = 0;
         end;
 
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
-        // LocationRec.SetRange(Code, 'AFL');
+        // LocationRec.SetRange(Code, 'PAL');
         if LocationRec.FindSet() then begin
 
             repeat
@@ -170,7 +171,7 @@ page 50371 "Prod Update Card"
                 WorkCenterRec.Reset();
                 WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                 WorkCenterRec.SetFilter("Planning Line", '=%1', true);
-                // WorkCenterRec.SetRange("No.", 'AFL-04');
+                // WorkCenterRec.SetRange("No.", 'PAL-01');
                 if WorkCenterRec.FindSet() then begin
 
                     repeat
@@ -178,6 +179,7 @@ page 50371 "Prod Update Card"
                         dtLastDate := ProdDate - 1;
                         HoursPerDay := 0;
                         TimeEnd1 := 0T;
+                        TimeEnd2 := 0T;
 
                         repeat
                             ResCapacityEntryRec.Reset();
@@ -301,6 +303,7 @@ page 50371 "Prod Update Card"
                         OutputQty := 0;
                         // TImeStart := 0T;
                         TimeEnd1 := 0T;
+                        TimeEnd2 := 0T;
                         dtEnd1 := 0D;
                         RowCount := 0;
                         N := 0;
@@ -934,8 +937,8 @@ page 50371 "Prod Update Card"
                                     JobPlaLineRec."Start Date" := dtStart;
                                     JobPlaLineRec."End Date" := TempDate;
 
-                                    if TimeEnd1 <> 0T then
-                                        JobPlaLineRec."Start Time" := TimeEnd1
+                                    if TimeEnd2 <> 0T then
+                                        JobPlaLineRec."Start Time" := TimeEnd2
                                     else
                                         JobPlaLineRec."Start Time" := TImeStart;
 
@@ -948,15 +951,15 @@ page 50371 "Prod Update Card"
                                             else
                                                 JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours
                                         else begin
-                                            if TimeEnd1 = 0T then
+                                            if TimeEnd2 = 0T then
                                                 JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours
                                             else
                                                 JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                         end;
                                     end;
 
-                                    if TimeEnd1 <> 0T then
-                                        JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TimeEnd1)
+                                    if TimeEnd2 <> 0T then
+                                        JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TimeEnd2)
                                     else
                                         JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
 
@@ -973,6 +976,7 @@ page 50371 "Prod Update Card"
 
                                     TempTIme := JobPlaLineRec."Finish Time";
                                     TimeEnd1 := JobPlaLineRec."Finish Time";
+                                    TimeEnd2 := JobPlaLineRec."Finish Time";
                                     dtEnd1 := TempDate;
 
                                     //Update StyleMsterPO table
