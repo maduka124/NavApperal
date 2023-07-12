@@ -99,34 +99,34 @@ page 51357 "PI Po Details ListPart 1 New"
                     if Pipo1Rec.FindSet() then
                         Pipo1Rec.ModifyAll(Select, false);
 
-                    // //Update PO_PI_Item table
-                    // NavAppCodeUnitRec.Update_PI_PO_Items(rec."PI No.");
+                    //Update PO_PI_Item table
+                    NavAppCodeUnitRec.Update_PI_PO_Items(rec."PI No.");
 
-                    //calculate Total Items Value and Update Header Value
-                    // PIPOItemDetRec.Reset();
-                    // PIPOItemDetRec.SetRange("PI No.", rec."PI No.");
+                    // calculate Total Items Value and Update Header Value
+                    PIPOItemDetRec.Reset();
+                    PIPOItemDetRec.SetRange("PI No.", rec."PI No.");
 
-                    // if PIPOItemDetRec.FindSet() then
-                    //     repeat
-                    //         TotalValue += PIPOItemDetRec.Value;
-                    //     until PIPOItemDetRec.Next() = 0;
+                    if PIPOItemDetRec.FindSet() then
+                        repeat
+                            TotalValue += PIPOItemDetRec.Value;
+                        until PIPOItemDetRec.Next() = 0;
 
 
                     // PIPODetailsRec.Reset();
-                    // PIPODetailsRec.SetRange("PI No.", rec."PI No.");
+                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
 
-                    // if PIPODetailsRec.FindSet() then begin
-                    //     repeat
-                    //         TotPOValue += PIPODetailsRec."PO Value";
-                    //     until PIPODetailsRec.Next() = 0;
-                    // end;
+                    if PIPODetailsRec.FindSet() then begin
+                        repeat
+                            TotPOValue += PIPODetailsRec."PO Value";
+                        until PIPODetailsRec.Next() = 0;
+                    end;
 
-                    // PIDetailsHeadRec.Reset();
-                    // PIDetailsHeadRec.SetRange("No.", rec."PI No.");
-                    // PIDetailsHeadRec.FindSet();
-                    // PIDetailsHeadRec."PI Value" := TotalValue;
-                    // PIDetailsHeadRec."PO Total" := TotPOValue;
-                    // PIDetailsHeadRec.Modify();
+                    PIDetailsHeadRec.Reset();
+                    PIDetailsHeadRec.SetRange("No.", rec."PI No.");
+                    PIDetailsHeadRec.FindSet();
+                    PIDetailsHeadRec."PI Value" := TotalValue;
+                    PIDetailsHeadRec."PO Total" := TotPOValue;
+                    PIDetailsHeadRec.Modify();
 
                     CurrPage.Update();
                 end;
