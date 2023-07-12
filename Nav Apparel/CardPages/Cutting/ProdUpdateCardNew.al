@@ -138,6 +138,11 @@ page 50371 "Prod Update Card"
         LcurveHoursPerday: Decimal;
         LCurveStartTimePerDay: Time;
         LCurveSpent: Decimal;
+        X: Integer;
+        XX: Integer;
+        HoursPerDay1: Decimal;
+        HoursPerDay2: Decimal;
+        ddddddtttt: DateTime;
     begin
 
         //Check for blank factory / line records
@@ -157,6 +162,7 @@ page 50371 "Prod Update Card"
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
+        // LocationRec.SetRange(Code, 'AFL');
         if LocationRec.FindSet() then begin
 
             repeat
@@ -164,6 +170,7 @@ page 50371 "Prod Update Card"
                 WorkCenterRec.Reset();
                 WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                 WorkCenterRec.SetFilter("Planning Line", '=%1', true);
+                // WorkCenterRec.SetRange("No.", 'AFL-04');
                 if WorkCenterRec.FindSet() then begin
 
                     repeat
@@ -421,8 +428,8 @@ page 50371 "Prod Update Card"
                                         dtStart := dtEnd1;
                                     end;
 
-                                    // if WorkCenterName = 'AFL-14' then
-                                    //     Message('AFL-14');
+                                    // if LineNo = 2666 then
+                                    //     Message('AFL-04');
 
                                     //Check learning curve                        
                                     LCurveFinishDate := dtStart;
@@ -527,7 +534,6 @@ page 50371 "Prod Update Card"
                                         TempHours := 0;
                                         Rate := 0;
 
-
                                         WorkCenCapacityEntryRec.Reset();
                                         WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
                                         WorkCenCapacityEntryRec.SETRANGE(Date, TempDate);
@@ -604,7 +610,6 @@ page 50371 "Prod Update Card"
                                             //Calculate hours for the first day (substracti hours if delay start)
                                             HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                         end;
-
 
                                         if JobPlaLineRec."Learning Curve No." <> 0 then begin
 
@@ -826,7 +831,6 @@ page 50371 "Prod Update Card"
                                         //     end;
 
                                         // end;
-
 
                                         //Get Max Lineno
                                         MaxLineNo := 0;
@@ -1058,31 +1062,140 @@ page 50371 "Prod Update Card"
                                                         TImeStart := TempTIme;
                                                         Curr_StartDateTime := JobPlaLine1Rec.StartDateTime;
 
-                                                        if Prev_FinishedDateTime <> 0DT then
-                                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
-                                                                HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
+                                                        //Calculate hourly gap between prevous and current allocation
+                                                        if Prev_FinishedDateTime <> 0DT then begin
+                                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then
+                                                                HoursGap := 0
+                                                            else begin
+                                                                XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
+                                                                HoursPerDay2 := 0;
+
+                                                                for X := 1 To XX do begin
+                                                                    HoursPerDay1 := 0;
+                                                                    ResCapacityEntryRec.Reset();
+                                                                    ResCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                                                    ResCapacityEntryRec.SETRANGE(Date, DT2DATE(Prev_FinishedDateTime) + (X - 1));
+
+                                                                    if ResCapacityEntryRec.FindSet() then begin
+                                                                        repeat
+                                                                            HoursPerDay1 += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                                        until ResCapacityEntryRec.Next() = 0;
+                                                                    end;
+
+                                                                    if HoursPerDay1 > 0 then begin
+                                                                        if X = 1 then  //First Date
+                                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
+                                                                        else
+                                                                            if X = XX then  //Last date
+                                                                                HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
+                                                                            else
+                                                                                HoursPerDay2 := HoursPerDay2 + HoursPerDay1;
+                                                                    end;
+                                                                end;
+
                                                                 HoursGap := HoursGap / 3600000;
 
                                                                 if (HoursGap IN [0.0001 .. 0.99]) then
                                                                     HoursGap := 1;
 
                                                                 HoursGap := round(HoursGap, 1, '>');
+                                                                HoursGap := HoursGap + HoursPerDay2;
+                                                            end;
+                                                        end;
+
+                                                        if HoursGap < 30 then
+                                                            HoursGap := 0;
+
+                                                        //Based on Hourly Gap, calculate start Date/time of current allocation 
+                                                        if HoursGap > 0 then begin
+                                                            ddddddtttt := CREATEDATETIME(dtStart, TImeStart);
+
+                                                            if (CREATEDATETIME(dtStart, LocationRec."Finish Time") <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
+                                                                HoursGap := HoursGap - (LocationRec."Finish Time" - TImeStart) / 3600000;
+                                                                TImeStart := LocationRec."Start Time";
+                                                                dtStart := dtStart + 1;
+
+                                                                if HoursGap > 0 then begin
+                                                                    repeat
+                                                                        //Get working hours for the start date. If start date is a holiday, shift start date to next date.
+                                                                        repeat
+                                                                            HoursPerDay := 0;
+                                                                            WorkCenCapacityEntryRec.Reset();
+                                                                            WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                                                            WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
+                                                                            if WorkCenCapacityEntryRec.FindSet() then begin
+                                                                                repeat
+                                                                                    HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
+                                                                                until WorkCenCapacityEntryRec.Next() = 0;
+                                                                            end
+                                                                            else begin
+                                                                                Count := 0;
+                                                                                dtNextMonth := CalcDate('<+1M>', dtStart);
+                                                                                dtSt := CalcDate('<-CM>', dtNextMonth);
+                                                                                dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                                                                WorkCenCapacityEntryRec.Reset();
+                                                                                WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                                                                WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+                                                                                if WorkCenCapacityEntryRec.FindSet() then
+                                                                                    Count += WorkCenCapacityEntryRec.Count;
+
+                                                                                if Count < 14 then
+                                                                                    Error('Calender is not setup for the Line : %1', WorkCenterName);
+                                                                            end;
+
+                                                                            if HoursPerDay = 0 then
+                                                                                dtStart := dtStart + 1;
+                                                                        until HoursPerDay > 0;
+
+                                                                        if (HoursPerDay > HoursGap) then begin
+                                                                            TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
+                                                                            HoursGap := 0;
+                                                                        end
+                                                                        else begin
+                                                                            HoursGap := HoursGap - HoursPerDay;
+                                                                            dtStart := dtStart + 1;
+                                                                        end;
+
+                                                                    until HoursGap = 0;
+                                                                end
                                                             end
                                                             else begin
-                                                                HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime;
-                                                                HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"));
-                                                                HoursGap := HoursGap / 3600000;
-
-                                                                if (HoursGap IN [0.0001 .. 0.99]) then
-                                                                    HoursGap := 1;
-
-                                                                HoursGap := round(HoursGap, 1, '>');
+                                                                TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
+                                                                HoursGap := 0;
                                                             end;
 
-                                                        //Add Hour Gap between two allocations to the start time of current allocation 
-                                                        TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
+                                                            TempDate := dtStart;
+                                                        end;
 
                                                         HoursPerDay := 0;
+
+                                                        // if Prev_FinishedDateTime <> 0DT then
+                                                        //     if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
+                                                        //         HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
+                                                        //         HoursGap := HoursGap / 3600000;
+
+                                                        //         if (HoursGap IN [0.0001 .. 0.99]) then
+                                                        //             HoursGap := 1;
+
+                                                        //         HoursGap := round(HoursGap, 1, '>');
+                                                        //     end
+                                                        //     else begin
+                                                        //         HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime;
+                                                        //         HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"));
+                                                        //         HoursGap := HoursGap / 3600000;
+
+                                                        //         if (HoursGap IN [0.0001 .. 0.99]) then
+                                                        //             HoursGap := 1;
+
+                                                        //         HoursGap := round(HoursGap, 1, '>');
+                                                        //     end;
+
+
+                                                        //Add Hour Gap between two allocations to the start time of current allocation 
+                                                        //TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
+                                                        // HoursPerDay := 0;
+
                                                         //if start time greater than parameter Finish time, set start time next day morning
                                                         if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
                                                             TImeStart := LocationRec."Start Time";
@@ -1160,7 +1273,6 @@ page 50371 "Prod Update Card"
                                                         ProdPlansDetails.SetFilter(ProdUpd, '<>%1', 1);
                                                         if ProdPlansDetails.FindSet() then
                                                             ProdPlansDetails.DeleteAll();
-
 
                                                         //Check learning curve                        
                                                         LCurveFinishDate := dtStart;
