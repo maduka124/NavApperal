@@ -441,6 +441,7 @@ page 50996 "PI Details Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
+
             }
 
             group("PO Details")
@@ -450,7 +451,7 @@ page 50996 "PI Details Card"
                 {
                     ApplicationArea = All;
                     Caption = 'All POs Awaiting PI';
-                    SubPageLink = "Buy-from Vendor No." = FIELD("Supplier No."), "Merchandizer Group Name" = field(MerchantGrp);
+                    SubPageLink = "Buy-from Vendor No." = FIELD("Supplier No."), "Merchandizer Group Name" = field(MerchantGrp), "Proforma Invoice No." = field("No.");
                 }
 
                 part("PI Po Details ListPart 2"; "PI Po Details ListPart 2")
