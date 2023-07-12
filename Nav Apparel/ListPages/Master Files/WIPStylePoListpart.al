@@ -256,10 +256,17 @@ page 51300 "WIP Style PO Listpart"
                 {
                     ApplicationArea = All;
                 }
-                field("Poly Bag"; Rec."Poly Bag")
+                field("Finish Qty"; Rec."Finish Qty")
                 {
                     ApplicationArea = All;
+                    Caption = 'Poly Bag';
                 }
+                // field("Poly Bag"; Rec."Poly Bag")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Poly Bag';
+                //     //Changes done according to MR Nevil 11/07/2023
+                // }
                 field("Shipped Qty"; Rec."Shipped Qty")
                 {
                     ApplicationArea = All;

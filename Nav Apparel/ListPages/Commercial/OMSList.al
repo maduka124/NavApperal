@@ -256,75 +256,86 @@ page 51328 OMSList
                             OMSRec."Ship Date" := StylePoRec."Ship Date";
                             OMSRec.Mode := StylePoRec.Mode;
                             OMSRec.Factory := StyleRec."Factory Code";
-                            // OMSRec."EMB IN" := StylePoRec."Emb In Qty";
-                            // OMSRec."EMB OUT" := StylePoRec."Emb Out Qty";
-                            // OMSRec."Print IN" := StylePoRec."Print In Qty";
-                            // OMSRec."Print OUT" := StylePoRec."Print Out Qty";
+                            OMSRec."EMB IN" := StylePoRec."Emb In Qty";
+                            OMSRec."EMB OUT" := StylePoRec."Emb Out Qty";
+                            OMSRec."Print IN" := StylePoRec."Print In Qty";
+                            OMSRec."Print OUT" := StylePoRec."Print Out Qty";
                             OMSRec.Lot := StylePoRec."Lot No.";
-                            // OMSRec."Wash IN" := StylePoRec."Wash In Qty";
-                            // OMSRec."Wash OUT" := StylePoRec."Wash Out Qty";
+                            OMSRec."Wash IN" := StylePoRec."Wash In Qty";
+                            OMSRec."Wash OUT" := StylePoRec."Wash Out Qty";
                             OMSRec."Poly OUT" := StylePoRec."Poly Bag";
-                            // OMSRec."Line IN" := StylePoRec."Sawing In Qty";
-                            // OMSRec."Line OUT" := StylePoRec."Sawing Out Qty";
+                            OMSRec."Line IN" := StylePoRec."Sawing In Qty";
+                            OMSRec."Line OUT" := StylePoRec."Sawing Out Qty";
+                            OMSRec."Cut Qty" := StylePoRec."Cut In Qty";
                             OMSRec.FOB := StylePoRec."Unit Price";
                             OMSRec."EX Date" := StylePoRec."Ship Date";
+                            OMSRec."Poly OUT" := StylePoRec."Finish Qty";
 
-
-                            ProdRec.Reset();
-                            ProdRec.SetRange("Style No.", StylePoRec."Style No.");
-                            ProdRec.SetRange("PO No", StylePoRec."PO No.");
-                            ProdRec.SetRange(Type, ProdRec.Type::Cut);
-                            if ProdRec.FindSet() then begin
+                            POQtyTot := 0;
+                            StylePoRec1.Reset();
+                            StylePoRec1.SetRange("Style No.", StyleRec."No.");
+                            if StylePoRec1.FindSet() then begin
                                 // repeat
-                                OMSRec."Cut Qty" := ProdRec."Output Qty";
-                                // until ProdRec.Next() = 0;
+                                POQtyTot := StylePoRec1.Qty;
+                                // until StylePoRec1.Next() = 0;
                             end;
+                            ShQty := 0;
+                            SalesInvRec.Reset();
+                            SalesInvRec.SetRange(Lot, StylePoRec."Lot No.");
+                            SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
+                            SalesInvRec.SetRange("PO No", StylePoRec."PO No.");
+                            SalesInvRec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
+                            if SalesInvRec.FindSet() then begin
+                                repeat
+                                    SalesInvoiceLineRec.Reset();
+                                    SalesInvoiceLineRec.SetRange("Document No.", SalesInvRec."No.");
+                                    SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                                    if SalesInvoiceLineRec.FindSet() then begin
+                                        repeat
+                                            ShQty += SalesInvoiceLineRec.Quantity;
+                                        until SalesInvoiceLineRec.Next() = 0;
+                                    end;
+                                until SalesInvRec.Next() = 0;
+                                OMSRec."Ship Qty" := ShQty;
+                                OMSRec."Ship value" := ShQty * StylePoRec."Unit Price";
+                                OMSRec."EXP QTY" := ShQty;
 
-                            ProdRec.Reset();
-                            ProdRec.SetRange("Style No.", StylePoRec."Style No.");
-                            ProdRec.SetRange("PO No", StylePoRec."PO No.");
-                            ProdRec.SetRange(Type, ProdRec.Type::Emb);
-                            if ProdRec.FindSet() then begin
-                                // repeat
-                                OMSRec."EMB IN" := ProdRec."Input Qty";
-                                OMSRec."EMB OUT" := ProdRec."Output Qty";
-                                // until ProdRec.Next() = 0;
+                                OMSRec."EX Short" := ShQty - POQtyTot;
+
                             end;
+                        end
+                        else begin
+                            OMSRec."Lc Contract No" := LcRec."Contract No";
+                            OMSRec.Season := StyleRec."Season Name";
+                            OMSRec.Store := StyleRec."Store Name";
+                            OMSRec.Buyer := StyleRec."Buyer Name";
+                            OMSRec."Style No" := StyleRec."No.";
+                            OMSRec."Style Des" := StyleRec."Style No.";
+                            OMSRec."Order Qty" := StyleRec."Order Qty";
+                            OMSRec.Brand := StyleRec."Brand Name";
+                            OMSRec.Department := StyleRec."Department Name";
+                            OMSRec."Po No" := StylePoRec."PO No.";
+                            OMSRec."Po Qty" := StylePoRec.Qty;
+                            OMSRec."Unit Price" := StylePoRec."Unit Price";
+                            OMSRec."Ship Date" := StylePoRec."Ship Date";
+                            OMSRec.Mode := StylePoRec.Mode;
+                            OMSRec.Factory := StyleRec."Factory Code";
+                            OMSRec."EMB IN" := StylePoRec."Emb In Qty";
+                            OMSRec."EMB OUT" := StylePoRec."Emb Out Qty";
+                            OMSRec."Print IN" := StylePoRec."Print In Qty";
+                            OMSRec."Print OUT" := StylePoRec."Print Out Qty";
+                            OMSRec.Lot := StylePoRec."Lot No.";
+                            OMSRec."Wash IN" := StylePoRec."Wash In Qty";
+                            OMSRec."Wash OUT" := StylePoRec."Wash Out Qty";
+                            OMSRec."Poly OUT" := StylePoRec."Poly Bag";
+                            OMSRec."Line IN" := StylePoRec."Sawing In Qty";
+                            OMSRec."Line OUT" := StylePoRec."Sawing Out Qty";
+                            OMSRec."Cut Qty" := StylePoRec."Cut In Qty";
+                            OMSRec.FOB := StylePoRec."Unit Price";
+                            OMSRec."EX Date" := StylePoRec."Ship Date";
+                            OMSRec."Poly OUT" := StylePoRec."Finish Qty";
 
-                            ProdRec.Reset();
-                            ProdRec.SetRange("Style No.", StylePoRec."Style No.");
-                            ProdRec.SetRange("PO No", StylePoRec."PO No.");
-                            ProdRec.SetRange(Type, ProdRec.Type::Wash);
-                            if ProdRec.FindSet() then begin
-                                // repeat
-                                OMSRec."Wash IN" := ProdRec."Input Qty";
-                                OMSRec."Wash OUT" := ProdRec."Output Qty";
-                                // until ProdRec.Next() = 0;
-                            end;
-
-                            ProdRec.Reset();
-                            ProdRec.SetRange("Style No.", StylePoRec."Style No.");
-                            ProdRec.SetRange("PO No", StylePoRec."PO No.");
-                            ProdRec.SetRange(Type, ProdRec.Type::Print);
-                            if ProdRec.FindSet() then begin
-                                // repeat
-                                OMSRec."Print IN" := ProdRec."Input Qty";
-                                OMSRec."Print OUT" := ProdRec."Output Qty";
-                                // until ProdRec.Next() = 0;
-                            end;
-
-                            ProdRec.Reset();
-                            ProdRec.SetRange("Style No.", StylePoRec."Style No.");
-                            ProdRec.SetRange("PO No", StylePoRec."PO No.");
-                            ProdRec.SetRange(Type, ProdRec.Type::Saw);
-                            if ProdRec.FindSet() then begin
-                                // repeat
-                                OMSRec."Line IN" := ProdRec."Input Qty";
-                                OMSRec."Line OUT" := ProdRec."Output Qty";
-                                // until ProdRec.Next() = 0;
-                            end;
-
-
+                            POQtyTot := 0;
                             StylePoRec1.Reset();
                             StylePoRec1.SetRange("Style No.", StyleRec."No.");
                             if StylePoRec1.FindSet() then begin
@@ -333,18 +344,23 @@ page 51328 OMSList
                                 // until StylePoRec1.Next() = 0;
                             end;
 
+                            ShQty := 0;
                             SalesInvRec.Reset();
+                            SalesInvRec.SetRange(Lot, StylePoRec."Lot No.");
+                            SalesInvRec.SetRange("PO No", StylePoRec."PO No.");
                             SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
                             SalesInvRec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
                             if SalesInvRec.FindSet() then begin
-                                SalesInvoiceLineRec.Reset();
-                                SalesInvoiceLineRec.SetRange("Document No.", SalesInvRec."No.");
-                                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                                if SalesInvoiceLineRec.FindSet() then begin
-                                    repeat
-                                        ShQty += SalesInvoiceLineRec.Quantity;
-                                    until SalesInvoiceLineRec.Next() = 0;
-                                end;
+                                repeat
+                                    SalesInvoiceLineRec.Reset();
+                                    SalesInvoiceLineRec.SetRange("Document No.", SalesInvRec."No.");
+                                    SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                                    if SalesInvoiceLineRec.FindSet() then begin
+                                        repeat
+                                            ShQty += SalesInvoiceLineRec.Quantity;
+                                        until SalesInvoiceLineRec.Next() = 0;
+                                    end;
+                                until SalesInvRec.Next() = 0;
                                 OMSRec."Ship Qty" := ShQty;
                                 OMSRec."Ship value" := ShQty * StylePoRec."Unit Price";
                                 OMSRec."EXP QTY" := ShQty;
