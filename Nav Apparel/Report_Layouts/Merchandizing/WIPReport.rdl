@@ -4007,6 +4007,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Cut_In_Qty">
           <DataField>Cut_In_Qty</DataField>
         </Field>
+        <Field Name="Cut_In_QtyFormat">
+          <DataField>Cut_In_QtyFormat</DataField>
+        </Field>
         <Field Name="Wash_In_Qty">
           <DataField>Wash_In_Qty</DataField>
         </Field>
