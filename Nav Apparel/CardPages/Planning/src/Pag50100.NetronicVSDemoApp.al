@@ -492,6 +492,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                     ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
 
+                    if FactoryNo = '' then
+                        Error('Invalid Factory');
+
+                    if ResourceNo = '' then
+                        Error('Invalid Line');
+
                     //------------------------------------------
                     //calculate start date and strt time
                     //Check whether a allocations starts between day start time and drop time. 
@@ -1182,7 +1188,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                             JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
                             JobPlaLineRec.Qty := PlanningQueueeRec.Qty;
-                            JobPlaLineRec.Factory := PlanningQueueeRec.Factory;
+                            JobPlaLineRec.Factory := FactoryNo;
                             JobPlaLineRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                             JobPlaLineRec."Created Date" := WorkDate();
                             JobPlaLineRec.Insert();
@@ -1409,7 +1415,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     WorkCenCapacityEntryRec.Reset();
                                                     WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                     WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                                     if WorkCenCapacityEntryRec.FindSet() then begin
                                                         repeat
                                                             HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -1424,7 +1429,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                         WorkCenCapacityEntryRec.Reset();
                                                         WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                         WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
-
                                                         if WorkCenCapacityEntryRec.FindSet() then
                                                             Count += WorkCenCapacityEntryRec.Count;
 
@@ -1531,7 +1535,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 end;
 
                                                 repeat
-
                                                     //Get working hours for the day
                                                     HoursPerDay := 0;
                                                     Holiday := 'NO';
@@ -2601,11 +2604,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                         //Calculate hourly gap between prevous and current allocation
                                         if Prev_FinishedDateTime <> 0DT then begin
-                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then 
-                                                HoursGap := 0                                         
+                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then
+                                                HoursGap := 0
                                             else begin
 
-                                                XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);                                              
+                                                XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
                                                 HoursPerDay2 := 0;
 
                                                 for X := 1 To XX do begin
@@ -2637,11 +2640,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     HoursGap := 1;
 
                                                 HoursGap := round(HoursGap, 1, '>');
-                                                HoursGap := HoursGap + HoursPerDay2;                                             
+                                                HoursGap := HoursGap + HoursPerDay2;
                                             end;
                                         end;
 
-                                        if HoursGap < 20 then
+                                        if HoursGap < 30 then
                                             HoursGap := 0;
 
                                         //Based on Hourly Gap, calculate start Date/time of current allocation 
@@ -3197,6 +3200,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         JobPlaLine2Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                         JobPlaLine2Rec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLine2Rec."Finish Time");
                                         JobPlaLine2Rec.Qty := Qty;
+                                        //JobPlaLine2Rec.Factory := FactoryNo;
 
                                         Prev_FinishedDateTime := JobPlaLine2Rec.FinishDateTime;
                                         // Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
