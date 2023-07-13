@@ -8,7 +8,8 @@ page 50978 "Create User Card"
     // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purchase Line" = rmID;
     // Permissions = tabledata "Sales Invoice Header" = rmID;
-    Permissions = tabledata "Purchase Header" = RIMD;
+    // Permissions = tabledata "Purchase Header" = RIMD;
+    Permissions = tabledata "Approval Entry" = RIMD;
 
     layout
     {
@@ -85,6 +86,11 @@ page 50978 "Create User Card"
                     ApplicationArea = All;
                     Caption = 'Purchase Order No';
                 }
+                field(ApprovalNo; ApprovalNo)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Request Approval PO No';
+                }
             }
         }
     }
@@ -126,6 +132,27 @@ page 50978 "Create User Card"
 
             //     end;
             // }
+            action("Reomove Request Approval")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ApprovalRec: Record "Approval Entry";
+                begin
+                    ApprovalRec.Reset();
+                    ApprovalRec.SetRange("Document No.", ApprovalNo);
+                    ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
+                    ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
+                    if ApprovalRec.FindSet() then begin
+                        ApprovalRec.DeleteAll();
+                        Message('Request Deleted');
+                    end;
+
+
+                end;
+            }
+
 
             action("Remove Assigned PI No")
             {
@@ -433,6 +460,7 @@ page 50978 "Create User Card"
 
 
     var
+        ApprovalNo: Code[20];
         PONo: Code[20];
         PurchaseNo: Code[20];
         ExportRefNo: Code[50];
