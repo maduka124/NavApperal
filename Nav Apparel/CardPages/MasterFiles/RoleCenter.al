@@ -479,6 +479,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "BOM Estimate Cost (Approval)";
                     ApplicationArea = all;
                 }
+                action("Fabric Code Merchandizing")
+                {
+                    Caption = 'Fabric Code';
+                    RunObject = Page FabricCodeList;
+                    ApplicationArea = all;
+                }
 
                 action("My Task")
                 {
