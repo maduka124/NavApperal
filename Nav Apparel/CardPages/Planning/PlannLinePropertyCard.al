@@ -410,7 +410,6 @@ page 50343 "Planning Line Property Card"
                         ResCapacityEntryRec.Reset();
                         ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                         ResCapacityEntryRec.SETRANGE(Date, TempDate);
-
                         if ResCapacityEntryRec.FindSet() then begin
                             repeat
                                 HrsPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -660,12 +659,7 @@ page 50343 "Planning Line Property Card"
                         ProdPlansDetails."Resource No." := rec."Resource No.";
                         ProdPlansDetails.Carder := rec.Carder;
                         ProdPlansDetails.Eff := rec.Eff;
-                        ProdPlansDetails.SMV := rec.SMV;
-
-                        // if ApplyLCurve = true then
-                        //     ProdPlansDetails."Learning Curve No." := rec."Learning Curve No."
-                        // else
-                        //     ProdPlansDetails."Learning Curve No." := 0;
+                        ProdPlansDetails.SMV := rec.SMV;                      
 
                         if Holiday = 'NO' then begin
                             if i = 1 then
@@ -771,7 +765,6 @@ page 50343 "Planning Line Property Card"
                     JobPlaLineRec.SetCurrentKey(StartDateTime);
                     JobPlaLineRec.Ascending(true);
                     JobPlaLineRec.SetFilter("Line No.", '<>%1', rec."Line No.");
-
                     if JobPlaLineRec.FindSet() then begin
 
                         HrsPerDay := 0;
