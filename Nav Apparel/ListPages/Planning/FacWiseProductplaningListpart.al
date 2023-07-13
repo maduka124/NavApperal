@@ -25,20 +25,20 @@ page 50860 FacWiseProductplaningPart
                     ApplicationArea = All;
                 }
 
-                field("Cutting Planned"; Rec."Cutting Planned")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Cutting Planned"; Rec."Cutting Planned")
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field("Cutting Achieved"; Rec."Cutting Achieved")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cutting Difference"; Rec."Cutting Difference")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Cutting Difference"; Rec."Cutting Difference")
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field("Sewing Planned"; Rec."Sewing Planned")
                 {
@@ -55,20 +55,20 @@ page 50860 FacWiseProductplaningPart
                     ApplicationArea = All;
                 }
 
-                field("Finishing Planned"; Rec."Finishing Planned")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Finishing Planned"; Rec."Finishing Planned")
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field("Finishing Achieved"; Rec."Finishing Achieved")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finishing Difference"; Rec."Finishing Difference")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Finishing Difference"; Rec."Finishing Difference")
+                // {
+                //     ApplicationArea = All;
+                // }
             }
         }
     }

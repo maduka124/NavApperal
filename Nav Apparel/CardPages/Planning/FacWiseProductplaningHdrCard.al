@@ -159,9 +159,8 @@ page 50862 FacWiseProductplaningHdrCard
                             if FacWiseProductplaningLineRec.FindSet() then begin
                                 FacWiseProductplaningLineRec."Sewing Planned" := FacWiseProductplaningLineRec."Sewing Planned" + round(NavappPlaningRec.Qty, 1);
                                 FacWiseProductplaningLineRec.Modify();
-                            end;
-
-                            if not FacWiseProductplaningLineRec.FindSet() then begin
+                            end
+                            else begin
                                 FacWiseProductplaningLineRec.Init();
                                 FacWiseProductplaningLineRec."No." := rec.No;
                                 FacWiseProductplaningLineRec.Date := NavappPlaningRec.PlanDate;
@@ -213,30 +212,28 @@ page 50862 FacWiseProductplaningHdrCard
                     if FinishingProductionOutHeaderRec.FindSet() then begin
                         repeat
 
-                            WorkcentersRec.Reset();
-                            WorkcentersRec.SetRange("Name", FinishingProductionOutHeaderRec."Resource Name");
-                            WorkcentersRec.SetRange("Factory No.", rec."Factory Code");
+                            // WorkcentersRec.Reset();
+                            // WorkcentersRec.SetRange("Name", FinishingProductionOutHeaderRec."Resource Name");
+                            // WorkcentersRec.SetRange("Factory No.", rec."Factory Code");
+                            // if WorkcentersRec.FindSet() then begin
 
-                            if WorkcentersRec.FindSet() then begin
-                                FacWiseProductplaningLineRec.Reset();
-                                FacWiseProductplaningLineRec.SetRange(Date, FinishingProductionOutHeaderRec."Prod Date");
-                                FacWiseProductplaningLineRec.SetRange("No.", rec.No);
-
-                                if not FacWiseProductplaningLineRec.FindSet() then begin
-                                    FacWiseProductplaningLineRec.Init();
-                                    FacWiseProductplaningLineRec."No." := rec.No;
-                                    FacWiseProductplaningLineRec.Date := FinishingProductionOutHeaderRec."Prod Date";
-                                    FacWiseProductplaningLineRec."Finishing Achieved" := FinishingProductionOutHeaderRec."Output Qty";
-                                    FacWiseProductplaningLineRec."Finishing Difference" := FinishingProductionOutHeaderRec."Output Qty" - FacWiseProductplaningLineRec."Finishing Planned";
-                                    FacWiseProductplaningLineRec.Insert()
-                                end;
-
-                                if FacWiseProductplaningLineRec.FindSet() then begin
-                                    FacWiseProductplaningLineRec."Finishing Achieved" := FinishingProductionOutHeaderRec."Output Qty";
-                                    FacWiseProductplaningLineRec."Finishing Difference" := FinishingProductionOutHeaderRec."Output Qty" - FacWiseProductplaningLineRec."Finishing Planned";
-                                    FacWiseProductplaningLineRec.Modify();
-                                end;
+                            FacWiseProductplaningLineRec.Reset();
+                            FacWiseProductplaningLineRec.SetRange(Date, FinishingProductionOutHeaderRec."Prod Date");
+                            FacWiseProductplaningLineRec.SetRange("No.", rec.No);
+                            if not FacWiseProductplaningLineRec.FindSet() then begin
+                                FacWiseProductplaningLineRec.Init();
+                                FacWiseProductplaningLineRec."No." := rec.No;
+                                FacWiseProductplaningLineRec.Date := FinishingProductionOutHeaderRec."Prod Date";
+                                FacWiseProductplaningLineRec."Finishing Achieved" := FinishingProductionOutHeaderRec."Output Qty";
+                                FacWiseProductplaningLineRec."Finishing Difference" := FinishingProductionOutHeaderRec."Output Qty" - FacWiseProductplaningLineRec."Finishing Planned";
+                                FacWiseProductplaningLineRec.Insert()
+                            end
+                            else begin
+                                FacWiseProductplaningLineRec."Finishing Achieved" := FinishingProductionOutHeaderRec."Output Qty";
+                                FacWiseProductplaningLineRec."Finishing Difference" := FinishingProductionOutHeaderRec."Output Qty" - FacWiseProductplaningLineRec."Finishing Planned";
+                                FacWiseProductplaningLineRec.Modify();
                             end;
+                        //end;
                         until FinishingProductionOutHeaderRec.Next() = 0;
                     end;
                 end;
