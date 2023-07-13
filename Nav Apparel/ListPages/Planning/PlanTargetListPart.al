@@ -51,6 +51,7 @@ page 50346 "Plan Target List part"
                 {
                     ApplicationArea = All;
                     Caption = 'Target';
+                    DecimalPlaces = 0;
                 }
             }
         }

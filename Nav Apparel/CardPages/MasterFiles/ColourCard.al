@@ -26,12 +26,19 @@ page 50947 "Colour Card"
                         ColourRec: Record Colour;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        AssoColorRec: Record AssortmentDetails;
                     begin
                         ColourRec.Reset();
                         ColourRec.SetRange("Colour Name", rec."Colour Name");
                         if ColourRec.FindSet() then
                             Error('Colour name already exists.');
 
+                        if xRec."Colour Name" <> '' then begin
+                            AssoColorRec.Reset();
+                            AssoColorRec.SetRange("Colour Name", xRec."Colour Name");
+                            if AssoColorRec.FindSet() then
+                                Error('Colour Name already used. Cannot change it.');
+                        end;
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();

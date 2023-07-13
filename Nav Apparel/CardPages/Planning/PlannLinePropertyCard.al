@@ -258,9 +258,7 @@ page 50343 "Planning Line Property Card"
                     Prev_FinishedDateTime := rec.FinishDateTime;
                     dtStart := rec."Start Date";
                     TImeStart := rec."Start Time";
-                    //SameStyle := rec."Style No.";
-                    // TargetPerHour := rec.Target / HrsPerDay;
-                    TargetPerHour := HourlyTarget;
+                    //TargetPerHour := HourlyTarget;
                     TempDate := dtStart;
 
                     if rec."Learning Curve No." = 0 then
@@ -464,6 +462,8 @@ page 50343 "Planning Line Property Card"
                             HrsPerDay := HrsPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                         end;
 
+                        TargetPerHour := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
+                        TargetPerDay := round(TargetPerHour * HrsPerDay, 1);
 
                         if (rec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
 
@@ -659,7 +659,7 @@ page 50343 "Planning Line Property Card"
                         ProdPlansDetails."Resource No." := rec."Resource No.";
                         ProdPlansDetails.Carder := rec.Carder;
                         ProdPlansDetails.Eff := rec.Eff;
-                        ProdPlansDetails.SMV := rec.SMV;                      
+                        ProdPlansDetails.SMV := rec.SMV;
 
                         if Holiday = 'NO' then begin
                             if i = 1 then
@@ -994,8 +994,8 @@ page 50343 "Planning Line Property Card"
                                     until HrsPerDay > 0;
 
                                     if rec."Style No." = JobPlaLineRec."Style No." then begin   //Same as initial style 
-                                        TargetPerDay := rec.Target;
-                                        TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
+                                        // TargetPerDay := rec.Target;
+                                        // TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
                                     end
                                     else begin
                                         TargetPerHour := round(((60 / SMV) * Carder * Eff) / 100, 1);
@@ -1346,6 +1346,8 @@ page 50343 "Planning Line Property Card"
                                                 TempHours := round(TempHours, 0.01);
                                             end;
                                         end;
+
+                                        xQty := Round(xQty, 1);
 
                                         //Get Max Lineno
                                         MaxLineNo := 0;

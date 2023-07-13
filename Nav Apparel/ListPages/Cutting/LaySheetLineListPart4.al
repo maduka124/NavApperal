@@ -20,12 +20,15 @@ page 50655 "Lay Sheet Line4"
 
                     trigger OnValidate()
                     var
-                        colorRec: Record Colour;
+                        colorRec: Record LaySheetColor;
                     begin
                         colorRec.Reset();
-                        colorRec.SetRange("Colour Name", rec.Color);
-                        colorRec.FindSet();
-                        rec."Color No." := colorRec."No.";
+                        colorRec.SetRange(Color, rec.Color);
+                        colorRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                        if colorRec.FindSet() then
+                            rec."Color No." := colorRec."Color No."
+                        else
+                            Error('Cannot find color in Laysheetcolor.');
                     end;
                 }
 
