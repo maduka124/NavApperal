@@ -45,6 +45,11 @@ page 51324 OrderShippingList
                     ApplicationArea = All;
                     Editable = false;
                 }
+                field("Order Qty"; Rec."Order Qty")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field("Po Qty"; Rec."Po Qty")
                 {
                     ApplicationArea = All;
@@ -94,6 +99,7 @@ page 51324 OrderShippingList
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'X-factory ';
                 }
                 field("Invoice Date"; Rec."Invoice Date")
                 {
@@ -241,6 +247,8 @@ page 51324 OrderShippingList
     }
     trigger OnOpenPage()
     var
+        SalesInvRec2: Record "Sales Invoice Header";
+        SalesLineRec: Record "Sales Invoice Line";
         ShipmentLineRec: Record "Sales Shipment Line";
         BankRefColRec: Record BankRefCollectionHeader;
         BankRefHRec: Record BankReferenceHeader;
@@ -257,7 +265,6 @@ page 51324 OrderShippingList
         MaxSeqNo: BigInteger;
         ShQty: Decimal;
     begin
-        ShQty := 0;
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -271,13 +278,12 @@ page 51324 OrderShippingList
         // MaxSeqNo := 0;
 
         // // Delete Old Records
-        // OrderSummaryRec.Reset();
-        // // OrderSummaryRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
-        // // OrderSummaryRec.SetRange(No, Rec."No.");
-        // if OrderSummaryRec.FindSet() then begin
-        //     OrderSummaryRec.DeleteAll();
-        //     CurrPage.Update();
-        // end;
+        OrderSummaryRec.Reset();
+        // OrderSummaryRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        // OrderSummaryRec.SetRange(No, Rec."No.");
+        if OrderSummaryRec.FindSet() then begin
+            OrderSummaryRec.DeleteAll();
+        end;
 
         //Get Max Seq No
         OrderSummaryRec.Reset();
@@ -302,6 +308,7 @@ page 51324 OrderShippingList
                         LcRec.SetRange("No.", StyleRec.AssignedContractNo);
                         if LcRec.FindSet() then begin
                             OrderSummaryRec."Contract Lc No" := LcRec."Contract No";
+                            OrderSummaryRec."Order Qty" := StyleRec."Order Qty";
                             OrderSummaryRec.Season := StyleRec."Season Name";
                             OrderSummaryRec."Buyer No" := StyleRec."Buyer No.";
                             OrderSummaryRec.Buyer := StyleRec."Buyer Name";
@@ -323,6 +330,8 @@ page 51324 OrderShippingList
                             SalesInvRec.Reset();
                             SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
                             SalesInvRec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
+                            SalesInvRec.SetRange("PO No", StylePoRec."PO No.");
+                            SalesInvRec.SetRange(Lot, StylePoRec."Lot No.");
                             if SalesInvRec.FindSet() then begin
                                 OrderSummaryRec."Invoice No" := SalesInvRec."Your Reference";
                                 OrderSummaryRec."Invoice Date" := SalesInvRec."Shipment Date";
@@ -334,14 +343,26 @@ page 51324 OrderShippingList
                                 OrderSummaryRec."Exp Date" := SalesInvRec."Exp Date";
                                 OrderSummaryRec.Destination := SalesInvRec."Location Code";
 
-                                ShipmentLineRec.Reset();
-                                ShipmentLineRec.SetRange("Order No.", SalesInvRec."Order No.");
-                                ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
-                                if ShipmentLineRec.FindSet() then begin
+                                ShQty := 0;
+                                SalesInvRec2.Reset();
+                                SalesInvRec2.SetRange("Style Name", StyleRec."Style No.");
+                                SalesInvRec2.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
+                                SalesInvRec2.SetRange("PO No", StylePoRec."PO No.");
+                                SalesInvRec2.SetRange(Lot, StylePoRec."Lot No.");
+                                if SalesInvRec.FindSet() then begin
                                     repeat
-                                        ShQty += ShipmentLineRec.Quantity;
-                                    until ShipmentLineRec.Next() = 0;
+                                        SalesLineRec.Reset();
+                                        SalesLineRec.SetRange("Order No.", SalesInvRec2."Order No.");
+                                        SalesLineRec.SetRange(Type, SalesLineRec.Type::Item);
+                                        if SalesInvRec.FindSet() then begin
+                                            repeat
+                                                ShQty += SalesLineRec.Quantity;
+                                            until SalesLineRec.Next() = 0;
+                                        end;
+                                    until SalesInvRec2.Next() = 0;
                                 end;
+
+
                                 OrderSummaryRec."Ship Qty" := ShQty;
                                 OrderSummaryRec."Ship value" := ShQty * StylePoRec."Unit Price";
 
