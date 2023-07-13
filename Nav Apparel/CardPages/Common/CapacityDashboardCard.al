@@ -45,17 +45,6 @@ page 51349 CapacityDashboardCard
                         end;
                     end;
                 }
-
-                field("Month Name"; rec."Month Name")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Month';
-                }
-
-                // field(Factory; rec.Factory)
-                // {
-                //     ApplicationArea = all;
-                // }
             }
 
             group("Group Capacity")
@@ -74,7 +63,6 @@ page 51349 CapacityDashboardCard
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    SubPageLink = Year = field(Year), Month = field("Month Name");
                 }
             }
 
@@ -84,7 +72,6 @@ page 51349 CapacityDashboardCard
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    SubPageLink = Year = field(Year), Month = field("Month Name");
                 }
             }
         }
@@ -94,7 +81,7 @@ page 51349 CapacityDashboardCard
     {
         area(Processing)
         {
-            action("Refresh Data")
+            action("Refresh Group Capacity Data")
             {
                 ApplicationArea = All;
                 Image = RefreshRegister;
@@ -103,9 +90,9 @@ page 51349 CapacityDashboardCard
                 var
                     LocationRec: Record Location;
                     WorkCenterRec: Record "Work Center";
-                    LineWiseCapacityRec: Record LineWiseCapacity;
+                    // LineWiseCapacityRec: Record LineWiseCapacity;
                     GroupWiseCapacityRec: Record GroupWiseCapacity;
-                    FactoryWiseCapacityRec: Record FactoryWiseCapacity;
+                    // FactoryWiseCapacityRec: Record FactoryWiseCapacity;
                     SalesShipmentHeaderRec: Record "Sales Shipment Header";
                     SalesShipmentLineRec: Record "Sales Shipment Line";
                     Mon: Integer;
@@ -116,22 +103,22 @@ page 51349 CapacityDashboardCard
                     if rec.Year >= 2023 then begin
 
                         //Delete old data
-                        FactoryWiseCapacityRec.Reset();
-                        if FactoryWiseCapacityRec.FindSet() then
-                            FactoryWiseCapacityRec.DeleteAll();
+                        // FactoryWiseCapacityRec.Reset();
+                        // if FactoryWiseCapacityRec.FindSet() then
+                        //     FactoryWiseCapacityRec.DeleteAll();
 
                         GroupWiseCapacityRec.Reset();
                         if GroupWiseCapacityRec.FindSet() then
                             GroupWiseCapacityRec.DeleteAll();
 
-                        LineWiseCapacityRec.Reset();
-                        if LineWiseCapacityRec.FindSet() then
-                            LineWiseCapacityRec.DeleteAll();
+                        // LineWiseCapacityRec.Reset();
+                        // if LineWiseCapacityRec.FindSet() then
+                        //     LineWiseCapacityRec.DeleteAll();
 
                         ////////////////////////////////////
                         GroupMax := 0;
-                        FacMax := 0;
-                        LineMax := 0;
+                        // FacMax := 0;
+                        // LineMax := 0;
 
                         for Mon := 1 to 12 do begin
                             case Mon of
@@ -171,14 +158,6 @@ page 51349 CapacityDashboardCard
                             Avg_Plan_Mnts := 0;
                             Ship_Pcs := 0;
                             Ship_Value := 0;
-                            Capacity_Pcs1Tot := 0;
-                            Planned_Pcs1Tot := 0;
-                            Achieved_Pcs1Tot := 0;
-                            Avg_SMV1Tot := 0;
-                            Avg_SMVTemp1Tot := 0;
-                            Plan_Eff1Tot := 0;
-                            Available_Mnts1Tot := 0;
-                            Avg_Plan_Mnts1Tot := 0;
                             GroupMax += 1;
 
                             //////Cal ship Pcs (group level only)
@@ -238,102 +217,15 @@ page 51349 CapacityDashboardCard
                             LocationRec.SetFilter("Sewing Unit", '=%1', true);
                             if LocationRec.FindSet() then begin
                                 repeat
-                                    Capacity_Pcs1 := 0;
-                                    Planned_Pcs1 := 0;
-                                    Achieved_Pcs1 := 0;
-                                    Diff_Pcs1 := 0;
-                                    Avg_SMV1 := 0;
-                                    Avg_SMVTemp1 := 0;
-                                    Plan_Eff1 := 0;
-                                    Available_Mnts1 := 0;
-                                    Avg_Plan_Mnts1 := 0;
-
                                     WorkCenterRec.Reset();
                                     WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                                     WorkCenterRec.SetFilter("Planning Line", '=%1', true);
                                     if WorkCenterRec.FindSet() then begin
                                         repeat
-                                            Capacity_Pcs2 := 0;
-                                            Planned_Pcs2 := 0;
-                                            Achieved_Pcs2 := 0;
-                                            Diff_Pcs2 := 0;
-
-                                            GetData(Mon, Name, WorkCenterRec."No.", LocationRec.Code);
-
-                                            LineMax += 1;
-                                            LineWiseCapacityRec.Init();
-                                            LineWiseCapacityRec."No." := LineMax;
-                                            LineWiseCapacityRec.Factory := LocationRec.Code;
-                                            LineWiseCapacityRec."Resource No." := WorkCenterRec."No.";
-                                            LineWiseCapacityRec."Resource Name" := WorkCenterRec.Name;
-                                            LineWiseCapacityRec.Year := rec.Year;
-                                            LineWiseCapacityRec.Month := Name;
-                                            LineWiseCapacityRec."Month No" := Mon;
-                                            LineWiseCapacityRec."Capacity Pcs" := Capacity_Pcs2;
-                                            LineWiseCapacityRec."Achieved Pcs" := Achieved_Pcs2;
-                                            LineWiseCapacityRec."Diff." := Diff_Pcs2;
-                                            LineWiseCapacityRec."Planned Pcs" := Planned_Pcs2;
-                                            LineWiseCapacityRec."Record Type" := 'R';
-                                            LineWiseCapacityRec.Insert();
+                                            GetDataGRoup(Mon, Name, WorkCenterRec."No.", LocationRec.Code);
                                         until WorkCenterRec.Next() = 0;
                                     end;
-
-                                    //Factory wise insert
-                                    if Available_Mnts1 > 0 then
-                                        Plan_Eff1 := (Avg_Plan_Mnts1 / Available_Mnts1) * 100;
-
-                                    FacMax += 1;
-                                    FactoryWiseCapacityRec.Init();
-                                    FactoryWiseCapacityRec."No." := FacMax;
-                                    FactoryWiseCapacityRec.Factory := LocationRec.Code;
-                                    FactoryWiseCapacityRec.Year := rec.Year;
-                                    FactoryWiseCapacityRec.Month := Name;
-                                    FactoryWiseCapacityRec."Month No" := Mon;
-                                    FactoryWiseCapacityRec."Capacity Pcs" := Capacity_Pcs1;
-                                    FactoryWiseCapacityRec."Achieved Pcs" := Achieved_Pcs1;
-                                    FactoryWiseCapacityRec."Diff." := Diff_Pcs1;
-                                    FactoryWiseCapacityRec."Planned Pcs" := Planned_Pcs1;
-                                    FactoryWiseCapacityRec."Avg SMV" := Avg_SMV1;
-                                    FactoryWiseCapacityRec."Plan Eff." := Plan_Eff1;
-                                    FactoryWiseCapacityRec."Record Type" := 'R';
-                                    FactoryWiseCapacityRec.Insert();
                                 until LocationRec.Next() = 0;
-
-                                //Factory/month wise total insert
-                                if Available_Mnts1Tot > 0 then
-                                    Plan_Eff1Tot := (Avg_Plan_Mnts1Tot / Available_Mnts1Tot) * 100;
-
-                                FacMax += 1;
-                                FactoryWiseCapacityRec.Init();
-                                FactoryWiseCapacityRec."No." := FacMax;
-                                FactoryWiseCapacityRec.Factory := 'Total';
-                                FactoryWiseCapacityRec.Year := rec.Year;
-                                FactoryWiseCapacityRec.Month := Name;
-                                FactoryWiseCapacityRec."Month No" := Mon;
-                                FactoryWiseCapacityRec."Capacity Pcs" := Capacity_Pcs1Tot;
-                                FactoryWiseCapacityRec."Achieved Pcs" := Achieved_Pcs1Tot;
-                                FactoryWiseCapacityRec."Planned Pcs" := Planned_Pcs1Tot;
-                                FactoryWiseCapacityRec."Diff." := Achieved_Pcs1Tot - Planned_Pcs1Tot;
-                                FactoryWiseCapacityRec."Avg SMV" := Avg_SMV1Tot;
-                                FactoryWiseCapacityRec."Plan Eff." := Plan_Eff1Tot;
-                                FactoryWiseCapacityRec."Record Type" := 'S';
-                                FactoryWiseCapacityRec.Insert();
-
-                                LineMax += 1;
-                                LineWiseCapacityRec.Init();
-                                LineWiseCapacityRec."No." := LineMax;
-                                LineWiseCapacityRec.Factory := 'Total';
-                                LineWiseCapacityRec."Resource No." := '';
-                                LineWiseCapacityRec."Resource Name" := '';
-                                LineWiseCapacityRec.Year := rec.Year;
-                                LineWiseCapacityRec.Month := Name;
-                                LineWiseCapacityRec."Month No" := Mon;
-                                LineWiseCapacityRec."Capacity Pcs" := Capacity_Pcs1Tot;
-                                LineWiseCapacityRec."Achieved Pcs" := Achieved_Pcs1Tot;
-                                LineWiseCapacityRec."Planned Pcs" := Planned_Pcs1Tot;
-                                LineWiseCapacityRec."Diff." := Achieved_Pcs1Tot - Planned_Pcs1Tot;
-                                LineWiseCapacityRec."Record Type" := 'R';
-                                LineWiseCapacityRec.Insert();
                             end;
 
                             if Available_Mnts > 0 then
@@ -467,11 +359,11 @@ page 51349 CapacityDashboardCard
     end;
 
 
-    procedure GetData(MonPara: Integer; NamePara: text[20]; LineNoPara: code[20]; FactoryPara: code[20])
+    procedure GetDataGRoup(MonPara: Integer; NamePara: text[20]; LineNoPara: code[20]; FactoryPara: code[20])
     var
         GroupWiseCapacityRec: Record GroupWiseCapacity;
-        FactoryWiseCapacityRec: Record FactoryWiseCapacity;
-        LineWiseCapacityRec: Record LineWiseCapacity;
+        // FactoryWiseCapacityRec: Record FactoryWiseCapacity;
+        // LineWiseCapacityRec: Record LineWiseCapacity;
         LocationRec: Record Location;
         WorkCenterRec: Record "Work Center";
         NavAppProdRec: Record "NavApp Prod Plans Details";
@@ -544,11 +436,6 @@ page 51349 CapacityDashboardCard
         Capacity_Pcs += Round(((WorkCenterRec.Carder * NoofDays * HoursPerDay * NavAppSetuprec."Capacity Book Eff") / 100 * 60) / NavAppSetuprec."Capacity Book SMV", 1);
         Capacity_PcsTot += Round(((WorkCenterRec.Carder * NoofDays * HoursPerDay * NavAppSetuprec."Capacity Book Eff") / 100 * 60) / NavAppSetuprec."Capacity Book SMV", 1);
 
-        Capacity_Pcs1 += Round(((WorkCenterRec.Carder * NoofDays * HoursPerDay * NavAppSetuprec."Capacity Book Eff") / 100 * 60) / NavAppSetuprec."Capacity Book SMV", 1);
-        Capacity_Pcs1Tot += Round(((WorkCenterRec.Carder * NoofDays * HoursPerDay * NavAppSetuprec."Capacity Book Eff") / 100 * 60) / NavAppSetuprec."Capacity Book SMV", 1);
-
-        Capacity_Pcs2 := Round(((WorkCenterRec.Carder * NoofDays * HoursPerDay * NavAppSetuprec."Capacity Book Eff") / 100 * 60) / NavAppSetuprec."Capacity Book SMV", 1);
-
         //////Cal planned pcs       
         NavAppProdRec.Reset();
         NavAppProdRec.SetRange("Factory No.", FactoryPara);
@@ -558,9 +445,6 @@ page 51349 CapacityDashboardCard
             repeat
                 Planned_Pcs += round(NavAppProdRec.Qty, 1);
                 Planned_PcsTot += round(NavAppProdRec.Qty, 1);
-                Planned_Pcs1 += round(NavAppProdRec.Qty, 1);
-                Planned_Pcs1Tot += round(NavAppProdRec.Qty, 1);
-                Planned_Pcs2 += round(NavAppProdRec.Qty, 1);
             until NavAppProdRec.Next() = 0;
         end;
 
@@ -574,9 +458,6 @@ page 51349 CapacityDashboardCard
             repeat
                 Achieved_Pcs += NavAppProdRec.ProdUpdQty;
                 Achieved_PcsTot += NavAppProdRec.ProdUpdQty;
-                Achieved_Pcs1 += NavAppProdRec.ProdUpdQty;
-                Achieved_Pcs1Tot += NavAppProdRec.ProdUpdQty;
-                Achieved_Pcs2 += NavAppProdRec.ProdUpdQty;
                 Avg_Prod_Mnts += NavAppProdRec.ProdUpdQty * NavAppProdRec.SMV;
                 Avg_Prod_MntsTot += NavAppProdRec.ProdUpdQty * NavAppProdRec.SMV;
             until NavAppProdRec.Next() = 0;
@@ -585,8 +466,6 @@ page 51349 CapacityDashboardCard
         //////Cal Diff pcs
         Diff_Pcs := Achieved_Pcs - Planned_Pcs;
         Diff_PcsTot := Achieved_PcsTot - Planned_PcsTot;
-        Diff_Pcs1 := Achieved_Pcs1 - Planned_Pcs1;
-        Diff_Pcs2 := Achieved_Pcs2 - Planned_Pcs2;
 
         //////Cal Avg_SMV and Avg_Plan_Mnts      
         NavAppProdRec.Reset();
@@ -597,12 +476,8 @@ page 51349 CapacityDashboardCard
             repeat
                 Avg_SMVTemp += NavAppProdRec.Qty * NavAppProdRec.SMV;
                 Avg_SMVTempTot += NavAppProdRec.Qty * NavAppProdRec.SMV;
-                Avg_SMVTemp1 += NavAppProdRec.Qty * NavAppProdRec.SMV;
-                Avg_SMVTemp1Tot += NavAppProdRec.Qty * NavAppProdRec.SMV;
                 Avg_Plan_Mnts += NavAppProdRec.Qty * NavAppProdRec.SMV;
                 Avg_Plan_MntsTot += NavAppProdRec.Qty * NavAppProdRec.SMV;
-                Avg_Plan_Mnts1 += NavAppProdRec.Qty * NavAppProdRec.SMV;
-                Avg_Plan_Mnts1Tot += NavAppProdRec.Qty * NavAppProdRec.SMV;
             until NavAppProdRec.Next() = 0;
 
             if Planned_Pcs > 0 then
@@ -610,12 +485,6 @@ page 51349 CapacityDashboardCard
 
             if Planned_PcsTot > 0 then
                 Avg_SMVTot := Avg_SMVTempTot / Planned_PcsTot;
-
-            if Planned_Pcs1 > 0 then
-                Avg_SMV1 := Avg_SMVTemp1 / Planned_Pcs1;
-
-            if Planned_Pcs1Tot > 0 then
-                Avg_SMV1Tot := Avg_SMVTemp1Tot / Planned_Pcs1Tot;
         end;
 
         //////Cal Finishing Pcs       
@@ -638,8 +507,6 @@ page 51349 CapacityDashboardCard
         //////Cal Plan_Eff
         Available_Mnts += WorkCenterRec.Carder * NoofDays * HoursPerDay * 60;
         Available_MntsTot += WorkCenterRec.Carder * NoofDays * HoursPerDay * 60;
-        Available_Mnts1 += WorkCenterRec.Carder * NoofDays * HoursPerDay * 60;
-        Available_Mnts1Tot += WorkCenterRec.Carder * NoofDays * HoursPerDay * 60;
 
         //////Cal Act_Eff
         if Available_Mnts > 0 then
@@ -671,8 +538,6 @@ page 51349 CapacityDashboardCard
 
 
     var
-        LineMax: BigInteger;
-        FacMax: BigInteger;
         GroupMax: BigInteger;
         Capacity_Pcs: BigInteger;
         Planned_Pcs: BigInteger;
@@ -704,26 +569,4 @@ page 51349 CapacityDashboardCard
         Plan_EffTot: Decimal;
         Act_EffTot: Decimal;
         Available_MntsTot: Decimal;
-
-        Capacity_Pcs1: BigInteger;
-        Planned_Pcs1: BigInteger;
-        Achieved_Pcs1: BigInteger;
-        Diff_Pcs1: BigInteger;
-        Avg_SMV1: Decimal;
-        Avg_SMVTemp1: Decimal;
-        Plan_Eff1: Decimal;
-        Avg_Plan_Mnts1: Decimal;
-        Available_Mnts1: Decimal;
-        Capacity_Pcs2: BigInteger;
-        Planned_Pcs2: BigInteger;
-        Achieved_Pcs2: BigInteger;
-        Diff_Pcs2: BigInteger;
-        Capacity_Pcs1Tot: BigInteger;
-        Planned_Pcs1Tot: BigInteger;
-        Achieved_Pcs1Tot: BigInteger;
-        Avg_SMV1Tot: Decimal;
-        Plan_Eff1Tot: Decimal;
-        Avg_SMVTemp1Tot: Decimal;
-        Available_Mnts1Tot: Decimal;
-        Avg_Plan_Mnts1Tot: Decimal;
 }
