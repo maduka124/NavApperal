@@ -3,6 +3,7 @@ page 50984 "BOM Card"
     PageType = Card;
     SourceTable = BOM;
     Caption = 'BOM';
+    Permissions = tabledata "Approval Entry" = RIMD;
 
     layout
     {
@@ -6905,6 +6906,7 @@ page 50984 "BOM Card"
 
                 trigger OnAction()
                 var
+                    ApprovalRec: Record "Approval Entry";
                     PurchLineArchiveRec: Record "Purchase Line Archive";
                     PurchHeaderArchiveRec: Record "Purchase Header Archive";
                     PurchLineRec: Record "Purchase Line";
@@ -7024,6 +7026,16 @@ page 50984 "BOM Card"
                                 PurchLine1Rec.SetRange("Document No.", PurchLineRec."Document No.");
                                 if PurchLine1Rec.FindSet() then
                                     PurchLine1Rec.DeleteAll();
+
+                                //Delete sent requests
+                                ApprovalRec.Reset();
+                                ApprovalRec.SetRange("Document No.", PurchLineRec."Document No.");
+                                ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
+                                ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
+                                if ApprovalRec.FindSet() then begin
+                                    ApprovalRec.DeleteAll();
+                                end;
+
 
                                 //Delete PO Header
                                 PurchHeaderRec.Reset();

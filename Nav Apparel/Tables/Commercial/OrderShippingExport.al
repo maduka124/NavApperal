@@ -167,7 +167,7 @@ table 51323 "Order Shipping Export"
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }
-        field(35; "Contract Lc No"; Text[35])
+        field(35; "Contract Lc No"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -260,6 +260,11 @@ table 51323 "Order Shipping Export"
         }
 
         field(56; "Currant Account"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        field(57; "Order Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
 
