@@ -219,6 +219,7 @@ page 50996 "PI Details Card"
                     trigger OnLookup(var Text: Text): Boolean
                     var
                         // GRNRec: Record "Purch. Rcpt. Line";
+                        DocNo: Code[20];
                         PipoRec2: Record "PI Po Details";
                         PiPODetailsRec: Record PIPODetails1;
                         StyleMasterRec: Record "Style Master";
@@ -297,27 +298,28 @@ page 50996 "PI Details Card"
                         if PiPODetailsRec.FindLast() then begin
                             Line := PiPODetailsRec."Line No";
                         end;
+                        //Delete All
+                        PiPODetailsRec.Reset();
+                        if PiPODetailsRec.FindSet() then begin
+                            PiPODetailsRec.DeleteAll();
+                        end;
 
                         if Rec."Style Filter" = true then begin
 
-                            // PiPODetailsRec.Reset();
-                            // if PiPODetailsRec.FindSet() then begin
-                            //     PiPODetailsRec.DeleteAll();
-                            // end;
-
                             PurchHLineRe.Reset();
                             PurchHLineRe.SetRange(StyleNo, Rec."Style No.");
+                            PurchHLineRe.SetCurrentKey("Document No.");
+                            PurchHLineRe.Ascending(true);
                             PurchHLineRe.SetRange("Document Type", PurchHLineRe."Document Type"::Order);
                             if PurchHLineRe.FindSet() then begin
                                 repeat
-                                    PurchHRec.Reset();
-                                    PurchHRec.SetRange("No.", PurchHLineRe."Document No.");
-                                    PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
-                                    if PurchHRec.FindSet() then begin
-                                        repeat
-                                            // PipoRec2.Reset();
-                                            // PipoRec2.SetRange("PO No.", PiPODetailsRec."PO No.");
-                                            // if not PipoRec2.FindSet() then begin
+                                    if DocNo <> PurchHLineRe."Document No." then begin
+                                        DocNo := PurchHLineRe."Document No.";
+
+                                        PurchHRec.Reset();
+                                        PurchHRec.SetRange("No.", PurchHLineRe."Document No.");
+                                        PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
+                                        if PurchHRec.FindSet() then begin
 
                                             PiPODetailsRec.Reset();
                                             PiPODetailsRec.SetRange("PO No.", PurchHRec."No.");
@@ -337,75 +339,57 @@ page 50996 "PI Details Card"
                                                 PIPODetailsRec."Created User" := UserId;
                                                 PiPODetailsRec.Insert();
                                             end;
-                                        // end;
-                                        until PurchHRec.Next() = 0;
+                                        end;
                                     end;
                                 until PurchHLineRe.Next() = 0;
-
-
-                                PiPODetailsRec.Reset();
-                                PiPODetailsRec.SetRange("Proforma Invoice No.", Rec."No.");
-                                if PiPODetailsRec.FindSet() then begin
-                                    PipoRec2.Reset();
-                                    PipoRec2.SetRange("PO No.", PiPODetailsRec."PO No.");
-                                    if PipoRec2.FindSet() then begin
-                                        PiPODetailsRec.DeleteAll();
-                                    end;
-                                    CurrPage.Update();
+                                PipoRec2.Reset();
+                                if PipoRec2.FindSet() then begin
+                                    repeat
+                                        PiPODetailsRec.Reset();
+                                        PiPODetailsRec.SetRange("PO No.", PipoRec2."PO No.");
+                                        if PiPODetailsRec.FindSet() then begin
+                                            PiPODetailsRec.Delete();
+                                        end;
+                                    until PipoRec2.Next() = 0;
                                 end;
-
                             end;
+                            CurrPage.Update();
                         end
                         else begin
-                            PurchHLineRe.Reset();
-                            PurchHLineRe.SetRange("Document Type", PurchHLineRe."Document Type"::Order);
-                            if PurchHLineRe.FindSet() then begin
+                            PurchHRec.Reset();
+                            PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
+                            if PurchHRec.FindSet() then begin
                                 repeat
-                                    PurchHRec.Reset();
-                                    PurchHRec.SetRange("No.", PurchHLineRe."Document No.");
-                                    PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
-                                    if PurchHRec.FindSet() then begin
-                                        repeat
-                                            // PipoRec2.Reset();
-                                            // PipoRec2.SetRange("PO No.", PurchHRec."No.");
-                                            // if not PipoRec2.FindSet() then begin
-
-                                            PiPODetailsRec.Reset();
-                                            PiPODetailsRec.SetRange("PO No.", PurchHRec."No.");
-                                            if not PiPODetailsRec.FindSet() then begin
-                                                Line += 1;
-                                                PiPODetailsRec.Init();
-                                                PiPODetailsRec."Line No" := Line;
-                                                PiPODetailsRec."Proforma Invoice No." := Rec."No.";
-                                                PiPODetailsRec.Status := PurchHRec.Status;
-                                                PIPODetailsRec."PI No." := PurchHRec."PI No.";
-                                                PIPODetailsRec."PO No." := PurchHRec."No.";
-                                                PurchHRec.CalcFields("Amount Including VAT");
-                                                PIPODetailsRec."PO Value" := PurchHRec."Amount Including VAT";
-                                                PiPODetailsRec."Buy-from Vendor No." := PurchHRec."Buy-from Vendor No.";
-                                                PiPODetailsRec."Merchandizer Group Name" := PurchHRec."Merchandizer Group Name";
-                                                PIPODetailsRec."Created Date" := WorkDate();
-                                                PIPODetailsRec."Created User" := UserId;
-                                                PiPODetailsRec.Insert();
-                                            end;
-                                        // end;
-                                        until PurchHRec.Next() = 0;
+                                    Line += 1;
+                                    PiPODetailsRec.Init();
+                                    PiPODetailsRec."Line No" := Line;
+                                    PiPODetailsRec."Proforma Invoice No." := Rec."No.";
+                                    PiPODetailsRec.Status := PurchHRec.Status;
+                                    PIPODetailsRec."PI No." := PurchHRec."PI No.";
+                                    PIPODetailsRec."PO No." := PurchHRec."No.";
+                                    PurchHRec.CalcFields("Amount Including VAT");
+                                    PIPODetailsRec."PO Value" := PurchHRec."Amount Including VAT";
+                                    PiPODetailsRec."Buy-from Vendor No." := PurchHRec."Buy-from Vendor No.";
+                                    PiPODetailsRec."Merchandizer Group Name" := PurchHRec."Merchandizer Group Name";
+                                    PIPODetailsRec."Created Date" := WorkDate();
+                                    PIPODetailsRec."Created User" := UserId;
+                                    PiPODetailsRec.Insert();
+                                until PurchHRec.Next() = 0;
+                            end;
+                            PipoRec2.Reset();
+                            if PipoRec2.FindSet() then begin
+                                repeat
+                                    PiPODetailsRec.Reset();
+                                    PiPODetailsRec.SetRange("PO No.", PipoRec2."PO No.");
+                                    if PiPODetailsRec.FindSet() then begin
+                                        PiPODetailsRec.Delete();
                                     end;
-                                until PurchHLineRe.Next() = 0;
-
-                                PiPODetailsRec.Reset();
-                                PiPODetailsRec.SetRange("Proforma Invoice No.", Rec."No.");
-                                if PiPODetailsRec.FindSet() then begin
-                                    PipoRec2.Reset();
-                                    PipoRec2.SetRange("PO No.", PiPODetailsRec."PO No.");
-                                    if PipoRec2.FindSet() then begin
-                                        PiPODetailsRec.DeleteAll();
-                                    end;
-                                    CurrPage.Update();
-                                end;
+                                until PipoRec2.Next() = 0;
                             end;
                         end;
+                        CurrPage.Update();
                     end;
+
                 }
 
                 field("PI No"; rec."PI No")
@@ -479,6 +463,7 @@ page 50996 "PI Details Card"
 
             group("PO Details")
             {
+
                 // part("PI Po Details ListPart 1"; "PI Po Details ListPart 1")
                 part("PI Po Details ListPart 1"; "PI Po Details ListPart 1 New")
                 {
@@ -493,6 +478,7 @@ page 50996 "PI Details Card"
                     Caption = 'POs attached to PI';
                     SubPageLink = "PI No." = FIELD("No.");
                 }
+
             }
 
             group("PI Item Details")
@@ -506,7 +492,133 @@ page 50996 "PI Details Card"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
 
+            action("Refresh")
+            {
+                ApplicationArea = All;
+                Image = Refresh;
+                Caption = 'Refresh PO List';
+
+                trigger OnAction()
+                var
+                    DocNo: Code[20];
+                    PipoRec2: Record "PI Po Details";
+                    PiPODetailsRec: Record PIPODetails1;
+                    StyleMasterRec: Record "Style Master";
+                    PurchHRec: Record "Purchase Header";
+                    PurchHLineRe: Record "Purchase Line";
+                    Line: BigInteger;
+
+                    SupplierRec: Record Vendor;
+                    "Suplier No": Code[20];
+                    PurchaseHeaderRec: Record "Purchase Header";
+                    BOMAutogenRec: Record "BOM Line AutoGen";
+                    BOMRec: Record bom;
+                begin
+
+                    //Delete All
+                    PiPODetailsRec.Reset();
+                    if PiPODetailsRec.FindSet() then begin
+                        PiPODetailsRec.DeleteAll();
+                    end;
+
+                    if Rec."Style Filter" = true then begin
+
+                        PurchHLineRe.Reset();
+                        PurchHLineRe.SetRange(StyleNo, Rec."Style No.");
+                        PurchHLineRe.SetCurrentKey("Document No.");
+                        PurchHLineRe.Ascending(true);
+                        PurchHLineRe.SetRange("Document Type", PurchHLineRe."Document Type"::Order);
+                        if PurchHLineRe.FindSet() then begin
+                            repeat
+                                if DocNo <> PurchHLineRe."Document No." then begin
+                                    DocNo := PurchHLineRe."Document No.";
+
+                                    PurchHRec.Reset();
+                                    PurchHRec.SetRange("No.", PurchHLineRe."Document No.");
+                                    PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
+                                    if PurchHRec.FindSet() then begin
+
+                                        PiPODetailsRec.Reset();
+                                        PiPODetailsRec.SetRange("PO No.", PurchHRec."No.");
+                                        if not PiPODetailsRec.FindSet() then begin
+                                            Line += 1;
+                                            PiPODetailsRec.Init();
+                                            PiPODetailsRec."Line No" := Line;
+                                            PiPODetailsRec."Proforma Invoice No." := Rec."No.";
+                                            PiPODetailsRec.Status := PurchHRec.Status;
+                                            PIPODetailsRec."PI No." := PurchHRec."PI No.";
+                                            PIPODetailsRec."PO No." := PurchHRec."No.";
+                                            PurchHRec.CalcFields("Amount Including VAT");
+                                            PIPODetailsRec."PO Value" := PurchHRec."Amount Including VAT";
+                                            PiPODetailsRec."Buy-from Vendor No." := PurchHRec."Buy-from Vendor No.";
+                                            PiPODetailsRec."Merchandizer Group Name" := PurchHRec."Merchandizer Group Name";
+                                            PIPODetailsRec."Created Date" := WorkDate();
+                                            PIPODetailsRec."Created User" := UserId;
+                                            PiPODetailsRec.Insert();
+                                        end;
+                                    end;
+                                end;
+                            until PurchHLineRe.Next() = 0;
+
+                            PipoRec2.Reset();
+                            if PipoRec2.FindSet() then begin
+                                repeat
+                                    PiPODetailsRec.Reset();
+                                    PiPODetailsRec.SetRange("PO No.", PipoRec2."PO No.");
+                                    if PiPODetailsRec.FindSet() then begin
+                                        PiPODetailsRec.Delete();
+                                    end;
+                                until PipoRec2.Next() = 0;
+                            end;
+                        end;
+                        CurrPage.Update();
+                    end
+                    else begin
+                        PurchHRec.Reset();
+                        PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
+                        if PurchHRec.FindSet() then begin
+                            repeat
+                                Line += 1;
+                                PiPODetailsRec.Init();
+                                PiPODetailsRec."Line No" := Line;
+                                PiPODetailsRec."Proforma Invoice No." := Rec."No.";
+                                PiPODetailsRec.Status := PurchHRec.Status;
+                                PIPODetailsRec."PI No." := PurchHRec."PI No.";
+                                PIPODetailsRec."PO No." := PurchHRec."No.";
+                                PurchHRec.CalcFields("Amount Including VAT");
+                                PIPODetailsRec."PO Value" := PurchHRec."Amount Including VAT";
+                                PiPODetailsRec."Buy-from Vendor No." := PurchHRec."Buy-from Vendor No.";
+                                PiPODetailsRec."Merchandizer Group Name" := PurchHRec."Merchandizer Group Name";
+                                PIPODetailsRec."Created Date" := WorkDate();
+                                PIPODetailsRec."Created User" := UserId;
+                                PiPODetailsRec.Insert();
+                            until PurchHRec.Next() = 0;
+
+
+                            PipoRec2.Reset();
+                            if PipoRec2.FindSet() then begin
+                                repeat
+                                    PiPODetailsRec.Reset();
+                                    PiPODetailsRec.SetRange("PO No.", PipoRec2."PO No.");
+                                    if PiPODetailsRec.FindSet() then begin
+                                        PiPODetailsRec.Delete();
+                                    end;
+                                until PipoRec2.Next() = 0;
+                            end;
+                        end;
+                        CurrPage.Update();
+                    end;
+                end;
+
+            }
+
+        }
+    }
     procedure AssistEdit(): Boolean
     var
         NavAppSetup: Record "NavApp Setup";
@@ -518,7 +630,6 @@ page 50996 "PI Details Card"
             EXIT(TRUE);
         END;
     end;
-
 
     trigger OnDeleteRecord(): Boolean
     var
