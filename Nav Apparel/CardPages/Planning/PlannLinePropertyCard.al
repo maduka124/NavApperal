@@ -236,6 +236,7 @@ page 50343 "Planning Line Property Card"
                     JobPlaLine2Rec: Record "NavApp Planning Lines";
                     //SameStyle: Code[20];
                     ApplyLCurve: Boolean;
+                    ApplyLCurve1: Boolean;
                     dtTemp: date;
                     PordUpdQty: BigInteger;
                     LcurveHoursPerday: Decimal;
@@ -806,39 +807,45 @@ page 50343 "Planning Line Property Card"
                                         Carder := rec.Carder;
                                         Eff := rec.Eff;
 
-                                        if ApplyLCurve = true then
-                                            ApplyLCurve := true
-                                        else
-                                            ApplyLCurve := false;
+                                        // if ApplyLCurve = true then
+                                        //     ApplyLCurve := true
+                                        // else
+                                        //     ApplyLCurve := false;
                                     end
                                     else begin              //Different Style
-                                        ApplyLCurve := false;
+                                        // if JobPlaLineRec."Learning Curve No." <> 0 then
+                                        //     ApplyLCurve := true
+                                        // else
+                                        //     ApplyLCurve := false;
+
                                         SMV := JobPlaLineRec.SMV;
-
-                                        //if JobPlaLineRec.Carder <> 0 then
                                         Carder := JobPlaLineRec.Carder;
-
-                                        //if JobPlaLineRec.Eff <> 0 then
                                         Eff := JobPlaLineRec.Eff;
                                     end;
 
+                                    if JobPlaLineRec."Learning Curve No." = 0 then
+                                        ApplyLCurve := false
+                                    else begin
+                                        ApplyLCurve := true;
+
+                                        //validate lCurve applying
+                                        ProdPlansDetails.Reset();
+                                        ProdPlansDetails.SetFilter(PlanDate, '%1..%2', JobPlaLineRec."Start Date" - ResourceRec."LV Days", JobPlaLineRec."Start Date" - 1);
+                                        ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
+                                        ProdPlansDetails.SetFilter("Line No.", '<>%1', JobPlaLineRec."Line No.");
+                                        if ProdPlansDetails.FindSet() then
+                                            ApplyLCurve := false;
+                                    end;
+
+                                    ApplyLCurve1 := ApplyLCurve;
                                     dtStart := TempDate;
                                     TImeStart := TempTIme;
                                     Curr_StartDateTime := JobPlaLineRec.StartDateTime;
 
                                     //Calculate hourly gap between prevous and current allocation
                                     if Prev_FinishedDateTime <> 0DT then begin
-                                        if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
-                                            // HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
-                                            // HoursGap := HoursGap / 3600000;
-
-                                            // if (HoursGap IN [0.0001 .. 0.99]) then
-                                            //     HoursGap := 1;
-
-                                            // HoursGap := round(HoursGap, 1, '>');
-
-                                            HoursGap := 0; //HoursGap is  zero since dateas are same  
-                                        end
+                                        if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then
+                                            HoursGap := 0 //HoursGap is  zero since dateas are same                                    
                                         else begin
 
                                             if (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1) > 2 then begin
@@ -850,7 +857,6 @@ page 50343 "Planning Line Property Card"
                                                     ResCapacityEntryRec.Reset();
                                                     ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                                                     ResCapacityEntryRec.SETRANGE(Date, DT2DATE(Prev_FinishedDateTime) + (X - 1));
-
                                                     if ResCapacityEntryRec.FindSet() then begin
                                                         repeat
                                                             HoursPerDay1 += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -858,7 +864,6 @@ page 50343 "Planning Line Property Card"
                                                     end;
 
                                                     if HoursPerDay1 > 0 then begin
-
                                                         if X = 1 then  //First Date
                                                             HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
                                                         else
@@ -961,11 +966,9 @@ page 50343 "Planning Line Property Card"
 
                                     //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                     repeat
-
                                         WorkCenCapacityEntryRec.Reset();
                                         WorkCenCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                                         WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                         if WorkCenCapacityEntryRec.FindSet() then begin
                                             repeat
                                                 HrsPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -1094,7 +1097,6 @@ page 50343 "Planning Line Property Card"
                                     end;
 
                                     repeat
-
                                         ResourceRec.Reset();
                                         ResourceRec.SetRange("No.", rec."Resource No.");
                                         ResourceRec.FindSet();
@@ -1108,7 +1110,6 @@ page 50343 "Planning Line Property Card"
                                         WorkCenCapacityEntryRec.Reset();
                                         WorkCenCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                                         WorkCenCapacityEntryRec.SETRANGE(Date, TempDate);
-
                                         if WorkCenCapacityEntryRec.FindSet() then begin
                                             repeat
                                                 HrsPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -1179,7 +1180,10 @@ page 50343 "Planning Line Property Card"
                                             HrsPerDay := HrsPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                         end;
 
-                                        if (rec."Learning Curve No." <> 0) and (ApplyLCurve = true) and (rec."Style No." = JobPlaLineRec."Style No.") then begin
+                                        // if JobPlaLineRec."Style Name" = 'ANDREW' then
+                                        //     Message('stye');
+
+                                        if (ApplyLCurve = true) then begin
 
                                             //Aplly learning curve
                                             LearningCurveRec.Reset();
@@ -1292,20 +1296,10 @@ page 50343 "Planning Line Property Card"
                                                                     HrsPerDay := HrsPerDay - (LCurveFinishTime - LocationRec."Start Time") / 3600000;
                                                                 end;
                                                             end;
-
-
-                                                            // if i = 1 then begin
-                                                            //     if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
-                                                            //         HrsPerDay := HrsPerDay - (TImeStart - LCurveFinishTime) / 3600000
-                                                            //     else
-                                                            //         HrsPerDay := HrsPerDay - (LCurveFinishTime - TImeStart) / 3600000;
-                                                            // end
-                                                            // else begin
-                                                            //     if ((LCurveFinishTime - LocationRec."Start Time") / 3600000) < 0 then
-                                                            //         HrsPerDay := HrsPerDay - (LocationRec."Start Time" - LCurveFinishTime) / 3600000
-                                                            //     else
-                                                            //         HrsPerDay := HrsPerDay - (LCurveFinishTime - LocationRec."Start Time") / 3600000;
-                                                            // end;
+                                                        end
+                                                        else begin
+                                                            LCurveStartTimePerDay := 0T;
+                                                            LcurveHoursPerday := 0;
                                                         end;
                                                     end;
 
@@ -1371,11 +1365,6 @@ page 50343 "Planning Line Property Card"
                                         ProdPlansDetails.Eff := Eff;
                                         ProdPlansDetails.SMV := JobPlaLineRec.SMV;
 
-                                        // if ApplyLCurve = true then
-                                        //     ProdPlansDetails."Learning Curve No." := JobPlaLineRec."Learning Curve No."
-                                        // else
-                                        //     ProdPlansDetails."Learning Curve No." := 0;
-
                                         if Holiday = 'NO' then begin
                                             if i = 1 then
                                                 ProdPlansDetails."Start Time" := TImeStart
@@ -1428,8 +1417,11 @@ page 50343 "Planning Line Property Card"
                                         ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
                                         ProdPlansDetails.Insert();
 
-                                        if LCurveFinishDate = TempDate then
+                                        if LCurveFinishDate = TempDate then begin
                                             ApplyLCurve := false;
+                                            LCurveStartTimePerDay := 0T;
+                                            LcurveHoursPerday := 0;
+                                        end;
 
                                         TempDate := TempDate + 1;
 
@@ -1461,14 +1453,19 @@ page 50343 "Planning Line Property Card"
                                             JobPlaLine2Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                     end;
 
-                                    if ApplyLCurve = false then
+                                    // if ApplyLCurve = false then
+                                    //     JobPlaLine2Rec."Learning Curve No." := 0
+                                    // else begin
+                                    //     if rec."Style No." = JobPlaLine2Rec."Style No." then
+                                    //         JobPlaLine2Rec."Learning Curve No." := rec."Learning Curve No."
+                                    //     else
+                                    //         JobPlaLine2Rec."Learning Curve No." := 0;
+                                    // end;
+
+                                    if ApplyLCurve1 = false then
                                         JobPlaLine2Rec."Learning Curve No." := 0
-                                    else begin
-                                        if rec."Style No." = JobPlaLine2Rec."Style No." then
-                                            JobPlaLine2Rec."Learning Curve No." := rec."Learning Curve No."
-                                        else
-                                            JobPlaLine2Rec."Learning Curve No." := 0;
-                                    end;
+                                    else
+                                        JobPlaLine2Rec."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
 
                                     JobPlaLine2Rec.eff := Eff;
                                     JobPlaLine2Rec.SMV := SMV;
@@ -1484,6 +1481,7 @@ page 50343 "Planning Line Property Card"
                                     JobPlaLine2Rec.Modify();
 
                                     TempTIme := JobPlaLine2Rec."Finish Time";
+                                    ApplyLCurve1 := false;
 
                                     //delete allocation if remaining qty is 0 or less than 0
                                     JobPlaLine2Rec.Reset();
