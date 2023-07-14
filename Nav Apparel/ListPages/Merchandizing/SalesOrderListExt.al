@@ -4,6 +4,12 @@ pageextension 51058 SalesOrderListExt extends "Sales Order List"
     {
         addlast(Control1)
         {
+            field(StatusGB; StatusGB)
+            {
+                ApplicationArea = ALL;
+                Caption = 'Plan Status';
+            }
+
             field("Style Name"; Rec."Style Name")
             {
                 ApplicationArea = ALL;
@@ -48,4 +54,32 @@ pageextension 51058 SalesOrderListExt extends "Sales Order List"
         end;
 
     end;
+
+    trigger OnAfterGetRecord()
+    var
+        ProdOrderRec: Record "Production Order";
+    begin
+        StatusGB := '';
+        ProdOrderRec.Reset();
+        ProdOrderRec.SetRange("Source No.", rec."No.");
+        ProdOrderRec.SetRange("Source Type", ProdOrderRec."Source Type"::"Sales Header");
+        if ProdOrderRec.FindSet() then begin
+            case ProdOrderRec.Status of
+                ProdOrderRec.Status::"Firm Planned":
+                    StatusGB := 'Firm Planned';
+                ProdOrderRec.Status::Released:
+                    StatusGB := 'Released';
+                ProdOrderRec.Status::Finished:
+                    StatusGB := 'Finished';
+                ProdOrderRec.Status::Planned:
+                    StatusGB := 'Planned';
+            end;
+        end
+        else
+            StatusGB := '';
+    end;
+
+
+    var
+        StatusGB: Text[20];
 }

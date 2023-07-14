@@ -1,10 +1,7 @@
 pageextension 50999 SalesOrderCardExt extends "Sales Order"
 {
-
     layout
     {
-
-
         //Done By Sachith on 24/03/23
         addafter(Status)
         {
@@ -15,6 +12,13 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
         }
         addafter("Work Description")
         {
+
+            field(StatusGB; StatusGB)
+            {
+                ApplicationArea = ALL;
+                Caption = 'Plan Status';
+                Editable = false;
+            }
 
             field("Style Name"; rec."Style Name")
             {
@@ -284,4 +288,32 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             end;
         }
     }
+
+
+    trigger OnAfterGetRecord()
+    var
+        ProdOrderRec: Record "Production Order";
+    begin
+        StatusGB := '';
+        ProdOrderRec.Reset();
+        ProdOrderRec.SetRange("Source No.", rec."No.");
+        ProdOrderRec.SetRange("Source Type", ProdOrderRec."Source Type"::"Sales Header");
+        if ProdOrderRec.FindSet() then begin
+            case ProdOrderRec.Status of
+                ProdOrderRec.Status::"Firm Planned":
+                    StatusGB := 'Firm Planned';
+                ProdOrderRec.Status::Released:
+                    StatusGB := 'Released';
+                ProdOrderRec.Status::Finished:
+                    StatusGB := 'Finished';
+                ProdOrderRec.Status::Planned:
+                    StatusGB := 'Planned';
+            end;
+        end
+        else
+            StatusGB := '';
+    end;
+
+    var
+        StatusGB: Text[20];
 }
