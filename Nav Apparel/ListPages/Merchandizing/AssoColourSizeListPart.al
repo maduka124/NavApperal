@@ -36,18 +36,18 @@ page 51015 AssoColourSizeListPart
                             Message('Color Size Ratio has been done for this Style/PO, run the "Color/Size Qty Ratio" process again after adding a color.');
 
 
-                        //Check for whether BOm created for the style
-                        BOMRec.SetRange("Style No.", Rec."Style No.");
-                        if BOMRec.FindSet() then begin
-                            BOMAutoGenRec.Reset();
-                            BOMAutoGenRec.SetRange("No.", BOMRec.No);
-                            if BOMAutoGenRec.FindSet() then begin
-                                repeat
-                                    if BOMAutoGenRec."Included in PO" = true then
-                                        Error('MRP Posting has been completed for BOM : %1. To add new color, run the Reverse MRP process for BOM : %1.', BOMRec.No);
-                                until BOMAutoGenRec.Next() = 0;
-                            end;
-                        end;
+                        // //Check for whether BOm created for the style
+                        // BOMRec.SetRange("Style No.", Rec."Style No.");
+                        // if BOMRec.FindSet() then begin
+                        //     BOMAutoGenRec.Reset();
+                        //     BOMAutoGenRec.SetRange("No.", BOMRec.No);
+                        //     if BOMAutoGenRec.FindSet() then begin
+                        //         repeat
+                        //             if BOMAutoGenRec."Included in PO" = true then
+                        //                 Error('MRP Posting has been completed for BOM : %1. To add new color, run the Reverse MRP process for BOM : %1.', BOMRec.No);
+                        //         until BOMAutoGenRec.Next() = 0;
+                        //     end;
+                        // end;
 
                         //Check Duplicates
                         AssoDetRec.Reset();
