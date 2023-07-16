@@ -108,6 +108,18 @@ table 50664 BundleGuideHeader
             TableRelation = CutCreationLine."Cut No" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Colour No" = field("Color No"), "Cut No" = filter(<> 0));
             ValidateTableRelation = false;
         }
+
+        field(19; "Bundle No Start"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(20; "Sticker Seq Start"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
     }
 
     keys

@@ -61,7 +61,6 @@ page 50823 "DepReqSheetListpart"
                             else
                                 CaptionD := 'Other';
 
-
                         Rec."Item Name" := '';
                         Rec."Item No" := '';
                         Rec."Dimension No." := '';
@@ -110,7 +109,9 @@ page 50823 "DepReqSheetListpart"
                                 Rec.Other := itemRec.Remarks;
                                 Rec."Sub Category No." := itemRec."Sub Category No.";
                                 Rec."Sub Category Name" := itemRec."Sub Category Name";
-                            end;
+                            end
+                            else
+                                Error('Invalid Item No.');
                         end
                         else
                             Rec."Item Name" := '';

@@ -40,13 +40,11 @@ page 50709 "DepReqSheetHeaderCard"
 
                         DepRec.Reset();
                         DepRec.SetRange("Department Name", rec."Department Name");
-
                         if DepRec.FindSet() then
                             rec."Department Code" := DepRec."No.";
 
                         userRec.Reset();
                         userRec.SetRange("User ID", UserId);
-
                         if userRec.FindSet() then begin
                             rec."Factory Code" := userRec."Factory Code";
                             rec."Global Dimension Code" := userRec."Global Dimension Code";
@@ -54,15 +52,12 @@ page 50709 "DepReqSheetHeaderCard"
 
                         locationRec.Reset();
                         locationRec.SetRange(Code, rec."Factory Code");
-
                         if locationRec.FindSet() then
                             rec."Factory Name" := locationRec.Name;
-
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -260,7 +255,6 @@ page 50709 "DepReqSheetHeaderCard"
                     end;
                 end;
             }
-
         }
     }
 
@@ -281,12 +275,10 @@ page 50709 "DepReqSheetHeaderCard"
     var
         DeptReqSheetLine: Record DeptReqSheetLine;
     begin
-
         DeptReqSheetLine.Reset();
         DeptReqSheetLine.SetRange("Req No", rec."Req No");
         if DeptReqSheetLine.FindSet() then
             DeptReqSheetLine.DeleteAll();
-
     end;
 
 
@@ -319,5 +311,4 @@ page 50709 "DepReqSheetHeaderCard"
     var
         EditableGb: Boolean;
         FactoryGB: Code[20];
-
 }

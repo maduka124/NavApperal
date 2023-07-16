@@ -135,6 +135,18 @@ page 50665 "Bundle Guide Card"
                     ApplicationArea = All;
                     Caption = 'Bundle Type';
                 }
+
+                field("Bundle No Start"; rec."Bundle No Start")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Bundle No Start At';
+                }
+
+                field("Sticker Seq Start"; rec."Sticker Seq Start")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sticker Seq Start At';
+                }
             }
 
             group("Bundle Details")
@@ -234,13 +246,17 @@ page 50665 "Bundle Guide Card"
 
                     //Get Max bundle no
                     if LocationRec."Bundle Guide Sequence" = LocationRec."Bundle Guide Sequence"::Continue then begin
-                        //Get Max bundle no
-                        BundleGuideLineRec.Reset();
-                        BundleGuideLineRec.SetRange("Style No", rec."Style No.");
-                        BundleGuideLineRec.SetCurrentKey("Bundle No");
-                        BundleGuideLineRec.Ascending(true);
-                        if BundleGuideLineRec.FindLast() then
-                            BundleNo := BundleGuideLineRec."Bundle No";
+                        if Rec."Bundle No Start" = 0 then begin
+                            //Get Max bundle no
+                            BundleGuideLineRec.Reset();
+                            BundleGuideLineRec.SetRange("Style No", rec."Style No.");
+                            BundleGuideLineRec.SetCurrentKey("Bundle No");
+                            BundleGuideLineRec.Ascending(true);
+                            if BundleGuideLineRec.FindLast() then
+                                BundleNo := BundleGuideLineRec."Bundle No";
+                        end
+                        else
+                            BundleNo := Rec."Bundle No Start";
                     end
                     else
                         BundleNo := 0;
@@ -248,12 +264,16 @@ page 50665 "Bundle Guide Card"
 
                     //Get Max Tempqty
                     if LocationRec."Bundle Guide Sequence" = LocationRec."Bundle Guide Sequence"::Continue then begin
-                        BundleGuideLineRec.Reset();
-                        BundleGuideLineRec.SetRange("Style No", rec."Style No.");
-                        BundleGuideLineRec.SetCurrentKey("Line No");
-                        BundleGuideLineRec.Ascending(true);
-                        if BundleGuideLineRec.FindLast() then
-                            TempQty := BundleGuideLineRec.TempQty;
+                        if Rec."Sticker Seq Start" = 0 then begin
+                            BundleGuideLineRec.Reset();
+                            BundleGuideLineRec.SetRange("Style No", rec."Style No.");
+                            BundleGuideLineRec.SetCurrentKey("Line No");
+                            BundleGuideLineRec.Ascending(true);
+                            if BundleGuideLineRec.FindLast() then
+                                TempQty := BundleGuideLineRec.TempQty;
+                        end
+                        else
+                            TempQty := Rec."Sticker Seq Start";
                     end
                     else
                         TempQty := 0;

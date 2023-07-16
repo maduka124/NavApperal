@@ -90,7 +90,6 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
                     LoginSessionsRec.SetRange(SessionID, SessionId());
-
                     if not LoginSessionsRec.FindSet() then begin  //not logged in
                         Clear(LoginRec);
                         LoginRec.LookupMode(true);
@@ -101,18 +100,16 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                         LoginSessionsRec.FindSet();
                     end;
 
-
                     NavAppSetupRec.Reset();
                     NavAppSetupRec.FindSet();
 
                     //Get max line no
-                    RequLineRec.Reset();
-                    RequLineRec.SetRange("Worksheet Template Name", rec."Worksheet Template Name");
-                    RequLineRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
-
                     // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
                     // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
 
+                    RequLineRec.Reset();
+                    RequLineRec.SetRange("Worksheet Template Name", rec."Worksheet Template Name");
+                    RequLineRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
                     if RequLineRec.FindLast() then
                         ReqLineNo := RequLineRec."Line No.";
 
@@ -122,7 +119,6 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                     DeptReqLineRec.SetFilter("Qty to Received", '>%1', 0);
                     DeptReqLineRec.SetFilter("Item No", '<>%1', '');
                     DeptReqLineRec.SetFilter("PO Raized", '=%1', false);
-
                     if DeptReqLineRec.FindSet() then begin
 
                         repeat
@@ -132,9 +128,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
 
                                 if DeptReqHeaderRec.Status = DeptReqHeaderRec.Status::Approved then begin
                                     RequLineRec.Reset();
-                                    RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                                    // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
-                                    // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                                    RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");                                 
                                     RequLineRec.SetRange("Worksheet Template Name", rec."Worksheet Template Name");
                                     RequLineRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
                                     RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
@@ -142,11 +136,8 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                     RequLineRec.SetRange("CP Req Code", DeptReqLineRec."Req No");
 
                                     if not RequLineRec.FindSet() then begin    //Not existing items
-
                                         ReqLineNo += 1;
-                                        RequLineRec1.Init();
-                                        // RequLineRec1."Worksheet Template Name" := NavAppSetupRec."Req Worksheet Template Name";
-                                        // RequLineRec1."Journal Batch Name" := NavAppSetupRec."Req Journal Batch Name";
+                                        RequLineRec1.Init();                                     
                                         RequLineRec1."Worksheet Template Name" := rec."Worksheet Template Name";
                                         RequLineRec1."Journal Batch Name" := rec."Journal Batch Name";
                                         RequLineRec1."Line No." := ReqLineNo;
