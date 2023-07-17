@@ -189,7 +189,9 @@ page 50984 "BOM Card"
                                 CurrPage.GetRecord(BOMLineEstimateNewRec);
                             end;
 
-                        end;
+                        end
+                        else
+                            Error('Invalid Style');
 
                         CurrPage.Update();
                     end;
