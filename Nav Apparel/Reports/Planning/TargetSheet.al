@@ -60,7 +60,7 @@ report 50624 TargetSheetReport
                         DisplaySeq := WorkCenterRec."Work Center Seq No";
                     end;
 
-                    Diff := ("NavApp Prod Plans Details".ProdUpdQty - "NavApp Prod Plans Details".Qty);
+                    Diff := ("NavApp Prod Plans Details".ProdUpdQty - round("NavApp Prod Plans Details".Qty, 1));
                 end;
 
                 trigger OnPreDataItem()

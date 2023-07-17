@@ -232,6 +232,12 @@ page 50665 "Bundle Guide Card"
                     if rec."Bundle Rule" = 0 then
                         Error('Invalid Bundle Rule');
 
+                    if format(Rec."Sticker Seq Start") = '' then
+                        Error('Sticker Seq Start cannot blank.');
+
+                    if format(Rec."Bundle No Start") = '' then
+                        Error('Bundle No Start cannot blank.');
+
 
                     //Delete old records
                     BundleGuideLineRec.Reset();
@@ -267,7 +273,7 @@ page 50665 "Bundle Guide Card"
                         if Rec."Sticker Seq Start" = 0 then begin
                             BundleGuideLineRec.Reset();
                             BundleGuideLineRec.SetRange("Style No", rec."Style No.");
-                            BundleGuideLineRec.SetCurrentKey("Line No");
+                            BundleGuideLineRec.SetCurrentKey(TempQty);
                             BundleGuideLineRec.Ascending(true);
                             if BundleGuideLineRec.FindLast() then
                                 TempQty := BundleGuideLineRec.TempQty;
@@ -397,7 +403,7 @@ page 50665 "Bundle Guide Card"
                                     14:
                                         if LaySheetLine1Rec."14" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."14");
-                                            if LaySheetLine2Rec."4" <> '' then
+                                            if LaySheetLine2Rec."14" <> '' then
                                                 Evaluate(Ratio, LaySheetLine2Rec."14");
                                         end;
                                     15:
@@ -1039,7 +1045,7 @@ page 50665 "Bundle Guide Card"
                                         14:
                                             if LaySheetLine1Rec."14" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."14");
-                                                if LaySheetLine2Rec."4" <> '' then
+                                                if LaySheetLine2Rec."14" <> '' then
                                                     Evaluate(Ratio, LaySheetLine2Rec."14");
                                             end;
                                         15:
