@@ -53,6 +53,7 @@ report 50852 SewingProductionDetails
                 SetRange("Prod Date", stDate);
             end;
 
+
             trigger OnAfterGetRecord()
             begin
                 Quantity := 0;
