@@ -118,6 +118,7 @@ page 51063 "Sample Request"
                     Error('Merchandiser Group Name has not set up for the user : %1', UserId)
                 else
                     rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name");
+                Rec.SetFilter(Rec.Qty, '<>%1', 0);
             end
         end
         else
