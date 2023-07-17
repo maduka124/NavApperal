@@ -8,7 +8,6 @@ report 50629 ExportSummartReport
 
     dataset
     {
-
         dataitem("Sales Invoice Header"; "Sales Invoice Header")
         {
             DataItemTableView = where("No." = filter(<> ''));

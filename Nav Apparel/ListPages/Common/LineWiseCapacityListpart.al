@@ -254,6 +254,9 @@ page 51346 LineWiseCapacityListpart
             until CalenderRec.Next() = 0;
         end;
 
+        // if LineNoPara = 'AFL-01' then
+        //     Message('AFL-01');
+
         Capacity_Pcs1Tot += Round(((WorkCenterRec.Carder * NoofDays * HoursPerDay * NavAppSetuprec."Capacity Book Eff") / 100 * 60) / NavAppSetuprec."Capacity Book SMV", 1);
         Capacity_Pcs2 := Round(((WorkCenterRec.Carder * NoofDays * HoursPerDay * NavAppSetuprec."Capacity Book Eff") / 100 * 60) / NavAppSetuprec."Capacity Book SMV", 1);
 

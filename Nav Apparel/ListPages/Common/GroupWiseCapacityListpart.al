@@ -48,6 +48,7 @@ page 51342 GroupWiseCapacityListpart
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
+                    Caption = 'Planned Avg SMV';
                 }
 
                 field(Finishing; rec.Finishing)

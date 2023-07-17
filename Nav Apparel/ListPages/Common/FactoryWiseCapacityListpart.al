@@ -82,6 +82,7 @@ page 51344 FactoryWiseCapacityListpart
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
+                    Caption = 'Planned Avg SMV';
                 }
 
                 field("Plan Eff."; rec."Plan Eff.")

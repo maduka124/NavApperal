@@ -90,11 +90,11 @@ page 51349 CapacityDashboardCard
                 var
                     LocationRec: Record Location;
                     WorkCenterRec: Record "Work Center";
-                    // LineWiseCapacityRec: Record LineWiseCapacity;
                     GroupWiseCapacityRec: Record GroupWiseCapacity;
-                    // FactoryWiseCapacityRec: Record FactoryWiseCapacity;
-                    SalesShipmentHeaderRec: Record "Sales Shipment Header";
-                    SalesShipmentLineRec: Record "Sales Shipment Line";
+                    SalesInvHeaderRec: Record "Sales Invoice Header";
+                    SalesInvLineRec: Record "Sales Invoice Line";
+                    SalesShipHeaderRec: Record "Sales Shipment Header";
+                    SalesShipLineRec: Record "Sales Shipment Line";
                     Mon: Integer;
                     Name: Text[20];
                     StartDate1: Date;
@@ -102,23 +102,11 @@ page 51349 CapacityDashboardCard
                 begin
                     if rec.Year >= 2023 then begin
 
-                        //Delete old data
-                        // FactoryWiseCapacityRec.Reset();
-                        // if FactoryWiseCapacityRec.FindSet() then
-                        //     FactoryWiseCapacityRec.DeleteAll();
-
                         GroupWiseCapacityRec.Reset();
                         if GroupWiseCapacityRec.FindSet() then
                             GroupWiseCapacityRec.DeleteAll();
 
-                        // LineWiseCapacityRec.Reset();
-                        // if LineWiseCapacityRec.FindSet() then
-                        //     LineWiseCapacityRec.DeleteAll();
-
-                        ////////////////////////////////////
                         GroupMax := 0;
-                        // FacMax := 0;
-                        // LineMax := 0;
 
                         for Mon := 1 to 12 do begin
                             case Mon of
@@ -158,6 +146,8 @@ page 51349 CapacityDashboardCard
                             Avg_Plan_Mnts := 0;
                             Ship_Pcs := 0;
                             Ship_Value := 0;
+                            Avg_SMVTemp := 0;
+                            // Avg_SMVTempTot := 0;
                             GroupMax += 1;
 
                             //////Cal ship Pcs (group level only)
@@ -194,23 +184,60 @@ page 51349 CapacityDashboardCard
                                     FinishDate1 := DMY2DATE(31, Mon, rec.Year);
                             end;
 
-                            SalesShipmentHeaderRec.Reset();
-                            SalesShipmentHeaderRec.SetRange("posting Date", StartDate1, FinishDate1);
-                            if SalesShipmentHeaderRec.FindSet() then begin
+                            // ShipQty := 0;
+                            // SalesShipmentLineRec.Reset();
+                            // SalesShipmentLineRec.SetRange("Order No.", "Order No.");
+                            // SalesShipmentLineRec.SetRange(Type, SalesShipmentLineRec.Type::Item);
+                            // if SalesShipmentLineRec.FindSet() then begin
+                            //     repeat
+                            //         ShipQty += SalesShipmentLineRec.Quantity;
+                            //     until SalesShipmentLineRec.Next() = 0;
+                            // end;
+
+                            SalesInvHeaderRec.Reset();
+                            SalesInvHeaderRec.SetRange("Shipment Date", StartDate1, FinishDate1);
+                            if SalesInvHeaderRec.FindSet() then begin
                                 repeat
-                                    SalesShipmentLineRec.Reset();
-                                    SalesShipmentLineRec.SetRange("Document No.", SalesShipmentHeaderRec."No.");
-                                    SalesShipmentLineRec.SetRange(Type, SalesShipmentLineRec.Type::Item);
-                                    if SalesShipmentLineRec.FindSet() then begin
+                                    SalesInvHeaderRec.CalcFields("Amount Including VAT");
+                                    Ship_Value += SalesInvHeaderRec."Amount Including VAT";
+                                    Ship_ValueTot += SalesInvHeaderRec."Amount Including VAT";
+
+                                    SalesShipHeaderRec.Reset();
+                                    SalesShipHeaderRec.SetRange("Order No.", SalesInvHeaderRec."Order No.");
+                                    if SalesShipHeaderRec.FindSet() then begin
                                         repeat
-                                            Ship_Pcs := SalesShipmentLineRec.Quantity;
-                                            Ship_Value := SalesShipmentLineRec.Quantity * SalesShipmentLineRec."Unit Price";
-                                            Ship_PcsTot += SalesShipmentLineRec.Quantity;
-                                            Ship_ValueTot += SalesShipmentLineRec.Quantity * SalesShipmentLineRec."Unit Price";
-                                        until SalesShipmentLineRec.Next() = 0;
+                                            SalesShipLineRec.Reset();
+                                            SalesShipLineRec.SetRange("Document No.", SalesShipHeaderRec."No.");
+                                            SalesShipLineRec.SetRange(Type, SalesShipLineRec.Type::Item);
+                                            if SalesShipLineRec.FindSet() then begin
+                                                repeat
+                                                    Ship_Pcs += SalesShipLineRec.Quantity;
+                                                    Ship_PcsTot += SalesShipLineRec.Quantity;
+                                                until SalesShipLineRec.Next() = 0;
+                                            end;
+                                        until SalesShipHeaderRec.Next() = 0;
                                     end;
-                                until SalesShipmentHeaderRec.Next() = 0;
+                                until SalesInvHeaderRec.Next() = 0;
                             end;
+
+
+                            // SalesInvHeaderRec.Reset();
+                            // SalesInvHeaderRec.SetRange("Shipment Date", StartDate1, FinishDate1);
+                            // if SalesInvHeaderRec.FindSet() then begin
+                            //     repeat
+                            //         SalesInvLineRec.Reset();
+                            //         SalesInvLineRec.SetRange("Document No.", SalesInvHeaderRec."No.");
+                            //         SalesInvLineRec.SetRange(Type, SalesInvLineRec.Type::Item);
+                            //         if SalesInvLineRec.FindSet() then begin
+                            //             repeat
+                            //                 Ship_Pcs += SalesInvLineRec.Quantity;
+                            //                 Ship_Value += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
+                            //                 Ship_PcsTot += SalesInvLineRec.Quantity;
+                            //                 Ship_ValueTot += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
+                            //             until SalesInvLineRec.Next() = 0;
+                            //         end;
+                            //     until SalesInvHeaderRec.Next() = 0;
+                            // end;
 
                             //Get all factories
                             LocationRec.Reset();
@@ -357,7 +384,6 @@ page 51349 CapacityDashboardCard
 
         rec.Year := Y;
     end;
-
 
     procedure GetDataGRoup(MonPara: Integer; NamePara: text[20]; LineNoPara: code[20]; FactoryPara: code[20])
     var

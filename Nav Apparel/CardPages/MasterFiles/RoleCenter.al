@@ -822,6 +822,13 @@ page 50968 "Nav Apperal Role Center"
                     }
                 }
 
+                action("Capacity Dashboard (Group/Factory Wise/Line Wise) Planning")
+                {
+                    Caption = 'Capacity Dashboard (Group/Factory Wise/Line Wise)';
+                    RunObject = Page CapacityDashboardList;
+                    ApplicationArea = all;
+                }
+
                 action("Factory Wise Production Planning")
                 {
                     RunObject = Page FacWiseProductplaningHdrList;
