@@ -29,7 +29,10 @@ page 50990 "Dependency Card"
                         DependencyGroupRec.SetRange("Dependency Group", rec.Dependency);
 
                         if DependencyGroupRec.FindSet() then
-                            rec."Dependency No." := DependencyGroupRec."No.";
+                            rec."Dependency No." := DependencyGroupRec."No."
+                        else
+                            Error('Invalid dependency');
+
                     end;
                 }
 
@@ -48,7 +51,9 @@ page 50990 "Dependency Card"
                         CustomerRec.SetRange(Name, rec."Buyer Name.");
 
                         if CustomerRec.FindSet() then
-                            rec."Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No."
+                        else// Done By Sachith on 17/04/23
+                            Error('Invalid dependency');
 
 
                         //Check whether user logged in or not
