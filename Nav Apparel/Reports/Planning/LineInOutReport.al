@@ -14,40 +14,28 @@ report 51256 lineinoutReport
 
             column(Resource_Name; "Resource Name")
             { }
-
             column(Buyer; Buyer)
             { }
-
             column(orderQty; orderQty)
             { }
-
             column(Style_Name; "Style Name")
             { }
-
             column(PO_No; "PO No")
             { }
-
             column(Input_Qty; "Input Qty")
             { }
-
             column(Output_Qty; "Output Qty")
             { }
-
             column(CompLogo; comRec.Picture)
             { }
-
             column(StDate; StDate)
             { }
-
             column(EndDate; EndDate)
             { }
-
             column(Factory_Name; "Factory Name")
             { }
-
             column(LocationRec; LocationRec.Name)
             { }
-
             column(Resource_No_; "Resource No.")
             { }
 
