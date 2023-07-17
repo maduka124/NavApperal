@@ -137,4 +137,11 @@ page 50427 "Sample Request Header ListPart"
 
         }
     }
+    //Done By Sachith 17/07/23
+    trigger OnOpenPage()
+    begin
+
+        Rec.SetFilter(Rec.Qty, '<>%1', 0);
+
+    end;
 }
