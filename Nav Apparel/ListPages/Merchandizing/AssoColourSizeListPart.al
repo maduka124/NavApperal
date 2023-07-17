@@ -120,98 +120,104 @@ page 51015 AssoColourSizeListPart
         AssorColorSizeRatioRec: Record AssorColorSizeRatio;
         AssorColorSizeRatioView: Record AssorColorSizeRatioView;
         AssorColorSizeRatioPriceRec: Record AssorColorSizeRatioPrice;
+        BOMLineAutoGenRec: Record "BOM Line AutoGen";
         Confirm: Boolean;
         LotTemp: Code[20];
         Question: Text;
         Text: Label 'Quantity has been entered for the Color : %1 in LOT : %2 . Do you want to delete color from all POs.?';
     begin
-
         //Check for whether BOM created for the style
+        BOMRec.Reset();
         BOMRec.SetRange("Style No.", Rec."Style No.");
-        if BOMRec.FindSet() then
-            Error('Style %1 already assigned for the BOM %2 . You cannot delete colors.', Style1Rec."Style No.", BOMRec.No)
+        if BOMRec.FindSet() then begin
+            //Check for Write to MRP status
+            BOMLineAutoGenRec.Reset();
+            BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
+            BOMLineAutoGenRec.SetRange("GMT Color No.", rec."Colour No");
+            BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', true);
+            if BOMLineAutoGenRec.FindSet() then
+                Error('You have used Color : %1 in "MRP Process" in BOM : %2. Cannot delete the color.', rec."Colour Name", BOMRec.No);
+        end;
+
+
+        //Inform user about color usage in other pos
+        AssorColorSizeRatioRec.Reset();
+        AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
+        AssorColorSizeRatioRec.SetRange("Colour No", Rec."Colour No");
+        AssorColorSizeRatioRec.SetCurrentKey("lot No.");
+        AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', Rec."Lot No.");
+
+        if AssorColorSizeRatioRec.FindSet() then begin
+            repeat
+                if AssorColorSizeRatioRec.Total <> '0' then begin
+                    LotTemp := AssorColorSizeRatioRec."Lot No.";
+                    break;
+                end;
+            until AssorColorSizeRatioRec.Next() = 0;
+        end;
+
+        if LotTemp <> '' then begin
+            Question := Text;
+            if (Dialog.Confirm(Question, true, Rec."Colour Name", LotTemp) = true) then
+                Confirm := true
+            else
+                Confirm := false;
+        end
         else begin
 
-            //Inform user about color usage in other pos
-            AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
-            AssorColorSizeRatioRec.SetRange("Colour No", Rec."Colour No");
-            AssorColorSizeRatioRec.SetCurrentKey("lot No.");
-            AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', Rec."Lot No.");
-
-            if AssorColorSizeRatioRec.FindSet() then begin
-                repeat
-                    if AssorColorSizeRatioRec.Total <> '0' then begin
-                        LotTemp := AssorColorSizeRatioRec."Lot No.";
-                        break;
-                    end;
-                until AssorColorSizeRatioRec.Next() = 0;
-            end;
-
-            if LotTemp <> '' then begin
-                Question := Text;
-                if (Dialog.Confirm(Question, true, Rec."Colour Name", LotTemp) = true) then
-                    Confirm := true
-                else
-                    Confirm := false;
-            end
-            else begin
-
-                if (Dialog.CONFIRM('"Do you want to delete color from all POs.?', true) = true) then
-                    Confirm := true
-                else
-                    Confirm := false;
-            end;
-
-
-            //Delete from color TAB (Other POs)
-            if Confirm = true then begin
-                AssorDetailsRec.Reset();
-                AssorDetailsRec.SetRange("Style No.", Rec."Style No.");
-                AssorDetailsRec.SetRange("Colour No", Rec."Colour No");
-
-                if AssorDetailsRec.FindSet() then
-                    AssorDetailsRec.DeleteAll();
-            end;
-
-
-            //Delete from color size ratio TAB
-            AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
-            AssorColorSizeRatioRec.SetRange("Colour No", Rec."Colour No");
-
-            if Confirm = false then
-                AssorColorSizeRatioRec.SetRange("lot No.", Rec."Lot No.");
-
-            if AssorColorSizeRatioRec.FindSet() then
-                AssorColorSizeRatioRec.DeleteAll();
-
-
-            //Delete from Quantity breakdown TAB
-            AssorColorSizeRatioView.Reset();
-            AssorColorSizeRatioView.SetRange("Style No.", Rec."Style No.");
-            AssorColorSizeRatioView.SetRange("Colour No", Rec."Colour No");
-
-            if Confirm = false then
-                AssorColorSizeRatioView.SetRange("lot No.", Rec."Lot No.");
-
-            if AssorColorSizeRatioView.FindSet() then
-                AssorColorSizeRatioView.DeleteAll();
-
-
-            //Delete from color wise price TAB
-            AssorColorSizeRatioPriceRec.Reset();
-            AssorColorSizeRatioPriceRec.SetRange("Style No.", Rec."Style No.");
-            AssorColorSizeRatioPriceRec.SetRange("Colour No", Rec."Colour No");
-
-            if Confirm = false then
-                AssorColorSizeRatioPriceRec.SetRange("lot No.", Rec."Lot No.");
-
-            if AssorColorSizeRatioPriceRec.FindSet() then
-                AssorColorSizeRatioPriceRec.DeleteAll();
-
-            exit(true);
+            if (Dialog.CONFIRM('"Do you want to delete color from all POs.?', true) = true) then
+                Confirm := true
+            else
+                Confirm := false;
         end;
+
+
+        //Delete from color TAB (Other POs)
+        if Confirm = true then begin
+            AssorDetailsRec.Reset();
+            AssorDetailsRec.SetRange("Style No.", Rec."Style No.");
+            AssorDetailsRec.SetRange("Colour No", Rec."Colour No");
+            if AssorDetailsRec.FindSet() then
+                AssorDetailsRec.DeleteAll();
+        end;
+
+
+        //Delete from color size ratio TAB
+        AssorColorSizeRatioRec.Reset();
+        AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
+        AssorColorSizeRatioRec.SetRange("Colour No", Rec."Colour No");
+
+        if Confirm = false then
+            AssorColorSizeRatioRec.SetRange("lot No.", Rec."Lot No.");
+
+        if AssorColorSizeRatioRec.FindSet() then
+            AssorColorSizeRatioRec.DeleteAll();
+
+
+        //Delete from Quantity breakdown TAB
+        AssorColorSizeRatioView.Reset();
+        AssorColorSizeRatioView.SetRange("Style No.", Rec."Style No.");
+        AssorColorSizeRatioView.SetRange("Colour No", Rec."Colour No");
+
+        if Confirm = false then
+            AssorColorSizeRatioView.SetRange("lot No.", Rec."Lot No.");
+
+        if AssorColorSizeRatioView.FindSet() then
+            AssorColorSizeRatioView.DeleteAll();
+
+
+        //Delete from color wise price TAB
+        AssorColorSizeRatioPriceRec.Reset();
+        AssorColorSizeRatioPriceRec.SetRange("Style No.", Rec."Style No.");
+        AssorColorSizeRatioPriceRec.SetRange("Colour No", Rec."Colour No");
+
+        if Confirm = false then
+            AssorColorSizeRatioPriceRec.SetRange("lot No.", Rec."Lot No.");
+
+        if AssorColorSizeRatioPriceRec.FindSet() then
+            AssorColorSizeRatioPriceRec.DeleteAll();
+
+        exit(true);
     end;
 
 }
