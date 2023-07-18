@@ -388,8 +388,6 @@ page 51349 CapacityDashboardCard
     procedure GetDataGRoup(MonPara: Integer; NamePara: text[20]; LineNoPara: code[20]; FactoryPara: code[20])
     var
         GroupWiseCapacityRec: Record GroupWiseCapacity;
-        // FactoryWiseCapacityRec: Record FactoryWiseCapacity;
-        // LineWiseCapacityRec: Record LineWiseCapacity;
         LocationRec: Record Location;
         WorkCenterRec: Record "Work Center";
         NavAppProdRec: Record "NavApp Prod Plans Details";
@@ -413,8 +411,9 @@ page 51349 CapacityDashboardCard
         LocationRec.FindSet();
 
         //////Cal Capacity_Pcs
-        HoursPerDay := (LocationRec."Finish Time" - LocationRec."Start Time") / 3600000;
         StartDate := DMY2DATE(1, MonPara, rec.Year);
+        HoursPerDay := (LocationRec."Finish Time" - LocationRec."Start Time") / 3600000;
+
         case MonPara of
             1:
                 FinishDate := DMY2DATE(31, MonPara, rec.Year);

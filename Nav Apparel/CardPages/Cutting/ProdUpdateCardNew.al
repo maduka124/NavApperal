@@ -83,6 +83,7 @@ page 50371 "Prod Update Card"
         SHCalWorkRec: Record "Shop Calendar Working Days";
         LocationRec: Record Location;
         ProductionOutLine: Record ProductionOutLine;
+        NavAppCodeUnit3Rec: Codeunit NavAppCodeUnit3;
 
         Holiday: code[10];
         Flag: Integer;
@@ -144,7 +145,17 @@ page 50371 "Prod Update Card"
         HoursPerDay1: Decimal;
         HoursPerDay2: Decimal;
         ddddddtttt: DateTime;
+        FactoryFinishTime: Time;
     begin
+
+        //Check for blank factory / line records
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+        ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
+        ProdOutHeaderRec.SetFilter("Factory Name", '=%1', '');
+        if ProdOutHeaderRec.FindSet() then
+            ProdOutHeaderRec.DeleteAll();
+
 
         //Check for blank factory / line records
         ProdOutHeaderRec.Reset();
@@ -152,8 +163,8 @@ page 50371 "Prod Update Card"
         ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
         if ProdOutHeaderRec.FindSet() then begin
             repeat
-                if ProdOutHeaderRec."Factory Name" = '' then
-                    Error('Prod. Out Entries exists with blank Factory. Entry No : %1', ProdOutHeaderRec."No.");
+                // if ProdOutHeaderRec."Factory Name" = '' then
+                //     Error('Prod. Out Entries exists with blank Factory. Entry No : %1', ProdOutHeaderRec."No.");
 
                 if ProdOutHeaderRec."Resource Name" = '' then
                     Error('Prod. Out Entries exists with blank Line. Entry No : %1', ProdOutHeaderRec."No.");
@@ -461,8 +472,10 @@ page 50371 "Prod Update Card"
                                                 if LcurveTemp > 0 then begin
 
                                                     repeat
-                                                        if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                            LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, LCurveFinishDate, LocationRec."Start Time");
+
+                                                        if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                            LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                                             LCurveStartTime := LocationRec."Start Time";
                                                             LCurveFinishDate += 1;
 
@@ -842,6 +855,7 @@ page 50371 "Prod Update Card"
                                             MaxLineNo := ProdPlansDetails."No.";
 
                                         MaxLineNo += 1;
+                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, TempDate, LocationRec."Start Time");
 
                                         if (JobPlaLineRec.Qty - OutputQty) > 0 then begin
                                             //insert to ProdPlansDetails
@@ -856,11 +870,7 @@ page 50371 "Prod Update Card"
                                             ProdPlansDetails."Resource No." := WorkCenterNo;
                                             ProdPlansDetails.Carder := Carder;
                                             ProdPlansDetails.Eff := Eff;
-                                            //ProdPlansDetails."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
                                             ProdPlansDetails.SMV := JobPlaLineRec.SMV;
-
-                                            // if WorkCenterName = 'AFL-14' then
-                                            //     Message('AFL-14');
 
                                             if Holiday = 'NO' then begin
                                                 if TimeEnd1 <> 0T then
@@ -872,11 +882,11 @@ page 50371 "Prod Update Card"
                                                         ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                                 if TempHours = 0 then
-                                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                    ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                 else begin
                                                     if i = 1 then
-                                                        if (LocationRec."Finish Time" < ProdPlansDetails."Start Time" + 60 * 60 * 1000 * TempHours) then
-                                                            ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                        if (FactoryFinishTime < ProdPlansDetails."Start Time" + 60 * 60 * 1000 * TempHours) then
+                                                            ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                         else
                                                             ProdPlansDetails."Finish Time" := ProdPlansDetails."Start Time" + 60 * 60 * 1000 * TempHours
                                                     else begin
@@ -943,11 +953,11 @@ page 50371 "Prod Update Card"
                                         JobPlaLineRec."Start Time" := TImeStart;
 
                                     if TempHours = 0 then
-                                        JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                        JobPlaLineRec."Finish Time" := FactoryFinishTime
                                     else begin
                                         if i = 1 then
-                                            if (LocationRec."Finish Time" < JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours) then
-                                                JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                            if (FactoryFinishTime < JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours) then
+                                                JobPlaLineRec."Finish Time" := FactoryFinishTime
                                             else
                                                 JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours
                                         else begin
@@ -1065,6 +1075,7 @@ page 50371 "Prod Update Card"
                                                         dtStart := TempDate;
                                                         TImeStart := TempTIme;
                                                         Curr_StartDateTime := JobPlaLine1Rec.StartDateTime;
+                                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, dtStart, LocationRec."Start Time");
 
                                                         //Calculate hourly gap between prevous and current allocation
                                                         if Prev_FinishedDateTime <> 0DT then begin
@@ -1088,7 +1099,7 @@ page 50371 "Prod Update Card"
 
                                                                     if HoursPerDay1 > 0 then begin
                                                                         if X = 1 then  //First Date
-                                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
+                                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), FactoryFinishTime) - Prev_FinishedDateTime
                                                                         else
                                                                             if X = XX then  //Last date
                                                                                 HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
@@ -1113,9 +1124,10 @@ page 50371 "Prod Update Card"
                                                         //Based on Hourly Gap, calculate start Date/time of current allocation 
                                                         if HoursGap > 0 then begin
                                                             ddddddtttt := CREATEDATETIME(dtStart, TImeStart);
+                                                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, dtStart, LocationRec."Start Time");
 
-                                                            if (CREATEDATETIME(dtStart, LocationRec."Finish Time") <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
-                                                                HoursGap := HoursGap - (LocationRec."Finish Time" - TImeStart) / 3600000;
+                                                            if (CREATEDATETIME(dtStart, FactoryFinishTime) <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
+                                                                HoursGap := HoursGap - (FactoryFinishTime - TImeStart) / 3600000;
                                                                 TImeStart := LocationRec."Start Time";
                                                                 dtStart := dtStart + 1;
 
@@ -1173,35 +1185,10 @@ page 50371 "Prod Update Card"
                                                         end;
 
                                                         HoursPerDay := 0;
-
-                                                        // if Prev_FinishedDateTime <> 0DT then
-                                                        //     if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
-                                                        //         HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
-                                                        //         HoursGap := HoursGap / 3600000;
-
-                                                        //         if (HoursGap IN [0.0001 .. 0.99]) then
-                                                        //             HoursGap := 1;
-
-                                                        //         HoursGap := round(HoursGap, 1, '>');
-                                                        //     end
-                                                        //     else begin
-                                                        //         HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime;
-                                                        //         HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"));
-                                                        //         HoursGap := HoursGap / 3600000;
-
-                                                        //         if (HoursGap IN [0.0001 .. 0.99]) then
-                                                        //             HoursGap := 1;
-
-                                                        //         HoursGap := round(HoursGap, 1, '>');
-                                                        //     end;
-
-
-                                                        //Add Hour Gap between two allocations to the start time of current allocation 
-                                                        //TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
-                                                        // HoursPerDay := 0;
+                                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, dtStart, LocationRec."Start Time");
 
                                                         //if start time greater than parameter Finish time, set start time next day morning
-                                                        if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                                                        if ((TImeStart - FactoryFinishTime) >= 0) then begin
                                                             TImeStart := LocationRec."Start Time";
                                                             dtStart := dtStart + 1;
                                                             TempDate := dtStart;
@@ -1292,8 +1279,10 @@ page 50371 "Prod Update Card"
                                                                     LcurveTemp := LearningCurveRec.Day1;
 
                                                                     repeat
-                                                                        if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                                            LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, LCurveFinishDate, LocationRec."Start Time");
+
+                                                                        if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                                            LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                                                             LCurveStartTime := LocationRec."Start Time";
                                                                             LCurveFinishDate += 1;
 
@@ -1370,7 +1359,6 @@ page 50371 "Prod Update Card"
                                                             WorkCenCapacityEntryRec.Reset();
                                                             WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
                                                             WorkCenCapacityEntryRec.SETRANGE(Date, TempDate);
-
                                                             if WorkCenCapacityEntryRec.FindSet() then begin
                                                                 repeat
                                                                     HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -1670,6 +1658,7 @@ page 50371 "Prod Update Card"
                                                                 MaxLineNo := ProdPlansDetails."No.";
 
                                                             MaxLineNo += 1;
+                                                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, TempDate, LocationRec."Start Time");
 
                                                             //insert to ProdPlansDetails
                                                             ProdPlansDetails.Init();
@@ -1683,7 +1672,6 @@ page 50371 "Prod Update Card"
                                                             ProdPlansDetails."Resource No." := WorkCenterNo;
                                                             ProdPlansDetails.Carder := Carder;
                                                             ProdPlansDetails.Eff := Eff;
-                                                            //ProdPlansDetails."Learning Curve No." := JobPlaLine1Rec."Learning Curve No.";
                                                             ProdPlansDetails.SMV := JobPlaLine1Rec.SMV;
 
                                                             if Holiday = 'NO' then begin
@@ -1693,22 +1681,17 @@ page 50371 "Prod Update Card"
                                                                     ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                                                 if TempHours = 0 then
-                                                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                                    ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                                 else begin
                                                                     if i = 1 then
-                                                                        if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                                            ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                                        if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                                            ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                                         else
                                                                             ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                                                     else
                                                                         ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                                                 end;
                                                             end;
-
-                                                            // if TempHours = 0 then
-                                                            //     ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                                            // else
-                                                            //     ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                                                             ProdPlansDetails.Qty := xQty;
                                                             ProdPlansDetails.Target := TargetPerDay;
@@ -1764,11 +1747,11 @@ page 50371 "Prod Update Card"
                                                         JobPlaLine2Rec."Start Time" := TImeStart;
 
                                                         if TempHours = 0 then
-                                                            JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                                            JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                                         else begin
                                                             if i = 1 then
-                                                                if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                                    JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                                                if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                                    JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                                                 else
                                                                     JobPlaLine2Rec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                                             else
@@ -1792,7 +1775,6 @@ page 50371 "Prod Update Card"
                                                             if JobPlaLine2Rec.Qty <= 0 then
                                                                 JobPlaLine2Rec.DeleteAll();
                                                         end;
-
                                                     end;
 
                                                     StartTime2 := JobPlaLine2Rec."Start Time";
@@ -1801,18 +1783,12 @@ page 50371 "Prod Update Card"
                                             end;
                                         end;
                                     end;
-
                                 end;
-
                                 status := 1;
-
                             end;
                         end;
-
                     until WorkCenterRec.Next() = 0;
-
                 end;
-
             until LocationRec.Next() = 0;
 
             //Update Prod status of all lines                                                

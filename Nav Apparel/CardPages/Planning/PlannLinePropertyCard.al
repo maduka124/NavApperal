@@ -272,8 +272,10 @@ page 50343 "Planning Line Property Card"
                         ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                         ProdPlansDetails.SetRange("Style No.", rec."Style No.");
                         ProdPlansDetails.SetFilter("Line No.", '<>%1', rec."Line No.");
-                        if ProdPlansDetails.FindSet() then
-                            ApplyLCurve := false
+                        if ProdPlansDetails.FindSet() then begin
+                            ApplyLCurve := false;
+                            Message('Learning Curve already applied for the style %1 within %2 days. ', rec."Style Name", ResourceRec."LV Days");
+                        end
                         else begin
                             //Validate same style same allocation
                             ProdPlansDetails.Reset();
@@ -284,7 +286,6 @@ page 50343 "Planning Line Property Card"
                                 ApplyLCurve := true
                             end
                             else begin
-                                //ApplyLCurve := true;
                                 PordUpdQty := 0;
                                 //Get completed lCurve hours
                                 repeat

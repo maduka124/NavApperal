@@ -49,7 +49,7 @@ table 51350 LCMaster
         field(8; "Contract No"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Factory No." = field("Factory No."));
+            TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Factory No." = field("Factory No."), "Status of LC" = filter(Active));
             ValidateTableRelation = false;
 
             trigger OnValidate()

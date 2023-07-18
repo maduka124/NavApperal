@@ -1983,6 +1983,15 @@ page 50968 "Nav Apperal Role Center"
                     //     RunObject = report HourlyProductionReport;
                     //     ApplicationArea = all;
                     // }
+
+                    action("Sample Request Report - sample")
+                    {
+                        Caption = 'Sample Requisition Report';
+                        Enabled = true;
+                        RunObject = report SampleRequest;
+                        ApplicationArea = all;
+                    }
+
                     action("Sample Requirement Details Report")
                     {
                         Caption = 'Sample Requirement Details Report';
