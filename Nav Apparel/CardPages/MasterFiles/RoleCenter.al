@@ -2168,6 +2168,14 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page OMSList;
                     ApplicationArea = all;
                 }
+
+                action("Style Wise Machine Req")
+                {
+                    Caption = 'Style Wise Machine Requirement';
+                    RunObject = Page MachineRequestList;
+                    ApplicationArea = all;
+                }
+
                 action("Style SMV Pending List")
                 {
                     Caption = 'SMV Pending Style List';
