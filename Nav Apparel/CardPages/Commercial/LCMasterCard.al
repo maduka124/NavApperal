@@ -1,4 +1,4 @@
-page 51351 "LC Card"
+page 51351 "LC Master Card"
 {
     PageType = Card;
     SourceTable = LCMaster;
@@ -74,17 +74,15 @@ page 51351 "LC Card"
                         //Get user location
                         UsersRec.Reset();
                         UsersRec.SetRange("User ID", UserId());
-                        UsersRec.FindSet();
-
                         if UsersRec.FindSet() then begin
-                            rec."Factory No." := UsersRec."Factory Code";
+                            // rec."Factory No." := UsersRec."Factory Code";
                             Rec."Global Dimension Code" := UsersRec."Global Dimension Code";
                         end;
 
-                        LocationRec.Reset();
-                        LocationRec.SetRange(Code, rec."Factory No.");
-                        if LocationRec.FindSet() then
-                            rec.Factory := LocationRec.Name;
+                        // LocationRec.Reset();
+                        // LocationRec.SetRange(Code, rec."Factory No.");
+                        // if LocationRec.FindSet() then
+                        //     rec.Factory := LocationRec.Name;
                     end;
                 }
 
@@ -98,7 +96,6 @@ page 51351 "LC Card"
                     begin
                         SeasonsRec.Reset();
                         SeasonsRec.SetRange("Season Name", rec."Season");
-
                         if SeasonsRec.FindSet() then
                             rec."Season No." := SeasonsRec."No.";
                     end;

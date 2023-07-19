@@ -2511,7 +2511,7 @@ page 50968 "Nav Apperal Role Center"
                 action("LC Master")
                 {
                     Caption = 'Master LC';
-                    RunObject = Page "LC List";
+                    RunObject = Page "LC Master List";
                     ApplicationArea = all;
                 }
                 action("OMS")

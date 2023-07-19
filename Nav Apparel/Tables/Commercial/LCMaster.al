@@ -49,7 +49,7 @@ table 51350 LCMaster
         field(8; "Contract No"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Factory No." = field("Factory No."), "Status of LC" = filter(Active));
+            TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Factory" = field("Factory"), "Status of LC" = filter(Active));
             ValidateTableRelation = false;
 
             trigger OnValidate()
@@ -299,11 +299,9 @@ table 51350 LCMaster
 
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
-
         if UserSetupRec.FindSet() then begin
             "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
         end;
-
     end;
 
 

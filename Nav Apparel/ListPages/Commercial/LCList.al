@@ -1,10 +1,10 @@
-page 51352 "LC List"
+page 51352 "LC Master List"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = LCMaster;
-    CardPageId = "LC Card";
+    CardPageId = "LC Master Card";
     Editable = false;
     SourceTableView = sorting("No.") order(descending);
     ShowFilter = false;

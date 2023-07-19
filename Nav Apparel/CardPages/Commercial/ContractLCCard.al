@@ -74,17 +74,15 @@ page 50502 "Contract/LC Card"
                         //Get user location
                         UsersRec.Reset();
                         UsersRec.SetRange("User ID", UserId());
-                        UsersRec.FindSet();
-
                         if UsersRec.FindSet() then begin
-                            rec."Factory No." := UsersRec."Factory Code";
+                            // rec."Factory No." := UsersRec."Factory Code";
                             Rec."Global Dimension Code" := UsersRec."Global Dimension Code";
                         end;
 
-                        LocationRec.Reset();
-                        LocationRec.SetRange(Code, rec."Factory No.");
-                        if LocationRec.FindSet() then
-                            rec.Factory := LocationRec.Name;
+                        // LocationRec.Reset();
+                        // LocationRec.SetRange(Code, rec."Factory No.");
+                        // if LocationRec.FindSet() then
+                        //     rec.Factory := LocationRec.Name;
                     end;
                 }
 
@@ -98,7 +96,6 @@ page 50502 "Contract/LC Card"
                     begin
                         SeasonsRec.Reset();
                         SeasonsRec.SetRange("Season Name", rec."Season");
-
                         if SeasonsRec.FindSet() then
                             rec."Season No." := SeasonsRec."No.";
                     end;
@@ -116,7 +113,9 @@ page 50502 "Contract/LC Card"
                         LocationRec.Reset();
                         LocationRec.SetRange(Name, rec."Factory");
                         if LocationRec.FindSet() then
-                            rec."Factory No." := LocationRec."code";
+                            rec."Factory No." := LocationRec."code"
+                        else
+                            Error('Invalid Factory');
                     end;
                 }
 
@@ -406,6 +405,7 @@ page 50502 "Contract/LC Card"
             rec.TestField(Buyer);
             rec.TestField("Contract No");
             Rec.TestField(Factory);
+            Rec.TestField("Factory No.");
             Rec.TestField("Global Dimension Code");
         end;
     end;
