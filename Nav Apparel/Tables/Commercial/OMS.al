@@ -9,7 +9,7 @@ table 51327 OMS
         //     DataClassification = ToBeClassified;
 
         // }
-        field(2; "Lc Contract No"; Text[35])
+        field(2; "Lc Contract No"; Text[200])
         {
             DataClassification = ToBeClassified;
 
