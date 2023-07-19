@@ -183,6 +183,11 @@ page 50343 "Planning Line Property Card"
                     SHCalWorkRec: Record "Shop Calendar Working Days";
                     ProdPlansDetails: Record "NavApp Prod Plans Details";
                     LocationRec: Record Location;
+                    NavAppCodeUnit3Rec: Codeunit NavAppCodeUnit3;
+                    ResourceRec: Record "Work Center";
+                    WorkCenCapacityEntryRec: Record "Calendar Entry";
+                    JobPlaLine2Rec: Record "NavApp Planning Lines";
+
                     MaxLineNo: BigInteger;
                     dtStart: Date;
                     dtEnd: Date;
@@ -198,7 +203,6 @@ page 50343 "Planning Line Property Card"
                     TempQty1: BigInteger;
                     i: Integer;
                     TempHours: Decimal;
-                    ResourceRec: Record "Work Center";
                     DayForWeek: Record Date;
                     Day: Integer;
                     LCurveFinishDate: Date;
@@ -227,22 +231,19 @@ page 50343 "Planning Line Property Card"
                     SMV: Decimal;
                     Qty: BigInteger;
                     ddddddtttt: DateTime;
-                    WorkCenCapacityEntryRec: Record "Calendar Entry";
                     dtNextMonth: date;
                     dtLastDate: date;
                     dtSt: Date;
                     dtEd: Date;
                     Count: Integer;
-                    JobPlaLine2Rec: Record "NavApp Planning Lines";
-                    //SameStyle: Code[20];
                     ApplyLCurve: Boolean;
                     ApplyLCurve1: Boolean;
                     dtTemp: date;
                     PordUpdQty: BigInteger;
                     LcurveHoursPerday: Decimal;
                     LCurveStartTimePerDay: Time;
+                    FactoryFinishTime: Time;
                 begin
-
                     //Get Start and Finish Time
                     LocationRec.Reset();
                     LocationRec.SetRange(code, rec.Factory);
@@ -259,7 +260,6 @@ page 50343 "Planning Line Property Card"
                     Prev_FinishedDateTime := rec.FinishDateTime;
                     dtStart := rec."Start Date";
                     TImeStart := rec."Start Time";
-                    //TargetPerHour := HourlyTarget;
                     TempDate := dtStart;
 
                     if rec."Learning Curve No." = 0 then
@@ -328,8 +328,10 @@ page 50343 "Planning Line Property Card"
                             if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
                                 LcurveTemp := LearningCurveRec.Day1 - PordUpdQty;
                                 repeat
-                                    if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                        LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                    FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(rec."Resource No.", LCurveFinishDate, LocationRec."Start Time");
+
+                                    if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                        LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                         LCurveStartTime := LocationRec."Start Time";
 
                                         //if LcurveTemp > 0 then
@@ -401,7 +403,6 @@ page 50343 "Planning Line Property Card"
                     end;
 
                     repeat
-
                         //Get working hours for the day
                         HrsPerDay := 0;
                         Holiday := 'No';
@@ -648,6 +649,7 @@ page 50343 "Planning Line Property Card"
                             MaxLineNo := ProdPlansDetails."No.";
 
                         MaxLineNo += 1;
+                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(rec."Resource No.", TempDate, LocationRec."Start Time");
 
                         //insert to ProdPlansDetails
                         ProdPlansDetails.Init();
@@ -670,7 +672,7 @@ page 50343 "Planning Line Property Card"
                                 ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                             if TempHours = 0 then
-                                ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                ProdPlansDetails."Finish Time" := FactoryFinishTime
                             else begin
                                 if i = 1 then
                                     ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
@@ -739,11 +741,11 @@ page 50343 "Planning Line Property Card"
                     JobPlaLineRec."Start Time" := TImeStart;
 
                     if TempHours = 0 then
-                        JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                        JobPlaLineRec."Finish Time" := FactoryFinishTime
                     else begin
                         if i = 1 then
-                            if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                            if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                JobPlaLineRec."Finish Time" := FactoryFinishTime
                             else
                                 JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                         else
@@ -807,18 +809,8 @@ page 50343 "Planning Line Property Card"
                                         SMV := rec.SMV;
                                         Carder := rec.Carder;
                                         Eff := rec.Eff;
-
-                                        // if ApplyLCurve = true then
-                                        //     ApplyLCurve := true
-                                        // else
-                                        //     ApplyLCurve := false;
                                     end
-                                    else begin              //Different Style
-                                        // if JobPlaLineRec."Learning Curve No." <> 0 then
-                                        //     ApplyLCurve := true
-                                        // else
-                                        //     ApplyLCurve := false;
-
+                                    else begin              //Different Style   
                                         SMV := JobPlaLineRec.SMV;
                                         Carder := JobPlaLineRec.Carder;
                                         Eff := JobPlaLineRec.Eff;
@@ -864,9 +856,11 @@ page 50343 "Planning Line Property Card"
                                                         until ResCapacityEntryRec.Next() = 0;
                                                     end;
 
+                                                    FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(rec."Resource No.", DT2DATE(Prev_FinishedDateTime) + (X - 1), LocationRec."Start Time");
+
                                                     if HoursPerDay1 > 0 then begin
                                                         if X = 1 then  //First Date
-                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
+                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), FactoryFinishTime) - Prev_FinishedDateTime
                                                         else
                                                             if X = XX then  //Last date
                                                                 HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
@@ -892,10 +886,11 @@ page 50343 "Planning Line Property Card"
                                     if HoursGap > 0 then begin
 
                                         ddddddtttt := CREATEDATETIME(dtStart, TImeStart);
+                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(rec."Resource No.", dtStart, LocationRec."Start Time");
 
-                                        if (CREATEDATETIME(dtStart, LocationRec."Finish Time") <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
+                                        if (CREATEDATETIME(dtStart, FactoryFinishTime) <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
 
-                                            HoursGap := HoursGap - (LocationRec."Finish Time" - TImeStart) / 3600000;
+                                            HoursGap := HoursGap - (FactoryFinishTime - TImeStart) / 3600000;
                                             TImeStart := LocationRec."Start Time";
                                             dtStart := dtStart + 1;
 
@@ -959,7 +954,7 @@ page 50343 "Planning Line Property Card"
 
                                     HrsPerDay := 0;
                                     //if start time greater than parameter Finish time, set start time next day morning
-                                    if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                                    if ((TImeStart - FactoryFinishTime) >= 0) then begin
                                         TImeStart := LocationRec."Start Time";
                                         dtStart := dtStart + 1;
                                         TempDate := dtStart;
@@ -1029,8 +1024,10 @@ page 50343 "Planning Line Property Card"
                                                 LcurveTemp := LearningCurveRec.Day1;
 
                                                 repeat
-                                                    if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                        LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                                    FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(JobPlaLineRec."Resource No.", LCurveFinishDate, LocationRec."Start Time");
+
+                                                    if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                        LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                                         LCurveStartTime := LocationRec."Start Time";
                                                         LCurveFinishDate += 1;
 
@@ -1048,7 +1045,6 @@ page 50343 "Planning Line Property Card"
                                                             end;
 
                                                             if HrsPerDay = 0 then begin
-
                                                                 //Validate the day (Holiday or Weekend)
                                                                 SHCalHolidayRec.Reset();
                                                                 SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
@@ -1351,6 +1347,7 @@ page 50343 "Planning Line Property Card"
                                             MaxLineNo := ProdPlansDetails."No.";
 
                                         MaxLineNo += 1;
+                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(rec."Resource No.", TempDate, LocationRec."Start Time");
 
                                         //insert to ProdPlansDetails
                                         ProdPlansDetails.Init();
@@ -1373,11 +1370,11 @@ page 50343 "Planning Line Property Card"
                                                 ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                             if TempHours = 0 then
-                                                ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                ProdPlansDetails."Finish Time" := FactoryFinishTime
                                             else begin
                                                 if i = 1 then
-                                                    if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                        ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                    if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                        ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                     else
                                                         ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                                 else
@@ -1443,25 +1440,16 @@ page 50343 "Planning Line Property Card"
                                     JobPlaLine2Rec."Start Time" := TImeStart;
 
                                     if TempHours = 0 then
-                                        JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                        JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                     else begin
                                         if i = 1 then
-                                            if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                            if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                             else
                                                 JobPlaLine2Rec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                         else
                                             JobPlaLine2Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                     end;
-
-                                    // if ApplyLCurve = false then
-                                    //     JobPlaLine2Rec."Learning Curve No." := 0
-                                    // else begin
-                                    //     if rec."Style No." = JobPlaLine2Rec."Style No." then
-                                    //         JobPlaLine2Rec."Learning Curve No." := rec."Learning Curve No."
-                                    //     else
-                                    //         JobPlaLine2Rec."Learning Curve No." := 0;
-                                    // end;
 
                                     if ApplyLCurve1 = false then
                                         JobPlaLine2Rec."Learning Curve No." := 0

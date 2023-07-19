@@ -47,10 +47,10 @@ pageextension 50958 LocationCardExt extends "Location Card"
                 ApplicationArea = ALL;
             }
 
-            field("Finish Time"; rec."Finish Time")
-            {
-                ApplicationArea = ALL;
-            }
+            // field("Finish Time"; rec."Finish Time")
+            // {
+            //     ApplicationArea = ALL;
+            // }
         }
 
         modify(Name)

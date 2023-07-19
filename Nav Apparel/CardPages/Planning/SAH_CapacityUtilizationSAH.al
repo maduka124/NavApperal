@@ -127,6 +127,9 @@ page 50855 CapacityUtilizationSAH
                     StyleMasterPORec: Record "Style Master PO";
                     SAH_MerchGRPWiseBalRec: Record SAH_MerchGRPWiseBalance;
                     SAH_MerchGRPWiseAvgSMVRec: Record SAH_MerchGRPWiseAvgSMV;
+                    ResCapacityEntryRec: Record "Calendar Entry";
+                    SHCalHolidayRec: Record "Shop Calendar Holiday";
+                    SHCalWorkRec: Record "Shop Calendar Working Days";
                     SeqNo: BigInteger;
                     Total1: Decimal;
                     Total2: Decimal;
@@ -208,6 +211,9 @@ page 50855 CapacityUtilizationSAH
                     FinishDate: Date;
                     MerGR: Code[20];
                     Month: Integer;
+                    StartDate1: Date;
+                    DayForWeek: Record Date;
+                    Day: Integer;
                 begin
 
                     if rec.Year > 0 then begin
@@ -293,7 +299,7 @@ page 50855 CapacityUtilizationSAH
                         LocationsRec.SetFilter("Sewing Unit", '=%1', true);
                         if LocationsRec.FindSet() then begin
                             repeat
-                                HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
+                                //HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
                                 Total1 := 0;
                                 Total2 := 0;
                                 Total3 := 0;
@@ -318,6 +324,8 @@ page 50855 CapacityUtilizationSAH
                                         for i := 1 to 12 do begin
 
                                             StartDate := DMY2DATE(1, i, rec.Year);
+                                            StartDate1 := StartDate;
+                                            HoursPerDay := 0;
 
                                             case i of
                                                 1:
@@ -351,20 +359,66 @@ page 50855 CapacityUtilizationSAH
                                                     FinishDate := DMY2DATE(31, i, rec.Year);
                                             end;
 
+                                            repeat
+                                                ResCapacityEntryRec.Reset();
+                                                ResCapacityEntryRec.SETRANGE("No.", WorkCenterRec."No.");
+                                                ResCapacityEntryRec.SETRANGE(Date, StartDate1);
+                                                if ResCapacityEntryRec.FindSet() then begin
+                                                    repeat
+                                                        HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                    until ResCapacityEntryRec.Next() = 0;
+                                                end;
+
+                                                if HoursPerDay = 0 then begin
+                                                    //Validate the day (Holiday or Weekend)
+                                                    SHCalHolidayRec.Reset();
+                                                    SHCalHolidayRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                                    SHCalHolidayRec.SETRANGE(Date, StartDate1);
+
+                                                    if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                                        DayForWeek.Get(DayForWeek."Period Type"::Date, StartDate1);
+
+                                                        case DayForWeek."Period No." of
+                                                            1:
+                                                                Day := 0;
+                                                            2:
+                                                                Day := 1;
+                                                            3:
+                                                                Day := 2;
+                                                            4:
+                                                                Day := 3;
+                                                            5:
+                                                                Day := 4;
+                                                            6:
+                                                                Day := 5;
+                                                            7:
+                                                                Day := 6;
+                                                        end;
+
+                                                        SHCalWorkRec.Reset();
+                                                        SHCalWorkRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                                        SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                                        if SHCalWorkRec.FindSet() then   //If not weekend
+                                                            Error('Calender for date : %1  Work center : %2 has not calculated', StartDate1, WorkCenterRec.Name);
+                                                    end;
+                                                end;
+
+                                                if HoursPerDay = 0 then
+                                                    StartDate1 := StartDate1 + 1;
+
+                                            until HoursPerDay > 0;
 
                                             //Get no of working days
                                             CalenderRec.Reset();
+                                            NoofDays := 0;
                                             CalenderRec.SETRANGE("No.", WorkCenterRec."No.");
                                             CalenderRec.SETRANGE(Date, StartDate, FinishDate);
-                                            NoofDays := 0;
-
                                             if CalenderRec.FindSet() then begin
                                                 repeat
                                                     if CalenderRec."Capacity (Total)" > 0 then
                                                         NoofDays += 1;
                                                 until CalenderRec.Next() = 0;
                                             end;
-
 
                                             //Get efficiency
                                             PlanEfficiencyRec.Reset();
@@ -606,7 +660,7 @@ page 50855 CapacityUtilizationSAH
                         LocationsRec.SetFilter("Sewing Unit", '=%1', true);
                         if LocationsRec.FindSet() then begin
                             repeat
-                                HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
+                                //HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
                                 Total1_M := 0;
                                 Total2_M := 0;
                                 Total3_M := 0;
@@ -644,6 +698,8 @@ page 50855 CapacityUtilizationSAH
                                         for i := 1 to 12 do begin
 
                                             StartDate := DMY2DATE(1, i, rec.Year);
+                                            StartDate1 := StartDate;
+                                            HoursPerDay := 0;
 
                                             case i of
                                                 1:
@@ -677,20 +733,66 @@ page 50855 CapacityUtilizationSAH
                                                     FinishDate := DMY2DATE(31, i, rec.Year);
                                             end;
 
+                                            repeat
+                                                ResCapacityEntryRec.Reset();
+                                                ResCapacityEntryRec.SETRANGE("No.", WorkCenterRec."No.");
+                                                ResCapacityEntryRec.SETRANGE(Date, StartDate1);
+                                                if ResCapacityEntryRec.FindSet() then begin
+                                                    repeat
+                                                        HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                    until ResCapacityEntryRec.Next() = 0;
+                                                end;
+
+                                                if HoursPerDay = 0 then begin
+                                                    //Validate the day (Holiday or Weekend)
+                                                    SHCalHolidayRec.Reset();
+                                                    SHCalHolidayRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                                    SHCalHolidayRec.SETRANGE(Date, StartDate1);
+
+                                                    if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                                        DayForWeek.Get(DayForWeek."Period Type"::Date, StartDate1);
+
+                                                        case DayForWeek."Period No." of
+                                                            1:
+                                                                Day := 0;
+                                                            2:
+                                                                Day := 1;
+                                                            3:
+                                                                Day := 2;
+                                                            4:
+                                                                Day := 3;
+                                                            5:
+                                                                Day := 4;
+                                                            6:
+                                                                Day := 5;
+                                                            7:
+                                                                Day := 6;
+                                                        end;
+
+                                                        SHCalWorkRec.Reset();
+                                                        SHCalWorkRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                                        SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                                        if SHCalWorkRec.FindSet() then   //If not weekend
+                                                            Error('Calender for date : %1  Work center : %2 has not calculated', StartDate1, WorkCenterRec.Name);
+                                                    end;
+                                                end;
+
+                                                if HoursPerDay = 0 then
+                                                    StartDate1 := StartDate1 + 1;
+
+                                            until HoursPerDay > 0;
 
                                             //Get no of working days
+                                            NoofDays := 0;
                                             CalenderRec.Reset();
                                             CalenderRec.SETRANGE("No.", WorkCenterRec."No.");
                                             CalenderRec.SETRANGE(Date, StartDate, FinishDate);
-                                            NoofDays := 0;
-
                                             if CalenderRec.FindSet() then begin
                                                 repeat
                                                     if CalenderRec."Capacity (Total)" > 0 then
                                                         NoofDays += 1;
                                                 until CalenderRec.Next() = 0;
                                             end;
-
 
                                             //Get efficiency
                                             PlanEfficiencyRec.Reset();

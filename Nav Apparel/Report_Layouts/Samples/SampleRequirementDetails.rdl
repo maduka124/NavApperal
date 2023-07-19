@@ -11,6 +11,55 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Group_Head">
+          <DataField>Group_Head</DataField>
+        </Field>
+        <Field Name="Brand_Name">
+          <DataField>Brand_Name</DataField>
+        </Field>
+        <Field Name="ReqQty">
+          <DataField>ReqQty</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Sample_Name">
+          <DataField>Sample_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Reject_Qty">
+          <DataField>Reject_Qty</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="stDate">
+          <DataField>stDate</DataField>
+        </Field>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -169,19 +218,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.18641cm</Width>
+                  <Width>2.78569cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.09075cm</Width>
+                  <Width>2.42942cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.19075cm</Width>
+                  <Width>2.58717cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.9095cm</Width>
+                  <Width>4.78931cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.01805cm</Width>
+                  <Width>2.10536cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.39826cm</Width>
@@ -206,7 +255,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>GROUP HEADER NAME</Value>
+                                  <Value>GROUP HEAD NAME</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -993,7 +1042,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1132,6 +1180,11 @@
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Group_Head.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
@@ -1139,7 +1192,7 @@
             <Top>2.53153cm</Top>
             <Left>0.0127cm</Left>
             <Height>1.12184cm</Height>
-            <Width>20.56354cm</Width>
+            <Width>19.86503cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1151,7 +1204,7 @@
         <Height>3.9527cm</Height>
         <Style />
       </Body>
-      <Width>20.57624cm</Width>
+      <Width>20.45391cm</Width>
       <Page>
         <PageFooter>
           <Height>0.74612cm</Height>
@@ -1302,6 +1355,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1353,47 +1412,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Group_Head">
-          <DataField>Group_Head</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Sample_Name">
-          <DataField>Sample_Name</DataField>
-        </Field>
-        <Field Name="Brand_Name">
-          <DataField>Brand_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Reject_Qty">
-          <DataField>Reject_Qty</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="stDate">
-          <DataField>stDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="ReqQty">
-          <DataField>ReqQty</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

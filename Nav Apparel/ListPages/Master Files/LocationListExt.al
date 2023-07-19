@@ -19,10 +19,10 @@ pageextension 50640 LocationListExt extends "Location List"
                 ApplicationArea = ALL;
             }
 
-            field("Finish Time"; Rec."Finish Time")
-            {
-                ApplicationArea = ALL;
-            }
+            // field("Finish Time"; Rec."Finish Time")
+            // {
+            //     ApplicationArea = ALL;
+            // }
         }
     }
 

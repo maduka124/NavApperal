@@ -2,7 +2,7 @@ page 50427 "Sample Request Header ListPart"
 {
     PageType = ListPart;
     SourceTable = "Sample Requsition Header";
-    SourceTableView = where(Status = filter(Pending));
+    SourceTableView = where(Status = filter(Pending), Qty = filter(> 0));
 
     layout
     {

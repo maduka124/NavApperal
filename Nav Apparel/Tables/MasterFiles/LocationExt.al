@@ -23,10 +23,10 @@ tableextension 51099 "Location Extension" extends Location
             DataClassification = ToBeClassified;
         }
 
-        field(50005; "Finish Time"; Time)
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(50005; "Finish Time"; Time)
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
         field(50006; "Transfer-from Location"; Code[20])
         {
