@@ -383,7 +383,8 @@ page 50355 "Daily Sewing In/Out Card"
                         NavProdDetRec.Reset();
                         //NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
-                        NavProdDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
+                        NavProdDetRec.SetFilter(PlanDate, '=%1', rec."Prod Date");
+                        // NavProdDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
                         // NavProdDetRec.SetFilter(Qty, '>%1', 0);
                         if NavProdDetRec.FindSet() then begin
                             repeat

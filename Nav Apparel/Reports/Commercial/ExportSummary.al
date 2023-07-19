@@ -62,50 +62,14 @@ report 50629 ExportSummartReport
             { }
             column(Brand_Name; "Brand Name")
             { }
-            // dataitem("Contract/LCMaster"; "Contract/LCMaster")
+            column(BalanceQty; BalanceQty)
+            { }
 
-            // {
-            //     DataItemLinkReference = "Sales Invoice Header";
-            //     DataItemLink = "Contract No" = field("Contract No");
-            //     DataItemTableView = sorting("No.");
-
-
-
-            //     trigger OnAfterGetRecord()
-            //     var
-
-            //     begin
-            //         ShipMode := "Shipment Mode";
-            //         Mode := '';
-            //         if ShipMode = 0 then begin
-            //             Mode := 'Sea';
-            //         end
-            //         else
-            //             if ShipMode = 1 then begin
-            //                 Mode := 'Air';
-            //             end
-            //             else
-            //                 if ShipMode = 2 then begin
-            //                     Mode := 'Sea-Air';
-            //                 end
-            //                 else
-            //                     if ShipMode = 3 then begin
-            //                         Mode := 'Air-Sea';
-            //                     end
-            //                     else
-            //                         if ShipMode = 4 then begin
-            //                             Mode := 'By-Road';
-            //                         end;
-
-            //     end;
-            // }
             trigger OnAfterGetRecord()
             var
                 SalesInvoiceLineRec: Record "Sales Invoice Line";
-                POLc: Code[20];
                 StyleNoLc: Code[20];
             begin
-
                 ContractRec.Reset();
                 ContractRec.SetRange("Contract No", "Contract No");
                 if ContractRec.FindSet() then begin
@@ -145,38 +109,36 @@ report 50629 ExportSummartReport
                     POQty += StylePoRec.Qty;
                 end;
 
-                // ShipQty := 0;
-                // SalesInvoiceLineRec.Reset();
-                // SalesInvoiceLineRec.SetRange("Document No.", "No.");
-                // SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                // if SalesInvoiceLineRec.FindFirst() then begin
-                //     repeat
-                //         ShipQty += SalesInvoiceLineRec.Quantity;
-                //     until SalesInvoiceLineRec.Next() = 0;
-                // end;
-
                 ShipQty := 0;
-                SalesShipmentLineRec.Reset();
-                SalesShipmentLineRec.SetRange("Order No.", "Order No.");
-                SalesShipmentLineRec.SetRange(Type, SalesShipmentLineRec.Type::Item);
-                if SalesShipmentLineRec.FindSet() then begin
+                SalesInvoiceLineRec.Reset();
+                SalesInvoiceLineRec.SetRange("Document No.", "No.");
+                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                if SalesInvoiceLineRec.FindFirst() then begin
                     repeat
-                        ShipQty += SalesShipmentLineRec.Quantity;
-                    until SalesShipmentLineRec.Next() = 0;
+                        ShipQty += SalesInvoiceLineRec.Quantity;
+                    until SalesInvoiceLineRec.Next() = 0;
                 end;
 
-                if "PO No" = POLc then
-                    POBalance := POBalance + ShipQty
-                else begin
+                POBalance := 0;
+                SalesInvoiceLineRec.Reset();
+                SalesInvoiceLineRec.SetRange("Order No.", "Order No.");
+                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                if SalesInvoiceLineRec.FindSet() then begin
+                    repeat
+                        POBalance += SalesInvoiceLineRec.Quantity;
+                    until SalesInvoiceLineRec.Next() = 0;
+                end;
+
+                BalanceQty := POBalance - POQty;
+
+                if "PO No" = POLc then begin
                     POBalance := 0;
-                    POBalance := POBalance + ShipQty
+                    BalanceQty := 0;
                 end;
 
                 POLc := "PO No";
                 StyleNoLc := "Style No";
-
                 "Sales Invoice Header".CalcFields("Amount Including VAT");
-
             end;
 
             trigger OnPreDataItem()
@@ -202,10 +164,7 @@ report 50629 ExportSummartReport
                 if BrandNameFilter <> '' then
                     SetRange("Brand Name", BrandNameFilter);
             end;
-
-
         }
-
     }
 
     requestpage
@@ -219,7 +178,6 @@ report 50629 ExportSummartReport
                     field("Buyer Code"; "Buyer Code")
                     {
                         ApplicationArea = All;
-                        // ShowMandatory = true;
                         Caption = 'Buyer';
                         TableRelation = Customer."No.";
                     }
@@ -233,7 +191,6 @@ report 50629 ExportSummartReport
                             StyleRec: Record "Style Master";
                             StyleRec1: Record "Style Master";
                         begin
-
                             StyleRec.Reset();
                             // StyleRec.SetFilter("Buyer No.", '<>%1', '');
                             StyleRec.SetRange(Status, StyleRec.Status::Confirmed);
@@ -260,13 +217,11 @@ report 50629 ExportSummartReport
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
-                        // ShowMandatory = true;
 
                         trigger OnLookup(Var Text: Text): Boolean
                         var
                             LocationRec: Record Location;
                         begin
-
                             LocationRec.Reset();
                             LocationRec.SetFilter("Sewing Unit", '=%1', true);
 
@@ -282,7 +237,6 @@ report 50629 ExportSummartReport
                                     LocationCode := LocationRec.Code;
                                 end;
                             end
-
                         end;
                     }
 
@@ -295,7 +249,6 @@ report 50629 ExportSummartReport
                         var
                             SalesInv: Record "Sales Invoice Header";
                         begin
-
                             SalesInv.Reset();
                             SalesInv.SetRange("Location Code", LocationCode);
                             if SalesInv.FindSet() then begin
@@ -324,7 +277,6 @@ report 50629 ExportSummartReport
                             SalesInv: Record "Sales Invoice Header";
                             SalesInv1: Record "Sales Invoice Header";
                         begin
-
                             SalesInv.Reset();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
@@ -347,15 +299,12 @@ report 50629 ExportSummartReport
                     {
                         ApplicationArea = All;
                         Caption = 'Contract No';
-                        // TableRelation = "Contract/LCMaster"."No.";
-                        // ShowMandatory = true;
 
                         trigger OnLookup(Var Text: Text): Boolean
                         var
                             SalesInv: Record "Sales Invoice Header";
                             SalesInv1: Record "Sales Invoice Header";
                         begin
-
                             SalesInv.Reset();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
@@ -378,27 +327,13 @@ report 50629 ExportSummartReport
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-                        // ShowMandatory = true;
                     }
 
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-                        // ShowMandatory = true;
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
@@ -426,6 +361,7 @@ report 50629 ExportSummartReport
         "Buyer Code": Code[20];
         FactoryFilter: Code[20];
         POBalance: BigInteger;
-
+        BalanceQty: BigInteger;
+        POLc: Code[20];
 
 }
