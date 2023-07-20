@@ -167,6 +167,11 @@ page 50436 SampleProdLineCutListPart
                     end;
                 }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Cutting Date"; rec."Cutting Date")
                 {
                     ApplicationArea = All;

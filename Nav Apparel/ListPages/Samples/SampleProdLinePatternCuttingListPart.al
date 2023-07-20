@@ -140,6 +140,11 @@ page 51193 SampleProdLinePattCuttListPart
                     end;
                 }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
                 {
                     ApplicationArea = All;

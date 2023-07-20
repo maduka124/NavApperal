@@ -62,8 +62,20 @@ page 50371 "Prod Update Card"
 
     trigger OnInit()
     var
+        UserSetupRec: Record "User Setup";
     begin
         ProdDate := WorkDate() - 1;
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if not UserSetupRec.FindSet() then
+            Error('Cannot find user setup details')
+        else begin
+            if UserSetupRec.UserRole = 'PLANNING USER' then
+                PlanningUser := true
+            else
+                PlanningUser := false;
+        end;
     end;
 
 
@@ -147,6 +159,10 @@ page 50371 "Prod Update Card"
         ddddddtttt: DateTime;
         FactoryFinishTime: Time;
     begin
+
+        //Check the user is planning user or not
+        if PlanningUser = false then
+            Error('You are not authorized to perform this task.');
 
         //Check for blank factory / line records
         ProdOutHeaderRec.Reset();
@@ -1820,4 +1836,5 @@ page 50371 "Prod Update Card"
     var
         ProdDate: Date;
         FactoryNo: code[20];
+        PlanningUser: Boolean;
 }

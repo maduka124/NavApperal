@@ -189,6 +189,11 @@ page 50439 SampleProdLineReceWashListPart
                 //     end;
                 // }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Received Wash Date"; rec."Received Wash Date")
                 {
                     ApplicationArea = All;

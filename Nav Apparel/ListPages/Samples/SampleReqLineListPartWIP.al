@@ -74,11 +74,26 @@ page 50431 SampleReqLineListPartWIP
 
                     trigger OnValidate()
                     var
+                        SampleHeaderRec: Record "Sample Requsition Header";
+                        wip: Record wip;
                     begin
                         if rec."Plan Start Date" < WorkDate() then
-                            Error('Start date should be greater than todays date');
+                            Error('Start date should be greater than todays date')
+                        else
+                            if (rec."Plan Start Date" <> 0D) and (rec."Plan End Date" <> 0D) then begin
+                                CurrPage.Update();
+                                SampleHeaderRec.Reset();
+                                SampleHeaderRec.SetRange("No.", rec."No.");
+                                if SampleHeaderRec.FindSet() then
+                                    SampleHeaderRec.ModifyAll(PlanStartEndDateEntered, true);
+
+                                //Remove record displaying from listpart
+                                wip.Reset();
+                                wip.FindSet();
+                                wip.ModifyAll("Req No.", '');
+                            end
                     end;
-                    
+
                 }
 
                 field("Plan End Date"; rec."Plan End Date")
@@ -87,10 +102,24 @@ page 50431 SampleReqLineListPartWIP
 
                     trigger OnValidate()
                     var
+                        SampleHeaderRec: Record "Sample Requsition Header";
+                        wip: Record wip;
                     begin
                         if rec."Plan Start Date" > rec."Plan End Date" then
-                            Error('End date should be greater than Start date');
+                            Error('End date should be greater than Start date')
+                        else
+                            if (rec."Plan Start Date" <> 0D) and (rec."Plan End Date" <> 0D) then begin
+                                CurrPage.Update();
+                                SampleHeaderRec.Reset();
+                                SampleHeaderRec.SetRange("No.", rec."No.");
+                                if SampleHeaderRec.FindSet() then
+                                    SampleHeaderRec.ModifyAll(PlanStartEndDateEntered, true);
 
+                                //Remove record displaying from listpart
+                                wip.Reset();
+                                wip.FindSet();
+                                wip.ModifyAll("Req No.", '');
+                            end
                     end;
                 }
 

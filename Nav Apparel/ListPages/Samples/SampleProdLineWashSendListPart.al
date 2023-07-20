@@ -182,6 +182,10 @@ page 50438 SampleProdLineSendWashListPart
                 //     end;
                 // }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
 
                 field("Send Wash Date"; rec."Send Wash Date")
                 {

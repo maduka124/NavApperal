@@ -172,6 +172,11 @@ page 50437 SampleProdLineSewListPart
                     end;
                 }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Sewing Date"; rec."Sewing Date")
                 {
                     ApplicationArea = All;

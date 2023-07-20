@@ -82,7 +82,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 var
                     _settings: JsonObject;
                 begin
-                    // Message('OnRequestSettings!');
                     _settings.Add('LicenseKey', 'MTAzNDItMjQxNTMwLTE0ODI4Mi17InciOiIiLCJpZCI6IlZTQ0FJRXZhbCIsIm4iOiJORVRST05JQyIsInUiOiIiLCJlIjoyMzA4LCJ2IjoiNC4wIiwiZiI6WzEwMDFdLCJlZCI6IkJhc2UifQ==');
                     _settings.Add('Start', gdtconVSControlAddInStart);
                     _settings.Add('End', gdtconVSControlAddInEnd);
@@ -111,7 +110,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 begin
                     //Message('OnControlAddInReady!');
                     //initialize();
-                    //LoadData();
+                    //LoadData();                    
                 end;
 
                 trigger OnCollapseStateChanged(eventArgs: JsonObject)
@@ -493,6 +492,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         _tempJsonValue.SetValue(CopyStr(_tempText, 2, 19) + 'Z');
                         _newEnd := _tempJsonValue.AsDateTime();
                     end;
+
+                    //Check the user is planning user or not
+                    if PlanningUser = false then
+                        Error('You are not authorized to perform this task.');
 
                     //Get Start and Finish Time
                     LocationRec.Reset();
@@ -3344,6 +3347,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         if _contextMenuItemCode = 'E_02' then begin   //Split
 
+                            //Check the user is planning user or not
+                            if PlanningUser = false then
+                                Error('You are not authorized to perform this task.');
+
                             SplitCard.LookupMode(true);
                             SplitCard.PassParameters(_objectID);
                             SplitCard.RunModal();
@@ -3353,6 +3360,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'E_03' then begin   //Split more
+
+                            //Check the user is planning user or not
+                            if PlanningUser = false then
+                                Error('You are not authorized to perform this task.');
 
                             //Clear(ResourceList);
                             SplitMoreCard.LookupMode(true);
@@ -3369,6 +3380,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'E_04' then begin   //Delete
+
+                            //Check the user is planning user or not
+                            if PlanningUser = false then
+                                Error('You are not authorized to perform this task.');
 
                             if (Dialog.CONFIRM('Do you want to delete?', true) = true) then begin
 
@@ -3464,6 +3479,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'E_05' then begin   //Delete From Queue  
+
+                            //Check the user is planning user or not
+                            if PlanningUser = false then
+                                Error('You are not authorized to perform this task.');
+
                             if FactoryNo = '' then
                                 Error('Select a factory');
 
@@ -3513,6 +3533,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'Al_02' then begin   //Cut
+
+                            //Check the user is planning user or not
+                            if PlanningUser = false then
+                                Error('You are not authorized to perform this task.');
 
                             Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
                             Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
@@ -3652,6 +3676,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'Al_03' then begin   //Return to Queue
+
+                            //Check the user is planning user or not
+                            if PlanningUser = false then
+                                Error('You are not authorized to perform this task.');
 
                             Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
                             Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
@@ -3864,6 +3892,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'Al_10' then begin   //Search By Style/Return To Queue
+
                             if FactoryNo = '' then
                                 Error('Select a factory');
 
@@ -4069,7 +4098,18 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
     var
         LoginSessionsRec: Record LoginSessions;
         LoginRec: Page "Login Card";
+        UserSetupRec: Record "User Setup";
     begin
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if not UserSetupRec.FindSet() then
+            Error('Cannot find user setup details')
+        else begin
+            if UserSetupRec.UserRole = 'PLANNING USER' then
+                PlanningUser := true
+            else
+                PlanningUser := false;
+        end;
 
         //Filter Criteria - Dates
         StartDate := CALCDATE('-1D', Today());
@@ -4096,7 +4136,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
-
         if not LoginSessionsRec.FindSet() then begin  //not logged in
             Clear(LoginRec);
             LoginRec.LookupMode(true);
@@ -4143,6 +4182,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         AllPo: Boolean;
         LcurveType: code[20];
         navappsetup: Record "NavApp Setup";
+        PlanningUser: Boolean;
 
     local procedure SetconVSControlAddInSettings()
     var

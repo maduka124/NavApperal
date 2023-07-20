@@ -205,6 +205,11 @@ page 50800 SampleProdLineFinishListPart
                     end;
                 }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Finishing Date"; rec."Finishing Date")
                 {
                     ApplicationArea = All;

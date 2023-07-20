@@ -186,6 +186,11 @@ page 51196 SampleProdLineQCFinishListPart
                     end;
                 }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("QC/Finishing Date"; rec."QC/Finishing Date")
                 {
                     ApplicationArea = All;

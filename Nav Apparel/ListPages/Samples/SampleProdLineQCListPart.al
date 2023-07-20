@@ -160,6 +160,11 @@ page 51195 SampleProdLineQCListPart
                     end;
                 }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("QC Date"; rec."QC Date")
                 {
                     ApplicationArea = All;
