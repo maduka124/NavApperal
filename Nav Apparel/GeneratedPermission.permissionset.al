@@ -1143,7 +1143,6 @@ permissionset 50100 GeneratedPermission
         page "Hourly Production Plan Card" = X,
         page "Hourly Production Plan List" = X,
         page POlistLookupPage = X,
-        page "Prod Update Card old" = X,
         page "Return To Queue List" = X,
         page StockSummary = X,
         page "WIP Order QTY Change Card" = X,
