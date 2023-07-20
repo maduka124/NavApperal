@@ -169,19 +169,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.18641cm</Width>
+                  <Width>2.78569cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.09075cm</Width>
+                  <Width>2.42942cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.19075cm</Width>
+                  <Width>2.58717cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.9095cm</Width>
+                  <Width>4.78931cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.01805cm</Width>
+                  <Width>2.10536cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.39826cm</Width>
@@ -206,7 +206,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>GROUP HEADER NAME</Value>
+                                  <Value>GROUP HEAD NAME</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -993,7 +993,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1132,6 +1131,11 @@
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Group_Head.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
@@ -1139,7 +1143,7 @@
             <Top>2.53153cm</Top>
             <Left>0.0127cm</Left>
             <Height>1.12184cm</Height>
-            <Width>20.56354cm</Width>
+            <Width>19.86503cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1151,7 +1155,7 @@
         <Height>3.9527cm</Height>
         <Style />
       </Body>
-      <Width>20.57624cm</Width>
+      <Width>20.45391cm</Width>
       <Page>
         <PageFooter>
           <Height>0.74612cm</Height>
@@ -1359,14 +1363,17 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Group_Head">
           <DataField>Group_Head</DataField>
         </Field>
+        <Field Name="Brand_Name">
+          <DataField>Brand_Name</DataField>
+        </Field>
+        <Field Name="ReqQty">
+          <DataField>ReqQty</DataField>
+        </Field>
         <Field Name="Style_Name">
           <DataField>Style_Name</DataField>
         </Field>
         <Field Name="Sample_Name">
           <DataField>Sample_Name</DataField>
-        </Field>
-        <Field Name="Brand_Name">
-          <DataField>Brand_Name</DataField>
         </Field>
         <Field Name="Buyer_Name">
           <DataField>Buyer_Name</DataField>
@@ -1386,8 +1393,11 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Qty">
           <DataField>Qty</DataField>
         </Field>
-        <Field Name="ReqQty">
-          <DataField>ReqQty</DataField>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
         </Field>
       </Fields>
       <Query>

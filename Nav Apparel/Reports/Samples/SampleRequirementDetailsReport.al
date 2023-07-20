@@ -8,52 +8,71 @@ report 51285 SampleRequirementDetails
 
     dataset
     {
-        dataitem("Sample Requsition Line"; "Sample Requsition Line")
+        dataitem("Sample Requsition Header"; "Sample Requsition Header")
         {
-            DataItemTableView = sorting("No.", "Line No.");
-            column(Group_Head; GroupHD)
+            column(Group_Head; "Group HD")
             { }
-            column(Style_Name; "Style Name")
+            column(Brand_Name; "Brand Name")
             { }
-            column(Sample_Name; "Sample Name")
-            { }
-            column(Brand_Name; BrandName)
-            { }
-            column(Buyer_Name; "Buyer Name")
-            { }
-            column(Reject_Qty; "Reject Qty")
-            { }
-            column(CompLogo; comRec.Picture)
-            { }
-            column(stDate; stDate)
-            { }
-            column(endDate; endDate)
-            { }
-            column(Qty; Qty)
-            { }
-            column(ReqQty; ReqQty)
+            column(ReqQty; Qty)
             { }
 
-            trigger OnAfterGetRecord()
-            begin
-                comRec.Get;
-                comRec.CalcFields(Picture);
+            dataitem("Sample Requsition Line"; "Sample Requsition Line")
+            {
+                DataItemLinkReference = "Sample Requsition Header";
+                DataItemLink = "No." = field("No.");
+                DataItemTableView = sorting("No.", "Line No.");
 
-                SampleReqHeadRec.Reset();
-                SampleReqHeadRec.SetFilter(Type, '=%1', SampleReqHeadRec.Type::Development);
-                SampleReqHeadRec.SetRange("No.", "No.");
-                if SampleReqHeadRec.FindFirst() then begin
-                    GroupHD := SampleReqHeadRec."Group HD";
-                    BrandName := SampleReqHeadRec."Brand Name";
-                    ReqQty := SampleReqHeadRec.Qty;
+                column(Style_Name; "Style Name")
+                { }
+                column(Sample_Name; "Sample Name")
+                { }
+                column(Buyer_Name; "Buyer Name")
+                { }
+                column(Reject_Qty; "Reject Qty")
+                { }
+                column(CompLogo; comRec.Picture)
+                { }
+                column(stDate; stDate)
+                { }
+                column(endDate; endDate)
+                { }
+                column(Qty; Qty)
+                { }
+                column(No_; "No.")
+                { }
+                column(Line_No_; "Line No.")
+                { }
+
+                trigger OnAfterGetRecord()
+                begin
+                    comRec.Get;
+                    comRec.CalcFields(Picture);
+
+                    // SampleReqHeadRec.Reset();
+                    // SampleReqHeadRec.SetFilter(Type, '=%1', SampleReqHeadRec.Type::Development);
+                    // SampleReqHeadRec.SetRange("No.", "No.");
+                    // if SampleReqHeadRec.FindFirst() then begin
+                    //     //GroupHD := SampleReqHeadRec."Group HD";
+                    //     BrandName := SampleReqHeadRec."Brand Name";
+                    //     ReqQty := SampleReqHeadRec.Qty;
+                    // end;
                 end;
-            end;
+
+                trigger OnPreDataItem()
+                begin
+                    // SetRange("QC/Finishing Date", stDate, endDate);
+                end;
+            }
 
             trigger OnPreDataItem()
             begin
-                SetRange("QC/Finishing Date", stDate, endDate)
-            end;
+                if GroupHD <> '' then
+                    SetRange("Group HD", GroupHD);
 
+                if (stDate <> 0D) and (endDate <> 0D) then
+                    SetRange("Created Date", stDate, endDate);
+            end;
         }
     }
 
@@ -65,6 +84,13 @@ report 51285 SampleRequirementDetails
             {
                 group(GroupName)
                 {
+                    field(GroupHD; GroupHD)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Merchandiser Group Head';
+                        TableRelation = "User Setup"."User ID" where("Merchandizer Head" = filter(true));
+                    }
+
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;

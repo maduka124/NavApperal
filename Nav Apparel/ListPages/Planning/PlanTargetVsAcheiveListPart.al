@@ -100,7 +100,7 @@ page 50348 "Plan Target Vs Acheive"
         StyleMasPoRec: Record "Style Master PO";
     begin
         if rec.ProdUpd = 1 then
-            Variance := rec.ProdUpdQty - rec.qty
+            Variance := rec.ProdUpdQty - round(rec.qty, 1)
         else
             Variance := 0;
 

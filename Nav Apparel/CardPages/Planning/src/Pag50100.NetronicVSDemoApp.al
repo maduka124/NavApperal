@@ -204,6 +204,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     LoginRec: Page "Login Card";
                     LocationRec: Record Location;
                     StyleMasterPORec: Record "Style Master PO";
+                    FactoryFinishTime: time;
+                    NavAppCodeUnit3Rec: Codeunit NavAppCodeUnit3;
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -234,6 +236,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     //     ResourceList.Run();
                     // end;
 
+                    //Get Start and Finish Time
+                    LocationRec.Reset();
+                    LocationRec.SetRange(code, FactoryNo);
+                    LocationRec.FindSet();
 
                     Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
                     Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
@@ -295,6 +301,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             LoginSessionsRec.FindSet();
                         end;
 
+                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtEnd, LocationRec."Start Time");
+
                         //Add remaining qty to the Queue
                         PlanningQueueRec.Init();
                         PlanningQueueRec."Queue No." := QueueNo + 1;
@@ -326,8 +334,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         PlanningLinesRec.FindSet();
                         PlanningLinesRec."End Date" := dtEnd;
                         PlanningLinesRec.Qty := QTY;
-                        PlanningLinesRec."Finish Time" := LocationRec."Finish Time";
-                        PlanningLinesRec.FinishDateTime := CREATEDATETIME(dtEnd, LocationRec."Finish Time");
+                        PlanningLinesRec."Finish Time" := FactoryFinishTime;
+                        PlanningLinesRec.FinishDateTime := CREATEDATETIME(dtEnd, FactoryFinishTime);
                         PlanningLinesRec.Modify();
 
                         //Delete remaining line from the Prod Plan Det table
@@ -380,6 +388,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     SHCalHolidayRec: Record "Shop Calendar Holiday";
                     SHCalWorkRec: Record "Shop Calendar Working Days";
                     ProdOutHeaderRec: Record ProductionOutHeader;
+                    NavAppCodeUnit3Rec: Codeunit NavAppCodeUnit3;
                     dtStart: Date;
                     dtEnd: Date;
                     D: Integer;
@@ -447,6 +456,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     ddddddtttt: DateTime;
                     LcurveHoursPerday: Decimal;
                     LCurveStartTimePerDay: Time;
+                    FactoryFinishTime: Time;
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -484,7 +494,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         _newEnd := _tempJsonValue.AsDateTime();
                     end;
 
-
                     //Get Start and Finish Time
                     LocationRec.Reset();
                     LocationRec.SetRange(code, FactoryNo);
@@ -505,7 +514,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     JobPlaLineRec.SetRange("Resource No.", ResourceNo);
                     JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(DT2Date(_newStart), LocationRec."Start Time"), _newStart);
                     if not JobPlaLineRec.FindSet() then begin
-
                         //Check whether a allocations finishes between day start time and drop time. 
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetRange("Resource No.", ResourceNo);
@@ -514,12 +522,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             _newStart := CreateDateTime(DT2Date(_newStart), LocationRec."Start Time");
                     end;
 
-
                     evaluate(Y, copystr(Format(_newStart), 7, 2));
                     evaluate(M, copystr(Format(_newStart), 4, 2));
                     evaluate(D, copystr(Format(_newStart), 1, 2));
                     Y := 2000 + Y;
-
                     dtStart := DMY2DATE(D, M, Y);
                     TImeStart := DT2TIME(_newStart);
 
@@ -528,7 +534,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     ProdOutHeaderRec.SetCurrentKey("Prod Date");
                     ProdOutHeaderRec.Ascending(false);
                     ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
-
                     if ProdOutHeaderRec.FindFirst() then begin
                         if dtStart <= ProdOutHeaderRec."Prod Date" then begin
                             Message('Drag and drop date should be greater than the Production Updated Date.');
@@ -593,6 +598,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 Error('Efficiency is zero. Cannot proceed.');
 
                             SMV := PlanningQueueeRec.SMV;
+                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
 
                             if SMV = 0 then
                                 Error('SMV for Style : %1 is zero. Cannot proceed.', PlanningQueueeRec."Style Name");
@@ -603,19 +609,16 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             end;
 
                             //if start time greater than parameter Finish time, set start time next day morning
-                            if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                            if ((TImeStart - FactoryFinishTime) >= 0) then begin
                                 TImeStart := LocationRec."Start Time";
                                 dtStart := dtStart + 1;
                             end;
 
-
                             //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                             repeat
-
                                 ResCapacityEntryRec.Reset();
                                 ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                 ResCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                 if ResCapacityEntryRec.FindSet() then begin
                                     repeat
                                         HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -623,7 +626,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 end;
 
                                 if HoursPerDay = 0 then begin
-
                                     //Validate the day (Holiday or Weekend)
                                     SHCalHolidayRec.Reset();
                                     SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
@@ -662,23 +664,19 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             until HoursPerDay > 0;
 
-                            // //Check whether resource line is occupied in the date                        
-                            // Found := false;
-                            // repeat
-
                             JobPlaLineRec.Reset();
                             JobPlaLineRec.SetRange("Resource No.", ResourceNo);
                             JobPlaLineRec.SetFilter("StartDateTime", '<=%1', CreateDateTime(dtStart, TImeStart));
                             JobPlaLineRec.SetFilter("FinishDateTime", '>%1', CreateDateTime(dtStart, TImeStart));
-
                             if JobPlaLineRec.FindSet() then begin
 
                                 dtStart := JobPlaLineRec."End Date";
                                 TImeStart := JobPlaLineRec."Finish Time";
                                 Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
+                                FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
 
                                 //if start time equal to the parameter Finish time, set start time next day morning
-                                if ((TImeStart - LocationRec."Finish Time") = 0) then begin
+                                if ((TImeStart - FactoryFinishTime) = 0) then begin
                                     TImeStart := LocationRec."Start Time";
                                     dtStart := dtStart + 1;
                                 end;
@@ -687,11 +685,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                 //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                 repeat
-
                                     ResCapacityEntryRec.Reset();
                                     ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                     ResCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                     if ResCapacityEntryRec.FindSet() then begin
                                         repeat
                                             HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -737,9 +733,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         dtStart := dtStart + 1;
 
                                 until HoursPerDay > 0;
-
                             end;
-
 
                             TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1, '>');
                             TargetPerHour := TargetPerDay / HoursPerDay;
@@ -753,24 +747,23 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             if PlanningQueueeRec."Learning Curve No." <> 0 then begin
                                 LearningCurveRec.Reset();
                                 LearningCurveRec.SetRange("No.", PlanningQueueeRec."Learning Curve No.");
-
                                 if LearningCurveRec.FindSet() then
                                     if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
                                         LcurveTemp := LearningCurveRec.Day1;
                                         repeat
-                                            if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, LCurveFinishDate, LocationRec."Start Time");
+
+                                            if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                                 LCurveStartTime := LocationRec."Start Time";
                                                 LCurveFinishDate += 1;
 
                                                 //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                                 HoursPerDay := 0;
                                                 repeat
-
                                                     ResCapacityEntryRec.Reset();
                                                     ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                     ResCapacityEntryRec.SETRANGE(Date, LCurveFinishDate);
-
                                                     if ResCapacityEntryRec.FindSet() then begin
                                                         repeat
                                                             HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -828,7 +821,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             end;
 
                             repeat
-
                                 //Get working hours for the day
                                 HoursPerDay := 0;
                                 Holiday := 'No';
@@ -837,7 +829,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ResCapacityEntryRec.Reset();
                                 ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                 ResCapacityEntryRec.SETRANGE(Date, TempDate);
-
                                 if ResCapacityEntryRec.FindSet() then begin
                                     repeat
                                         HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -893,11 +884,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 end;
 
                                 if PlanningQueueeRec."Learning Curve No." <> 0 then begin
-
                                     //Aplly learning curve
                                     LearningCurveRec.Reset();
                                     LearningCurveRec.SetRange("No.", PlanningQueueeRec."Learning Curve No.");
-
                                     if LearningCurveRec.FindSet() then begin   //Efficiency wise
                                         if LearningCurveRec.Type = LearningCurveRec.Type::"Efficiency Wise" then begin
                                             case i of
@@ -1032,7 +1021,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     end;
                                 end
                                 else begin
-
                                     if (TempQty + round((TargetPerHour * HoursPerDay), 1)) < PlanningQueueeRec.Qty then begin
                                         TempQty += round((TargetPerHour * HoursPerDay), 1);
                                         xQty := round(TargetPerHour * HoursPerDay, 1);
@@ -1049,7 +1037,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         // TempHours := round(TempHours, 1, '>');
                                         TempHours := round(TempHours, 0.01);
                                     end;
-
                                 end;
 
                                 xQty := Round(xQty, 1);
@@ -1062,6 +1049,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     MaxLineNo := ProdPlansDetails."No.";
 
                                 MaxLineNo += 1;
+                                FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, TempDate, LocationRec."Start Time");
 
                                 //insert to ProdPlansDetails
                                 ProdPlansDetails.Init();
@@ -1084,7 +1072,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                     if TempHours = 0 then
-                                        ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                        ProdPlansDetails."Finish Time" := FactoryFinishTime
                                     else begin
                                         if i = 1 then
                                             ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
@@ -1138,7 +1126,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             //Check whether user logged in or not
                             LoginSessionsRec.Reset();
                             LoginSessionsRec.SetRange(SessionID, SessionId());
-
                             if not LoginSessionsRec.FindSet() then begin  //not logged in
                                 Clear(LoginRec);
                                 LoginRec.LookupMode(true);
@@ -1164,11 +1151,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec."Start Time" := TImeStart;
 
                             if TempHours = 0 then
-                                JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                JobPlaLineRec."Finish Time" := FactoryFinishTime
                             else begin
                                 if i = 1 then
-                                    if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                        JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                    if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                        JobPlaLineRec."Finish Time" := FactoryFinishTime
                                     else
                                         JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                 else
@@ -1221,7 +1208,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec.SetCurrentKey(StartDateTime);
                             JobPlaLineRec.Ascending(true);
                             JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
-
                             if JobPlaLineRec.FindSet() then begin         //conflicts yes, then get all allocations for the line
 
                                 JobPlaLineRec.Reset();
@@ -1230,7 +1216,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 JobPlaLineRec.SetCurrentKey(StartDateTime);
                                 JobPlaLineRec.Ascending(true);
                                 JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
-
                                 if JobPlaLineRec.FindSet() then begin
 
                                     HoursPerDay := 0;
@@ -1261,8 +1246,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             JobPlaLineRec.Reset();
                                             JobPlaLineRec.SetRange("Resource No.", ResourceNo);
                                             JobPlaLineRec.SetFilter("Line No.", '=%1', ArrayOfAllocations[N1]);
-
                                             if JobPlaLineRec.FindSet() then begin
+
                                                 i := 0;
                                                 Qty := JobPlaLineRec.Qty;
                                                 LineNo := JobPlaLineRec."Line No.";
@@ -1311,9 +1296,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                             end;
 
                                                             if HoursPerDay1 > 0 then begin
+                                                                FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, DT2DATE(Prev_FinishedDateTime) + (X - 1), LocationRec."Start Time");
 
                                                                 if X = 1 then  //First Date
-                                                                    HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
+                                                                    HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), FactoryFinishTime) - Prev_FinishedDateTime
                                                                 else
                                                                     if X = XX then  //Last date
                                                                         HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
@@ -1336,10 +1322,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 if HoursGap > 0 then begin
 
                                                     ddddddtttt := CREATEDATETIME(dtStart, TImeStart);
+                                                    FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
 
-                                                    if (CREATEDATETIME(dtStart, LocationRec."Finish Time") <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
+                                                    if (CREATEDATETIME(dtStart, FactoryFinishTime) <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
 
-                                                        HoursGap := HoursGap - (LocationRec."Finish Time" - TImeStart) / 3600000;
+                                                        HoursGap := HoursGap - (FactoryFinishTime - TImeStart) / 3600000;
                                                         TImeStart := LocationRec."Start Time";
                                                         dtStart := dtStart + 1;
 
@@ -1348,12 +1335,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                                                 //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                                                 repeat
-
                                                                     HoursPerDay := 0;
                                                                     WorkCenCapacityEntryRec.Reset();
                                                                     WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                                     WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                                                     if WorkCenCapacityEntryRec.FindSet() then begin
                                                                         repeat
                                                                             HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -1378,7 +1363,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                                                     if HoursPerDay = 0 then
                                                                         dtStart := dtStart + 1;
-
                                                                 until HoursPerDay > 0;
 
                                                                 if (HoursPerDay > HoursGap) then begin
@@ -1402,8 +1386,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 end;
 
                                                 HoursPerDay := 0;
+                                                FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
+
                                                 //if start time greater than parameter Finish time, set start time next day morning
-                                                if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                                                if ((TImeStart - FactoryFinishTime) >= 0) then begin
                                                     TImeStart := LocationRec."Start Time";
                                                     dtStart := dtStart + 1;
                                                     TempDate := dtStart;
@@ -1411,7 +1397,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                                 //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                                 repeat
-
                                                     WorkCenCapacityEntryRec.Reset();
                                                     WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                     WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
@@ -1466,15 +1451,16 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                             LcurveTemp := LearningCurveRec.Day1;
 
                                                             repeat
-                                                                if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                                    LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                                                FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, LCurveFinishDate, LocationRec."Start Time");
+
+                                                                if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                                    LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                                                     LCurveStartTime := LocationRec."Start Time";
                                                                     LCurveFinishDate += 1;
 
                                                                     //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                                                     HoursPerDay := 0;
                                                                     repeat
-
                                                                         ResCapacityEntryRec.Reset();
                                                                         ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                                         ResCapacityEntryRec.SETRANGE(Date, LCurveFinishDate);
@@ -1777,6 +1763,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                         MaxLineNo := ProdPlansDetails."No.";
 
                                                     MaxLineNo += 1;
+                                                    FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, TempDate, LocationRec."Start Time");
 
                                                     //insert to ProdPlansDetails
                                                     ProdPlansDetails.Init();
@@ -1799,11 +1786,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                             ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                                         if TempHours = 0 then
-                                                            ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                            ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                         else begin
                                                             if i = 1 then
-                                                                if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                                if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                                    ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                                 else
                                                                     ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                                             else
@@ -1864,11 +1851,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 JobPlaLine2Rec."Start Time" := TImeStart;
 
                                                 if TempHours = 0 then
-                                                    JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                                    JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                                 else begin
                                                     if i = 1 then
-                                                        if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                            JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                                        if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                            JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                                         else
                                                             JobPlaLine2Rec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                                     else
@@ -1959,6 +1946,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             Error('Efficiency is zero. Cannot proceed.');
 
                         SMV := JobPlaLineRec.SMV;
+                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
 
                         if SMV = 0 then
                             Error('SMV for Style : %1 is zero. Cannot proceed.', JobPlaLineRec."Style Name");
@@ -1969,7 +1957,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         //if start time greater than parameter Finish time, set start time next day morning
-                        if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                        if ((TImeStart - FactoryFinishTime) >= 0) then begin
                             TImeStart := LocationRec."Start Time";
                             dtStart := dtStart + 1;
                         end;
@@ -1977,11 +1965,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         HoursPerDay := 0;
                         //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                         repeat
-
                             ResCapacityEntryRec.Reset();
                             ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                             ResCapacityEntryRec.SETRANGE(Date, dtStart);
-
                             if ResCapacityEntryRec.FindSet() then begin
                                 repeat
                                     HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -1989,12 +1975,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             end;
 
                             if HoursPerDay = 0 then begin
-
                                 //Validate the day (Holiday or Weekend)
                                 SHCalHolidayRec.Reset();
                                 SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
                                 SHCalHolidayRec.SETRANGE(Date, dtStart);
-
                                 if not SHCalHolidayRec.FindSet() then begin  //If not holiday
                                     DayForWeek.Get(DayForWeek."Period Type"::Date, dtStart);
 
@@ -2039,23 +2023,20 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             //Found := true;
                             dtStart := JobPlaLineRec."End Date";
                             TImeStart := JobPlaLineRec."Finish Time";
-                            //Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
+                            HoursPerDay := 0;
+                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
 
                             //if start time equal to the parameter Finish time, set start time next day morning
-                            if ((TImeStart - LocationRec."Finish Time") = 0) then begin
+                            if ((TImeStart - FactoryFinishTime) = 0) then begin
                                 TImeStart := LocationRec."Start Time";
                                 dtStart := dtStart + 1;
                             end;
 
-                            HoursPerDay := 0;
-
                             //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                             repeat
-
                                 ResCapacityEntryRec.Reset();
                                 ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                 ResCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                 if ResCapacityEntryRec.FindSet() then begin
                                     repeat
                                         HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
@@ -2139,8 +2120,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     LcurveTemp := LearningCurveRec.Day1;
 
                                     repeat
-                                        if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                            LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, LCurveFinishDate, LocationRec."Start Time");
+
+                                        if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                            LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                             LCurveStartTime := LocationRec."Start Time";
                                             LCurveFinishDate += 1;
 
@@ -2434,6 +2417,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 MaxLineNo := ProdPlansDetails."No.";
 
                             MaxLineNo += 1;
+                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, TempDate, LocationRec."Start Time");
 
                             //insert to ProdPlansDetails
                             ProdPlansDetails.Init();
@@ -2457,7 +2441,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                 if TempHours = 0 then
-                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                    ProdPlansDetails."Finish Time" := FactoryFinishTime
                                 else begin
                                     if i = 1 then
                                         ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
@@ -2519,11 +2503,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         JobPlaLineRec."Start Time" := TImeStart;
 
                         if TempHours = 0 then
-                            JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                            JobPlaLineRec."Finish Time" := FactoryFinishTime
                         else begin
                             if i = 1 then
-                                if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                    JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                    JobPlaLineRec."Finish Time" := FactoryFinishTime
                                 else
                                     JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                             else
@@ -2623,9 +2607,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                         until ResCapacityEntryRec.Next() = 0;
                                                     end;
 
+                                                    FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, DT2DATE(Prev_FinishedDateTime) + (X - 1), LocationRec."Start Time");
+
                                                     if HoursPerDay1 > 0 then begin
                                                         if X = 1 then  //First Date
-                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
+                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), FactoryFinishTime) - Prev_FinishedDateTime
                                                         else
                                                             if X = XX then  //Last date
                                                                 HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
@@ -2651,10 +2637,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         if HoursGap > 0 then begin
 
                                             ddddddtttt := CREATEDATETIME(dtStart, TImeStart);
+                                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
 
-                                            if (CREATEDATETIME(dtStart, LocationRec."Finish Time") <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
+                                            if (CREATEDATETIME(dtStart, FactoryFinishTime) <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
 
-                                                HoursGap := HoursGap - (LocationRec."Finish Time" - TImeStart) / 3600000;
+                                                HoursGap := HoursGap - (FactoryFinishTime - TImeStart) / 3600000;
                                                 TImeStart := LocationRec."Start Time";
                                                 dtStart := dtStart + 1;
 
@@ -2663,12 +2650,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                                         //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                                         repeat
-
                                                             HoursPerDay := 0;
                                                             WorkCenCapacityEntryRec.Reset();
                                                             WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                             WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                                             if WorkCenCapacityEntryRec.FindSet() then begin
                                                                 repeat
                                                                     HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -2717,8 +2702,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         end;
 
                                         HoursPerDay := 0;
+                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtStart, LocationRec."Start Time");
+
                                         //if start time greater than parameter Finish time, set start time next day morning
-                                        if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                                        if ((TImeStart - FactoryFinishTime) >= 0) then begin
                                             TImeStart := LocationRec."Start Time";
                                             dtStart := dtStart + 1;
                                             TempDate := dtStart;
@@ -2730,7 +2717,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             WorkCenCapacityEntryRec.Reset();
                                             WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                             WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
                                             if WorkCenCapacityEntryRec.FindSet() then begin
                                                 repeat
                                                     HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -2769,7 +2755,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         if ProdPlansDetails.FindSet() then
                                             ProdPlansDetails.DeleteAll();
 
-
                                         //Check learning curve                        
                                         LCurveFinishDate := TempDate;
                                         LCurveFinishTime := TImeStart;
@@ -2784,15 +2769,16 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     LcurveTemp := LearningCurveRec.Day1;
 
                                                     repeat
-                                                        if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                            LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, LCurveFinishDate, LocationRec."Start Time");
+
+                                                        if ((FactoryFinishTime - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                            LcurveTemp -= (FactoryFinishTime - LCurveStartTime) / 3600000;
                                                             LCurveStartTime := LocationRec."Start Time";
                                                             LCurveFinishDate += 1;
 
                                                             //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                                             HoursPerDay := 0;
                                                             repeat
-
                                                                 ResCapacityEntryRec.Reset();
                                                                 ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
                                                                 ResCapacityEntryRec.SETRANGE(Date, LCurveFinishDate);
@@ -2962,7 +2948,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                                 Rate := 100;
                                                         end;
 
-
                                                         if Rate = 0 then
                                                             Rate := 100;
 
@@ -3098,6 +3083,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 MaxLineNo := ProdPlansDetails."No.";
 
                                             MaxLineNo += 1;
+                                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, TempDate, LocationRec."Start Time");
 
                                             //insert to ProdPlansDetails
                                             ProdPlansDetails.Init();
@@ -3121,11 +3107,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                                 if TempHours = 0 then
-                                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                    ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                 else begin
                                                     if i = 1 then
-                                                        if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                            ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                        if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                            ProdPlansDetails."Finish Time" := FactoryFinishTime
                                                         else
                                                             ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                                     else
@@ -3186,11 +3172,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         JobPlaLine2Rec."Start Time" := TImeStart;
 
                                         if TempHours = 0 then
-                                            JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                            JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                         else begin
                                             if i = 1 then
-                                                if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                    JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                                if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                    JobPlaLine2Rec."Finish Time" := FactoryFinishTime
                                                 else
                                                     JobPlaLine2Rec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                             else
@@ -3294,6 +3280,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     ProdHeaderRec: Record ProductionOutHeader;
                     DeleteFromQueueListPage: Page "Delete From Queue List";
                     PlanHistoryListPage: Page "Plan Lines - Search List";
+                    NavAppCodeUnit3Rec: Codeunit NavAppCodeUnit3;
                     STY: Code[20];
                     PO: Code[20];
                     LOT: Code[20];
@@ -3315,6 +3302,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     FullQty: BigInteger;
                     QueueNo: BigInteger;
                     TempQty: BigInteger;
+                    FactoryFinishTime: Time;
                 begin
                     if (eventArgs.Get('ContextMenuID', _jsonToken)) then
                         _contextMenuID := _jsonToken.AsValue().AsText()
@@ -3537,17 +3525,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             dtEnd := DMY2DATE(D, M, Y);
                             HrsPerDay := 0;
 
-
                             //Get resource No, Start Date
                             PlanningLinesRec.Reset();
                             PlanningLinesRec.SetRange("Line No.", LineNo);
-
                             if PlanningLinesRec.FindSet() then begin
                                 ResourceNo := PlanningLinesRec."Resource No.";
                                 StartDate := PlanningLinesRec."Start Date";
                                 FullQty := PlanningLinesRec.Qty;
                             end;
-
 
                             //Check for not prod. updated sewing out enties
                             //Check whether pending sawing out quantity is there for the allocation
@@ -3571,7 +3556,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
                             ProdPlanDetRec.SetRange(PlanDate, StartDate, dtEnd);
                             ProdPlanDetRec.SetRange("Line No.", LineNo);
-
                             if ProdPlanDetRec.FindSet() then begin
                                 repeat
                                     QTY += ProdPlanDetRec.Qty;
@@ -3585,7 +3569,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             //Get Max QueueNo
                             PlanningQueueRec.Reset();
-
                             if PlanningQueueRec.FindLast() then
                                 QueueNo := PlanningQueueRec."Queue No.";
 
@@ -3594,11 +3577,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             if TempQty = 0 then
                                 Error('You cannot cut at the end of line.');
 
-
                             //Check whether user logged in or not
                             LoginSessionsRec.Reset();
                             LoginSessionsRec.SetRange(SessionID, SessionId());
-
                             if not LoginSessionsRec.FindSet() then begin  //not logged in
                                 Clear(LoginRec);
                                 LoginRec.LookupMode(true);
@@ -3608,7 +3589,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 LoginSessionsRec.SetRange(SessionID, SessionId());
                                 LoginSessionsRec.FindSet();
                             end;
-
 
                             //Add remaining qty to the Queue
                             PlanningQueueRec.Init();
@@ -3635,6 +3615,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningQueueRec."Created User" := UserId;
                             PlanningQueueRec.Insert();
 
+                            FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(ResourceNo, dtEnd, LocationRec."Start Time");
 
                             //Modify Planning line
                             PlanningLinesRec.Reset();
@@ -3642,10 +3623,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningLinesRec.FindSet();
                             PlanningLinesRec."End Date" := dtEnd;
                             PlanningLinesRec.Qty := QTY;
-                            PlanningLinesRec."Finish Time" := LocationRec."Finish Time";
-                            PlanningLinesRec.FinishDateTime := CREATEDATETIME(dtEnd, LocationRec."Finish Time");
+                            PlanningLinesRec."Finish Time" := FactoryFinishTime;
+                            PlanningLinesRec.FinishDateTime := CREATEDATETIME(dtEnd, FactoryFinishTime);
                             PlanningLinesRec.Modify();
-
 
                             //Delete remaining line from the Prod Plan Det table
                             ProdPlanDetRec.Reset();

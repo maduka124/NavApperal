@@ -133,6 +133,8 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         LocationRec: Record Location;
         tempEntities: JsonArray;
         ResCapacityEntryRec: Record "Calendar Entry";
+        NavAppCodeUnit3Rec: Codeunit NavAppCodeUnit3;
+        FactoryFinishTime: Time;
     begin
 
         //Get Start and Finish Time
@@ -142,10 +144,8 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
         //Create Calendars by Resource Capacity 
         WorkCenterRec.SETCURRENTKEY(WorkCenterRec.Name);
-        //WorkCenterRec.SETRANGE(WorkCenterRec.Name);
         WorkCenterRec.SetFilter("Planning Line", '=%1', true);
         WorkCenterRec.SETRANGE("Factory No.", FactoryNo);
-
         IF WorkCenterRec.FIND('-') THEN
             REPEAT
                 tempEntities := createJsonArray();
@@ -153,14 +153,15 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnCalendar.Add('ID', 'CalRes_' + WorkCenterRec."No.");
                 lrecDate.SETRANGE(lrecDate."Period Type", lrecDate."Period Type"::Date);
                 lrecDate.SETRANGE(lrecDate."Period Start", pStart, pEnd);
-
                 IF lrecDate.FINDSET THEN
                     REPEAT
 
                         WorkCenterRec.SETRANGE("Date Filter", lrecDate."Period Start", lrecDate."Period Start");
+                        FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterRec."No.", lrecDate."Period Start", LocationRec."Start Time");
                         ldnCalendarEntry := createJsonObject();
                         ldnCalendarEntry.Add('Start', CREATEDATETIME(lrecDate."Period Start", LocationRec."Start Time"));
-                        ldnCalendarEntry.Add('End', CREATEDATETIME(lrecDate."Period Start", LocationRec."Finish Time"));
+                        ldnCalendarEntry.Add('End', CREATEDATETIME(lrecDate."Period Start", FactoryFinishTime));
+                        // ldnCalendarEntry.Add('End', CREATEDATETIME(lrecDate."Period Start", LocationRec."Finish Time"));
 
                         ResCapacityEntryRec.Reset();
                         ResCapacityEntryRec.SETRANGE("No.", WorkCenterRec."No.");
@@ -174,10 +175,8 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                         tempEntities.Add(ldnCalendarEntry);
 
                     UNTIL lrecDate.NEXT = 0;
-
                 ldnCalendar.Add('Entries', tempEntities);
                 pCalendars.Add(ldnCalendar);
-
             UNTIL WorkCenterRec.NEXT = 0;
     end;
 
