@@ -33,6 +33,16 @@ table 51364 StyleWiseMachineLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Style No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(8; "Style Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

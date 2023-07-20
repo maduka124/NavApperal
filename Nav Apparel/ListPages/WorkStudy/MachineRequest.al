@@ -50,7 +50,8 @@ page 51361 MachineRequestList
         StylePORec: Record "Style Master PO";
         ManingLevelsLineRec: Record "Maning Levels Line";
         ManingLevelsLine2Rec: Record "Maning Levels Line";
-        NavAppPlanLineRec: Record "NavApp Planning Lines";
+        // NavAppPlanLineRec: Record "NavApp Planning Lines";
+        NavAppProdDetailRec: Record "NavApp Prod Plans Details";
         StyleWiseMachineLineRec: Record StyleWiseMachineLine;
         LineNo: Integer;
         LineNo2: Integer;
@@ -86,7 +87,6 @@ page 51361 MachineRequestList
                             LineNo += 1;
 
                             MachineReqRec.Init();
-                            // MachineReqRec.N := LineNo;
                             MachineReqRec.No := ManningLevlHeaderRec."No.";
                             MachineReqRec."Style No" := ManningLevlHeaderRec."Style No.";
                             MachineReqRec."Style Name" := ManningLevlHeaderRec."Style Name";
@@ -102,12 +102,12 @@ page 51361 MachineRequestList
                                 MachineReqRec."Garment Type" := StyleMasterRec."Garment Type Name";
                             end;
 
-                            NavAppPlanLineRec.Reset();
-                            NavAppPlanLineRec.SetRange("Style No.", ManningLevlHeaderRec."Style No.");
-                            NavAppPlanLineRec.SetRange("Resource No.", ManningLevlHeaderRec."Line No.");
+                            NavAppProdDetailRec.Reset();
+                            NavAppProdDetailRec.SetRange("Style No.", ManningLevlHeaderRec."Style No.");
+                            NavAppProdDetailRec.SetRange("Resource No.", ManningLevlHeaderRec."Line No.");
 
-                            if NavAppPlanLineRec.FindLast() then
-                                MachineReqRec.Factory := NavAppPlanLineRec.Factory;
+                            if NavAppProdDetailRec.FindLast() then
+                                MachineReqRec.Factory := NavAppProdDetailRec."Factory No.";
 
                             ManingLevelsLineRec.Reset();
                             ManingLevelsLineRec.SetRange("No.", ManningLevlHeaderRec."No.");
@@ -123,6 +123,8 @@ page 51361 MachineRequestList
                                         StyleWiseMachineLineRec."Line No" := LineNo2;
                                         StyleWiseMachineLineRec."Machine No" := ManingLevelsLineRec."Machine No.";
                                         StyleWiseMachineLineRec."Machine Name" := ManingLevelsLineRec."Machine Name";
+                                        StyleWiseMachineLineRec."Style Name" := ManningLevlHeaderRec."Style Name";
+                                        StyleWiseMachineLineRec."Style No" := ManningLevlHeaderRec."Style No.";
                                         MachineCodeGB := ManingLevelsLineRec."Machine No.";
 
                                         // ManingLevelsLine2Rec.Reset();
@@ -147,4 +149,17 @@ page 51361 MachineRequestList
             until ManningLevlHeaderRec.Next() = 0;
         end;
     end;
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        StyleWiseMachineLineRec: Record StyleWiseMachineLine;
+    begin
+
+        StyleWiseMachineLineRec.Reset();
+        StyleWiseMachineLineRec.SetRange("Style No", Rec."Style No");
+
+        if StyleWiseMachineLineRec.FindSet() then
+            StyleWiseMachineLineRec.DeleteAll();
+    end;
+
 }
