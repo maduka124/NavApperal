@@ -123,70 +123,38 @@ page 50431 SampleReqLineListPartWIP
                     end;
                 }
 
+                field("Reject Comment"; rec."Reject Comment")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
-                }
-
-                field("Complete Qty"; rec."Complete Qty")
-                {
-                    ApplicationArea = All;
 
                     trigger OnValidate()
                     var
-                        SampleReqLineRec: Record "Sample Requsition Line";
+                        wip: Record wip;
+                        SampleHeaderRec: Record "Sample Requsition Header";
                     begin
+                        if (rec.Status = rec.Status::Reject) then begin
+                            if rec."Reject Comment" = '' then
+                                Error('Enter reject comment.');
 
-                        SampleReqLineRec.Reset();
-                        SampleReqLineRec.SetRange("No.", Rec."No.");
+                            rec."Reject Qty" := rec.Qty;
+                            CurrPage.Update();
 
-                        if SampleReqLineRec.FindSet() then begin
-                            if Rec."Complete Qty" > Rec.Qty then
-                                Error('Complete qty should be leass than req qty');
+                            SampleHeaderRec.Reset();
+                            SampleHeaderRec.SetRange("No.", rec."No.");
+                            if SampleHeaderRec.FindSet() then
+                                SampleHeaderRec.ModifyAll(PlanStartEndDateEntered, true);
 
-                            if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
-                                Error('Complete qty and reject qty total should be less than req Qty');
+                            //Remove record displaying from listpart
+                            wip.Reset();
+                            wip.FindSet();
+                            wip.ModifyAll("Req No.", '');
                         end;
-
-                        if (rec.Status = rec.Status::Yes) and (rec."Complete Qty" = 0) then
-                            Error('Enter complate qty');
-                    end;
-                }
-
-                field("Reject Qty"; rec."Reject Qty")
-                {
-                    ApplicationArea = All;
-
-                    trigger OnValidate()
-                    var
-                        SampleReqLineRec: Record "Sample Requsition Line";
-                    begin
-
-                        SampleReqLineRec.Reset();
-                        SampleReqLineRec.SetRange("No.", Rec."No.");
-
-                        if SampleReqLineRec.FindSet() then begin
-
-                            if Rec."Reject Qty" > Rec.Qty then
-                                Error('Reject qty Should be less than req qty');
-
-                            if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
-                                Error('Complete qty and reject qty total should be less than req qty');
-                        end;
-                    end;
-                }
-
-                field("Reject Comment"; rec."Reject Comment")
-                {
-                    ApplicationArea = All;
-
-                    trigger OnValidate()
-                    var
-                    begin
-                        if (rec.Status = rec.Status::Reject) and (rec."Reject Qty" = 0) then
-                            Error('Enter reject qty');
-
                     end;
                 }
             }
@@ -212,9 +180,7 @@ page 50431 SampleReqLineListPartWIP
                     SampleReqLineRec.Reset();
                     SampleReqLineRec.SetRange("No.", rec."No.");
                     SampleReqLineRec.SetFilter(Status, '=%1', SampleReqLineRec.Status::No);
-
                     if not SampleReqLineRec.FindSet() then begin
-
                         SampleReqHeaderRec.Reset();
                         SampleReqHeaderRec.SetRange("No.", rec."No.");
                         SampleReqHeaderRec.FindSet();

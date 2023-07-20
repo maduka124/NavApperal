@@ -202,7 +202,12 @@ page 50435 SampleProdLinePatternListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
-                    Editable = false;
+                    // Editable = false;
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
             }
         }

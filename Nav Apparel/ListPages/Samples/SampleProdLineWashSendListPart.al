@@ -229,7 +229,12 @@ page 50438 SampleProdLineSendWashListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
-                    Editable = false;
+                    // Editable = false;
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
             }
         }

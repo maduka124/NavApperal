@@ -3,7 +3,7 @@ page 51196 SampleProdLineQCFinishListPart
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Finishing Date" = filter(<> ''), "QC/Finishing Date" = filter(''), Qty = filter(<> 0));
+    SourceTableView = where("Finishing Date" = filter(<> ''), Qty = filter(<> 0), Status = filter(0));
 
     layout
     {
@@ -211,11 +211,64 @@ page 51196 SampleProdLineQCFinishListPart
                     end;
                 }
 
+                field("Complete Qty"; rec."Complete Qty")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if Rec."Complete Qty" > Rec.Qty then
+                            Error('Complete qty should be leass than req qty');
+
+                        if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
+                            Error('Complete qty and reject qty total should be less than req Qty');
+
+                        if (rec.Status = rec.Status::Yes) and (rec."Complete Qty" = 0) then
+                            Error('Enter complate qty');
+                    end;
+                }
+
+                field("Reject Qty"; rec."Reject Qty")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if Rec."Reject Qty" > Rec.Qty then
+                            Error('Reject qty Should be less than req qty');
+
+                        if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
+                            Error('Complete qty and reject qty total should be less than req qty');
+                    end;
+                }
+
+                field("Reject Comment"; rec."Reject Comment")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
-                    Editable = false;
+                    // Editable = false;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if (rec.Status = rec.Status::Reject) and (rec."Reject Qty" = 0) then
+                            Error('Enter reject qty.');
+
+                        if (rec.Status = rec.Status::Yes) and (rec."Complete Qty" = 0) then
+                            Error('Enter complete qty.');
+
+                        if (rec.Status = rec.Status::Reject) and (rec."Reject Comment" = '') then
+                            Error('Enter reject comment.');
+
+                        CurrPage.Update();
+                    end;
                 }
             }
         }
