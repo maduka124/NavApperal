@@ -2093,6 +2093,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Factory And Line Wise Machine Requirement")
+                {
+                    Caption = 'Factory And Line Wise Machine Requirement';
+                    RunObject = Page FactoryAndMachineReq;
+                    ApplicationArea = all;
+                }
+
                 action("Folder Details")
                 {
                     Caption = 'Folder Details';
