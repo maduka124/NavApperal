@@ -144,6 +144,11 @@ table 50345 "NavApp Prod Plans Details"
         {
             //Clustered = true;
         }
+        key(SK1; "Resource No.", "Style No.")
+        {
+            //Clustered = true;
+        }
+
     }
 
     trigger OnInsert()
