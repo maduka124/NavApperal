@@ -154,7 +154,9 @@ page 50431 SampleReqLineListPartWIP
                             wip.Reset();
                             wip.FindSet();
                             wip.ModifyAll("Req No.", '');
-                        end;
+                        end
+                        else
+                            Error('Invalid status');
                     end;
                 }
             }

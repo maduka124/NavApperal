@@ -6,7 +6,6 @@ report 51293 SampleProductionReportALL
     RDLCLayout = 'Report_Layouts/Samples/SampleProductionReportALL.rdl';
     DefaultLayout = RDLC;
 
-
     dataset
     {
         dataitem("Sample Requsition Line"; "Sample Requsition Line")
@@ -22,7 +21,7 @@ report 51293 SampleProductionReportALL
             { }
             column(Buyer_Name; "Buyer Name")
             { }
-            column(Garment_Type;"Sample Name")
+            column(Garment_Type; "Sample Name")
             { }
             column(Pattern_Cutter; "Pattern Cutter")
             { }
@@ -48,21 +47,18 @@ report 51293 SampleProductionReportALL
 
 
             trigger OnPreDataItem()
-
             begin
                 SetRange("Pattern Date", stDate, endDate)
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
-
         }
-
     }
+
 
     requestpage
     {
@@ -72,7 +68,6 @@ report 51293 SampleProductionReportALL
             {
                 group(GroupName)
                 {
-
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
@@ -90,10 +85,8 @@ report 51293 SampleProductionReportALL
     }
 
 
-
     var
         comRec: Record "Company Information";
         stDate: Date;
         endDate: Date;
-
 }

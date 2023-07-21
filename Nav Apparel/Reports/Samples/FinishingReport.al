@@ -6,7 +6,6 @@ report 51288 SampleFinishingReport
     RDLCLayout = 'Report_Layouts/Samples/FinishingReport.rdl';
     DefaultLayout = RDLC;
 
-
     dataset
     {
         dataitem("Sample Requsition Line"; "Sample Requsition Line")
@@ -28,24 +27,31 @@ report 51288 SampleFinishingReport
             { }
             column(endDate; endDate)
             { }
-
-
+            column(ReqNo; "No.")
+            { }
+            column(Group_Head; "Group Head")
+            { }
+            column(Style_Name; "Style Name")
+            { }
 
             trigger OnPreDataItem()
-
             begin
-                SetRange("Finishing Date", stDate, endDate)
+                if (stDate <> 0D) and (endDate <> 0D) then begin
+                    if (stDate > endDate) then
+                        Error('Invalid date period.');
+
+                    SetRange("Finishing Date", stDate, endDate);
+                end;
+
+                SetFilter(Qty, '>%1', 0);
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
-
         }
-
     }
 
     requestpage
@@ -56,7 +62,6 @@ report 51288 SampleFinishingReport
             {
                 group(GroupName)
                 {
-
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
@@ -74,10 +79,8 @@ report 51288 SampleFinishingReport
     }
 
 
-
     var
         comRec: Record "Company Information";
         stDate: Date;
         endDate: Date;
-
 }

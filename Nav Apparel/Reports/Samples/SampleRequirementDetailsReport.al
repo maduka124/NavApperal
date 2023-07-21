@@ -16,6 +16,12 @@ report 51285 SampleRequirementDetails
             { }
             column(ReqQty; Qty)
             { }
+            column(CompLogo; comRec.Picture)
+            { }
+            column(stDate; stDate)
+            { }
+            column(endDate; endDate)
+            { }
 
             dataitem("Sample Requsition Line"; "Sample Requsition Line")
             {
@@ -31,47 +37,33 @@ report 51285 SampleRequirementDetails
                 { }
                 column(Reject_Qty; "Reject Qty")
                 { }
-                column(CompLogo; comRec.Picture)
-                { }
-                column(stDate; stDate)
-                { }
-                column(endDate; endDate)
-                { }
                 column(Qty; Qty)
                 { }
                 column(No_; "No.")
                 { }
                 column(Line_No_; "Line No.")
                 { }
-
-                trigger OnAfterGetRecord()
-                begin
-                    comRec.Get;
-                    comRec.CalcFields(Picture);
-
-                    // SampleReqHeadRec.Reset();
-                    // SampleReqHeadRec.SetFilter(Type, '=%1', SampleReqHeadRec.Type::Development);
-                    // SampleReqHeadRec.SetRange("No.", "No.");
-                    // if SampleReqHeadRec.FindFirst() then begin
-                    //     //GroupHD := SampleReqHeadRec."Group HD";
-                    //     BrandName := SampleReqHeadRec."Brand Name";
-                    //     ReqQty := SampleReqHeadRec.Qty;
-                    // end;
-                end;
-
-                trigger OnPreDataItem()
-                begin
-                    // SetRange("QC/Finishing Date", stDate, endDate);
-                end;
             }
+
+            trigger OnAfterGetRecord()
+            begin
+                comRec.Get;
+                comRec.CalcFields(Picture);
+            end;
 
             trigger OnPreDataItem()
             begin
                 if GroupHD <> '' then
                     SetRange("Group HD", GroupHD);
 
-                if (stDate <> 0D) and (endDate <> 0D) then
+                if (stDate <> 0D) and (endDate <> 0D) then begin
+                    if (stDate > endDate) then
+                        Error('Invalid date period.');
+
                     SetRange("Created Date", stDate, endDate);
+                end;
+
+                SetFilter(Qty, '>%1', 0);
             end;
         }
     }
