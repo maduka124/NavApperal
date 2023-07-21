@@ -82,7 +82,13 @@ page 50983 "Assortment Card"
                     trigger OnValidate()
                     var
                         StylePORec: Record "Style Master PO";
+                        StylePO2Rec: Record "Style Master PO";
                     begin
+
+                        StylePO2Rec.Reset();
+                        StylePO2Rec.SetRange("Lot No.", Rec."Lot No.");
+                        if not StylePO2Rec.FindSet() then
+                            Error('Invaild Lot No');
 
                         //CurrPage.SaveRecord();
                         CurrPage.Update(true);
