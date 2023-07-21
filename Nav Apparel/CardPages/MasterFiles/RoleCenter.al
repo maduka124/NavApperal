@@ -865,6 +865,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Style Change")
+                {
+                    Caption = 'Style Change';
+                    RunObject = Page StyleChangeCard;
+                    ApplicationArea = all;
+                }
+
                 action("Sales Order List1")
                 {
                     Caption = 'Sales Orders';
