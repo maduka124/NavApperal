@@ -45,6 +45,12 @@ page 51018 AssorColorSizeRatioListPart
                     var
                         ShadeRec: Record Shade;
                     begin
+
+                        ShadeRec.Reset();
+                        ShadeRec.SetRange("No.", Rec."SHID/LOT");
+                        if not ShadeRec.FindSet() then
+                            Error('Invalid SHID/LOT');
+
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 

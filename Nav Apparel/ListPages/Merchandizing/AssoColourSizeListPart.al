@@ -26,6 +26,11 @@ page 51015 AssoColourSizeListPart
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
 
+                        ColourRec.Reset();
+                        ColourRec.SetRange("No.", Rec."Colour No");
+                        if not ColourRec.FindSet() then
+                            Error('Invalid Color');
+
                         if Rec."Lot No." = '' then
                             Error('Invalid Lot No');
 

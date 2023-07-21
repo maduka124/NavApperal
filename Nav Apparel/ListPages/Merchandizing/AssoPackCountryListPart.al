@@ -26,6 +26,14 @@ page 51017 AssoPackCountryListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
+
+                        CountryRec.Reset();
+                        CountryRec.SetRange("Name", rec."Country Name");
+                        if CountryRec.FindSet() then
+                            rec."Country Code" := CountryRec.Code
+                        else
+                            Error('Invalid Country Name');
+
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
@@ -86,6 +94,14 @@ page 51017 AssoPackCountryListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
+
+                        PackRec.Reset();
+                        PackRec.SetRange(Pack, rec.Pack);
+                        if PackRec.FindSet() then
+                            rec."Pack No" := PackRec."No."
+                        else
+                            Error('Invalid Pack');
+
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
@@ -102,10 +118,6 @@ page 51017 AssoPackCountryListPart
                             end;
                         end;
 
-                        PackRec.Reset();
-                        PackRec.SetRange(Pack, rec.Pack);
-                        if PackRec.FindSet() then
-                            rec."Pack No" := PackRec."No.";
                     end;
                 }
 
