@@ -167,6 +167,11 @@ page 50436 SampleProdLineCutListPart
                     end;
                 }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Cutting Date"; rec."Cutting Date")
                 {
                     ApplicationArea = All;
@@ -207,7 +212,13 @@ page 50436 SampleProdLineCutListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
-                    Editable = false;
+                    // Editable = false;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
             }
         }

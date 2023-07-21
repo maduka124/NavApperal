@@ -63,7 +63,7 @@ page 50440 "Sample Status List"
                     ApplicationArea = All;
                 }
 
-                field(Qty; rec.Qty)
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                 }
@@ -74,12 +74,21 @@ page 50440 "Sample Status List"
                     Caption = 'Complete';
                 }
 
+                field(Qty; rec.Qty)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Complete Qty"; rec."Complete Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Req Date"; rec."Req Date")
+                field("Reject Qty"; rec."Reject Qty")
+                {
+                    ApplicationArea = All;
+                }
+                field("Reject Comment"; rec."Reject Comment")
                 {
                     ApplicationArea = All;
                 }
@@ -94,24 +103,6 @@ page 50440 "Sample Status List"
                     ApplicationArea = All;
                 }
 
-                //Done by sachith on 10/02/23
-                // field("Created User"; rec."Created User")
-                // {
-                //     ApplicationArea = All;
-                // }
-
-                //Done by sachith on 10/02/23
-                field("Secondary UserID"; Rec."Secondary UserID")
-                {
-                    ApplicationArea = All;
-                    caption = 'Created User';
-                }
-
-                field("Created Date"; rec."Created Date")
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Plan Start Date"; rec."Plan Start Date")
                 {
                     ApplicationArea = All;
@@ -121,37 +112,87 @@ page 50440 "Sample Status List"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Pattern Date"; rec."Pattern Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Pattern Cutting Date';
+                }
+
+                field("Cutting Date"; rec."Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Sewing Date"; rec."Sewing Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("QC Date"; rec."QC Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Send Wash Date"; rec."Send Wash Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Wash Send Date';
+                }
+
+                field("Received Wash Date"; rec."Received Wash Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Wash Received Date';
+                }
+
+                field("Finishing Date"; rec."Finishing Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("QC/Finishing Date"; rec."QC/Finishing Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
+                //Done by sachith on 10/02/23
+                field("Secondary UserID"; Rec."Secondary UserID")
+                {
+                    ApplicationArea = All;
+                    caption = 'Created User';
+                }
+                field("Created Date"; rec."Created Date")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
 
     trigger OnOpenPage()
     var
-        LoginRec: Page "Login Card";
-        LoginSessionsRec: Record LoginSessions;
         UserSetupRec: Record "User Setup";
     begin
-
-        //Check whether user logged in or not
-        LoginSessionsRec.Reset();
-        LoginSessionsRec.SetRange(SessionID, SessionId());
-
-        if not LoginSessionsRec.FindSet() then begin  //not logged in
-            Clear(LoginRec);
-            LoginRec.LookupMode(true);
-            LoginRec.RunModal();
-
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end
-        else begin   //logged in
-            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-
-        end;
-
-
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
 
@@ -165,6 +206,5 @@ page 50440 "Sample Status List"
         end
         else
             Error('Cannot find user details in user setup table');
-
     end;
 }

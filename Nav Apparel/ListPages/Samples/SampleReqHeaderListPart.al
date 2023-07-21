@@ -2,7 +2,7 @@ page 50427 "Sample Request Header ListPart"
 {
     PageType = ListPart;
     SourceTable = "Sample Requsition Header";
-    SourceTableView = where(Status = filter(Pending), Qty = filter(> 0));
+    SourceTableView = where(Status = filter(Pending), Qty = filter(> 0), PlanStartEndDateEntered = filter(false));
 
     layout
     {
@@ -94,12 +94,11 @@ page 50427 "Sample Request Header ListPart"
             {
                 ApplicationArea = All;
                 Image = GetOrder;
-                // Scope = Repeater;
-                // Promoted = true;
 
                 trigger OnAction()
                 var
                     WIP: Record wip;
+                    SampleLineRec: Record "Sample Requsition Line";
                 begin
                     if rec."No." = '' then
                         Error('Select a record.');
@@ -107,8 +106,14 @@ page 50427 "Sample Request Header ListPart"
                     wip.Reset();
                     wip.FindSet();
                     wip.ModifyAll("Req No.", rec."No.");
+
+                    SampleLineRec.Reset();
+                    SampleLineRec.SetRange("No.", rec."No.");
+                    if SampleLineRec.FindSet() then
+                        SampleLineRec.ModifyAll("Plan Start Date", WorkDate());
                 end;
             }
+
             //Mihiranga 2023/01/23
             action(viewForSampleDetails)
             {
@@ -116,32 +121,23 @@ page 50427 "Sample Request Header ListPart"
                 Image = View;
                 Caption = 'View For Sample Details';
 
-
                 trigger OnAction()
                 var
                     SampleCardRec: Page "Sample Request Card";
-                //SampleReq: Record "Sample Requsition Header";
                 begin
-
-
-
                     Clear(SampleCardRec);
                     SampleCardRec.PassParameters(Rec."No.", false, false);
                     SampleCardRec.Editable := false;
                     SampleCardRec.RunModal();
-
-
                 end;
             }
-
-
         }
     }
+
+
     //Done By Sachith 17/07/23
     trigger OnOpenPage()
     begin
-
         Rec.SetFilter(Rec.Qty, '<>%1', 0);
-
     end;
 }

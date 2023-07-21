@@ -244,6 +244,10 @@ page 50343 "Planning Line Property Card"
                     LCurveStartTimePerDay: Time;
                     FactoryFinishTime: Time;
                 begin
+                    //Check the user is planning user or not
+                    if PlanningUser = false then
+                        Error('You are not authorized to perform this task.');
+
                     //Get Start and Finish Time
                     LocationRec.Reset();
                     LocationRec.SetRange(code, rec.Factory);
@@ -1515,7 +1519,19 @@ page 50343 "Planning Line Property Card"
         StyeMastePORec: Record "Style Master PO";
         StyeMasteRec: Record "Style Master";
         NavAppSetupRec: Record "NavApp Setup";
+        UserSetupRec: Record "User Setup";
     begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if not UserSetupRec.FindSet() then
+            Error('Cannot find user setup details')
+        else begin
+            if UserSetupRec.UserRole = 'PLANNING USER' then
+                PlanningUser := true
+            else
+                PlanningUser := false;
+        end;
 
         NavAppSetupRec.Reset();
         NavAppSetupRec.FindSet();
@@ -1555,4 +1571,5 @@ page 50343 "Planning Line Property Card"
         HourlyTarget: Decimal;
         BPCD: Date;
         ShipDate: Date;
+        PlanningUser: Boolean;
 }

@@ -165,6 +165,11 @@ table 50930 "Sample Requsition Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012608; "PlanStartEndDateEntered"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

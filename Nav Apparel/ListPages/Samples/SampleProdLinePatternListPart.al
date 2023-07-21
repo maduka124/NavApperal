@@ -3,7 +3,7 @@ page 50435 SampleProdLinePatternListPart
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Pattern Date" = filter(''), Qty = filter(<> 0));
+    SourceTableView = where("Pattern Date" = filter(''), Qty = filter(<> 0), "Plan Start Date" = filter(<> 0D), "Plan End Date" = filter(<> 0D));
 
     layout
     {
@@ -137,7 +137,6 @@ page 50435 SampleProdLinePatternListPart
                         //Asign Work center
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, 'SM-PATTERN');
-
                         if WorkCenterRec.FindSet() then begin
                             rec."Pattern Work center Code" := WorkCenterRec."No.";
                             rec."Pattern Work center Name" := WorkCenterRec.Name;
@@ -146,12 +145,16 @@ page 50435 SampleProdLinePatternListPart
                         //Get Sample Router Name
                         RouterRec.Reset();
                         RouterRec.SetFilter("Sample Router", '=%1', true);
-
                         if RouterRec.FindSet() then
                             rec."Routing Code" := RouterRec."No.";
 
                         CurrPage.Update();
                     end;
+                }
+
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
                 }
 
                 field("Pattern Date"; rec."Pattern Date")
@@ -199,7 +202,12 @@ page 50435 SampleProdLinePatternListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
-                    Editable = false;
+                    // Editable = false;
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
             }
         }

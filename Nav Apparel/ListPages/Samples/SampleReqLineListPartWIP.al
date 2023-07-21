@@ -74,11 +74,26 @@ page 50431 SampleReqLineListPartWIP
 
                     trigger OnValidate()
                     var
+                        SampleHeaderRec: Record "Sample Requsition Header";
+                        wip: Record wip;
                     begin
                         if rec."Plan Start Date" < WorkDate() then
-                            Error('Start date should be greater than todays date');
+                            Error('Start date should be greater than todays date')
+                        else
+                            if (rec."Plan Start Date" <> 0D) and (rec."Plan End Date" <> 0D) then begin
+                                CurrPage.Update();
+                                SampleHeaderRec.Reset();
+                                SampleHeaderRec.SetRange("No.", rec."No.");
+                                if SampleHeaderRec.FindSet() then
+                                    SampleHeaderRec.ModifyAll(PlanStartEndDateEntered, true);
+
+                                //Remove record displaying from listpart
+                                wip.Reset();
+                                wip.FindSet();
+                                wip.ModifyAll("Req No.", '');
+                            end
                     end;
-                    
+
                 }
 
                 field("Plan End Date"; rec."Plan End Date")
@@ -87,77 +102,61 @@ page 50431 SampleReqLineListPartWIP
 
                     trigger OnValidate()
                     var
+                        SampleHeaderRec: Record "Sample Requsition Header";
+                        wip: Record wip;
                     begin
                         if rec."Plan Start Date" > rec."Plan End Date" then
-                            Error('End date should be greater than Start date');
+                            Error('End date should be greater than Start date')
+                        else
+                            if (rec."Plan Start Date" <> 0D) and (rec."Plan End Date" <> 0D) then begin
+                                CurrPage.Update();
+                                SampleHeaderRec.Reset();
+                                SampleHeaderRec.SetRange("No.", rec."No.");
+                                if SampleHeaderRec.FindSet() then
+                                    SampleHeaderRec.ModifyAll(PlanStartEndDateEntered, true);
 
-                    end;
-                }
-
-                field(Status; rec.Status)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Çomplete';
-                }
-
-                field("Complete Qty"; rec."Complete Qty")
-                {
-                    ApplicationArea = All;
-
-                    trigger OnValidate()
-                    var
-                        SampleReqLineRec: Record "Sample Requsition Line";
-                    begin
-
-                        SampleReqLineRec.Reset();
-                        SampleReqLineRec.SetRange("No.", Rec."No.");
-
-                        if SampleReqLineRec.FindSet() then begin
-                            if Rec."Complete Qty" > Rec.Qty then
-                                Error('Complete qty should be leass than req qty');
-
-                            if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
-                                Error('Complete qty and reject qty total should be less than req Qty');
-                        end;
-
-                        if (rec.Status = rec.Status::Yes) and (rec."Complete Qty" = 0) then
-                            Error('Enter complate qty');
-                    end;
-                }
-
-                field("Reject Qty"; rec."Reject Qty")
-                {
-                    ApplicationArea = All;
-
-                    trigger OnValidate()
-                    var
-                        SampleReqLineRec: Record "Sample Requsition Line";
-                    begin
-
-                        SampleReqLineRec.Reset();
-                        SampleReqLineRec.SetRange("No.", Rec."No.");
-
-                        if SampleReqLineRec.FindSet() then begin
-
-                            if Rec."Reject Qty" > Rec.Qty then
-                                Error('Reject qty Should be less than req qty');
-
-                            if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
-                                Error('Complete qty and reject qty total should be less than req qty');
-                        end;
+                                //Remove record displaying from listpart
+                                wip.Reset();
+                                wip.FindSet();
+                                wip.ModifyAll("Req No.", '');
+                            end
                     end;
                 }
 
                 field("Reject Comment"; rec."Reject Comment")
                 {
                     ApplicationArea = All;
+                }
+
+                field(Status; rec.Status)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Çomplete';
 
                     trigger OnValidate()
                     var
+                        wip: Record wip;
+                        SampleHeaderRec: Record "Sample Requsition Header";
                     begin
-                        if (rec.Status = rec.Status::Reject) and (rec."Reject Qty" = 0) then
-                            Error('Enter reject qty');
+                        if (rec.Status = rec.Status::Reject) then begin
+                            if rec."Reject Comment" = '' then
+                                Error('Enter reject comment.');
 
+                            rec."Reject Qty" := rec.Qty;
+                            CurrPage.Update();
+
+                            SampleHeaderRec.Reset();
+                            SampleHeaderRec.SetRange("No.", rec."No.");
+                            if SampleHeaderRec.FindSet() then
+                                SampleHeaderRec.ModifyAll(PlanStartEndDateEntered, true);
+
+                            //Remove record displaying from listpart
+                            wip.Reset();
+                            wip.FindSet();
+                            wip.ModifyAll("Req No.", '');
+                        end
+                        else
+                            Error('Invalid status');
                     end;
                 }
             }
@@ -183,9 +182,7 @@ page 50431 SampleReqLineListPartWIP
                     SampleReqLineRec.Reset();
                     SampleReqLineRec.SetRange("No.", rec."No.");
                     SampleReqLineRec.SetFilter(Status, '=%1', SampleReqLineRec.Status::No);
-
                     if not SampleReqLineRec.FindSet() then begin
-
                         SampleReqHeaderRec.Reset();
                         SampleReqHeaderRec.SetRange("No.", rec."No.");
                         SampleReqHeaderRec.FindSet();

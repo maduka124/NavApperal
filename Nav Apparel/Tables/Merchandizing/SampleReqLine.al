@@ -416,6 +416,11 @@ table 50931 "Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012648; Remarks; text[1000])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

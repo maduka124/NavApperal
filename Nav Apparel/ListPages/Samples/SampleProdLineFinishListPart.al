@@ -116,13 +116,6 @@ page 50800 SampleProdLineFinishListPart
                     Editable = false;
                 }
 
-                field(Status; rec.Status)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Çomplete';
-                    Editable = false;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
@@ -203,6 +196,23 @@ page 50800 SampleProdLineFinishListPart
                             rec."Routing Code" := RouterRec."No.";
 
                     end;
+                }
+
+                field(Status; rec.Status)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Çomplete';
+                    // Editable = false;
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
+                }
+
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
                 }
 
                 field("Finishing Date"; rec."Finishing Date")

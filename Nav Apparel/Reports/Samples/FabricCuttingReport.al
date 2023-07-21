@@ -6,7 +6,6 @@ report 51286 FabricCuttingReport
     RDLCLayout = 'Report_Layouts/Samples/FabricCuttingReport.rdl';
     DefaultLayout = RDLC;
 
-
     dataset
     {
         dataitem("Sample Requsition Line"; "Sample Requsition Line")
@@ -20,7 +19,7 @@ report 51286 FabricCuttingReport
             { }
             column(Buyer_Name; "Buyer Name")
             { }
-            column(Garment_Type;"Sample Name")
+            column(Garment_Type; "Sample Name")
             { }
             column(Cutter; Cutter)
             { }
@@ -28,22 +27,32 @@ report 51286 FabricCuttingReport
             { }
             column(endDate; endDate)
             { }
+            column(ReqNo; "No.")
+            { }
+            column(Group_Head; "Group Head")
+            { }
+            column(Style_Name; "Style Name")
+            { }
+
 
             trigger OnPreDataItem()
-
             begin
-                SetRange("Cutting Date", stDate, endDate)
+                if (stDate <> 0D) and (endDate <> 0D) then begin
+                    if (stDate > endDate) then
+                        Error('Invalid date period.');
+
+                    SetRange("Cutting Date", stDate, endDate);
+                end;
+
+                SetFilter(Qty, '>%1', 0);
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
-
         }
-
     }
 
     requestpage
@@ -54,7 +63,6 @@ report 51286 FabricCuttingReport
             {
                 group(GroupName)
                 {
-
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
@@ -72,10 +80,8 @@ report 51286 FabricCuttingReport
     }
 
 
-
     var
         comRec: Record "Company Information";
         stDate: Date;
         endDate: Date;
-
 }

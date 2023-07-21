@@ -189,6 +189,11 @@ page 50439 SampleProdLineReceWashListPart
                 //     end;
                 // }
 
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Received Wash Date"; rec."Received Wash Date")
                 {
                     ApplicationArea = All;
@@ -232,7 +237,12 @@ page 50439 SampleProdLineReceWashListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
-                    Editable = false;
+                    // Editable = false;
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
             }
         }

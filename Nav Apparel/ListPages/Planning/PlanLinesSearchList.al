@@ -145,6 +145,9 @@ page 50840 "Plan Lines - Search List"
                     LoginRec: Page "Login Card";
                     QueueNo: BigInteger;
                 begin
+                    //Check the user is planning user or not
+                    if PlanningUser = false then
+                        Error('You are not authorized to perform this task.');
 
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
@@ -352,7 +355,18 @@ page 50840 "Plan Lines - Search List"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserSetupRec: Record "User Setup";
     begin
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if not UserSetupRec.FindSet() then
+            Error('Cannot find user setup details')
+        else begin
+            if UserSetupRec.UserRole = 'PLANNING USER' then
+                PlanningUser := true
+            else
+                PlanningUser := false;
+        end;
 
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
@@ -425,4 +439,5 @@ page 50840 "Plan Lines - Search List"
         OrderQty: BigInteger;
         BPCD: Date;
         ShipDate: Date;
+        PlanningUser: Boolean;
 }

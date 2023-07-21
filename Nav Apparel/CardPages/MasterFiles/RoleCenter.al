@@ -2036,14 +2036,14 @@ page 50968 "Nav Apperal Role Center"
                     }
                     action("Send Merchant for Washing Report")
                     {
-                        Caption = 'Send Merchant for Washing Report';
+                        Caption = 'Send For Washing Report';
                         Enabled = true;
                         RunObject = report SendWashingReport;
                         ApplicationArea = all;
                     }
                     action("Receieve from Washing Report")
                     {
-                        Caption = 'Receieve from Washing Report';
+                        Caption = 'Received From Washing Report';
                         Enabled = true;
                         RunObject = report ReceieveFromWashingReport;
                         ApplicationArea = all;
@@ -2090,6 +2090,13 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Factory Manpower Budget Vs Actual';
                     RunObject = Page "Factory Manpower Budget List";
+                    ApplicationArea = all;
+                }
+
+                action("Factory And Line Wise Machine Requirement")
+                {
+                    Caption = 'Factory And Line Wise Machine Requirement';
+                    RunObject = Page FactoryAndMachineReq;
                     ApplicationArea = all;
                 }
 
