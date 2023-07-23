@@ -3575,32 +3575,24 @@ report 50865 HourlyProductionReport
                         ApplicationArea = All;
                         Caption = 'Factory';
 
-
-
                         trigger OnLookup(var texts: text): Boolean
                         var
                             LocationRec: Record Location;
-                            LocationRec2: Record Location;
                             UserRec: Record "User Setup";
                         begin
-                            LocationRec.Reset();
                             UserRec.Reset();
                             UserRec.Get(UserId);
 
-                            LocationRec2.Reset();
                             LocationRec.Reset();
-                            LocationRec.SetRange(Code, UserRec."Factory Code");
+                            if UserRec.UserRole <> 'CHAIRMAN USER' then
+                                LocationRec.SetRange(Code, UserRec."Factory Code");
+
                             LocationRec.SetFilter("Sewing Unit", '=%1', true);
-                            LocationRec.SetFilter("Plant Type Name", '=%1', 'Sewing');
                             if LocationRec.FindSet() then begin
                                 if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactortFilter := LocationRec.Code;
                                 end;
-                            end
-                            // else
-                            //     if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
-                            //         FactortFilter := LocationRec2.Code;
-                            //     end;
+                            end;
                         end;
                     }
 
@@ -3613,6 +3605,13 @@ report 50865 HourlyProductionReport
             }
         }
     }
+
+
+    trigger OnInitReport()
+    var
+    begin
+        FilterDate := WorkDate();
+    end;
 
     var
         StyleLC6: Code[20];
