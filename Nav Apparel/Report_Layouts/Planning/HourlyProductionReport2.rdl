@@ -11883,7 +11883,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -16575,7 +16574,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt1Hour.Value) + Sum(Fields!TOt2Hour.Value) + Sum(Fields!TOt3Hour.Value) + Sum(Fields!TOt4Hour.Value) + Sum(Fields!TOt5Hour.Value) + Sum(Fields!TOt6Hour.Value) + Sum(Fields!TOt7Hour.Value) + Sum(Fields!TOt8Hour.Value) + Sum(Fields!TOt9Hour.Value) + Sum(Fields!TOt10Hour.Value)</Value>
+                                  <Value>=Sum(Sum(Fields!TOt1Hour.Value) + Sum(Fields!TOt2Hour.Value) + Sum(Fields!TOt3Hour.Value) + Sum(Fields!TOt4Hour.Value) + Sum(Fields!TOt5Hour.Value) + Sum(Fields!TOt6Hour.Value) + Sum(Fields!TOt7Hour.Value) + Sum(Fields!TOt8Hour.Value) + Sum(Fields!TOt9Hour.Value) + Sum(Fields!TOt10Hour.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17823,6 +17822,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
