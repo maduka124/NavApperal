@@ -51,30 +51,25 @@ page 51069 "Style Master PO ListPart"
                         if NavAppProdPlanRec.FindSet() then
                             Error('LOT already planned. Cannot change Lot No.');
 
-
                         LOTVar := rec."Lot No.";
 
                         if LOTVar.Contains('/') then
                             Error('Cannot use "/" within Lot No');
 
-
                         BOMEstCostRec.Reset();
                         BOMEstCostRec.SetCurrentKey("Style No.");
                         BOMEstCostRec.SetRange("Style No.", rec."Style No.");
-
-                        if BOMEstCostRec.FindSet() then begin
+                        if BOMEstCostRec.FindSet() then
                             rec."Unit Price" := BOMEstCostRec."FOB Pcs";
-                        end;
 
                         //Get BPCD
                         StyleMasRec.Reset();
                         StyleMasRec.SetRange("No.", rec."Style No.");
-
                         if StyleMasRec.FindSet() then begin
-                            //rec.BPCD := StyleMasRec.BPCD;
                             rec."Style Name" := StyleMasRec."Style No.";
                         end;
 
+                        CurrPage.Update();
                     end;
                 }
 
@@ -333,6 +328,7 @@ page 51069 "Style Master PO ListPart"
         rec.TestField(BPCD);
         rec.TestField("Ship Date");
         rec.TestField("PO No.");
+        rec.TestField("Unit Price");
     end;
 
     trigger OnDeleteRecord(): Boolean

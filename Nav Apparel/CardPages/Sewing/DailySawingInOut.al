@@ -47,9 +47,8 @@ page 50355 "Daily Sewing In/Out Card"
                             ProdOutHeaderRec.SetRange("Style No.", rec."Style No.");
                             ProdOutHeaderRec.SetRange("lot No.", rec."lot No.");
                             ProdOutHeaderRec.SetFilter("No.", '<>%1', rec."No.");
-
                             if ProdOutHeaderRec.FindSet() then
-                                Error('You Already Put Sewing In For Date/Line/Style/PO');
+                                Error('You already put sewing In For Date/Line/Style/LOT');
                         end;
 
 
@@ -62,16 +61,14 @@ page 50355 "Daily Sewing In/Out Card"
                             ProdOutHeaderRec.SetRange("Out Style No.", rec."out Style No.");
                             ProdOutHeaderRec.SetRange("Out lot No.", rec."out lot No.");
                             ProdOutHeaderRec.SetFilter("No.", '<>%1', rec."No.");
-
                             if ProdOutHeaderRec.FindSet() then
-                                Error('You Already Put Sewing In For Date/Line/Style/PO');
+                                Error('You already put sewing Out For Date/Line/Style/LOT');
                         end;
 
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -287,6 +284,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Style No.", Rec."Style No.");
+                        ProductionRec.SetRange("Lot No.", Rec."Lot No.");
                         ProductionRec.SetRange("PO No", Rec."PO No");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
@@ -491,11 +489,9 @@ page 50355 "Daily Sewing In/Out Card"
                         InputQty: BigInteger;
                         OutPutQty: BigInteger;
                     begin
-
                         //Mihiranga 2023/03/29
                         if (Rec."Out Style Name" = '') or (Rec."Out Lot No." = '') then
                             Error('Please Enter Output Style Name and Lot');
-                        //
 
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
@@ -503,9 +499,10 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Out Style No.", rec."Out Style No.");
                         ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
+                        ProductionRec.SetRange("OUT LOT No.", rec."OUT LOT No.");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
-                            Error('You Already Put Sewing In For Date/Line/Style/PO');
+                            Error('You Already Put Sewing Out For Date/Line/Style/PO');
 
 
                         //Mihiranga 2023/03/16
