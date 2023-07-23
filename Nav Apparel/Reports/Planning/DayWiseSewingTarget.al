@@ -97,6 +97,16 @@ report 50646 DayWiseSewingTarget
             { }
             column(SawingOut; SawingOut)
             { }
+            column(stDate; stDate)
+            { }
+            column(endDate; endDate)
+            { }
+            column(SMV; SMV)
+            { }
+            column(PO_No_; "PO No.")
+            { }
+            // column)
+            // {}
 
             trigger OnAfterGetRecord()
             begin
@@ -234,6 +244,7 @@ report 50646 DayWiseSewingTarget
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
                 StylePoRec.SetRange("Lot No.", "Lot No.");
+                StylePoRec.SetRange("PO No.", "PO No.");
                 if StylePoRec.FindFirst() then begin
                     SawingOut := StylePoRec."Sawing Out Qty";
                     OrderQty := StylePoRec."Qty"
@@ -371,6 +382,7 @@ report 50646 DayWiseSewingTarget
     }
 
     var
+        FactoryFilter: Code[20];
         location: code[20];
         LotFilter: Code[20];
         FactoryName: Text[50];
