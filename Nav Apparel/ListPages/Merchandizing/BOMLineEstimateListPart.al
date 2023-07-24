@@ -19,9 +19,15 @@ page 51031 "BOM Line Estimate ListPart"
                     trigger OnValidate()
                     var
                         MainCategoryRec: Record "Main Category";
+                        MainCategory2Rec: Record "Main Category";
                         BOMLineEstimateRec: Record "BOM Line Estimate";
                         LineNo: BigInteger;
                     begin
+
+                        MainCategory2Rec.Reset();
+                        MainCategory2Rec.SetRange("Main Category Name", rec."Main Category Name");
+                        if not MainCategory2Rec.FindSet() then
+                            Error('Invalid Main Category');
 
                         //Get Max line no
                         LineNo := 0;
@@ -125,7 +131,10 @@ page 51031 "BOM Line Estimate ListPart"
                         ArticleRec.SetRange(Article, rec."Article Name.");
 
                         if ArticleRec.FindSet() then
-                            rec."Article No." := ArticleRec."No.";
+                            rec."Article No." := ArticleRec."No."
+                        else
+                            Error('Invalid Article');
+
                     end;
                 }
 
@@ -144,7 +153,9 @@ page 51031 "BOM Line Estimate ListPart"
                         DimensionRec.SetRange("Dimension Width", rec."Dimension Name.");
 
                         if DimensionRec.FindSet() then
-                            rec."Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No."
+                        else
+                            Error('Invalid Dimension/Width');
                     end;
                 }
 

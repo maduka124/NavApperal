@@ -53,7 +53,7 @@ page 50990 "Dependency Card"
                         if CustomerRec.FindSet() then
                             rec."Buyer No." := CustomerRec."No."
                         else// Done By Sachith on 17/04/23
-                            Error('Invalid dependency');
+                            Error('Invalid Buyer');
 
 
                         //Check whether user logged in or not
