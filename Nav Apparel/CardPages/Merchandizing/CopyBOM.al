@@ -46,6 +46,21 @@ page 50989 "Copy BOM Card"
                             SourceStyle := StyleMasterRec."No.";
                             SourceStyleName := StyleMasterRec."Style No.";
                         end;
+
+
+                    end;
+
+                    trigger OnValidate()
+                    var
+                        StyleMasterRec: Record "Style Master";
+                    begin
+
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("No.", SourceStyle);
+
+                        if not StyleMasterRec.FindSet() then
+                            Error('Invalid Style');
+
                     end;
 
 
@@ -99,6 +114,18 @@ page 50989 "Copy BOM Card"
                             DestinationStyle := StyleMasterRec."No.";
                             DestinationStyleName := StyleMasterRec."Style No.";
                         end;
+                    end;
+
+                    trigger OnValidate()
+                    var
+                        StyleMasterRec: Record "Style Master";
+                    begin
+
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("No.", DestinationStyle);
+
+                        if not StyleMasterRec.FindSet() then
+                            Error('Invalid Style');
                     end;
                 }
 

@@ -39,7 +39,9 @@ page 50502 "Contract/LC Card"
                         CustomerRec.Reset();
                         CustomerRec.SetRange(Name, rec.Buyer);
                         if CustomerRec.FindSet() then
-                            rec."Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No."
+                        else
+                            Error('Invalid Buyer');
 
                         StyleRec.Reset();
                         StyleRec.SetCurrentKey("Buyer No.");
@@ -97,7 +99,10 @@ page 50502 "Contract/LC Card"
                         SeasonsRec.Reset();
                         SeasonsRec.SetRange("Season Name", rec."Season");
                         if SeasonsRec.FindSet() then
-                            rec."Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No."
+                        else
+                            Error('Invalid Season');
+
                     end;
                 }
 
@@ -156,7 +161,9 @@ page 50502 "Contract/LC Card"
                         BankRec.Reset();
                         BankRec.SetRange(Name, rec."Issue Bank");
                         if BankRec.FindSet() then
-                            rec."Issue Bank No." := BankRec."No.";
+                            rec."Issue Bank No." := BankRec."No."
+                        else
+                            Error('Invalid Bank');
                     end;
                 }
 
@@ -171,7 +178,9 @@ page 50502 "Contract/LC Card"
                         BankRec.Reset();
                         BankRec.SetRange(Name, rec."Receive Bank");
                         if BankRec.FindSet() then
-                            rec."Receive Bank No." := BankRec."No.";
+                            rec."Receive Bank No." := BankRec."No."
+                        else
+                            Error('Invalid Bank');
                     end;
                 }
 
@@ -210,7 +219,9 @@ page 50502 "Contract/LC Card"
                         PaymentRec.Reset();
                         PaymentRec.SetRange(Description, rec."B2B Payment Type");
                         if PaymentRec.FindSet() then
-                            rec."B2B Payment Type No." := PaymentRec.Code;
+                            rec."B2B Payment Type No." := PaymentRec.Code
+                        else
+                            Error('Invalid B2B Payment');
                     end;
                 }
 
@@ -250,7 +261,9 @@ page 50502 "Contract/LC Card"
                         CurrencyRec.Reset();
                         CurrencyRec.SetRange(Description, rec.Currency);
                         if CurrencyRec.FindSet() then
-                            rec."Currency No." := CurrencyRec.Code;
+                            rec."Currency No." := CurrencyRec.Code
+                        else
+                            Error('Invalid Currency');
                     end;
                 }
 
@@ -290,7 +303,9 @@ page 50502 "Contract/LC Card"
                         PaymentTermsRec.Reset();
                         PaymentTermsRec.SetRange(Description, rec."Payment Terms (Days)");
                         if PaymentTermsRec.FindSet() then
-                            rec."Payment Terms (Days) No." := PaymentTermsRec.Code;
+                            rec."Payment Terms (Days) No." := PaymentTermsRec.Code
+                        else
+                            Error('Invalid Payment Terms');
                     end;
                 }
 
@@ -308,6 +323,16 @@ page 50502 "Contract/LC Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        GBDimentionRec: Record "Dimension Value";
+                    begin
+                        GBDimentionRec.Reset();
+                        GBDimentionRec.SetRange(Code, Rec."Global Dimension Code");
+                        if not GBDimentionRec.FindSet() then
+                            Error('Invalid Global Dimension Code');
+                    end;
                 }
             }
 
