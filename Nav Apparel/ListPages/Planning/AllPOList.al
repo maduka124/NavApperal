@@ -367,7 +367,6 @@ page 50489 "All PO List"
                 WastageRec.Reset();
                 WastageRec.SetFilter("Start Qty", '<=%1', StyleMasterPORec.Qty);
                 WastageRec.SetFilter("Finish Qty", '>=%1', StyleMasterPORec.Qty);
-
                 if WastageRec.FindSet() then
                     Waistage := WastageRec.Percentage;
 

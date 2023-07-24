@@ -361,12 +361,11 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
         lrecJobPlanningLine.SETCURRENTKEY(lrecJobPlanningLine."Start Date");
         lrecJobPlanningLine.SetRange(lrecJobPlanningLine."Start Date", pStart, pEnd);
-
         IF lrecJobPlanningLine.FIND('-') THEN
             REPEAT
-
                 StyleMasPoRec.Reset();
                 StyleMasPoRec.SetRange("Style No.", lrecJobPlanningLine."Style No.");
+                StyleMasPoRec.SetRange("Lot No.", lrecJobPlanningLine."Lot No.");
                 StyleMasPoRec.SetRange("PO No.", lrecJobPlanningLine."PO No.");
                 if StyleMasPoRec.FindSet() then
                     ShiDate := StyleMasPoRec."Ship Date";
@@ -432,6 +431,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
         //'<br>Line No : ' + FORMAT(lrecJobPlanningLine."Line No.") +
     end;
+
 
     procedure LoadEntities(pEntities: JsonArray)
     var

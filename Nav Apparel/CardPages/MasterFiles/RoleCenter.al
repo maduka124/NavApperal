@@ -3274,6 +3274,14 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page GroupWiseStockBalance;
                     ApplicationArea = all;
                 }
+
+                action("Style ChangeDashboard")
+                {
+                    Caption = 'Style Change';
+                    RunObject = Page StyleChangeCard;
+                    ApplicationArea = all;
+                }
+
                 action("MerchantWiseStockBalanceDashboard")
                 {
                     Caption = 'Stock Summary';
