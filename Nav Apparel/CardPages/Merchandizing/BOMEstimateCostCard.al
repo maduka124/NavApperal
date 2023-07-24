@@ -45,6 +45,11 @@ page 50986 "BOM Estimate Cost Card"
 
                         BOMEstimateRec.Reset();
                         BOMEstimateRec.SetRange("No.", rec."BOM No.");
+                        if not BOMEstimateRec.FindSet() then
+                            Error('Invalid BOM No');
+
+                        BOMEstimateRec.Reset();
+                        BOMEstimateRec.SetRange("No.", rec."BOM No.");
                         BOMEstimateRec.SetFilter(CalDone, '=%1', false);
                         if BOMEstimateRec.FindSet() then
                             Error('BOM calculation not done.');
@@ -451,7 +456,10 @@ page 50986 "BOM Estimate Cost Card"
                         StRec.Reset();
                         StRec.SetRange("Stich Gmt Name", rec."Stich Gmt Name");
                         if StRec.FindSet() then
-                            rec."Stich Gmt" := StRec."No.";
+                            rec."Stich Gmt" := StRec."No."
+                        else
+                            Error('Inavlid Stich Gmt');
+
 
                     end;
                 }
@@ -469,7 +477,9 @@ page 50986 "BOM Estimate Cost Card"
                         PTRec.Reset();
                         PTRec.SetRange("Print Type Name", rec."Print Type Name");
                         if PTRec.FindSet() then
-                            rec."Print Type" := PTRec."No.";
+                            rec."Print Type" := PTRec."No."
+                        else
+                            Error('Inavlid Print Type');
 
                     end;
                 }
@@ -487,7 +497,9 @@ page 50986 "BOM Estimate Cost Card"
                         WTRec.Reset();
                         WTRec.SetRange("Wash Type Name", rec."Wash Type Name");
                         if WTRec.FindSet() then
-                            rec."Wash Type" := WTRec."No.";
+                            rec."Wash Type" := WTRec."No."
+                        else
+                            Error('Inavlid Wash Type');
 
                     end;
                 }

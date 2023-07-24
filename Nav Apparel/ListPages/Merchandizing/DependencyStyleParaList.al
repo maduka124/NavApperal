@@ -54,6 +54,19 @@ page 51044 "Dependency Style Para List"
                 field("Action User"; rec."Action User")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        UserRec: Record User;
+                    begin
+
+                        UserRec.Reset();
+                        UserRec.SetRange("User Name", Rec."Action User");
+
+                        if not UserRec.FindSet() then
+                            Error('Invalid User');
+
+                    end;
                 }
             }
         }

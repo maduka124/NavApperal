@@ -40,6 +40,13 @@ page 50985 "BOM Estimate Card"
                         LoginRec: Page "Login Card";
                     begin
 
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
+                        if StyleMasterRec.FindSet() then
+                            rec."Style No." := StyleMasterRec."No."
+                        else
+                            Error('Invalid Style');
+
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -64,11 +71,6 @@ page 50985 "BOM Estimate Card"
                         BOMRec.SetRange("Style Name", rec."Style Name");
                         if BOMRec.FindSet() then
                             Error('Style : %1 already used to create an Estimate BOM ', BOMRec."Style Name");
-
-                        StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
-                        if StyleMasterRec.FindSet() then
-                            rec."Style No." := StyleMasterRec."No.";
 
                         CurrPage.Update();
 

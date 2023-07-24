@@ -47,7 +47,9 @@ page 51060 SampleReqAccListPart
                             rec."Article Name." := '';
                             rec."Supplier No." := '';
                             rec."Supplier Name." := '';
-                        end;
+                        end
+                        else
+                            Error('Invalid Main Category');
 
                         SampleRequLineRec.Reset();
                         SampleRequLineRec.SetRange("No.", rec."No.");
@@ -79,7 +81,9 @@ page 51060 SampleReqAccListPart
                             rec."Unit N0." := ItemRec."Base Unit of Measure";
                             rec."Sub Category Name" := ItemRec."Sub Category Name";
                             rec."Sub Category No." := ItemRec."Sub Category No.";
-                        end;
+                        end
+                        else
+                            Error('Invalid Item');
 
                         SampleRequLineRec.Reset();
                         SampleRequLineRec.SetRange("No.", rec."No.");
@@ -107,7 +111,9 @@ page 51060 SampleReqAccListPart
                         ColorRec.Reset();
                         ColorRec.SetRange("Colour Name", rec."GMT Color Name");
                         if ColorRec.FindSet() then
-                            rec."GMT Color No." := ColorRec."No.";
+                            rec."GMT Color No." := ColorRec."No."
+                        else
+                            Error('Invalid Color');
                         //Remark();
                     end;
                 }
@@ -124,7 +130,9 @@ page 51060 SampleReqAccListPart
                         ColorRec.Reset();
                         ColorRec.SetRange("Colour Name", rec."Item Color Name");
                         if ColorRec.FindSet() then
-                            rec."Item Color No." := ColorRec."No.";
+                            rec."Item Color No." := ColorRec."No."
+                        else
+                            Error('Invalid Item Color');
                         //Remark();
                     end;
                 }
@@ -148,7 +156,9 @@ page 51060 SampleReqAccListPart
                         ArticleRec.SetRange(Article, rec."Article Name.");
 
                         if ArticleRec.FindSet() then
-                            rec."Article No." := ArticleRec."No.";
+                            rec."Article No." := ArticleRec."No."
+                        else
+                            Error('Invalid Article/Construction');
                         //Remark();
                     end;
                 }
@@ -165,7 +175,9 @@ page 51060 SampleReqAccListPart
                         DimensionRec.Reset();
                         DimensionRec.SetRange("Dimension Width", rec."Dimension Name.");
                         if DimensionRec.FindSet() then
-                            rec."Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No."
+                        else
+                            Error('Invalid Dimension/Width');
                         //Remark();
                     end;
                 }
@@ -273,7 +285,9 @@ page 51060 SampleReqAccListPart
                         SupplierRec.SetRange(Name, rec."Supplier Name.");
 
                         if SupplierRec.FindSet() then
-                            rec."Supplier No." := SupplierRec."No.";
+                            rec."Supplier No." := SupplierRec."No."
+                        else
+                            Error('Invalid Supplier ');
                     end;
                 }
 

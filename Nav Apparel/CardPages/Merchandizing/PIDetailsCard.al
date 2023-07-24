@@ -36,7 +36,9 @@ page 50996 "PI Details Card"
                         CustomerRec.Reset();
                         CustomerRec.SetRange(Name, rec.Buyer);
                         if CustomerRec.FindSet() then
-                            rec."Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No."
+                        else
+                            Error('Invalid Buyer');
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -83,7 +85,9 @@ page 50996 "PI Details Card"
                             rec."Store No." := StyleMasterRec."Store No.";
                             rec."Store Name" := StyleMasterRec."Store Name";
                             rec.MerchantGrp := StyleMasterRec."Merchandizer Group Name"
-                        end;
+                        end
+                        else
+                            Error('Invalid Style');
 
 
 
@@ -390,6 +394,17 @@ page 50996 "PI Details Card"
                         CurrPage.Update();
                     end;
 
+                    trigger OnValidate()
+                    var
+                        SupplierRec: Record Vendor;
+                    begin
+                        SupplierRec.Reset();
+                        SupplierRec.SetRange(Name, Rec."Supplier Name");
+                        if not SupplierRec.FindSet() then
+                            Error('Invalid Supplier');
+
+                    end;
+
                 }
 
                 field("PI No"; rec."PI No")
@@ -427,7 +442,9 @@ page 50996 "PI Details Card"
                         PaymentMethodRec.Reset();
                         PaymentMethodRec.SetRange(Description, rec."Payment Mode Name");
                         if PaymentMethodRec.FindSet() then
-                            rec."Payment Mode" := PaymentMethodRec.Code;
+                            rec."Payment Mode" := PaymentMethodRec.Code
+                        else
+                            Error('Invalid Payment Mode');
                     end;
 
 
@@ -449,7 +466,9 @@ page 50996 "PI Details Card"
                         CurrencyRec.Reset();
                         CurrencyRec.SetRange(Description, rec.Currency);
                         if CurrencyRec.FindSet() then
-                            rec."Currency Code" := CurrencyRec.Code;
+                            rec."Currency Code" := CurrencyRec.Code
+                        else
+                            Error('Invalid Currency');
                     end;
                 }
 

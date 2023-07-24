@@ -83,7 +83,9 @@ page 50751 WashingSampleListpart
                         SampleTyprRec.SetRange("Sample Type Name", rec.SampleType);
 
                         if SampleTyprRec.FindSet() then
-                            rec."Sample No." := SampleTyprRec."No.";
+                            rec."Sample No." := SampleTyprRec."No."
+                        else
+                            Error('Invalid Sample No');
 
                         SampleReqHrdRec.Get(rec."No.");
                         rec."Style No." := SampleReqHrdRec."Style No.";
@@ -115,7 +117,9 @@ page 50751 WashingSampleListpart
                         WashtypeRec.Reset();
                         WashtypeRec.SetRange("Wash Type Name", rec."Wash Type");
                         if WashtypeRec.FindSet() then
-                            rec."Wash Type No." := WashtypeRec."No.";
+                            rec."Wash Type No." := WashtypeRec."No."
+                        else
+                            Error('Invalid Wash Type');
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
@@ -136,7 +140,9 @@ page 50751 WashingSampleListpart
                         ItemRec.SetRange(Description, rec."Fabric Description");
                         if ItemRec.FindSet() then begin
                             rec."Fabrication No." := ItemRec."No.";
-                        end;
+                        end
+                        else
+                            Error('Invalid Fabrication');
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
@@ -172,11 +178,37 @@ page 50751 WashingSampleListpart
                         end;
                     end;
 
+                    trigger OnValidate()
+                    var
+                        StyleColorRec: Record StyleColor;
+                    begin
+
+                        StyleColorRec.Reset();
+                        StyleColorRec.SetRange(Color, Rec."Color Name");
+
+                        if not StyleColorRec.FindSet() then
+                            Error('Invalid Color');
+
+                    end;
+
                 }
 
                 field(Size; rec.Size)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        AssortmentDetailsInseamRec: Record AssortmentDetailsInseam;
+                    begin
+
+                        AssortmentDetailsInseamRec.Reset();
+                        AssortmentDetailsInseamRec.SetRange("GMT Size", Rec.Size);
+
+                        if not AssortmentDetailsInseamRec.FindSet() then
+                            Error('Invalid Size');
+
+                    end;
                 }
 
                 field("Req Qty"; rec."Req Qty")

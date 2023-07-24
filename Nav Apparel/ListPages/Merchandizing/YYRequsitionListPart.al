@@ -28,7 +28,9 @@ page 51074 "YY Requsition ListPart"
                         YYTypeRec.Reset();
                         YYTypeRec.SetRange("YY Type Desc", rec."YY Type");
                         if YYTypeRec.FindSet() then
-                            rec."YY Type No." := YYTypeRec."No.";
+                            rec."YY Type No." := YYTypeRec."No."
+                        else
+                            Error('Invalid YY Type');
                     end;
                 }
 
@@ -45,7 +47,9 @@ page 51074 "YY Requsition ListPart"
                         MainCategoryRec.Reset();
                         MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then
-                            rec."Main Category No." := MainCategoryRec."No.";
+                            rec."Main Category No." := MainCategoryRec."No."
+                        else
+                            Error('Invalid Main Category');
                     end;
                 }
 
@@ -62,7 +66,9 @@ page 51074 "YY Requsition ListPart"
                         ItemRec.Reset();
                         ItemRec.SetRange(Description, rec."Fabric/Time Desc");
                         if ItemRec.FindSet() then
-                            rec."Fabric/Time Desc No" := ItemRec."No.";
+                            rec."Fabric/Time Desc No" := ItemRec."No."
+                        else
+                            Error('Invalid Fabric/Item Description');
                     end;
                 }
 
@@ -79,7 +85,9 @@ page 51074 "YY Requsition ListPart"
                         ColourRec.Reset();
                         ColourRec.SetRange("Colour Name", rec."Color Name");
                         if ColourRec.FindSet() then
-                            rec."Color No" := ColourRec."No.";
+                            rec."Color No" := ColourRec."No."
+                        else
+                            Error('Invalid Color Name');
                     end;
                 }
 
@@ -96,7 +104,9 @@ page 51074 "YY Requsition ListPart"
                         WashTypeRec.Reset();
                         WashTypeRec.SetRange("Wash Type Name", rec."Wash Type Name");
                         if WashTypeRec.FindSet() then
-                            rec."Wash Type No" := WashTypeRec."No.";
+                            rec."Wash Type No" := WashTypeRec."No."
+                        Else
+                            Error('Invalid Wash Type Name');
                     end;
                 }
 
