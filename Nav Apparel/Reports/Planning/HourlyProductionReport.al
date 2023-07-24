@@ -335,6 +335,7 @@ report 50865 HourlyProductionReport
                 HoFinLineRec.SetRange("Prod Date", PlanDate);
                 HoFinLineRec.SetRange("Factory No.", "Factory No.");
                 HoFinLineRec.SetRange("Work Center No.", "Resource No.");
+                HoFinLineRec.SetRange("Style No.", "Style No.");
                 HoFinLineRec.SetRange(Type, HoFinLineRec.Type::Finishing);
                 // HoFinLineRec.SetRange("Factory No.", "Factory No.");
                 HoFinLineRec.SetFilter(Item, '=%1', 'PASS PCS');
@@ -353,6 +354,7 @@ report 50865 HourlyProductionReport
                     ItemFin := HoFinLineRec.Item;
                     FactoryNoFin := HoFinLineRec."Factory No.";
                     StylenameFIn := HoFinLineRec."Style No.";
+
                     if (HoProLiRec."Style No." = StyleLC6) and (HoProLiRec."Work Center No." = LineLC6) then begin
                         Hour1F := 0;
                         Hour2F := 0;
@@ -374,6 +376,7 @@ report 50865 HourlyProductionReport
                 // HoProLiRec.SetRange("No.", "No.");
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
+                HoProLiRec.SetRange("Style No.", "Style No.");
                 HoProLiRec.SetRange("Work Center No.", "Resource No.");
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
                 HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
@@ -429,9 +432,10 @@ report 50865 HourlyProductionReport
 
                 HoProLiRec.Reset();
                 // HoProLiRec.SetRange("No.", "No.");
-                HoProLiRec.SetRange("Factory No.", "Factory No.");
+                // HoProLiRec.SetRange("Factory No.", "Factory No.");
                 HoProLiRec.SetRange("Prod Date", PlanDate);
-                HoProLiRec.SetRange("Work Center No.", "Resource No.");
+                // HoProLiRec.SetRange("Work Center No.", "Resource No.");
+                // HoProLiRec.SetRange("Style No.", "Style No.");
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
                 HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
                 if HoProLiRec.FindSet() then begin
@@ -488,6 +492,7 @@ report 50865 HourlyProductionReport
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
+                HoProLiRec.SetRange("Style No.", "Style No.");
                 HoProLiRec.SetRange("Work Center No.", "Resource No.");
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
                 HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
@@ -547,8 +552,9 @@ report 50865 HourlyProductionReport
 
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
-                HoProLiRec.SetRange("Factory No.", "Factory No.");
-                HoProLiRec.SetRange("Work Center No.", "Resource No.");
+                // HoProLiRec.SetRange("Factory No.", "Factory No.");
+                // HoProLiRec.SetRange("Work Center No.", "Resource No.");
+                // HoProLiRec.SetRange("Style No.", "Style No.");
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
                 HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
                 if HoProLiRec.FindSet() then begin

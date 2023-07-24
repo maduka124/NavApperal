@@ -4,7 +4,7 @@ page 51025 "BOM Estimate Line List part"
     SourceTable = "BOM Estimate Line";
     SourceTableView = sorting("No.", "Line No.") order(ascending);
     AutoSplitKey = true;
-    
+
 
     layout
     {
@@ -50,7 +50,9 @@ page 51025 "BOM Estimate Line List part"
                             rec."Supplier No." := '';
                             rec."Supplier Name." := '';
                             CurrPage.Update();
-                        end;
+                        end
+                        else
+                            Error('Invalid Main Category Name');
                     end;
                 }
 
@@ -99,7 +101,9 @@ page 51025 "BOM Estimate Line List part"
 
                             //CurrPage.Update();
 
-                        end;
+                        end
+                        else
+                            Error('Invalid Item');
                     end;
 
 
@@ -152,7 +156,9 @@ page 51025 "BOM Estimate Line List part"
                         ConstructionRec.Reset();
                         ConstructionRec.SetRange(Article, rec."Article Name.");
                         if ConstructionRec.FindSet() then
-                            rec."Article No." := ConstructionRec."No.";
+                            rec."Article No." := ConstructionRec."No."
+                        else
+                            Error('Invalid Article');
                     end;
                 }
 
@@ -169,7 +175,9 @@ page 51025 "BOM Estimate Line List part"
                         DimensionRec.Reset();
                         DimensionRec.SetRange("Dimension Width", rec."Dimension Name.");
                         if DimensionRec.FindSet() then
-                            rec."Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No."
+                        else
+                            Error('Invalid Dimension');
                     end;
                 }
 

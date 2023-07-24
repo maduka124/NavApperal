@@ -62,7 +62,9 @@ page 50609 "YY Requsition Card"
                         if BuyerRec.FindSet() then begin
                             rec."Buyer No." := BuyerRec."No.";
                             CurrPage.Update();
-                        end;
+                        end
+                        else
+                            Error('Invalid Buyer');
                     end;
                 }
 
@@ -85,7 +87,9 @@ page 50609 "YY Requsition Card"
                             rec."Style No." := StyleMasRec."No.";
                             rec."Garment Type No." := StyleMasRec."Garment Type No.";
                             rec."Garment Type Name" := StyleMasRec."Garment Type Name";
-                        end;
+                        end
+                        else
+                            Error('Invalid Style');
                     end;
                 }
 

@@ -16727,7 +16727,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour1Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour1Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16783,7 +16783,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour2Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour2Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16839,7 +16839,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour3Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour3Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16895,7 +16895,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour4Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour4Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16951,7 +16951,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour5Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour5Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17007,7 +17007,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour6Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour6Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17063,7 +17063,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour7Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour7Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17119,7 +17119,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour8Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour8Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17175,7 +17175,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour9Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour9Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17231,7 +17231,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour10Tot.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryHour10Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17287,7 +17287,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TotalAchiveHours.Value)</Value>
+                                  <Value>=Sum(Fields!TotalFactoryAchiveHours.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17822,7 +17822,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -18312,7 +18311,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>17.58104cm</Top>
+            <Top>17.26354cm</Top>
             <Left>0cm</Left>
             <Height>2.2095cm</Height>
             <Width>42.24013cm</Width>
@@ -25433,10 +25432,10 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>19.79054cm</Height>
+        <Height>19.72704cm</Height>
         <Style />
       </Body>
-      <Width>53.51246cm</Width>
+      <Width>53.47013cm</Width>
       <Page>
         <PageFooter>
           <Height>1.62984cm</Height>

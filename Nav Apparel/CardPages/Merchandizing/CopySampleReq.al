@@ -5,7 +5,6 @@ page 51303 "Copy Sample Requisition Card"
     UsageCategory = Administration;
     Caption = 'Copy Sample Requisition';
 
-
     layout
     {
         area(Content)
@@ -62,6 +61,22 @@ page 51303 "Copy Sample Requisition Card"
                                 SourceStyleName := SampleReqHeaderRec."Style Name";
                             end;
                         end;
+                    end;
+
+                    trigger OnValidate()
+                    var
+                        SampleReqHeaderRec: Record "Sample Requsition Header";
+                        UserRec: Record "User Setup";
+                    begin
+
+                        UserRec.Get(UserId);
+
+                        SampleReqHeaderRec.Reset();
+                        SampleReqHeaderRec.SetRange("Merchandizer Group Name", UserRec."Merchandizer Group Name");
+                        SampleReqHeaderRec.SetRange("Style No.", SourceStyle);
+
+                        if not SampleReqHeaderRec.FindSet() then
+                            Error('Invalid Style');
                     end;
                 }
 
@@ -150,6 +165,22 @@ page 51303 "Copy Sample Requisition Card"
                         end
                         else
                             Error('Invalid sample requisition');
+                    end;
+
+                    trigger OnValidate()
+                    var
+                        StyleMasterRec: Record "Style Master";
+                        UserRec: Record "User Setup";
+                    begin
+
+                        UserRec.Get(UserId);
+
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("Merchandizer Group Name", UserRec."Merchandizer Group Name");
+                        StyleMasterRec.SetRange("No.", DestinationStyle);
+
+                        if not StyleMasterRec.FindSet() then
+                            Error('Invalid Style');
                     end;
                 }
 

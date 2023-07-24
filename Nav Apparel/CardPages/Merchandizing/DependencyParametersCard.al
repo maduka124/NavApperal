@@ -23,7 +23,9 @@ page 50992 "Dependency Parameters Card"
                         DependencyGroupRec.Reset();
                         DependencyGroupRec.SetRange("Dependency Group", rec."Dependency Group");
                         if DependencyGroupRec.FindSet() then
-                            rec."Dependency Group No." := DependencyGroupRec."No.";
+                            rec."Dependency Group No." := DependencyGroupRec."No."
+                        else
+                            Error('Invalid Dependency Group');
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -56,7 +58,9 @@ page 50992 "Dependency Parameters Card"
                         ActionTypeRec.Reset();
                         ActionTypeRec.SetRange("Action Type", rec."Action Type");
                         if ActionTypeRec.FindSet() then
-                            rec."Action Type No." := ActionTypeRec."No.";
+                            rec."Action Type No." := ActionTypeRec."No."
+                        else
+                            Error('Invalid Action Type');
                     end;
                 }
 
@@ -83,7 +87,9 @@ page 50992 "Dependency Parameters Card"
                         DepartmentRec.Reset();
                         DepartmentRec.SetRange("Department Name", rec.Department);
                         if DepartmentRec.FindSet() then
-                            rec."Department No." := DepartmentRec."No.";
+                            rec."Department No." := DepartmentRec."No."
+                        else
+                            Error('Invalid Department');
                     end;
                 }
             }

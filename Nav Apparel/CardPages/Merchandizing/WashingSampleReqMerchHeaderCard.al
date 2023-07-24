@@ -104,6 +104,24 @@ page 51187 WashingSampleRequestMerchCard
                             CurrPage.Update();
                         end;
                     end;
+
+                    trigger OnValidate()
+                    var
+                        CustRec: Record "Customer";
+                        UserSetupRec: Record "User Setup";
+                    begin
+
+                        UserSetupRec.Get(UserId);
+
+                        CustRec.Reset();
+                        CustRec.SetRange("Group Name", UserSetupRec."Merchandizer Group Name");
+                        CustRec.SetRange(Name, Rec."Buyer Name");
+
+                        if not CustRec.FindSet() then
+                            Error('Invalid Buyer');
+
+
+                    end;
                 }
 
                 field("Style Name"; rec."Style Name")
@@ -115,7 +133,6 @@ page 51187 WashingSampleRequestMerchCard
                     var
                         StyleMasterRec: Record "Style Master";
                         Users: Record "User Setup";
-
                         StyleRec: Record "Style Master";
                         StyleColorRec: Record StyleColor;
                         WorkCenterRec: Record "Work Center";
@@ -174,6 +191,22 @@ page 51187 WashingSampleRequestMerchCard
                             end;
                         end;
                     end;
+
+                    trigger OnValidate()
+                    var
+                        StyleMasterRec: Record "Style Master";
+                        Users: Record "User Setup";
+                    begin
+
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("Merchandizer Group Name", rec."Merchandizer Group Name");
+                        StyleMasterRec.SetRange("Buyer No.", rec."Buyer No.");
+                        StyleMasterRec.SetRange("Style No.", Rec."Style Name");
+
+                        if not StyleMasterRec.FindSet() then
+                            Error('Invalid Style');
+                    end;
+
                 }
 
                 field("Sample Req. No"; rec."Sample Req. No")
@@ -267,6 +300,25 @@ page 51187 WashingSampleRequestMerchCard
                             CurrPage.Update();
                         end;
                     end;
+
+                    trigger OnValidate()
+                    var
+                        UserSetupRec: Record "User Setup";
+                        SamReqHeaderRec: Record "Sample Requsition Header";
+                    begin
+
+                        UserSetupRec.Get(UserId);
+
+                        SamReqHeaderRec.Reset();
+                        SamReqHeaderRec.SetRange("Merchandizer Group Name", UserSetupRec."Merchandizer Group Name");
+                        SamReqHeaderRec.SetRange("Buyer No.", rec."Buyer No.");
+                        SamReqHeaderRec.SetRange("No.", Rec."Sample Req. No");
+
+                        if not SamReqHeaderRec.FindSet() then
+                            Error('Invalid Sample Req No');
+
+                    end;
+
                 }
 
                 field("Request From"; rec."Request From")
@@ -320,13 +372,29 @@ page 51187 WashingSampleRequestMerchCard
                         LocationRec.Reset();
                         LocationRec.SetRange(Name, rec."Wash Plant Name");
                         if LocationRec.FindSet() then
-                            rec."Wash Plant No." := LocationRec.Code;
+                            rec."Wash Plant No." := LocationRec.Code
+                        else
+                            Error('Invalid Washing Plant');
                     end;
                 }
 
                 field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        StylePoRec: Record "Style Master PO";
+                    begin
+
+                        StylePoRec.Reset();
+                        StylePoRec.SetRange("Style No.", Rec."Style No.");
+                        StylePoRec.SetRange("PO No.", REc."PO No");
+
+                        if not StylePoRec.FindSet() then
+                            Error('Invalid PO No');
+
+                    end;
                 }
 
                 field(Comment; rec.Comment)

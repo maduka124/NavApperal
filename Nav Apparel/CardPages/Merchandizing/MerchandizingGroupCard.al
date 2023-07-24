@@ -52,6 +52,18 @@ page 50847 MerchandizingGroupCard
                 field("Group Head"; rec."Group Head")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        UserRec: Record "User Setup";
+                    begin
+
+                        UserRec.Reset();
+                        UserRec.SetRange("User ID", Rec."Group Head");
+
+                        if not UserRec.FindSet() then
+                            Error('Invalid Group Head');
+                    end;
                 }
             }
         }

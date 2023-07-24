@@ -32,6 +32,19 @@ page 50105 "Style Transfer Card"
                 field("Style No."; Rec."Style No.")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        StyleRec: Record "Style Master";
+                    begin
+
+                        StyleRec.Reset();
+                        StyleRec.SetRange("Style No.", Rec."Style No.");
+
+                        if not StyleRec.FindSet() then
+                            Error('Invalid Style');
+
+                    end;
                 }
                 field(PO; Rec.PO)
                 {
@@ -57,6 +70,19 @@ page 50105 "Style Transfer Card"
                 field("To Style No."; Rec."To Style No.")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        StyleRec: Record "Style Master";
+                    begin
+
+                        StyleRec.Reset();
+                        StyleRec.SetRange("Style No.", Rec."Style No.");
+
+                        if not StyleRec.FindSet() then
+                            Error('Invalid Style');
+
+                    end;
                 }
                 field("To PO"; Rec."To PO")
                 {

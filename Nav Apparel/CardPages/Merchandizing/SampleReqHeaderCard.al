@@ -42,7 +42,9 @@ page 50600 "Sample Request Card"
                         if BuyerRec.FindSet() then begin
                             rec."Buyer No." := BuyerRec."No.";
                             // CurrPage.Update();
-                        end;
+                        end
+                        else
+                            Error('Invalid Buyer');
 
 
                         //Check whether user logged in or not
@@ -86,7 +88,9 @@ page 50600 "Sample Request Card"
                             //Done By sachith on 13/01/23
                             Rec."Brand Name" := StyleMasRec."Brand Name";
                             Rec."Brand No" := StyleMasRec."Brand No.";
-                        end;
+                        end
+                        else
+                            Error('Invalid Style');
                     end;
                 }
 
@@ -109,7 +113,9 @@ page 50600 "Sample Request Card"
                         WashTypeRec.Reset();
                         WashTypeRec.SetRange("Wash Type Name", rec."Wash Type Name");
                         if WashTypeRec.FindSet() then
-                            rec."Wash Type No." := WashTypeRec."No.";
+                            rec."Wash Type No." := WashTypeRec."No."
+                        Else
+                            Error('Invalid Wash Type');
                     end;
                 }
 
@@ -125,7 +131,9 @@ page 50600 "Sample Request Card"
                         LocationRec.Reset();
                         LocationRec.SetRange(Name, rec."Wash Plant Name");
                         if LocationRec.FindSet() then
-                            rec."Wash Plant No." := LocationRec."code";
+                            rec."Wash Plant No." := LocationRec."code"
+                        else
+                            Error('Invalid Wash Plant');
                     end;
                 }
 
@@ -143,7 +151,9 @@ page 50600 "Sample Request Card"
                         if SampleRoomRec.FindSet() then begin
                             rec."Sample Room No." := SampleRoomRec."Sample Room No.";
                             rec.Validate("Global Dimension Code", SampleRoomRec."Global Dimension Code");
-                        end;
+                        end
+                        else
+                            Error('Invalid Sample Room');
                     end;
                 }
 

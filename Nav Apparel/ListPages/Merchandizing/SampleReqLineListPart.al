@@ -32,7 +32,9 @@ page 51062 SampleReqLineListPart
                         ItemRec.Reset();
                         ItemRec.SetRange(Description, rec."Fabrication Name");
                         if ItemRec.FindSet() then
-                            rec."Fabrication No." := ItemRec."No.";
+                            rec."Fabrication No." := ItemRec."No."
+                        else
+                            Error('Invalid Fabrication');
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
@@ -84,7 +86,9 @@ page 51062 SampleReqLineListPart
                         SampleRec.Reset();
                         SampleRec.SetRange("Sample Type Name", rec."Sample Name");
                         if SampleRec.FindSet() then
-                            rec."Sample No." := SampleRec."No.";
+                            rec."Sample No." := SampleRec."No."
+                        else
+                            Error('Invalid Sample Type');
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
@@ -120,7 +124,9 @@ page 51062 SampleReqLineListPart
                         ColourRec.Reset();
                         ColourRec.SetRange("Colour Name", rec."Color Name");
                         if ColourRec.FindSet() then
-                            rec."Color No" := ColourRec."No.";
+                            rec."Color No" := ColourRec."No."
+                        else
+                            Error('Invalid Color');
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');

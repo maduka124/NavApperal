@@ -99,7 +99,9 @@ page 50680 FabricCodeCard
                         VendorRec.Reset();
                         VendorRec.SetRange(Name, rec."Supplier Name");
                         if VendorRec.FindSet() then
-                            rec."Supplier No." := VendorRec."No.";
+                            rec."Supplier No." := VendorRec."No."
+                        else
+                            Error('Invalid Supplier');
 
                         CurrPage.Update();
                     end;

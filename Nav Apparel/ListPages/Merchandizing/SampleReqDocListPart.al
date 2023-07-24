@@ -28,7 +28,9 @@ page 51061 SampleReqDocListPart
                         UploadDocRec.Reset();
                         UploadDocRec.SetRange("Doc Name", rec."Doc Type Name");
                         if UploadDocRec.FindSet() then
-                            rec."Doc Type No." := UploadDocRec."Doc No.";
+                            rec."Doc Type No." := UploadDocRec."Doc No."
+                        else
+                            Error('Invalid Doc Type');
                     end;
                 }
 

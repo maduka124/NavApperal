@@ -24,6 +24,14 @@ table 51373 StyleChangeLine
         {
             DataClassification = ToBeClassified;
         }
+        field(5; Total; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(6; "Factory No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
