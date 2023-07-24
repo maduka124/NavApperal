@@ -36,6 +36,9 @@ page 51371 StyleChangeCard
                 {
                     ApplicationArea = All;
                     Caption = ' ';
+                    // SubPageLink = "Secondary UserID" = field()
+
+
                 }
             }
         }
@@ -92,7 +95,7 @@ page 51371 StyleChangeCard
                     Total := 0;
                     //Delete old records for the user
                     StyleChangeRec.Reset();
-                    // StyleChangeRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+                    StyleChangeRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
                     if StyleChangeRec.Findset() then
                         StyleChangeRec.DeleteAll();
 
@@ -113,6 +116,7 @@ page 51371 StyleChangeCard
                                 StyleChangeRec.Init();
                                 StyleChangeRec.SeqNo := SeqNo;
                                 StyleChangeRec."Resource No." := NavappProdDetRec."Resource No.";
+                                StyleChangeRec."Factory No" := NavappProdDetRec."Factory No.";
                                 StyleChangeRec.Qty := 1;
                                 StyleChangeRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                                 StyleChangeRec.Insert();
@@ -137,11 +141,12 @@ page 51371 StyleChangeCard
                         until NavappProdDetRec.Next() = 0;
 
                         StyleChangeRec.Reset();
+                        StyleChangeRec.SetRange("Factory No", Factory);
                         if StyleChangeRec.FindSet() then begin
                             StyleChangeRec.CalcSums(Qty);
                             Total := StyleChangeRec.Qty;
                         end;
-                        
+
                         StyleChangeRec.Reset();
                         if StyleChangeRec.FindLast() then
                             SeqNo1 := StyleChangeRec.SeqNo;
@@ -150,6 +155,7 @@ page 51371 StyleChangeCard
                         StyleChangeRec.Init();
                         StyleChangeRec.SeqNo := SeqNo1;
                         StyleChangeRec."Resource No." := 'TOTAL';
+                        StyleChangeRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         StyleChangeRec.Qty := Total;
                         StyleChangeRec.Insert();
                     end;

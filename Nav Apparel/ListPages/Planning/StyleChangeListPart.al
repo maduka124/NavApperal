@@ -33,9 +33,43 @@ page 51372 StyleChangeListPart
 
     trigger OnAfterGetRecord()
     var
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
-        StyleExprTxt := ChangeColor.ChangeStyleChange(Rec);
+        // LoginSessionsRec.Reset();
+        // LoginSessionsRec.SetRange(SessionID, SessionId());
+        // if not LoginSessionsRec.FindSet() then begin  //not logged in
+        //     Clear(LoginRec);
+        //     LoginRec.LookupMode(true);
+        //     LoginRec.RunModal();
 
+        //     LoginSessionsRec.Reset();
+        //     LoginSessionsRec.SetRange(SessionID, SessionId());
+        //     LoginSessionsRec.FindSet();
+        // end;
+
+        StyleExprTxt := ChangeColor.ChangeStyleChange(Rec);
+        // Rec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+
+    end;
+
+    trigger OnOpenPage()
+    var
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
+    begin
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+            Rec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        end;
     end;
 
     var
