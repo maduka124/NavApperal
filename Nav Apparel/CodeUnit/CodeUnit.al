@@ -225,6 +225,13 @@ codeunit 50618 NavAppCodeUnit
             exit('StrongAccent');
     end;
 
+    procedure ChangeStyleChange(OpList: Record StyleChangeLine): Text[50]
+    var
+    begin
+        if OpList."Resource No." = 'TOTAL' then
+            exit('StrongAccent');
+    end;
+
     procedure ChangeColorSewing(OpList: Record "ProductionOutLine"): Text[50]
     var
     begin

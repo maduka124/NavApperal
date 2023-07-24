@@ -24,6 +24,10 @@ table 51373 StyleChangeLine
         {
             DataClassification = ToBeClassified;
         }
+        field(5; Total; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

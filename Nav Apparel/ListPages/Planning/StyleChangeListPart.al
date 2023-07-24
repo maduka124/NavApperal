@@ -17,14 +17,28 @@ page 51372 StyleChangeListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Line';
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'No of Style Changes';
+                    StyleExpr = StyleExprTxt;
                 }
             }
         }
+
     }
+
+    trigger OnAfterGetRecord()
+    var
+    begin
+        StyleExprTxt := ChangeColor.ChangeStyleChange(Rec);
+
+    end;
+
+    var
+        StyleExprTxt: Text[50];
+        ChangeColor: Codeunit NavAppCodeUnit;
 }

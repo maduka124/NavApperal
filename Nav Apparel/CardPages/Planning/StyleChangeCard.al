@@ -58,10 +58,12 @@ page 51371 StyleChangeCard
                     LoginRec: Page "Login Card";
                     NavappProdDetRec: Record "NavApp Prod Plans Details";
                     StyleChangeRec: Record StyleChangeLine;
+                    SeqNo1: BigInteger;
                     SeqNo: BigInteger;
                     LineNo: code[20];
                     Style: code[20];
                     Count: BigInteger;
+                    Total: BigInteger;
                 begin
                     if Factory = '' then
                         Error('Factory is blank.');
@@ -87,10 +89,10 @@ page 51371 StyleChangeCard
                         LoginSessionsRec.SetRange(SessionID, SessionId());
                         LoginSessionsRec.FindSet();
                     end;
-
+                    Total := 0;
                     //Delete old records for the user
                     StyleChangeRec.Reset();
-                    StyleChangeRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+                    // StyleChangeRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
                     if StyleChangeRec.Findset() then
                         StyleChangeRec.DeleteAll();
 
@@ -133,6 +135,23 @@ page 51371 StyleChangeCard
                             Style := NavappProdDetRec."Style No.";
 
                         until NavappProdDetRec.Next() = 0;
+
+                        StyleChangeRec.Reset();
+                        if StyleChangeRec.FindSet() then begin
+                            StyleChangeRec.CalcSums(Qty);
+                            Total := StyleChangeRec.Qty;
+                        end;
+                        
+                        StyleChangeRec.Reset();
+                        if StyleChangeRec.FindLast() then
+                            SeqNo1 := StyleChangeRec.SeqNo;
+
+                        SeqNo1 += 1;
+                        StyleChangeRec.Init();
+                        StyleChangeRec.SeqNo := SeqNo1;
+                        StyleChangeRec."Resource No." := 'TOTAL';
+                        StyleChangeRec.Qty := Total;
+                        StyleChangeRec.Insert();
                     end;
 
                     Message('Completed');
