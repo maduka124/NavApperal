@@ -25,6 +25,8 @@ page 51015 AssoColourSizeListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit colours.');
 
                         ColourRec.Reset();
                         ColourRec.SetRange("No.", Rec."Colour No");
@@ -225,4 +227,7 @@ page 51015 AssoColourSizeListPart
         exit(true);
     end;
 
+
+    var
+        CodeUnitRec: Codeunit NavAppCodeUnit3;
 }

@@ -53,8 +53,8 @@ table 50935 "Style Master PO"
         field(71012589; "Status"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Confirm,Projection,"Projection Confirm";
-            OptionCaption = 'Confirm,Projection,Projection Confirm';
+            OptionMembers = Confirm,Projection,"Projection Confirm",Cancel;
+            OptionCaption = 'Confirm,Projection,Projection Confirm,Cancel';
         }
 
         field(71012590; "Confirm Date"; Date)

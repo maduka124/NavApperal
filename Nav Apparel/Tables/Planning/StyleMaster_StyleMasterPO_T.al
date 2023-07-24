@@ -69,8 +69,8 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         field(13; "Status"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Confirm,Projection,"Projection Confirm";
-            OptionCaption = 'Confirm,Projection,Projection Confirm';
+            OptionMembers = Confirm,Projection,"Projection Confirm",Cancel;
+            OptionCaption = 'Confirm,Projection,Projection Confirm,Cancel';
         }
 
         field(14; "ConfirmDate"; Date)

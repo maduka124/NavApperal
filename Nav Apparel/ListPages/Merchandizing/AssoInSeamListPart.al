@@ -25,6 +25,9 @@ page 51016 AssoInSeamListPart
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit Sizes.');
+
                         //Check whether Color size ratio created for the style/lot
                         AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
                         AssorColorSizeRatioRec.SetRange("lot No.", Rec."Lot No.");
@@ -75,6 +78,9 @@ page 51016 AssoInSeamListPart
                     begin
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
+
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit Sizes.');
 
                         if (rec.InSeam >= 0) and (rec."Com Size" = '') then
                             Error('Please enter Com Size.');
@@ -2961,4 +2967,8 @@ page 51016 AssoInSeamListPart
 
         exit(Total);
     end;
+
+
+    var
+        CodeUnitRec: Codeunit NavAppCodeUnit3;
 }

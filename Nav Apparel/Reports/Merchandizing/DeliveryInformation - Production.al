@@ -38,8 +38,7 @@ report 51073 DeliveryInfoProductReport
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
-                DataItemTableView = sorting("Lot No.");
-
+                DataItemTableView = sorting("Lot No.") where(Status = filter('<> Cancel'));
 
                 column(PO_No_; "PO No.")
                 { }

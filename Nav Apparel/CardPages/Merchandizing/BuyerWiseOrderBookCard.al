@@ -197,6 +197,7 @@ page 51165 "BuyerWiseOrderBooking"
                             StyleMasterPORec.SetCurrentKey("Style No.");
                             StyleMasterPORec.Ascending(true);
                             StyleMasterPORec.SetRange("Ship Date", StartDate, FinishDate);
+                            StyleMasterPORec.SetFilter(Status, '<>%1', StyleMasterPORec.Status::Cancel);
                             if StyleMasterPORec.FindSet() then begin
 
                                 repeat
@@ -583,6 +584,7 @@ page 51165 "BuyerWiseOrderBooking"
                             StyleMasterPORec.SetCurrentKey("Style No.");
                             StyleMasterPORec.Ascending(true);
                             StyleMasterPORec.SetRange("Ship Date", StartDate, FinishDate);
+                            StyleMasterPORec.SetFilter(Status, '<>%1', StyleMasterPORec.Status::Cancel);
                             if StyleMasterPORec.FindSet() then begin
 
                                 repeat
@@ -956,6 +958,7 @@ page 51165 "BuyerWiseOrderBooking"
                             StyleMasterPORec.SetCurrentKey("Style No.");
                             StyleMasterPORec.Ascending(true);
                             StyleMasterPORec.SetRange("Ship Date", StartDate, FinishDate);
+                            StyleMasterPORec.SetFilter(Status, '<>%1', StyleMasterPORec.Status::Cancel);
                             if StyleMasterPORec.FindSet() then begin
 
                                 repeat
@@ -1252,6 +1255,7 @@ page 51165 "BuyerWiseOrderBooking"
                             StyleMasterPORec.SetCurrentKey("Style No.");
                             StyleMasterPORec.Ascending(true);
                             StyleMasterPORec.SetRange("Ship Date", StartDate, FinishDate);
+                            StyleMasterPORec.SetFilter(Status, '<>%1', StyleMasterPORec.Status::Cancel);
                             if StyleMasterPORec.FindSet() then begin
                                 repeat
 

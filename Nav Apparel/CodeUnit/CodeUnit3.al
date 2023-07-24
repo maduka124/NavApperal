@@ -20,4 +20,22 @@ codeunit 51366 NavAppCodeUnit3
         exit(FinishTime);
     end;
 
+
+    procedure Get_POStatus(StylePara: code[20]; LOtNoPara: code[20]): Boolean
+    var
+        StyleMasPoRec: Record "Style Master PO";
+        Status: Boolean;
+    begin
+        StyleMasPoRec.Reset();
+        StyleMasPoRec.SETRANGE("Style No.", StylePara);
+        StyleMasPoRec.SETRANGE("Lot No.", LOtNoPara);
+        StyleMasPoRec.SetFilter(Status, '=%1', StyleMasPoRec.Status::Cancel);
+        if StyleMasPoRec.FindSet() then
+            Status := true
+        else
+            Status := false;
+
+        exit(Status);
+    end;
+
 }

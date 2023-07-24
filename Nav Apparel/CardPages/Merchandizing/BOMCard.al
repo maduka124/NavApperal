@@ -102,7 +102,7 @@ page 50984 "BOM Card"
                             //insert PO details
                             StyleMasterPORec.Reset();
                             StyleMasterPORec.SetRange("Style No.", rec."Style No.");
-
+                            StyleMasterPORec.SetFilter(Status, '<>%1', StyleMasterPORec.Status::Cancel);
                             if StyleMasterPORec.FindSet() then begin
 
                                 //Delete old records
@@ -111,7 +111,6 @@ page 50984 "BOM Card"
                                 BOMPOSelectionRec.DeleteAll();
 
                                 repeat
-
                                     BOMPOSelectionNewRec.Init();
                                     BOMPOSelectionNewRec."BOM No." := rec."No";
                                     BOMPOSelectionNewRec."Style No." := rec."Style No.";

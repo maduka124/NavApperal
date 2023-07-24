@@ -26,6 +26,11 @@ page 51017 AssoPackCountryListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
+                        if rec."Lot No." = '' then
+                            Error('Invalid Lot No');
+
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit country.');
 
                         CountryRec.Reset();
                         CountryRec.SetRange("Name", rec."Country Name");
@@ -33,9 +38,6 @@ page 51017 AssoPackCountryListPart
                             rec."Country Code" := CountryRec.Code
                         else
                             Error('Invalid Country Name');
-
-                        if rec."Lot No." = '' then
-                            Error('Invalid Lot No');
 
                         //Check whether Color size ratio created for the style/lot
                         AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
@@ -94,6 +96,11 @@ page 51017 AssoPackCountryListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
+                        if rec."Lot No." = '' then
+                            Error('Invalid Lot No');
+
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit country.');
 
                         PackRec.Reset();
                         PackRec.SetRange(Pack, rec.Pack);
@@ -101,9 +108,6 @@ page 51017 AssoPackCountryListPart
                             rec."Pack No" := PackRec."No."
                         else
                             Error('Invalid Pack');
-
-                        if rec."Lot No." = '' then
-                            Error('Invalid Lot No');
 
                         // Check for whether BOm created for the style
                         BOMRec.SetRange("Style No.", rec."Style No.");
@@ -125,16 +129,46 @@ page 51017 AssoPackCountryListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Type';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."Lot No." = '' then
+                            Error('Invalid Lot No');
+
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit country.');
+                    end;
                 }
 
                 field("SID/REF No"; rec."SID/REF No")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."Lot No." = '' then
+                            Error('Invalid Lot No');
+
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit country.');
+                    end;
                 }
 
                 field("No Pack"; rec."No Pack")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."Lot No." = '' then
+                            Error('Invalid Lot No');
+
+                        if CodeUnitRec.Get_POStatus(rec."Style No.", rec."Lot No.") then
+                            Error('PO already cancelled. Cannot Add/Edit country.');
+                    end;
                 }
             }
         }
@@ -436,4 +470,6 @@ page 51017 AssoPackCountryListPart
     end;
 
 
+    var
+        CodeUnitRec: Codeunit NavAppCodeUnit3;
 }

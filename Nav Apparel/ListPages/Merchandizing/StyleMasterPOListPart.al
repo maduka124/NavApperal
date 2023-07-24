@@ -271,6 +271,28 @@ page 51069 "Style Master PO ListPart"
                 field(Status; rec.Status)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        NavappProdDetRec: Record "NavApp Prod Plans Details";
+                        DailyProdRec: Record ProductionOutHeader;
+                    begin
+                        //Check whether cutout done for the po
+                        DailyProdRec.Reset();
+                        DailyProdRec.SetFilter(Type, '=%1', DailyProdRec.Type::Cut);
+                        DailyProdRec.SetRange("Out Style No.", Rec."Style No.");
+                        DailyProdRec.SetRange("Out Lot No.", Rec."Lot No.");
+                        DailyProdRec.SetRange("Out PO No", Rec."PO No.");
+                        if DailyProdRec.FindSet() then
+                            Error('Cut Out already entered for the PO. Cannot change the Status.');
+
+                        NavappProdDetRec.Reset();
+                        NavappProdDetRec.SetRange("Style No.", rec."Style No.");
+                        NavappProdDetRec.SetRange("PO No.", rec."PO No.");
+                        NavappProdDetRec.SetRange("Lot No.", Rec."Lot No.");
+                        if NavappProdDetRec.FindSet() then
+                            Error('PO already planned. Cannot change the Status.');
+                    end;
                 }
 
                 field("Confirm Date"; rec."Confirm Date")
@@ -289,6 +311,9 @@ page 51069 "Style Master PO ListPart"
 
                             if (rec.Status = rec.Status::Projection) and (rec."Confirm Date" < WorkDate()) then
                                 Error('Confirm date cannot be old date.');
+
+                            if (rec.Status = rec.Status::Cancel) then
+                                Error('PO already cancelled. Cannot change Confirm date');
                         end
                     end;
                 }
@@ -337,8 +362,18 @@ page 51069 "Style Master PO ListPart"
         AssorColorSizeRatioRec: Record AssorColorSizeRatio;
         NavAppProdPlanRec: Record "NavApp Prod Plans Details";
         PlanningQueueRec: Record "Planning Queue";
+        DailyProdRec: Record ProductionOutHeader;
     begin
         CurrPage.Update();
+
+        //Check whether cutout done for the po
+        DailyProdRec.Reset();
+        DailyProdRec.SetFilter(Type, '=%1', DailyProdRec.Type::Cut);
+        DailyProdRec.SetRange("Out Style No.", Rec."Style No.");
+        DailyProdRec.SetRange("Out Lot No.", Rec."Lot No.");
+        DailyProdRec.SetRange("Out PO No", Rec."PO No.");
+        if DailyProdRec.FindSet() then
+            Error('Cut Out already entered for the PO. Cannot delete.');
 
         PlanningQueueRec.Reset();
         PlanningQueueRec.SetRange("Style No.", rec."Style No.");
@@ -363,7 +398,6 @@ page 51069 "Style Master PO ListPart"
         NavAppProdPlanRec.SetRange("Lot No.", rec."Lot No.");
         if NavAppProdPlanRec.FindSet() then
             Error('PO already planned. Cannot delete.');
-
     end;
 
 }
