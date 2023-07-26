@@ -8,7 +8,7 @@ table 51231 ServiceWorksheetHeaderNew
         field(1; "No."; BigInteger)
         {
             DataClassification = ToBeClassified;
-            AutoIncrement = false;
+            AutoIncrement = true;
         }
 
         field(2; ServiceType; Option)

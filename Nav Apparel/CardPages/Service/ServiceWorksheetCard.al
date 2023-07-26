@@ -34,7 +34,6 @@ page 50726 "Service Worksheet Card"
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -49,11 +48,9 @@ page 50726 "Service Worksheet Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-
                         //Get location
                         UserRec.Reset();
                         UserRec.SetRange("User ID", UserId);
-
                         if UserRec.FindSet() then
                             rec."Factory No." := UserRec."Factory Code";
 
@@ -137,11 +134,9 @@ page 50726 "Service Worksheet Card"
                     LoginSessionsRec: Record LoginSessions;
                     LoginRec: Page "Login Card";
                 begin
-
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
                     LoginSessionsRec.SetRange(SessionID, SessionId());
-
                     if not LoginSessionsRec.FindSet() then begin  //not logged in
                         Clear(LoginRec);
                         LoginRec.LookupMode(true);
@@ -151,7 +146,6 @@ page 50726 "Service Worksheet Card"
                         LoginSessionsRec.SetRange(SessionID, SessionId());
                         LoginSessionsRec.FindSet();
                     end;
-
 
                     if rec.StartDate = 0D then
                         Error('Start date is blank');
@@ -170,7 +164,6 @@ page 50726 "Service Worksheet Card"
                     ServiceScheHeadeRec.Reset();
                     ServiceScheHeadeRec.SetRange("Factory No.", rec."Factory No.");
                     ServiceScheHeadeRec.SetRange(ServiceType, rec.ServiceType);
-
                     if ServiceScheHeadeRec.FindSet() then begin
                         repeat
 
@@ -182,8 +175,8 @@ page 50726 "Service Worksheet Card"
                             ServiceItemRec.SetRange("No.", ServiceScheHeadeRec."Machine Category Code");
                             ServiceItemRec.SetRange("Location Code", rec."Work Center No");
                             ServiceItemRec.SetFilter("Service due date", '%1..%2', rec.StartDate, rec.EndDate);
-
                             if ServiceItemRec.FindSet() then begin
+
                                 repeat
                                     NextNo += 1;
                                     //Insert recor
@@ -518,7 +511,6 @@ page 50726 "Service Worksheet Card"
         ServiceWorkLineRec.SetRange("No.", rec."No.");
         if ServiceWorkLineRec.FindSet() then
             ServiceWorkLineRec.DeleteAll();
-
     end;
 
 }

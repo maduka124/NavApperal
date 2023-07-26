@@ -90,7 +90,7 @@ page 51227 ServiceScheduleList
     begin
         //Delete old records
         ServiceScheLineRec.Reset();
-        ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
+        ServiceScheLineRec.SetRange("No.", rec."No.");
         if ServiceScheLineRec.FindSet() then
             ServiceScheLineRec.DeleteAll();
 
