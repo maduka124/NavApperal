@@ -456,6 +456,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     LcurveHoursPerday: Decimal;
                     LCurveStartTimePerDay: Time;
                     FactoryFinishTime: Time;
+                    ApplyLCurve: Boolean;
+                    ApplyLCurve1: Boolean;
+                    PordUpdQty: BigInteger;
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -570,6 +573,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ResourceRec.Reset();
                             ResourceRec.SetRange("No.", ResourceNo);
                             ResourceRec.FindSet();
+
+                            if ResourceRec."LV Days" = 0 then
+                                Error('LV Days not setup for the Sewing Line : %1', ResourceRec.Name);
 
                             Carder := ResourceRec.Carder;
                             eff := ResourceRec.PlanEff;
@@ -742,12 +748,27 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             TargetPerHour := TargetPerDay / HoursPerDay;
                             TempDate := dtStart;
 
+                            if PlanningQueueeRec."Learning Curve No." = 0 then
+                                ApplyLCurve := false
+                            else begin
+                                //validate lCurve applying
+                                ProdPlansDetails.Reset();
+                                ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
+                                ProdPlansDetails.SetRange("Style No.", PlanningQueueeRec."Style No.");
+                                if ProdPlansDetails.FindSet() then begin
+                                    ApplyLCurve := false;
+                                    Message('Learning Curve already applied for the style %1 within %2 days. ', PlanningQueueeRec."Style Name", ResourceRec."LV Days");
+                                end
+                                else
+                                    ApplyLCurve := true;
+                            end;
+
                             //Check learning curve                        
                             LCurveFinishDate := dtStart;
                             LCurveFinishTime := TImeStart;
                             LCurveStartTime := TImeStart;
 
-                            if PlanningQueueeRec."Learning Curve No." <> 0 then begin
+                            if (PlanningQueueeRec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
                                 LearningCurveRec.Reset();
                                 LearningCurveRec.SetRange("No.", PlanningQueueeRec."Learning Curve No.");
                                 if LearningCurveRec.FindSet() then
@@ -886,7 +907,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                 end;
 
-                                if PlanningQueueeRec."Learning Curve No." <> 0 then begin
+                                if (PlanningQueueeRec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
                                     //Aplly learning curve
                                     LearningCurveRec.Reset();
                                     LearningCurveRec.SetRange("No.", PlanningQueueeRec."Learning Curve No.");
@@ -1117,6 +1138,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ProdPlansDetails."Factory No." := FactoryNo;
                                 ProdPlansDetails.Insert();
 
+                                if LCurveFinishDate = TempDate then begin
+                                    ApplyLCurve := false;
+                                    LcurveHoursPerday := 0;
+                                    LCurveStartTimePerDay := 0T;
+                                end;
+
                                 TempDate := TempDate + 1;
 
                             until (TempQty >= PlanningQueueeRec.Qty);
@@ -1266,6 +1293,20 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 ResourceRec.SetRange("No.", ResourceNo);
                                                 ResourceRec.FindSet();
 
+                                                if JobPlaLineRec."Learning Curve No." = 0 then
+                                                    ApplyLCurve := false
+                                                else begin
+                                                    ApplyLCurve := true;
+
+                                                    //validate lCurve applying
+                                                    ProdPlansDetails.Reset();
+                                                    ProdPlansDetails.SetFilter(PlanDate, '%1..%2', JobPlaLineRec."Start Date" - ResourceRec."LV Days", JobPlaLineRec."Start Date" - 1);
+                                                    ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
+                                                    if ProdPlansDetails.FindSet() then
+                                                        ApplyLCurve := false;
+                                                end;
+
+                                                ApplyLCurve1 := ApplyLCurve;
                                                 dtStart := TempDate;
                                                 TImeStart := TempTIme;
                                                 Curr_StartDateTime := JobPlaLineRec.StartDateTime;
@@ -1445,7 +1486,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 LCurveFinishTime := TImeStart;
                                                 LCurveStartTime := TImeStart;
 
-                                                if JobPlaLineRec."Learning Curve No." <> 0 then begin
+                                                if (JobPlaLineRec."Learning Curve No." <> 0) then begin
                                                     LearningCurveRec.Reset();
                                                     LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
                                                     if LearningCurveRec.FindSet() then begin
@@ -1605,7 +1646,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                         HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                                     end;
 
-                                                    if JobPlaLineRec."Learning Curve No." <> 0 then begin
+                                                    if (ApplyLCurve = true) then begin
 
                                                         //Aplly learning curve
                                                         LearningCurveRec.Reset();
@@ -1835,6 +1876,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
                                                     ProdPlansDetails.Insert();
 
+                                                    if LCurveFinishDate = TempDate then begin
+                                                        ApplyLCurve := false;
+                                                        LCurveStartTimePerDay := 0T;
+                                                        LcurveHoursPerday := 0;
+                                                    end;
+
                                                     TempDate := TempDate + 1;
 
                                                 until (TempQty >= Qty);
@@ -1865,6 +1912,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                         JobPlaLine2Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                                 end;
 
+                                                if ApplyLCurve1 = false then
+                                                    JobPlaLine2Rec."Learning Curve No." := 0
+                                                else
+                                                    JobPlaLine2Rec."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
+
                                                 JobPlaLine2Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                                 JobPlaLine2Rec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLine2Rec."Finish Time");
                                                 JobPlaLine2Rec.Qty := Qty;
@@ -1873,6 +1925,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 JobPlaLine2Rec.Modify();
 
                                                 TempTIme := JobPlaLine2Rec."Finish Time";
+                                                ApplyLCurve1 := false;
 
                                                 //delete allocation if remaining qty is 0 or less than 0
                                                 JobPlaLine2Rec.Reset();
@@ -1925,6 +1978,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         ResourceRec.Reset();
                         ResourceRec.SetRange("No.", ResourceNo);
                         ResourceRec.FindSet();
+
+                        if ResourceRec."LV Days" = 0 then
+                            Error('LV Days not setup for the Sewing Line : %1', ResourceRec.Name);
 
                         Carder := ResourceRec.Carder;
                         eff := ResourceRec.PlanEff;
@@ -2102,6 +2158,52 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         // TargetPerHour := round(TargetPerDay / HoursPerDay, 1, '>');
                         TempDate := dtStart;
 
+                        if JobPlaLineRec."Learning Curve No." = 0 then
+                            ApplyLCurve := false
+                        else begin
+                            ApplyLCurve := true;
+
+                            //validate lCurve applying
+                            ProdPlansDetails.Reset();
+                            ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
+                            ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
+                            ProdPlansDetails.SetFilter("Line No.", '<>%1', JobPlaLineRec."Line No.");
+                            if ProdPlansDetails.FindSet() then begin
+                                ApplyLCurve := false;
+                                Message('Learning Curve already applied for the style %1 within %2 days. ', JobPlaLineRec."Style Name", ResourceRec."LV Days");
+                            end
+                            else begin
+                                //Validate same style same allocation
+                                ProdPlansDetails.Reset();
+                                ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
+                                ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
+                                ProdPlansDetails.SetFilter("Line No.", '=%1', JobPlaLineRec."Line No.");
+                                if not ProdPlansDetails.FindSet() then begin
+                                    ApplyLCurve := true
+                                end
+                                else begin
+                                    PordUpdQty := 0;
+                                    //Get completed lCurve hours
+                                    repeat
+                                        if ProdPlansDetails.ProdUpd = 1 then
+                                            PordUpdQty += ProdPlansDetails.ProdUpdQty;
+                                    until ProdPlansDetails.Next() = 0;
+
+                                    //Check for completed lCurve hours
+                                    LearningCurveRec.Reset();
+                                    LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
+                                    if LearningCurveRec.FindSet() then begin
+                                        if LearningCurveRec.Day1 > PordUpdQty then
+                                            ApplyLCurve := true
+                                        else
+                                            ApplyLCurve := false;
+                                    end
+                                    else
+                                        ApplyLCurve := true;
+                                end;
+                            end;
+                        end;
+
                         //Delete old lines
                         ProdPlansDetails.Reset();
                         ProdPlansDetails.SetRange("Line No.", LineNo);
@@ -2114,7 +2216,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         LCurveFinishTime := TImeStart;
                         LCurveStartTime := TImeStart;
 
-                        if JobPlaLineRec."Learning Curve No." <> 0 then begin
+                        if (JobPlaLineRec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
                             LearningCurveRec.Reset();
                             LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
                             if LearningCurveRec.FindSet() then begin
@@ -2257,7 +2359,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                             end;
 
-                            if JobPlaLineRec."Learning Curve No." <> 0 then begin
+                            if (JobPlaLineRec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
 
                                 //Aplly learning curve
                                 LearningCurveRec.Reset();
@@ -2488,6 +2590,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             TempDate := TempDate + 1;
 
+                            if LCurveFinishDate = TempDate then begin
+                                ApplyLCurve := false;
+                                LcurveHoursPerday := 0;
+                                LCurveStartTimePerDay := 0T;
+                            end;
+
                         until (TempQty >= JobPlaLineRec.Qty);
 
                         TempDate := TempDate - 1;
@@ -2585,6 +2693,21 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         if JobPlaLineRec.Eff <> 0 then
                                             Eff := JobPlaLineRec.Eff;
 
+                                        if JobPlaLineRec."Learning Curve No." = 0 then
+                                            ApplyLCurve := false
+                                        else begin
+                                            ApplyLCurve := true;
+
+                                            //validate lCurve applying
+                                            ProdPlansDetails.Reset();
+                                            ProdPlansDetails.SetFilter(PlanDate, '%1..%2', JobPlaLineRec."Start Date" - ResourceRec."LV Days", JobPlaLineRec."Start Date" - 1);
+                                            ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
+                                            ProdPlansDetails.SetFilter("Line No.", '<>%1', JobPlaLineRec."Line No.");
+                                            if ProdPlansDetails.FindSet() then
+                                                ApplyLCurve := false;
+                                        end;
+
+                                        ApplyLCurve1 := ApplyLCurve;
                                         dtStart := TempDate;
                                         TImeStart := TempTIme;
                                         Curr_StartDateTime := JobPlaLineRec.StartDateTime;
@@ -2924,7 +3047,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                             end;
 
-                                            if JobPlaLineRec."Learning Curve No." <> 0 then begin
+                                            if (ApplyLCurve = true) then begin
 
                                                 //Aplly learning curve
                                                 LearningCurveRec.Reset();
@@ -3156,6 +3279,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
                                             ProdPlansDetails.Insert();
 
+                                            if LCurveFinishDate = TempDate then begin
+                                                ApplyLCurve := false;
+                                                LCurveStartTimePerDay := 0T;
+                                                LcurveHoursPerday := 0;
+                                            end;
+
                                             TempDate := TempDate + 1;
 
                                         until (TempQty >= Qty);
@@ -3186,6 +3315,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 JobPlaLine2Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                         end;
 
+                                        if ApplyLCurve1 = false then
+                                            JobPlaLine2Rec."Learning Curve No." := 0
+                                        else
+                                            JobPlaLine2Rec."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
+
                                         JobPlaLine2Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                         JobPlaLine2Rec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLine2Rec."Finish Time");
                                         JobPlaLine2Rec.Qty := Qty;
@@ -3196,6 +3330,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         JobPlaLine2Rec.Modify();
 
                                         TempTIme := JobPlaLine2Rec."Finish Time";
+                                        ApplyLCurve1 := false;
 
                                         //delete allocation if remaining qty is 0 or less than 0
                                         JobPlaLine2Rec.Reset();

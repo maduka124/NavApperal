@@ -31,7 +31,6 @@ page 51228 ServiceScheduleLCard
                         //Get Global Dimension
                         UserSetupRec.Reset();
                         UserSetupRec.SetRange("User ID", UserId);
-
                         if UserSetupRec.FindSet() then begin
                             rec."Global Dimension Code" := UserSetupRec."Global Dimension Code";
                             rec."Factory No." := UserSetupRec."Factory Code";
@@ -43,11 +42,9 @@ page 51228 ServiceScheduleLCard
                                 rec."Factory Name" := Locationrec.Name;
                         end;
 
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -84,7 +81,6 @@ page 51228 ServiceScheduleLCard
                     ApplicationArea = All;
                     Caption = 'Model';
 
-
                     trigger OnValidate()
                     var
                         ModelRec: Record Model;
@@ -118,7 +114,6 @@ page 51228 ServiceScheduleLCard
                         ItemRec.SetRange(Article, rec."Brand Name");
                         ItemRec.SetRange("Color Name", rec."Model Name");
                         ItemRec.SetRange("Size Range No.", rec."Machine Category");
-
                         if ItemRec.FindSet() then begin
                             repeat
                                 ServiceScheLineRec.Init();
@@ -137,7 +132,6 @@ page 51228 ServiceScheduleLCard
                         ServiceItemRec.SetRange(Description, rec."Machine Category");
                         if ServiceItemRec.FindSet() then
                             rec."Machine Category Code" := ServiceItemRec."No.";
-
                     end;
                 }
             }
@@ -173,11 +167,9 @@ page 51228 ServiceScheduleLCard
                     LoginSessionsRec: Record LoginSessions;
                     MaxLineNo: BigInteger;
                 begin
-
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
                     LoginSessionsRec.SetRange(SessionID, SessionId());
-
                     if not LoginSessionsRec.FindSet() then begin  //not logged in
                         Clear(LoginRec);
                         LoginRec.LookupMode(true);
@@ -187,7 +179,6 @@ page 51228 ServiceScheduleLCard
                         LoginSessionsRec.SetRange(SessionID, SessionId());
                         LoginSessionsRec.FindSet();
                     end;
-
 
                     //Delete old records
                     ServiceScheHeadRec.Reset();
@@ -208,10 +199,9 @@ page 51228 ServiceScheduleLCard
                     ServiceScheLineRec.Reset();
                     ServiceScheLineRec.SetFilter(Select, '=%1', true);
                     if ServiceScheLineRec.FindSet() then begin
+
                         repeat
-
                             MaxLineNo += 1;
-
                             //Insert Part no
                             ServiceScheHeadRec.Init();
                             ServiceScheHeadRec."No." := MaxLineNo;
@@ -225,7 +215,6 @@ page 51228 ServiceScheduleLCard
                             //Get Global Dimension
                             UserSetupRec.Reset();
                             UserSetupRec.SetRange("User ID", UserId);
-
                             if UserSetupRec.FindSet() then
                                 ServiceScheHeadRec."Global Dimension Code" := UserSetupRec."Global Dimension Code";
 
@@ -683,7 +672,5 @@ page 51228 ServiceScheduleLCard
         ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
         if ServiceScheLineRec.FindSet() then
             ServiceScheLineRec.DeleteAll();
-
     end;
-
 }

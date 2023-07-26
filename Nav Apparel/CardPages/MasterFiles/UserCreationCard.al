@@ -101,6 +101,25 @@ page 50978 "Create User Card"
 
         area(Processing)
         {
+            // action("Update sample req status")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
+
+            //     trigger OnAction()
+            //     var
+            //         samprec: Record "Sample Requsition Line";
+            //         dtStart: Date;
+            //     begin
+            //         dtStart := DMY2DATE(24, 7, 2023);
+            //         samprec.Reset();
+            //         samprec.SetFilter("Created Date", '<%1', dtStart);
+            //         samprec.FindSet();
+            //         samprec.ModifyAll(Status, samprec.Status::Yes);
+            //         Message('Completed');
+            //     end;
+            // }
+
             // action("Update WIP Qty")
             // {
             //     ApplicationArea = All;
