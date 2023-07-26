@@ -734,6 +734,8 @@
                     <Hidden>=Fields!Pattern_Maker.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Pattern_Maker">
@@ -1483,6 +1485,8 @@
                     <Hidden>=Fields!Pattern_Cutter.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Pattern_Cutter">
@@ -2232,6 +2236,8 @@
                     <Hidden>=Fields!Cutter.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Cutter">
@@ -2981,6 +2987,8 @@
                     <Hidden>=Fields!Sewing_Operator.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Sewing_Operator">
@@ -3730,6 +3738,8 @@
                     <Hidden>=Fields!Quality_Checker.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Quality_Checker">
@@ -4479,6 +4489,8 @@
                     <Hidden>=Fields!Wash_Sender.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Wash_Sender">
@@ -5228,6 +5240,8 @@
                     <Hidden>=Fields!Wash_Receiver.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Wash_Receiver">
@@ -5977,6 +5991,8 @@
                     <Hidden>=Fields!Finishing_Operator.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Finishing_Operator">
@@ -6725,6 +6741,8 @@
                     <Hidden>=Fields!Quality_Finish_Checker.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
                   </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Quality_Finish_Checker">
