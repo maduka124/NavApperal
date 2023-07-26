@@ -10,6 +10,7 @@ report 51285 SampleRequirementDetails
     {
         dataitem("Sample Requsition Header"; "Sample Requsition Header")
         {
+            DataItemTableView = sorting("No.");
             column(Group_Head; "Group HD")
             { }
             column(Brand_Name; "Brand Name")
@@ -80,7 +81,35 @@ report 51285 SampleRequirementDetails
                     {
                         ApplicationArea = All;
                         Caption = 'Merchandiser Group Head';
-                        TableRelation = "User Setup"."User ID" where("Merchandizer Head" = filter(true));
+                        // TableRelation = "User Setup"."Merchandizer Group Name" where("Merchandizer Head" = filter(true));
+
+                        //Done By Sachith on 26/07/23
+                        trigger OnLookup(Var Text: Text): Boolean
+                        var
+                            UserRec: Record "User Setup";
+                            MerchantName: Text[200];
+                        begin
+
+                            UserRec.Reset();
+                            UserRec.SetFilter("Merchandizer Head", '=%1', true);
+                            UserRec.SetCurrentKey("Merchandizer Group Name");
+                            UserRec.Ascending(true);
+
+                            if UserRec.FindSet() then begin
+                                repeat
+                                    if MerchantName <> UserRec."Merchandizer Group Name" then begin
+                                        UserRec.Mark(true);
+                                        MerchantName := UserRec."Merchandizer Group Name";
+                                    end;
+
+                                until UserRec.Next() = 0;
+                                UserRec.MarkedOnly(true);
+
+                                if Page.RunModal(51400, UserRec) = Action::LookupOK then begin
+                                    GroupHD := UserRec."Merchandizer Group Name";
+                                end;
+                            end;
+                        end;
                     }
 
                     field(stDate; stDate)

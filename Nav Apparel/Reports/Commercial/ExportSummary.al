@@ -10,7 +10,7 @@ report 50629 ExportSummartReport
     {
         dataitem("Sales Invoice Header"; "Sales Invoice Header")
         {
-            DataItemTableView = where("No." = filter(<> ''));
+            DataItemTableView = where("No." = filter(<> ''), Closed = filter('No'));
 
             column(Style_No_; "Style Name")
             { }
