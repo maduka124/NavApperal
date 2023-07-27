@@ -212,4 +212,9 @@ page 50435 SampleProdLinePatternListPart
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange("Created Date", 20230723D, Today);
+    end;
 }

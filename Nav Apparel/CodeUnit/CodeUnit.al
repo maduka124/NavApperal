@@ -246,6 +246,20 @@ codeunit 50618 NavAppCodeUnit
             exit('StrongAccent');
     end;
 
+    procedure ChangeColorMachineReq(OpList: Record FactoryAndLineMachineLine): Text[50]
+    var
+    begin
+        if OpList."Record Type" = 'T' then
+            exit('StrongAccent');
+    end;
+
+    procedure ChangeColorMachineReq2(OpList: Record FactoryAndLineMachine2Line): Text[50]
+    var
+    begin
+        if OpList."Record Type" = 'T' then
+            exit('StrongAccent');
+    end;
+
     procedure ChangeColorBooking2(OpList: Record BankRefCollectionLine): Text[50]
     var
     begin

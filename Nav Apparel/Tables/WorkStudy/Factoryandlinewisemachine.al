@@ -172,6 +172,11 @@ table 51370 FactoryAndLineMachine2Line
         {
             DataClassification = ToBeClassified;
         }
+
+        field(42; "Record TYpe"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

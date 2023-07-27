@@ -109,7 +109,9 @@ page 51368 FactoryAndLineMachineReqCard
                     NavAppPlanProdLineRec: Record "NavApp Prod Plans Details";
                     StyleWiseMachineLineRec: Record StyleWiseMachineLine;
                     FactoryAndLineRec: Record FactoryAndLineMachineLine;
+                    FactoryAndLineTotRec: Record FactoryAndLineMachineLine;
                     FactoryAndLine2Rec: Record FactoryAndLineMachine2Line;
+                    FactoryAndLine2TotaRec: Record FactoryAndLineMachine2Line;
                     LineNo: Integer;
                     Y: Integer;
                     M: Integer;
@@ -192,6 +194,152 @@ page 51368 FactoryAndLineMachineReqCard
                                 if StyleWiseMachineLineRec.FindSet() then begin
                                     repeat
 
+                                        FactoryAndLineTotRec.Reset();
+                                        FactoryAndLineTotRec.SetRange(Factory, Rec."Factory Name");
+                                        FactoryAndLineTotRec.SetFilter("Record Type", '=%1', 'T');
+
+                                        if not FactoryAndLineTotRec.FindSet() then begin
+
+                                            FactoryAndLineTotRec.Init();
+                                            FactoryAndLineTotRec.Factory := Rec."Factory Name";
+                                            FactoryAndLineTotRec."Machine type" := '';
+                                            FactoryAndLineTotRec."Machine Description" := 'TOTAL';
+                                            FactoryAndLineTotRec."Line No" := 9999;
+                                            FactoryAndLineTotRec.Month := '';
+                                            FactoryAndLineTotRec.Year := 0;
+                                            FactoryAndLineTotRec."Record Type" := 'T';
+
+                                            if D = 1 then
+                                                FactoryAndLineTotRec."1" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 2 then
+                                                FactoryAndLineTotRec."2" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 3 then
+                                                FactoryAndLineTotRec."3" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 4 then
+                                                FactoryAndLineTotRec."4" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 5 then
+                                                FactoryAndLineTotRec."5" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 6 then
+                                                FactoryAndLineTotRec."6" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 7 then
+                                                FactoryAndLineTotRec."7" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 8 then
+                                                FactoryAndLineTotRec."8" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 9 then
+                                                FactoryAndLineTotRec."9" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 10 then
+                                                FactoryAndLineTotRec."10" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 11 then
+                                                FactoryAndLineTotRec."11" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 12 then
+                                                FactoryAndLineTotRec."12" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 13 then
+                                                FactoryAndLineTotRec."13" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 14 then
+                                                FactoryAndLineTotRec."14" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 15 then
+                                                FactoryAndLineTotRec."15" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 16 then
+                                                FactoryAndLineTotRec."16" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 17 then
+                                                FactoryAndLineTotRec."17" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 18 then
+                                                FactoryAndLineTotRec."18" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 19 then
+                                                FactoryAndLineTotRec."19" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 20 then
+                                                FactoryAndLineTotRec."20" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 21 then
+                                                FactoryAndLineTotRec."21" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 22 then
+                                                FactoryAndLineTotRec."22" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 23 then
+                                                FactoryAndLineTotRec."23" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 24 then
+                                                FactoryAndLineTotRec."24" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 25 then
+                                                FactoryAndLineTotRec."25" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 26 then
+                                                FactoryAndLineTotRec."26" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 27 then
+                                                FactoryAndLineTotRec."27" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 28 then
+                                                FactoryAndLineTotRec."28" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 29 then
+                                                FactoryAndLineTotRec."29" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 30 then
+                                                FactoryAndLineTotRec."30" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 31 then
+                                                FactoryAndLineTotRec."31" := StyleWiseMachineLineRec."Machine Qty";
+                                            FactoryAndLineTotRec.Insert();
+
+                                        end
+                                        else begin
+                                            if D = 1 then
+                                                FactoryAndLineTotRec."1" := FactoryAndLineTotRec."1" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 2 then
+                                                FactoryAndLineTotRec."2" := FactoryAndLineTotRec."2" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 3 then
+                                                FactoryAndLineTotRec."3" := FactoryAndLineTotRec."3" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 4 then
+                                                FactoryAndLineTotRec."4" := FactoryAndLineTotRec."4" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 5 then
+                                                FactoryAndLineTotRec."5" := FactoryAndLineTotRec."5" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 6 then
+                                                FactoryAndLineTotRec."6" := FactoryAndLineTotRec."6" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 7 then
+                                                FactoryAndLineTotRec."7" := FactoryAndLineTotRec."7" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 8 then
+                                                FactoryAndLineTotRec."8" := FactoryAndLineTotRec."8" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 9 then
+                                                FactoryAndLineTotRec."9" := FactoryAndLineTotRec."9" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 10 then
+                                                FactoryAndLineTotRec."10" := FactoryAndLineTotRec."10" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 11 then
+                                                FactoryAndLineTotRec."11" := FactoryAndLineTotRec."11" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 12 then
+                                                FactoryAndLineTotRec."12" := FactoryAndLineTotRec."12" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 13 then
+                                                FactoryAndLineTotRec."13" := FactoryAndLineTotRec."13" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 14 then
+                                                FactoryAndLineTotRec."14" := FactoryAndLineTotRec."14" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 15 then
+                                                FactoryAndLineTotRec."15" := FactoryAndLineTotRec."15" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 16 then
+                                                FactoryAndLineTotRec."16" := FactoryAndLineTotRec."16" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 17 then
+                                                FactoryAndLineTotRec."17" := FactoryAndLineTotRec."17" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 18 then
+                                                FactoryAndLineTotRec."18" := FactoryAndLineTotRec."18" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 19 then
+                                                FactoryAndLineTotRec."19" := FactoryAndLineTotRec."19" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 20 then
+                                                FactoryAndLineTotRec."20" := FactoryAndLineTotRec."20" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 21 then
+                                                FactoryAndLineTotRec."21" := FactoryAndLineTotRec."21" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 22 then
+                                                FactoryAndLineTotRec."22" := FactoryAndLineTotRec."22" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 23 then
+                                                FactoryAndLineTotRec."23" := FactoryAndLineTotRec."23" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 24 then
+                                                FactoryAndLineTotRec."24" := FactoryAndLineTotRec."24" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 25 then
+                                                FactoryAndLineTotRec."25" := FactoryAndLineTotRec."25" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 26 then
+                                                FactoryAndLineTotRec."26" := FactoryAndLineTotRec."26" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 27 then
+                                                FactoryAndLineTotRec."27" := FactoryAndLineTotRec."27" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 28 then
+                                                FactoryAndLineTotRec."28" := FactoryAndLineTotRec."28" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 29 then
+                                                FactoryAndLineTotRec."29" := FactoryAndLineTotRec."29" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 30 then
+                                                FactoryAndLineTotRec."30" := FactoryAndLineTotRec."30" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 31 then
+                                                FactoryAndLineTotRec."31" := FactoryAndLineTotRec."31" + StyleWiseMachineLineRec."Machine Qty";
+                                            FactoryAndLineTotRec.Modify()
+                                        end;
+
                                         FactoryAndLineRec.Reset();
                                         FactoryAndLineRec.SetRange("Machine type", StyleWiseMachineLineRec."Machine No");
                                         FactoryAndLineRec.SetRange(Factory, Rec."Factory Name");
@@ -207,6 +355,7 @@ page 51368 FactoryAndLineMachineReqCard
                                             FactoryAndLineRec."Line No" := LineNo;
                                             FactoryAndLineRec.Month := MonthText;
                                             FactoryAndLineRec.Year := y;
+                                            FactoryAndLineRec."Record Type" := 'R';
 
                                             if D = 1 then
                                                 FactoryAndLineRec."1" := StyleWiseMachineLineRec."Machine Qty";
@@ -396,9 +545,156 @@ page 51368 FactoryAndLineMachineReqCard
                                 if StyleWiseMachineLineRec.FindSet() then begin
                                     repeat
 
+                                        FactoryAndLine2TotaRec.Reset();
+                                        FactoryAndLine2TotaRec.SetRange(Factory, Rec."Factory Name");
+                                        FactoryAndLine2TotaRec.SetFilter("Record Type", '=%1', 'T');
+
+                                        if not FactoryAndLine2TotaRec.FindSet() then begin
+
+                                            FactoryAndLine2TotaRec.Init();
+                                            FactoryAndLine2TotaRec.Factory := Rec."Factory Name";
+                                            FactoryAndLine2TotaRec."Machine type" := '';
+                                            FactoryAndLine2TotaRec."Machine Description" := 'TOTAL';
+                                            FactoryAndLine2TotaRec."Line No" := 9999;
+                                            FactoryAndLine2TotaRec.Month := '';
+                                            FactoryAndLine2TotaRec.Year := 0;
+                                            FactoryAndLine2Rec."Line No" := LineNo;
+                                            FactoryAndLine2TotaRec."Record Type" := 'T';
+
+                                            if D = 1 then
+                                                FactoryAndLine2TotaRec."1" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 2 then
+                                                FactoryAndLine2TotaRec."2" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 3 then
+                                                FactoryAndLine2TotaRec."3" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 4 then
+                                                FactoryAndLine2TotaRec."4" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 5 then
+                                                FactoryAndLine2TotaRec."5" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 6 then
+                                                FactoryAndLine2TotaRec."6" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 7 then
+                                                FactoryAndLine2TotaRec."7" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 8 then
+                                                FactoryAndLine2TotaRec."8" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 9 then
+                                                FactoryAndLine2TotaRec."9" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 10 then
+                                                FactoryAndLine2TotaRec."10" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 11 then
+                                                FactoryAndLine2TotaRec."11" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 12 then
+                                                FactoryAndLine2TotaRec."12" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 13 then
+                                                FactoryAndLine2TotaRec."13" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 14 then
+                                                FactoryAndLine2TotaRec."14" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 15 then
+                                                FactoryAndLine2TotaRec."15" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 16 then
+                                                FactoryAndLine2TotaRec."16" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 17 then
+                                                FactoryAndLine2TotaRec."17" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 18 then
+                                                FactoryAndLine2TotaRec."18" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 19 then
+                                                FactoryAndLine2TotaRec."19" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 20 then
+                                                FactoryAndLine2TotaRec."20" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 21 then
+                                                FactoryAndLine2TotaRec."21" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 22 then
+                                                FactoryAndLine2TotaRec."22" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 23 then
+                                                FactoryAndLine2TotaRec."23" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 24 then
+                                                FactoryAndLine2TotaRec."24" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 25 then
+                                                FactoryAndLine2TotaRec."25" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 26 then
+                                                FactoryAndLine2TotaRec."26" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 27 then
+                                                FactoryAndLine2TotaRec."27" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 28 then
+                                                FactoryAndLine2TotaRec."28" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 29 then
+                                                FactoryAndLine2TotaRec."29" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 30 then
+                                                FactoryAndLine2TotaRec."30" := StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 31 then
+                                                FactoryAndLine2TotaRec."31" := StyleWiseMachineLineRec."Machine Qty";
+                                            FactoryAndLine2TotaRec.Insert();
+
+                                        end
+                                        else begin
+                                            if D = 1 then
+                                                FactoryAndLine2TotaRec."1" := FactoryAndLine2TotaRec."1" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 2 then
+                                                FactoryAndLine2TotaRec."2" := FactoryAndLine2TotaRec."2" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 3 then
+                                                FactoryAndLine2TotaRec."3" := FactoryAndLine2TotaRec."3" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 4 then
+                                                FactoryAndLine2TotaRec."4" := FactoryAndLine2TotaRec."4" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 5 then
+                                                FactoryAndLine2TotaRec."5" := FactoryAndLine2TotaRec."5" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 6 then
+                                                FactoryAndLine2TotaRec."6" := FactoryAndLine2TotaRec."6" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 7 then
+                                                FactoryAndLine2TotaRec."7" := FactoryAndLine2TotaRec."7" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 8 then
+                                                FactoryAndLine2TotaRec."8" := FactoryAndLine2TotaRec."8" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 9 then
+                                                FactoryAndLine2TotaRec."9" := FactoryAndLine2TotaRec."9" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 10 then
+                                                FactoryAndLine2TotaRec."10" := FactoryAndLine2TotaRec."10" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 11 then
+                                                FactoryAndLine2TotaRec."11" := FactoryAndLine2TotaRec."11" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 12 then
+                                                FactoryAndLine2TotaRec."12" := FactoryAndLine2TotaRec."12" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 13 then
+                                                FactoryAndLine2TotaRec."13" := FactoryAndLine2TotaRec."13" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 14 then
+                                                FactoryAndLine2TotaRec."14" := FactoryAndLine2TotaRec."14" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 15 then
+                                                FactoryAndLine2TotaRec."15" := FactoryAndLine2TotaRec."15" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 16 then
+                                                FactoryAndLine2TotaRec."16" := FactoryAndLine2TotaRec."16" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 17 then
+                                                FactoryAndLine2TotaRec."17" := FactoryAndLine2TotaRec."17" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 18 then
+                                                FactoryAndLine2TotaRec."18" := FactoryAndLine2TotaRec."18" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 19 then
+                                                FactoryAndLine2TotaRec."19" := FactoryAndLine2TotaRec."19" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 20 then
+                                                FactoryAndLine2TotaRec."20" := FactoryAndLine2TotaRec."20" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 21 then
+                                                FactoryAndLine2TotaRec."21" := FactoryAndLine2TotaRec."21" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 22 then
+                                                FactoryAndLine2TotaRec."22" := FactoryAndLine2TotaRec."22" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 23 then
+                                                FactoryAndLine2TotaRec."23" := FactoryAndLine2TotaRec."23" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 24 then
+                                                FactoryAndLine2TotaRec."24" := FactoryAndLine2TotaRec."24" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 25 then
+                                                FactoryAndLine2TotaRec."25" := FactoryAndLine2TotaRec."25" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 26 then
+                                                FactoryAndLine2TotaRec."26" := FactoryAndLine2TotaRec."26" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 27 then
+                                                FactoryAndLine2TotaRec."27" := FactoryAndLine2TotaRec."27" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 28 then
+                                                FactoryAndLine2TotaRec."28" := FactoryAndLine2TotaRec."28" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 29 then
+                                                FactoryAndLine2TotaRec."29" := FactoryAndLine2TotaRec."29" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 30 then
+                                                FactoryAndLine2TotaRec."30" := FactoryAndLine2TotaRec."30" + StyleWiseMachineLineRec."Machine Qty";
+                                            if D = 31 then
+                                                FactoryAndLine2TotaRec."31" := FactoryAndLine2TotaRec."31" + StyleWiseMachineLineRec."Machine Qty";
+                                            FactoryAndLine2TotaRec.Modify()
+                                        end;
+
                                         FactoryAndLine2Rec.Reset();
                                         FactoryAndLine2Rec.SetRange("Machine type", StyleWiseMachineLineRec."Machine No");
-                                        FactoryAndLineRec.SetRange(Factory, Rec."Factory Name");
+                                        FactoryAndLine2Rec.SetRange(Factory, Rec."Factory Name");
 
                                         if not FactoryAndLine2Rec.FindSet() then begin
 
@@ -409,6 +705,7 @@ page 51368 FactoryAndLineMachineReqCard
                                             FactoryAndLine2Rec."Machine Description" := StyleWiseMachineLineRec."Machine Name";
                                             FactoryAndLine2Rec."Line No" := LineNo;
                                             FactoryAndLine2Rec.Month := MonthText;
+                                            FactoryAndLine2TotaRec."Record Type" := 'R';
                                             FactoryAndLine2Rec.Year := y;
 
                                             if D = 1 then
