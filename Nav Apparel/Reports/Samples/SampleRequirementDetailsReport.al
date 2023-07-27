@@ -81,33 +81,20 @@ report 51285 SampleRequirementDetails
                     {
                         ApplicationArea = All;
                         Caption = 'Merchandiser Group Head';
-                        // TableRelation = "User Setup"."Merchandizer Group Name" where("Merchandizer Head" = filter(true));
+                        //  TableRelation = "User Setup"."Merchandizer Group Name" where("Merchandizer Head" = filter(true));
+                        // TableRelation = MerchandizingGroupTable."Group Head";
+
 
                         //Done By Sachith on 26/07/23
                         trigger OnLookup(Var Text: Text): Boolean
                         var
-                            UserRec: Record "User Setup";
+                            UserRec: Record MerchandizingGroupTable;
                             MerchantName: Text[200];
                         begin
 
                             UserRec.Reset();
-                            UserRec.SetFilter("Merchandizer Head", '=%1', true);
-                            UserRec.SetCurrentKey("Merchandizer Group Name");
-                            UserRec.Ascending(true);
-
-                            if UserRec.FindSet() then begin
-                                repeat
-                                    if MerchantName <> UserRec."Merchandizer Group Name" then begin
-                                        UserRec.Mark(true);
-                                        MerchantName := UserRec."Merchandizer Group Name";
-                                    end;
-
-                                until UserRec.Next() = 0;
-                                UserRec.MarkedOnly(true);
-
-                                if Page.RunModal(51400, UserRec) = Action::LookupOK then begin
-                                    GroupHD := UserRec."Merchandizer Group Name";
-                                end;
+                            if Page.RunModal(50848, UserRec) = Action::LookupOK then begin
+                                GroupHD := UserRec."Group Head";
                             end;
                         end;
                     }
