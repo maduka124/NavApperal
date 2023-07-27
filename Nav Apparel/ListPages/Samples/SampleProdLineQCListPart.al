@@ -191,8 +191,8 @@ page 51195 SampleProdLineQCListPart
                     ApplicationArea = All;
                     Caption = 'Çomplete';
                     // Editable = false;
-                        trigger OnValidate()
-                    var                        
+                    trigger OnValidate()
+                    var
                     begin
                         CurrPage.Update();
                     end;
@@ -200,4 +200,9 @@ page 51195 SampleProdLineQCListPart
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange("Created Date", 20230723D, Today);
+    end;
 }

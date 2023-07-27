@@ -90,21 +90,14 @@ page 51241 "Export Reference Card"
                         SalesInvRec.Reset();
                         SalesInvRec.SetRange("Sell-to Customer No.", Rec."Buyer No");
                         SalesInvRec.SetFilter("Export Ref No.", '=%1', '');
-                        if SalesInvRec.FindSet() then begin
-                            if Page.RunModal(51321, SalesInvRec) = Action::LookupOK then begin
-                                Rec."Invoice No" := SalesInvRec."No.";
-                            end;
-                        end;
-                        // end;
 
-                        // trigger OnValidate()
-                        // var
-                        // ContracStRec: Record "Contract/LCStyle";
-                        // LcMaterRec: Record "Contract/LCMaster";
-                        // SalesInvRec: Record "Sales Invoice Header";
-                        // SalesInvLineRec: Record "Sales Invoice Line";
-                        // ExportRefLineRec: Record ExportReferenceLine;
-                        // begin
+                        if Page.RunModal(51321, SalesInvRec) = Action::LookupOK then begin
+                            Rec."Invoice No" := SalesInvRec."No.";
+
+                            // //Assign "Export Ref No."
+                            SalesInvRec."Export Ref No." := rec."No.";
+                            SalesInvRec.Modify();
+                        end;
 
                         if xRec."Invoice No" <> '' then begin
                             SalesInvRec.Reset();
@@ -149,9 +142,7 @@ page 51241 "Export Reference Card"
 
                             ExportRefLineRec.Insert();
 
-                            // //Assign "Export Ref No."
-                            SalesInvRec."Export Ref No." := rec."No.";
-                            SalesInvRec.Modify();
+
 
                             Rec."Factory Inv No" := SalesInvRec."Your Reference";
                             Rec."Order No" := SalesInvRec."PO No";
@@ -174,8 +165,6 @@ page 51241 "Export Reference Card"
                             CurrPage.Update();
                         end;
                     end;
-
-
                 }
 
                 field("Factory Inv No"; Rec."Factory Inv No")

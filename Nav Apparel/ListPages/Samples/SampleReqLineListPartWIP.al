@@ -197,4 +197,9 @@ page 50431 SampleReqLineListPartWIP
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange("Created Date", 20230723D, Today);
+    end;
 }

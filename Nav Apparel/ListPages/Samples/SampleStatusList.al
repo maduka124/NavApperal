@@ -206,5 +206,7 @@ page 50440 "Sample Status List"
         end
         else
             Error('Cannot find user details in user setup table');
+
+        Rec.SetRange("Created Date", 20230723D, Today);
     end;
 }
