@@ -48,7 +48,7 @@ table 51233 Technician
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.")
+        fieldgroup(DropDown; "No.", Name)
         {
 
         }
@@ -59,22 +59,4 @@ table 51233 Technician
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    var
-
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

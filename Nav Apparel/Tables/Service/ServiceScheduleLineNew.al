@@ -1,5 +1,5 @@
 
-table 51229 ServiceScheduleLine
+table 51375 ServiceScheduleLineNew
 {
     DataClassification = ToBeClassified;
 
@@ -8,7 +8,6 @@ table 51229 ServiceScheduleLine
         field(1; "No."; BigInteger)
         {
             DataClassification = ToBeClassified;
-            AutoIncrement = true;
         }
 
         field(2; "LineNo."; BigInteger)

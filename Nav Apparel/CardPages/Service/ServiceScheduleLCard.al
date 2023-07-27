@@ -3,7 +3,6 @@ page 51228 ServiceScheduleLCard
     PageType = Card;
     Caption = 'Service Schedule List';
     SourceTable = ServiceScheduleHeader;
-    AutoSplitKey = true;
 
     layout
     {
@@ -43,6 +42,10 @@ page 51228 ServiceScheduleLCard
                                 rec."Factory Name" := Locationrec.Name;
                         end;
 
+                        // CurrPage.Update();
+                        if CheckDuplicate() then
+                            Error('Entry duplicates with same Factory/Service Type/Model/Brand/Machine Type');
+
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -70,6 +73,9 @@ page 51228 ServiceScheduleLCard
                     var
                         BrandRec: Record Brand;
                     begin
+                        if CheckDuplicate() then
+                            Error('Entry duplicates with same Factory/Service Type/Model/Brand/Machine Type');
+
                         BrandRec.Reset();
                         BrandRec.SetRange("Brand Name", rec."Brand Name");
                         if BrandRec.FindSet() then
@@ -86,6 +92,9 @@ page 51228 ServiceScheduleLCard
                     var
                         ModelRec: Record Model;
                     begin
+                        if CheckDuplicate() then
+                            Error('Entry duplicates with same Factory/Service Type/Model/Brand/Machine Type');
+
                         ModelRec.Reset();
                         ModelRec.SetRange("Model Name", rec."Model Name");
                         if ModelRec.FindSet() then
@@ -101,7 +110,7 @@ page 51228 ServiceScheduleLCard
                     trigger OnValidate()
                     var
                         ItemRec: Record Item;
-                        ServiceScheLineRec: Record ServiceScheduleLine;
+                        ServiceScheLineRec: Record ServiceScheduleLineNew;
                         ServiceItemRec: Record "Service Item";
                         Seq: Integer;
                     begin
@@ -110,6 +119,9 @@ page 51228 ServiceScheduleLCard
                         // ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
                         // if ServiceScheLineRec.FindSet() then
                         //     ServiceScheLineRec.DeleteAll();
+
+                        if CheckDuplicate() then
+                            Error('Entry duplicates with same Factory/Service Type/Model/Brand/Machine Type');
 
                         Seq := 0;
                         ServiceScheLineRec.Reset();
@@ -126,7 +138,8 @@ page 51228 ServiceScheduleLCard
                             repeat
                                 Seq += 1;
                                 ServiceScheLineRec.Init();
-                                // ServiceScheLineRec."LineNo." := Seq;
+                                ServiceScheLineRec."LineNo." := Seq;
+                                ServiceScheLineRec."No." := rec."No.";
                                 ServiceScheLineRec."Factory No." := rec."Factory No.";
                                 ServiceScheLineRec."Factory Name" := rec."Factory Name";
                                 ServiceScheLineRec."Part No" := ItemRec.Remarks;
@@ -153,7 +166,7 @@ page 51228 ServiceScheduleLCard
                     ApplicationArea = All;
                     Caption = ' ';
                     Editable = true;
-                    SubPageLink = "Factory No." = field("Factory No.");
+                    SubPageLink = "No." = field("No.");
                 }
             }
         }
@@ -284,9 +297,32 @@ page 51228 ServiceScheduleLCard
     // end;
 
 
+    procedure CheckDuplicate(): Boolean
+    var
+        Exists: Boolean;
+        ServiScheduleHeadRec: Record ServiceScheduleHeader;
+    begin
+        Exists := false;
+        if (rec."Brand Name" <> '') and (rec."Model Name" <> '') and (format(rec.ServiceType) <> '')
+        and (rec."Machine Category" <> '') and (rec."Factory Name" <> '') then begin
+            ServiScheduleHeadRec.Reset();
+            ServiScheduleHeadRec.SetRange("Brand Name", rec."Brand Name");
+            ServiScheduleHeadRec.SetRange("model Name", rec."model Name");
+            ServiScheduleHeadRec.SetRange("ServiceType", rec.ServiceType);
+            ServiScheduleHeadRec.SetRange("Machine Category", rec."Machine Category");
+            ServiScheduleHeadRec.SetRange("Factory Name", rec."Factory Name");
+            ServiScheduleHeadRec.SetFilter("No.", '<>%1', rec."No.");
+            if ServiScheduleHeadRec.FindSet() then
+                Exists := true;
+        end;
+
+        exit(Exists);
+    end;
+
+
     trigger OnDeleteRecord(): Boolean
     var
-        ServiceScheLineRec: Record ServiceScheduleLine;
+        ServiceScheLineRec: Record ServiceScheduleLineNew;
     begin
         //Delete old records
         ServiceScheLineRec.Reset();

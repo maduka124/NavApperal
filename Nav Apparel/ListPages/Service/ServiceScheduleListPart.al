@@ -2,7 +2,7 @@ page 51230 ServiceScheduleListPart
 {
     PageType = ListPart;
     Caption = 'Service Schedule List Part';
-    SourceTable = ServiceScheduleLine;
+    SourceTable = ServiceScheduleLineNew;
     InsertAllowed = false;
     DeleteAllowed = false;
 
