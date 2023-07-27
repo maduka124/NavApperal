@@ -2588,13 +2588,13 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ProdPlansDetails."Factory No." := FactoryNo;
                             ProdPlansDetails.Insert();
 
-                            TempDate := TempDate + 1;
-
                             if LCurveFinishDate = TempDate then begin
                                 ApplyLCurve := false;
                                 LcurveHoursPerday := 0;
                                 LCurveStartTimePerDay := 0T;
                             end;
+
+                            TempDate := TempDate + 1;
 
                         until (TempQty >= JobPlaLineRec.Qty);
 
