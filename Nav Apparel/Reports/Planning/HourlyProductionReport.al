@@ -62,8 +62,6 @@ report 50865 HourlyProductionReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-            // column(PlanDate; PlanDate)
-            // { }
             column(TodayOutput; TodayOutput)
             { }
             column(variance; variance)
@@ -154,7 +152,6 @@ report 50865 HourlyProductionReport
             { }
             column(TimeVariable; TimeVariable)
             { }
-
             column(Hour_1F; Hour1F)
             { }
             column(Hour_2F; Hour2F)
@@ -229,7 +226,26 @@ report 50865 HourlyProductionReport
             { }
             column(Learning_Curve_No_; "Learning Curve No.")
             { }
-
+            column(FactoryH1; FactoryH1)
+            { }
+            column(FactoryH2; FactoryH2)
+            { }
+            column(FactoryH3; FactoryH3)
+            { }
+            column(FactoryH4; FactoryH4)
+            { }
+            column(FactoryH5; FactoryH5)
+            { }
+            column(FactoryH6; FactoryH6)
+            { }
+            column(FactoryH7; FactoryH7)
+            { }
+            column(FactoryH8; FactoryH8)
+            { }
+            column(FactoryH9; FactoryH9)
+            { }
+            column(FactoryH10; FactoryH10)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -308,21 +324,12 @@ report 50865 HourlyProductionReport
                 { }
                 column(FactoryCodeTotal; FactoryCodeTotal)
                 { }
-                // trigger OnAfterGetRecord()
-                // var
-                //     myInt: Integer;
-                // begin
-                //     if "Work Center No." = 'TEAM-06' then begin
-                //         Message('team 6');
-                //     end;
-                // end;
 
             }
 
             trigger OnAfterGetRecord()
             var
-                hourvarible: Time;
-                i: Integer;
+                
             begin
 
                 StyleRec.Reset();
@@ -330,14 +337,13 @@ report 50865 HourlyProductionReport
                 if StyleRec.FindFirst() then begin
                     StyleName := StyleRec."Style No.";
                 end;
-
+                //Factory Achieve
                 HoFinLineRec.Reset();
                 HoFinLineRec.SetRange("Prod Date", PlanDate);
                 HoFinLineRec.SetRange("Factory No.", "Factory No.");
                 HoFinLineRec.SetRange("Work Center No.", "Resource No.");
                 HoFinLineRec.SetRange("Style No.", "Style No.");
                 HoFinLineRec.SetRange(Type, HoFinLineRec.Type::Finishing);
-                // HoFinLineRec.SetRange("Factory No.", "Factory No.");
                 HoFinLineRec.SetFilter(Item, '=%1', 'PASS PCS');
                 if HoFinLineRec.FindSet() then begin
                     Hour1F := HoFinLineRec."Hour 01";
@@ -371,9 +377,44 @@ report 50865 HourlyProductionReport
                     StyleLC6 := HoProLiRec."Style No.";
                     LineLC6 := HoProLiRec."Work Center No.";
                 end;
-
+                //Factory Target Saw
                 HoProLiRec.Reset();
-                // HoProLiRec.SetRange("No.", "No.");
+                HoProLiRec.SetRange("Prod Date", PlanDate);
+                HoProLiRec.SetRange("Factory No.", "Factory No.");
+                HoProLiRec.SetRange("Style No.", "Style No.");
+                HoProLiRec.SetRange("Work Center No.", "Resource No.");
+                HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
+                HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                if HoProLiRec.FindSet() then begin
+                    TOt1Hour := HoProLiRec."Target_Hour 01";
+                    TOt2Hour := HoProLiRec."Target_Hour 02";
+                    TOt3Hour := HoProLiRec."Target_Hour 03";
+                    TOt4Hour := HoProLiRec."Target_Hour 04";
+                    TOt5Hour := HoProLiRec."Target_Hour 05";
+                    TOt6Hour := HoProLiRec."Target_Hour 06";
+                    TOt7Hour := HoProLiRec."Target_Hour 07";
+                    TOt8Hour := HoProLiRec."Target_Hour 08";
+                    TOt9Hour := HoProLiRec."Target_Hour 09";
+                    TOt10Hour := HoProLiRec."Target_Hour 10";
+
+                    if (HoProLiRec."Style No." = StyleLC7) and (HoProLiRec."Work Center No." = LineLC7) then begin
+                        TOt1Hour := 0;
+                        TOt2Hour := 0;
+                        TOt3Hour := 0;
+                        TOt4Hour := 0;
+                        TOt5Hour := 0;
+                        TOt6Hour := 0;
+                        TOt7Hour := 0;
+                        TOt8Hour := 0;
+                        TOt9Hour := 0;
+                        TOt10Hour := 0;
+
+                    end;
+                    StyleLC7 := HoProLiRec."Style No.";
+                    LineLC7 := HoProLiRec."Work Center No.";
+                end;
+                //Factory Achive Finishing
+                HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
                 HoProLiRec.SetRange("Style No.", "Style No.");
@@ -430,65 +471,8 @@ report 50865 HourlyProductionReport
                 end;
 
 
-                HoProLiRec.Reset();
-                // HoProLiRec.SetRange("No.", "No.");
-                // HoProLiRec.SetRange("Factory No.", "Factory No.");
-                HoProLiRec.SetRange("Prod Date", PlanDate);
-                // HoProLiRec.SetRange("Work Center No.", "Resource No.");
-                // HoProLiRec.SetRange("Style No.", "Style No.");
-                HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
-                HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
-                if HoProLiRec.FindSet() then begin
 
-                    HoProLiRec.CalcSums("Hour 01");
-                    FactoryHour1TotFin := HoProLiRec."Hour 01";
-
-                    HoProLiRec.CalcSums("Hour 02");
-                    FactoryHour2TotFin := HoProLiRec."Hour 02";
-
-                    HoProLiRec.CalcSums("Hour 03");
-                    FactoryHour3TotFin := HoProLiRec."Hour 03";
-
-                    HoProLiRec.CalcSums("Hour 04");
-                    FactoryHour4TotFin := HoProLiRec."Hour 04";
-
-                    HoProLiRec.CalcSums("Hour 05");
-                    FactoryHour5TotFin := HoProLiRec."Hour 05";
-
-                    HoProLiRec.CalcSums("Hour 06");
-                    FactoryHour6TotFin := HoProLiRec."Hour 06";
-
-                    HoProLiRec.CalcSums("Hour 07");
-                    FactoryHour7TotFin := HoProLiRec."Hour 07";
-
-                    HoProLiRec.CalcSums("Hour 08");
-                    FactoryHour8TotFin := HoProLiRec."Hour 08";
-
-                    HoProLiRec.CalcSums("Hour 09");
-                    FactoryHour9TotFin := HoProLiRec."Hour 09";
-
-                    HoProLiRec.CalcSums("Hour 10");
-                    FactoryHour10TotFin := HoProLiRec."Hour 10";
-
-                    if (HoProLiRec."Style No." = StyleLC4) and (HoProLiRec."Work Center No." = LineLC4) then begin
-                        FactoryHour1TotFin := 0;
-                        FactoryHour2TotFin := 0;
-                        FactoryHour3TotFin := 0;
-                        FactoryHour4TotFin := 0;
-                        FactoryHour5TotFin := 0;
-                        FactoryHour6TotFin := 0;
-                        FactoryHour7TotFin := 0;
-                        FactoryHour8TotFin := 0;
-                        FactoryHour9TotFin := 0;
-                        FactoryHour10TotFin := 0;
-
-                    end;
-                    FactoryTotalAchiveHoursFin := FactoryHour1TotFin + FactoryHour2TotFin + FactoryHour3TotFin + FactoryHour4TotFin + FactoryHour5TotFin + FactoryHour6TotFin + FactoryHour7TotFin + FactoryHour8TotFin + FactoryHour9TotFin + FactoryHour10TotFin;
-                    StyleLC4 := HoProLiRec."Style No.";
-                    LineLC4 := HoProLiRec."Work Center No.";
-                end;
-
-
+                //Factory Achive Saw
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
@@ -550,15 +534,12 @@ report 50865 HourlyProductionReport
                     LineLC2 := HoProLiRec."Work Center No.";
                 end;
 
+                //Group Achieve Saw
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
-                // HoProLiRec.SetRange("Factory No.", "Factory No.");
-                // HoProLiRec.SetRange("Work Center No.", "Resource No.");
-                // HoProLiRec.SetRange("Style No.", "Style No.");
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
                 HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
                 if HoProLiRec.FindSet() then begin
-
 
                     HoProLiRec.CalcSums("Hour 01");
                     FactoryHour1Tot := HoProLiRec."Hour 01";
@@ -607,6 +588,115 @@ report 50865 HourlyProductionReport
                     StyleLC3 := HoProLiRec."Style No.";
                     LineLC3 := HoProLiRec."Work Center No.";
                 end;
+
+                //Group Target
+                HoProLiRec.Reset();
+                HoProLiRec.SetRange("Prod Date", PlanDate);
+                HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
+                HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                if HoProLiRec.FindSet() then begin
+                    HoProLiRec.CalcSums("Target_Hour 01");
+                    FactoryH1 := HoProLiRec."Target_Hour 01";
+
+                    HoProLiRec.CalcSums("Target_Hour 02");
+                    FactoryH2 := HoProLiRec."Target_Hour 02";
+
+                    HoProLiRec.CalcSums("Target_Hour 03");
+                    FactoryH3 := HoProLiRec."Target_Hour 03";
+
+                    HoProLiRec.CalcSums("Target_Hour 04");
+                    FactoryH4 := HoProLiRec."Target_Hour 04";
+
+                    HoProLiRec.CalcSums("Target_Hour 05");
+                    FactoryH5 := HoProLiRec."Target_Hour 05";
+
+                    HoProLiRec.CalcSums("Target_Hour 06");
+                    FactoryH6 := HoProLiRec."Target_Hour 06";
+
+                    HoProLiRec.CalcSums("Target_Hour 07");
+                    FactoryH7 := HoProLiRec."Target_Hour 07";
+
+                    HoProLiRec.CalcSums("Target_Hour 08");
+                    FactoryH8 := HoProLiRec."Target_Hour 08";
+
+                    HoProLiRec.CalcSums("Target_Hour 09");
+                    FactoryH9 := HoProLiRec."Target_Hour 09";
+
+                    HoProLiRec.CalcSums("Target_Hour 10");
+                    FactoryH10 := HoProLiRec."Target_Hour 10";
+
+                    if (HoProLiRec."Style No." = StyleLC9) and (HoProLiRec."Work Center No." = LineLC9) then begin
+                        FactoryH1 := 0;
+                        FactoryH2 := 0;
+                        FactoryH3 := 0;
+                        FactoryH4 := 0;
+                        FactoryH5 := 0;
+                        FactoryH6 := 0;
+                        FactoryH7 := 0;
+                        FactoryH8 := 0;
+                        FactoryH9 := 0;
+                        FactoryH10 := 0;
+                    end;
+
+                    TotalFactoryTargetHours := FactoryH1 + FactoryH2 + FactoryH3 + FactoryH4 + FactoryH5 + FactoryH6 + FactoryH7 + FactoryH8 + FactoryH9 + FactoryH10;
+                    StyleLC9 := HoProLiRec."Style No.";
+                    LineLC9 := HoProLiRec."Work Center No.";
+                end;
+                //Group Achieve Finishing
+                HoProLiRec.Reset();
+                HoProLiRec.SetRange("Prod Date", PlanDate);
+                HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
+                HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                if HoProLiRec.FindSet() then begin
+
+                    HoProLiRec.CalcSums("Hour 01");
+                    FactoryHour1TotFin := HoProLiRec."Hour 01";
+
+                    HoProLiRec.CalcSums("Hour 02");
+                    FactoryHour2TotFin := HoProLiRec."Hour 02";
+
+                    HoProLiRec.CalcSums("Hour 03");
+                    FactoryHour3TotFin := HoProLiRec."Hour 03";
+
+                    HoProLiRec.CalcSums("Hour 04");
+                    FactoryHour4TotFin := HoProLiRec."Hour 04";
+
+                    HoProLiRec.CalcSums("Hour 05");
+                    FactoryHour5TotFin := HoProLiRec."Hour 05";
+
+                    HoProLiRec.CalcSums("Hour 06");
+                    FactoryHour6TotFin := HoProLiRec."Hour 06";
+
+                    HoProLiRec.CalcSums("Hour 07");
+                    FactoryHour7TotFin := HoProLiRec."Hour 07";
+
+                    HoProLiRec.CalcSums("Hour 08");
+                    FactoryHour8TotFin := HoProLiRec."Hour 08";
+
+                    HoProLiRec.CalcSums("Hour 09");
+                    FactoryHour9TotFin := HoProLiRec."Hour 09";
+
+                    HoProLiRec.CalcSums("Hour 10");
+                    FactoryHour10TotFin := HoProLiRec."Hour 10";
+
+                    if (HoProLiRec."Style No." = StyleLC4) and (HoProLiRec."Work Center No." = LineLC4) then begin
+                        FactoryHour1TotFin := 0;
+                        FactoryHour2TotFin := 0;
+                        FactoryHour3TotFin := 0;
+                        FactoryHour4TotFin := 0;
+                        FactoryHour5TotFin := 0;
+                        FactoryHour6TotFin := 0;
+                        FactoryHour7TotFin := 0;
+                        FactoryHour8TotFin := 0;
+                        FactoryHour9TotFin := 0;
+                        FactoryHour10TotFin := 0;
+
+                    end;
+                    FactoryTotalAchiveHoursFin := FactoryHour1TotFin + FactoryHour2TotFin + FactoryHour3TotFin + FactoryHour4TotFin + FactoryHour5TotFin + FactoryHour6TotFin + FactoryHour7TotFin + FactoryHour8TotFin + FactoryHour9TotFin + FactoryHour10TotFin;
+                    StyleLC4 := HoProLiRec."Style No.";
+                    LineLC4 := HoProLiRec."Work Center No.";
+                end;
+
 
                 ProdoutDate := 0D;
                 ProductionHeaderRec.Reset();
@@ -662,15 +752,8 @@ report 50865 HourlyProductionReport
                 NavAppProdRec.SetRange("Factory No.", "Factory No.");
                 NavAppProdRec.SetRange("Resource No.", "Resource No.");
                 if NavAppProdRec.FindSet() then begin
-                    // if NavAppProdRec."Resource No." = 'VDL-07' then begin
-                    //     Message('VDL 7');
-                    // end;
-
                     repeat
-
                         DayTarget += NavAppProdRec.Qty;
-
-                    // TotNavaHours += NavAppProdRec.HoursPerDay;
                     until NavAppProdRec.Next() = 0;
                     Target1 := DayTarget;
                     if ("Style No." = StyleLC) and ("Resource No." = LineLC) then begin
@@ -679,7 +762,7 @@ report 50865 HourlyProductionReport
                     StyleLC := "Style No.";
                     LineLC := "Resource No.";
                 end;
-                Hours := TotNavaHours;
+
                 //Working Hours
                 if Hours > 0 then
                     HourlyTarget += DayTarget / Hours
@@ -687,2600 +770,10 @@ report 50865 HourlyProductionReport
                     HourlyTarget := 0;
 
                 TOtalTarget := HourlyTarget;
-
-
-
                 //Hourly Target
 
                 HourlyTarger2 := (60 / SMV) * (Eff / 100.00) * MC;
 
-                TOt1Hour := 0;
-                TOt2Hour := 0;
-                TOt3Hour := 0;
-                TOt4Hour := 0;
-                TOt5Hour := 0;
-                TOt6Hour := 0;
-                TOt7Hour := 0;
-                TOt8Hour := 0;
-                TOt9Hour := 0;
-                TOt10Hour := 0;
-                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                    TOt1Hour := 0;
-                    TOt2Hour := 0;
-                    TOt3Hour := 0;
-                    TOt4Hour := 0;
-                    TOt5Hour := 0;
-                    TOt6Hour := 0;
-                    TOt7Hour := 0;
-                    TOt8Hour := 0;
-                    TOt9Hour := 0;
-                    TOt10Hour := 0;
-                end;
-
-                TotNavaHours := 0;
-                NavAppProdRec.Reset();
-                NavAppProdRec.SetRange("Resource No.", "Resource No.");
-                NavAppProdRec.SetRange("Factory No.", "Factory No.");
-                NavAppProdRec.SetRange("Style No.", "Style No.");
-                NavAppProdRec.SetRange(PlanDate, PlanDate);
-                if NavAppProdRec.FindSet() then begin
-                    repeat
-
-                        TotNavaHours += NavAppProdRec.HoursPerDay;
-                    until NavAppProdRec.Next() = 0;
-                    if (NavAppProdRec."Style No." = StyleLC1) and (NavAppProdRec."Resource No." = LineLC1) then begin
-                        TotNavaHours := 0;
-                    end;
-                    StyleLC1 := "Style No.";
-                    LineLC1 := "Resource No.";
-
-
-                    TimeVariable := 0T;
-                    if NavAppProdRec."LCurve Start Time" <> 0T then
-                        TimeVariable := NavAppProdRec."LCurve Start Time" + (60 * 60 * 1000 * NavAppProdRec."LCurve Hours Per Day");
-
-                    // if "Resource No." = 'VDL-06' then begin
-                    //     Message('VDL7');
-                    // end;
-                    if NavAppProdRec."LCurve Start Time" = 080000T then begin
-                        if "Learning Curve No." > 1 then begin
-                            if TimeVariable = 090000T then begin
-                                TOt1Hour := 0;
-
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 2;
-                                    if CheckValue < 1 then begin
-                                        TOt3Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt2Hour := DayTarget;
-                                    end else
-                                        TOt2Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 3;
-                                    if CheckValue < 1 then begin
-                                        TOt4Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt3Hour := DayTarget;
-                                    end else
-                                        TOt3Hour := (DayTarget / TotNavaHours);
-
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 4;
-                                    if CheckValue < 1 then begin
-                                        TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt4Hour := DayTarget;
-                                    end else
-                                        TOt4Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 5;
-                                    if CheckValue < 1 then begin
-                                        TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt5Hour := DayTarget;
-                                    end else
-                                        TOt5Hour := (DayTarget / TotNavaHours);
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 6;
-                                    if CheckValue < 1 then begin
-                                        TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt6Hour := DayTarget;
-                                    end else
-                                        TOt6Hour := (DayTarget / TotNavaHours);
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 7;
-                                    if CheckValue < 1 then begin
-                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt7Hour := DayTarget;
-                                    end else
-                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 8;
-                                    if CheckValue < 1 then begin
-                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt8Hour := DayTarget;
-                                    end else
-                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-
-                            if TimeVariable = 100000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 3;
-                                    if CheckValue < 1 then begin
-                                        TOt4Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt3Hour := DayTarget;
-                                    end else
-                                        TOt3Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 4;
-                                    if CheckValue < 1 then begin
-                                        TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt4Hour := DayTarget;
-                                    end else
-                                        TOt4Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 5;
-                                    if CheckValue < 1 then begin
-                                        TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt5Hour := DayTarget;
-                                    end else
-                                        TOt5Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 6;
-                                    if CheckValue < 1 then begin
-                                        TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt6Hour := DayTarget;
-                                    end else
-                                        TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 7;
-                                    if CheckValue < 1 then begin
-                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt7Hour := DayTarget;
-                                    end else
-                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 8;
-                                    if CheckValue < 1 then begin
-                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt8Hour := DayTarget;
-                                    end else
-                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                            if TimeVariable = 110000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-                                TOt3Hour := 0;
-
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 4;
-                                    if CheckValue < 1 then begin
-                                        TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt4Hour := DayTarget;
-                                    end else
-                                        TOt4Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 5;
-                                    if CheckValue < 1 then begin
-                                        TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt5Hour := DayTarget;
-                                    end else
-                                        TOt5Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 6;
-                                    if CheckValue < 1 then begin
-                                        TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt6Hour := DayTarget;
-                                    end else
-                                        TOt6Hour := (DayTarget / TotNavaHours);
-
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 7;
-                                    if CheckValue < 1 then begin
-                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt7Hour := DayTarget;
-                                    end else
-                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 8;
-                                    if CheckValue < 1 then begin
-                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt8Hour := DayTarget;
-                                    end else
-                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                            if TimeVariable = 120000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-                                TOt3Hour := 0;
-                                TOt4Hour := 0;
-
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 5;
-                                    if CheckValue < 1 then begin
-                                        TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt5Hour := DayTarget;
-                                    end else
-                                        TOt5Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 6;
-                                    if CheckValue < 1 then begin
-                                        TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt6Hour := DayTarget;
-                                    end else
-                                        TOt6Hour := (DayTarget / TotNavaHours);
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 7;
-                                    if CheckValue < 1 then begin
-                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt7Hour := DayTarget;
-                                    end else
-                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 8;
-                                    if CheckValue < 1 then begin
-                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt8Hour := DayTarget;
-                                    end else
-                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                            if TimeVariable = 130000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-                                TOt3Hour := 0;
-                                TOt4Hour := 0;
-                                TOt5Hour := 0;
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 6;
-                                    if CheckValue < 1 then begin
-                                        TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt6Hour := DayTarget;
-                                    end else
-                                        TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 7;
-                                    if CheckValue < 1 then begin
-                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt7Hour := DayTarget;
-                                    end else
-                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 8;
-                                    if CheckValue < 1 then begin
-                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt8Hour := DayTarget;
-                                    end else
-                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                            if TimeVariable = 140000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-                                TOt3Hour := 0;
-                                TOt4Hour := 0;
-                                TOt5Hour := 0;
-                                TOt6Hour := 0;
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 7;
-                                    if CheckValue < 1 then begin
-                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt7Hour := DayTarget;
-                                    end else
-                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 8;
-                                    if CheckValue < 1 then begin
-                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt8Hour := DayTarget;
-                                    end else
-                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                            if TimeVariable = 150000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-                                TOt3Hour := 0;
-                                TOt4Hour := 0;
-                                TOt5Hour := 0;
-                                TOt6Hour := 0;
-                                TOt7Hour := 0;
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                    CheckValue := 0;
-                                    CheckValue := TotNavaHours - 8;
-                                    if CheckValue < 1 then begin
-                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                    end;
-                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                        TOt8Hour := DayTarget;
-                                    end else
-                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                            if TimeVariable = 160000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-                                TOt3Hour := 0;
-                                TOt4Hour := 0;
-                                TOt5Hour := 0;
-                                TOt6Hour := 0;
-                                TOt7Hour := 0;
-                                TOt8Hour := 0;
-
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                    if TotNavaHours >= 9 then begin
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
-                                        if CheckValue < 1 then begin
-                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt9Hour := DayTarget;
-                                        end else
-                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt9Hour := 0;
-                                    end;
-
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                            if TimeVariable = 170000T then begin
-                                TOt1Hour := 0;
-                                TOt2Hour := 0;
-                                TOt3Hour := 0;
-                                TOt4Hour := 0;
-                                TOt5Hour := 0;
-                                TOt6Hour := 0;
-                                TOt7Hour := 0;
-                                TOt8Hour := 0;
-                                TOt9Hour := 0;
-
-                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                    if TotNavaHours >= 10 then begin
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt10Hour := DayTarget;
-                                        end else
-                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                    end
-                                    else begin
-                                        TOt10Hour := 0;
-                                    end;
-                                end;
-                            end;
-                        end;
-                    end
-                    else begin
-                        //coorect
-                        if NavAppProdRec."LCurve Start Time" = 090000T then begin
-                            if "Learning Curve No." > 1 then begin
-                                if TimeVariable = 100000T then begin
-                                    TOt2Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 3;
-                                        if CheckValue < 1 then begin
-                                            TOt4Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt3Hour := DayTarget;
-                                        end else
-                                            TOt3Hour := (DayTarget / TotNavaHours);
-
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 4;
-                                        if CheckValue < 1 then begin
-                                            TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt4Hour := DayTarget;
-                                        end else
-                                            TOt4Hour := (DayTarget / TotNavaHours);
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 5;
-                                        if CheckValue < 1 then begin
-                                            TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt5Hour := DayTarget;
-                                        end else
-                                            TOt5Hour := (DayTarget / TotNavaHours);
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 6;
-                                        if CheckValue < 1 then begin
-                                            TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt6Hour := DayTarget;
-                                        end else
-                                            TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 7;
-                                        if CheckValue < 1 then begin
-                                            TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt7Hour := DayTarget;
-                                        end else
-                                            TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 8;
-                                        if CheckValue < 1 then begin
-                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt8Hour := DayTarget;
-                                        end else
-                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                        if TotNavaHours >= 9 then begin
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
-                                            if CheckValue < 1 then begin
-                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt9Hour := DayTarget;
-                                            end else
-                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt9Hour := 0;
-                                        end;
-
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-                                end;
-                                if TimeVariable = 110000T then begin
-                                    TOt2Hour := 0;
-                                    TOt3Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 4;
-                                        if CheckValue < 1 then begin
-                                            TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt4Hour := DayTarget;
-                                        end else
-                                            TOt4Hour := (DayTarget / TotNavaHours);
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 5;
-                                        if CheckValue < 1 then begin
-                                            TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt5Hour := DayTarget;
-                                        end else
-                                            TOt5Hour := (DayTarget / TotNavaHours);
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 6;
-                                        if CheckValue < 1 then begin
-                                            TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt6Hour := DayTarget;
-                                        end else
-                                            TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 7;
-                                        if CheckValue < 1 then begin
-                                            TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt7Hour := DayTarget;
-                                        end else
-                                            TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 8;
-                                        if CheckValue < 1 then begin
-                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt8Hour := DayTarget;
-                                        end else
-                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                        if TotNavaHours >= 9 then begin
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
-                                            if CheckValue < 1 then begin
-                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt9Hour := DayTarget;
-                                            end else
-                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt9Hour := 0;
-                                        end;
-
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-                                end;
-                                if TimeVariable = 120000T then begin
-                                    TOt2Hour := 0;
-                                    TOt3Hour := 0;
-                                    TOt4Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 5;
-                                        if CheckValue < 1 then begin
-                                            TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt5Hour := DayTarget;
-                                        end else
-                                            TOt5Hour := (DayTarget / TotNavaHours);
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 6;
-                                        if CheckValue < 1 then begin
-                                            TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt6Hour := DayTarget;
-                                        end else
-                                            TOt6Hour := (DayTarget / TotNavaHours);
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 7;
-                                        if CheckValue < 1 then begin
-                                            TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt7Hour := DayTarget;
-                                        end else
-                                            TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 8;
-                                        if CheckValue < 1 then begin
-                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt8Hour := DayTarget;
-                                        end else
-                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                        if TotNavaHours >= 9 then begin
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
-                                            if CheckValue < 1 then begin
-                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt9Hour := DayTarget;
-                                            end else
-                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt9Hour := 0;
-                                        end;
-
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-                                end;
-                                if TimeVariable = 130000T then begin
-                                    TOt2Hour := 0;
-                                    TOt3Hour := 0;
-                                    TOt4Hour := 0;
-                                    TOt5Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 6;
-                                        if CheckValue < 1 then begin
-                                            TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt6Hour := DayTarget;
-                                        end else
-                                            TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 7;
-                                        if CheckValue < 1 then begin
-                                            TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt7Hour := DayTarget;
-                                        end else
-                                            TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 8;
-                                        if CheckValue < 1 then begin
-                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt8Hour := DayTarget;
-                                        end else
-                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                        if TotNavaHours >= 9 then begin
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
-                                            if CheckValue < 1 then begin
-                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt9Hour := DayTarget;
-                                            end else
-                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt9Hour := 0;
-                                        end;
-
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-                                end;
-                                if TimeVariable = 140000T then begin
-                                    TOt2Hour := 0;
-                                    TOt3Hour := 0;
-                                    TOt4Hour := 0;
-                                    TOt5Hour := 0;
-                                    TOt6Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 7;
-                                        if CheckValue < 1 then begin
-                                            TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt7Hour := DayTarget;
-                                        end else
-                                            TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 8;
-                                        if CheckValue < 1 then begin
-                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt8Hour := DayTarget;
-                                        end else
-                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                        if TotNavaHours >= 9 then begin
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
-                                            if CheckValue < 1 then begin
-                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt9Hour := DayTarget;
-                                            end else
-                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt9Hour := 0;
-                                        end;
-
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-                                end;
-                                if TimeVariable = 150000T then begin
-                                    TOt2Hour := 0;
-                                    TOt3Hour := 0;
-                                    TOt4Hour := 0;
-                                    TOt5Hour := 0;
-                                    TOt6Hour := 0;
-                                    TOt7Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                        CheckValue := 0;
-                                        CheckValue := TotNavaHours - 8;
-                                        if CheckValue < 1 then begin
-                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                        end;
-                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                            TOt8Hour := DayTarget;
-                                        end else
-                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                        if TotNavaHours >= 9 then begin
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
-                                            if CheckValue < 1 then begin
-                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt9Hour := DayTarget;
-                                            end else
-                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt9Hour := 0;
-                                        end;
-
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-
-                                end;
-                                if TimeVariable = 160000T then begin
-                                    TOt2Hour := 0;
-                                    TOt3Hour := 0;
-                                    TOt4Hour := 0;
-                                    TOt5Hour := 0;
-                                    TOt6Hour := 0;
-                                    TOt7Hour := 0;
-                                    TOt8Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                        if TotNavaHours >= 9 then begin
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
-                                            if CheckValue < 1 then begin
-                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt9Hour := DayTarget;
-                                            end else
-                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt9Hour := 0;
-                                        end;
-
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-                                end;
-                                if TimeVariable = 170000T then begin
-                                    TOt2Hour := 0;
-                                    TOt3Hour := 0;
-                                    TOt4Hour := 0;
-                                    TOt5Hour := 0;
-                                    TOt6Hour := 0;
-                                    TOt7Hour := 0;
-                                    TOt8Hour := 0;
-                                    TOt9Hour := 0;
-                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                        if TotNavaHours >= 10 then begin
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt10Hour := DayTarget;
-                                            end else
-                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                        end
-                                        else begin
-                                            TOt10Hour := 0;
-                                        end;
-                                    end;
-                                end;
-                            end;
-                        end
-                        else begin
-
-                            //Correct
-
-                            if NavAppProdRec."LCurve Start Time" = 100000T then begin
-                                if "Learning Curve No." > 1 then begin
-                                    if TimeVariable = 110000T then begin
-                                        TOt3Hour := 0;
-                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 4;
-                                            if CheckValue < 1 then begin
-                                                TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt4Hour := DayTarget;
-                                            end else
-                                                TOt4Hour := (DayTarget / TotNavaHours);
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 5;
-                                            if CheckValue < 1 then begin
-                                                TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt5Hour := DayTarget;
-                                            end else
-                                                TOt5Hour := (DayTarget / TotNavaHours);
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 6;
-                                            if CheckValue < 1 then begin
-                                                TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt6Hour := DayTarget;
-                                            end else
-                                                TOt6Hour := (DayTarget / TotNavaHours);
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 7;
-                                            if CheckValue < 1 then begin
-                                                TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt7Hour := DayTarget;
-                                            end else
-                                                TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 8;
-                                            if CheckValue < 1 then begin
-                                                TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt8Hour := DayTarget;
-                                            end else
-                                                TOt8Hour := (DayTarget / TotNavaHours);
-
-                                            if TotNavaHours >= 9 then begin
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
-                                                if CheckValue < 1 then begin
-                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt9Hour := DayTarget;
-                                                end else
-                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt9Hour := 0;
-                                            end;
-
-                                            if TotNavaHours >= 10 then begin
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt10Hour := DayTarget;
-                                                end else
-                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt10Hour := 0;
-                                            end;
-                                        end;
-                                    end;
-                                    if TimeVariable = 120000T then begin
-                                        TOt3Hour := 0;
-                                        TOt4Hour := 0;
-                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 5;
-                                            if CheckValue < 1 then begin
-                                                TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt5Hour := DayTarget;
-                                            end else
-                                                TOt5Hour := (DayTarget / TotNavaHours);
-
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 6;
-                                            if CheckValue < 1 then begin
-                                                TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt6Hour := DayTarget;
-                                            end else
-                                                TOt6Hour := (DayTarget / TotNavaHours);
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 7;
-                                            if CheckValue < 1 then begin
-                                                TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt7Hour := DayTarget;
-                                            end else
-                                                TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 8;
-                                            if CheckValue < 1 then begin
-                                                TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt8Hour := DayTarget;
-                                            end else
-                                                TOt8Hour := (DayTarget / TotNavaHours);
-
-                                            if TotNavaHours >= 9 then begin
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
-                                                if CheckValue < 1 then begin
-                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt9Hour := DayTarget;
-                                                end else
-                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt9Hour := 0;
-                                            end;
-
-                                            if TotNavaHours >= 10 then begin
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt10Hour := DayTarget;
-                                                end else
-                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt10Hour := 0;
-                                            end;
-                                        end;
-                                    end;
-                                    if TimeVariable = 130000T then begin
-                                        TOt3Hour := 0;
-                                        TOt4Hour := 0;
-                                        TOt5Hour := 0;
-                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 6;
-                                            if CheckValue < 1 then begin
-                                                TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt6Hour := DayTarget;
-                                            end else
-                                                TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 7;
-                                            if CheckValue < 1 then begin
-                                                TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt7Hour := DayTarget;
-                                            end else
-                                                TOt7Hour := (DayTarget / TotNavaHours);
-
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 8;
-                                            if CheckValue < 1 then begin
-                                                TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt8Hour := DayTarget;
-                                            end else
-                                                TOt8Hour := (DayTarget / TotNavaHours);
-
-                                            if TotNavaHours >= 9 then begin
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
-                                                if CheckValue < 1 then begin
-                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt9Hour := DayTarget;
-                                                end else
-                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt9Hour := 0;
-                                            end;
-
-                                            if TotNavaHours >= 10 then begin
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt10Hour := DayTarget;
-                                                end else
-                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt10Hour := 0;
-                                            end;
-                                        end;
-                                    end;
-                                    if TimeVariable = 140000T then begin
-                                        TOt3Hour := 0;
-                                        TOt4Hour := 0;
-                                        TOt5Hour := 0;
-                                        TOt6Hour := 0;
-                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 7;
-                                            if CheckValue < 1 then begin
-                                                TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt7Hour := DayTarget;
-                                            end else
-                                                TOt7Hour := (DayTarget / TotNavaHours);
-
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 8;
-                                            if CheckValue < 1 then begin
-                                                TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt8Hour := DayTarget;
-                                            end else
-                                                TOt8Hour := (DayTarget / TotNavaHours);
-
-                                            if TotNavaHours >= 9 then begin
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
-                                                if CheckValue < 1 then begin
-                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt9Hour := DayTarget;
-                                                end else
-                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt9Hour := 0;
-                                            end;
-
-                                            if TotNavaHours >= 10 then begin
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt10Hour := DayTarget;
-                                                end else
-                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt10Hour := 0;
-                                            end;
-                                        end;
-                                    end;
-                                    if TimeVariable = 150000T then begin
-                                        TOt3Hour := 0;
-                                        TOt4Hour := 0;
-                                        TOt5Hour := 0;
-                                        TOt6Hour := 0;
-                                        TOt7Hour := 0;
-                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                            CheckValue := 0;
-                                            CheckValue := TotNavaHours - 8;
-                                            if CheckValue < 1 then begin
-                                                TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                            end;
-                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                TOt8Hour := DayTarget;
-                                            end else
-                                                TOt8Hour := (DayTarget / TotNavaHours);
-
-                                            if TotNavaHours >= 9 then begin
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
-                                                if CheckValue < 1 then begin
-                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt9Hour := DayTarget;
-                                                end else
-                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt9Hour := 0;
-                                            end;
-
-                                            if TotNavaHours >= 10 then begin
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt10Hour := DayTarget;
-                                                end else
-                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt10Hour := 0;
-                                            end;
-                                        end;
-                                    end;
-                                    if TimeVariable = 160000T then begin
-                                        TOt3Hour := 0;
-                                        TOt4Hour := 0;
-                                        TOt5Hour := 0;
-                                        TOt6Hour := 0;
-                                        TOt7Hour := 0;
-                                        TOt8Hour := 0;
-                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                            if TotNavaHours >= 9 then begin
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
-                                                if CheckValue < 1 then begin
-                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt9Hour := DayTarget;
-                                                end else
-                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt9Hour := 0;
-                                            end;
-
-                                            if TotNavaHours >= 10 then begin
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt10Hour := DayTarget;
-                                                end else
-                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt10Hour := 0;
-                                            end;
-                                        end;
-                                    end;
-                                    if TimeVariable = 170000T then begin
-                                        TOt3Hour := 0;
-                                        TOt4Hour := 0;
-                                        TOt5Hour := 0;
-                                        TOt6Hour := 0;
-                                        TOt7Hour := 0;
-                                        TOt8Hour := 0;
-                                        TOt9Hour := 0;
-                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                            if TotNavaHours >= 10 then begin
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt10Hour := DayTarget;
-                                                end else
-                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                            end
-                                            else begin
-                                                TOt10Hour := 0;
-                                            end;
-                                        end;
-                                    end;
-                                end;
-                            end
-                            else begin
-
-                                //Correct
-                                if NavAppProdRec."LCurve Start Time" = 110000T then begin
-                                    if "Learning Curve No." > 1 then begin
-                                        if TimeVariable = 120000T then begin
-                                            TOt4Hour := 0;
-                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 5;
-                                                if CheckValue < 1 then begin
-                                                    TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt5Hour := DayTarget;
-                                                end else
-                                                    TOt5Hour := (DayTarget / TotNavaHours);
-
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 6;
-                                                if CheckValue < 1 then begin
-                                                    TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt6Hour := DayTarget;
-                                                end else
-                                                    TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 7;
-                                                if CheckValue < 1 then begin
-                                                    TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt7Hour := DayTarget;
-                                                end else
-                                                    TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 8;
-                                                if CheckValue < 1 then begin
-                                                    TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt8Hour := DayTarget;
-                                                end else
-                                                    TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                if TotNavaHours >= 9 then begin
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
-                                                    if CheckValue < 1 then begin
-                                                        TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt9Hour := DayTarget;
-                                                    end else
-                                                        TOt9Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt9Hour := 0;
-                                                end;
-
-                                                if TotNavaHours >= 10 then begin
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt10Hour := DayTarget;
-                                                    end else
-                                                        TOt10Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt10Hour := 0;
-                                                end;
-                                            end;
-                                        end;
-                                        if TimeVariable = 130000T then begin
-                                            TOt4Hour := 0;
-                                            TOt5Hour := 0;
-                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 6;
-                                                if CheckValue < 1 then begin
-                                                    TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt6Hour := DayTarget;
-                                                end else
-                                                    TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 7;
-                                                if CheckValue < 1 then begin
-                                                    TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt7Hour := DayTarget;
-                                                end else
-                                                    TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 8;
-                                                if CheckValue < 1 then begin
-                                                    TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt8Hour := DayTarget;
-                                                end else
-                                                    TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                if TotNavaHours >= 9 then begin
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
-                                                    if CheckValue < 1 then begin
-                                                        TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt9Hour := DayTarget;
-                                                    end else
-                                                        TOt9Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt9Hour := 0;
-                                                end;
-
-                                                if TotNavaHours >= 10 then begin
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt10Hour := DayTarget;
-                                                    end else
-                                                        TOt10Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt10Hour := 0;
-                                                end;
-                                            end;
-                                        end;
-                                        if TimeVariable = 140000T then begin
-                                            TOt4Hour := 0;
-                                            TOt5Hour := 0;
-                                            TOt6Hour := 0;
-
-                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 7;
-                                                if CheckValue < 1 then begin
-                                                    TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt7Hour := DayTarget;
-                                                end else
-                                                    TOt7Hour := (DayTarget / TotNavaHours);
-
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 8;
-                                                if CheckValue < 1 then begin
-                                                    TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt8Hour := DayTarget;
-                                                end else
-                                                    TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                if TotNavaHours >= 9 then begin
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
-                                                    if CheckValue < 1 then begin
-                                                        TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt9Hour := DayTarget;
-                                                    end else
-                                                        TOt9Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt9Hour := 0;
-                                                end;
-
-                                                if TotNavaHours >= 10 then begin
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt10Hour := DayTarget;
-                                                    end else
-                                                        TOt10Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt10Hour := 0;
-                                                end;
-                                            end;
-                                        end;
-                                        if TimeVariable = 150000T then begin
-                                            TOt4Hour := 0;
-                                            TOt5Hour := 0;
-                                            TOt6Hour := 0;
-                                            TOt7Hour := 0;
-                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                CheckValue := 0;
-                                                CheckValue := TotNavaHours - 8;
-                                                if CheckValue < 1 then begin
-                                                    TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                end;
-                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                    TOt8Hour := DayTarget;
-                                                end else
-                                                    TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                if TotNavaHours >= 9 then begin
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
-                                                    if CheckValue < 1 then begin
-                                                        TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt9Hour := DayTarget;
-                                                    end else
-                                                        TOt9Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt9Hour := 0;
-                                                end;
-
-                                                if TotNavaHours >= 10 then begin
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt10Hour := DayTarget;
-                                                    end else
-                                                        TOt10Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt10Hour := 0;
-                                                end;
-                                            end;
-                                        end;
-                                        if TimeVariable = 160000T then begin
-                                            TOt4Hour := 0;
-                                            TOt5Hour := 0;
-                                            TOt6Hour := 0;
-                                            TOt7Hour := 0;
-                                            TOt8Hour := 0;
-                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                if TotNavaHours >= 9 then begin
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
-                                                    if CheckValue < 1 then begin
-                                                        TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt9Hour := DayTarget;
-                                                    end else
-                                                        TOt9Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt9Hour := 0;
-                                                end;
-
-                                                if TotNavaHours >= 10 then begin
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt10Hour := DayTarget;
-                                                    end else
-                                                        TOt10Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt10Hour := 0;
-                                                end;
-                                            end;
-                                        end;
-                                        if TimeVariable = 170000T then begin
-                                            TOt4Hour := 0;
-                                            TOt5Hour := 0;
-                                            TOt6Hour := 0;
-                                            TOt7Hour := 0;
-                                            TOt8Hour := 0;
-                                            TOt9Hour := 0;
-                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                if TotNavaHours >= 10 then begin
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt10Hour := DayTarget;
-                                                    end else
-                                                        TOt10Hour := (DayTarget / TotNavaHours);
-                                                end
-                                                else begin
-                                                    TOt10Hour := 0;
-                                                end;
-                                            end;
-                                        end;
-                                    end;
-                                end
-                                else begin
-
-
-
-                                    //Correct
-                                    if NavAppProdRec."LCurve Start Time" = 120000T then begin
-                                        if "Learning Curve No." > 1 then begin
-                                            if TimeVariable = 130000T then begin
-                                                TOt5Hour := 0;
-                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 6;
-                                                    if CheckValue < 1 then begin
-                                                        TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt6Hour := DayTarget;
-                                                    end else
-                                                        TOt6Hour := (DayTarget / TotNavaHours);
-
-
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 7;
-                                                    if CheckValue < 1 then begin
-                                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt7Hour := DayTarget;
-                                                    end else
-                                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 8;
-                                                    if CheckValue < 1 then begin
-                                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt8Hour := DayTarget;
-                                                    end else
-                                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                    if TotNavaHours >= 9 then begin
-                                                        CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 9;
-                                                        if CheckValue < 1 then begin
-                                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                        end;
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt9Hour := DayTarget;
-                                                        end else
-                                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt9Hour := 0;
-                                                    end;
-
-                                                    if TotNavaHours >= 10 then begin
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt10Hour := DayTarget;
-                                                        end else
-                                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt10Hour := 0;
-                                                    end;
-                                                end;
-                                            end;
-                                            if TimeVariable = 140000T then begin
-                                                TOt5Hour := 0;
-                                                TOt6Hour := 0;
-                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 7;
-                                                    if CheckValue < 1 then begin
-                                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt7Hour := DayTarget;
-                                                    end else
-                                                        TOt7Hour := (DayTarget / TotNavaHours);
-
-
-
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 8;
-                                                    if CheckValue < 1 then begin
-                                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt8Hour := DayTarget;
-                                                    end else
-                                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                    if TotNavaHours >= 9 then begin
-                                                        CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 9;
-                                                        if CheckValue < 1 then begin
-                                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                        end;
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt9Hour := DayTarget;
-                                                        end else
-                                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt9Hour := 0;
-                                                    end;
-
-                                                    if TotNavaHours >= 10 then begin
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt10Hour := DayTarget;
-                                                        end else
-                                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt10Hour := 0;
-                                                    end;
-                                                end;
-                                            end;
-                                            if TimeVariable = 150000T then begin
-                                                TOt5Hour := 0;
-                                                TOt6Hour := 0;
-                                                TOt7Hour := 0;
-                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                    CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 8;
-                                                    if CheckValue < 1 then begin
-                                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                    end;
-                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                        TOt8Hour := DayTarget;
-                                                    end else
-                                                        TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                    if TotNavaHours >= 9 then begin
-                                                        CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 9;
-                                                        if CheckValue < 1 then begin
-                                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                        end;
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt9Hour := DayTarget;
-                                                        end else
-                                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt9Hour := 0;
-                                                    end;
-                                                    if TotNavaHours >= 10 then begin
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt10Hour := DayTarget;
-                                                        end else
-                                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt10Hour := 0;
-                                                    end;
-                                                end;
-                                            end;
-                                            //
-                                            if TimeVariable = 160000T then begin
-                                                TOt5Hour := 0;
-                                                TOt6Hour := 0;
-                                                TOt7Hour := 0;
-                                                TOt8Hour := 0;
-                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                    if TotNavaHours >= 9 then begin
-                                                        CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 9;
-                                                        if CheckValue < 1 then begin
-                                                            TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                        end;
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt9Hour := DayTarget;
-                                                        end else
-                                                            TOt9Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt9Hour := 0;
-                                                    end;
-                                                    if TotNavaHours >= 10 then begin
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt10Hour := DayTarget;
-                                                        end else
-                                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt10Hour := 0;
-                                                    end;
-                                                end;
-                                            end;
-                                            if TimeVariable = 170000T then begin
-                                                TOt5Hour := 0;
-                                                TOt6Hour := 0;
-                                                TOt7Hour := 0;
-                                                TOt8Hour := 0;
-                                                TOt9Hour := 0;
-                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                    if TotNavaHours >= 10 then begin
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt10Hour := DayTarget;
-                                                        end else
-                                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                                    end
-                                                    else begin
-                                                        TOt10Hour := 0;
-                                                    end;
-                                                end;
-                                            end;
-                                        end;
-                                    end
-                                    else begin
-
-
-                                        //Correct
-                                        if NavAppProdRec."LCurve Start Time" = 130000T then begin
-                                            if "Learning Curve No." > 1 then begin
-                                                if TimeVariable = 140000T then begin
-                                                    TOt6Hour := 0;
-                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                        CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 7;
-                                                        if CheckValue < 1 then begin
-                                                            TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                        end;
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt7Hour := DayTarget;
-                                                        end else
-                                                            TOt7Hour := (DayTarget / TotNavaHours);
-
-
-                                                        CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 8;
-                                                        if CheckValue < 1 then begin
-                                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                        end;
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt8Hour := DayTarget;
-                                                        end else
-                                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                        if TotNavaHours >= 9 then begin
-                                                            CheckValue := 0;
-                                                            CheckValue := TotNavaHours - 9;
-                                                            if CheckValue < 1 then begin
-                                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                            end;
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt9Hour := DayTarget;
-                                                            end else
-                                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                                        end
-                                                        else begin
-                                                            TOt9Hour := 0;
-                                                        end;
-
-                                                        if TotNavaHours >= 10 then begin
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt10Hour := DayTarget;
-                                                            end else
-                                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                                        end
-                                                        else begin
-                                                            TOt10Hour := 0;
-                                                        end;
-                                                    end;
-                                                end;
-                                                if TimeVariable = 150000T then begin
-                                                    TOt6Hour := 0;
-                                                    TOt7Hour := 0;
-                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                        CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 8;
-                                                        if CheckValue < 1 then begin
-                                                            TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                        end;
-                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                            TOt8Hour := DayTarget;
-                                                        end else
-                                                            TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                        if TotNavaHours >= 9 then begin
-                                                            CheckValue := 0;
-                                                            CheckValue := TotNavaHours - 9;
-                                                            if CheckValue < 1 then begin
-                                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                            end;
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt9Hour := DayTarget;
-                                                            end else
-                                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                                        end
-                                                        else begin
-                                                            TOt9Hour := 0;
-                                                        end;
-
-                                                        if TotNavaHours >= 10 then begin
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt10Hour := DayTarget;
-                                                            end else
-                                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                                        end
-                                                        else begin
-                                                            TOt10Hour := 0;
-                                                        end;
-                                                    end;
-                                                end;
-                                                if TimeVariable = 160000T then begin
-                                                    TOt6Hour := 0;
-                                                    TOt7Hour := 0;
-                                                    TOt8Hour := 0;
-                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                        if TotNavaHours >= 9 then begin
-                                                            CheckValue := 0;
-                                                            CheckValue := TotNavaHours - 9;
-                                                            if CheckValue < 1 then begin
-                                                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                            end;
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt9Hour := DayTarget;
-                                                            end else
-                                                                TOt9Hour := (DayTarget / TotNavaHours);
-                                                        end;
-
-                                                        if TotNavaHours >= 10 then begin
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt10Hour := DayTarget;
-                                                            end else
-                                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                                        end;
-                                                    end;
-
-                                                end;
-                                                if TimeVariable = 170000T then begin
-                                                    TOt6Hour := 0;
-                                                    TOt7Hour := 0;
-                                                    TOt8Hour := 0;
-                                                    TOt9Hour := 0;
-                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                        if TotNavaHours >= 10 then begin
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt10Hour := DayTarget;
-                                                            end else
-                                                                TOt10Hour := (DayTarget / TotNavaHours);
-                                                        end
-                                                        else begin
-                                                            TOt10Hour := 0;
-                                                        end;
-                                                    end;
-                                                end;
-                                            end;
-                                        end
-                                        else begin
-
-
-                                            //correct
-                                            if NavAppProdRec."LCurve Start Time" = 140000T then begin
-                                                if "Learning Curve No." > 1 then begin
-                                                    if TimeVariable = 150000T then begin
-                                                        TOt7Hour := 0;
-                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-
-                                                            CheckValue := 0;
-                                                            CheckValue := TotNavaHours - 8;
-                                                            if CheckValue < 1 then begin
-                                                                TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                            end;
-                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                TOt8Hour := DayTarget;
-                                                            end else
-                                                                TOt8Hour := (DayTarget / TotNavaHours);
-
-                                                            if TotNavaHours >= 9 then begin
-                                                                CheckValue := 0;
-                                                                CheckValue := TotNavaHours - 9;
-                                                                if CheckValue < 1 then begin
-                                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                end;
-                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                    TOt9Hour := DayTarget;
-                                                                end else
-                                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                                            end;
-
-                                                            if TotNavaHours >= 10 then begin
-                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                    TOt10Hour := DayTarget;
-                                                                end else
-                                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                                            end
-                                                            else begin
-                                                                TOt9Hour := 0;
-                                                                TOt10Hour := 0;
-                                                            end;
-                                                        end;
-                                                    end;
-                                                    if TimeVariable = 160000T then begin
-                                                        TOt7Hour := 0;
-                                                        TOt8Hour := 0;
-                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                            if TotNavaHours >= 9 then begin
-                                                                CheckValue := 0;
-                                                                CheckValue := TotNavaHours - 9;
-                                                                if CheckValue < 1 then begin
-                                                                    TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                end;
-                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                    TOt9Hour := DayTarget;
-                                                                end else
-                                                                    TOt9Hour := (DayTarget / TotNavaHours);
-                                                            end;
-
-                                                            if TotNavaHours >= 10 then begin
-                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                    TOt10Hour := DayTarget;
-                                                                end else
-                                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                                            end
-                                                            else begin
-                                                                TOt9Hour := 0;
-                                                                TOt10Hour := 0;
-                                                            end;
-                                                        end;
-                                                    end;
-                                                    if TimeVariable = 170000T then begin
-                                                        TOt7Hour := 0;
-                                                        TOt8Hour := 0;
-                                                        TOt9Hour := 0;
-                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                            if TotNavaHours >= 10 then begin
-                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                    TOt10Hour := DayTarget;
-                                                                end else
-                                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                                            end
-                                                            else begin
-                                                                TOt10Hour := 0;
-                                                            end;
-                                                        end;
-                                                    end;
-                                                end;
-                                            end
-                                            else begin
-
-
-                                                //correct
-                                                if NavAppProdRec."LCurve Start Time" = 150000T then begin
-                                                    if "Learning Curve No." > 1 then
-                                                        if TimeVariable = 160000T then begin
-                                                            TOt8Hour := 0;
-                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                                if TotNavaHours >= 9 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 9;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt9Hour := DayTarget;
-                                                                    end else
-                                                                        TOt9Hour := (DayTarget / TotNavaHours);
-
-                                                                    if TotNavaHours >= 10 then begin
-                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                            TOt10Hour := DayTarget;
-                                                                        end else
-                                                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                                                    end;
-                                                                end
-                                                                else begin
-                                                                    TOt9Hour := 0;
-                                                                    TOt10Hour := 0;
-                                                                end;
-                                                            end;
-                                                        end;
-                                                    if TimeVariable = 170000T then begin
-                                                        TOt8Hour := 0;
-                                                        TOt9Hour := 0;
-                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                            if TotNavaHours >= 10 then begin
-                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                    TOt10Hour := DayTarget;
-                                                                end else
-                                                                    TOt10Hour := (DayTarget / TotNavaHours);
-                                                            end;
-                                                        end;
-                                                    end;
-                                                end
-                                                else begin
-
-                                                    //correct
-                                                    if NavAppProdRec."LCurve Start Time" = 160000T then begin
-                                                        if "Learning Curve No." > 1 then
-                                                            if TimeVariable = 170000T then begin
-                                                                TOt9Hour := 0;
-                                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                                    if TotNavaHours >= 10 then begin
-                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                            TOt10Hour := DayTarget;
-                                                                        end else
-                                                                            TOt10Hour := (DayTarget / TotNavaHours);
-                                                                    end;
-                                                                end;
-
-                                                            end;
-                                                    end
-                                                    else begin
-
-                                                        if NavAppProdRec."LCurve Start Time" = 170000T then begin
-                                                            if "Learning Curve No." > 1 then
-                                                                TOt10Hour := 0;
-                                                        end
-                                                        else begin
-
-                                                            //correct
-                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                                if TotNavaHours >= 0 then begin
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt1Hour := DayTarget;
-                                                                    end else
-                                                                        TOt1Hour := (DayTarget / TotNavaHours);
-                                                                end;
-                                                                if TotNavaHours >= 1 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 1;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt2Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                end;
-
-                                                                if TotNavaHours >= 2 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 2;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt3Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt2Hour := DayTarget;
-                                                                    end else
-                                                                        TOt2Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 3 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 3;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt4Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt3Hour := DayTarget;
-                                                                    end else
-                                                                        TOt3Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 4 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 4;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt4Hour := DayTarget;
-                                                                    end else
-                                                                        TOt4Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 5 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 5;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt5Hour := DayTarget;
-                                                                    end else
-                                                                        TOt5Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 6 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 6;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt6Hour := DayTarget;
-                                                                    end else
-                                                                        TOt6Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 7 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 7;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt7Hour := DayTarget;
-                                                                    end else
-                                                                        TOt7Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 8 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 8;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt8Hour := DayTarget;
-                                                                    end else
-                                                                        TOt8Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 9 then begin
-                                                                    CheckValue := 0;
-                                                                    CheckValue := TotNavaHours - 9;
-                                                                    if CheckValue < 1 then begin
-                                                                        TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                                                                    end;
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt9Hour := DayTarget;
-                                                                    end else
-                                                                        TOt9Hour := (DayTarget / TotNavaHours);
-                                                                end;
-
-                                                                if TotNavaHours >= 10 then begin
-                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                                                                        TOt10Hour := DayTarget;
-                                                                    end else
-                                                                        TOt10Hour := (DayTarget / TotNavaHours);
-                                                                end;
-                                                            end;
-                                                        end;
-                                                    end;
-                                                end;
-                                            end;
-                                        end;
-                                    end;
-                                end;
-                            end;
-                        end;
-                    end;
-                end;
-
-                if "LCurve Start Time" <> 0T then begin
-                    // if "Learning Curve No." > 1 then begin
-                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                        if TotNavaHours >= 0 then begin
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt1Hour := DayTarget;
-                            end else
-                                TOt1Hour := (DayTarget / TotNavaHours);
-                        end;
-                        if TotNavaHours >= 1 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 1;
-                            if CheckValue < 1 then begin
-                                TOt2Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                        end;
-
-                        if TotNavaHours >= 2 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 2;
-                            if CheckValue < 1 then begin
-                                TOt3Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt2Hour := DayTarget;
-                            end else
-                                TOt2Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 3 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 3;
-                            if CheckValue < 1 then begin
-                                TOt4Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt3Hour := DayTarget;
-                            end else
-                                TOt3Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 4 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 4;
-                            if CheckValue < 1 then begin
-                                TOt5Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt4Hour := DayTarget;
-                            end else
-                                TOt4Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 5 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 5;
-                            if CheckValue < 1 then begin
-                                TOt6Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt5Hour := DayTarget;
-                            end else
-                                TOt5Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 6 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 6;
-                            if CheckValue < 1 then begin
-                                TOt7Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt6Hour := DayTarget;
-                            end else
-                                TOt6Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 7 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 7;
-                            if CheckValue < 1 then begin
-                                TOt8Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt7Hour := DayTarget;
-                            end else
-                                TOt7Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 8 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 8;
-                            if CheckValue < 1 then begin
-                                TOt9Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt8Hour := DayTarget;
-                            end else
-                                TOt8Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 9 then begin
-                            CheckValue := 0;
-                            CheckValue := TotNavaHours - 9;
-                            if CheckValue < 1 then begin
-                                TOt10Hour := (DayTarget / TotNavaHours) * CheckValue;
-                            end;
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt9Hour := DayTarget;
-                            end else
-                                TOt9Hour := (DayTarget / TotNavaHours);
-                        end;
-
-                        if TotNavaHours >= 10 then begin
-                            if (DayTarget / TotNavaHours) > DayTarget then begin
-                                TOt10Hour := DayTarget;
-                            end else
-                                TOt10Hour := (DayTarget / TotNavaHours);
-                        end;
-                        // end;
-                    end;
-                end;
 
                 //Company Logo
                 comRec.Get;
@@ -3556,11 +1049,11 @@ report 50865 HourlyProductionReport
 
             trigger OnPreDataItem()
             begin
+
                 SetRange(PlanDate, FilterDate);
                 SetRange("Factory No.", FactortFilter);
 
             end;
-
         }
 
     }
@@ -3620,6 +1113,25 @@ report 50865 HourlyProductionReport
     end;
 
     var
+        StyleLC9: Code[20];
+        LineLC9: Code[20];
+        FactoryH1: Decimal;
+        FactoryH2: Decimal;
+        FactoryH3: Decimal;
+        FactoryH4: Decimal;
+        FactoryH5: Decimal;
+        FactoryH6: Decimal;
+        FactoryH7: Decimal;
+        FactoryH8: Decimal;
+        FactoryH9: Decimal;
+        FactoryH10: Decimal;
+        TOt1Hour0: Decimal;
+        FactoryQty: Decimal;
+        FactoyHours: Decimal;
+        StyleLC8: Code[20];
+        LineLC8: Code[20];
+        StyleLC7: Code[20];
+        LineLC7: Code[20];
         StyleLC6: Code[20];
         LineLC6: Code[20];
         StyleLC5: Code[20];
@@ -3631,15 +1143,8 @@ report 50865 HourlyProductionReport
         StyleLC2: Code[20];
         LineLC2: Code[20];
         Target1: Decimal;
-        StyleLC1: Code[20];
-        LineLC1: Code[20];
         StyleLC: Code[20];
         LineLC: Code[20];
-        TotNavaHours: Decimal;
-        CheckValue: Decimal;
-        TotalPlanTarget: Decimal;
-        ActualWorkingHours: Decimal;
-        i: Integer;
         TimeVariable: Time;
         TOt1Hour: Decimal;
         TOt2Hour: Decimal;
@@ -3651,8 +1156,6 @@ report 50865 HourlyProductionReport
         TOt8Hour: Decimal;
         TOt9Hour: Decimal;
         TOt10Hour: Decimal;
-
-        HourlyCal: Decimal;
         HourlyTarger2: Decimal;
         FactoryTotalAchiveHoursFin: Integer;
         FactoryHour1TotFin: Integer;
@@ -3666,7 +1169,8 @@ report 50865 HourlyProductionReport
         FactoryHour9TotFin: Integer;
         FactoryHour10TotFin: Integer;
         FactoryCodeTotal: Code[20];
-        TotalFactoryAchiveHours: Integer;
+        TotalFactoryTargetHours: Decimal;
+        TotalFactoryAchiveHours: Decimal;
         FactoryHour1Tot: Integer;
         FactoryHour2Tot: Integer;
         FactoryHour3Tot: Integer;

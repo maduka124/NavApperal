@@ -16034,7 +16034,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt1Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH1.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16070,7 +16070,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt2Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH2.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16126,7 +16126,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt3Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH3.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16182,7 +16182,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt4Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH4.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16238,7 +16238,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt5Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH5.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16294,7 +16294,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt6Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH6.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16350,7 +16350,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt7Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH7.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16406,7 +16406,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt8Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH8.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16462,7 +16462,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt9Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH9.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16518,7 +16518,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TOt10Hour.Value)</Value>
+                                  <Value>=Sum(Fields!FactoryH10.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16574,7 +16574,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Sum(Fields!TOt1Hour.Value) + Sum(Fields!TOt2Hour.Value) + Sum(Fields!TOt3Hour.Value) + Sum(Fields!TOt4Hour.Value) + Sum(Fields!TOt5Hour.Value) + Sum(Fields!TOt6Hour.Value) + Sum(Fields!TOt7Hour.Value) + Sum(Fields!TOt8Hour.Value) + Sum(Fields!TOt9Hour.Value) + Sum(Fields!TOt10Hour.Value))</Value>
+                                  <Value>=Sum(Sum(Fields!FactoryH1.Value) + Sum(Fields!FactoryH2.Value) + Sum(Fields!FactoryH3.Value) + Sum(Fields!FactoryH4.Value) + Sum(Fields!FactoryH5.Value) + Sum(Fields!FactoryH6.Value) + Sum(Fields!FactoryH7.Value) + Sum(Fields!FactoryH8.Value) + Sum(Fields!FactoryH9.Value) + Sum(Fields!FactoryH10.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18290,24 +18290,10 @@
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
-                <TablixMember>
-                  <Group Name="FactoryName">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!PlanDate.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!FactoryName.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
-                  <TablixMembers>
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                  </TablixMembers>
-                </TablixMember>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
@@ -26046,6 +26032,66 @@ End Function
         <Field Name="Learning_Curve_No_">
           <DataField>Learning_Curve_No_</DataField>
         </Field>
+        <Field Name="FactoryH1">
+          <DataField>FactoryH1</DataField>
+        </Field>
+        <Field Name="FactoryH1Format">
+          <DataField>FactoryH1Format</DataField>
+        </Field>
+        <Field Name="FactoryH2">
+          <DataField>FactoryH2</DataField>
+        </Field>
+        <Field Name="FactoryH2Format">
+          <DataField>FactoryH2Format</DataField>
+        </Field>
+        <Field Name="FactoryH3">
+          <DataField>FactoryH3</DataField>
+        </Field>
+        <Field Name="FactoryH3Format">
+          <DataField>FactoryH3Format</DataField>
+        </Field>
+        <Field Name="FactoryH4">
+          <DataField>FactoryH4</DataField>
+        </Field>
+        <Field Name="FactoryH4Format">
+          <DataField>FactoryH4Format</DataField>
+        </Field>
+        <Field Name="FactoryH5">
+          <DataField>FactoryH5</DataField>
+        </Field>
+        <Field Name="FactoryH5Format">
+          <DataField>FactoryH5Format</DataField>
+        </Field>
+        <Field Name="FactoryH6">
+          <DataField>FactoryH6</DataField>
+        </Field>
+        <Field Name="FactoryH6Format">
+          <DataField>FactoryH6Format</DataField>
+        </Field>
+        <Field Name="FactoryH7">
+          <DataField>FactoryH7</DataField>
+        </Field>
+        <Field Name="FactoryH7Format">
+          <DataField>FactoryH7Format</DataField>
+        </Field>
+        <Field Name="FactoryH8">
+          <DataField>FactoryH8</DataField>
+        </Field>
+        <Field Name="FactoryH8Format">
+          <DataField>FactoryH8Format</DataField>
+        </Field>
+        <Field Name="FactoryH9">
+          <DataField>FactoryH9</DataField>
+        </Field>
+        <Field Name="FactoryH9Format">
+          <DataField>FactoryH9Format</DataField>
+        </Field>
+        <Field Name="FactoryH10">
+          <DataField>FactoryH10</DataField>
+        </Field>
+        <Field Name="FactoryH10Format">
+          <DataField>FactoryH10Format</DataField>
+        </Field>
         <Field Name="Hour_1">
           <DataField>Hour_1</DataField>
         </Field>
@@ -26150,6 +26196,9 @@ End Function
         </Field>
         <Field Name="TotalFactoryAchiveHours">
           <DataField>TotalFactoryAchiveHours</DataField>
+        </Field>
+        <Field Name="TotalFactoryAchiveHoursFormat">
+          <DataField>TotalFactoryAchiveHoursFormat</DataField>
         </Field>
         <Field Name="FactoryCodeTotal">
           <DataField>FactoryCodeTotal</DataField>
