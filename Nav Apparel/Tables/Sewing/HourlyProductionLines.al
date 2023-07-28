@@ -145,6 +145,84 @@ table 50514 "Hourly Production Lines"
         {
             DataClassification = ToBeClassified;
         }
+        field(26; "Target_Hour 01"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(27; "Target_Hour 02"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(28; "Target_Hour 03"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(29; "Target_Hour 04"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(30; "Target_Hour 05"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(31; "Target_Hour 06"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(32; "Target_Hour 07"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(33; "Target_Hour 08"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(34; "Target_Hour 09"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(35; "Target_Hour 10"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(36; "Target_Hour 11"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(37; "Target_Hour 12"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(38; "Target_Hour 13"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
     }
 
     keys
@@ -155,7 +233,7 @@ table 50514 "Hourly Production Lines"
         }
         key(SK; "Work Center Seq No")
         {
-            
+
         }
     }
 
