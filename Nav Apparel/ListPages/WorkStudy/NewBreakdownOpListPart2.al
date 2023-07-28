@@ -9,54 +9,80 @@ page 50466 "New Breakdown Op Listpart2"
     {
         area(Content)
         {
-            group(" ")
+            // group(" ")
+            // {
+            field(RowNo; RowNo)
             {
-                // field(RowNo; RowNo)
-                // {
-                //     ApplicationArea = all;
-                //     Caption = 'To Position';
+                ApplicationArea = all;
+                Caption = 'To Position';
 
-                //     trigger OnValidate()
-                //     var
-                //         NewBrOpLine2Rec: Record "New Breakdown Op Line2";
-                //         NewBRLine: Record "New Breakdown Op Line2";
-                //     begin
-                //         if RowNo <= 0 then
-                //             Error('Invalid Position');
+                trigger OnValidate()
+                var
+                    NewBrOpLine2Rec: Record "New Breakdown Op Line2";
+                    NewBRLine: Record "New Breakdown Op Line2";
+                    MoveBy: Integer;
+                begin
+                    if RowNo <= 0 then
+                        Error('Invalid Position');
 
-                //         NewBrOpLine2Rec.Reset();
-                //         NewBrOpLine2Rec.SetRange("No.", rec."No.");
-                //         NewBrOpLine2Rec.SetCurrentKey("Line Position");
-                //         NewBrOpLine2Rec.Ascending(false);
-                //         if NewBrOpLine2Rec.FindFirst() then begin
-                //             if RowNo > NewBrOpLine2Rec."Line Position" then
-                //                 Error('Invalid Position');
+                    if rec.LineType = 'H' then
+                        Error('Cannot move header record');
 
-                //             if RowNo <> rec."Line Position" then begin
-                //                 NewBRLine.Reset();
-                //                 NewBRLine.SetRange("No.", Rec."No.");
+                    //Validate entered row no's Line type/Garment part type
+                    NewBrOpLine2Rec.Reset();
+                    NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                    NewBrOpLine2Rec.SetRange("Line Position", RowNo);
+                    if NewBrOpLine2Rec.FindSet() then begin
+                        if NewBrOpLine2Rec.LineType = 'H' then
+                            Error('Invalid Position');
 
-                //                 if RowNo > rec."Line Position" then
-                //                     NewBRLine.SetRange("Line Position", Rec."Line Position" + 1, Rec."Line Position" + (RowNo - Rec."Line Position"))
-                //                 else
-                //                     NewBRLine.SetRange("Line Position", Rec."Line Position" + 1, Rec."Line Position" + (RowNo - Rec."Line Position"));
+                        if NewBrOpLine2Rec.RefGPartName <> rec.RefGPartName then
+                            Error('Cannot move the current item to a different Garment Part');
+                    end
+                    else
+                        Error('Invalid Position');
 
-                //                 if NewBRLine.FindFirst then begin
-                //                     NewBRLine."Line Position" -= MoveBy;
-                //                     NewBRLine.Modify();
+                    MoveBy := 0;
+                    NewBrOpLine2Rec.Reset();
+                    NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                    NewBrOpLine2Rec.SetCurrentKey("Line Position");
+                    NewBrOpLine2Rec.Ascending(false);
+                    if NewBrOpLine2Rec.FindFirst() then begin
+                        if RowNo > NewBrOpLine2Rec."Line Position" then
+                            Error('Invalid Position');
 
+                        if RowNo <> rec."Line Position" then begin
+                            NewBRLine.Reset();
+                            NewBRLine.SetRange("No.", Rec."No.");
+                            if RowNo > rec."Line Position" then begin
+                                NewBRLine.SetRange("Line Position", Rec."Line Position" + 1, Rec."Line Position" + (RowNo - Rec."Line Position"));
+                                MoveBy := -1;
+                            end
+                            else begin
+                                NewBRLine.SetRange("Line Position", Rec."Line Position" + (RowNo - Rec."Line Position"), Rec."Line Position" - 1);
+                                MoveBy := 1;
+                            end;
+                            if NewBRLine.FindSet() then begin
+                                //Assign Temp value to current row 
+                                Rec."Line Position" := 99999;
+                                Rec.Modify();
 
-                //                     Rec."Line Position" += MoveBy;
-                //                     Rec.Modify();
-                //                 end;
-                //             end;
-                //         end
-                //         else
-                //             Error('No records in the Breakdown list.');
-                //     end;
-                // }
+                                repeat
+                                    NewBRLine."Line Position" += MoveBy;
+                                    NewBRLine.Modify();
+                                until NewBRLine.Next() = 0;
 
+                                Rec."Line Position" := RowNo;
+                                Rec.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
+                    end
+                    else
+                        Error('No records in the breakdown list.');
+                end;
             }
+            // }
 
             repeater(General)
             {
