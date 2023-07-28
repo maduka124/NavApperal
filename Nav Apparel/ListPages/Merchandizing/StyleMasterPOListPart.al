@@ -87,7 +87,22 @@ page 51069 "Style Master PO ListPart"
                         AssorColorSizeRatioRec: Record AssorColorSizeRatio;
                         NavAppProdPlanRec: Record "NavApp Prod Plans Details";
                         PlanningQueueRec: Record "Planning Queue";
+                        SalseInvoiceRec: Record "Sales Invoice Header";
+                        SalesHeader2Rec: Record "Sales Header";
                     begin
+
+                        SalesHeader2Rec.Reset();
+                        SalesHeader2Rec.SetRange("PO No", xRec."PO No.");
+
+                        if SalesHeader2Rec.FindSet() then begin
+                            repeat
+                                SalseInvoiceRec.Reset();
+                                SalseInvoiceRec.SetRange("Order No.", SalesHeader2Rec."No.");
+
+                                if SalseInvoiceRec.FindSet() then
+                                    Error('PO already invoiced .Cannot change PO No.');
+                            until SalesHeader2Rec.Next() = 0;
+                        end;
 
                         NavappPlanLineRec.Reset();
                         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
@@ -143,7 +158,22 @@ page 51069 "Style Master PO ListPart"
                         AssorColorSizeRatioRec: Record AssorColorSizeRatio;
                         NavAppProdPlanRec: Record "NavApp Prod Plans Details";
                         PlanningQueueRec: Record "Planning Queue";
+                        SalseInvoiceRec: Record "Sales Invoice Header";
+                        SalesHeaderRec: Record "Sales Header";
                     begin
+
+                        SalesHeaderRec.Reset();
+                        SalesHeaderRec.SetRange("PO No", Rec."PO No.");
+
+                        if SalesHeaderRec.FindSet() then begin
+                            repeat
+                                SalseInvoiceRec.Reset();
+                                SalseInvoiceRec.SetRange("Order No.", SalesHeaderRec."No.");
+
+                                if SalseInvoiceRec.FindSet() then
+                                    Error('PO already invoiced .Cannot change ');
+                            until SalesHeaderRec.Next() = 0;
+                        end;
 
                         NavappPlanLineRec.Reset();
                         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
@@ -219,7 +249,22 @@ page 51069 "Style Master PO ListPart"
                         AssorColorSizeRatioRec: Record AssorColorSizeRatio;
                         NavAppProdPlanRec: Record "NavApp Prod Plans Details";
                         PlanningQueueRec: Record "Planning Queue";
+                        SalseInvoiceRec: Record "Sales Invoice Header";
+                        SalesHeaderRec: Record "Sales Header";
                     begin
+
+                        SalesHeaderRec.Reset();
+                        SalesHeaderRec.SetRange("PO No", Rec."PO No.");
+
+                        if SalesHeaderRec.FindSet() then begin
+                            repeat
+                                SalseInvoiceRec.Reset();
+                                SalseInvoiceRec.SetRange("Order No.", SalesHeaderRec."No.");
+
+                                if SalseInvoiceRec.FindSet() then
+                                    Error('PO already invoiced .Cannot Ship Date');
+                            until SalesHeaderRec.Next() = 0;
+                        end;
 
                         NavappPlanLineRec.Reset();
                         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
