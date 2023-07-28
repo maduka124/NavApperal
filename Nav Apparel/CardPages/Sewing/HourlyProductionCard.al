@@ -78,6 +78,10 @@ page 50515 "Hourly Production Card"
                         Users: Record "User Setup";
                         HourlyRec: Record "Hourly Production Master";
                     begin
+                        HourlyRec.Reset();
+                        HourlyRec.FindSet();
+                        Rec.Type := HourlyRec.Type::Sewing;
+
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
@@ -103,6 +107,8 @@ page 50515 "Hourly Production Card"
                 field(Type; rec.Type)
                 {
                     ApplicationArea = All;
+                    Editable = false;
+
                 }
                 //Mihiranga 2023/03/24
                 // field(LineNO; LineNO)
@@ -135,6 +141,17 @@ page 50515 "Hourly Production Card"
 
                 trigger OnAction()
                 var
+                    CheckValue: Decimal;
+                    TotNavaHours: Decimal;
+                    TimeVariable: Time;
+                    StyleLC1: Code[20];
+                    LineLC1: Code[20];
+                    StyleLC: Code[20];
+                    LineLC: Code[20];
+                    NavAppProdRec: Record "NavApp Prod Plans Details";
+                    DayTarget: Decimal;
+                    HourlyProdLines3Rec: Record "Hourly Production Lines";
+                    HourlyProdLines2Rec: Record "Hourly Production Lines";
                     HourlyProdLinesRec: Record "Hourly Production Lines";
                     HourlyProdLines1Rec: Record "Hourly Production Lines";
                     NavAppProdPlanLinesRec: Record "NavApp Prod Plans Details";
@@ -187,113 +204,3970 @@ page 50515 "Hourly Production Card"
                             repeat
                                 WorkCenrterRec.Reset();
                                 WorkCenrterRec.SetRange("No.", NavAppProdPlanLinesRec."Resource No.");
-                                WorkCenrterRec.FindSet();
+                                if WorkCenrterRec.FindSet() then begin
 
-                                if (StyleNo <> NavAppProdPlanLinesRec."Style No.") or (ResourceNo <> NavAppProdPlanLinesRec."Resource No.") then begin
+                                    if (StyleNo <> NavAppProdPlanLinesRec."Style No.") or (ResourceNo <> NavAppProdPlanLinesRec."Resource No.") then begin
 
-                                    LineNo += 1;
-                                    HourlyProdLinesRec.Init();
-                                    HourlyProdLinesRec."No." := rec."No.";
-                                    HourlyProdLinesRec."Line No." := LineNo;
-                                    HourlyProdLinesRec."Style Name" := NavAppProdPlanLinesRec."Style Name";
-                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
-                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
-                                    HourlyProdLinesRec.Insert();
-                                    StyleNo := NavAppProdPlanLinesRec."Style No.";
-                                    ResourceNo := NavAppProdPlanLinesRec."Resource No.";
+                                        // HourlyProdLines3Rec.Reset();
+                                        // HourlyProdLines3Rec.SetRange("No.", HourlyProdLinesRec."No.");
+                                        // HourlyProdLines3Rec.SetRange("Style No.", HourlyProdLinesRec."Style No.");
+                                        // HourlyProdLines3Rec.SetRange("Factory No.", HourlyProdLinesRec."Factory No.");
+                                        // if not HourlyProdLines3Rec.FindSet() then begin
+                                        LineNo += 1;
+                                        HourlyProdLinesRec.Init();
+                                        HourlyProdLinesRec."No." := rec."No.";
+                                        HourlyProdLinesRec."Line No." := LineNo;
+                                        HourlyProdLinesRec."Style Name" := NavAppProdPlanLinesRec."Style Name";
+                                        HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                        HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
+                                        HourlyProdLinesRec.Insert();
+                                        StyleNo := NavAppProdPlanLinesRec."Style No.";
+                                        ResourceNo := NavAppProdPlanLinesRec."Resource No.";
 
-                                end;
+                                        // end;
+                                    end;
+                                    //Mihiranga 2023/03/29
+                                    HourlyProdLines1Rec.Reset();
+                                    HourlyProdLines1Rec.SetRange("No.", rec."No.");
+                                    HourlyProdLines1Rec.SetRange("Prod Date", rec."Prod Date");
+                                    HourlyProdLines1Rec.SetRange("Factory No.", rec."Factory No.");
+                                    HourlyProdLines1Rec.SetFilter(Item, '=%1', 'PASS PCS');
+                                    HourlyProdLines1Rec.SetRange("Style No.", NavAppProdPlanLinesRec."Style No.");
+                                    HourlyProdLines1Rec.SetRange("Work Center Name", NavAppProdPlanLinesRec."Resource No.");
+                                    if HourlyProdLines1Rec.FindSet() then begin
+                                        //Do nothing when record found
+                                    end
+                                    else begin
 
-                                //Mihiranga 2023/03/29
-                                HourlyProdLines1Rec.Reset();
-                                HourlyProdLines1Rec.SetRange("No.", rec."No.");
-                                HourlyProdLines1Rec.SetRange("Prod Date", rec."Prod Date");
-                                HourlyProdLines1Rec.SetRange("Factory No.", rec."Factory No.");
-                                HourlyProdLines1Rec.SetFilter(Item, '=%1', 'PASS PCS');
-                                HourlyProdLines1Rec.SetRange("Style No.", NavAppProdPlanLinesRec."Style No.");
-                                HourlyProdLines1Rec.SetRange("Work Center Name", NavAppProdPlanLinesRec."Resource No.");
-                                if HourlyProdLines1Rec.FindFirst() then begin
-                                    //Do nothing when record found
-                                end
-                                else begin
-                                    LineNo += 1;
+                                        LineNo += 1;
 
-                                    HourlyProdLinesRec.Init();
-                                    HourlyProdLinesRec."No." := rec."No.";
-                                    HourlyProdLinesRec."Line No." := LineNo;
-                                    HourlyProdLinesRec."Factory No." := rec."Factory No.";
-                                    HourlyProdLinesRec."Prod Date" := rec."Prod Date";
-                                    HourlyProdLinesRec.Type := rec.Type;
-                                    HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
-                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
-                                    HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
-                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
-                                    HourlyProdLinesRec.Item := 'PASS PCS';
-                                    HourlyProdLinesRec.Insert();
+                                        HourlyProdLinesRec.Init();
+                                        HourlyProdLinesRec."No." := rec."No.";
+                                        HourlyProdLinesRec."Line No." := LineNo;
+                                        HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                        HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                        HourlyProdLinesRec.Type := rec.Type;
+                                        HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                        HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                        HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                        HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
+                                        HourlyProdLinesRec.Item := 'PASS PCS';
+                                        HourlyProdLinesRec.Insert();
 
-                                    LineNo += 1;
+                                        LineNo += 1;
 
-                                    HourlyProdLinesRec.Init();
-                                    HourlyProdLinesRec."No." := rec."No.";
-                                    HourlyProdLinesRec."Line No." := LineNo;
-                                    HourlyProdLinesRec."Factory No." := rec."Factory No.";
-                                    HourlyProdLinesRec."Prod Date" := rec."Prod Date";
-                                    HourlyProdLinesRec.Type := rec.Type;
-                                    HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
-                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
-                                    HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
-                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
-                                    HourlyProdLinesRec.Item := 'DEFECT PCS';
-                                    HourlyProdLinesRec.Insert();
+                                        HourlyProdLinesRec.Init();
+                                        HourlyProdLinesRec."No." := rec."No.";
+                                        HourlyProdLinesRec."Line No." := LineNo;
+                                        HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                        HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                        HourlyProdLinesRec.Type := rec.Type;
+                                        HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                        HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                        HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                        HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
+                                        HourlyProdLinesRec.Item := 'DEFECT PCS';
+                                        HourlyProdLinesRec.Insert();
 
-                                    LineNo += 1;
+                                        LineNo += 1;
 
-                                    HourlyProdLinesRec.Init();
-                                    HourlyProdLinesRec."No." := rec."No.";
-                                    HourlyProdLinesRec."Line No." := LineNo;
-                                    HourlyProdLinesRec."Factory No." := rec."Factory No.";
-                                    HourlyProdLinesRec."Prod Date" := rec."Prod Date";
-                                    HourlyProdLinesRec.Type := rec.Type;
-                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
-                                    HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
-                                    HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
-                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
-                                    HourlyProdLinesRec.Item := 'DHU';
-                                    HourlyProdLinesRec.Insert();
+                                        HourlyProdLinesRec.Init();
+                                        HourlyProdLinesRec."No." := rec."No.";
+                                        HourlyProdLinesRec."Line No." := LineNo;
+                                        HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                        HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                        HourlyProdLinesRec.Type := rec.Type;
+                                        HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                        HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                        HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                        HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
+                                        HourlyProdLinesRec.Item := 'DHU';
+                                        HourlyProdLinesRec.Insert();
+                                    end;
                                 end;
                             until NavAppProdPlanLinesRec.Next() = 0;
 
-                            //Add Sub totals
-                            LineNo += 1;
-                            HourlyProdLinesRec.Init();
-                            HourlyProdLinesRec."No." := rec."No.";
-                            HourlyProdLinesRec."Line No." := LineNo;
-                            HourlyProdLinesRec."Style Name" := 'PASS PCS (Total)';
-                            HourlyProdLinesRec."Work Center Seq No" := 100;
-                            HourlyProdLinesRec.Insert();
+                            HourlyProdLines2Rec.Reset();
+                            HourlyProdLines2Rec.SetRange("No.", HourlyProdLinesRec."No.");
+                            HourlyProdLines2Rec.SetRange("Prod Date", HourlyProdLinesRec."Prod Date");
+                            HourlyProdLines2Rec.SetRange("Factory No.", HourlyProdLinesRec."Factory No.");
+                            HourlyProdLines2Rec.SetFilter("Style Name", '=%1', 'PASS PCS (Total)');
+                            if not HourlyProdLines2Rec.FindSet() then begin
 
-                            LineNo += 1;
-                            HourlyProdLinesRec.Init();
-                            HourlyProdLinesRec."No." := rec."No.";
-                            HourlyProdLinesRec."Line No." := LineNo;
-                            HourlyProdLinesRec."Style Name" := 'DEFECT PCS (Total)';
-                            HourlyProdLinesRec."Work Center Seq No" := 101;
-                            HourlyProdLinesRec.Insert();
+                                //Add Sub totals
+                                LineNo += 1;
+                                HourlyProdLinesRec.Init();
+                                HourlyProdLinesRec."No." := rec."No.";
+                                HourlyProdLinesRec."Line No." := LineNo;
+                                HourlyProdLinesRec."Style Name" := 'PASS PCS (Total)';
+                                HourlyProdLinesRec."Work Center Seq No" := 100;
+                                HourlyProdLinesRec.Insert();
 
-                            LineNo += 1;
-                            HourlyProdLinesRec.Init();
-                            HourlyProdLinesRec."No." := rec."No.";
-                            HourlyProdLinesRec."Line No." := LineNo;
-                            HourlyProdLinesRec."Style Name" := 'DHU (Total)';
-                            HourlyProdLinesRec."Work Center Seq No" := 102;
-                            HourlyProdLinesRec.Insert();
+                                LineNo += 1;
+                                HourlyProdLinesRec.Init();
+                                HourlyProdLinesRec."No." := rec."No.";
+                                HourlyProdLinesRec."Line No." := LineNo;
+                                HourlyProdLinesRec."Style Name" := 'DEFECT PCS (Total)';
+                                HourlyProdLinesRec."Work Center Seq No" := 101;
+                                HourlyProdLinesRec.Insert();
 
+                                LineNo += 1;
+                                HourlyProdLinesRec.Init();
+                                HourlyProdLinesRec."No." := rec."No.";
+                                HourlyProdLinesRec."Line No." := LineNo;
+                                HourlyProdLinesRec."Style Name" := 'DHU (Total)';
+                                HourlyProdLinesRec."Work Center Seq No" := 102;
+                                HourlyProdLinesRec.Insert();
 
+                            end;
                         end;
                     end
                     else
                         Message('Another entry with same Date/Factory/Type exists.');
 
+
+                    HourlyProdLinesRec.Reset();
+                    HourlyProdLinesRec.SetRange("No.", Rec."No.");
+                    HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+                    HourlyProdLinesRec.SetRange("Prod Date", Rec."Prod Date");
+                    HourlyProdLinesRec.SetRange(Type, Rec.Type);
+                    // HourlyProdLinesRec.SetFilter("Style Name",'=%1','PASS PCS');
+                    HourlyProdLinesRec.SetCurrentKey("Work Center Seq No");
+                    HourlyProdLinesRec.Ascending(true);
+                    if HourlyProdLinesRec.FindSet() then begin
+                        repeat
+                            DayTarget := 0;
+                            NavAppProdRec.Reset();
+                            NavAppProdRec.SetRange(PlanDate, Rec."Prod Date");
+                            NavAppProdRec.SetRange("Style No.", HourlyProdLinesRec."Style No.");
+                            NavAppProdRec.SetRange("Factory No.", Rec."Factory No.");
+                            NavAppProdRec.SetRange("Resource No.", HourlyProdLinesRec."Work Center No.");
+                            if NavAppProdRec.FindSet() then begin
+                                repeat
+                                    DayTarget += NavAppProdRec.Qty;
+                                until NavAppProdRec.Next() = 0;
+
+                                if (NavAppProdRec."Style No." = StyleLC) and (NavAppProdRec."Resource No." = LineLC) then begin
+                                    DayTarget := 0;
+                                end;
+                                StyleLC := NavAppProdRec."Style No.";
+                                LineLC := NavAppProdRec."Resource No.";
+                            end;
+
+
+                            TotNavaHours := 0;
+                            NavAppProdRec.Reset();
+                            NavAppProdRec.SetRange("Resource No.", HourlyProdLinesRec."Work Center No.");
+                            NavAppProdRec.SetRange("Factory No.", Rec."Factory No.");
+                            NavAppProdRec.SetRange("Style No.", HourlyProdLinesRec."Style No.");
+                            NavAppProdRec.SetRange(PlanDate, Rec."Prod Date");
+                            if NavAppProdRec.FindSet() then begin
+                                repeat
+                                    TotNavaHours += NavAppProdRec.HoursPerDay;
+                                until NavAppProdRec.Next() = 0;
+                                if (NavAppProdRec."Style No." = StyleLC1) and (NavAppProdRec."Resource No." = LineLC1) then begin
+                                    TotNavaHours := 0;
+                                end;
+                                StyleLC1 := NavAppProdRec."Style No.";
+                                LineLC1 := NavAppProdRec."Resource No.";
+
+
+                                TimeVariable := 0T;
+                                if NavAppProdRec."LCurve Start Time" <> 0T then
+                                    TimeVariable := NavAppProdRec."LCurve Start Time" + (60 * 60 * 1000 * NavAppProdRec."LCurve Hours Per Day");
+
+                                // if "Resource No." = 'VDL-06' then begin
+                                //     Message('VDL7');
+                                // end;
+
+
+                                if NavAppProdRec."LCurve Start Time" = 080000T then begin
+                                    if NavAppProdRec."Learning Curve No." > 1 then begin
+                                        if TimeVariable = 090000T then begin
+
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 2;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 02" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 3;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 4;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 5;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 6;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 7;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 8;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+
+                                        if TimeVariable = 100000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 3;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 4;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 5;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 6;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 7;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 8;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                        if TimeVariable = 110000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec."Target_Hour 03" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 4;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 5;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 6;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 7;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 8;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                        if TimeVariable = 120000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec."Target_Hour 03" := 0;
+                                            HourlyProdLinesRec."Target_Hour 04" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 5;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 6;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 7;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 8;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                        if TimeVariable = 130000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec."Target_Hour 03" := 0;
+                                            HourlyProdLinesRec."Target_Hour 04" := 0;
+                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 6;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 7;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 8;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                        if TimeVariable = 140000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec."Target_Hour 03" := 0;
+                                            HourlyProdLinesRec."Target_Hour 04" := 0;
+                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 7;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 8;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                        if TimeVariable = 150000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec."Target_Hour 03" := 0;
+                                            HourlyProdLinesRec."Target_Hour 04" := 0;
+                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                            HourlyProdLinesRec."Target_Hour 07" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                CheckValue := 0;
+                                                CheckValue := TotNavaHours - 8;
+                                                if CheckValue < 1 then begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end else
+                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                        if TimeVariable = 160000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec."Target_Hour 03" := 0;
+                                            HourlyProdLinesRec."Target_Hour 04" := 0;
+                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                            HourlyProdLinesRec."Target_Hour 07" := 0;
+                                            HourlyProdLinesRec."Target_Hour 08" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                if TotNavaHours >= 9 then begin
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 9;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                        if TimeVariable = 170000T then begin
+                                            HourlyProdLinesRec."Target_Hour 01" := 0;
+                                            HourlyProdLinesRec."Target_Hour 02" := 0;
+                                            HourlyProdLinesRec."Target_Hour 03" := 0;
+                                            HourlyProdLinesRec."Target_Hour 04" := 0;
+                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                            HourlyProdLinesRec."Target_Hour 07" := 0;
+                                            HourlyProdLinesRec."Target_Hour 08" := 0;
+                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                if TotNavaHours >= 10 then begin
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end
+                                                else begin
+                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                end;
+                                            end;
+                                        end;
+                                    end;
+                                end
+                                else begin
+                                    //coorect
+                                    if NavAppProdRec."LCurve Start Time" = 090000T then begin
+                                        if NavAppProdRec."Learning Curve No." > 1 then begin
+                                            if TimeVariable = 100000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 3;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 03" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 4;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 5;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 6;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 7;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 8;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    if TotNavaHours >= 9 then begin
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 9;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                    end;
+                                                end;
+                                            end;
+                                            if TimeVariable = 110000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 4;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 5;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 6;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 7;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 8;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    if TotNavaHours >= 9 then begin
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 9;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                end;
+                                            end;
+                                            if TimeVariable = 120000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 5;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 6;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 7;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 8;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    if TotNavaHours >= 9 then begin
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 9;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                end;
+                                            end;
+                                            if TimeVariable = 130000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 6;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 7;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 8;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    if TotNavaHours >= 9 then begin
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 9;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                end;
+                                            end;
+                                            if TimeVariable = 140000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 7;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 8;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    if TotNavaHours >= 9 then begin
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 9;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                end;
+                                            end;
+                                            if TimeVariable = 150000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                    CheckValue := 0;
+                                                    CheckValue := TotNavaHours - 8;
+                                                    if CheckValue < 1 then begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end else
+                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+
+                                                    if TotNavaHours >= 9 then begin
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 9;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                end;
+
+                                            end;
+                                            if TimeVariable = 160000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                    if TotNavaHours >= 9 then begin
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 9;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                end;
+                                            end;
+                                            if TimeVariable = 170000T then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := 0;
+                                                HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                    if TotNavaHours >= 10 then begin
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end
+                                                    else begin
+                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                    end;
+                                                end;
+                                            end;
+                                        end;
+                                    end
+                                    else begin
+
+                                        //Correct
+
+                                        if NavAppProdRec."LCurve Start Time" = 100000T then begin
+                                            if NavAppProdRec."Learning Curve No." > 1 then begin
+                                                if TimeVariable = 110000T then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 4;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 5;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 6;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 7;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 8;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        if TotNavaHours >= 9 then begin
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 9;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+
+                                                        if TotNavaHours >= 10 then begin
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                    end;
+                                                end;
+                                                if TimeVariable = 120000T then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 5;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 6;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 7;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 8;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        if TotNavaHours >= 9 then begin
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 9;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+
+                                                        if TotNavaHours >= 10 then begin
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                    end;
+                                                end;
+                                                if TimeVariable = 130000T then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 6;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 7;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 8;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        if TotNavaHours >= 9 then begin
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 9;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+
+                                                        if TotNavaHours >= 10 then begin
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                    end;
+                                                end;
+                                                if TimeVariable = 140000T then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 7;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 8;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        if TotNavaHours >= 9 then begin
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 9;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+
+                                                        if TotNavaHours >= 10 then begin
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                    end;
+                                                end;
+                                                if TimeVariable = 150000T then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                        CheckValue := 0;
+                                                        CheckValue := TotNavaHours - 8;
+                                                        if CheckValue < 1 then begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                            HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end else
+                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+
+                                                        if TotNavaHours >= 9 then begin
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 9;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+
+                                                        if TotNavaHours >= 10 then begin
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                    end;
+                                                end;
+                                                if TimeVariable = 160000T then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                        if TotNavaHours >= 9 then begin
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 9;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+
+                                                        if TotNavaHours >= 10 then begin
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                    end;
+                                                end;
+                                                if TimeVariable = 170000T then begin
+                                                    HourlyProdLinesRec."Target_Hour 03" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                    HourlyProdLinesRec.Modify();
+                                                    CurrPage.Update();
+                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                        if TotNavaHours >= 10 then begin
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end
+                                                        else begin
+                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                        end;
+                                                    end;
+                                                end;
+                                            end;
+                                        end
+                                        else begin
+
+                                            //Correct
+                                            if NavAppProdRec."LCurve Start Time" = 110000T then begin
+                                                if NavAppProdRec."Learning Curve No." > 1 then begin
+                                                    if TimeVariable = 120000T then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 5;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 6;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 7;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 8;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+                                                            if TotNavaHours >= 9 then begin
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 9;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+
+                                                            if TotNavaHours >= 10 then begin
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                        end;
+                                                    end;
+                                                    if TimeVariable = 130000T then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 6;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 7;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 8;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+                                                            if TotNavaHours >= 9 then begin
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 9;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+
+                                                            if TotNavaHours >= 10 then begin
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                        end;
+                                                    end;
+                                                    if TimeVariable = 140000T then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 7;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 8;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+                                                            if TotNavaHours >= 9 then begin
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 9;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+
+                                                            if TotNavaHours >= 10 then begin
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                        end;
+                                                    end;
+                                                    if TimeVariable = 150000T then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                            CheckValue := 0;
+                                                            CheckValue := TotNavaHours - 8;
+                                                            if CheckValue < 1 then begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end else
+                                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+
+                                                            if TotNavaHours >= 9 then begin
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 9;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+
+                                                            if TotNavaHours >= 10 then begin
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                        end;
+                                                    end;
+                                                    if TimeVariable = 160000T then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                            if TotNavaHours >= 9 then begin
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 9;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+
+                                                            if TotNavaHours >= 10 then begin
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                        end;
+                                                    end;
+                                                    if TimeVariable = 170000T then begin
+                                                        HourlyProdLinesRec."Target_Hour 04" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                        HourlyProdLinesRec.Modify();
+                                                        CurrPage.Update();
+                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                            if TotNavaHours >= 10 then begin
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end
+                                                            else begin
+                                                                HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                            end;
+                                                        end;
+                                                    end;
+                                                end;
+                                            end
+                                            else begin
+
+
+
+                                                //Correct
+                                                if NavAppProdRec."LCurve Start Time" = 120000T then begin
+                                                    if NavAppProdRec."Learning Curve No." > 1 then begin
+                                                        if TimeVariable = 130000T then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 6;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+
+
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 7;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+
+
+
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 8;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+
+                                                                if TotNavaHours >= 9 then begin
+                                                                    CheckValue := 0;
+                                                                    CheckValue := TotNavaHours - 9;
+                                                                    if CheckValue < 1 then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+
+                                                                if TotNavaHours >= 10 then begin
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                            end;
+                                                        end;
+                                                        if TimeVariable = 140000T then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 7;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+
+
+
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 8;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+
+                                                                if TotNavaHours >= 9 then begin
+                                                                    CheckValue := 0;
+                                                                    CheckValue := TotNavaHours - 9;
+                                                                    if CheckValue < 1 then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+
+                                                                if TotNavaHours >= 10 then begin
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                            end;
+                                                        end;
+                                                        if TimeVariable = 150000T then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                                CheckValue := 0;
+                                                                CheckValue := TotNavaHours - 8;
+                                                                if CheckValue < 1 then begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end else
+                                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+
+                                                                if TotNavaHours >= 9 then begin
+                                                                    CheckValue := 0;
+                                                                    CheckValue := TotNavaHours - 9;
+                                                                    if CheckValue < 1 then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if TotNavaHours >= 10 then begin
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                            end;
+                                                        end;
+                                                        //
+                                                        if TimeVariable = 160000T then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                if TotNavaHours >= 9 then begin
+                                                                    CheckValue := 0;
+                                                                    CheckValue := TotNavaHours - 9;
+                                                                    if CheckValue < 1 then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                                if TotNavaHours >= 10 then begin
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                            end;
+                                                        end;
+                                                        if TimeVariable = 170000T then begin
+                                                            HourlyProdLinesRec."Target_Hour 05" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                            HourlyProdLinesRec.Modify();
+                                                            CurrPage.Update();
+                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                if TotNavaHours >= 10 then begin
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end
+                                                                else begin
+                                                                    HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                end;
+                                                            end;
+                                                        end;
+                                                    end;
+                                                end
+                                                else begin
+
+
+                                                    //Correct
+                                                    if NavAppProdRec."LCurve Start Time" = 130000T then begin
+                                                        if NavAppProdRec."Learning Curve No." > 1 then begin
+                                                            if TimeVariable = 140000T then begin
+                                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                                    CheckValue := 0;
+                                                                    CheckValue := TotNavaHours - 7;
+                                                                    if CheckValue < 1 then begin
+                                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+
+
+                                                                    CheckValue := 0;
+                                                                    CheckValue := TotNavaHours - 8;
+                                                                    if CheckValue < 1 then begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+
+                                                                    if TotNavaHours >= 9 then begin
+                                                                        CheckValue := 0;
+                                                                        CheckValue := TotNavaHours - 9;
+                                                                        if CheckValue < 1 then begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end
+                                                                    else begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+
+                                                                    if TotNavaHours >= 10 then begin
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end
+                                                                    else begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                end;
+                                                            end;
+                                                            if TimeVariable = 150000T then begin
+                                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                                HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                                    CheckValue := 0;
+                                                                    CheckValue := TotNavaHours - 8;
+                                                                    if CheckValue < 1 then begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                        HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end else
+                                                                        HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+
+                                                                    if TotNavaHours >= 9 then begin
+                                                                        CheckValue := 0;
+                                                                        CheckValue := TotNavaHours - 9;
+                                                                        if CheckValue < 1 then begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end
+                                                                    else begin
+                                                                        HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+
+                                                                    if TotNavaHours >= 10 then begin
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end
+                                                                    else begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                end;
+                                                            end;
+                                                            if TimeVariable = 160000T then begin
+                                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                                HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                                HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                    if TotNavaHours >= 9 then begin
+                                                                        CheckValue := 0;
+                                                                        CheckValue := TotNavaHours - 9;
+                                                                        if CheckValue < 1 then begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+
+                                                                    if TotNavaHours >= 10 then begin
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                end;
+
+                                                            end;
+                                                            if TimeVariable = 170000T then begin
+                                                                HourlyProdLinesRec."Target_Hour 06" := 0;
+                                                                HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                                HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                HourlyProdLinesRec.Modify();
+                                                                CurrPage.Update();
+                                                                if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                    if TotNavaHours >= 10 then begin
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end
+                                                                    else begin
+                                                                        HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end;
+                                                                end;
+                                                            end;
+                                                        end;
+                                                    end
+                                                    else begin
+
+
+                                                        //correct
+                                                        if NavAppProdRec."LCurve Start Time" = 140000T then begin
+                                                            if NavAppProdRec."Learning Curve No." > 1 then begin
+                                                                if TimeVariable = 150000T then begin
+                                                                    HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+
+                                                                        CheckValue := 0;
+                                                                        CheckValue := TotNavaHours - 8;
+                                                                        if CheckValue < 1 then begin
+                                                                            HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                        if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                            HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end else
+                                                                            HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+
+                                                                        if TotNavaHours >= 9 then begin
+                                                                            CheckValue := 0;
+                                                                            CheckValue := TotNavaHours - 9;
+                                                                            if CheckValue < 1 then begin
+                                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+                                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end else
+                                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+
+                                                                        if TotNavaHours >= 10 then begin
+                                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end else
+                                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end
+                                                                        else begin
+                                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                    end;
+                                                                end;
+                                                                if TimeVariable = 160000T then begin
+                                                                    HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                                    HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                        if TotNavaHours >= 9 then begin
+                                                                            CheckValue := 0;
+                                                                            CheckValue := TotNavaHours - 9;
+                                                                            if CheckValue < 1 then begin
+                                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+                                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end else
+                                                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+
+                                                                        if TotNavaHours >= 10 then begin
+                                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end else
+                                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end
+                                                                        else begin
+                                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                    end;
+                                                                end;
+                                                                if TimeVariable = 170000T then begin
+                                                                    HourlyProdLinesRec."Target_Hour 07" := 0;
+                                                                    HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                        if TotNavaHours >= 10 then begin
+                                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end else
+                                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end
+                                                                        else begin
+                                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                    end;
+                                                                end;
+                                                            end;
+                                                        end
+                                                        else begin
+
+
+                                                            //correct
+                                                            if NavAppProdRec."LCurve Start Time" = 150000T then begin
+                                                                if NavAppProdRec."Learning Curve No." > 1 then
+                                                                    if TimeVariable = 160000T then begin
+                                                                        HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                            if TotNavaHours >= 9 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 9;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+
+                                                                                if TotNavaHours >= 10 then begin
+                                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                                        HourlyProdLinesRec.Modify();
+                                                                                        CurrPage.Update();
+                                                                                    end else
+                                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                            end
+                                                                            else begin
+                                                                                HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                                HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+                                                                        end;
+                                                                    end;
+                                                                if TimeVariable = 170000T then begin
+                                                                    HourlyProdLinesRec."Target_Hour 08" := 0;
+                                                                    HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                    HourlyProdLinesRec.Modify();
+                                                                    CurrPage.Update();
+                                                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                        if TotNavaHours >= 10 then begin
+                                                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end else
+                                                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                        end;
+                                                                    end;
+                                                                end;
+                                                            end
+                                                            else begin
+
+                                                                //correct
+                                                                if NavAppProdRec."LCurve Start Time" = 160000T then begin
+                                                                    if NavAppProdRec."Learning Curve No." > 1 then
+                                                                        if TimeVariable = 170000T then begin
+                                                                            HourlyProdLinesRec."Target_Hour 09" := 0;
+                                                                            HourlyProdLinesRec.Modify();
+                                                                            CurrPage.Update();
+                                                                            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                                if TotNavaHours >= 10 then begin
+                                                                                    if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                        HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                                        HourlyProdLinesRec.Modify();
+                                                                                        CurrPage.Update();
+                                                                                    end else
+                                                                                        HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                            end;
+
+                                                                        end;
+                                                                end
+                                                                else begin
+
+                                                                    if NavAppProdRec."LCurve Start Time" = 170000T then begin
+                                                                        if NavAppProdRec."Learning Curve No." > 1 then
+                                                                            HourlyProdLinesRec."Target_Hour 10" := 0;
+                                                                        HourlyProdLinesRec.Modify();
+                                                                        CurrPage.Update();
+                                                                    end
+                                                                    else begin
+
+                                                                        //correct
+                                                                        if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                                                            if TotNavaHours >= 0 then begin
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 01" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else begin
+                                                                                    HourlyProdLinesRec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                            end;
+                                                                            if TotNavaHours >= 1 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 1;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 02" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                            end;
+
+                                                                            if TotNavaHours >= 2 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 2;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 02" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 3 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 3;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 03" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 4 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 4;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 5 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 5;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 6 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 6;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 7 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 7;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 8 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 8;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 9 then begin
+                                                                                CheckValue := 0;
+                                                                                CheckValue := TotNavaHours - 9;
+                                                                                if CheckValue < 1 then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end;
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+
+                                                                            if TotNavaHours >= 10 then begin
+                                                                                if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                                                    HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                                                    HourlyProdLinesRec.Modify();
+                                                                                    CurrPage.Update();
+                                                                                end else
+                                                                                    HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                                                                HourlyProdLinesRec.Modify();
+                                                                                CurrPage.Update();
+                                                                            end;
+                                                                        end;
+                                                                    end;
+                                                                end;
+                                                            end;
+                                                        end;
+                                                    end;
+                                                end;
+                                            end;
+                                        end;
+                                    end;
+                                end;
+                                if NavAppProdRec."LCurve Start Time" <> 0T then begin
+                                    // if NavAppProdRec."Learning Curve No." > 1 then begin
+                                    if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+                                        if TotNavaHours >= 0 then begin
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 01" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else begin
+                                                HourlyProdLinesRec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                        end;
+                                        if TotNavaHours >= 1 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 1;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                        end;
+
+                                        if TotNavaHours >= 2 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 2;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 02" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else begin
+                                                HourlyProdLinesRec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                        end;
+
+                                        if TotNavaHours >= 3 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 3;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 03" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else begin
+                                                HourlyProdLinesRec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                        end;
+
+                                        if TotNavaHours >= 4 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 4;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 04" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else begin
+                                                HourlyProdLinesRec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                        end;
+
+                                        if TotNavaHours >= 5 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 5;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 05" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else begin
+                                                HourlyProdLinesRec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                        end;
+
+                                        if TotNavaHours >= 6 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 6;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 06" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else
+                                                HourlyProdLinesRec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                        end;
+
+                                        if TotNavaHours >= 7 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 7;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 07" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else
+                                                HourlyProdLinesRec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                        end;
+
+                                        if TotNavaHours >= 8 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 8;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 08" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else
+                                                HourlyProdLinesRec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                        end;
+
+                                        if TotNavaHours >= 9 then begin
+                                            CheckValue := 0;
+                                            CheckValue := TotNavaHours - 9;
+                                            if CheckValue < 1 then begin
+                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end;
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 09" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else
+                                                HourlyProdLinesRec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                        end;
+
+                                        if TotNavaHours >= 10 then begin
+                                            if (DayTarget / TotNavaHours) > DayTarget then begin
+                                                HourlyProdLinesRec."Target_Hour 10" := DayTarget;
+                                                HourlyProdLinesRec.Modify();
+                                                CurrPage.Update();
+                                            end else
+                                                HourlyProdLinesRec."Target_Hour 10" := (DayTarget / TotNavaHours);
+                                            HourlyProdLinesRec.Modify();
+                                            CurrPage.Update();
+                                        end;
+                                        // end;
+
+                                        CurrPage.Update();
+                                    end;
+                                end;
+                            end;
+
+                        until HourlyProdLinesRec.Next() = 0;
+
+                    end;
                 end;
             }
 
