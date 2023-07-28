@@ -181,4 +181,9 @@ page 51193 SampleProdLinePattCuttListPart
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange("Created Date", 20230723D, Today);
+    end;
 }

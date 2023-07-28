@@ -139,5 +139,6 @@ page 50427 "Sample Request Header ListPart"
     trigger OnOpenPage()
     begin
         Rec.SetFilter(Rec.Qty, '<>%1', 0);
+        Rec.SetRange("Created Date", 20230723D, Today);
     end;
 }

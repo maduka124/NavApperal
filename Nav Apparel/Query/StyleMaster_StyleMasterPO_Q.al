@@ -7,7 +7,7 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
     {
         dataitem(StyleMaster; "Style Master")
         {
-            DataItemTableFilter = SMV = filter(> 0);
+            DataItemTableFilter = SMV = filter(> 0), Status = filter(Confirmed);
 
             column(Select; Select)
             {

@@ -7,9 +7,9 @@ page 50978 "Create User Card"
     // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purchase Line" = rmID;
-    // Permissions = tabledata "Sales Invoice Header" = rmID;
+    Permissions = tabledata "Sales Invoice Header" = rmID;
     // Permissions = tabledata "Purchase Header" = RIMD;
-    Permissions = tabledata "Approval Entry" = RIMD;
+    // Permissions = tabledata "Approval Entry" = RIMD;
 
     layout
     {
@@ -101,6 +101,25 @@ page 50978 "Create User Card"
 
         area(Processing)
         {
+            // action("Update sample req status")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
+
+            //     trigger OnAction()
+            //     var
+            //         samprec: Record "Sample Requsition Line";
+            //         dtStart: Date;
+            //     begin
+            //         dtStart := DMY2DATE(24, 7, 2023);
+            //         samprec.Reset();
+            //         samprec.SetFilter("Created Date", '<%1', dtStart);
+            //         samprec.FindSet();
+            //         samprec.ModifyAll(Status, samprec.Status::Yes);
+            //         Message('Completed');
+            //     end;
+            // }
+
             // action("Update WIP Qty")
             // {
             //     ApplicationArea = All;
@@ -242,22 +261,48 @@ page 50978 "Create User Card"
             //         Message('Contract No Updated');
             //     end;
             // }
-            action("remove value Export Reference")
+
+            // action("remove value Export Reference")
+            // {
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     var
+            //         SalesInvRec: Record "Sales Invoice Header";
+            //     begin
+            //         SalesInvRec.Reset();
+            //         SalesInvRec.SetRange("No.", ExportRefNo);
+            //         SalesInvRec.FindSet();
+            //         SalesInvRec.ModifyAll("Export Ref No.", '');
+            //         Message('Export Ref No Removed');
+
+            //     end;
+            // }
+
+            action("Remove Export Ref No. From Sales Invoice")
             {
                 ApplicationArea = All;
 
                 trigger OnAction()
                 var
+                    ExportReferenceHeaderRec: Record ExportReferenceHeader;
                     SalesInvRec: Record "Sales Invoice Header";
                 begin
-                    SalesInvRec.Reset();
-                    SalesInvRec.SetRange("No.", ExportRefNo);
-                    SalesInvRec.FindSet();
-                    SalesInvRec.ModifyAll("Export Ref No.", '');
-                    Message('Export Ref No Removed');
 
+                    SalesInvRec.Reset();
+                    if SalesInvRec.FindSet() then begin
+                        repeat
+                            ExportReferenceHeaderRec.Reset();
+                            ExportReferenceHeaderRec.SetRange("Invoice No", SalesInvRec."No.");
+                            if not ExportReferenceHeaderRec.FindSet() then begin
+                                SalesInvRec."Export Ref No." := '';
+                                SalesInvRec.Modify();
+                            end;
+                        until SalesInvRec.Next() = 0;
+                    end;
                 end;
             }
+
 
             // action("Remove value from Purchase Header")
             // {

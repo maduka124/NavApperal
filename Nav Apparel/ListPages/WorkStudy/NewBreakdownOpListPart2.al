@@ -9,6 +9,81 @@ page 50466 "New Breakdown Op Listpart2"
     {
         area(Content)
         {
+            // group(" ")
+            // {
+            field(RowNo; RowNo)
+            {
+                ApplicationArea = all;
+                Caption = 'To Position';
+
+                trigger OnValidate()
+                var
+                    NewBrOpLine2Rec: Record "New Breakdown Op Line2";
+                    NewBRLine: Record "New Breakdown Op Line2";
+                    MoveBy: Integer;
+                begin
+                    if RowNo <= 0 then
+                        Error('Invalid Position');
+
+                    if rec.LineType = 'H' then
+                        Error('Cannot move header record');
+
+                    //Validate entered row no's Line type/Garment part type
+                    NewBrOpLine2Rec.Reset();
+                    NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                    NewBrOpLine2Rec.SetRange("Line Position", RowNo);
+                    if NewBrOpLine2Rec.FindSet() then begin
+                        if NewBrOpLine2Rec.LineType = 'H' then
+                            Error('Invalid Position');
+
+                        if NewBrOpLine2Rec.RefGPartName <> rec.RefGPartName then
+                            Error('Cannot move the current item to a different Garment Part');
+                    end
+                    else
+                        Error('Invalid Position');
+
+                    MoveBy := 0;
+                    NewBrOpLine2Rec.Reset();
+                    NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                    NewBrOpLine2Rec.SetCurrentKey("Line Position");
+                    NewBrOpLine2Rec.Ascending(false);
+                    if NewBrOpLine2Rec.FindFirst() then begin
+                        if RowNo > NewBrOpLine2Rec."Line Position" then
+                            Error('Invalid Position');
+
+                        if RowNo <> rec."Line Position" then begin
+                            NewBRLine.Reset();
+                            NewBRLine.SetRange("No.", Rec."No.");
+                            if RowNo > rec."Line Position" then begin
+                                NewBRLine.SetRange("Line Position", Rec."Line Position" + 1, Rec."Line Position" + (RowNo - Rec."Line Position"));
+                                MoveBy := -1;
+                            end
+                            else begin
+                                NewBRLine.SetRange("Line Position", Rec."Line Position" + (RowNo - Rec."Line Position"), Rec."Line Position" - 1);
+                                MoveBy := 1;
+                            end;
+                            if NewBRLine.FindSet() then begin
+                                //Assign Temp value to current row 
+                                Rec."Line Position" := 99999;
+                                Rec.Modify();
+
+                                repeat
+                                    NewBRLine."Line Position" += MoveBy;
+                                    NewBRLine.Modify();
+                                until NewBRLine.Next() = 0;
+
+                                Rec."Line Position" := RowNo;
+                                Rec.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
+                    end
+                    else
+                        Error('No records in the breakdown list.');
+                end;
+            }
+            // }
+
             repeater(General)
             {
                 field("Line Position"; Rec."Line Position")
@@ -18,14 +93,6 @@ page 50466 "New Breakdown Op Listpart2"
                     StyleExpr = StyleExprTxt;
                     Caption = 'Seq No';
                 }
-
-                // field("Line No."; Rec."Line No.")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'Seq No2';
-                //     StyleExpr = StyleExprTxt;
-                // }
 
                 field(Code; Rec.Code)
                 {
@@ -113,7 +180,6 @@ page 50466 "New Breakdown Op Listpart2"
     {
         area(Processing)
         {
-
             action("Refersh")
             {
                 Caption = 'Refresh';
@@ -318,8 +384,6 @@ page 50466 "New Breakdown Op Listpart2"
                     MoveLine(-1);
                 end;
             }
-
-
             action("Move Down")
             {
                 Caption = 'Move Down';
@@ -371,5 +435,5 @@ page 50466 "New Breakdown Op Listpart2"
     var
         StyleExprTxt: Text[50];
         ChangeColor: Codeunit NavAppCodeUnit;
-
+        RowNo: Integer;
 }

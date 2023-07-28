@@ -2,7 +2,7 @@ page 50726 "Service Worksheet Card"
 {
     PageType = Card;
     Caption = 'Service Worksheet';
-    SourceTable = ServiceWorksheetHeaderNew;
+    SourceTable = ServiceWorksheetHeaderNewNew;
 
     layout
     {
@@ -16,10 +16,10 @@ page 50726 "Service Worksheet Card"
                     Editable = false;
                 }
 
-                field(StartDate; rec.StartDate)
+                field(ServiceType; rec.ServiceType)
                 {
                     ApplicationArea = All;
-                    Caption = 'Start Date';
+                    Caption = 'Service Type';
 
                     trigger OnValidate()
                     var
@@ -28,13 +28,9 @@ page 50726 "Service Worksheet Card"
                         LoginRec: Page "Login Card";
                         UserRec: Record "User Setup";
                     begin
-                        if rec.StartDate < WorkDate() then
-                            Error('Start date cannot be less than current date.');
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -49,20 +45,52 @@ page 50726 "Service Worksheet Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-
                         //Get location
                         UserRec.Reset();
                         UserRec.SetRange("User ID", UserId);
-
-                        if UserRec.FindSet() then
+                        if UserRec.FindSet() then begin
                             rec."Factory No." := UserRec."Factory Code";
 
-                        Locationrec.Reset();
-                        Locationrec.SetRange(code, rec."Factory No.");
-                        if Locationrec.FindSet() then begin
-                            rec."Factory" := Locationrec.Name;
-                            rec."Global Dimension Code" := Locationrec.Code;
-                        end;
+                            Locationrec.Reset();
+                            Locationrec.SetRange(code, rec."Factory No.");
+                            if Locationrec.FindSet() then begin
+                                rec."Factory" := Locationrec.Name;
+                                rec."Global Dimension Code" := Locationrec.Code;
+                            end;
+                        end
+                        else
+                            Error('Factory not assigned for the user.');
+                    end;
+                }
+
+                field("Work Center Name"; rec."Work Center Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Work Center';
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, rec."Work Center Name");
+                        IF WorkCenterRec.FindSet() THEN
+                            rec."Work Center No" := WorkCenterRec."No."
+                        else
+                            Error('Invalid Factory Name');
+                    end;
+                }
+
+                field(StartDate; rec.StartDate)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Start Date';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec.StartDate < WorkDate() then
+                            Error('Start date cannot be less than current date.');
                     end;
                 }
 
@@ -82,27 +110,6 @@ page 50726 "Service Worksheet Card"
                     end;
                 }
 
-                field("Work Center Name"; rec."Work Center Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Work Center';
-
-                    trigger OnValidate()
-                    var
-                        WorkCenterRec: Record "Work Center";
-                    begin
-                        WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, rec."Work Center Name");
-                        IF WorkCenterRec.FindSet() THEN
-                            rec."Work Center No" := WorkCenterRec."No.";
-                    end;
-                }
-
-                field(ServiceType; rec.ServiceType)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Service Type';
-                }
             }
 
             group("Service Item Details")
@@ -130,6 +137,7 @@ page 50726 "Service Worksheet Card"
                 trigger OnAction()
                 var
                     ServiceWorkRec: Record ServiceWorksheetLineNew;
+                    ServiceScheLineRec: Record ServiceScheduleLineNew;
                     ServiceScheHeadeRec: Record ServiceScheduleHeader;
                     ServiceItemRec: Record "Service Item";
                     WorkCenRec: Record "Work Center";
@@ -137,11 +145,9 @@ page 50726 "Service Worksheet Card"
                     LoginSessionsRec: Record LoginSessions;
                     LoginRec: Page "Login Card";
                 begin
-
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
                     LoginSessionsRec.SetRange(SessionID, SessionId());
-
                     if not LoginSessionsRec.FindSet() then begin  //not logged in
                         Clear(LoginRec);
                         LoginRec.LookupMode(true);
@@ -151,7 +157,6 @@ page 50726 "Service Worksheet Card"
                         LoginSessionsRec.SetRange(SessionID, SessionId());
                         LoginSessionsRec.FindSet();
                     end;
-
 
                     if rec.StartDate = 0D then
                         Error('Start date is blank');
@@ -170,42 +175,49 @@ page 50726 "Service Worksheet Card"
                     ServiceScheHeadeRec.Reset();
                     ServiceScheHeadeRec.SetRange("Factory No.", rec."Factory No.");
                     ServiceScheHeadeRec.SetRange(ServiceType, rec.ServiceType);
-
                     if ServiceScheHeadeRec.FindSet() then begin
                         repeat
 
                             //Get All Service Items for the date period
                             ServiceItemRec.Reset();
-                            ServiceItemRec.SetRange("Factory Code", rec.Factory);
+                            ServiceItemRec.SetRange("Factory", rec.Factory);
                             ServiceItemRec.SetRange("Brand No", ServiceScheHeadeRec."Brand No");
                             ServiceItemRec.SetRange("Model No", ServiceScheHeadeRec."Model No");
-                            ServiceItemRec.SetRange("No.", ServiceScheHeadeRec."Machine Category Code");
+                            ServiceItemRec.SetRange(Description, ServiceScheHeadeRec."Machine Category Code");
                             ServiceItemRec.SetRange("Location Code", rec."Work Center No");
                             ServiceItemRec.SetFilter("Service due date", '%1..%2', rec.StartDate, rec.EndDate);
-
                             if ServiceItemRec.FindSet() then begin
+
                                 repeat
-                                    NextNo += 1;
-                                    //Insert recor
-                                    ServiceWorkRec.Init();
-                                    ServiceWorkRec."No." := rec."No.";
-                                    ServiceWorkRec."Brand Name" := ServiceScheHeadeRec."Brand Name";
-                                    ServiceWorkRec."Brand No" := ServiceScheHeadeRec."Brand No";
-                                    ServiceWorkRec."Created User" := UserId;
-                                    ServiceWorkRec."Created Date" := WorkDate();
-                                    ServiceWorkRec."Line No." := NextNo;
-                                    ServiceWorkRec."Machine Category" := ServiceScheHeadeRec."Machine Category";
-                                    ServiceWorkRec."Machine Category Code" := ServiceScheHeadeRec."Machine Category Code";
-                                    ServiceWorkRec."Model Name" := ServiceScheHeadeRec."Model Name";
-                                    ServiceWorkRec."Model No" := ServiceScheHeadeRec."Model No";
-                                    ServiceWorkRec."Part Name" := ServiceScheHeadeRec."Part Name";
-                                    ServiceWorkRec."Part No" := ServiceScheHeadeRec."Part No";
-                                    ServiceWorkRec.Qty := ServiceScheHeadeRec.Qty;
-                                    ServiceWorkRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                                    ServiceWorkRec."Service Date" := ServiceItemRec."Service due date";
-                                    ServiceWorkRec."Next Service Date" := ServiceItemRec."Service due date" + ServiceItemRec."Service Period1" * 7;
-                                    ServiceWorkRec."Unit N0." := ServiceScheHeadeRec."Unit N0.";
-                                    ServiceWorkRec.Insert();
+                                    //Check only selected parts (from schedule card)
+                                    ServiceScheLineRec.Reset();
+                                    ServiceScheLineRec.SetRange("No.", ServiceScheHeadeRec."No.");
+                                    ServiceScheLineRec.SetFilter(Select, '=%1', true);
+                                    if ServiceScheLineRec.FindSet() then begin
+                                        repeat
+                                            NextNo += 1;
+                                            //Insert recor
+                                            ServiceWorkRec.Init();
+                                            ServiceWorkRec."No." := rec."No.";
+                                            ServiceWorkRec."Line No." := NextNo;
+                                            ServiceWorkRec."Brand Name" := ServiceScheHeadeRec."Brand Name";
+                                            ServiceWorkRec."Brand No" := ServiceScheHeadeRec."Brand No";
+                                            ServiceWorkRec."Model Name" := ServiceScheHeadeRec."Model Name";
+                                            ServiceWorkRec."Model No" := ServiceScheHeadeRec."Model No";
+                                            ServiceWorkRec."Machine Category" := ServiceScheHeadeRec."Machine Category";
+                                            ServiceWorkRec."Machine Category Code" := ServiceScheHeadeRec."Machine Category Code";
+                                            ServiceWorkRec."Part Name" := ServiceScheLineRec."Part Name";
+                                            ServiceWorkRec."Part No" := ServiceScheLineRec."Part No";
+                                            ServiceWorkRec.Qty := ServiceScheLineRec.Qty;
+                                            ServiceWorkRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                            ServiceWorkRec."Service Date" := ServiceItemRec."Service due date";
+                                            ServiceWorkRec."Next Service Date" := ServiceItemRec."Service due date" + ServiceItemRec."Service Period1" * 7;
+                                            ServiceWorkRec."Unit N0." := ServiceScheLineRec."Unit N0.";
+                                            ServiceWorkRec."Created User" := UserId;
+                                            ServiceWorkRec."Created Date" := WorkDate();
+                                            ServiceWorkRec.Insert();
+                                        until ServiceScheLineRec.Next() = 0;
+                                    end;
                                 until ServiceItemRec.Next() = 0;
                             end;
 
@@ -217,249 +229,249 @@ page 50726 "Service Worksheet Card"
             }
 
 
-            action("Post")
-            {
-                ApplicationArea = All;
-                Image = Post;
+            // action("Post")
+            // {
+            //     ApplicationArea = All;
+            //     Image = Post;
 
-                trigger OnAction()
-                var
-                    ServiceWorksheetLineRec: Record ServiceWorksheetLineNew;
-                    GenJrnlRec: record "Gen. Journal Line";
-                    ServiceItem: Record "Service Item";
-                    NavappRec: Record "NavApp Setup";
-                    // StServLineRec: Record "Standard Service Line";
-                    ItemJrnlRec: Record "Item Journal Line";
-                    ResJrnlRec: Record "Res. Journal Line";
-                    NoSeriesMngment: Codeunit NoSeriesManagement;
-                    GenJnlCodeUnit: Codeunit "Gen. Jnl.-Post";
-                    ItemJnlCodeUnit: Codeunit "Item Jnl.-Post";
-                    ResJnlCodeUnit: Codeunit "Res. Jnl.-Post";
-                    GenJnlTemRec: Record "Gen. Journal Template";
-                    ServiceLdgrRec: Record "Service Ledger Entry";
-                    Users: Record "User Setup";
-                    TempDate: Date;
-                    GenLineNo: BigInteger;
-                    itemLineNo: BigInteger;
-                    ResLineNo: BigInteger;
-                    DocNo: code[20];
-                    BalAccountNo: code[20];
-                begin
+            //     trigger OnAction()
+            //     var
+            //         ServiceWorksheetLineRec: Record ServiceWorksheetLineNew;
+            //         GenJrnlRec: record "Gen. Journal Line";
+            //         ServiceItem: Record "Service Item";
+            //         NavappRec: Record "NavApp Setup";
+            //         // StServLineRec: Record "Standard Service Line";
+            //         ItemJrnlRec: Record "Item Journal Line";
+            //         ResJrnlRec: Record "Res. Journal Line";
+            //         NoSeriesMngment: Codeunit NoSeriesManagement;
+            //         GenJnlCodeUnit: Codeunit "Gen. Jnl.-Post";
+            //         ItemJnlCodeUnit: Codeunit "Item Jnl.-Post";
+            //         ResJnlCodeUnit: Codeunit "Res. Jnl.-Post";
+            //         GenJnlTemRec: Record "Gen. Journal Template";
+            //         ServiceLdgrRec: Record "Service Ledger Entry";
+            //         Users: Record "User Setup";
+            //         TempDate: Date;
+            //         GenLineNo: BigInteger;
+            //         itemLineNo: BigInteger;
+            //         ResLineNo: BigInteger;
+            //         DocNo: code[20];
+            //         BalAccountNo: code[20];
+            //     begin
 
-                    NavappRec.Reset();
-                    NavappRec.FindSet();
+            //         NavappRec.Reset();
+            //         NavappRec.FindSet();
 
-                    //Get Gen,Jnl Template bal account
-                    GenJnlTemRec.Reset();
-                    GenJnlTemRec.SetRange(name, NavappRec."Gen Journal Template Name");
+            //         //Get Gen,Jnl Template bal account
+            //         GenJnlTemRec.Reset();
+            //         GenJnlTemRec.SetRange(name, NavappRec."Gen Journal Template Name");
 
-                    if GenJnlTemRec.Findset() then
-                        BalAccountNo := GenJnlTemRec."Bal. Account No.";
-
-
-                    //Get Last line No
-                    GenJrnlRec.Reset();
-                    GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                    GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-
-                    if GenJrnlRec.FindLast() then
-                        GenLineNo := GenJrnlRec."Line No.";
-
-                    //Get Last line No
-                    ItemJrnlRec.Reset();
-                    ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                    ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                    if ItemJrnlRec.FindLast() then
-                        itemLineNo := ItemJrnlRec."Line No.";
-
-                    //Get Last line No
-                    ResJrnlRec.Reset();
-                    ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                    ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                    if ResJrnlRec.FindLast() then
-                        ResLineNo := ResJrnlRec."Line No.";
-
-                    //Get user location
-                    Users.Reset();
-                    Users.SetRange("User ID", UserId());
-                    Users.FindSet();
+            //         if GenJnlTemRec.Findset() then
+            //             BalAccountNo := GenJnlTemRec."Bal. Account No.";
 
 
-                    //get all the eligible records
-                    ServiceWorksheetLineRec.Reset();
-                    ServiceWorksheetLineRec.SetRange("No.", rec."No.");
-                    //ServiceWorksheetLineRec.SetFilter(Approval, '=%1', true);
+            //         //Get Last line No
+            //         GenJrnlRec.Reset();
+            //         GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+            //         GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
 
-                    // if ServiceWorksheetLineRec.FindSet() then begin
-                    //     repeat
-                    //         // if ServiceWorksheetLineRec."Standard Service Code" = '' then
-                    //         //     Error('Standard Service Code has not updated for Service Item : %1', ServiceWorksheetLineRec."Service Item Name");
+            //         if GenJrnlRec.FindLast() then
+            //             GenLineNo := GenJrnlRec."Line No.";
 
-                    //         DocNo := NoSeriesMngment.GetNextNo(NavappRec."Service Doc Nos.", Today, true);
+            //         //Get Last line No
+            //         ItemJrnlRec.Reset();
+            //         ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+            //         ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+            //         if ItemJrnlRec.FindLast() then
+            //             itemLineNo := ItemJrnlRec."Line No.";
 
-                    //         //Get Standard service Line details
-                    //         StServLineRec.Reset();
-                    //         StServLineRec.SetRange("Standard Service Code", ServiceWorksheetLineRec."Standard Service Code");
+            //         //Get Last line No
+            //         ResJrnlRec.Reset();
+            //         ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+            //         ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+            //         if ResJrnlRec.FindLast() then
+            //             ResLineNo := ResJrnlRec."Line No.";
 
-                    //         if StServLineRec.FindSet() then begin
-                    //             repeat
-                    //                 if StServLineRec.Type = StServLineRec.Type::Item then begin
-                    //                     //Write to item Journal entry   
-                    //                     itemLineNo += 10000;
-                    //                     ItemJrnlRec.Init();
-                    //                     ItemJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    //                     ItemJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                    //                     ItemJrnlRec.validate("Line No.", itemLineNo);
-                    //                     ItemJrnlRec.Validate("Item No.", StServLineRec."No.");
-                    //                     ItemJrnlRec.Validate("Posting Date", WorkDate());
-                    //                     ItemJrnlRec.Validate("Entry Type", ItemJrnlRec."Entry Type"::"Negative Adjmt.");
-                    //                     ItemJrnlRec.Validate("Document No.", DocNo);
-                    //                     ItemJrnlRec.Validate("Location Code", Users."Factory Code");
-                    //                     ItemJrnlRec.Validate(Quantity, StServLineRec.Quantity);
-                    //                     ItemJrnlRec.Validate("Document Date", WorkDate());
-                    //                     ItemJrnlRec.Validate("Document Type", ItemJrnlRec."Document Type"::"Service Invoice");
-                    //                     ItemJrnlRec.Insert();
-                    //                 end;
-
-                    //                 if StServLineRec.Type = StServLineRec.Type::Resource then begin
-                    //                     //Write to Resource Journal entry   
-                    //                     ResLineNo += 10000;
-                    //                     ResJrnlRec.Init();
-                    //                     ResJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    //                     ResJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                    //                     ResJrnlRec.validate("Line No.", ResLineNo);
-                    //                     ResJrnlRec.Validate("Entry Type", ResJrnlRec."Entry Type"::Usage);
-                    //                     ResJrnlRec.Validate("Document No.", DocNo);
-                    //                     ResJrnlRec.Validate("Posting Date", WorkDate());
-                    //                     ResJrnlRec.Validate("Resource No.", StServLineRec."No.");
-                    //                     ResJrnlRec.Validate(Quantity, StServLineRec.Quantity);
-                    //                     ResJrnlRec.Validate("Document Date", WorkDate());
-                    //                     ResJrnlRec.Insert();
-                    //                 end;
-
-                    //                 if StServLineRec.Type = StServLineRec.Type::"G/L Account" then begin
-                    //                     //Write to General Journal
-                    //                     GenLineNo += 10000;
-                    //                     GenJrnlRec.Init();
-                    //                     GenJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    //                     GenJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                    //                     GenJrnlRec.validate("Line No.", GenLineNo);
-                    //                     GenJrnlRec.Validate("Account Type", GenJrnlRec."Account Type"::"G/L Account");
-                    //                     GenJrnlRec.Validate("Account No.", StServLineRec."No.");
-                    //                     GenJrnlRec.Validate("Posting Date", WorkDate);
-                    //                     GenJrnlRec.Validate("Document Type", GenJrnlRec."Document Type"::Invoice);
-                    //                     GenJrnlRec.Validate("Document No.", DocNo);
-                    //                     GenJrnlRec.Validate("Document Date", WorkDate());
-                    //                     GenJrnlRec.Validate("Bal. Account No.", BalAccountNo);
-                    //                     //GenJrnlRec.Validate("Currency Code", '');
-                    //                     GenJrnlRec.Validate(Amount, StServLineRec.Quantity);
-                    //                     GenJrnlRec.Insert();
-                    //                 end;
-
-                    //             until StServLineRec.Next() = 0;
-                    //         end;
+            //         //Get user location
+            //         Users.Reset();
+            //         Users.SetRange("User ID", UserId());
+            //         Users.FindSet();
 
 
-                    //         //Update next Service Date
-                    //         ServiceItem.Reset();
-                    //         ServiceItem.SetRange("No.", ServiceWorksheetLineRec."Service Item No");
+            //         //get all the eligible records
+            //         ServiceWorksheetLineRec.Reset();
+            //         ServiceWorksheetLineRec.SetRange("No.", rec."No.");
+            //         //ServiceWorksheetLineRec.SetFilter(Approval, '=%1', true);
 
-                    //         if ServiceItem.FindSet() then begin
-                    //             if ServiceWorksheetLineRec."Next Service Date" = 0D then begin
-                    //                 if ServiceItem."Service Period" = ServiceItem."Service Period"::"''" then
-                    //                     Error('Service Period has not updated for Service Item : %1', ServiceItem.Name);
+            //         // if ServiceWorksheetLineRec.FindSet() then begin
+            //         //     repeat
+            //         //         // if ServiceWorksheetLineRec."Standard Service Code" = '' then
+            //         //         //     Error('Standard Service Code has not updated for Service Item : %1', ServiceWorksheetLineRec."Service Item Name");
 
-                    //                 case ServiceItem."Service Period" of
-                    //                     ServiceItem."Service Period"::"1 Week":
-                    //                         begin
-                    //                             TempDate := CalcDate('<+1W>', ServiceWorksheetLineRec."Service Date");
-                    //                             //break;
-                    //                         end;
-                    //                     ServiceItem."Service Period"::"2 Weeks":
-                    //                         begin
-                    //                             TempDate := CalcDate('<+2W>', ServiceWorksheetLineRec."Service Date");
-                    //                             //break;
-                    //                         end;
-                    //                     ServiceItem."Service Period"::"3 Weeks":
-                    //                         begin
-                    //                             TempDate := CalcDate('<+3W>', ServiceWorksheetLineRec."Service Date");
-                    //                             //break;
-                    //                         end;
-                    //                     ServiceItem."Service Period"::"1 Month":
-                    //                         begin
-                    //                             TempDate := CalcDate('<+1M>', ServiceWorksheetLineRec."Service Date");
-                    //                             //break;
-                    //                         end;
-                    //                     ServiceItem."Service Period"::"2 Months":
-                    //                         begin
-                    //                             TempDate := CalcDate('<+2M>', ServiceWorksheetLineRec."Service Date");
-                    //                             //break;
-                    //                         end;
-                    //                     ServiceItem."Service Period"::"3 Months":
-                    //                         begin
-                    //                             TempDate := CalcDate('<+3M>', ServiceWorksheetLineRec."Service Date");
-                    //                             //break;
-                    //                         end;
-                    //                 end;
-                    //             end
-                    //             else
-                    //                 TempDate := ServiceWorksheetLineRec."Next Service Date";
+            //         //         DocNo := NoSeriesMngment.GetNextNo(NavappRec."Service Doc Nos.", Today, true);
 
-                    //             ServiceItem."Service due date" := TempDate;
-                    //             ServiceItem."Last Service Date" := WorkDate();
-                    //             ServiceItem.Modify();
-                    //         end;
+            //         //         //Get Standard service Line details
+            //         //         StServLineRec.Reset();
+            //         //         StServLineRec.SetRange("Standard Service Code", ServiceWorksheetLineRec."Standard Service Code");
 
-                    //         // //Write to service ledger entry
-                    //         // ServiceLdgrRec.Init();
-                    //         // ServiceLdgrRec."Service Contract No." := ServiceWorksheetLineRec."Doc No";
-                    //         // ServiceLdgrRec."Document Type" := ServiceLdgrRec."Document Type"::Invoice;
-                    //         // ServiceLdgrRec."Document No." := ServiceWorksheetLineRec."Doc No";
-                    //         // ServiceLdgrRec."Posting Date" := WorkDate();
-                    //         // ServiceLdgrRec.Amount := 0;
-                    //         // ServiceLdgrRec
-                    //         // ServiceLdgrRec.Insert();
+            //         //         if StServLineRec.FindSet() then begin
+            //         //             repeat
+            //         //                 if StServLineRec.Type = StServLineRec.Type::Item then begin
+            //         //                     //Write to item Journal entry   
+            //         //                     itemLineNo += 10000;
+            //         //                     ItemJrnlRec.Init();
+            //         //                     ItemJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         //                     ItemJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+            //         //                     ItemJrnlRec.validate("Line No.", itemLineNo);
+            //         //                     ItemJrnlRec.Validate("Item No.", StServLineRec."No.");
+            //         //                     ItemJrnlRec.Validate("Posting Date", WorkDate());
+            //         //                     ItemJrnlRec.Validate("Entry Type", ItemJrnlRec."Entry Type"::"Negative Adjmt.");
+            //         //                     ItemJrnlRec.Validate("Document No.", DocNo);
+            //         //                     ItemJrnlRec.Validate("Location Code", Users."Factory Code");
+            //         //                     ItemJrnlRec.Validate(Quantity, StServLineRec.Quantity);
+            //         //                     ItemJrnlRec.Validate("Document Date", WorkDate());
+            //         //                     ItemJrnlRec.Validate("Document Type", ItemJrnlRec."Document Type"::"Service Invoice");
+            //         //                     ItemJrnlRec.Insert();
+            //         //                 end;
+
+            //         //                 if StServLineRec.Type = StServLineRec.Type::Resource then begin
+            //         //                     //Write to Resource Journal entry   
+            //         //                     ResLineNo += 10000;
+            //         //                     ResJrnlRec.Init();
+            //         //                     ResJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         //                     ResJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+            //         //                     ResJrnlRec.validate("Line No.", ResLineNo);
+            //         //                     ResJrnlRec.Validate("Entry Type", ResJrnlRec."Entry Type"::Usage);
+            //         //                     ResJrnlRec.Validate("Document No.", DocNo);
+            //         //                     ResJrnlRec.Validate("Posting Date", WorkDate());
+            //         //                     ResJrnlRec.Validate("Resource No.", StServLineRec."No.");
+            //         //                     ResJrnlRec.Validate(Quantity, StServLineRec.Quantity);
+            //         //                     ResJrnlRec.Validate("Document Date", WorkDate());
+            //         //                     ResJrnlRec.Insert();
+            //         //                 end;
+
+            //         //                 if StServLineRec.Type = StServLineRec.Type::"G/L Account" then begin
+            //         //                     //Write to General Journal
+            //         //                     GenLineNo += 10000;
+            //         //                     GenJrnlRec.Init();
+            //         //                     GenJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         //                     GenJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+            //         //                     GenJrnlRec.validate("Line No.", GenLineNo);
+            //         //                     GenJrnlRec.Validate("Account Type", GenJrnlRec."Account Type"::"G/L Account");
+            //         //                     GenJrnlRec.Validate("Account No.", StServLineRec."No.");
+            //         //                     GenJrnlRec.Validate("Posting Date", WorkDate);
+            //         //                     GenJrnlRec.Validate("Document Type", GenJrnlRec."Document Type"::Invoice);
+            //         //                     GenJrnlRec.Validate("Document No.", DocNo);
+            //         //                     GenJrnlRec.Validate("Document Date", WorkDate());
+            //         //                     GenJrnlRec.Validate("Bal. Account No.", BalAccountNo);
+            //         //                     //GenJrnlRec.Validate("Currency Code", '');
+            //         //                     GenJrnlRec.Validate(Amount, StServLineRec.Quantity);
+            //         //                     GenJrnlRec.Insert();
+            //         //                 end;
+
+            //         //             until StServLineRec.Next() = 0;
+            //         //         end;
 
 
-                    //         //Delete entry from worksheet
-                    //         ServiceWorksheetLineRec.Delete();
-                    //     until ServiceWorksheetLineRec.Next() = 0;
+            //         //         //Update next Service Date
+            //         //         ServiceItem.Reset();
+            //         //         ServiceItem.SetRange("No.", ServiceWorksheetLineRec."Service Item No");
 
-                    //     //Post General Journal
-                    //     GenJrnlRec.Reset();
-                    //     GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                    //     GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    //     GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+            //         //         if ServiceItem.FindSet() then begin
+            //         //             if ServiceWorksheetLineRec."Next Service Date" = 0D then begin
+            //         //                 if ServiceItem."Service Period" = ServiceItem."Service Period"::"''" then
+            //         //                     Error('Service Period has not updated for Service Item : %1', ServiceItem.Name);
 
-                    //     if GenJrnlRec.FindSet() then
-                    //         GenJnlCodeUnit.Run(GenJrnlRec);
+            //         //                 case ServiceItem."Service Period" of
+            //         //                     ServiceItem."Service Period"::"1 Week":
+            //         //                         begin
+            //         //                             TempDate := CalcDate('<+1W>', ServiceWorksheetLineRec."Service Date");
+            //         //                             //break;
+            //         //                         end;
+            //         //                     ServiceItem."Service Period"::"2 Weeks":
+            //         //                         begin
+            //         //                             TempDate := CalcDate('<+2W>', ServiceWorksheetLineRec."Service Date");
+            //         //                             //break;
+            //         //                         end;
+            //         //                     ServiceItem."Service Period"::"3 Weeks":
+            //         //                         begin
+            //         //                             TempDate := CalcDate('<+3W>', ServiceWorksheetLineRec."Service Date");
+            //         //                             //break;
+            //         //                         end;
+            //         //                     ServiceItem."Service Period"::"1 Month":
+            //         //                         begin
+            //         //                             TempDate := CalcDate('<+1M>', ServiceWorksheetLineRec."Service Date");
+            //         //                             //break;
+            //         //                         end;
+            //         //                     ServiceItem."Service Period"::"2 Months":
+            //         //                         begin
+            //         //                             TempDate := CalcDate('<+2M>', ServiceWorksheetLineRec."Service Date");
+            //         //                             //break;
+            //         //                         end;
+            //         //                     ServiceItem."Service Period"::"3 Months":
+            //         //                         begin
+            //         //                             TempDate := CalcDate('<+3M>', ServiceWorksheetLineRec."Service Date");
+            //         //                             //break;
+            //         //                         end;
+            //         //                 end;
+            //         //             end
+            //         //             else
+            //         //                 TempDate := ServiceWorksheetLineRec."Next Service Date";
 
-                    //     //Post Item Journal
-                    //     ItemJrnlRec.Reset();
-                    //     ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                    //     ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    //     ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+            //         //             ServiceItem."Service due date" := TempDate;
+            //         //             ServiceItem."Last Service Date" := WorkDate();
+            //         //             ServiceItem.Modify();
+            //         //         end;
 
-                    //     if ItemJrnlRec.FindSet() then
-                    //         ItemJnlCodeUnit.Run(ItemJrnlRec);
+            //         //         // //Write to service ledger entry
+            //         //         // ServiceLdgrRec.Init();
+            //         //         // ServiceLdgrRec."Service Contract No." := ServiceWorksheetLineRec."Doc No";
+            //         //         // ServiceLdgrRec."Document Type" := ServiceLdgrRec."Document Type"::Invoice;
+            //         //         // ServiceLdgrRec."Document No." := ServiceWorksheetLineRec."Doc No";
+            //         //         // ServiceLdgrRec."Posting Date" := WorkDate();
+            //         //         // ServiceLdgrRec.Amount := 0;
+            //         //         // ServiceLdgrRec
+            //         //         // ServiceLdgrRec.Insert();
 
-                    //     //Post Resource Journal
-                    //     ResJrnlRec.Reset();
-                    //     ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                    //     ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                    //     ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
 
-                    //     if ResJrnlRec.FindSet() then
-                    //         ResJnlCodeUnit.Run(ResJrnlRec);
+            //         //         //Delete entry from worksheet
+            //         //         ServiceWorksheetLineRec.Delete();
+            //         //     until ServiceWorksheetLineRec.Next() = 0;
 
-                    // end;
+            //         //     //Post General Journal
+            //         //     GenJrnlRec.Reset();
+            //         //     GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+            //         //     GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         //     GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
 
-                    Message('Posting Completed');
-                end;
-            }
+            //         //     if GenJrnlRec.FindSet() then
+            //         //         GenJnlCodeUnit.Run(GenJrnlRec);
+
+            //         //     //Post Item Journal
+            //         //     ItemJrnlRec.Reset();
+            //         //     ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+            //         //     ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         //     ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+
+            //         //     if ItemJrnlRec.FindSet() then
+            //         //         ItemJnlCodeUnit.Run(ItemJrnlRec);
+
+            //         //     //Post Resource Journal
+            //         //     ResJrnlRec.Reset();
+            //         //     ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+            //         //     ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+            //         //     ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+
+            //         //     if ResJrnlRec.FindSet() then
+            //         //         ResJnlCodeUnit.Run(ResJrnlRec);
+
+            //         // end;
+
+            //         Message('Posting Completed');
+            //     end;
+            // }
 
             //         action("Send For Approval")
             //         {
@@ -518,7 +530,6 @@ page 50726 "Service Worksheet Card"
         ServiceWorkLineRec.SetRange("No.", rec."No.");
         if ServiceWorkLineRec.FindSet() then
             ServiceWorkLineRec.DeleteAll();
-
     end;
 
 }

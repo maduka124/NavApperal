@@ -2,6 +2,7 @@ page 51371 StyleChangeCard
 {
     PageType = Card;
     Caption = 'Style Change Card';
+    SourceTable = StyleChangeHeader;
     InsertAllowed = false;
     DeleteAllowed = false;
 
@@ -11,10 +12,20 @@ page 51371 StyleChangeCard
         {
             group(General)
             {
-                field(Factory; Factory)
+                field("Factory No"; rec."Factory No")
                 {
                     ApplicationArea = All;
                     TableRelation = Location.Code where("Sewing Unit" = filter(true));
+                    Caption = 'Factory';
+
+                    trigger OnValidate()
+                    var
+                        StyleChangeLineRec: Record StyleChangeLine;
+                    begin
+                        StyleChangeLineRec.Reset();
+                        if StyleChangeLineRec.FindSet() then
+                            StyleChangeLineRec.DeleteAll();
+                    end;
                 }
 
                 field(StartDate; StartDate)
@@ -36,9 +47,7 @@ page 51371 StyleChangeCard
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    // SubPageLink = "Secondary UserID" = field()
-
-
+                    SubPageLink = "Factory No" = field("Factory No");
                 }
             }
         }
@@ -68,7 +77,7 @@ page 51371 StyleChangeCard
                     Count: BigInteger;
                     Total: BigInteger;
                 begin
-                    if Factory = '' then
+                    if rec."Factory No" = '' then
                         Error('Factory is blank.');
 
                     if StartDate = 0D then
@@ -92,10 +101,11 @@ page 51371 StyleChangeCard
                         LoginSessionsRec.SetRange(SessionID, SessionId());
                         LoginSessionsRec.FindSet();
                     end;
+
                     Total := 0;
-                    //Delete old records for the user
+                    //Delete old records for the factory
                     StyleChangeRec.Reset();
-                    StyleChangeRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+                    StyleChangeRec.SetRange("Factory No", rec."Factory No");
                     if StyleChangeRec.Findset() then
                         StyleChangeRec.DeleteAll();
 
@@ -105,7 +115,7 @@ page 51371 StyleChangeCard
                         SeqNo := StyleChangeRec.SeqNo;
 
                     NavappProdDetRec.Reset();
-                    NavappProdDetRec.SetRange("Factory No.", Factory);
+                    NavappProdDetRec.SetRange("Factory No.", rec."Factory No");
                     NavappProdDetRec.SetFilter(PlanDate, '%1..%2', StartDate, EndDate);
                     NavappProdDetRec.SetCurrentKey("Resource No.", "Style Name");
                     NavappProdDetRec.Ascending(true);
@@ -118,7 +128,7 @@ page 51371 StyleChangeCard
                                 StyleChangeRec."Resource No." := NavappProdDetRec."Resource No.";
                                 StyleChangeRec."Factory No" := NavappProdDetRec."Factory No.";
                                 StyleChangeRec.Qty := 1;
-                                StyleChangeRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                //StyleChangeRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                                 StyleChangeRec.Insert();
 
                                 //reset the count
@@ -130,7 +140,7 @@ page 51371 StyleChangeCard
 
                                 StyleChangeRec.Reset();
                                 StyleChangeRec.SetRange("Resource No.", NavappProdDetRec."Resource No.");
-                                StyleChangeRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+                                //StyleChangeRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
                                 if StyleChangeRec.Findset() then
                                     StyleChangeRec.ModifyAll(Qty, Count);
                             end;
@@ -141,7 +151,7 @@ page 51371 StyleChangeCard
                         until NavappProdDetRec.Next() = 0;
 
                         StyleChangeRec.Reset();
-                        StyleChangeRec.SetRange("Factory No", Factory);
+                        StyleChangeRec.SetRange("Factory No", rec."Factory No");
                         if StyleChangeRec.FindSet() then begin
                             StyleChangeRec.CalcSums(Qty);
                             Total := StyleChangeRec.Qty;
@@ -155,7 +165,7 @@ page 51371 StyleChangeCard
                         StyleChangeRec.Init();
                         StyleChangeRec.SeqNo := SeqNo1;
                         StyleChangeRec."Resource No." := 'TOTAL';
-                        StyleChangeRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        // StyleChangeRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         StyleChangeRec.Qty := Total;
                         StyleChangeRec.Insert();
                     end;
@@ -171,13 +181,23 @@ page 51371 StyleChangeCard
     var
         BOMEstimateCostRec: Record "BOM Estimate Cost";
         StyleMasterRec: Record "Style Master";
+        StyleChangeLineRec: Record StyleChangeLine;
     begin
+        StyleChangeLineRec.Reset();
+        if StyleChangeLineRec.FindSet() then
+            StyleChangeLineRec.DeleteAll();
+
+        if not rec.get() then begin
+            rec.INIT();
+            rec.INSERT();
+        end;
+
         StartDate := WorkDate();
         EndDate := WorkDate();
     end;
 
+
     var
-        Factory: Code[20];
         StartDate: Date;
         EndDate: Date;
 }

@@ -39,32 +39,32 @@ page 51227 ServiceScheduleList
                 field("Machine Category"; rec."Machine Category")
                 {
                     ApplicationArea = All;
-                    Caption = 'Machine Category';
+                    Caption = 'Type of Machine';
                 }
 
-                field("Part No"; rec."Part No")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Part No';
-                }
+                // field("Part No"; rec."Part No")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Part No';
+                // }
 
-                field("Part Name"; rec."Part Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Part Name';
-                }
+                // field("Part Name"; rec."Part Name")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Part Name';
+                // }
 
-                field("Unit N0."; rec."Unit N0.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Unit';
-                }
+                // field("Unit N0."; rec."Unit N0.")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Unit';
+                // }
 
-                field(Qty; rec.Qty)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Qty';
-                }
+                // field(Qty; rec.Qty)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Qty';
+                // }
             }
         }
     }
@@ -86,11 +86,11 @@ page 51227 ServiceScheduleList
 
     trigger OnDeleteRecord(): Boolean
     var
-        ServiceScheLineRec: Record ServiceScheduleLine;
+        ServiceScheLineRec: Record ServiceScheduleLineNew;
     begin
         //Delete old records
         ServiceScheLineRec.Reset();
-        ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
+        ServiceScheLineRec.SetRange("No.", rec."No.");
         if ServiceScheLineRec.FindSet() then
             ServiceScheLineRec.DeleteAll();
 

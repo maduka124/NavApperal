@@ -226,4 +226,9 @@ page 50437 SampleProdLineSewListPart
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange("Created Date", 20230723D, Today);
+    end;
 }

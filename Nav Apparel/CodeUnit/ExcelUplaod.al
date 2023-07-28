@@ -113,7 +113,7 @@ codeunit 50735 ExcelUplaod
         ServiceItem: Record "Service Item";
         WorkCenterRec: Record "Work Center";
         StServiceCodeRec: Record "Standard Service Code";
-        WorkSheetHeadRec: Record ServiceWorksheetHeader;
+        WorkSheetHeadRec: Record ServiceWorksheetHeaderNewNew;
         ServiceItemDesc: Text[100];
         WorkCenterName: Text[100];
         StServiceCodeDesc: Text[100];

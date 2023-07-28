@@ -26,7 +26,7 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         field(50005; "Brand"; Text[100])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Brand."Brand Name";
+            TableRelation = Brand."Brand Name" where(Type = filter(Other));
             ValidateTableRelation = false;
         }
 

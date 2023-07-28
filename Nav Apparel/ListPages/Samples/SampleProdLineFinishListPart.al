@@ -252,4 +252,8 @@ page 50800 SampleProdLineFinishListPart
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange("Created Date", 20230723D, Today);
+    end;
 }

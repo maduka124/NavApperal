@@ -273,4 +273,8 @@ page 51196 SampleProdLineQCFinishListPart
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        Rec.SetRange("Created Date", 20230723D, Today);
+    end;
 }

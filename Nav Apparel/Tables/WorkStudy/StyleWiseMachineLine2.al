@@ -164,6 +164,11 @@ table 51365 FactoryAndLineMachineLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(40; "Record Type"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -1,7 +1,7 @@
 page 51236 "Service Wrks List"
 {
     PageType = List;
-    SourceTable = ServiceWorksheetHeaderNew;
+    SourceTable = ServiceWorksheetHeaderNewNew;
     SourceTableView = sorting(Factory, "Work Center Name", ServiceType, StartDate) order(descending);
     CardPageId = "Service Worksheet Card";
 
