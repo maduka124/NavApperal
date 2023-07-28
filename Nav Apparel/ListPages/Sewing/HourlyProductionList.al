@@ -5,7 +5,7 @@ page 50518 "Hourly Production List"
     UsageCategory = Lists;
     SourceTable = "Hourly Production Master";
     CardPageId = "Hourly Production Card";
-    SourceTableView = sorting("No.") order(descending);
+    SourceTableView = sorting("No.") order(descending) where(Type = filter(Sewing));
 
 
     layout
