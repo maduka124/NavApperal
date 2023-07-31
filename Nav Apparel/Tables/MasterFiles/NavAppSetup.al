@@ -691,6 +691,7 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+       
     }
 
     keys

@@ -323,7 +323,7 @@ page 51303 "Copy Sample Requisition Card"
                                             SampleReqLineNewRec.Comment := SampleReqLineRec.Comment;
                                             SampleReqLineNewRec."Plan Start Date" := SampleReqLineRec."Plan Start Date";
                                             SampleReqLineNewRec."Plan End Date" := SampleReqLineRec."Plan End Date";
-                                            SampleReqLineNewRec.Status := SampleReqLineRec.Status;
+                                            SampleReqLineNewRec.Status := SampleReqLineRec.Status; //No
                                             SampleReqLineNewRec."Complete Qty" := SampleReqLineRec."Complete Qty";
                                             SampleReqLineNewRec."Reject Qty" := SampleReqLineRec."Reject Qty";
                                             SampleReqLineNewRec."Reject Comment" := SampleReqLineRec."Reject Comment";

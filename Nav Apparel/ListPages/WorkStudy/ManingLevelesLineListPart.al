@@ -104,7 +104,7 @@ page 50476 "Maning Levels Listpart"
                 {
                     ApplicationArea = All;
                     Caption = 'Actual MC';
-                    Editable = false;
+                    // Editable = false;
                 }
 
                 field(Comments; rec.Comments)
@@ -130,13 +130,10 @@ page 50476 "Maning Levels Listpart"
                     ManingLevelRec: Record "Maning Level";
                     ActMOTotal: Decimal;
                     ActHPTotal: Decimal;
-
                 begin
-
                     //Calculate Actual values
                     ManingLevelsLineRec.Reset();
                     ManingLevelsLineRec.SetRange("No.", rec."No.");
-
                     if ManingLevelsLineRec.FindSet() then begin
                         repeat
                             ActMOTotal += ManingLevelsLineRec."Act MO";
@@ -144,11 +141,9 @@ page 50476 "Maning Levels Listpart"
                         until ManingLevelsLineRec.Next() = 0;
                     end;
 
-
                     //Update Master table
                     ManingLevelRec.Reset();
                     ManingLevelRec.SetRange("No.", rec."No.");
-
                     if ManingLevelRec.FindSet() then begin
 
                         ManingLevelRec.MOAct := ActMOTotal;

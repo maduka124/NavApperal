@@ -41,11 +41,9 @@ page 50475 "Maning Level Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -60,7 +58,6 @@ page 50475 "Maning Level Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-
                         StyeleMasRec.Reset();
                         if StyeleMasRec.Findset() then begin
                             repeat
@@ -69,12 +66,10 @@ page 50475 "Maning Level Card"
                                 if NewBRRec.Findset() then
                                     StyeleMasRec.Mark(true);
                             until StyeleMasRec.Next() = 0;
-
                             StyeleMasRec.MARKEDONLY(TRUE);
                         end;
 
                         if Page.RunModal(51185, StyeleMasRec) = Action::LookupOK then begin
-
                             rec."Style No." := StyeleMasRec."No.";
                             rec."Style Name" := StyeleMasRec."Style No.";
 
@@ -93,13 +88,10 @@ page 50475 "Maning Level Card"
                             else
                                 Error('No Breakdown for the Style : %1', StyeleMasRec."Style No.");
 
-
                             //Load Line Items
                             NewBrRec.Reset();
                             NewBrRec.SetRange("Style No.", StyeleMasRec."No.");
-
                             if NewBrRec.FindSet() then begin
-
                                 NewBRNo := NewBrRec."No.";
 
                                 NewBrOpLineRec.Reset();
@@ -107,19 +99,16 @@ page 50475 "Maning Level Card"
                                 NewBrOpLineRec.SetCurrentKey("GPart Position", "Line Position");
                                 NewBrOpLineRec.Ascending(true);
                                 NewBrOpLineRec.SetFilter(LineType, '=%1', 'L');
-
                                 if NewBrOpLineRec.FindSet() then begin
 
                                     //Get max line no
                                     LineNo := 0;
                                     ManingLevelsLineRec.Reset();
                                     ManingLevelsLineRec.SetRange("No.", rec."No.");
-
                                     if ManingLevelsLineRec.FindLast() then
                                         LineNo := ManingLevelsLineRec."Line No.";
 
                                     repeat
-
                                         LineNo += 1;
                                         ManingLevelsLineRec.Init();
                                         ManingLevelsLineRec."No." := rec."No.";
@@ -146,9 +135,7 @@ page 50475 "Maning Level Card"
 
                                 end;
                             end;
-
                         end;
-
                     end;
 
                     // trigger OnValidate()
@@ -438,22 +425,6 @@ page 50475 "Maning Level Card"
         }
     }
 
-    // actions
-    // {
-    //     area(Processing)
-    //     {
-    //         action(Calculate)
-    //         {
-    //             ApplicationArea = All;
-    //             Image = Calculate;
-
-    //             trigger OnAction()
-    //             begin
-
-    //             end;
-    //         }
-    //     }
-    // }
 
     procedure AssistEdit(): Boolean
     var
@@ -477,10 +448,8 @@ page 50475 "Maning Level Card"
         ActMOTotal: Decimal;
         ActHPTotal: Decimal;
     begin
-
         //Calculate BPT and 100% of target
         if rec.Type = rec.Type::"Based on Machine Operator" then begin
-
             if rec.Val <> 0 then
                 rec.BPT := rec."Sewing SMV" / rec.Val
             else
@@ -495,10 +464,8 @@ page 50475 "Maning Level Card"
                 rec."Expected Target" := ((60 / rec.BPT) * rec.Eff) / 100
             else
                 rec."Expected Target" := 0;
-
         end
         else begin
-
             if rec.Val <> 0 then
                 rec.BPT := (60 / rec.Val) / 100 * rec.Eff
             else
@@ -506,7 +473,6 @@ page 50475 "Maning Level Card"
 
             rec."% Of Target " := rec.Val;
             rec."Expected Target" := (rec.Val * rec.Eff) / 100;
-
         end;
 
         CurrPage.Update();
@@ -514,33 +480,32 @@ page 50475 "Maning Level Card"
         //Calculate Line values
         ManingLevelsLineRec.Reset();
         ManingLevelsLineRec.SetRange("No.", rec."No.");
-
         if ManingLevelsLineRec.FindSet() then begin
             repeat
-
                 //Calculate ""Theo MO" / "Theo HP"
                 if rec.BPT <> 0 then begin
                     ManingLevelsLineRec."Theo MO" := ManingLevelsLineRec."SMV Machine" / rec.BPT;
+                    ManingLevelsLineRec."Act MO" := Round(ManingLevelsLineRec."SMV Machine" / rec.BPT, 1);
+                    ManingLevelsLineRec."Act MC" := Round(ManingLevelsLineRec."SMV Machine" / rec.BPT, 1);
                     TheoMOTotal += ManingLevelsLineRec."SMV Machine" / rec.BPT;
                     ManingLevelsLineRec."Theo HP" := ManingLevelsLineRec."SMV Manual" / rec.BPT;
+                    ManingLevelsLineRec."Act HP" := Round(ManingLevelsLineRec."SMV Manual" / rec.BPT, 1);
                     TheoHPTotal += ManingLevelsLineRec."SMV Manual" / rec.BPT
                 end
                 else begin
                     ManingLevelsLineRec."Theo MO" := 0;
                     ManingLevelsLineRec."Theo HP" := 0;
+                    ManingLevelsLineRec."Act MO" := 0;
+                    ManingLevelsLineRec."Act HP" := 0;
                 end;
-
                 ManingLevelsLineRec.Modify();
-
             until ManingLevelsLineRec.Next() = 0;
         end;
-
 
         if rec.Type = rec.Type::"Based on Machine Operator" then
             rec."Mac Operator" := TheoMOTotal
         else
             rec."Mac Operator" := TheoMOTotal;
-
 
         CurrPage.Update();
 
@@ -551,7 +516,6 @@ page 50475 "Maning Level Card"
         //Calculate Actual values
         ManingLevelsLineRec.Reset();
         ManingLevelsLineRec.SetRange("No.", rec."No.");
-
         if ManingLevelsLineRec.FindSet() then begin
             repeat
                 ActMOTotal += ManingLevelsLineRec."Act MO";

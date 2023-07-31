@@ -133,8 +133,34 @@ page 50466 "New Breakdown Op Listpart2"
 
                     trigger OnValidate()
                     var
+                        NewBrOpLine2Rec: Record "New Breakdown Op Line2";
+                        totalSMV: Decimal;
                     begin
+                        if rec.SMV = 0 then
+                            Error('SMV is zero');
+
                         rec."Target Per Hour" := round((60 / rec.SMV), 1);
+                        CurrPage.Update();
+                        totalSMV := 0;
+
+                        //get total smv for the selected garment type
+                        NewBrOpLine2Rec.Reset();
+                        NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                        NewBrOpLine2Rec.SetRange("RefGPartName", rec.RefGPartName);
+                        NewBrOpLine2Rec.SetFilter(LineType, '<>%1', 'H');
+                        if NewBrOpLine2Rec.FindSet() then begin
+                            repeat
+                                totalSMV += NewBrOpLine2Rec.SMV;
+                            until NewBrOpLine2Rec.Next() = 0;
+                        end;
+
+                        //Assign into Headr SMV
+                        NewBrOpLine2Rec.Reset();
+                        NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                        NewBrOpLine2Rec.SetRange("RefGPartName", rec.RefGPartName);
+                        NewBrOpLine2Rec.SetFilter(LineType, '=%1', 'H');
+                        if NewBrOpLine2Rec.FindSet() then
+                            NewBrOpLine2Rec.ModifyAll(SMV, totalSMV);
                     end;
                 }
 
