@@ -691,7 +691,11 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
-       
+        field(71012702; "New BR/Down block period "; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
