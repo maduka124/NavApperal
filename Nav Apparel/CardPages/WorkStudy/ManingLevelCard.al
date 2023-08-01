@@ -314,7 +314,7 @@ page 50475 "Maning Level Card"
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    SubPageLink = "Style No." = field("Style No.");
+                    SubPageLink = "Style No." = field("Style No."), "Resource No." = field("Line No.");
                 }
             }
 
