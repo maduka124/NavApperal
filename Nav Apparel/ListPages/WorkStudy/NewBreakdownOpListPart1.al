@@ -142,6 +142,7 @@ page 50464 "New Breakdown Op Listpart1"
                     Code1: Code[20];
                     Count1: Integer;
                     "GPart Position1": Integer;
+                    totalSMV: Decimal;
                 begin
 
                     CurrPage.Update();
@@ -149,21 +150,17 @@ page 50464 "New Breakdown Op Listpart1"
                     NewBreakOpLine1Rec.SetRange("NewBRNo.", rec."NewBRNo.");
                     NewBreakOpLine1Rec.SetCurrentKey("Selected Seq");
                     NewBreakOpLine1Rec.Ascending(true);
-
                     if NewBreakOpLine1Rec.FindSet() then begin
 
                         NewBrRec.Reset();
                         NewBrRec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
                         NewBrRec.FindSet();
-
                         repeat
 
                             if NewBreakOpLine1Rec.Select = true then begin
-
                                 NewBreakOpLine2Rec.Reset();
                                 NewBreakOpLine2Rec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
                                 NewBreakOpLine2Rec.SetRange(RefGPartName, NewBreakOpLine1Rec."Garment Part Name");
-
                                 if NewBreakOpLine2Rec.FindSet() then
                                     "GPart Position1" := NewBreakOpLine2Rec."GPart Position"
                                 else
@@ -172,7 +169,6 @@ page 50464 "New Breakdown Op Listpart1"
                                 NewBreakOpLine2Rec.Reset();
                                 NewBreakOpLine2Rec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
                                 NewBreakOpLine2Rec.SetRange(Code, NewBreakOpLine1Rec.Code);
-
                                 if not NewBreakOpLine2Rec.FindSet() then begin
 
                                     //Get Machine Type
@@ -184,7 +180,6 @@ page 50464 "New Breakdown Op Listpart1"
                                     LineNo := 0;
                                     NewBreakOpLine2Rec.Reset();
                                     NewBreakOpLine2Rec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
-
                                     if NewBreakOpLine2Rec.FindLast() then
                                         LineNo := NewBreakOpLine2Rec."Line No.";
 
@@ -213,7 +208,29 @@ page 50464 "New Breakdown Op Listpart1"
                                     NewBreakOpLine2Rec.RefGPartName := NewBrRec."Garment Part Name";
                                     NewBreakOpLine2Rec.Insert();
 
+                                    /////////// Update Total
+                                    //get total smv for the selected garment type
+                                    totalSMV := 0;
+                                    NewBreakOpLine2Rec.Reset();
+                                    NewBreakOpLine2Rec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
+                                    NewBreakOpLine2Rec.SetRange("RefGPartName", NewBrRec."Garment Part Name");
+                                    NewBreakOpLine2Rec.SetFilter(LineType, '<>%1', 'H');
+                                    if NewBreakOpLine2Rec.FindSet() then begin
+                                        repeat
+                                            totalSMV += NewBreakOpLine2Rec.SMV;
+                                        until NewBreakOpLine2Rec.Next() = 0;
+                                    end;
+
+                                    //Assign into Headr SMV
+                                    NewBreakOpLine2Rec.Reset();
+                                    NewBreakOpLine2Rec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
+                                    NewBreakOpLine2Rec.SetRange("RefGPartName", NewBrRec."Garment Part Name");
+                                    NewBreakOpLine2Rec.SetFilter(LineType, '=%1', 'H');
+                                    if NewBreakOpLine2Rec.FindSet() then
+                                        NewBreakOpLine2Rec.ModifyAll(SMV, totalSMV);
+
                                 end;
+
                                 NewBreakOpLine1Rec.Select := false;
                                 NewBreakOpLine1Rec."Selected Seq" := 0;
                                 NewBreakOpLine1Rec.Modify();
@@ -221,8 +238,6 @@ page 50464 "New Breakdown Op Listpart1"
                             end;
 
                         until NewBreakOpLine1Rec.Next = 0;
-
-
 
                         //Copy seq to a nother field
                         NewBreakOpLine2Rec.Reset();
@@ -247,7 +262,6 @@ page 50464 "New Breakdown Op Listpart1"
                                 NewBreakOpLine2Rec.Modify();
                             until NewBreakOpLine2Rec.Next() = 0;
                         end;
-
                     end;
 
                 end;

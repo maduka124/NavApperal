@@ -1273,11 +1273,9 @@ page 50986 "BOM Estimate Cost Card"
                     LoginSessionsRec: Record LoginSessions;
                     LoginRec: Page "Login Card";
                 begin
-
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
                     LoginSessionsRec.SetRange(SessionID, SessionId());
-
                     if not LoginSessionsRec.FindSet() then begin  //not logged in
                         Clear(LoginRec);
                         LoginRec.LookupMode(true);
@@ -1299,7 +1297,6 @@ page 50986 "BOM Estimate Cost Card"
                     //Get max revision no
                     BOMCostReviHeaderRec.Reset();
                     BOMCostReviHeaderRec.SetRange("No.", rec."No.");
-
                     if not BOMCostReviHeaderRec.FindSet() then
                         Revision := 1
                     else
@@ -1409,7 +1406,6 @@ page 50986 "BOM Estimate Cost Card"
                     //Write to line table
                     BOMCostLineRec.Reset();
                     BOMCostLineRec.SetRange("No.", rec."No.");
-
                     if BOMCostLineRec.FindSet() then begin
                         repeat
                             BOMCostReviLineRec.Init();

@@ -24,8 +24,6 @@ report 50615 StyleAnalysis
             { }
             column(Item_Type_Name; "Item Type Name")
             { }
-            // column(Garment_Part_Name; "Garment Part Name")
-            // { }
             column(Machine; Machine)
             { }
             column(Manual; Manual)
@@ -72,63 +70,30 @@ report 50615 StyleAnalysis
                 column(GPart_Position; "GPart Position")
                 { }
 
-                trigger OnAfterGetRecord()
-
+                trigger OnPreDataItem()
+                var
                 begin
-                    // color := '';
+                    SetFilter("Department Name", '<>%1', '');
+                end;
 
 
-                    // if "New Breakdown Op Line2".Description = 'FRONT' then
-                    //     color := 'teal'
-                    // else
-                    //     if "New Breakdown Op Line2".Description = 'BACK' then
-                    //         color := 'teal'
-                    //     else
-                    //         color := 'black';
-
+                trigger OnAfterGetRecord()
+                begin
                     Manual := 0;
                     Auto := 0;
                     if "Machine No." = 'HEL' then begin
                         Manual := SMV
                     end
                     else
-                        // if "Machine Name" = 'HELPER' then begin
-                        //     Manual := SMV
-                        // end
-                        // else
-                        //     if "Machine Name" = 'Helper' then begin
-                        //         Manual := SMV
-                        //     end
-                        //     else
-                        //         if "Machine Name" = 'helper' then begin
-                        //             Manual := SMV
-                        //         end
-                        //         else
-                                    Auto := SMV;
-
+                        Auto := SMV;
                 end;
-
             }
-            trigger OnPreDataItem()
-
-            begin
-                // SetRange("Style No.", StyleFilter);
-            end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
-        }
-    }
-
-    requestpage
-    {
-        layout
-        {
-
         }
     }
 
