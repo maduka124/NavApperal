@@ -3661,6 +3661,15 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Buyer_Name">
           <DataField>Buyer_Name</DataField>
         </Field>
+        <Field Name="OrderQty">
+          <DataField>OrderQty</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
         <Field Name="cutting">
           <DataField>cutting</DataField>
         </Field>
@@ -3679,9 +3688,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="ShipDate">
           <DataField>ShipDate</DataField>
         </Field>
-        <Field Name="PoNo">
-          <DataField>PoNo</DataField>
-        </Field>
         <Field Name="stDate">
           <DataField>stDate</DataField>
         </Field>
@@ -3693,15 +3699,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="StyleNo">
           <DataField>StyleNo</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="OrderQty">
-          <DataField>OrderQty</DataField>
         </Field>
         <Field Name="AssignedContractNo">
           <DataField>AssignedContractNo</DataField>
@@ -3723,6 +3720,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="ShipOutTotal">
           <DataField>ShipOutTotal</DataField>
+        </Field>
+        <Field Name="PoNo">
+          <DataField>PoNo</DataField>
         </Field>
       </Fields>
       <Query>
