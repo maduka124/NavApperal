@@ -10,6 +10,8 @@ page 50459 "New Breakdown Card"
         {
             group(General)
             {
+                Editable = EditableGB;
+
                 field("No."; rec."No.")
                 {
                     ApplicationArea = All;
@@ -213,6 +215,7 @@ page 50459 "New Breakdown Card"
 
             group("New Operations")
             {
+                Editable = EditableGB;
                 part("New Breakdown Op Listpart1"; "New Breakdown Op Listpart1")
                 {
                     ApplicationArea = All;
@@ -223,6 +226,7 @@ page 50459 "New Breakdown Card"
 
             group("Breakdown")
             {
+                Editable = EditableGB;
                 part("New Breakdown Op Listpart2"; "New Breakdown Op Listpart2")
                 {
                     ApplicationArea = All;
@@ -234,6 +238,7 @@ page 50459 "New Breakdown Card"
 
         area(FactBoxes)
         {
+            // Editable = EditableGB;
             part(NewBreackdownFactBox; NewBreackdownFactBox)
             {
                 ApplicationArea = All;
@@ -409,6 +414,29 @@ page 50459 "New Breakdown Card"
     end;
 
 
+    trigger OnAfterGetCurrRecord()
+    var
+        NavAppSetRec: Record "NavApp Setup";
+        ProdOutHeaderRec: Record ProductionOutHeader;
+        FirstDate: Date;
+    begin
+        NavAppSetRec.Reset();
+        NavAppSetRec.FindSet();
+        EditableGB := true;
+
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+        ProdOutHeaderRec.SetFilter("Input Qty", '>%1', 0);
+        ProdOutHeaderRec.SetCurrentKey("Prod Date");
+        ProdOutHeaderRec.Ascending(true);
+        if ProdOutHeaderRec.FindFirst() then begin
+            if WorkDate() >= ProdOutHeaderRec."Prod Date" + NavAppSetRec."New BR/Down block period " then
+                EditableGB := false;
+        end;
+    end;
+
+
     procedure Set_Status()
     var
         ProductionOutLineRec: Record ProductionOutLine;
@@ -458,4 +486,5 @@ page 50459 "New Breakdown Card"
 
     var
         StyleNoGB: Text[100];
+        EditableGB: Boolean;
 }

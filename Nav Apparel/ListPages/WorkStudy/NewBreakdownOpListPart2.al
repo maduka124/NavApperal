@@ -133,8 +133,34 @@ page 50466 "New Breakdown Op Listpart2"
 
                     trigger OnValidate()
                     var
+                        NewBrOpLine2Rec: Record "New Breakdown Op Line2";
+                        totalSMV: Decimal;
                     begin
+                        if rec.SMV = 0 then
+                            Error('SMV is zero');
+
                         rec."Target Per Hour" := round((60 / rec.SMV), 1);
+                        CurrPage.Update();
+                        totalSMV := 0;
+
+                        //get total smv for the selected garment type
+                        NewBrOpLine2Rec.Reset();
+                        NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                        NewBrOpLine2Rec.SetRange("RefGPartName", rec.RefGPartName);
+                        NewBrOpLine2Rec.SetFilter(LineType, '<>%1', 'H');
+                        if NewBrOpLine2Rec.FindSet() then begin
+                            repeat
+                                totalSMV += NewBrOpLine2Rec.SMV;
+                            until NewBrOpLine2Rec.Next() = 0;
+                        end;
+
+                        //Assign into Headr SMV
+                        NewBrOpLine2Rec.Reset();
+                        NewBrOpLine2Rec.SetRange("No.", rec."No.");
+                        NewBrOpLine2Rec.SetRange("RefGPartName", rec.RefGPartName);
+                        NewBrOpLine2Rec.SetFilter(LineType, '=%1', 'H');
+                        if NewBrOpLine2Rec.FindSet() then
+                            NewBrOpLine2Rec.ModifyAll(SMV, totalSMV);
                     end;
                 }
 
@@ -203,6 +229,7 @@ page 50466 "New Breakdown Op Listpart2"
                     NewBreakdownRec: Record "New Breakdown";
                     StyleRec: Record "Style Master";
                     EstimateCostRec: Record "BOM Estimate Cost";
+                    NavapProdRec: Record "NavApp Prod Plans Details";
                     SwingProductionRec: Record ProductionOutHeader;
                     SwingProduction2Rec: Record ProductionOutHeader;
                     NavapPlaningLineRec: Record "NavApp Planning Lines";
@@ -225,7 +252,6 @@ page 50466 "New Breakdown Op Listpart2"
                     SwingProduction2Rec.Reset();
                     SwingProduction2Rec.SetRange("Style No.", Style);
                     SwingProduction2Rec.SetRange(Type, SwingProduction2Rec.Type::Saw);
-
                     if SwingProduction2Rec.FindSet() then begin
                         if SwingProduction2Rec."Input Qty" <> 0 then begin
 
@@ -238,28 +264,14 @@ page 50466 "New Breakdown Op Listpart2"
                     EstimateCostRec.Reset();
                     EstimateCostRec.SetRange("Style No.", Style);
                     EstimateCostRec.SetRange(Status, EstimateCostRec.Status::Approved);
-
                     if EstimateCostRec.FindSet() then begin
-
-                        Stage := 'COSTING';
+                        Stage := 'PLANNING';
 
                         SwingProductionRec.Reset();
                         SwingProductionRec.SetRange("Style No.", Style);
                         SwingProductionRec.SetRange(Type, SwingProductionRec.Type::Saw);
-
-                        if SwingProductionRec.FindSet() then begin
-
-                            Stage := 'PLANNING';
-
-                            if SwingProductionRec."Input Qty" <> 0 then begin
-                                Stage := 'PRODUCTION';
-
-                            end
-                            else
-                                Stage := 'PLANNING';
-                        end
-                        else
-                            Stage := 'COSTING';
+                        if SwingProductionRec.FindSet() then
+                            Stage := 'PRODUCTION';
                     end
                     else
                         Stage := 'COSTING';
@@ -269,9 +281,9 @@ page 50466 "New Breakdown Op Listpart2"
                     NewBrOpLine2Rec.SetCurrentKey("No.");
                     NewBrOpLine2Rec.SetRange("No.", rec."No.");
                     NewBrOpLine2Rec.FindSet();
-
                     repeat
-                        SMV += NewBrOpLine2Rec.SMV;
+                        if NewBrOpLine2Rec.MachineType <> '' then
+                            SMV += NewBrOpLine2Rec.SMV;
 
                         if NewBrOpLine2Rec.MachineType = 'Machine' then
                             MachineTotal += NewBrOpLine2Rec.SMV;
@@ -293,9 +305,7 @@ page 50466 "New Breakdown Op Listpart2"
                     //Done By Sachith on 04/05/23
                     StyleRec.Reset();
                     StyleRec.SetRange("No.", Style);
-
                     if StyleRec.FindSet() then begin
-
                         if Stage = 'COSTING' then begin
                             StyleRec.CostingSMV := SMV;
                             NewBreakdownRec."Style Stage" := Stage;

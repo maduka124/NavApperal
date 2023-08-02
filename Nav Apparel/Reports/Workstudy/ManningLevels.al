@@ -50,9 +50,12 @@ report 50614 ManningLevelsReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-
             column(Factory; Factory)
             { }
+            column("Target"; "100Target")
+            { }
+
+
             dataitem("Maning Levels Line"; "Maning Levels Line")
             {
                 DataItemLinkReference = "Maning Level";
@@ -96,26 +99,43 @@ report 50614 ManningLevelsReport
                 end;
             }
 
-
-            trigger OnPreDataItem()
-            begin
-                // SetRange("Style No.", StyleFilter);
-                // SetRange("Line No.", LineFilter);
-            end;
-
             trigger OnAfterGetRecord()
+            var
+                StyleMasRec: Record "Style Master";
+                ManLevelRec: Record "Maning Levels Line";
+                TotVAL: Decimal;
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
                 NavappLine.Reset();
                 NavappLine.SetRange("Style No.", "Style No.");
-
                 if NavappLine.FindSet() then begin
                     Factory := NavappLine.Factory;
                 end;
-            end;
 
+                if Type = Type::"Based on Machine Operator" then begin
+                    if "Total SMV" > 0 then
+                        "100Target" := (60 / "Total SMV") * Val
+                    else
+                        "100Target" := 0
+                end
+                else begin
+                    ManLevelRec.Reset();
+                    ManLevelRec.SetRange("No.", "No.");
+                    if ManLevelRec.FindSet() then begin
+                        repeat
+                            TotVAL += ManLevelRec."Act MO" + ManLevelRec."Act HP";
+                        until ManLevelRec.Next() = 0;
+                    end;
+
+                    if "Total SMV" > 0 then
+                        "100Target" := (60 / "Total SMV") * TotVAL
+                    else
+                        "100Target" := 0
+
+                end;
+            end;
         }
     }
 
@@ -164,5 +184,6 @@ report 50614 ManningLevelsReport
         LineFilter: Code[20];
         NavappLine: Record "NavApp Planning Lines";
         Factory: Code[20];
+        "100Target": Decimal;
 
 }

@@ -282,7 +282,7 @@ page 50522 "B2B LC Card"
                 field("B2B LC Value"; rec."B2B LC Value")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    //Editable = false;
                 }
 
                 field("Payment Terms (Days)"; rec."Payment Terms (Days)")
