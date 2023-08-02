@@ -995,6 +995,11 @@ page 50516 HourlyProductionListPart
             if NavAppProdRec."LCurve Start Time" <> 0T then
                 TimeVariable := NavAppProdRec."LCurve Start Time" + (60 * 60 * 1000 * NavAppProdRec."LCurve Hours Per Day");
 
+            // if NavAppProdRec."Resource No." = 'VDL-01' then begin
+            //     Message('VDL6');
+            Rec."Target_Hour 09" := 0;
+            Rec."Target_Hour 10" := 0;
+            // end;
             // if "Resource No." = 'VDL-06' then begin
             //     Message('VDL7');
             // end;
@@ -1102,9 +1107,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                             rec.Modify();
 
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1117,11 +1122,11 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1130,7 +1135,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1226,9 +1231,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                             rec.Modify();
 
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1241,11 +1246,11 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1254,7 +1259,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1337,9 +1342,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                             rec.Modify();
 
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1352,11 +1357,11 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1365,7 +1370,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1432,9 +1437,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                             rec.Modify();
 
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1447,11 +1452,11 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1460,7 +1465,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1515,9 +1520,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                             rec.Modify();
 
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1530,11 +1535,11 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1543,7 +1548,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1586,9 +1591,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                             rec.Modify();
 
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1601,11 +1606,11 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                 end else
@@ -1613,7 +1618,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1642,9 +1647,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                             rec.Modify();
 
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1657,10 +1662,10 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1669,7 +1674,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1685,9 +1690,9 @@ page 50516 HourlyProductionListPart
                         Rec."Target_Hour 08" := 0;
                         rec.Modify();
                         if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                            if TotNavaHours >= 9 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                 CheckValue := 0;
-                                CheckValue := TotNavaHours - 9;
+                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                 if CheckValue < 1 then begin
                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                     rec.Modify();
@@ -1700,11 +1705,11 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 09" := 0;
+                                // Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                             end;
 
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1713,7 +1718,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1730,7 +1735,7 @@ page 50516 HourlyProductionListPart
                         Rec."Target_Hour 09" := 0;
                         rec.Modify();
                         if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                            if TotNavaHours >= 10 then begin
+                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                     Rec."Target_Hour 10" := DayTarget;
                                     rec.Modify();
@@ -1739,7 +1744,7 @@ page 50516 HourlyProductionListPart
                                 rec.Modify();
                             end
                             else begin
-                                Rec."Target_Hour 10" := 0;
+                                // Rec."Target_Hour 10" := 0;
                                 rec.Modify();
                             end;
                         end;
@@ -1840,9 +1845,9 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                 rec.Modify();
 
-                                if TotNavaHours >= 9 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                     CheckValue := 0;
-                                    CheckValue := TotNavaHours - 9;
+                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                     if CheckValue < 1 then begin
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                         rec.Modify();
@@ -1855,11 +1860,11 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 09" := 0;
+                                    // Rec."Target_Hour 09" := 0;
                                     rec.Modify();
                                 end;
 
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -1868,7 +1873,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 10" := 0;
+                                    // Rec."Target_Hour 10" := 0;
                                     rec.Modify();
 
                                 end;
@@ -1948,9 +1953,9 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                 rec.Modify();
 
-                                if TotNavaHours >= 9 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                     CheckValue := 0;
-                                    CheckValue := TotNavaHours - 9;
+                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                     if CheckValue < 1 then begin
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                         rec.Modify();
@@ -1963,11 +1968,11 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 09" := 0;
+                                    // Rec."Target_Hour 09" := 0;
                                     rec.Modify();
                                 end;
 
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -1976,7 +1981,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 10" := 0;
+                                    // Rec."Target_Hour 10" := 0;
                                     rec.Modify();
                                 end;
                             end;
@@ -2043,9 +2048,9 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                 rec.Modify();
 
-                                if TotNavaHours >= 9 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                     CheckValue := 0;
-                                    CheckValue := TotNavaHours - 9;
+                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                     if CheckValue < 1 then begin
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                         rec.Modify();
@@ -2058,11 +2063,11 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 09" := 0;
+                                    // Rec."Target_Hour 09" := 0;
                                     rec.Modify();
                                 end;
 
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -2071,7 +2076,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 10" := 0;
+                                    // Rec."Target_Hour 10" := 0;
                                     rec.Modify();
                                 end;
                             end;
@@ -2126,9 +2131,9 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                 rec.Modify();
 
-                                if TotNavaHours >= 9 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                     CheckValue := 0;
-                                    CheckValue := TotNavaHours - 9;
+                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                     if CheckValue < 1 then begin
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                         rec.Modify();
@@ -2141,11 +2146,11 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 09" := 0;
+                                    // Rec."Target_Hour 09" := 0;
                                     rec.Modify();
                                 end;
 
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -2196,9 +2201,9 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                 rec.Modify();
 
-                                if TotNavaHours >= 9 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                     CheckValue := 0;
-                                    CheckValue := TotNavaHours - 9;
+                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                     if CheckValue < 1 then begin
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                         rec.Modify();
@@ -2211,11 +2216,11 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 09" := 0;
+                                    // Rec."Target_Hour 09" := 0;
                                     rec.Modify();
                                 end;
 
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -2224,7 +2229,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 10" := 0;
+                                    // Rec."Target_Hour 10" := 0;
                                     rec.Modify();
                                 end;
                             end;
@@ -2252,9 +2257,9 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                 rec.Modify();
 
-                                if TotNavaHours >= 9 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                     CheckValue := 0;
-                                    CheckValue := TotNavaHours - 9;
+                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                     if CheckValue < 1 then begin
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                         rec.Modify();
@@ -2271,7 +2276,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end;
 
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -2280,7 +2285,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 10" := 0;
+                                    // Rec."Target_Hour 10" := 0;
                                     rec.Modify();
                                 end;
                             end;
@@ -2296,9 +2301,9 @@ page 50516 HourlyProductionListPart
                             Rec."Target_Hour 08" := 0;
                             rec.Modify();
                             if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                if TotNavaHours >= 9 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                     CheckValue := 0;
-                                    CheckValue := TotNavaHours - 9;
+                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                     if CheckValue < 1 then begin
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                         rec.Modify();
@@ -2311,11 +2316,11 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 09" := 0;
+                                    // Rec."Target_Hour 09" := 0;
                                     rec.Modify();
                                 end;
 
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -2324,7 +2329,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 10" := 0;
+                                    // Rec."Target_Hour 10" := 0;
                                     rec.Modify();
                                 end;
                             end;
@@ -2340,7 +2345,7 @@ page 50516 HourlyProductionListPart
                             Rec."Target_Hour 09" := 0;
                             rec.Modify();
                             if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                if TotNavaHours >= 10 then begin
+                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                         Rec."Target_Hour 10" := DayTarget;
                                         rec.Modify();
@@ -2349,7 +2354,7 @@ page 50516 HourlyProductionListPart
                                     rec.Modify();
                                 end
                                 else begin
-                                    Rec."Target_Hour 10" := 0;
+                                    // Rec."Target_Hour 10" := 0;
                                     rec.Modify();
                                 end;
                             end;
@@ -2433,9 +2438,9 @@ page 50516 HourlyProductionListPart
                                         Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                     rec.Modify();
 
-                                    if TotNavaHours >= 9 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                         CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
+                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                         if CheckValue < 1 then begin
                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                             rec.Modify();
@@ -2448,11 +2453,11 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 09" := 0;
+                                        // Rec."Target_Hour 09" := 0;
                                         rec.Modify();
                                     end;
 
-                                    if TotNavaHours >= 10 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                             Rec."Target_Hour 10" := DayTarget;
                                             rec.Modify();
@@ -2461,7 +2466,7 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 10" := 0;
+                                        // Rec."Target_Hour 10" := 0;
                                         rec.Modify();
                                     end;
                                 end;
@@ -2527,9 +2532,9 @@ page 50516 HourlyProductionListPart
                                         Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                     rec.Modify();
 
-                                    if TotNavaHours >= 9 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                         CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
+                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                         if CheckValue < 1 then begin
                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                             rec.Modify();
@@ -2546,7 +2551,7 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end;
 
-                                    if TotNavaHours >= 10 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                             Rec."Target_Hour 10" := DayTarget;
                                             rec.Modify();
@@ -2608,9 +2613,9 @@ page 50516 HourlyProductionListPart
                                         Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                     rec.Modify();
 
-                                    if TotNavaHours >= 9 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                         CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
+                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                         if CheckValue < 1 then begin
                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                             rec.Modify();
@@ -2627,7 +2632,7 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end;
 
-                                    if TotNavaHours >= 10 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                             Rec."Target_Hour 10" := DayTarget;
                                             rec.Modify();
@@ -2676,9 +2681,9 @@ page 50516 HourlyProductionListPart
                                         Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                     rec.Modify();
 
-                                    if TotNavaHours >= 9 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                         CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
+                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                         if CheckValue < 1 then begin
                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                             rec.Modify();
@@ -2691,11 +2696,11 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 09" := 0;
+                                        // Rec."Target_Hour 09" := 0;
                                         rec.Modify();
                                     end;
 
-                                    if TotNavaHours >= 10 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                             Rec."Target_Hour 10" := DayTarget;
                                             rec.Modify();
@@ -2704,7 +2709,7 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 10" := 0;
+                                        // Rec."Target_Hour 10" := 0;
                                         rec.Modify();
                                     end;
                                 end;
@@ -2731,9 +2736,9 @@ page 50516 HourlyProductionListPart
                                         Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                     rec.Modify();
 
-                                    if TotNavaHours >= 9 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                         CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
+                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                         if CheckValue < 1 then begin
                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                             rec.Modify();
@@ -2746,11 +2751,11 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 09" := 0;
+                                        // Rec."Target_Hour 09" := 0;
                                         rec.Modify();
                                     end;
 
-                                    if TotNavaHours >= 10 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                             Rec."Target_Hour 10" := DayTarget;
                                             rec.Modify();
@@ -2759,7 +2764,7 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 10" := 0;
+                                        // Rec."Target_Hour 10" := 0;
                                         rec.Modify();
                                     end;
                                 end;
@@ -2773,9 +2778,9 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 08" := 0;
                                 rec.Modify();
                                 if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                    if TotNavaHours >= 9 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                         CheckValue := 0;
-                                        CheckValue := TotNavaHours - 9;
+                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                         if CheckValue < 1 then begin
                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                             rec.Modify();
@@ -2788,11 +2793,11 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 09" := 0;
+                                        // Rec."Target_Hour 09" := 0;
                                         rec.Modify();
                                     end;
 
-                                    if TotNavaHours >= 10 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                             Rec."Target_Hour 10" := DayTarget;
                                             rec.Modify();
@@ -2801,7 +2806,7 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 10" := 0;
+                                        // Rec."Target_Hour 10" := 0;
                                         rec.Modify();
                                     end;
                                 end;
@@ -2816,7 +2821,7 @@ page 50516 HourlyProductionListPart
                                 Rec."Target_Hour 09" := 0;
                                 rec.Modify();
                                 if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                    if TotNavaHours >= 10 then begin
+                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                             Rec."Target_Hour 10" := DayTarget;
                                             rec.Modify();
@@ -2825,7 +2830,7 @@ page 50516 HourlyProductionListPart
                                         rec.Modify();
                                     end
                                     else begin
-                                        Rec."Target_Hour 10" := 0;
+                                        // Rec."Target_Hour 10" := 0;
                                         rec.Modify();
                                     end;
                                 end;
@@ -2898,9 +2903,9 @@ page 50516 HourlyProductionListPart
                                             Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                         rec.Modify();
 
-                                        if TotNavaHours >= 9 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                             CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
+                                            CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                             if CheckValue < 1 then begin
                                                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                 rec.Modify();
@@ -2913,11 +2918,11 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 09" := 0;
+                                            // Rec."Target_Hour 09" := 0;
                                             rec.Modify();
                                         end;
 
-                                        if TotNavaHours >= 10 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                             if (DayTarget / TotNavaHours) > DayTarget then begin
                                                 Rec."Target_Hour 10" := DayTarget;
                                                 rec.Modify();
@@ -2926,7 +2931,7 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 10" := 0;
+                                            // Rec."Target_Hour 10" := 0;
                                             rec.Modify();
                                         end;
                                     end;
@@ -2978,9 +2983,9 @@ page 50516 HourlyProductionListPart
                                             Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                         rec.Modify();
 
-                                        if TotNavaHours >= 9 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                             CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
+                                            CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                             if CheckValue < 1 then begin
                                                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                 rec.Modify();
@@ -2997,7 +3002,7 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end;
 
-                                        if TotNavaHours >= 10 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                             if (DayTarget / TotNavaHours) > DayTarget then begin
                                                 Rec."Target_Hour 10" := DayTarget;
                                                 rec.Modify();
@@ -3006,7 +3011,7 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 10" := 0;
+                                            // Rec."Target_Hour 10" := 0;
                                             rec.Modify();
                                         end;
                                     end;
@@ -3045,9 +3050,9 @@ page 50516 HourlyProductionListPart
                                             Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                         rec.Modify();
 
-                                        if TotNavaHours >= 9 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                             CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
+                                            CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                             if CheckValue < 1 then begin
                                                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                 rec.Modify();
@@ -3060,11 +3065,11 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 09" := 0;
+                                            // Rec."Target_Hour 09" := 0;
                                             rec.Modify();
                                         end;
 
-                                        if TotNavaHours >= 10 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                             if (DayTarget / TotNavaHours) > DayTarget then begin
                                                 Rec."Target_Hour 10" := DayTarget;
                                                 rec.Modify();
@@ -3073,7 +3078,7 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 10" := 0;
+                                            // Rec."Target_Hour 10" := 0;
                                             rec.Modify();
                                         end;
                                     end;
@@ -3099,9 +3104,9 @@ page 50516 HourlyProductionListPart
                                             Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                         rec.Modify();
 
-                                        if TotNavaHours >= 9 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                             CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
+                                            CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                             if CheckValue < 1 then begin
                                                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                 rec.Modify();
@@ -3114,11 +3119,11 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 09" := 0;
+                                            // Rec."Target_Hour 09" := 0;
                                             rec.Modify();
                                         end;
 
-                                        if TotNavaHours >= 10 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                             if (DayTarget / TotNavaHours) > DayTarget then begin
                                                 Rec."Target_Hour 10" := DayTarget;
                                                 rec.Modify();
@@ -3127,7 +3132,7 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 10" := 0;
+                                            // Rec."Target_Hour 10" := 0;
                                             rec.Modify();
                                         end;
                                     end;
@@ -3140,9 +3145,9 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 08" := 0;
                                     rec.Modify();
                                     if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                        if TotNavaHours >= 9 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                             CheckValue := 0;
-                                            CheckValue := TotNavaHours - 9;
+                                            CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                             if CheckValue < 1 then begin
                                                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                 rec.Modify();
@@ -3155,11 +3160,11 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 09" := 0;
+                                            // Rec."Target_Hour 09" := 0;
                                             rec.Modify();
                                         end;
 
-                                        if TotNavaHours >= 10 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                             if (DayTarget / TotNavaHours) > DayTarget then begin
                                                 Rec."Target_Hour 10" := DayTarget;
                                                 rec.Modify();
@@ -3168,7 +3173,7 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 10" := 0;
+                                            // Rec."Target_Hour 10" := 0;
                                             rec.Modify();
                                         end;
                                     end;
@@ -3182,7 +3187,7 @@ page 50516 HourlyProductionListPart
                                     Rec."Target_Hour 09" := 0;
                                     rec.Modify();
                                     if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                        if TotNavaHours >= 10 then begin
+                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                             if (DayTarget / TotNavaHours) > DayTarget then begin
                                                 Rec."Target_Hour 10" := DayTarget;
                                                 rec.Modify();
@@ -3191,7 +3196,7 @@ page 50516 HourlyProductionListPart
                                             rec.Modify();
                                         end
                                         else begin
-                                            Rec."Target_Hour 10" := 0;
+                                            // Rec."Target_Hour 10" := 0;
                                             rec.Modify();
                                         end;
                                     end;
@@ -3252,9 +3257,9 @@ page 50516 HourlyProductionListPart
                                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                             rec.Modify();
 
-                                            if TotNavaHours >= 9 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                 CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
+                                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                 if CheckValue < 1 then begin
                                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                     rec.Modify();
@@ -3267,11 +3272,11 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 09" := 0;
+                                                // Rec."Target_Hour 09" := 0;
                                                 rec.Modify();
                                             end;
 
-                                            if TotNavaHours >= 10 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                                     Rec."Target_Hour 10" := DayTarget;
                                                     rec.Modify();
@@ -3280,7 +3285,7 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 10" := 0;
+                                                // Rec."Target_Hour 10" := 0;
                                                 rec.Modify();
                                             end;
                                         end;
@@ -3319,9 +3324,9 @@ page 50516 HourlyProductionListPart
                                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                             rec.Modify();
 
-                                            if TotNavaHours >= 9 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                 CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
+                                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                 if CheckValue < 1 then begin
                                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                     rec.Modify();
@@ -3334,11 +3339,11 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 09" := 0;
+                                                // Rec."Target_Hour 09" := 0;
                                                 rec.Modify();
                                             end;
 
-                                            if TotNavaHours >= 10 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                                     Rec."Target_Hour 10" := DayTarget;
                                                     rec.Modify();
@@ -3347,7 +3352,7 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 10" := 0;
+                                                // Rec."Target_Hour 10" := 0;
                                                 rec.Modify();
                                             end;
                                         end;
@@ -3372,9 +3377,9 @@ page 50516 HourlyProductionListPart
                                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                             rec.Modify();
 
-                                            if TotNavaHours >= 9 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                 CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
+                                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                 if CheckValue < 1 then begin
                                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                     rec.Modify();
@@ -3387,10 +3392,10 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 09" := 0;
+                                                // Rec."Target_Hour 09" := 0;
                                                 rec.Modify();
                                             end;
-                                            if TotNavaHours >= 10 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                                     Rec."Target_Hour 10" := DayTarget;
                                                     rec.Modify();
@@ -3399,7 +3404,7 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 10" := 0;
+                                                // Rec."Target_Hour 10" := 0;
                                                 rec.Modify();
                                             end;
                                         end;
@@ -3412,9 +3417,9 @@ page 50516 HourlyProductionListPart
                                         Rec."Target_Hour 08" := 0;
                                         rec.Modify();
                                         if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                            if TotNavaHours >= 9 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                 CheckValue := 0;
-                                                CheckValue := TotNavaHours - 9;
+                                                CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                 if CheckValue < 1 then begin
                                                     Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                     rec.Modify();
@@ -3427,10 +3432,10 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 09" := 0;
+                                                // Rec."Target_Hour 09" := 0;
                                                 rec.Modify();
                                             end;
-                                            if TotNavaHours >= 10 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                                     Rec."Target_Hour 10" := DayTarget;
                                                     rec.Modify();
@@ -3439,7 +3444,7 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 10" := 0;
+                                                // Rec."Target_Hour 10" := 0;
                                                 rec.Modify();
                                             end;
                                         end;
@@ -3452,7 +3457,7 @@ page 50516 HourlyProductionListPart
                                         Rec."Target_Hour 09" := 0;
                                         rec.Modify();
                                         if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                            if TotNavaHours >= 10 then begin
+                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                                     Rec."Target_Hour 10" := DayTarget;
                                                     rec.Modify();
@@ -3461,7 +3466,7 @@ page 50516 HourlyProductionListPart
                                                 rec.Modify();
                                             end
                                             else begin
-                                                Rec."Target_Hour 10" := 0;
+                                                // Rec."Target_Hour 10" := 0;
                                                 rec.Modify();
                                             end;
                                         end;
@@ -3506,9 +3511,9 @@ page 50516 HourlyProductionListPart
                                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                                 rec.Modify();
 
-                                                if TotNavaHours >= 9 then begin
+                                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                     CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
+                                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                     if CheckValue < 1 then begin
                                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                         rec.Modify();
@@ -3525,7 +3530,7 @@ page 50516 HourlyProductionListPart
                                                     rec.Modify();
                                                 end;
 
-                                                if TotNavaHours >= 10 then begin
+                                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                                         Rec."Target_Hour 10" := DayTarget;
                                                         rec.Modify();
@@ -3557,9 +3562,9 @@ page 50516 HourlyProductionListPart
                                                     Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                                 rec.Modify();
 
-                                                if TotNavaHours >= 9 then begin
+                                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                     CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
+                                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                     if CheckValue < 1 then begin
                                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                         rec.Modify();
@@ -3572,11 +3577,11 @@ page 50516 HourlyProductionListPart
                                                     rec.Modify();
                                                 end
                                                 else begin
-                                                    Rec."Target_Hour 09" := 0;
+                                                    // Rec."Target_Hour 09" := 0;
                                                     rec.Modify();
                                                 end;
 
-                                                if TotNavaHours >= 10 then begin
+                                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                                         Rec."Target_Hour 10" := DayTarget;
                                                         rec.Modify();
@@ -3596,9 +3601,9 @@ page 50516 HourlyProductionListPart
                                             Rec."Target_Hour 08" := 0;
                                             rec.Modify();
                                             if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                if TotNavaHours >= 9 then begin
+                                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                     CheckValue := 0;
-                                                    CheckValue := TotNavaHours - 9;
+                                                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                     if CheckValue < 1 then begin
                                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                         rec.Modify();
@@ -3611,7 +3616,7 @@ page 50516 HourlyProductionListPart
                                                     rec.Modify();
                                                 end;
 
-                                                if TotNavaHours >= 10 then begin
+                                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                                         Rec."Target_Hour 10" := DayTarget;
                                                         rec.Modify();
@@ -3629,7 +3634,7 @@ page 50516 HourlyProductionListPart
                                             Rec."Target_Hour 09" := 0;
                                             rec.Modify();
                                             if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                if TotNavaHours >= 10 then begin
+                                                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                     if (DayTarget / TotNavaHours) > DayTarget then begin
                                                         Rec."Target_Hour 10" := DayTarget;
                                                         rec.Modify();
@@ -3638,7 +3643,7 @@ page 50516 HourlyProductionListPart
                                                     rec.Modify();
                                                 end
                                                 else begin
-                                                    Rec."Target_Hour 10" := 0;
+                                                    // Rec."Target_Hour 10" := 0;
                                                     rec.Modify();
                                                 end;
                                             end;
@@ -3669,9 +3674,9 @@ page 50516 HourlyProductionListPart
                                                         Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
                                                     rec.Modify();
 
-                                                    if TotNavaHours >= 9 then begin
+                                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                         CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 9;
+                                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                         if CheckValue < 1 then begin
                                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                             rec.Modify();
@@ -3684,7 +3689,7 @@ page 50516 HourlyProductionListPart
                                                         rec.Modify();
                                                     end;
 
-                                                    if TotNavaHours >= 10 then begin
+                                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                                             Rec."Target_Hour 10" := DayTarget;
                                                             rec.Modify();
@@ -3693,8 +3698,8 @@ page 50516 HourlyProductionListPart
                                                         rec.Modify();
                                                     end
                                                     else begin
-                                                        Rec."Target_Hour 09" := 0;
-                                                        Rec."Target_Hour 10" := 0;
+                                                        // Rec."Target_Hour 09" := 0;
+                                                        // Rec."Target_Hour 10" := 0;
                                                         rec.Modify();
                                                     end;
                                                 end;
@@ -3704,9 +3709,9 @@ page 50516 HourlyProductionListPart
                                                 Rec."Target_Hour 08" := 0;
                                                 rec.Modify();
                                                 if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                    if TotNavaHours >= 9 then begin
+                                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                         CheckValue := 0;
-                                                        CheckValue := TotNavaHours - 9;
+                                                        CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                         if CheckValue < 1 then begin
                                                             Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                             rec.Modify();
@@ -3719,7 +3724,7 @@ page 50516 HourlyProductionListPart
                                                         rec.Modify();
                                                     end;
 
-                                                    if TotNavaHours >= 10 then begin
+                                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                                             Rec."Target_Hour 10" := DayTarget;
                                                             rec.Modify();
@@ -3728,8 +3733,8 @@ page 50516 HourlyProductionListPart
                                                         rec.Modify();
                                                     end
                                                     else begin
-                                                        Rec."Target_Hour 09" := 0;
-                                                        Rec."Target_Hour 10" := 0;
+                                                        // Rec."Target_Hour 09" := 0;
+                                                        // Rec."Target_Hour 10" := 0;
                                                         rec.Modify();
                                                     end;
                                                 end;
@@ -3740,7 +3745,7 @@ page 50516 HourlyProductionListPart
                                                 Rec."Target_Hour 09" := 0;
                                                 rec.Modify();
                                                 if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                    if TotNavaHours >= 10 then begin
+                                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                                             Rec."Target_Hour 10" := DayTarget;
                                                             rec.Modify();
@@ -3749,7 +3754,7 @@ page 50516 HourlyProductionListPart
                                                         rec.Modify();
                                                     end
                                                     else begin
-                                                        Rec."Target_Hour 10" := 0;
+                                                        // Rec."Target_Hour 10" := 0;
                                                         rec.Modify();
                                                     end;
                                                 end;
@@ -3766,9 +3771,9 @@ page 50516 HourlyProductionListPart
                                                     Rec."Target_Hour 08" := 0;
                                                     rec.Modify();
                                                     if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                        if TotNavaHours >= 9 then begin
+                                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                             CheckValue := 0;
-                                                            CheckValue := TotNavaHours - 9;
+                                                            CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                                 rec.Modify();
@@ -3780,7 +3785,7 @@ page 50516 HourlyProductionListPart
                                                                 Rec."Target_Hour 09" := (DayTarget / TotNavaHours);
                                                             rec.Modify();
 
-                                                            if TotNavaHours >= 10 then begin
+                                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                                                     Rec."Target_Hour 10" := DayTarget;
                                                                     rec.Modify();
@@ -3790,8 +3795,8 @@ page 50516 HourlyProductionListPart
                                                             end;
                                                         end
                                                         else begin
-                                                            Rec."Target_Hour 09" := 0;
-                                                            Rec."Target_Hour 10" := 0;
+                                                            // Rec."Target_Hour 09" := 0;
+                                                            // Rec."Target_Hour 10" := 0;
                                                             rec.Modify();
                                                         end;
                                                     end;
@@ -3801,7 +3806,7 @@ page 50516 HourlyProductionListPart
                                                 Rec."Target_Hour 09" := 0;
                                                 rec.Modify();
                                                 if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                    if TotNavaHours >= 10 then begin
+                                                    if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                         if (DayTarget / TotNavaHours) > DayTarget then begin
                                                             Rec."Target_Hour 10" := DayTarget;
                                                             rec.Modify();
@@ -3821,7 +3826,7 @@ page 50516 HourlyProductionListPart
                                                         Rec."Target_Hour 09" := 0;
                                                         rec.Modify();
                                                         if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                                                            if TotNavaHours >= 10 then begin
+                                                            if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                                 if (DayTarget / TotNavaHours) > DayTarget then begin
                                                                     Rec."Target_Hour 10" := DayTarget;
                                                                     rec.Modify();
@@ -3842,6 +3847,7 @@ page 50516 HourlyProductionListPart
                                                 end
                                                 else begin
 
+
                                                     //correct
                                                     if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
                                                         if TotNavaHours >= 0 then begin
@@ -3857,6 +3863,15 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 1;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 02" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 03" := 0;
+                                                                Rec."Target_Hour 04" := 0;
+                                                                Rec."Target_Hour 05" := 0;
+                                                                Rec."Target_Hour 06" := 0;
+                                                                Rec."Target_Hour 07" := 0;
+                                                                Rec."Target_Hour 08" := 0;
+                                                                Rec."Target_Hour 09" := 0;
+                                                                Rec."Target_Hour 10" := 0;
+
                                                                 rec.Modify();
                                                             end;
                                                         end;
@@ -3866,6 +3881,13 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 2;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 03" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 04" := 0;
+                                                                Rec."Target_Hour 05" := 0;
+                                                                Rec."Target_Hour 06" := 0;
+                                                                Rec."Target_Hour 07" := 0;
+                                                                Rec."Target_Hour 08" := 0;
+                                                                Rec."Target_Hour 09" := 0;
+                                                                Rec."Target_Hour 10" := 0;
                                                                 rec.Modify();
                                                             end;
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
@@ -3881,6 +3903,12 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 3;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 05" := 0;
+                                                                Rec."Target_Hour 06" := 0;
+                                                                Rec."Target_Hour 07" := 0;
+                                                                Rec."Target_Hour 08" := 0;
+                                                                Rec."Target_Hour 09" := 0;
+                                                                Rec."Target_Hour 10" := 0;
                                                                 rec.Modify();
                                                             end;
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
@@ -3896,6 +3924,11 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 4;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 06" := 0;
+                                                                Rec."Target_Hour 07" := 0;
+                                                                Rec."Target_Hour 08" := 0;
+                                                                Rec."Target_Hour 09" := 0;
+                                                                Rec."Target_Hour 10" := 0;
                                                                 rec.Modify();
                                                             end;
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
@@ -3911,6 +3944,10 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 5;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 07" := 0;
+                                                                Rec."Target_Hour 08" := 0;
+                                                                Rec."Target_Hour 09" := 0;
+                                                                Rec."Target_Hour 10" := 0;
                                                                 rec.Modify();
                                                             end;
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
@@ -3926,6 +3963,9 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 6;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 08" := 0;
+                                                                Rec."Target_Hour 09" := 0;
+                                                                Rec."Target_Hour 10" := 0;
                                                                 rec.Modify();
                                                             end;
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
@@ -3941,6 +3981,8 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 7;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 09" := 0;
+                                                                Rec."Target_Hour 10" := 0;
                                                                 rec.Modify();
                                                             end;
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
@@ -3956,6 +3998,7 @@ page 50516 HourlyProductionListPart
                                                             CheckValue := TotNavaHours - 8;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+                                                                Rec."Target_Hour 10" := 0;
                                                                 rec.Modify();
                                                             end;
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
@@ -3966,9 +4009,9 @@ page 50516 HourlyProductionListPart
                                                             rec.Modify();
                                                         end;
 
-                                                        if TotNavaHours >= 9 then begin
+                                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
                                                             CheckValue := 0;
-                                                            CheckValue := TotNavaHours - 9;
+                                                            CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
                                                             if CheckValue < 1 then begin
                                                                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                                                                 rec.Modify();
@@ -3981,7 +4024,7 @@ page 50516 HourlyProductionListPart
                                                             rec.Modify();
                                                         end;
 
-                                                        if TotNavaHours >= 10 then begin
+                                                        if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
                                                             if (DayTarget / TotNavaHours) > DayTarget then begin
                                                                 Rec."Target_Hour 10" := DayTarget;
                                                                 rec.Modify();
@@ -4002,162 +4045,162 @@ page 50516 HourlyProductionListPart
             end;
         end;
 
-        if NavAppProdRec."LCurve Start Time" <> 0T then begin
-            // if NavAppProdRec."Learning Curve No." > 1 then begin
-            if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
-                if TotNavaHours >= 0 then begin
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 01" := DayTarget;
-                        rec.Modify();
-                    end else begin
-                        Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
-                        rec.Modify();
-                    end;
-                end;
-                if TotNavaHours >= 1 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 1;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 02" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                end;
+        // if NavAppProdRec."LCurve Start Time" <> 0T then begin
+        //     // if NavAppProdRec."Learning Curve No." > 1 then begin
+        //     if (TotNavaHours <> 0) and (DayTarget <> 0) then begin
+        //         if TotNavaHours >= 0 then begin
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 01" := DayTarget;
+        //                 rec.Modify();
+        //             end else begin
+        //                 Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+        //                 rec.Modify();
+        //             end;
+        //         end;
+        //         if TotNavaHours >= 1 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 1;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 02" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //         end;
 
-                if TotNavaHours >= 2 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 2;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 03" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 02" := DayTarget;
-                        rec.Modify();
-                    end else begin
-                        Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
-                        rec.Modify();
-                    end;
-                end;
+        //         if TotNavaHours >= 2 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 2;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 03" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 02" := DayTarget;
+        //                 rec.Modify();
+        //             end else begin
+        //                 Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+        //                 rec.Modify();
+        //             end;
+        //         end;
 
-                if TotNavaHours >= 3 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 3;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 03" := DayTarget;
-                        rec.Modify();
-                    end else begin
-                        Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
-                        rec.Modify();
-                    end;
-                end;
+        //         if TotNavaHours >= 3 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 3;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 04" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 03" := DayTarget;
+        //                 rec.Modify();
+        //             end else begin
+        //                 Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+        //                 rec.Modify();
+        //             end;
+        //         end;
 
-                if TotNavaHours >= 4 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 4;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 04" := DayTarget;
-                        rec.Modify();
-                    end else begin
-                        Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
-                        rec.Modify();
-                    end;
-                end;
+        //         if TotNavaHours >= 4 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 4;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 05" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 04" := DayTarget;
+        //                 rec.Modify();
+        //             end else begin
+        //                 Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
+        //                 rec.Modify();
+        //             end;
+        //         end;
 
-                if TotNavaHours >= 5 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 5;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 05" := DayTarget;
-                        rec.Modify();
-                    end else begin
-                        Rec."Target_Hour 05" := (DayTarget / TotNavaHours);
-                        rec.Modify();
-                    end;
-                end;
+        //         if TotNavaHours >= 5 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 5;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 06" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 05" := DayTarget;
+        //                 rec.Modify();
+        //             end else begin
+        //                 Rec."Target_Hour 05" := (DayTarget / TotNavaHours);
+        //                 rec.Modify();
+        //             end;
+        //         end;
 
-                if TotNavaHours >= 6 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 6;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 06" := DayTarget;
-                        rec.Modify();
-                    end else
-                        Rec."Target_Hour 06" := (DayTarget / TotNavaHours);
-                    rec.Modify();
-                end;
+        //         if TotNavaHours >= 6 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 6;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 07" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 06" := DayTarget;
+        //                 rec.Modify();
+        //             end else
+        //                 Rec."Target_Hour 06" := (DayTarget / TotNavaHours);
+        //             rec.Modify();
+        //         end;
 
-                if TotNavaHours >= 7 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 7;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 07" := DayTarget;
-                        rec.Modify();
-                    end else
-                        Rec."Target_Hour 07" := (DayTarget / TotNavaHours);
-                    rec.Modify();
-                end;
+        //         if TotNavaHours >= 7 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 7;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 07" := DayTarget;
+        //                 rec.Modify();
+        //             end else
+        //                 Rec."Target_Hour 07" := (DayTarget / TotNavaHours);
+        //             rec.Modify();
+        //         end;
 
-                if TotNavaHours >= 8 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 8;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 08" := DayTarget;
-                        rec.Modify();
-                    end else
-                        Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
-                    rec.Modify();
-                end;
+        //         if TotNavaHours >= 8 then begin
+        //             CheckValue := 0;
+        //             CheckValue := TotNavaHours - 8;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 09" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 08" := DayTarget;
+        //                 rec.Modify();
+        //             end else
+        //                 Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
+        //             rec.Modify();
+        //         end;
 
-                if TotNavaHours >= 9 then begin
-                    CheckValue := 0;
-                    CheckValue := TotNavaHours - 9;
-                    if CheckValue < 1 then begin
-                        Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
-                        rec.Modify();
-                    end;
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 09" := DayTarget;
-                        rec.Modify();
-                    end else
-                        Rec."Target_Hour 09" := (DayTarget / TotNavaHours);
-                    rec.Modify();
-                end;
+        //         if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
+        //             CheckValue := 0;
+        //              CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
+        //             if CheckValue < 1 then begin
+        //                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
+        //                 rec.Modify();
+        //             end;
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 09" := DayTarget;
+        //                 rec.Modify();
+        //             end else
+        //                 Rec."Target_Hour 09" := (DayTarget / TotNavaHours);
+        //             rec.Modify();
+        //         end;
 
-                if TotNavaHours >= 10 then begin
-                    if (DayTarget / TotNavaHours) > DayTarget then begin
-                        Rec."Target_Hour 10" := DayTarget;
-                        rec.Modify();
-                    end else
-                        Rec."Target_Hour 10" := (DayTarget / TotNavaHours);
-                    rec.Modify();
-                end;
-                // end;
-            end;
-        end;
+        //         if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
+        //             if (DayTarget / TotNavaHours) > DayTarget then begin
+        //                 Rec."Target_Hour 10" := DayTarget;
+        //                 rec.Modify();
+        //             end else
+        //                 Rec."Target_Hour 10" := (DayTarget / TotNavaHours);
+        //             rec.Modify();
+        //         end;
+        //         // end;
+        //     end;
+        // end;
 
     end;
 
