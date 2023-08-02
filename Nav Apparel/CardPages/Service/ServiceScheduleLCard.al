@@ -184,7 +184,7 @@ page 51228 ServiceScheduleLCard
                 trigger OnAction()
                 var
                     ServiceScheHeadRec: Record ServiceScheduleHeader;
-                    ServiceScheLineRec: Record ServiceScheduleLine;
+                    ServiceScheLineRec: Record ServiceScheduleLineNew;
                     UserSetupRec: Record "User Setup";
                     LoginRec: Page "Login Card";
                     LoginSessionsRec: Record LoginSessions;
