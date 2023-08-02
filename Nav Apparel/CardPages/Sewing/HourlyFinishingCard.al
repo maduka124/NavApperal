@@ -28,18 +28,17 @@ page 51377 "Hourly Finishing Card"
                         HourlyLinesRec: Record "Hourly Production Lines";
                     begin
                         //Validate Production Line date and Header date
-                        HourlyRec.Reset();
+                        Rec.Type := Rec.Type::Finishing;
+
                         HourlyLinesRec.Reset();
-                        HourlyRec.SetRange("No.", Rec."No.");
-                        if HourlyRec.FindSet() then begin
-                            HourlyLinesRec.SetRange("No.", HourlyRec."No.");
-                            HourlyLinesRec.SetRange(Type, HourlyLinesRec.Type::Finishing);
-                            HourlyLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
-                            if HourlyLinesRec.FindSet() then begin
-                                if Rec."Prod Date" <> HourlyLinesRec."Prod Date" then
-                                    Error('Please Check Production Date');
-                            end;
+                        HourlyLinesRec.SetRange("No.", Rec."No.");
+                        HourlyLinesRec.SetRange(Type, HourlyLinesRec.Type::Finishing);
+                        HourlyLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
+                        if HourlyLinesRec.FindSet() then begin
+                            if Rec."Prod Date" <> HourlyLinesRec."Prod Date" then
+                                Error('Please Check Production Date');
                         end;
+
 
                         //Validate Date
 
@@ -81,7 +80,7 @@ page 51377 "Hourly Finishing Card"
                     begin
                         HourlyRec.Reset();
                         HourlyRec.FindSet();
-                        Rec.Type := Rec.Type::Finishing;
+
 
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
