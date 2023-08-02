@@ -43,7 +43,6 @@ page 50481 "Machine Layout Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -62,7 +61,6 @@ page 50481 "Machine Layout Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-
                         //Delete old records
                         MachineLayoutLineRec.Reset();
                         MachineLayoutLineRec.SetRange("No.", rec."No.");
@@ -76,28 +74,22 @@ page 50481 "Machine Layout Card"
                         //Load Line Items
                         ManLevelRec.Reset();
                         ManLevelRec.SetRange("Style No.", StyleMasterRec."No.");
-
                         if ManLevelRec.FindSet() then begin
-
                             ManLevelNo := ManLevelRec."No.";
 
                             ManLevelLineRec.Reset();
                             ManLevelLineRec.SetRange("No.", ManLevelNo);
-
                             if ManLevelLineRec.FindSet() then begin
 
                                 //Get max line no
                                 LineNo := 0;
                                 MachineLayoutLineRec.Reset();
                                 MachineLayoutLineRec.SetRange("No.", rec."No.");
-
                                 if MachineLayoutLineRec.FindLast() then
                                     LineNo := MachineLayoutLineRec."Line No.";
 
                                 repeat
-
                                     if (ManLevelLineRec."Act MO" * 60) <= 60 then begin   //Less tan 60 minutes
-
                                         LineNo += 1;
                                         MachineLayoutLineRec.Init();
                                         MachineLayoutLineRec."No." := rec."No.";
@@ -108,33 +100,28 @@ page 50481 "Machine Layout Card"
                                         MachineLayoutLineRec."Machine Name" := ManLevelLineRec."Machine Name";
 
                                         if ManLevelLineRec."SMV Machine" > 0 then begin
-
                                             MachineLayoutLineRec.SMV := ManLevelLineRec."SMV Machine";
                                             MachineLayoutLineRec.Minutes := ManLevelLineRec."Act MO" * 60;
                                             MachineLayoutLineRec.Target := (ManLevelLineRec."Act MO" * 60) / ManLevelLineRec."SMV Machine";
-
                                         end
                                         else begin
                                             if ManLevelLineRec."SMV Manual" > 0 then begin
-
                                                 MachineLayoutLineRec.SMV := ManLevelLineRec."SMV Manual";
                                                 MachineLayoutLineRec.Minutes := ManLevelLineRec."Act MO" * 60;
                                                 MachineLayoutLineRec.Target := (ManLevelLineRec."Act MO" * 60) / ManLevelLineRec."SMV Manual";
-
                                             end;
                                         end;
 
+                                        MachineLayoutLineRec."Act MO" := ManLevelLineRec."Act MO";
+                                        MachineLayoutLineRec."Act HP" := ManLevelLineRec."Act HP";
                                         MachineLayoutLineRec."Created User" := UserId;
                                         MachineLayoutLineRec.Insert();
-
                                     end
                                     else begin  //More tan 60 minutes
-
                                         Nooftimes := (ManLevelLineRec."Act MO" * 60) DIV 60;
                                         Balance := (ManLevelLineRec."Act MO" * 60) MOD 60;
 
                                         For i := 1 to Nooftimes DO BEGIN
-
                                             LineNo += 1;
                                             MachineLayoutLineRec.Init();
                                             MachineLayoutLineRec."No." := rec."No.";
@@ -146,27 +133,23 @@ page 50481 "Machine Layout Card"
                                             MachineLayoutLineRec.Minutes := 60;
 
                                             if ManLevelLineRec."SMV Machine" > 0 then begin
-
                                                 MachineLayoutLineRec.SMV := ManLevelLineRec."SMV Machine";
                                                 MachineLayoutLineRec.Target := 60 / ManLevelLineRec."SMV Machine";
-
                                             end
                                             else begin
                                                 if ManLevelLineRec."SMV Manual" > 0 then begin
-
                                                     MachineLayoutLineRec.SMV := ManLevelLineRec."SMV Manual";
                                                     MachineLayoutLineRec.Target := 60 / ManLevelLineRec."SMV Manual";
-
                                                 end;
                                             end;
 
+                                            MachineLayoutLineRec."Act MO" := ManLevelLineRec."Act MO";
+                                            MachineLayoutLineRec."Act HP" := ManLevelLineRec."Act HP";
                                             MachineLayoutLineRec."Created User" := UserId;
                                             MachineLayoutLineRec.Insert();
-
                                         end;
 
                                         if Balance <> 0 then begin
-
                                             //Balance Minutes
                                             LineNo += 1;
                                             MachineLayoutLineRec.Init();
@@ -179,34 +162,28 @@ page 50481 "Machine Layout Card"
                                             MachineLayoutLineRec.Minutes := Balance;
 
                                             if ManLevelLineRec."SMV Machine" > 0 then begin
-
                                                 MachineLayoutLineRec.SMV := ManLevelLineRec."SMV Machine";
                                                 MachineLayoutLineRec.Target := Balance / ManLevelLineRec."SMV Machine";
-
                                             end
                                             else begin
                                                 if ManLevelLineRec."SMV Manual" > 0 then begin
-
                                                     MachineLayoutLineRec.SMV := ManLevelLineRec."SMV Manual";
                                                     MachineLayoutLineRec.Target := Balance / ManLevelLineRec."SMV Manual";
-
                                                 end;
                                             end;
 
+                                            MachineLayoutLineRec."Act MO" := ManLevelLineRec."Act MO";
+                                            MachineLayoutLineRec."Act HP" := ManLevelLineRec."Act HP";
                                             MachineLayoutLineRec."Created User" := UserId;
                                             MachineLayoutLineRec.Insert();
-
                                         end;
-
                                     end;
-
                                 until ManLevelLineRec.Next = 0;
 
                                 rec."Expected Target" := ManLevelRec."Expected Target";
                                 rec."Expected Eff" := ManLevelRec.Eff;
                                 rec."Garment Type" := StyleMasterRec."Garment Type Name";
                                 rec."Garment Type No." := StyleMasterRec."Garment Type No.";
-
                             end;
                         end;
                     end;

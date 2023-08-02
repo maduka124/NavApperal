@@ -64,6 +64,16 @@ table 50479 "Machine Layout Line1"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "Act MO"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(14; "Act HP"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

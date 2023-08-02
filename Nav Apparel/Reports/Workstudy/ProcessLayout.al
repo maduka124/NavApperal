@@ -58,10 +58,10 @@ report 50632 ProcessLayoutReport
                     Manual := 0;
                     Auto := 0;
 
-                    if "Machine Name" = 'HEL' then
-                        Manual := Minutes
+                    if "Machine Name" = 'HELPER' then
+                        Manual := "Act HP"
                     else
-                        Auto := Minutes;
+                        Auto := "Act MO";
                 end;
             }
 
