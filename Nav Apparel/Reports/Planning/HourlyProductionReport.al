@@ -246,6 +246,8 @@ report 50865 HourlyProductionReport
             { }
             column(FactoryH10; FactoryH10)
             { }
+            column(WorkingHrs; WorkingHrs)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -329,7 +331,7 @@ report 50865 HourlyProductionReport
 
             trigger OnAfterGetRecord()
             var
-                
+
             begin
 
                 StyleRec.Reset();
@@ -1042,8 +1044,16 @@ report 50865 HourlyProductionReport
                 if EstCostRec.FindSet() then
                     CMPcs := EstCostRec."MFG Cost Pcs";
 
+                WorkingHrs := 0;
+                ResCapacityEntryRec.Reset();
+                ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
+                ResCapacityEntryRec.SETRANGE(Date, PlanDate);
+                if ResCapacityEntryRec.FindSet() then begin
+                    repeat
+                        WorkingHrs += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                    until ResCapacityEntryRec.Next() = 0;
 
-
+                end;
 
             end;
 
@@ -1113,6 +1123,8 @@ report 50865 HourlyProductionReport
     end;
 
     var
+        ResCapacityEntryRec: Record "Calendar Entry";
+        WorkingHrs: Decimal;
         StyleLC9: Code[20];
         LineLC9: Code[20];
         FactoryH1: Decimal;
