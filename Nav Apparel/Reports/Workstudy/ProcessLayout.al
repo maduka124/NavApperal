@@ -27,11 +27,13 @@ report 50632 ProcessLayoutReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+
             dataitem("Machine Layout Line1"; "Machine Layout Line1")
             {
                 DataItemLinkReference = "Machine Layout Header";
                 DataItemLink = "No." = field("No.");
                 DataItemTableView = sorting("No.");
+
                 column(Minutes; Minutes)
                 { }
                 column(Machine_No_; "Machine No.")
@@ -52,44 +54,44 @@ report 50632 ProcessLayoutReport
                 { }
 
                 trigger OnAfterGetRecord()
-
                 begin
                     Manual := 0;
                     Auto := 0;
 
-                    if "Machine Name" = 'HEL' then begin
+                    if "Machine Name" = 'HEL' then
                         Manual := Minutes
-                    end
                     else
                         Auto := Minutes;
                 end;
             }
+
             trigger OnAfterGetRecord()
             var
             begin
-                StyleRec.SetRange("No.", "Style No.");
+                StyleRec.SetRange("Style No.", StyleFilter);
                 if StyleRec.FindFirst() then begin
                     BuyerName := StyleRec."Buyer Name";
                     OrderQTY := StyleRec."Order Qty";
                 end;
+
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
 
             trigger OnPreDataItem()
-
             begin
-                SetRange("Style No.", StyleFilter);
+                SetRange("Style Name", StyleFilter);
             end;
         }
     }
+
+
     requestpage
     {
         layout
         {
             area(Content)
             {
-
                 group(GroupName)
                 {
                     Caption = 'Filter By';
@@ -97,26 +99,21 @@ report 50632 ProcessLayoutReport
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
-                        TableRelation = "Style Master"."No.";
 
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            MCLayoutlRec: Record "Machine Layout Header";
+                        begin
+                            MCLayoutlRec.Reset();
+                            MCLayoutlRec.FindSet();
+                            if Page.RunModal(51379, MCLayoutlRec) = Action::LookupOK then
+                                StyleFilter := MCLayoutlRec."Style Name";
+                        end;
                     }
                 }
             }
         }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
     }
-
 
 
     var

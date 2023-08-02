@@ -349,6 +349,10 @@ table 50934 "Style Master"
         {
             Clustered = true;
         }
+
+        key(SK; "Created Date")
+        {
+        }
     }
 
     fieldgroups
