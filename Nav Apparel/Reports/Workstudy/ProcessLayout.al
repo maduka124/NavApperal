@@ -8,18 +8,16 @@ report 50632 ProcessLayoutReport
 
     dataset
     {
-        dataitem("Machine Layout Header"; "Machine Layout Header")
+        dataitem("Machine Layout Header"; "Maning Level")
         {
             DataItemTableView = sorting("No.");
             column(Style_No_; "Style Name")
             { }
-            column(Expected_Eff; "Expected Eff")
+            column(Expected_Eff; "Eff")
             { }
             column(Expected_Target; "Expected Target")
             { }
             column(Work_Center_Name; "Work Center Name")
-            { }
-            column(Garment_Type; "Garment Type")
             { }
             column(BuyerName; BuyerName)
             { }
@@ -28,13 +26,15 @@ report 50632 ProcessLayoutReport
             column(CompLogo; comRec.Picture)
             { }
 
-            dataitem("Machine Layout Line1"; "Machine Layout Line1")
+            dataitem("Machine Layout Line1"; "Maning Levels Line")
             {
                 DataItemLinkReference = "Machine Layout Header";
                 DataItemLink = "No." = field("No.");
                 DataItemTableView = sorting("No.");
 
-                column(Minutes; Minutes)
+                // column(Minutes; Minutes)
+                // { }
+                column(Garment_Type; RefGPartName)
                 { }
                 column(Machine_No_; "Machine No.")
                 { }
@@ -42,27 +42,31 @@ report 50632 ProcessLayoutReport
                 { }
                 column(Machine_Name; "Machine Name")
                 { }
-                column(SMV; SMV)
+                column(SMVMachine; "SMV Machine")
                 { }
-                column(Target; Target)
+                column(SMVManual; "SMV Manual")
                 { }
-                column(WP_No; "WP No")
+                column(Target; "Target Per Hour")
                 { }
-                column(Manual; Manual)
+                // column(WP_No; "WP No")
+                // { }
+                column(Manual; "Act HP")
                 { }
-                column(Auto; Auto)
+                column(Auto; "Act MC")
+                { }
+                column(Comments; Comments)
                 { }
 
-                trigger OnAfterGetRecord()
-                begin
-                    Manual := 0;
-                    Auto := 0;
+                // trigger OnAfterGetRecord()
+                // begin
+                //     Manual := 0;
+                //     Auto := 0;
 
-                    if "Machine Name" = 'HELPER' then
-                        Manual := "Act HP"
-                    else
-                        Auto := "Act MO";
-                end;
+                //     if "Machine Name" = 'HELPER' then
+                //         Manual := "Act HP"
+                //     else
+                //         Auto := "Act MO";
+                // end;
             }
 
             trigger OnAfterGetRecord()
@@ -102,12 +106,12 @@ report 50632 ProcessLayoutReport
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
-                            MCLayoutlRec: Record "Machine Layout Header";
+                            ManingLevelRec: Record "Maning Level";
                         begin
-                            MCLayoutlRec.Reset();
-                            MCLayoutlRec.FindSet();
-                            if Page.RunModal(51379, MCLayoutlRec) = Action::LookupOK then
-                                StyleFilter := MCLayoutlRec."Style Name";
+                            ManingLevelRec.Reset();
+                            ManingLevelRec.FindSet();
+                            if Page.RunModal(51379, ManingLevelRec) = Action::LookupOK then
+                                StyleFilter := ManingLevelRec."Style Name";
                         end;
                     }
                 }
@@ -117,8 +121,6 @@ report 50632 ProcessLayoutReport
 
 
     var
-        McLayoutRec: Record "Machine Layout";
-        MinutesMc: Decimal;
         Manual: Decimal;
         Auto: Decimal;
         StyleRec: Record "Style Master";

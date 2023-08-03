@@ -3,7 +3,7 @@ page 51379 "Machine Layout List Lookup"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Machine Layout Header";
+    SourceTable = "Maning Level";
     Caption = 'Machine Layout';
     SourceTableView = sorting("No.") order(descending);
 

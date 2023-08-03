@@ -17,7 +17,6 @@ table 50101 "Daily Consumption Header"
             // TableRelation = "Production Order"."No." where(Status = filter(Released), PO = field(PO), BuyerCode = field("Buyer Code"), "Style Name" = field("Style No."));
             TableRelation = "Production Order"."No." where(Status = filter(Released), PO = field(PO), BuyerCode = field("Buyer Code"), "Style Name" = field("Style Name"));
 
-
             trigger OnValidate()
             var
                 ProdOrderRec: Record "Production Order";
