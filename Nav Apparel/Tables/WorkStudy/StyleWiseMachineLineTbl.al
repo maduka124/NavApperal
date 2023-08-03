@@ -43,6 +43,11 @@ table 51364 StyleWiseMachineLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(9; "Record Type"; code[1])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

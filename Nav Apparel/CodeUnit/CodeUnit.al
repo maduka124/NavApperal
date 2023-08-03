@@ -190,6 +190,13 @@ codeunit 50618 NavAppCodeUnit
 
     end;
 
+    procedure ChangeColorManMachine(OpList: Record StyleWiseMachineLine): Text[50]
+    var
+    begin
+        if OpList."Record Type" = 'H' then
+            exit('strongaccent');
+    end;
+
     procedure ChangeColorManpoerBudget(OpList: Record FactoryManpowerBudgetLine): Text[50]
     var
     begin
