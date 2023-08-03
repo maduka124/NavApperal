@@ -68,6 +68,7 @@ table 50473 "Maning Level"
         {
             DataClassification = ToBeClassified;
             Editable = false;
+            DecimalPlaces = 3 : 3;
         }
 
         field(12; "Mac Operator"; Decimal)

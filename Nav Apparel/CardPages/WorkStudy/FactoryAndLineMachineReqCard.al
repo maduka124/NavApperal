@@ -4,7 +4,7 @@ page 51368 FactoryAndLineMachineReqCard
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = FactoryandlinemachineReqlist;
-    Caption = 'Factory And Line Wise Machine Requirement';
+    Caption = 'Planed Machine Requirment';
 
     layout
     {

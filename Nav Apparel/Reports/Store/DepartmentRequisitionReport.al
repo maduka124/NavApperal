@@ -85,19 +85,26 @@ report 50711 DepartmentRequisitionReport
                 column(Other; Other)
                 { }
             }
-            trigger OnPreDataItem()
 
+            trigger OnPreDataItem()
             begin
-                SetRange("Factory Code", Factory);
-                SetRange("Request Date", stDate, endDate);
+                if ReqNo <> '' then
+                    SetRange("Req No", ReqNo);
+
+                if Factory <> '' then
+                    SetRange("Factory Code", Factory);
+
+                if stDate > endDate then
+                    Error('Invalid date period');
+
+                if (stDate <> 0D) and (endDate <> 0D) then
+                    SetRange("Request Date", stDate, endDate);
             end;
 
             trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
-                // Message('Req No. %1', "Req No");
-
             end;
         }
     }
@@ -110,12 +117,17 @@ report 50711 DepartmentRequisitionReport
             {
                 group(GroupName)
                 {
+                    field(ReqNo; ReqNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Dept. Req. No';
+                        TableRelation = DeptReqSheetHeader."Req No";
+                    }
+
                     field(Factory; Factory)
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
-                        // TableRelation = location.Code;
-
 
                         // Done By Sachith on 17/50/23
                         trigger OnLookup(var TEXT: Text): Boolean
@@ -123,10 +135,8 @@ report 50711 DepartmentRequisitionReport
                             LocationRec: Record Location;
                             UserRec: Record "User Setup";
                         begin
-
                             UserRec.Reset();
                             UserRec.get(UserId);
-
                             if UserRec."Factory Code" <> '' then begin
                                 LocationRec.Reset();
                                 LocationRec.SetRange(Code, UserRec."Factory Code");
@@ -135,10 +145,8 @@ report 50711 DepartmentRequisitionReport
                                     Factory := LocationRec.Code;
                             end
                             else begin
-
                                 LocationRec.Reset();
                                 LocationRec.FindSet();
-
                                 if LocationRec.FindSet() then begin
                                     if Page.RunModal(15, LocationRec) = Action::LookupOK then
                                         Factory := LocationRec.Code;
@@ -161,26 +169,12 @@ report 50711 DepartmentRequisitionReport
                 }
             }
         }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
     }
 
     var
-        myInt: Integer;
-
-        // "PO Raized": Boolean;
         Factory: Code[50];
         comRec: Record "Company Information";
         stDate: Date;
         endDate: Date;
+        ReqNo: code[20];
 }

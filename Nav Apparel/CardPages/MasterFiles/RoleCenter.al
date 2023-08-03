@@ -1189,6 +1189,14 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+
+                    action("Garment Wise Raw Material Request & Issue Report - common")
+                    {
+                        Caption = 'Garment Wise Raw Material Request & Issue Report';
+                        Enabled = true;
+                        RunObject = report GarmentWiseRawMaterialRequest;
+                        ApplicationArea = All;
+                    }
                 }
 
             }
@@ -2108,9 +2116,9 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Factory And Line Wise Machine Requirement")
+                action("Planed Machine Requirment")
                 {
-                    Caption = 'Factory And Line Wise Machine Requirement';
+                    Caption = 'Planed Machine Requirment';
                     RunObject = Page FactoryAndMachineReq;
                     ApplicationArea = all;
                 }
@@ -2191,6 +2199,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Style Change IE")
+                {
+                    Caption = 'Style Change';
+                    RunObject = Page StyleChangeCard;
+                    ApplicationArea = all;
+                }
+
                 action("Style Wise Machine Req")
                 {
                     Caption = 'Style Wise Machine Requirement';
@@ -2255,14 +2270,13 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Summary of Worker Manpower Report")
-                    {
-                        Caption = 'Summary of Worker Manpower Report';
-                        Enabled = true;
-                        RunObject = report ManpowerBudgetReport;
-                        ApplicationArea = all;
-                    }
-
+                    // action("Summary of Worker Manpower Report")
+                    // {
+                    //     Caption = 'Summary of Worker Manpower Report';
+                    //     Enabled = true;
+                    //     RunObject = report ManpowerBudgetReport;
+                    //     ApplicationArea = all;
+                    // }
                 }
             }
 
