@@ -8,70 +8,81 @@ report 50627 ProductionAndShipmentDetails
 
     dataset
     {
-        dataitem("Style Master"; "Style Master")
+
+
+        dataitem("Sales Invoice Header"; "Sales Invoice Header")
         {
-            column(Buyer_Name; "Buyer Name")
-            { }
-            column(OrderQty; "Order Qty")
-            { }
-            column(SMV; SMV)
-            { }
 
-            column(cutting; CutOutQty)
-            { }
-            column(Sewing; SawOutQty)
-            { }
-            column(Finishing; FinOutQty)
-            { }
-            column(WashOutQty; WashOutQty)
-            { }
-            column(ShipOutQty; ShipOutQty)
-            { }
-            column(ShipDate; Shdate)
-            { }
+            DataItemTableView = sorting("No.");
 
-            column(stDate; stDate)
+            column(Buyer_Name; "Sell-to Customer No.")
             { }
-            column(endDate; endDate)
+            column(AssignedContractNo; "Contract No")
             { }
-            column(Buyer; Buyer)
+            column(Location_Code; "Location Code")
             { }
-            column(StyleNo; StyleName)
-            { }
-            column(AssignedContractNo; "LC No/Contract")
-            { }
-            column(CompLogo; comRec.Picture)
-            { }
-            column(CutOutTotal; CutOutTotal)
-            { }
-            column(SawOutTotal; SawOutTotal)
-            { }
-            column(WashOutTotal; WashOutTotal)
-            { }
-            column(FinOutTotal; FinOutTotal)
-            { }
-            column(ShipOutTotal; ShipOutTotal)
-            { }
+          
 
             dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
             {
-                DataItemLinkReference = "Style Master";
-                DataItemLink = "Style No." = field("No.");
+                DataItemLinkReference = "Sales Invoice Header";
+                DataItemLink = "Style No." = field("Style No"), "PO No." = field("PO No");
                 DataItemTableView = sorting("No.");
                 column(PoNo; "PO No.")
                 { }
-
-                trigger OnPreDataItem()
-                begin
-                    if FactoryFilter <> '' then
-                        SetRange("Factory No.", FactoryFilter);
-                end;
-
+                column(OrderQty; OrderQty)
+                { }
+                column(SMV; SMV)
+                { }
+                column(cutting; CutOutQty)
+                { }
+                column(Sewing; SawOutQty)
+                { }
+                column(Finishing; FinOutQty)
+                { }
+                column(WashOutQty; WashOutQty)
+                { }
+                column(ShipOutQty; ShipOutQty)
+                { }
+                column(ShipDate; Shdate)
+                { }
+                column(stDate; stDate)
+                { }
+                column(endDate; endDate)
+                { }
+                column(Buyer; Buyer)
+                { }
+                column(StyleNo; StyleName)
+                { }
+                column(CompLogo; comRec.Picture)
+                { }
+                column(CutOutTotal; CutOutTotal)
+                { }
+                column(SawOutTotal; SawOutTotal)
+                { }
+                column(WashOutTotal; WashOutTotal)
+                { }
+                column(FinOutTotal; FinOutTotal)
+                { }
+                column(ShipOutTotal; ShipOutTotal)
+                { }
                 trigger OnAfterGetRecord()
-                var
-                    myInt: Integer;
+
                 begin
-                    //Cuting QTY
+                    comRec.Get;
+                    comRec.CalcFields(Picture);
+
+                    StyleMasterRec.Reset();
+                    StyleMasterRec.SetRange("No.", "Style No.");
+                    if StyleMasterRec.FindFirst() then begin
+                        Buyer := StyleMasterRec."Buyer Name";
+                        StyleName := StyleMasterRec."Style No.";
+                        SMV := StyleMasterRec.SMV;
+                        OrderQty := StyleMasterRec."Order Qty";
+                        AssignContrantNo := StyleMasterRec."LC No/Contract";
+                    end;
+
+
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
@@ -155,81 +166,28 @@ report 50627 ProductionAndShipmentDetails
                             WashOutTotal += ProductionRec."Output Qty";
                         until ProductionRec.Next() = 0;
                     end;
-
                 end;
-            }
-            dataitem("Sales Invoice Header"; "Sales Invoice Header")
-            {
-                DataItemLinkReference = "Style Master";
-                DataItemLink = "Style No" = field("No."), "Contract No" = field(AssignedContractNo);
-                DataItemTableView = sorting("No.");
 
-                trigger OnPreDataItem()
-                begin
-                    if (stDate <> 0D) and (endDate <> 0D) then
-                        SetRange("Shipment Date", stDate, endDate);
-
-                end;
             }
+            trigger OnPreDataItem()
+            begin
+                if stDate <> 0D then
+                    SetRange("Shipment Date", stDate, endDate);
+
+                if BuyerNo <> '' then
+                    SetRange("Sell-to Customer No.", BuyerNo);
+
+                if FactoryFilter <> '' then
+                    SetRange("Location Code", FactoryFilter);
+            end;
 
             trigger OnAfterGetRecord()
-
+            var
+                myInt: Integer;
             begin
-                comRec.Get;
-                comRec.CalcFields(Picture);
-
-                StyleMasterRec.Reset();
-                StyleMasterRec.SetRange("No.", "No.");
-                if StyleMasterRec.FindFirst() then begin
-                    Buyer := StyleMasterRec."Buyer Name";
-                    StyleName := StyleMasterRec."Style No.";
-                    SMV := StyleMasterRec.SMV;
-                    OrderQty := StyleMasterRec."Order Qty";
-                    AssignContrantNo := StyleMasterRec.AssignedContractNo;
-                end;
-
-
-                //Ship QTY
-                // ProductionRec.Reset();
-                // ProductionRec.SetRange("Style No.", "Style No.");
-                // ProductionRec.SetRange("PO No", "PO No.");
-                // ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Ship);
-                // if ProductionRec.FindSet() then begin
-                //     ShipOutQty += ProductionRec."Output Qty";
-                // end;
-
-
-                ShipOutQty := 0;
-                SalesInvoiceHrec.Reset();
-                SalesInvoiceHrec.SetRange("Style No", "No.");
-                SalesInvoiceHrec.SetRange("Contract No", AssignContrantNo);
-                if SalesInvoiceHrec.FindSet() then begin
-                    SalesInvoiceLineRec.Reset();
-                    SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
-                    if SalesInvoiceLineRec.FindSet() then begin
-                        repeat
-                            ShipOutQty += SalesInvoiceLineRec.Quantity;
-                        until SalesInvoiceLineRec.Next() = 0;
-                    end;
-                end;
-
-
-                //Ship Total
-                // ProductionRec.Reset();
-                // ProductionRec.SetRange("Style No.", "Style No.");
-                // ProductionRec.SetRange("PO No", "PO No.");
-                // ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
-                // ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Ship);
-                // if ProductionRec.FindSet() then begin
-                //     repeat
-                //         ShipOutTotal += ProductionRec."Output Qty";
-                //     until ProductionRec.Next() = 0;
-                // end;
                 ShipOutTotal := 0;
                 SalesInvoiceHrec.Reset();
-                SalesInvoiceHrec.SetRange("Style No", "No.");
-                SalesInvoiceHrec.SetRange("Contract No", AssignContrantNo);
-
+                SalesInvoiceHrec.SetRange("No.", "No.");
                 SalesInvoiceHrec.SetFilter("Shipment Date", '<=%1', endDate);
                 if SalesInvoiceHrec.FindSet() then begin
                     SalesInvoiceLineRec.Reset();
@@ -242,25 +200,32 @@ report 50627 ProductionAndShipmentDetails
                 end;
 
                 SalesInvoiceHrec.Reset();
-                SalesInvoiceHrec.SetRange("Style No", "No.");
-                SalesInvoiceHrec.SetRange("Contract No", AssignContrantNo);
+                SalesInvoiceHrec.SetRange("No.", "No.");
                 if SalesInvoiceHrec.FindSet() then begin
                     Shdate := SalesInvoiceHrec."Shipment Date";
                 end;
 
 
-
-
+                ShipOutQty := 0;
+                SalesInvoiceHrec.Reset();
+                SalesInvoiceHrec.SetRange("No.", "No.");
+                if SalesInvoiceHrec.FindSet() then begin
+                    SalesInvoiceLineRec.Reset();
+                    SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
+                    if SalesInvoiceLineRec.FindSet() then begin
+                        repeat
+                            ShipOutQty += SalesInvoiceLineRec.Quantity;
+                        until SalesInvoiceLineRec.Next() = 0;
+                    end;
+                end;
             end;
 
-
-            trigger OnPreDataItem()
-            begin
-                if BuyerNo <> '' then
-                    SetRange("Buyer No.", BuyerNo);
-            end;
         }
+
+
     }
+
+
 
     requestpage
     {
