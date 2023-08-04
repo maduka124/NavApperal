@@ -168,7 +168,7 @@ page 51377 "Hourly Finishing Card"
                     if rec."Prod Date" < WorkDate() then
                         Error('Cannot enter production for previous dates.');
 
-                    if (Dialog.CONFIRM('"Hourly Finishing" will earse old records. Do you want to continue?', true) = true) then begin
+                    if (Dialog.CONFIRM('"Hourly Finishing" will erase old records. Do you want to continue?', true) = true) then begin
                         CurrPage.Update();
 
                         //Done By sachith on 20/03/23
