@@ -300,6 +300,11 @@ tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
                 // end;
             end;
         }
+        field(50125; "Secondary UserID"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
 
     }
 

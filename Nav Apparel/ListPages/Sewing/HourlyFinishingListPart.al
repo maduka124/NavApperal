@@ -126,7 +126,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -202,7 +202,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -275,7 +275,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -348,7 +348,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -420,7 +420,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -493,7 +493,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -566,7 +566,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -639,7 +639,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -712,7 +712,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -785,7 +785,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -858,7 +858,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -931,7 +931,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -1004,7 +1004,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-
+                        CheckValue();
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -1198,6 +1198,58 @@ page 51381 HourlyFinishingListPart
             }
         }
     }
+    procedure CheckValue()
+    var
+        HourlyProdLinesRec: Record "Hourly Production Lines";
+    begin
+        HourlyProdLinesRec.Reset();
+        HourlyProdLinesRec.SetRange("Prod Date", Rec."Prod Date");
+        HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+        HourlyProdLinesRec.SetRange("Work Center No.", Rec."Work Center No.");
+        HourlyProdLinesRec.SetFilter(Type, '=%1', HourlyProdLinesRec.Type::Sewing);
+        if HourlyProdLinesRec.FindSet() then begin
+            if Rec."Hour 01" > HourlyProdLinesRec."Hour 01" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 02" > HourlyProdLinesRec."Hour 02" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 03" > HourlyProdLinesRec."Hour 03" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 04" > HourlyProdLinesRec."Hour 04" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 05" > HourlyProdLinesRec."Hour 05" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 06" > HourlyProdLinesRec."Hour 06" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 07" > HourlyProdLinesRec."Hour 07" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 08" > HourlyProdLinesRec."Hour 08" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 09" > HourlyProdLinesRec."Hour 09" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 10" > HourlyProdLinesRec."Hour 10" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 11" > HourlyProdLinesRec."Hour 11" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 12" > HourlyProdLinesRec."Hour 12" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+            if Rec."Hour 13" > HourlyProdLinesRec."Hour 13" then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+        end;
+    end;
+
     procedure CalTotal()
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
@@ -1389,31 +1441,33 @@ page 51381 HourlyFinishingListPart
         end;
 
 
+
+
         //Get sewing line in qty/out qty
-        InputQtyVar := 0;
-        OutQtyVar := 0;
-        ProdOutHeaderRec.Reset();
-        ProdOutHeaderRec.SetRange("Resource No.", rec."Work Center No.");
-        ProdOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
-        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+        // InputQtyVar := 0;
+        // OutQtyVar := 0;
+        // ProdOutHeaderRec.Reset();
+        // ProdOutHeaderRec.SetRange("Resource No.", rec."Work Center No.");
+        // ProdOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
+        // ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
 
-        if rec.Type = rec.Type::Sewing then
-            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+        // if rec.Type = rec.Type::Sewing then
+        //     ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
 
-        if rec.Type = rec.Type::Finishing then
-            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Fin);
+        // if rec.Type = rec.Type::Finishing then
+        //     ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Fin);
 
-        if ProdOutHeaderRec.FindSet() then begin
-            repeat
-                InputQtyVar += ProdOutHeaderRec."Input Qty";
-                OutQtyVar += ProdOutHeaderRec."Output Qty";
-            until ProdOutHeaderRec.Next() = 0;
-        end;
+        // if ProdOutHeaderRec.FindSet() then begin
+        //     repeat
+        //         InputQtyVar += ProdOutHeaderRec."Input Qty";
+        //         OutQtyVar += ProdOutHeaderRec."Output Qty";
+        //     until ProdOutHeaderRec.Next() = 0;
+        // end;
 
-        if (InputQtyVar - OutQtyVar) < rec.Total then
-            Error('Hourly Production Total is greater than balance Sew. In Qty/Sew. Out Qty.');
+        // if (InputQtyVar - OutQtyVar) < rec.Total then
+        //     Error('Hourly Production Total is greater than balance Sew. In Qty/Sew. Out Qty.');
 
-        CurrPage.Update();
+        // CurrPage.Update();
 
     end;
 

@@ -1742,12 +1742,6 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Hourly Production list";
                     ApplicationArea = all;
                 }
-                action("Hourly Finishing")
-                {
-                    Caption = 'Hourly Finishing';
-                    RunObject = Page "Hourly Finishing List";
-                    ApplicationArea = all;
-                }
 
 
                 action("OMS Sewing")
@@ -1844,6 +1838,13 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Daily Shipping Out";
                     ApplicationArea = all;
                 }
+                action("Hourly Finishing")
+                {
+                    Caption = 'Hourly Finishing';
+                    RunObject = Page "Hourly Finishing List";
+                    ApplicationArea = all;
+                }
+
                 action("OMS Finishing")
                 {
                     Caption = 'OMS List';
