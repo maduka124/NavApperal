@@ -108,7 +108,7 @@ page 51377 "Hourly Finishing Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    // Visible = false;
+                    Visible = false;
 
                 }
                 //Mihiranga 2023/03/24
