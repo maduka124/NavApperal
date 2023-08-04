@@ -186,8 +186,13 @@ table 50101 "Daily Consumption Header"
                 ProdOrder.SetRange("Style Name", "Style Name");
                 ProdOrder.SetRange(PO, PO);
                 if not ProdOrder.FindFirst() then
-                    Error('There is no Production order');
-
+                    Error('There is no Production order')
+                else begin//Done By Sachith on 04/08/23
+                    if ProdOrder."No." <> '' then begin
+                        "Prod. Order No." := ProdOrder."No.";
+                        ProductionOrderOldCal();
+                    end;
+                end;
                 "Style Master No." := ProdOrder."Style No.";
                 //Validate("Prod. Order No.", ProdOrder."No.");
             end;
@@ -447,6 +452,101 @@ table 50101 "Daily Consumption Header"
             IF DailyConsumHedd2.GET("No.") THEN
                 EXIT(TRUE);
         END;
+    end;
+
+    //Done By Sachith on 04/08/23
+    procedure ProductionOrderOldCal(): Boolean
+    var
+        ProdOrderRec: Record "Production Order";
+        DailyConsumpLine: Record "Daily Consumption Line";
+        ProdOrderLine: Record "Prod. Order Line";
+        ProdOrderComp: Record "Prod. Order Component";
+        ItemLed: Record "Item Ledger Entry";
+        ItemLed1: Record "Item Ledger Entry";
+        ItemJnalBatch: Record "Item Journal Batch";
+        ItemRec: Record Item;
+        Inx: Integer;
+        Total: Decimal;
+        DocNo: Text[20];
+    begin
+        DailyConsumpLine.Reset();
+        DailyConsumpLine.SetRange("Document No.", "No.");
+        DailyConsumpLine.DeleteAll();
+
+        if "Prod. Order No." <> '' then begin
+            ProdOrderRec.Get(ProdOrderRec.Status::Released, "Prod. Order No.");
+
+            ItemJnalBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");
+            Rec.TestField("Colour No.");
+            Description := ProdOrderRec.Description;
+            "Source No." := ProdOrderRec."Source No.";
+            "Due Date" := ProdOrderRec."Due Date";
+            // "Journal Template Name" := GetTempCode;
+            // "Journal Batch Name" := GetBatchCode;
+
+            ProdOrderLine.Reset();
+            ProdOrderLine.SetRange("Prod. Order No.", "Prod. Order No.");
+            ProdOrderLine.SetRange(Status, ProdOrderLine.Status::Released);
+            if ProdOrderLine.FindFirst() then begin
+                repeat
+                    ItemRec.Get(ProdOrderLine."Item No.");
+                    if "Colour No." = ItemRec."Color No." then begin
+                        ItemLed.Reset();
+                        ItemLed.SetRange("Entry Type", ItemLed."Entry Type"::Consumption);
+                        ItemLed.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
+                        ItemLed.SetRange("Order Line No.", ProdOrderLine."Line No.");
+                        if ItemJnalBatch."Inventory Posting Group" <> '' then
+                            ItemLed.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
+
+                        ItemLed.SetRange(MainCategoryName, "Main Category Name");
+                        ItemLed.CalcSums("Posted Daily Output");
+
+                        ProdOrderComp.Reset();
+                        ProdOrderComp.SetRange("Prod. Order No.", ProdOrderLine."Prod. Order No.");
+                        ProdOrderComp.SetRange("Prod. Order Line No.", ProdOrderLine."Line No.");
+                        ProdOrderComp.SetRange("Item Cat. Code", "Main Category");
+                        ProdOrderComp.SetFilter("Remaining Quantity", '>%1', 0);
+                        if ProdOrderComp.FindFirst() then begin
+
+                            // Total := 0;
+                            // DocNo := '';
+
+                            // ItemLed1.Reset();
+                            // ItemLed1.SetRange("Entry Type", ItemLed1."Entry Type"::Consumption);
+                            // ItemLed1.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
+                            // ItemLed1.SetRange("Order Line No.", ProdOrderLine."Line No.");
+                            // ItemLed1.SetCurrentKey("Daily Consumption Doc. No.");
+                            // ItemLed1.Ascending(true);
+                            // if ItemJnalBatch."Inventory Posting Group" <> '' then
+                            //     ItemLed1.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
+
+                            // if ItemLed1.FindSet() then begin
+                            //     repeat
+                            //         if DocNo <> ItemLed1."Daily Consumption Doc. No." then
+                            //             Total += ItemLed1."Posted Daily Output";
+                            //         DocNo := ItemLed1."Daily Consumption Doc. No.";
+                            //     until ItemLed1.Next() = 0;
+                            // end;
+
+                            Inx += 10000;
+                            DailyConsumpLine.Init();
+                            DailyConsumpLine."Document No." := "No.";
+                            DailyConsumpLine."Line No." := Inx;
+                            DailyConsumpLine."Item No." := ProdOrderLine."Item No.";
+                            DailyConsumpLine.Description := ProdOrderLine.Description;
+                            DailyConsumpLine."Order Quantity" := ProdOrderLine.Quantity;
+                            DailyConsumpLine."Prod. Order No." := ProdOrderLine."Prod. Order No.";
+                            DailyConsumpLine."prod. Order Line No." := ProdOrderLine."Line No.";
+                            DailyConsumpLine."Issued Quantity" := ItemLed."Posted Daily Output";
+                            // DailyConsumpLine."Issued Quantity" := Total;
+                            DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - ItemLed."Posted Daily Output";
+                            // DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - Total;
+                            DailyConsumpLine.Insert();
+                        end;
+                    end;
+                until ProdOrderLine.Next() = 0;
+            end;
+        end;
     end;
 
     // procedure GetVariables(TempCode: Code[10]; BatchCode: Code[10])
