@@ -4,6 +4,17 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
     {
         modify("Explode &Routing")
         {
+            trigger OnBeforeAction()
+            var
+                RPORec: Record "Production Order";
+            begin
+
+                RPONOGB := '';
+                if Rec."Order No." <> '' then
+                    RPONOGB := Rec."Order No.";
+
+            end;
+
             trigger OnAfterAction()
             var
                 ItemJrnlLineRec: Record "Item Journal Line";
@@ -26,6 +37,12 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
                 RouterRec: Record "Routing Header";
                 NewBrNo: Code[20];
                 TotalSMV: Decimal;
+                LoginRec: Page "Login Card";
+                LoginSessionsRec: Record LoginSessions;
+                SecondaryUserId: Code[20];
+                SOLineRec: Record "Sales Line";
+                ItemJrnlLine2Rec: Record "Item Journal Line";
+                SONo: code[20];
             begin
 
                 //Get Bulk Router
@@ -50,6 +67,12 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
                 ItemJrnlLineRec.Ascending(true);
 
                 if ItemJrnlLineRec.FindSet() then begin
+
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if LoginSessionsRec.FindSet() then
+                        SecondaryUserId := LoginSessionsRec."Secondary UserID";
 
                     //Get Sales Order No for RPO
                     RPORec.Reset();
@@ -84,7 +107,6 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
                         Error('Cannot find RPO details for RPO : %1', ItemJrnlLineRec."Order No.");
 
                     repeat
-
                         Qty := 0;
                         //get Color/Size for the FG
                         ItemRec.Reset();
@@ -363,6 +385,26 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
                             ItemJrnlLineRec."Run Time" := Qty * TotalSMV;
                             ItemJrnlLineRec."Output Quantity" := Qty;
                             ItemJrnlLineRec.Finished := true;
+
+                            if ItemJrnlLineRec."Document No." = RPONOGB then
+                                ItemJrnlLineRec."Secondary UserID" := SecondaryUserId;
+
+                            //For existing Records
+                            SOLineRec.Reset();
+                            SOLineRec.SetRange("Document No.", RPORec."Source No.");
+                            SOLineRec.SetFilter("Document Type", '=%1', SOLineRec."Document Type"::Order);
+                            SOLineRec.SetCurrentKey("No.");
+                            SOLineRec.Ascending(true);
+
+                            if SOLineRec.FindSet() then begin
+                                repeat
+
+                                    if ItemJrnlLineRec."Item No." = SOLineRec."No." then
+                                        ItemJrnlLineRec."Output Quantity" := SOLineRec.Quantity;
+
+                                until SOLineRec.Next() = 0;
+                            end;
+
                             ItemJrnlLineRec.Modify();
 
                         end
@@ -370,10 +412,84 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
                             Error('Cannot find Item No : %1 in Item master.', ItemJrnlLineRec."Item No.");
 
                     until ItemJrnlLineRec.Next() = 0;
+
+                    //For New Record
+                    ItemJrnlLine2Rec.Reset();
+                    ItemJrnlLine2Rec.SetRange("Order No.", RPONOGB);
+                    ItemJrnlLine2Rec.SetRange("Journal Template Name", 'OUTPUT');
+                    ItemJrnlLine2Rec.SetRange("Journal Batch Name", 'DEFAULT');
+
+                    if ItemJrnlLine2Rec.FindSet() then begin
+                        RPORec.Reset();
+                        RPORec.SetRange("No.", ItemJrnlLine2Rec."Order No.");
+                        RPORec.SetFilter(Status, '%1', RPORec.Status::Released);
+                        if RPORec.FindSet() then
+                            SONo := RPORec."Source No.";
+                        repeat
+                            SOLineRec.Reset();
+                            SOLineRec.SetRange("Document No.", SONo);
+                            SOLineRec.SetFilter("Document Type", '=%1', SOLineRec."Document Type"::Order);
+                            SOLineRec.SetCurrentKey("No.");
+                            SOLineRec.Ascending(true);
+
+                            if SOLineRec.FindSet() then begin
+                                repeat
+
+                                    if ItemJrnlLine2Rec."Item No." = SOLineRec."No." then
+                                        ItemJrnlLine2Rec."Output Quantity" := SOLineRec.Quantity;
+
+                                until SOLineRec.Next() = 0;
+                            end;
+
+                            ItemJrnlLine2Rec.Modify();
+                        until ItemJrnlLine2Rec.Next() = 0;
+
+
+                    end;
+
                 end;
 
             end;
         }
+
+        addafter("&Print")
+        {
+            action("Filter for the User")
+            {
+                ApplicationArea = All;
+                Image = UseFilters;
+
+                trigger OnAction()
+                var
+                    LoginRec: Page "Login Card";
+                    LoginSessionsRec: Record LoginSessions;
+                begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        // LoginSessionsRec.Reset();
+                        // LoginSessionsRec.SetRange(SessionID, SessionId());
+                        // if LoginSessionsRec.FindSet() then
+                        //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+                    end;
+
+                    // ItemJrnlLineRec.Reset();
+                    // ItemJrnlLineRec.SetRange("Journal Template Name", 'OUTPUT');
+                    // ItemJrnlLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+                    // ItemJrnlLineRec.FindSet();
+
+                    Rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+
+                end;
+            }
+        }
+
     }
 
     trigger OnOpenPage()
@@ -385,7 +501,6 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
-
         if not LoginSessionsRec.FindSet() then begin  //not logged in
             Clear(LoginRec);
             LoginRec.LookupMode(true);
@@ -401,4 +516,8 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
         end;
 
     end;
+
+    var
+        RPONOGB: Code[200];
+
 }
