@@ -163,7 +163,7 @@ page 50515 "Hourly Production Card"
                     ResourceNo: code[20];
                 begin
 
-                    if (Dialog.CONFIRM('"Hourly Production" will earse old records. Do you want to continue?', true) = true) then begin
+                    if (Dialog.CONFIRM('"Hourly Production" will erase old records. Do you want to continue?', true) = true) then begin
 
                         //Delete old records
                         HourlyProdLinesRec.Reset();
