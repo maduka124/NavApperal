@@ -50,10 +50,17 @@ page 50102 "Daily Consumption Card"
                     ApplicationArea = All;
                 }
 
-                field("Main Category Name"; Rec."Main Category Name")
+                field("Main Category Name1"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Main Category Name';
                 }
+
+                // field("Main Category Name"; Rec."Main Category Name")
+                // {
+                //     ApplicationArea = All;
+                //     Visible = true;
+                // }
 
                 //Mihiranga 2023/02/18
                 field("Colour Name"; rec."Colour Name")
@@ -524,7 +531,7 @@ page 50102 "Daily Consumption Card"
                     //CurrPage.Close();
                 end;
             }
-            
+
         }
     }
 
@@ -695,5 +702,5 @@ page 50102 "Daily Consumption Card"
         BooVis2: Boolean;
         Vis2: Boolean;
         EditableGB: Boolean;
-   
+
 }

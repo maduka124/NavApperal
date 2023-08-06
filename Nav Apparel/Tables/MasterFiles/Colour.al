@@ -55,10 +55,6 @@ table 51088 Colour
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
 
     trigger OnDelete()
     var
@@ -69,12 +65,17 @@ table 51088 Colour
         AssorRec.SetRange("Colour No", "No.");
         if AssorRec.FindSet() then
             Error('Colour : %1 already used in operations. Cannot delete.', "Colour Name");
-
     end;
 
-    trigger OnRename()
+
+    trigger OnModify()
+    var
+        AssorRec: Record AssortmentDetails;
     begin
-
+        //Check for Exsistance
+        AssorRec.Reset();
+        AssorRec.SetRange("Colour No", "No.");
+        if AssorRec.FindSet() then
+            Error('Colour : %1 already used in operations. Cannot modify.', "Colour Name");
     end;
-
 }

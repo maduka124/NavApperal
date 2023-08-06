@@ -190,7 +190,6 @@ table 50101 "Daily Consumption Header"
                 else begin//Done By Sachith on 04/08/23
                     if ProdOrder."No." <> '' then begin
                         "Prod. Order No." := ProdOrder."No.";
-                        ProductionOrderOldCal();
                     end;
                 end;
                 "Style Master No." := ProdOrder."Style No.";
@@ -261,7 +260,7 @@ table 50101 "Daily Consumption Header"
         field(15; "Colour Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            // Editable = false;
+
             trigger OnValidate()
             var
                 ColorRec: Record Colour;
@@ -270,7 +269,10 @@ table 50101 "Daily Consumption Header"
                 ColorRec.SetRange("Colour Name", "Colour Name");
                 if ColorRec.FindSet() then begin
                     "Colour No." := ColorRec."No.";
-                end;
+                    ProductionOrderOldCal();
+                end
+                else
+                    Error('Cannot find Color in Color Master.');
             end;
 
             trigger OnLookup()

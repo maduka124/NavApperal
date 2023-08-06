@@ -8850,12 +8850,17 @@ page 50984 "BOM Card"
                 RequLineRec1.Modify();
             end;
 
-            BOMLineAutoGenPlWkshtRec.Init();
-            BOMLineAutoGenPlWkshtRec."No." := rec.No;
-            BOMLineAutoGenPlWkshtRec."Item No." := ItemNoPara;
-            BOMLineAutoGenPlWkshtRec."Line No." := LineNoPara;
-            BOMLineAutoGenPlWkshtRec.Insert();
-
+            BOMLineAutoGenPlWkshtRec.Reset();
+            BOMLineAutoGenPlWkshtRec.SetRange("No.", rec.No);
+            BOMLineAutoGenPlWkshtRec.SetRange("Item No.", ItemNoPara);
+            BOMLineAutoGenPlWkshtRec.SetRange("Line No.", LineNoPara);
+            if not BOMLineAutoGenPlWkshtRec.FindSet() then begin
+                BOMLineAutoGenPlWkshtRec.Init();
+                BOMLineAutoGenPlWkshtRec."No." := rec.No;
+                BOMLineAutoGenPlWkshtRec."Item No." := ItemNoPara;
+                BOMLineAutoGenPlWkshtRec."Line No." := LineNoPara;
+                BOMLineAutoGenPlWkshtRec.Insert();
+            end;
         end
         else begin  // Update existing item
             if GMTSizeName <> '' then begin
