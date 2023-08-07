@@ -2331,11 +2331,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(60/Fields!SMV.Value)*(Fields!Eff.Value/100)*Fields!Carder.Value</Value>
+                                  <Value>=((60/Fields!SMV.Value)*(Fields!Eff.Value/100)*Fields!Carder.Value)*8</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2378,6 +2378,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
