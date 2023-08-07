@@ -13,7 +13,7 @@ report 50627 ProductionAndShipmentDetails
         dataitem("Sales Invoice Header"; "Sales Invoice Header")
         {
 
-            DataItemTableView = sorting("No.");
+            DataItemTableView = where("Bal. Account Type" = filter("G/L Account"), EntryType = filter(FG));
 
             column(Buyer_Name; "Sell-to Customer No.")
             { }
@@ -21,12 +21,12 @@ report 50627 ProductionAndShipmentDetails
             { }
             column(Location_Code; "Location Code")
             { }
-          
+
 
             dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
             {
                 DataItemLinkReference = "Sales Invoice Header";
-                DataItemLink = "Style No." = field("Style No"), "PO No." = field("PO No");
+                DataItemLink = "Style No." = field("Style No"), "PO No." = field("PO No"), "Lot No." = field(Lot);
                 DataItemTableView = sorting("No.");
                 column(PoNo; "PO No.")
                 { }
@@ -78,24 +78,39 @@ report 50627 ProductionAndShipmentDetails
                         Buyer := StyleMasterRec."Buyer Name";
                         StyleName := StyleMasterRec."Style No.";
                         SMV := StyleMasterRec.SMV;
-                        OrderQty := StyleMasterRec."Order Qty";
                         AssignContrantNo := StyleMasterRec."LC No/Contract";
                     end;
 
+                    OrderQty := 0;
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", "Style No.");
+                    StylePoRec.SetRange("PO No.", "PO No.");
+                    StylePoRec.SetRange("Lot No.", "Lot No.");
+                    if StylePoRec.FindSet() then begin
+                        repeat
+                            OrderQty += StylePoRec.Qty;
+                        until StylePoRec.Next() = 0;
+                    end;
 
+                    CutOutQty := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
+                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
                     if ProductionRec.FindSet() then begin
-                        CutOutQty += ProductionRec."Output Qty";
-
+                        repeat
+                            CutOutQty += ProductionRec."Output Qty";
+                        until ProductionRec.Next() = 0;
                     end;
 
                     //Cuting Total
+                    CutOutTotal := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
                     ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
                     if ProductionRec.FindSet() then begin
@@ -105,18 +120,25 @@ report 50627 ProductionAndShipmentDetails
                     end;
 
                     //Sew QTY
+                    SawOutQty := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
+                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                     if ProductionRec.FindSet() then begin
-                        SawOutQty += ProductionRec."Output Qty";
+                        repeat
+                            SawOutQty += ProductionRec."Output Qty";
+                        until ProductionRec.Next() = 0;
                     end;
 
                     //Sew Total
+                    SawOutTotal := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
                     ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                     if ProductionRec.FindSet() then begin
@@ -126,18 +148,25 @@ report 50627 ProductionAndShipmentDetails
                     end;
 
                     //Finish QTY
+                    WashOutQty := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
+                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Fin);
                     if ProductionRec.FindSet() then begin
-                        WashOutQty += ProductionRec."Output Qty";
+                        repeat
+                            WashOutQty += ProductionRec."Output Qty";
+                        until ProductionRec.Next() = 0;
                     end;
 
                     //Finish Total
+                    FinOutTotal := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
                     ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Fin);
                     if ProductionRec.FindSet() then begin
@@ -147,18 +176,25 @@ report 50627 ProductionAndShipmentDetails
                     end;
 
                     //Wash QTY
+                    FinOutQty := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
+                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Wash);
                     if ProductionRec.FindSet() then begin
-                        FinOutQty += ProductionRec."Output Qty";
+                        repeat
+                            FinOutQty += ProductionRec."Output Qty";
+                        until ProductionRec.Next() = 0;
                     end;
 
                     //Wash Total
+                    WashOutTotal := 0;
                     ProductionRec.Reset();
                     ProductionRec.SetRange("Style No.", "Style No.");
                     ProductionRec.SetRange("PO No", "PO No.");
+                    ProductionRec.SetRange("Lot No.", "Lot No.");
                     ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
                     ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Wash);
                     if ProductionRec.FindSet() then begin
@@ -188,10 +224,16 @@ report 50627 ProductionAndShipmentDetails
                 ShipOutTotal := 0;
                 SalesInvoiceHrec.Reset();
                 SalesInvoiceHrec.SetRange("No.", "No.");
+                SalesInvoiceHrec.SetRange(Lot, Lot);
+                SalesInvoiceHrec.SetRange("PO No", "PO No");
+                SalesInvoiceHrec.SetRange("Style No", "Style No");
                 SalesInvoiceHrec.SetFilter("Shipment Date", '<=%1', endDate);
+                SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
+                SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
                 if SalesInvoiceHrec.FindSet() then begin
                     SalesInvoiceLineRec.Reset();
                     SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
+                    SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
                     if SalesInvoiceLineRec.FindSet() then begin
                         repeat
                             ShipOutTotal += SalesInvoiceLineRec.Quantity;
@@ -201,6 +243,9 @@ report 50627 ProductionAndShipmentDetails
 
                 SalesInvoiceHrec.Reset();
                 SalesInvoiceHrec.SetRange("No.", "No.");
+                SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
+                SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
+                SalesInvoiceHrec.SetRange(Lot, Lot);
                 if SalesInvoiceHrec.FindSet() then begin
                     Shdate := SalesInvoiceHrec."Shipment Date";
                 end;
@@ -209,9 +254,16 @@ report 50627 ProductionAndShipmentDetails
                 ShipOutQty := 0;
                 SalesInvoiceHrec.Reset();
                 SalesInvoiceHrec.SetRange("No.", "No.");
+                SalesInvoiceHrec.SetRange(Lot, Lot);
+                SalesInvoiceHrec.SetRange("PO No", "PO No");
+                SalesInvoiceHrec.SetRange("Style No", "Style No");
+                SalesInvoiceHrec.SetFilter("Shipment Date", '%1..%2', stDate, endDate);
+                SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
+                SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
                 if SalesInvoiceHrec.FindSet() then begin
                     SalesInvoiceLineRec.Reset();
                     SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
+                    SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
                     if SalesInvoiceLineRec.FindSet() then begin
                         repeat
                             ShipOutQty += SalesInvoiceLineRec.Quantity;
@@ -221,11 +273,7 @@ report 50627 ProductionAndShipmentDetails
             end;
 
         }
-
-
     }
-
-
 
     requestpage
     {
@@ -306,6 +354,7 @@ report 50627 ProductionAndShipmentDetails
     }
 
     var
+        StylePoRec: Record "Style Master PO";
         Shdate: Date;
         SalesInvoiceHrec: Record "Sales Invoice Header";
         SalesInvoiceLineRec: Record "Sales Invoice Line";
