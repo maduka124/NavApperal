@@ -36,4 +36,10 @@ pageextension 51045 GRNListExt extends "Posted Purchase Rcpt. Subform"
 
         }
     }
+
+    //Done By Sachith 07/08/23
+    trigger OnOpenPage()
+    begin
+        Rec.SetFilter(Quantity, '<>%1', 0);
+    end;
 }

@@ -19,13 +19,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.5801cm</Width>
+                  <Width>2.20868cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.60091cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.02406cm</Width>
+                  <Width>3.3133cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.79324cm</Width>
@@ -55,19 +55,19 @@
                   <Width>1.19116cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.23cm</Width>
+                  <Width>1.45838cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.41521cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.11883cm</Width>
+                  <Width>1.34721cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.09771cm</Width>
+                  <Width>1.47426cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.25646cm</Width>
+                  <Width>1.50533cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1870,7 +1870,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!OrderQty.Value)</Value>
+                                  <Value>=Fields!OrderQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1927,7 +1927,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!cutting.Value)</Value>
+                                  <Value>=Fields!cutting.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1984,7 +1984,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!CutOutTotal.Value)</Value>
+                                  <Value>=Fields!CutOutTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2041,7 +2041,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Sewing.Value)</Value>
+                                  <Value>=Fields!Sewing.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2098,7 +2098,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!SawOutTotal.Value)</Value>
+                                  <Value>=Fields!SawOutTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2155,7 +2155,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!WashOutQty.Value)</Value>
+                                  <Value>=Fields!WashOutQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2212,7 +2212,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!WashOutTotal.Value)</Value>
+                                  <Value>=Fields!WashOutTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2269,7 +2269,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Finishing.Value)</Value>
+                                  <Value>=Fields!Finishing.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2326,7 +2326,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FinOutTotal.Value)</Value>
+                                  <Value>=Fields!FinOutTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>

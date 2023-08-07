@@ -1586,7 +1586,7 @@
                                   <Value>=Fields!Merchandiser_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1643,7 +1643,7 @@
                                   <Value>=Fields!Buyer_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1700,7 +1700,7 @@
                                   <Value>=Fields!Style_Description.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1757,7 +1757,7 @@
                                   <Value>=Fields!PO_No_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1814,7 +1814,7 @@
                                   <Value>=Fields!Order_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>n0</Format>
                                   </Style>
                                 </TextRun>
@@ -1872,7 +1872,7 @@
                                   <Value>=Fields!Planing_input.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>n0</Format>
                                   </Style>
                                 </TextRun>
@@ -1930,7 +1930,7 @@
                                   <Value>=Fields!SMV.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1987,7 +1987,7 @@
                                   <Value>=Fields!Carder.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>n0</Format>
                                   </Style>
                                 </TextRun>
@@ -2045,7 +2045,7 @@
                                   <Value>=Sum(Fields!LineQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>n0</Format>
                                   </Style>
                                 </TextRun>
@@ -2103,7 +2103,7 @@
                                   <Value>=Fields!BPCD.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>d</Format>
                                   </Style>
                                 </TextRun>
@@ -2161,7 +2161,7 @@
                                   <Value>=Fields!StartDt.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>d</Format>
                                   </Style>
                                 </TextRun>
@@ -2219,7 +2219,7 @@
                                   <Value>=Fields!StartDate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>d</Format>
                                   </Style>
                                 </TextRun>
@@ -2277,7 +2277,7 @@
                                   <Value>=Fields!Learning_Curve_No_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2331,10 +2331,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PlanTGT.Value</Value>
+                                  <Value>=((60/Fields!SMV.Value)*(Fields!Eff.Value/100)*Fields!Carder.Value)*8</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2377,6 +2378,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2391,7 +2393,7 @@
                                   <Value>=Fields!EndDt.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>d</Format>
                                   </Style>
                                 </TextRun>
@@ -2449,7 +2451,7 @@
                                   <Value>=Fields!InSpectionDt.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>d</Format>
                                   </Style>
                                 </TextRun>
@@ -2507,7 +2509,7 @@
                                   <Value>=Fields!Ship_Date.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <Format>d</Format>
                                   </Style>
                                 </TextRun>
@@ -2565,7 +2567,7 @@
                                   <Value>=Fields!PRDHR.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2619,10 +2621,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>8</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2659,7 +2661,7 @@
                                   <Value>=Fields!color.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2701,7 +2703,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2759,7 +2761,7 @@
                                   <Value>LINE TOTAL</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>Teal</Color>
                                   </Style>
@@ -2819,7 +2821,7 @@
                                   <Value>=Sum(Fields!Order_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
                                     <Color>Teal</Color>
@@ -2878,7 +2880,7 @@
                                   <Value>=Sum(Fields!Planing_input.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
                                     <Color>Teal</Color>
@@ -2937,7 +2939,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2993,7 +2995,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3061,7 +3063,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3122,7 +3124,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3180,7 +3182,7 @@
                                   <Value>FACTORY TOTAL</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>Teal</Color>
                                   </Style>
@@ -3240,7 +3242,7 @@
                                   <Value>=Sum(Fields!Order_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
                                     <Color>Teal</Color>
@@ -3299,7 +3301,7 @@
                                   <Value>=Sum(Fields!Planing_input.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
                                     <Color>Teal</Color>
@@ -3358,7 +3360,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3414,7 +3416,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3482,7 +3484,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>12pt</FontSize>
+                                    <FontSize>11pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3949,6 +3951,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Factory_Name">
           <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="Eff">
+          <DataField>Eff</DataField>
+        </Field>
+        <Field Name="EffFormat">
+          <DataField>EffFormat</DataField>
         </Field>
         <Field Name="Order_Qty">
           <DataField>Order_Qty</DataField>
