@@ -190,7 +190,7 @@ page 50120 "Approved Daily Consump. List"
                                 ProdOrdComp.SetRange("Prod. Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
                                 ProdOrdComp.SetFilter("Remaining Quantity", '<>%1', 0);
                                 ProdOrdComp.SETFILTER("Flushing Method", '<>%1&<>%2', "Flushing Method"::Backward, "Flushing Method"::"Pick + Backward");
-                                ProdOrdComp.SetRange("Item Cat. Code", Rec."Main Category");
+                                // ProdOrdComp.SetRange("Item Cat. Code", Rec."Main Category");
 
                                 if ItemJnalBatch."Inventory Posting Group" <> '' then
                                     ProdOrdComp.SetRange("Invent. Posting Group", ItemJnalBatch."Inventory Posting Group");
@@ -216,6 +216,10 @@ page 50120 "Approved Daily Consump. List"
                                         ItemJnalRec."Line No." := Inx1 + 10000;
                                         ItemJnalRec.Insert(true);
 
+                                        DailyConsumpLine.Reset();
+                                        DailyConsumpLine.SetRange("Document No.", rec."No.");
+                                        DailyConsumpLine.FindFirst();
+
                                         Sleep(200);
                                         ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
                                         ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
@@ -229,8 +233,10 @@ page 50120 "Approved Daily Consump. List"
                                         ItemJnalRec.PO := ProdOrderRec.PO;
                                         ItemJnalRec."Style No." := ProdOrderRec."Style No.";
                                         ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
-                                        ItemJnalRec.MainCategory := rec."Main Category";
-                                        ItemJnalRec.MainCategoryName := rec."Main Category Name";
+                                        // ItemJnalRec.MainCategory := rec."Main Category";
+                                        // ItemJnalRec.MainCategoryName := rec."Main Category Name";
+                                        ItemJnalRec.MainCategory := DailyConsumpLine."Main Category";
+                                        ItemJnalRec.MainCategoryName := DailyConsumpLine."Main Category Name";
 
                                         //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
                                         ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");

@@ -62,6 +62,11 @@ page 50950 "Department Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Master Cat. Name"; rec."Master Cat. Name")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

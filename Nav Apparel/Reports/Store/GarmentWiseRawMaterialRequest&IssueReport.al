@@ -39,7 +39,7 @@ report 51238 GarmentWiseRawMaterialRequest
 
                 column(No_; "No.")
                 { }
-                column(Main_Category_Name; "Main Category Name")
+                column(Main_Category_Name; 'xxxxx')
                 { }
                 column(SizeRange; SizeRange)
                 { }

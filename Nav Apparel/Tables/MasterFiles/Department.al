@@ -41,6 +41,13 @@ table 51092 "Department"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012588; "Master Cat. Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Master Category"."Master Category Name";
+            ValidateTableRelation = false;
+        }
     }
 
     keys

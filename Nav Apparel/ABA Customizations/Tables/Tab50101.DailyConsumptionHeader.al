@@ -10,6 +10,7 @@ table 50101 "Daily Consumption Header"
             Caption = 'No.';
             DataClassification = ToBeClassified;
         }
+
         field(2; "Prod. Order No."; Code[20])
         {
             Caption = 'Prod. Order No.';
@@ -19,136 +20,161 @@ table 50101 "Daily Consumption Header"
 
             trigger OnValidate()
             var
-                ProdOrderRec: Record "Production Order";
-                DailyConsumpLine: Record "Daily Consumption Line";
-                ProdOrderLine: Record "Prod. Order Line";
-                ProdOrderComp: Record "Prod. Order Component";
-                ItemLed: Record "Item Ledger Entry";
-                ItemLed1: Record "Item Ledger Entry";
-                ItemJnalBatch: Record "Item Journal Batch";
-                ItemRec: Record Item;
-                Inx: Integer;
-                Total: Decimal;
-                DocNo: Text[20];
+            // ProdOrderRec: Record "Production Order";
+            // DailyConsumpLine: Record "Daily Consumption Line";
+            // ProdOrderLine: Record "Prod. Order Line";
+            // ProdOrderComp: Record "Prod. Order Component";
+            // ItemLed: Record "Item Ledger Entry";
+            // ItemJrnlLineRec: Record "Item Journal Line";
+            // ItemJnalBatch: Record "Item Journal Batch";
+            // DailyConsuHeaderRec: Record "Daily Consumption Header";
+            // ItemRec: Record Item;
+            // Inx: Integer;
+            // Total: Decimal;
+            // TotalLedger: Decimal;
+            // DocNo: Text[20];
             begin
-                DailyConsumpLine.Reset();
-                DailyConsumpLine.SetRange("Document No.", "No.");
-                DailyConsumpLine.DeleteAll();
+                ProductionOrderOldCal();
 
-                if "Prod. Order No." <> '' then begin
-                    ProdOrderRec.Get(ProdOrderRec.Status::Released, "Prod. Order No.");
+                // DailyConsumpLine.Reset();
+                // DailyConsumpLine.SetRange("Document No.", "No.");
+                // DailyConsumpLine.DeleteAll();
 
-                    ItemJnalBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");
-                    Rec.TestField("Colour No.");
-                    Description := ProdOrderRec.Description;
-                    "Source No." := ProdOrderRec."Source No.";
-                    "Due Date" := ProdOrderRec."Due Date";
-                    // "Journal Template Name" := GetTempCode;
-                    // "Journal Batch Name" := GetBatchCode;
+                // if "Prod. Order No." <> '' then begin
+                //     ProdOrderRec.Get(ProdOrderRec.Status::Released, "Prod. Order No.");
+                //     ItemJnalBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");
+                //     Rec.TestField("Colour No.");
+                //     Description := ProdOrderRec.Description;
+                //     "Source No." := ProdOrderRec."Source No.";
+                //     "Due Date" := ProdOrderRec."Due Date";
+                //     // "Journal Template Name" := GetTempCode;
+                //     // "Journal Batch Name" := GetBatchCode;
 
-                    ProdOrderLine.Reset();
-                    ProdOrderLine.SetRange("Prod. Order No.", "Prod. Order No.");
-                    ProdOrderLine.SetRange(Status, ProdOrderLine.Status::Released);
-                    if ProdOrderLine.FindFirst() then begin
-                        repeat
-                            ItemRec.Get(ProdOrderLine."Item No.");
-                            if "Colour No." = ItemRec."Color No." then begin
-                                ItemLed.Reset();
-                                ItemLed.SetRange("Entry Type", ItemLed."Entry Type"::Consumption);
-                                ItemLed.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
-                                ItemLed.SetRange("Order Line No.", ProdOrderLine."Line No.");
-                                if ItemJnalBatch."Inventory Posting Group" <> '' then
-                                    ItemLed.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
+                //     ProdOrderLine.Reset();
+                //     ProdOrderLine.SetRange("Prod. Order No.", "Prod. Order No.");
+                //     ProdOrderLine.SetRange(Status, ProdOrderLine.Status::Released);
+                //     if ProdOrderLine.FindFirst() then begin
+                //         repeat
+                //             ItemRec.Get(ProdOrderLine."Item No.");
+                //             if "Colour No." = ItemRec."Color No." then begin
+                //                 ItemLed.Reset();
+                //                 ItemLed.SetRange("Entry Type", ItemLed."Entry Type"::Consumption);
+                //                 ItemLed.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
+                //                 ItemLed.SetRange("Order Line No.", ProdOrderLine."Line No.");
+                //                 if ItemJnalBatch."Inventory Posting Group" <> '' then
+                //                     ItemLed.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
+                //                 //ItemLed.SetRange(MainCategoryName, "Main Category Name");
+                //                 ItemLed.CalcSums("Posted Daily Output");
 
-                                ItemLed.SetRange(MainCategoryName, "Main Category Name");
-                                ItemLed.CalcSums("Posted Daily Output");
+                //                 TotalLedger := 0;
+                //                 DailyConsuHeaderRec.Reset();
+                //                 DailyConsuHeaderRec.SetRange("No.", ItemLed."Daily Consumption Doc. No.");
+                //                 if DailyConsuHeaderRec.FindSet() then begin
+                //                     if DailyConsuHeaderRec.Status <> DailyConsuHeaderRec.Status::Open then
+                //                         TotalLedger := ItemLed."Posted Daily Output";
+                //                 end;
 
-                                ProdOrderComp.Reset();
-                                ProdOrderComp.SetRange("Prod. Order No.", ProdOrderLine."Prod. Order No.");
-                                ProdOrderComp.SetRange("Prod. Order Line No.", ProdOrderLine."Line No.");
-                                ProdOrderComp.SetRange("Item Cat. Code", "Main Category");
-                                ProdOrderComp.SetFilter("Remaining Quantity", '>%1', 0);
-                                if ProdOrderComp.FindFirst() then begin
+                //                 ProdOrderComp.Reset();
+                //                 ProdOrderComp.SetRange("Prod. Order No.", ProdOrderLine."Prod. Order No.");
+                //                 ProdOrderComp.SetRange("Prod. Order Line No.", ProdOrderLine."Line No.");
+                //                 // ProdOrderComp.SetRange("Item Cat. Code", "Main Category");
+                //                 ProdOrderComp.SetFilter("Remaining Quantity", '>%1', 0);
+                //                 if ProdOrderComp.FindFirst() then begin
 
-                                    // Total := 0;
-                                    // DocNo := '';
+                //                     DocNo := '';
+                //                     Total := 0;
+                //                     ItemJrnlLineRec.Reset();
+                //                     ItemJrnlLineRec.SetRange("Entry Type", ItemJrnlLineRec."Entry Type"::Consumption);
+                //                     ItemJrnlLineRec.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
+                //                     ItemJrnlLineRec.SetRange("Order Line No.", ProdOrderLine."Line No.");
+                //                     ItemJrnlLineRec.SetCurrentKey("Daily Consumption Doc. No.");
+                //                     ItemJrnlLineRec.Ascending(true);
+                //                     if ItemJnalBatch."Inventory Posting Group" <> '' then
+                //                         ItemJrnlLineRec.SetRange("Inventory Posting Group", ItemJnalBatch."Inventory Posting Group");
+                //                     if ItemJrnlLineRec.FindSet() then begin
+                //                         repeat
+                //                             if DocNo <> ItemJrnlLineRec."Daily Consumption Doc. No." then begin
+                //                                 DailyConsuHeaderRec.Reset();
+                //                                 DailyConsuHeaderRec.SetRange("No.", ItemJrnlLineRec."Daily Consumption Doc. No.");
+                //                                 if DailyConsuHeaderRec.FindSet() then begin
+                //                                     if DailyConsuHeaderRec.Status <> DailyConsuHeaderRec.Status::Open then
+                //                                         Total += ItemJrnlLineRec."Posted Daily Output";
+                //                                 end;
+                //                             end;
+                //                             DocNo := ItemJrnlLineRec."Daily Consumption Doc. No.";
+                //                         until ItemJrnlLineRec.Next() = 0;
+                //                     end;
 
-                                    // ItemLed1.Reset();
-                                    // ItemLed1.SetRange("Entry Type", ItemLed1."Entry Type"::Consumption);
-                                    // ItemLed1.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
-                                    // ItemLed1.SetRange("Order Line No.", ProdOrderLine."Line No.");
-                                    // ItemLed1.SetCurrentKey("Daily Consumption Doc. No.");
-                                    // ItemLed1.Ascending(true);
-                                    // if ItemJnalBatch."Inventory Posting Group" <> '' then
-                                    //     ItemLed1.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
+                //                     Inx += 10000;
+                //                     DailyConsumpLine.Init();
+                //                     DailyConsumpLine."Document No." := "No.";
+                //                     DailyConsumpLine."Line No." := Inx;
+                //                     DailyConsumpLine."Item No." := ProdOrderLine."Item No.";
+                //                     DailyConsumpLine.Description := ProdOrderLine.Description;
+                //                     DailyConsumpLine."Order Quantity" := ProdOrderLine.Quantity;
+                //                     DailyConsumpLine."Prod. Order No." := ProdOrderLine."Prod. Order No.";
+                //                     DailyConsumpLine."prod. Order Line No." := ProdOrderLine."Line No.";
+                //                     DailyConsumpLine."Issued Quantity" := TotalLedger + Total;
+                //                     DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - (Total + TotalLedger);
+                //                     // DailyConsumpLine."Issued Quantity" := Total;
+                //                     // DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - Total;
+                //                     // DailyConsumpLine."Main Category" := 
+                //                     // DailyConsumpLine."Main Category Name" := 
+                //                     DailyConsumpLine.Insert();
+                //                 end;
+                //             end;
+                //         until ProdOrderLine.Next() = 0;
+                //     end;
+                // end;
 
-                                    // if ItemLed1.FindSet() then begin
-                                    //     repeat
-                                    //         if DocNo <> ItemLed1."Daily Consumption Doc. No." then
-                                    //             Total += ItemLed1."Posted Daily Output";
-                                    //         DocNo := ItemLed1."Daily Consumption Doc. No.";
-                                    //     until ItemLed1.Next() = 0;
-                                    // end;
-
-                                    Inx += 10000;
-                                    DailyConsumpLine.Init();
-                                    DailyConsumpLine."Document No." := "No.";
-                                    DailyConsumpLine."Line No." := Inx;
-                                    DailyConsumpLine."Item No." := ProdOrderLine."Item No.";
-                                    DailyConsumpLine.Description := ProdOrderLine.Description;
-                                    DailyConsumpLine."Order Quantity" := ProdOrderLine.Quantity;
-                                    DailyConsumpLine."Prod. Order No." := ProdOrderLine."Prod. Order No.";
-                                    DailyConsumpLine."prod. Order Line No." := ProdOrderLine."Line No.";
-                                    DailyConsumpLine."Issued Quantity" := ItemLed."Posted Daily Output";
-                                    // DailyConsumpLine."Issued Quantity" := Total;
-                                    DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - ItemLed."Posted Daily Output";
-                                    // DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - Total;
-                                    DailyConsumpLine.Insert();
-                                end;
-                            end;
-                        until ProdOrderLine.Next() = 0;
-                    end;
-                end;
             end;
         }
+
         field(3; Description; Text[100])
         {
             Caption = 'Description';
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(4; "Source No."; Code[20])
         {
             Caption = 'Source No.';
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(5; "Due Date"; Date)
         {
             Caption = 'Due Date';
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(6; Remarks; Text[50])
         {
             Caption = 'Remarks';
             DataClassification = ToBeClassified;
             //Editable = false;
         }
+
         field(7; "Document Date"; Date)
         {
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(8; "Journal Template Name"; Code[10])
         {
             DataClassification = ToBeClassified;
         }
+
         field(9; "Journal Batch Name"; Code[10])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Item Journal Batch".Name where("Journal Template Name" = field("Journal Template Name"));
         }
+
         //Mihiranga 2023/02/18
         field(10; Buyer; Text[100])
         {
@@ -168,10 +194,10 @@ table 50101 "Daily Consumption Header"
             end;
 
         }
+
         field(11; PO; Code[20])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style No."));
             TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style Name"));
             ValidateTableRelation = false;
 
@@ -190,12 +216,15 @@ table 50101 "Daily Consumption Header"
                 else begin//Done By Sachith on 04/08/23
                     if ProdOrder."No." <> '' then begin
                         "Prod. Order No." := ProdOrder."No.";
+                        //ProductionOrderOldCal();
                     end;
                 end;
+
                 "Style Master No." := ProdOrder."Style No.";
                 //Validate("Prod. Order No.", ProdOrder."No.");
             end;
         }
+
         field(12; "Buyer Code"; Code[20])
         {
             DataClassification = ToBeClassified;
@@ -212,6 +241,7 @@ table 50101 "Daily Consumption Header"
             //     Buyer := CustRec.Name;
             // end;
         }
+
         field(13; "Style No."; Code[50])
         {
             DataClassification = ToBeClassified;
@@ -219,6 +249,7 @@ table 50101 "Daily Consumption Header"
             TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"), Status = filter(Confirmed));
             ValidateTableRelation = false;
         }
+
         field(14; "Colour No."; Code[20])
         {
             DataClassification = ToBeClassified;
@@ -257,10 +288,11 @@ table 50101 "Daily Consumption Header"
                     Validate("Colour No.", AssortDetails."Colour No");
             end;
         }
+
         field(15; "Colour Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-
+            // Editable = false;
             trigger OnValidate()
             var
                 ColorRec: Record Colour;
@@ -286,115 +318,125 @@ table 50101 "Daily Consumption Header"
                     Validate("Colour Name", AssortDetails."Colour Name");
             end;
         }
+
         field(16; "Style Master No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
+
         field(17; Status; Option)
         {
             DataClassification = ToBeClassified;
             OptionMembers = Open,"Pending Approval",Approved;
             OptionCaption = 'Open,Pending Approval,Approved';
         }
+
         field(18; "Created UserID"; Code[50])
         {
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(19; "Approved UserID"; Code[50])
         {
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(20; "Approved Date/Time"; DateTime)
         {
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(21; "Approver UserID"; Code[50])
         {
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
         field(22; "Department Name"; Text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = Department."Department Name";
             ValidateTableRelation = false;
         }
+
         field(23; "Issued Date/Time"; DateTime)
         {
             DataClassification = ToBeClassified;
         }
+
         field(24; "Issued UserID"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
-        field(25; "Main Category"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            Editable = false;
-        }
-        field(26; "Main Category Name"; Text[50])
-        {
-            Caption = 'Main Category';
-            DataClassification = ToBeClassified;
 
-            trigger OnValidate()
-            var
-                MainCatRec: Record "Main Category";
-            begin
-                MainCatRec.Reset();
-                MainCatRec.SetRange("Main Category Name", "Main Category Name");
-                if MainCatRec.FindSet() then
-                    "Main Category" := MainCatRec."No."
-                else
-                    Error('Invalid Main Category Name');
-            end;
+        // field(25; "Main Category"; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     Editable = false;
+        // }
+        // field(26; "Main Category Name"; Text[50])
+        // {
+        //     Caption = 'Main Category';
+        //     DataClassification = ToBeClassified;
 
-
-            trigger OnLookup()
-            var
-                ProdOrdComp: Record "Prod. Order Component";
-                MainCatFilter: Record "Main Category Filter";
-                ProdOrder: Record "Production Order";
-                MainCat: Record "Main Category";
-            begin
-                MainCatFilter.Reset();
-                MainCatFilter.DeleteAll();
-
-                ProdOrder.Reset();
-                ProdOrder.SetRange(Status, ProdOrder.Status::Released);
-                ProdOrder.SetRange(BuyerCode, "Buyer Code");
-                ProdOrder.SetRange("Style Name", "Style Name");
-                ProdOrder.SetRange(PO, PO);
-                if ProdOrder.FindFirst() then begin
-                    ProdOrdComp.Reset();
-                    ProdOrdComp.SetRange("Prod. Order No.", ProdOrder."No.");
-                    ProdOrdComp.SetRange(Status, ProdOrder.Status);
-                    if ProdOrdComp.FindFirst() then begin
-                        repeat
-                            if not MainCatFilter.Get(ProdOrdComp."Item Cat. Code") then begin
-                                MainCatFilter.Init();
-                                MainCatFilter.Code := ProdOrdComp."Item Cat. Code";
-                                if MainCat.Get(MainCatFilter.Code) then
-                                    MainCatFilter.Name := MainCat."Main Category Name";
-                                MainCatFilter.Insert();
-                            end;
-                        until ProdOrdComp.Next() = 0;
-                    end;
-                end;
-                Commit();
-                if Page.RunModal(50118, MainCatFilter) = Action::LookupOK then begin
-                    "Main Category" := MainCatFilter.Code;
-                    "Main Category Name" := MainCatFilter.Name;
-                    // Rec.Validate("Main Category", MainCatFilter.Code);
-                end
-
-            end;
+        //     trigger OnValidate()
+        //     var
+        //         MainCatRec: Record "Main Category";
+        //     begin
+        //         MainCatRec.Reset();
+        //         MainCatRec.SetRange("Main Category Name", "Main Category Name");
+        //         if MainCatRec.FindSet() then
+        //             "Main Category" := MainCatRec."No."
+        //         else
+        //             Error('Invalid Main Category Name');
+        //     end;
 
 
-        }
+        //     trigger OnLookup()
+        //     var
+        //         ProdOrdComp: Record "Prod. Order Component";
+        //         MainCatFilter: Record "Main Category Filter";
+        //         ProdOrder: Record "Production Order";
+        //         MainCat: Record "Main Category";
+        //     begin
+        //         MainCatFilter.Reset();
+        //         MainCatFilter.DeleteAll();
+
+        //         ProdOrder.Reset();
+        //         ProdOrder.SetRange(Status, ProdOrder.Status::Released);
+        //         ProdOrder.SetRange(BuyerCode, "Buyer Code");
+        //         ProdOrder.SetRange("Style Name", "Style Name");
+        //         ProdOrder.SetRange(PO, PO);
+        //         if ProdOrder.FindFirst() then begin
+        //             ProdOrdComp.Reset();
+        //             ProdOrdComp.SetRange("Prod. Order No.", ProdOrder."No.");
+        //             ProdOrdComp.SetRange(Status, ProdOrder.Status);
+        //             if ProdOrdComp.FindFirst() then begin
+        //                 repeat
+        //                     if not MainCatFilter.Get(ProdOrdComp."Item Cat. Code") then begin
+        //                         MainCatFilter.Init();
+        //                         MainCatFilter.Code := ProdOrdComp."Item Cat. Code";
+        //                         if MainCat.Get(MainCatFilter.Code) then
+        //                             MainCatFilter.Name := MainCat."Main Category Name";
+        //                         MainCatFilter.Insert();
+        //                     end;
+        //                 until ProdOrdComp.Next() = 0;
+        //             end;
+        //         end;
+        //         Commit();
+        //         if Page.RunModal(50118, MainCatFilter) = Action::LookupOK then begin
+        //             "Main Category" := MainCatFilter.Code;
+        //             "Main Category Name" := MainCatFilter.Name;
+        //             // Rec.Validate("Main Category", MainCatFilter.Code);
+        //         end
+
+        //     end;
+
+
+        // }
 
         field(27; "Style Name"; Text[50])
         {
@@ -405,6 +447,11 @@ table 50101 "Daily Consumption Header"
         }
 
         field(28; "Fully Issued"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(29; "All Main Categories"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
@@ -456,6 +503,7 @@ table 50101 "Daily Consumption Header"
         END;
     end;
 
+
     //Done By Sachith on 04/08/23
     procedure ProductionOrderOldCal(): Boolean
     var
@@ -464,11 +512,13 @@ table 50101 "Daily Consumption Header"
         ProdOrderLine: Record "Prod. Order Line";
         ProdOrderComp: Record "Prod. Order Component";
         ItemLed: Record "Item Ledger Entry";
-        ItemLed1: Record "Item Ledger Entry";
+        ItemJrnlLineRec: Record "Item Journal Line";
         ItemJnalBatch: Record "Item Journal Batch";
+        DailyConsuHeaderRec: Record "Daily Consumption Header";
         ItemRec: Record Item;
         Inx: Integer;
         Total: Decimal;
+        TotalLedger: Decimal;
         DocNo: Text[20];
     begin
         DailyConsumpLine.Reset();
@@ -477,7 +527,6 @@ table 50101 "Daily Consumption Header"
 
         if "Prod. Order No." <> '' then begin
             ProdOrderRec.Get(ProdOrderRec.Status::Released, "Prod. Order No.");
-
             ItemJnalBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");
             Rec.TestField("Colour No.");
             Description := ProdOrderRec.Description;
@@ -499,36 +548,47 @@ table 50101 "Daily Consumption Header"
                         ItemLed.SetRange("Order Line No.", ProdOrderLine."Line No.");
                         if ItemJnalBatch."Inventory Posting Group" <> '' then
                             ItemLed.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
-
-                        ItemLed.SetRange(MainCategoryName, "Main Category Name");
+                        //ItemLed.SetRange(MainCategoryName, "Main Category Name");
                         ItemLed.CalcSums("Posted Daily Output");
+
+                        TotalLedger := 0;
+                        DailyConsuHeaderRec.Reset();
+                        DailyConsuHeaderRec.SetRange("No.", ItemLed."Daily Consumption Doc. No.");
+                        if DailyConsuHeaderRec.FindSet() then begin
+                            if DailyConsuHeaderRec.Status <> DailyConsuHeaderRec.Status::Open then
+                                TotalLedger := ItemLed."Posted Daily Output";
+                        end;
 
                         ProdOrderComp.Reset();
                         ProdOrderComp.SetRange("Prod. Order No.", ProdOrderLine."Prod. Order No.");
                         ProdOrderComp.SetRange("Prod. Order Line No.", ProdOrderLine."Line No.");
-                        ProdOrderComp.SetRange("Item Cat. Code", "Main Category");
+                        // ProdOrderComp.SetRange("Item Cat. Code", "Main Category");
                         ProdOrderComp.SetFilter("Remaining Quantity", '>%1', 0);
                         if ProdOrderComp.FindFirst() then begin
 
-                            // Total := 0;
-                            // DocNo := '';
-
-                            // ItemLed1.Reset();
-                            // ItemLed1.SetRange("Entry Type", ItemLed1."Entry Type"::Consumption);
-                            // ItemLed1.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
-                            // ItemLed1.SetRange("Order Line No.", ProdOrderLine."Line No.");
-                            // ItemLed1.SetCurrentKey("Daily Consumption Doc. No.");
-                            // ItemLed1.Ascending(true);
-                            // if ItemJnalBatch."Inventory Posting Group" <> '' then
-                            //     ItemLed1.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
-
-                            // if ItemLed1.FindSet() then begin
-                            //     repeat
-                            //         if DocNo <> ItemLed1."Daily Consumption Doc. No." then
-                            //             Total += ItemLed1."Posted Daily Output";
-                            //         DocNo := ItemLed1."Daily Consumption Doc. No.";
-                            //     until ItemLed1.Next() = 0;
-                            // end;
+                            DocNo := '';
+                            Total := 0;
+                            ItemJrnlLineRec.Reset();
+                            ItemJrnlLineRec.SetRange("Entry Type", ItemJrnlLineRec."Entry Type"::Consumption);
+                            ItemJrnlLineRec.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
+                            ItemJrnlLineRec.SetRange("Order Line No.", ProdOrderLine."Line No.");
+                            ItemJrnlLineRec.SetCurrentKey("Daily Consumption Doc. No.");
+                            ItemJrnlLineRec.Ascending(true);
+                            if ItemJnalBatch."Inventory Posting Group" <> '' then
+                                ItemJrnlLineRec.SetRange("Inventory Posting Group", ItemJnalBatch."Inventory Posting Group");
+                            if ItemJrnlLineRec.FindSet() then begin
+                                repeat
+                                    if DocNo <> ItemJrnlLineRec."Daily Consumption Doc. No." then begin
+                                        DailyConsuHeaderRec.Reset();
+                                        DailyConsuHeaderRec.SetRange("No.", ItemJrnlLineRec."Daily Consumption Doc. No.");
+                                        if DailyConsuHeaderRec.FindSet() then begin
+                                            if DailyConsuHeaderRec.Status <> DailyConsuHeaderRec.Status::Open then
+                                                Total += ItemJrnlLineRec."Posted Daily Output";
+                                        end;
+                                    end;
+                                    DocNo := ItemJrnlLineRec."Daily Consumption Doc. No.";
+                                until ItemJrnlLineRec.Next() = 0;
+                            end;
 
                             Inx += 10000;
                             DailyConsumpLine.Init();
@@ -539,10 +599,12 @@ table 50101 "Daily Consumption Header"
                             DailyConsumpLine."Order Quantity" := ProdOrderLine.Quantity;
                             DailyConsumpLine."Prod. Order No." := ProdOrderLine."Prod. Order No.";
                             DailyConsumpLine."prod. Order Line No." := ProdOrderLine."Line No.";
-                            DailyConsumpLine."Issued Quantity" := ItemLed."Posted Daily Output";
+                            DailyConsumpLine."Issued Quantity" := TotalLedger + Total;
+                            DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - (Total + TotalLedger);
                             // DailyConsumpLine."Issued Quantity" := Total;
-                            DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - ItemLed."Posted Daily Output";
                             // DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - Total;
+                            // DailyConsumpLine."Main Category" := 
+                            // DailyConsumpLine."Main Category Name" := 
                             DailyConsumpLine.Insert();
                         end;
                     end;
@@ -550,6 +612,7 @@ table 50101 "Daily Consumption Header"
             end;
         end;
     end;
+
 
     // procedure GetVariables(TempCode: Code[10]; BatchCode: Code[10])
     // begin

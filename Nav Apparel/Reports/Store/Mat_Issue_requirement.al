@@ -26,7 +26,7 @@ report 51801 MaterialIssueRequition
             { }
             column(PO; PO)
             { }
-            column(Main_Category_Name; "Main Category Name")
+            column(Main_Category_Name; 'xxxxx')
             { }
             column(AllocatedFactory; AllocatedFactory)
             { }

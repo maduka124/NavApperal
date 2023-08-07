@@ -33,6 +33,11 @@ page 50633 "Department"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Master Cat. Name"; rec."Master Cat. Name")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

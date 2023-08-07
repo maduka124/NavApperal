@@ -11,6 +11,11 @@ page 50103 "Daily Consumption Subform"
         {
             repeater(General)
             {
+                // field("Main Category Name"; Rec."Main Category Name")
+                // {
+                //     ApplicationArea = All;
+                // }
+
                 field("Item No."; Rec."Item No.")
                 {
                     ApplicationArea = All;
