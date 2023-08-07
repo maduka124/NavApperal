@@ -502,7 +502,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         //get all for the user from sort table and insert to the queue table
         PlanningQueueSortRec.Reset();
         PlanningQueueSortRec.SetRange("User ID", UserId);
-        PlanningQueueSortRec.SetCurrentKey("Style Name", "PO No.", "TGTSEWFIN Date");
+        PlanningQueueSortRec.SetCurrentKey("Style Name", "TGTSEWFIN Date");
         PlanningQueueSortRec.Ascending(true);
         if PlanningQueueSortRec.FindSet() then begin
             repeat

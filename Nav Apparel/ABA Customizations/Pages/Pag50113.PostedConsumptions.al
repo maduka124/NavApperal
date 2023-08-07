@@ -7,6 +7,7 @@ page 50113 "Posted Consumptions"
     UsageCategory = Lists;
     SourceTableView = where("Entry Type" = filter(Consumption));
     Editable = false;
+
     layout
     {
         area(content)
@@ -73,6 +74,5 @@ page 50113 "Posted Consumptions"
         ItemRec.SetRange("No.", rec."Source No.");
         if ItemRec.FindFirst() then
             rec."FG Description" := ItemRec.Description;
-
     end;
 }
