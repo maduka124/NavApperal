@@ -42,6 +42,8 @@ report 50621 ProductionPlanReport
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("Line No.");
 
+                column(Eff; Eff)
+                { }
                 column(Order_Qty; PoQty)
                 { }
                 column(Order_NO; PoNo)
@@ -186,6 +188,8 @@ report 50621 ProductionPlanReport
 
                     if FactoryFilter <> '' then
                         SetRange(Factory, FactoryFilter);
+
+
                 end;
             }
 
