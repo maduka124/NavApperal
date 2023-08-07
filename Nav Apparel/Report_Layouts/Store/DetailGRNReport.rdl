@@ -717,6 +717,9 @@
                       </Group>
                     </TablixMember>
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=First(Fields!Quantity.Value, "DataSet_Result")=0</Hidden>
+                  </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
