@@ -126,7 +126,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -181,7 +181,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
 
 
@@ -202,7 +202,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -257,7 +257,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -275,7 +275,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -330,7 +330,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -348,7 +348,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -403,7 +403,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -420,7 +420,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -475,7 +475,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -493,7 +493,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -548,7 +548,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -566,7 +566,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -621,7 +621,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -639,7 +639,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -694,7 +694,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -712,7 +712,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -767,7 +767,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -785,7 +785,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -840,7 +840,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -858,7 +858,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -913,7 +913,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -931,7 +931,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -986,7 +986,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -1004,7 +1004,7 @@ page 51381 HourlyFinishingListPart
                         TempDEFECTS: Decimal;
                         TempDHU: Decimal;
                     begin
-                        CheckValue();
+
                         CurrPage.Update();
                         HourlyProdLinesRec.Reset();
                         HourlyProdLinesRec.SetRange("No.", rec."No.");
@@ -1059,7 +1059,7 @@ page 51381 HourlyFinishingListPart
                             end;
 
                         end;
-
+                        CheckValue();
                         CalTotal();
                     end;
                 }
@@ -1347,6 +1347,152 @@ page 51381 HourlyFinishingListPart
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
         end;
+
+        HourlyProdLinesRec.Reset();
+        // HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+        HourlyProdLinesRec.SetRange("Style No.", Rec."Style No.");
+        HourlyProdLinesRec.SetFilter(Item, '=%1', 'DEFECT PCS');
+        HourlyProdLinesRec.SetFilter(Type, '=%1', HourlyProdLinesRec.Type::Sewing);
+        if HourlyProdLinesRec.FindSet() then begin
+
+            HourlyProdLinesRec.CalcSums("Hour 01");
+            HD1Tot := HourlyProdLinesRec."Hour 01";
+
+            HourlyProdLinesRec.CalcSums("Hour 02");
+            HD2Tot := HourlyProdLinesRec."Hour 02";
+
+            HourlyProdLinesRec.CalcSums("Hour 03");
+            HD3Tot := HourlyProdLinesRec."Hour 03";
+
+            HourlyProdLinesRec.CalcSums("Hour 04");
+            HD4Tot := HourlyProdLinesRec."Hour 04";
+
+            HourlyProdLinesRec.CalcSums("Hour 05");
+            HD5Tot := HourlyProdLinesRec."Hour 05";
+
+            HourlyProdLinesRec.CalcSums("Hour 06");
+            HD6Tot := HourlyProdLinesRec."Hour 06";
+
+            HourlyProdLinesRec.CalcSums("Hour 07");
+            HD7Tot := HourlyProdLinesRec."Hour 07";
+
+            HourlyProdLinesRec.CalcSums("Hour 08");
+            HD8Tot := HourlyProdLinesRec."Hour 08";
+
+            HourlyProdLinesRec.CalcSums("Hour 09");
+            HD9Tot := HourlyProdLinesRec."Hour 09";
+
+            HourlyProdLinesRec.CalcSums("Hour 10");
+            HD10Tot := HourlyProdLinesRec."Hour 10";
+
+            HourlyProdLinesRec.CalcSums("Hour 11");
+            HD11Tot := HourlyProdLinesRec."Hour 11";
+
+            HourlyProdLinesRec.CalcSums("Hour 12");
+            HD12Tot := HourlyProdLinesRec."Hour 12";
+
+            HourlyProdLinesRec.CalcSums("Hour 13");
+            HD13Tot := HourlyProdLinesRec."Hour 13";
+
+        end;
+        HourlyProdLinesRec.Reset();
+        // HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+        HourlyProdLinesRec.SetRange("Style No.", Rec."Style No.");
+        HourlyProdLinesRec.SetFilter(Item, '=%1', 'DEFECT PCS');
+        HourlyProdLinesRec.SetFilter(Type, '=%1', HourlyProdLinesRec.Type::Finishing);
+        if HourlyProdLinesRec.FindSet() then begin
+
+            HourlyProdLinesRec.CalcSums("Hour 01");
+            FD1Tot := HourlyProdLinesRec."Hour 01";
+
+            HourlyProdLinesRec.CalcSums("Hour 02");
+            FD2Tot := HourlyProdLinesRec."Hour 02";
+
+            HourlyProdLinesRec.CalcSums("Hour 03");
+            FD3Tot := HourlyProdLinesRec."Hour 03";
+
+            HourlyProdLinesRec.CalcSums("Hour 04");
+            FD4Tot := HourlyProdLinesRec."Hour 04";
+
+            HourlyProdLinesRec.CalcSums("Hour 05");
+            FD5Tot := HourlyProdLinesRec."Hour 05";
+
+            HourlyProdLinesRec.CalcSums("Hour 06");
+            FD6Tot := HourlyProdLinesRec."Hour 06";
+
+            HourlyProdLinesRec.CalcSums("Hour 07");
+            FD7Tot := HourlyProdLinesRec."Hour 07";
+
+            HourlyProdLinesRec.CalcSums("Hour 08");
+            FD8Tot := HourlyProdLinesRec."Hour 08";
+
+            HourlyProdLinesRec.CalcSums("Hour 09");
+            FD9Tot := HourlyProdLinesRec."Hour 09";
+
+            HourlyProdLinesRec.CalcSums("Hour 10");
+            FD10Tot := HourlyProdLinesRec."Hour 10";
+
+            HourlyProdLinesRec.CalcSums("Hour 11");
+            FD11Tot := HourlyProdLinesRec."Hour 11";
+
+            HourlyProdLinesRec.CalcSums("Hour 12");
+            FD12Tot := HourlyProdLinesRec."Hour 12";
+
+            HourlyProdLinesRec.CalcSums("Hour 13");
+            FD13Tot := HourlyProdLinesRec."Hour 13";
+
+            if HD1Tot < FD1Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD2Tot < FD2Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD3Tot < FD3Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD4Tot < FD4Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD5Tot > FD5Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD6Tot < FD6Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD7Tot < FD7Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD8Tot < FD8Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD9Tot < FD9Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD10Tot < FD10Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD11Tot < FD11Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD12Tot < FD12Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+
+            if HD13Tot < FD13Tot then begin
+                Error('Hourly Finishing Value greater than Hourly Sewing');
+            end;
+        end;
     end;
 
     procedure CalTotal()
@@ -1619,6 +1765,32 @@ page 51381 HourlyFinishingListPart
     end;
 
     var
+        FD1Tot: Integer;
+        FD2Tot: Integer;
+        FD3Tot: Integer;
+        FD4Tot: Integer;
+        FD5Tot: Integer;
+        FD6Tot: Integer;
+        FD7Tot: Integer;
+        FD8Tot: Integer;
+        FD9Tot: Integer;
+        FD10Tot: Integer;
+        FD11Tot: Integer;
+        FD12Tot: Integer;
+        FD13Tot: Integer;
+        HD1Tot: Integer;
+        HD2Tot: Integer;
+        HD3Tot: Integer;
+        HD4Tot: Integer;
+        HD5Tot: Integer;
+        HD6Tot: Integer;
+        HD7Tot: Integer;
+        HD8Tot: Integer;
+        HD9Tot: Integer;
+        HD10Tot: Integer;
+        HD11Tot: Integer;
+        HD12Tot: Integer;
+        HD13Tot: Integer;
         F1Tot: Integer;
         F2Tot: Integer;
         F3Tot: Integer;
