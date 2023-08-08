@@ -543,6 +543,24 @@ page 50986 "BOM Estimate Cost Card"
                         if FacCPMRec.FindLast() then begin
                             rec.CPM := FacCPMRec.CPM;
                             CurrPage.Update();
+
+                            //////////////Newly added
+                            rec."Sub Total (Dz.) Dz." := rec."Raw Material (Dz.)" + rec."Embroidery (Dz.)" + rec."Printing (Dz.)" + rec."Washing (Dz.)" + rec."Others (Dz.)";
+                            rec."Sub Total (Dz.) Pcs" := rec."Sub Total (Dz.) Dz." / 12;
+                            rec."Sub Total (Dz.) Total" := rec."Sub Total (Dz.) Pcs" * rec.Quantity;
+
+                            rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+                            rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
+
+                            if rec."FOB Pcs" = 0 then
+                                rec."Gross CM With Commission %" := 0
+                            else
+                                rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
+
+                            rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
+                            //////////////
+
+
                             CalMFGCost();
                             CalTotalCost();
 
