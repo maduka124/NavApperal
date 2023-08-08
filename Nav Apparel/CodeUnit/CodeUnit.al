@@ -841,7 +841,7 @@ codeunit 50618 NavAppCodeUnit
         po: Text[50];
         resoureceline: Code[20];
         EndDate: Date;
-        AllocatedQty: BigInteger;
+        AllocatedQty: Decimal;
         Waistage: Decimal;
         MaxTarget: BigInteger;
         no: Integer;
