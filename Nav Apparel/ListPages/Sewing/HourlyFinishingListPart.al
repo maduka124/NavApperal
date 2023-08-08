@@ -2,7 +2,7 @@ page 51381 HourlyFinishingListPart
 {
     PageType = ListPart;
     SourceTable = "Hourly Production Lines";
-    DeleteAllowed = false;
+    // DeleteAllowed = false;
     InsertAllowed = false;
     SourceTableView = sorting("Work Center Seq No") order(ascending);
 
@@ -1203,48 +1203,147 @@ page 51381 HourlyFinishingListPart
         HourlyProdLinesRec: Record "Hourly Production Lines";
     begin
         HourlyProdLinesRec.Reset();
-        HourlyProdLinesRec.SetRange("Prod Date", Rec."Prod Date");
         HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
-        HourlyProdLinesRec.SetRange("Work Center No.", Rec."Work Center No.");
+        HourlyProdLinesRec.SetRange("Style No.", Rec."Style No.");
+        HourlyProdLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
         HourlyProdLinesRec.SetFilter(Type, '=%1', HourlyProdLinesRec.Type::Sewing);
         if HourlyProdLinesRec.FindSet() then begin
-            if Rec."Hour 01" > HourlyProdLinesRec."Hour 01" then begin
+
+            HourlyProdLinesRec.CalcSums("Hour 01");
+            H1Tot := HourlyProdLinesRec."Hour 01";
+
+            HourlyProdLinesRec.CalcSums("Hour 02");
+            H2Tot := HourlyProdLinesRec."Hour 02";
+
+            HourlyProdLinesRec.CalcSums("Hour 03");
+            H3Tot := HourlyProdLinesRec."Hour 03";
+
+            HourlyProdLinesRec.CalcSums("Hour 04");
+            H4Tot := HourlyProdLinesRec."Hour 04";
+
+            HourlyProdLinesRec.CalcSums("Hour 05");
+            H5Tot := HourlyProdLinesRec."Hour 05";
+
+            HourlyProdLinesRec.CalcSums("Hour 06");
+            H6Tot := HourlyProdLinesRec."Hour 06";
+
+            HourlyProdLinesRec.CalcSums("Hour 07");
+            H7Tot := HourlyProdLinesRec."Hour 07";
+
+            HourlyProdLinesRec.CalcSums("Hour 08");
+            H8Tot := HourlyProdLinesRec."Hour 08";
+
+            HourlyProdLinesRec.CalcSums("Hour 09");
+            H9Tot := HourlyProdLinesRec."Hour 09";
+
+            HourlyProdLinesRec.CalcSums("Hour 10");
+            H10Tot := HourlyProdLinesRec."Hour 10";
+
+            HourlyProdLinesRec.CalcSums("Hour 11");
+            H11Tot := HourlyProdLinesRec."Hour 11";
+
+            HourlyProdLinesRec.CalcSums("Hour 12");
+            H12Tot := HourlyProdLinesRec."Hour 12";
+
+            HourlyProdLinesRec.CalcSums("Hour 13");
+            H13Tot := HourlyProdLinesRec."Hour 13";
+
+        end;
+        HourlyProdLinesRec.Reset();
+        HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+        HourlyProdLinesRec.SetRange("Style No.", Rec."Style No.");
+        HourlyProdLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
+        HourlyProdLinesRec.SetFilter(Type, '=%1', HourlyProdLinesRec.Type::Finishing);
+        if HourlyProdLinesRec.FindSet() then begin
+
+            HourlyProdLinesRec.CalcSums("Hour 01");
+            F1Tot := HourlyProdLinesRec."Hour 01";
+
+            HourlyProdLinesRec.CalcSums("Hour 02");
+            F2Tot := HourlyProdLinesRec."Hour 02";
+
+            HourlyProdLinesRec.CalcSums("Hour 03");
+            F3Tot := HourlyProdLinesRec."Hour 03";
+
+            HourlyProdLinesRec.CalcSums("Hour 04");
+            F4Tot := HourlyProdLinesRec."Hour 04";
+
+            HourlyProdLinesRec.CalcSums("Hour 05");
+            F5Tot := HourlyProdLinesRec."Hour 05";
+
+            HourlyProdLinesRec.CalcSums("Hour 06");
+            F6Tot := HourlyProdLinesRec."Hour 06";
+
+            HourlyProdLinesRec.CalcSums("Hour 07");
+            F7Tot := HourlyProdLinesRec."Hour 07";
+
+            HourlyProdLinesRec.CalcSums("Hour 08");
+            F8Tot := HourlyProdLinesRec."Hour 08";
+
+            HourlyProdLinesRec.CalcSums("Hour 09");
+            F9Tot := HourlyProdLinesRec."Hour 09";
+
+            HourlyProdLinesRec.CalcSums("Hour 10");
+            F10Tot := HourlyProdLinesRec."Hour 10";
+
+            HourlyProdLinesRec.CalcSums("Hour 11");
+            F11Tot := HourlyProdLinesRec."Hour 11";
+
+            HourlyProdLinesRec.CalcSums("Hour 12");
+            F12Tot := HourlyProdLinesRec."Hour 12";
+
+            HourlyProdLinesRec.CalcSums("Hour 13");
+            F13Tot := HourlyProdLinesRec."Hour 13";
+
+            if H1Tot > F1Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 02" > HourlyProdLinesRec."Hour 02" then begin
+
+            if H2Tot > F2Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 03" > HourlyProdLinesRec."Hour 03" then begin
+
+            if H3Tot > F3Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 04" > HourlyProdLinesRec."Hour 04" then begin
+
+            if H4Tot > F4Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 05" > HourlyProdLinesRec."Hour 05" then begin
+
+            if H5Tot > F5Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 06" > HourlyProdLinesRec."Hour 06" then begin
+
+            if H6Tot > F6Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 07" > HourlyProdLinesRec."Hour 07" then begin
+
+            if H7Tot > F7Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 08" > HourlyProdLinesRec."Hour 08" then begin
+
+            if H8Tot > F8Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 09" > HourlyProdLinesRec."Hour 09" then begin
+
+            if H9Tot > F9Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 10" > HourlyProdLinesRec."Hour 10" then begin
+
+            if H10Tot > F10Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 11" > HourlyProdLinesRec."Hour 11" then begin
+
+            if H11Tot > F11Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 12" > HourlyProdLinesRec."Hour 12" then begin
+
+            if H12Tot > F12Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
-            if Rec."Hour 13" > HourlyProdLinesRec."Hour 13" then begin
+
+            if H13Tot > F13Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
         end;
@@ -1252,6 +1351,8 @@ page 51381 HourlyFinishingListPart
 
     procedure CalTotal()
     var
+
+        HourlyProdLinesRec3: Record "Hourly Production Lines";
         HourlyProdLinesRec: Record "Hourly Production Lines";
         HourlyProdLines1Rec: Record "Hourly Production Lines";
         ProductionOutLine: Record ProductionOutLine;
@@ -1436,8 +1537,15 @@ page 51381 HourlyFinishingListPart
             HourlyProdLines1Rec.Total := TotDHU;
             HourlyProdLines1Rec.Modify();
 
+            HourlyProdLinesRec3.Reset();
+            HourlyProdLinesRec3.SetRange("Prod Date", Rec."Prod Date");
+            HourlyProdLinesRec3.SetRange("Factory No.", Rec."Factory No.");
+            HourlyProdLinesRec3.SetRange("Style No.", Rec."Style No.");
+            HourlyProdLinesRec3.SetFilter(Type, '=%1', HourlyProdLinesRec3.Type::Sewing);
+            if HourlyProdLinesRec3.FindSet() then begin
+                HourlyProdLinesRec3.CalcSums("Hour 01")
 
-
+            end;
         end;
 
 
@@ -1471,6 +1579,29 @@ page 51381 HourlyFinishingListPart
 
     end;
 
+    trigger OnDeleteRecord(): Boolean
+    var
+        HourlyProdLineRec: Record "Hourly Production Lines";
+        HourlyRec: Record "Hourly Production Master";
+    begin
+        HourlyRec.Reset();
+        HourlyRec.SetRange("No.", Rec."No.");
+        HourlyRec.SetFilter(Type, '=%1', Rec.Type::Finishing);
+        if HourlyRec.FindSet() then begin
+            repeat
+                HourlyProdLineRec.Reset();
+                HourlyProdLineRec.SetRange("No.", HourlyRec."No.");
+                HourlyProdLineRec.SetRange("Style No.", Rec."Style No.");
+                if HourlyProdLineRec.FindSet() then begin
+                    if (HourlyProdLineRec."Factory No." = '') AND (HourlyProdLineRec."Prod Date" = 0D) AND (HourlyProdLineRec.Type = HourlyProdLineRec.Type::Sewing) then begin
+                        Error('You Cannot delete this Line');
+                    end;
+                    HourlyProdLineRec.DeleteAll();
+                end;
+                CurrPage.Update();
+            Until HourlyRec.Next() = 0;
+        end;
+    end;
 
     trigger OnAfterGetRecord()
     var
@@ -1488,6 +1619,32 @@ page 51381 HourlyFinishingListPart
     end;
 
     var
+        F1Tot: Integer;
+        F2Tot: Integer;
+        F3Tot: Integer;
+        F4Tot: Integer;
+        F5Tot: Integer;
+        F6Tot: Integer;
+        F7Tot: Integer;
+        F8Tot: Integer;
+        F9Tot: Integer;
+        F10Tot: Integer;
+        F11Tot: Integer;
+        F12Tot: Integer;
+        F13Tot: Integer;
+        H1Tot: Integer;
+        H2Tot: Integer;
+        H3Tot: Integer;
+        H4Tot: Integer;
+        H5Tot: Integer;
+        H6Tot: Integer;
+        H7Tot: Integer;
+        H8Tot: Integer;
+        H9Tot: Integer;
+        H10Tot: Integer;
+        H11Tot: Integer;
+        H12Tot: Integer;
+        H13Tot: Integer;
         TotPass: Integer;
         TotDHU: Integer;
         TotDefect: Integer;
