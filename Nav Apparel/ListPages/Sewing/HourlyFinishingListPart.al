@@ -1203,7 +1203,7 @@ page 51381 HourlyFinishingListPart
         HourlyProdLinesRec: Record "Hourly Production Lines";
     begin
         HourlyProdLinesRec.Reset();
-        HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+        // HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
         HourlyProdLinesRec.SetRange("Style No.", Rec."Style No.");
         HourlyProdLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
         HourlyProdLinesRec.SetFilter(Type, '=%1', HourlyProdLinesRec.Type::Sewing);
@@ -1250,7 +1250,7 @@ page 51381 HourlyFinishingListPart
 
         end;
         HourlyProdLinesRec.Reset();
-        HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+        // HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
         HourlyProdLinesRec.SetRange("Style No.", Rec."Style No.");
         HourlyProdLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
         HourlyProdLinesRec.SetFilter(Type, '=%1', HourlyProdLinesRec.Type::Finishing);
@@ -1295,19 +1295,19 @@ page 51381 HourlyFinishingListPart
             HourlyProdLinesRec.CalcSums("Hour 13");
             F13Tot := HourlyProdLinesRec."Hour 13";
 
-            if H1Tot > F1Tot then begin
+            if H1Tot < F1Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H2Tot > F2Tot then begin
+            if H2Tot < F2Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H3Tot > F3Tot then begin
+            if H3Tot < F3Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H4Tot > F4Tot then begin
+            if H4Tot < F4Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
@@ -1315,35 +1315,35 @@ page 51381 HourlyFinishingListPart
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H6Tot > F6Tot then begin
+            if H6Tot < F6Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H7Tot > F7Tot then begin
+            if H7Tot < F7Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H8Tot > F8Tot then begin
+            if H8Tot < F8Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H9Tot > F9Tot then begin
+            if H9Tot < F9Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H10Tot > F10Tot then begin
+            if H10Tot < F10Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H11Tot > F11Tot then begin
+            if H11Tot < F11Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H12Tot > F12Tot then begin
+            if H12Tot < F12Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
 
-            if H13Tot > F13Tot then begin
+            if H13Tot < F13Tot then begin
                 Error('Hourly Finishing Value greater than Hourly Sewing');
             end;
         end;
