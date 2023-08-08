@@ -171,6 +171,13 @@ page 51377 "Hourly Finishing Card"
                     if (Dialog.CONFIRM('"Hourly Finishing" will erase old records. Do you want to continue?', true) = true) then begin
                         CurrPage.Update();
 
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", Rec."No.");
+                        // HourlyProdLinesRec.SetRange(Type, HourlyProdLinesRec.Type::Finishing);
+                        if HourlyProdLinesRec.FindSet() then begin
+                            HourlyProdLinesRec.DeleteAll();
+                        end;
+
                         //Done By sachith on 20/03/23
                         // ProductionOutHeaderRec.Reset();
                         // ProductionOutHeaderRec.SetRange("Prod Date", Rec."Prod Date");
