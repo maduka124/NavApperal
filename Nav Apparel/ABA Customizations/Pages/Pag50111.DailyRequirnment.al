@@ -16,6 +16,10 @@ page 50111 "Daily Requirement"
         {
             repeater(General)
             {
+                field("Main Category"; rec.MainCategoryName)
+                {
+                }
+
                 field("Item No."; Rec."Item No.")
                 {
                 }

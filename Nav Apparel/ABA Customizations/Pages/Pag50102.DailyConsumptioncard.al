@@ -298,6 +298,8 @@ page 50102 "Daily Consumption Card"
                     ItemRec: Record Item;
                     BOMLineEstRec: Record "BOM Line Estimate";
                     MainCategoryRec: Record "Main Category";
+                    MainCategoryNo: Code[20];
+                    MainCategoryName: Text[200];
                     PostNo: Code[20];
                     Window: Dialog;
                     Inx1: Integer;
@@ -422,6 +424,26 @@ page 50102 "Daily Consumption Card"
 
                                         Window.Update(2, ProdOrdComp."Item No.");
 
+                                        //get Main category
+                                        ItemRec.Reset();
+                                        ItemRec.SetRange("No.", ProdOrdComp."Item No.");
+                                        if ItemRec.Findset() then begin
+                                            MainCategoryRec.Reset();
+                                            MainCategoryRec.SetRange("No.", ItemRec."Main Category No.");
+                                            if MainCategoryRec.Findset() then begin
+                                                MainCategoryNo := MainCategoryRec."No.";
+                                                MainCategoryName := MainCategoryRec."Main Category Name";
+                                            end
+                                            else begin
+                                                MainCategoryNo := '';
+                                                MainCategoryName := '';
+                                            end;
+                                        end
+                                        else begin
+                                            MainCategoryNo := '';
+                                            MainCategoryName := '';
+                                        end;
+
                                         if BOMLineEstRec."Size Sensitive" = true then begin
                                             //Add new line
                                             ItemJnalRec.Init();
@@ -443,8 +465,8 @@ page 50102 "Daily Consumption Card"
                                             ItemJnalRec.PO := ProdOrderRec.PO;
                                             ItemJnalRec."Style No." := ProdOrderRec."Style No.";
                                             ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
-                                            ItemJnalRec.MainCategory := DailyConsumpLine."Main Category";
-                                            ItemJnalRec.MainCategoryName := DailyConsumpLine."Main Category Name";
+                                            ItemJnalRec.MainCategory := MainCategoryNo;
+                                            ItemJnalRec.MainCategoryName := MainCategoryName;
                                             ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");   //RM Item
 
                                             if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
@@ -511,8 +533,8 @@ page 50102 "Daily Consumption Card"
                                                 ItemJnalRec.PO := ProdOrderRec.PO;
                                                 ItemJnalRec."Style No." := ProdOrderRec."Style No.";
                                                 ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
-                                                ItemJnalRec.MainCategory := DailyConsumpLine."Main Category";
-                                                ItemJnalRec.MainCategoryName := DailyConsumpLine."Main Category Name";
+                                                ItemJnalRec.MainCategory := MainCategoryNo;
+                                                ItemJnalRec.MainCategoryName := MainCategoryName;
                                                 ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");   //RM Item
 
                                                 if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then

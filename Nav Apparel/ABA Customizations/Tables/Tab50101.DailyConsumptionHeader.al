@@ -372,71 +372,68 @@ table 50101 "Daily Consumption Header"
             DataClassification = ToBeClassified;
         }
 
-        // field(25; "Main Category"; Code[20])
-        // {
-        //     DataClassification = ToBeClassified;
-        //     Editable = false;
-        // }
-        // field(26; "Main Category Name"; Text[50])
-        // {
-        //     Caption = 'Main Category';
-        //     DataClassification = ToBeClassified;
+        field(25; "Main Category"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+        field(26; "Main Category Name"; Text[50])
+        {
+            Caption = 'Main Category';
+            DataClassification = ToBeClassified;
 
-        //     trigger OnValidate()
-        //     var
-        //         MainCatRec: Record "Main Category";
-        //     begin
-        //         MainCatRec.Reset();
-        //         MainCatRec.SetRange("Main Category Name", "Main Category Name");
-        //         if MainCatRec.FindSet() then
-        //             "Main Category" := MainCatRec."No."
-        //         else
-        //             Error('Invalid Main Category Name');
-        //     end;
-
-
-        //     trigger OnLookup()
-        //     var
-        //         ProdOrdComp: Record "Prod. Order Component";
-        //         MainCatFilter: Record "Main Category Filter";
-        //         ProdOrder: Record "Production Order";
-        //         MainCat: Record "Main Category";
-        //     begin
-        //         MainCatFilter.Reset();
-        //         MainCatFilter.DeleteAll();
-
-        //         ProdOrder.Reset();
-        //         ProdOrder.SetRange(Status, ProdOrder.Status::Released);
-        //         ProdOrder.SetRange(BuyerCode, "Buyer Code");
-        //         ProdOrder.SetRange("Style Name", "Style Name");
-        //         ProdOrder.SetRange(PO, PO);
-        //         if ProdOrder.FindFirst() then begin
-        //             ProdOrdComp.Reset();
-        //             ProdOrdComp.SetRange("Prod. Order No.", ProdOrder."No.");
-        //             ProdOrdComp.SetRange(Status, ProdOrder.Status);
-        //             if ProdOrdComp.FindFirst() then begin
-        //                 repeat
-        //                     if not MainCatFilter.Get(ProdOrdComp."Item Cat. Code") then begin
-        //                         MainCatFilter.Init();
-        //                         MainCatFilter.Code := ProdOrdComp."Item Cat. Code";
-        //                         if MainCat.Get(MainCatFilter.Code) then
-        //                             MainCatFilter.Name := MainCat."Main Category Name";
-        //                         MainCatFilter.Insert();
-        //                     end;
-        //                 until ProdOrdComp.Next() = 0;
-        //             end;
-        //         end;
-        //         Commit();
-        //         if Page.RunModal(50118, MainCatFilter) = Action::LookupOK then begin
-        //             "Main Category" := MainCatFilter.Code;
-        //             "Main Category Name" := MainCatFilter.Name;
-        //             // Rec.Validate("Main Category", MainCatFilter.Code);
-        //         end
-
-        //     end;
+            trigger OnValidate()
+            var
+                MainCatRec: Record "Main Category";
+            begin
+                MainCatRec.Reset();
+                MainCatRec.SetRange("Main Category Name", "Main Category Name");
+                if MainCatRec.FindSet() then
+                    "Main Category" := MainCatRec."No."
+                else
+                    Error('Invalid Main Category Name');
+            end;
 
 
-        // }
+            trigger OnLookup()
+            var
+                ProdOrdComp: Record "Prod. Order Component";
+                MainCatFilter: Record "Main Category Filter";
+                ProdOrder: Record "Production Order";
+                MainCat: Record "Main Category";
+            begin
+                MainCatFilter.Reset();
+                MainCatFilter.DeleteAll();
+
+                ProdOrder.Reset();
+                ProdOrder.SetRange(Status, ProdOrder.Status::Released);
+                ProdOrder.SetRange(BuyerCode, "Buyer Code");
+                ProdOrder.SetRange("Style Name", "Style Name");
+                ProdOrder.SetRange(PO, PO);
+                if ProdOrder.FindFirst() then begin
+                    ProdOrdComp.Reset();
+                    ProdOrdComp.SetRange("Prod. Order No.", ProdOrder."No.");
+                    ProdOrdComp.SetRange(Status, ProdOrder.Status);
+                    if ProdOrdComp.FindFirst() then begin
+                        repeat
+                            if not MainCatFilter.Get(ProdOrdComp."Item Cat. Code") then begin
+                                MainCatFilter.Init();
+                                MainCatFilter.Code := ProdOrdComp."Item Cat. Code";
+                                if MainCat.Get(MainCatFilter.Code) then
+                                    MainCatFilter.Name := MainCat."Main Category Name";
+                                MainCatFilter.Insert();
+                            end;
+                        until ProdOrdComp.Next() = 0;
+                    end;
+                end;
+                Commit();
+                if Page.RunModal(50118, MainCatFilter) = Action::LookupOK then begin
+                    "Main Category" := MainCatFilter.Code;
+                    "Main Category Name" := MainCatFilter.Name;
+                    // Rec.Validate("Main Category", MainCatFilter.Code);
+                end
+            end;
+        }
 
         field(27; "Style Name"; Text[50])
         {
