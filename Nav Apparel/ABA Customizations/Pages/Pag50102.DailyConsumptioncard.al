@@ -294,7 +294,7 @@ page 50102 "Daily Consumption Card"
                     ManufacSetup: Record "Manufacturing Setup";
                     ItemJrnlLineTempRec: Record ItemJournalLinetemp;
                     DeptRec: Record Department;
-                    BOMRec: Record BOM;
+                    //BOMRec: Record BOM;
                     ItemRec: Record Item;
                     BOMLineEstRec: Record "BOM Line Estimate";
                     MainCategoryRec: Record "Main Category";
@@ -347,10 +347,10 @@ page 50102 "Daily Consumption Card"
                     if ItemJnalRec.FindLast() then
                         LastLNo := ItemJnalRec."Line No.";
 
-                    BOMRec.Reset();
-                    BOMRec.SetRange("Style Name", rec."Style Name");
-                    if not BOMRec.Findset() then
-                        Error('Cannot find BOM for the Style : %1', rec."Style Name");
+                    // BOMRec.Reset();
+                    // BOMRec.SetRange("Style Name", rec."Style Name");
+                    // if not BOMRec.Findset() then
+                    //     Error('Cannot find BOM for the Style : %1', rec."Style Name");
 
                     if not rec."All Main Categories" then begin
                         DeptRec.Reset();
@@ -386,11 +386,11 @@ page 50102 "Daily Consumption Card"
                             if ProdOrdComp.FindFirst() then
                                 repeat
                                     Include := false;
-                                    BOMLineEstRec.Reset();
-                                    BOMLineEstRec.SetRange("No.", BOMRec.No);
-                                    BOMLineEstRec.SetRange("Item No.", ProdOrdComp."Item No.");
-                                    if BOMLineEstRec.Findset() then
-                                        Error('Cannot find BOM Estimate Item in BOM : %1 , Item : %2', BOMRec.No, ProdOrdComp."Item No.");
+                                    // BOMLineEstRec.Reset();
+                                    // BOMLineEstRec.SetRange("No.", BOMRec.No);
+                                    // BOMLineEstRec.SetRange("Item No.", ProdOrdComp."Item No.");
+                                    // if BOMLineEstRec.Findset() then
+                                    //     Error('Cannot find BOM Estimate Item in BOM : %1 , Item : %2', BOMRec.No, ProdOrdComp."Item No.");
 
                                     if MasterCateName <> '' then begin
                                         ItemRec.Reset();
@@ -444,122 +444,122 @@ page 50102 "Daily Consumption Card"
                                             MainCategoryName := '';
                                         end;
 
-                                        if BOMLineEstRec."Size Sensitive" = true then begin
-                                            //Add new line
-                                            ItemJnalRec.Init();
-                                            ItemJnalRec."Journal Template Name" := rec."Journal Template Name";
-                                            ItemJnalRec."Journal Batch Name" := rec."Journal Batch Name";
-                                            ItemJnalRec."Line No." := Inx1 + 10000;
-                                            ItemJnalRec.Insert(true);
+                                        //if BOMLineEstRec."Size Sensitive" = true then begin
+                                        //Add new line
+                                        ItemJnalRec.Init();
+                                        ItemJnalRec."Journal Template Name" := rec."Journal Template Name";
+                                        ItemJnalRec."Journal Batch Name" := rec."Journal Batch Name";
+                                        ItemJnalRec."Line No." := Inx1 + 10000;
+                                        ItemJnalRec.Insert(true);
 
-                                            Sleep(200);
-                                            ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
-                                            ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
-                                            ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
-                                            ItemJnalRec.Validate("Source No.", DailyConsumpLine."Item No.");  //FG
-                                            ItemJnalRec.Validate("Posting Date", rec."Document Date");
-                                            ItemJnalRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
-                                            ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
-                                            ItemJnalRec."Posted Daily Output" := DailyConsumpLine."Daily Consumption";  //FG Qty
-                                            ItemJnalRec.Validate("Order Line No.", DailyConsumpLine."prod. Order Line No.");
-                                            ItemJnalRec.PO := ProdOrderRec.PO;
-                                            ItemJnalRec."Style No." := ProdOrderRec."Style No.";
-                                            ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
-                                            ItemJnalRec.MainCategory := MainCategoryNo;
-                                            ItemJnalRec.MainCategoryName := MainCategoryName;
-                                            ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");   //RM Item
+                                        Sleep(200);
+                                        ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
+                                        ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
+                                        ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
+                                        ItemJnalRec.Validate("Source No.", DailyConsumpLine."Item No.");  //FG
+                                        ItemJnalRec.Validate("Posting Date", rec."Document Date");
+                                        ItemJnalRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
+                                        ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
+                                        ItemJnalRec."Posted Daily Output" := DailyConsumpLine."Daily Consumption";  //FG Qty
+                                        ItemJnalRec.Validate("Order Line No.", DailyConsumpLine."prod. Order Line No.");
+                                        ItemJnalRec.PO := ProdOrderRec.PO;
+                                        ItemJnalRec."Style No." := ProdOrderRec."Style No.";
+                                        ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
+                                        ItemJnalRec.MainCategory := MainCategoryNo;
+                                        ItemJnalRec.MainCategoryName := MainCategoryName;
+                                        ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");   //RM Item
 
-                                            if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
-                                                ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
-                                            else
-                                                ItemJnalRec.Validate(Quantity, (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption"));
+                                        if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
+                                            ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
+                                        else
+                                            ItemJnalRec.Validate(Quantity, (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption"));
 
-                                            Window.Update(3, ItemJnalRec.Quantity);
-                                            ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
-                                            ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
-                                            ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
-                                            ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
-                                            ItemJnalRec.Description := ProdOrdComp.Description;
-                                            ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
-                                            ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
-                                            ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
-                                            //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
-                                            // ItemJnalRec.MainCategory := rec."Main Category";
-                                            // ItemJnalRec.MainCategoryName := rec."Main Category Name";
-                                            ItemJnalRec.Modify();
+                                        Window.Update(3, ItemJnalRec.Quantity);
+                                        ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                                        ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
+                                        ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
+                                        ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
+                                        ItemJnalRec.Description := ProdOrdComp.Description;
+                                        ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
+                                        ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
+                                        ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
+                                        //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
+                                        // ItemJnalRec.MainCategory := rec."Main Category";
+                                        // ItemJnalRec.MainCategoryName := rec."Main Category Name";
+                                        ItemJnalRec.Modify();
 
-                                            Inx1 := ItemJnalRec."Line No.";
-                                            LastLNo := 0;
-                                        end
-                                        else begin
-                                            //update existing lines
-                                            ItemJnalRec.Reset();
-                                            ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
-                                            ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-                                            ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
-                                            ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
-                                            ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
-                                            ItemJnalRec.SetRange("Item No.", ProdOrdComp."Item No.");
-                                            if ItemJnalRec.Findset() then begin
-                                                if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
-                                                    ItemJnalRec.Validate(Quantity, ItemJnalRec.Quantity + ProdOrdComp."Remaining Quantity")
-                                                else
-                                                    ItemJnalRec.Validate(Quantity, (ItemJnalRec.Quantity + (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption")));
+                                        Inx1 := ItemJnalRec."Line No.";
+                                        LastLNo := 0;
+                                        //end
+                                        //else begin
+                                        //update existing lines
+                                        // ItemJnalRec.Reset();
+                                        // ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                                        // ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                                        // ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
+                                        // ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
+                                        // ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                                        // ItemJnalRec.SetRange("Item No.", ProdOrdComp."Item No.");
+                                        // if ItemJnalRec.Findset() then begin
+                                        //     if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
+                                        //         ItemJnalRec.Validate(Quantity, ItemJnalRec.Quantity + ProdOrdComp."Remaining Quantity")
+                                        //     else
+                                        //         ItemJnalRec.Validate(Quantity, (ItemJnalRec.Quantity + (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption")));
 
-                                                Window.Update(3, ItemJnalRec.Quantity);
-                                                ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
-                                                ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
-                                                ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
-                                                ItemJnalRec.Modify();
-                                            end
-                                            else begin
-                                                //Add new line
-                                                ItemJnalRec.Init();
-                                                ItemJnalRec."Journal Template Name" := rec."Journal Template Name";
-                                                ItemJnalRec."Journal Batch Name" := rec."Journal Batch Name";
-                                                ItemJnalRec."Line No." := Inx1 + 10000;
-                                                ItemJnalRec.Insert(true);
+                                        //     Window.Update(3, ItemJnalRec.Quantity);
+                                        //     ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                                        //     ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
+                                        //     ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
+                                        //     ItemJnalRec.Modify();
+                                        // end
+                                        // else begin
+                                        // //Add new line
+                                        // ItemJnalRec.Init();
+                                        // ItemJnalRec."Journal Template Name" := rec."Journal Template Name";
+                                        // ItemJnalRec."Journal Batch Name" := rec."Journal Batch Name";
+                                        // ItemJnalRec."Line No." := Inx1 + 10000;
+                                        // ItemJnalRec.Insert(true);
 
-                                                Sleep(200);
-                                                ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
-                                                ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
-                                                ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
-                                                ItemJnalRec.Validate("Source No.", DailyConsumpLine."Item No.");  //FG
-                                                ItemJnalRec.Validate("Posting Date", rec."Document Date");
-                                                ItemJnalRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
-                                                ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
-                                                ItemJnalRec."Posted Daily Output" := DailyConsumpLine."Daily Consumption";  //FG Qty
-                                                ItemJnalRec.Validate("Order Line No.", DailyConsumpLine."prod. Order Line No.");
-                                                ItemJnalRec.PO := ProdOrderRec.PO;
-                                                ItemJnalRec."Style No." := ProdOrderRec."Style No.";
-                                                ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
-                                                ItemJnalRec.MainCategory := MainCategoryNo;
-                                                ItemJnalRec.MainCategoryName := MainCategoryName;
-                                                ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");   //RM Item
+                                        // Sleep(200);
+                                        // ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
+                                        // ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
+                                        // ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
+                                        // ItemJnalRec.Validate("Source No.", DailyConsumpLine."Item No.");  //FG
+                                        // ItemJnalRec.Validate("Posting Date", rec."Document Date");
+                                        // ItemJnalRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
+                                        // ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
+                                        // ItemJnalRec."Posted Daily Output" := DailyConsumpLine."Daily Consumption";  //FG Qty
+                                        // ItemJnalRec.Validate("Order Line No.", DailyConsumpLine."prod. Order Line No.");
+                                        // ItemJnalRec.PO := ProdOrderRec.PO;
+                                        // ItemJnalRec."Style No." := ProdOrderRec."Style No.";
+                                        // ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
+                                        // ItemJnalRec.MainCategory := MainCategoryNo;
+                                        // ItemJnalRec.MainCategoryName := MainCategoryName;
+                                        // ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");   //RM Item
 
-                                                if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
-                                                    ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
-                                                else
-                                                    ItemJnalRec.Validate(Quantity, (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption"));
+                                        // if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
+                                        //     ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
+                                        // else
+                                        //     ItemJnalRec.Validate(Quantity, (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption"));
 
-                                                Window.Update(3, ItemJnalRec.Quantity);
-                                                ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
-                                                ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
-                                                ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
-                                                ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
-                                                ItemJnalRec.Description := ProdOrdComp.Description;
-                                                ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
-                                                ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
-                                                ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
-                                                //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
-                                                // ItemJnalRec.MainCategory := rec."Main Category";
-                                                // ItemJnalRec.MainCategoryName := rec."Main Category Name";
-                                                ItemJnalRec.Modify();
+                                        // Window.Update(3, ItemJnalRec.Quantity);
+                                        // ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                                        // ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
+                                        // ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
+                                        // ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
+                                        // ItemJnalRec.Description := ProdOrdComp.Description;
+                                        // ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
+                                        // ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
+                                        // ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
+                                        // //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
+                                        // // ItemJnalRec.MainCategory := rec."Main Category";
+                                        // // ItemJnalRec.MainCategoryName := rec."Main Category Name";
+                                        // ItemJnalRec.Modify();
 
-                                                Inx1 := ItemJnalRec."Line No.";
-                                                LastLNo := 0;
-                                            end;
-                                        end;
+                                        // Inx1 := ItemJnalRec."Line No.";
+                                        // LastLNo := 0;
+                                        //end;
+                                        //end;
 
                                         ItemLedEntry.Reset();
                                         ItemLedEntry.SetCurrentKey("Item No.", Open, "Variant Code", "Location Code", "Item Tracking", "Lot No.", "Serial No.");
@@ -626,17 +626,17 @@ page 50102 "Daily Consumption Card"
 
                                         //Insert to the temp table
                                         ItemJrnlLineTempRec.Init();
-                                        ItemJrnlLineTempRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
-                                        ItemJrnlLineTempRec."Item No." := ProdOrdComp."Item No.";
                                         ItemJrnlLineTempRec."Journal Batch Name" := Rec."Journal Batch Name";
                                         ItemJrnlLineTempRec."Journal Template Name" := Rec."Journal Template Name";
+                                        ItemJrnlLineTempRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
                                         ItemJrnlLineTempRec."Prod. Order No." := DailyConsumpLine."Prod. Order No.";
                                         ItemJrnlLineTempRec."Prod. Order Line No." := DailyConsumpLine."Prod. Order Line No.";
+                                        ItemJrnlLineTempRec."Source No." := DailyConsumpLine."Item No.";
+                                        ItemJrnlLineTempRec."Item No." := ProdOrdComp."Item No.";
                                         ItemJrnlLineTempRec."Daily Consumption" := DailyConsumpLine."Daily Consumption";
                                         ItemJrnlLineTempRec."Line No." := Lineno + 1;
                                         ItemJrnlLineTempRec."Original Requirement" := ItemJnalRec.Quantity;
                                         ItemJrnlLineTempRec."Posted requirement" := 0;
-                                        ItemJrnlLineTempRec."Source No." := DailyConsumpLine."Item No.";
                                         ItemJrnlLineTempRec.Insert();
 
                                     end;
