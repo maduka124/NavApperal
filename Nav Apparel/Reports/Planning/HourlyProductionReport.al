@@ -248,6 +248,8 @@ report 50865 HourlyProductionReport
             { }
             column(WorkingHrs; WorkingHrs)
             { }
+            column(WIPFin; WIPFin)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -331,6 +333,30 @@ report 50865 HourlyProductionReport
 
             trigger OnAfterGetRecord()
             var
+                StylePoRec: Record "Style Master PO";
+                HoProLineRec: Record "Hourly Production Lines";
+                WFH1: Integer;
+                WFH2: Integer;
+                WFH3: Integer;
+                WFH4: Integer;
+                WFH5: Integer;
+                WFH6: Integer;
+                WFH7: Integer;
+                WFH8: Integer;
+                WFH9: Integer;
+                WFH10: Integer;
+                WFHTot: Integer;
+                WSH1: Integer;
+                WSH2: Integer;
+                WSH3: Integer;
+                WSH4: Integer;
+                WSH5: Integer;
+                WSH6: Integer;
+                WSH7: Integer;
+                WSH8: Integer;
+                WSH9: Integer;
+                WSH10: Integer;
+                WSHTot: Integer;
 
             begin
 
@@ -348,6 +374,10 @@ report 50865 HourlyProductionReport
                 HoFinLineRec.SetRange(Type, HoFinLineRec.Type::Finishing);
                 HoFinLineRec.SetFilter(Item, '=%1', 'PASS PCS');
                 if HoFinLineRec.FindSet() then begin
+
+                    // if HoFinLineRec."Style No." = '02817' then begin
+                    //     Message('test');
+                    // end;
                     Hour1F := HoFinLineRec."Hour 01";
                     Hour2F := HoFinLineRec."Hour 02";
                     Hour3F := HoFinLineRec."Hour 03";
@@ -363,7 +393,7 @@ report 50865 HourlyProductionReport
                     FactoryNoFin := HoFinLineRec."Factory No.";
                     StylenameFIn := HoFinLineRec."Style No.";
 
-                    if (HoProLiRec."Style No." = StyleLC6) and (HoProLiRec."Work Center No." = LineLC6) then begin
+                    if (HoFinLineRec."Style No." = StyleLC6) and (HoFinLineRec."Work Center No." = LineLC6) then begin
                         Hour1F := 0;
                         Hour2F := 0;
                         Hour3F := 0;
@@ -378,6 +408,91 @@ report 50865 HourlyProductionReport
                     end;
                     StyleLC6 := HoProLiRec."Style No.";
                     LineLC6 := HoProLiRec."Work Center No.";
+
+
+                    // HoProLiRec.Reset();
+                    // HoProLiRec.SetRange("Style No.", HoFinLineRec."Style No.");
+                    // HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
+                    // HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                    // if HoProLiRec.FindSet() then begin
+                    //     HoProLiRec.CalcSums("Hour 01");
+                    //     WSH1 := HoProLiRec."Hour 01";
+
+                    //     HoProLiRec.CalcSums("Hour 02");
+                    //     WSH2 := HoProLiRec."Hour 02";
+
+                    //     HoProLiRec.CalcSums("Hour 03");
+                    //     WSH3 := HoProLiRec."Hour 03";
+
+                    //     HoProLiRec.CalcSums("Hour 04");
+                    //     WSH4 := HoProLiRec."Hour 04";
+
+                    //     HoProLiRec.CalcSums("Hour 05");
+                    //     WSH5 := HoProLiRec."Hour 05";
+
+                    //     HoProLiRec.CalcSums("Hour 06");
+                    //     WSH6 := HoProLiRec."Hour 06";
+
+                    //     HoProLiRec.CalcSums("Hour 07");
+                    //     WSH7 := HoProLiRec."Hour 07";
+
+                    //     HoProLiRec.CalcSums("Hour 08");
+                    //     WSH8 := HoProLiRec."Hour 08";
+
+                    //     HoProLiRec.CalcSums("Hour 09");
+                    //     WSH9 := HoProLiRec."Hour 09";
+
+                    //     HoProLiRec.CalcSums("Hour 10");
+                    //     WSH10 := HoProLiRec."Hour 10";
+
+                    //     WSHTot := WSH1 + WSH2 + WSH3 + WSH4 + WSH5 + WSH6 + WSH7 + WSH8 + WSH9 + WSH10;
+                    // end;
+
+                    // HoProLiRec.Reset();
+                    // HoProLiRec.SetRange("Style No.", HoFinLineRec."Style No.");
+                    // HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
+                    // HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                    // if HoProLiRec.FindSet() then begin
+                    //     HoProLiRec.CalcSums("Hour 01");
+                    //     WFH1 := HoProLiRec."Hour 01";
+
+                    //     HoProLiRec.CalcSums("Hour 02");
+                    //     WFH2 := HoProLiRec."Hour 02";
+
+                    //     HoProLiRec.CalcSums("Hour 03");
+                    //     WFH3 := HoProLiRec."Hour 03";
+
+                    //     HoProLiRec.CalcSums("Hour 04");
+                    //     WFH4 := HoProLiRec."Hour 04";
+
+                    //     HoProLiRec.CalcSums("Hour 05");
+                    //     WFH5 := HoProLiRec."Hour 05";
+
+                    //     HoProLiRec.CalcSums("Hour 06");
+                    //     WFH6 := HoProLiRec."Hour 06";
+
+                    //     HoProLiRec.CalcSums("Hour 07");
+                    //     WFH7 := HoProLiRec."Hour 07";
+
+                    //     HoProLiRec.CalcSums("Hour 08");
+                    //     WFH8 := HoProLiRec."Hour 08";
+
+                    //     HoProLiRec.CalcSums("Hour 09");
+                    //     WFH9 := HoProLiRec."Hour 09";
+
+                    //     HoProLiRec.CalcSums("Hour 10");
+                    //     WFH10 := HoProLiRec."Hour 10";
+
+                    //     WFHTot := WFH1 + WFH2 + WFH3 + WFH4 + WFH5 + WFH6 + WFH7 + WFH8 + WFH9 + WFH10;
+                    // end;
+
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", HoFinLineRec."Style No.");
+                    if StylePoRec.FindSet() then begin
+                        StylePoRec.CalcSums("Sawing Out Qty");
+                        WIPFin := StylePoRec."Sawing Out Qty";
+                    end;
+                    // WIPFin := WSHTot - WFHTot;
                 end;
                 //Factory Target Saw
                 HoProLiRec.Reset();
@@ -1123,6 +1238,7 @@ report 50865 HourlyProductionReport
     end;
 
     var
+        WIPFin: Integer;
         ResCapacityEntryRec: Record "Calendar Entry";
         WorkingHrs: Decimal;
         StyleLC9: Code[20];
