@@ -164,7 +164,7 @@ page 51377 "Hourly Finishing Card"
                     ResourceNo: code[20];
                 begin
 
-                    //Validate Date
+                    // Validate Date
                     if rec."Prod Date" < WorkDate() then
                         Error('Cannot enter production for previous dates.');
 
