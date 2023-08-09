@@ -276,6 +276,7 @@ page 50343 "Planning Line Property Card"
                         ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                         ProdPlansDetails.SetRange("Style No.", rec."Style No.");
                         ProdPlansDetails.SetFilter("Line No.", '<>%1', rec."Line No.");
+                        ProdPlansDetails.SetRange("Resource No.", ResourceRec."No.");
                         if ProdPlansDetails.FindSet() then begin
                             ApplyLCurve := false;
                             Message('Learning Curve already applied for the style %1 within %2 days. ', rec."Style Name", ResourceRec."LV Days");
@@ -286,6 +287,7 @@ page 50343 "Planning Line Property Card"
                             ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                             ProdPlansDetails.SetRange("Style No.", rec."Style No.");
                             ProdPlansDetails.SetFilter("Line No.", '=%1', rec."Line No.");
+                            ProdPlansDetails.SetRange("Resource No.", ResourceRec."No.");
                             if not ProdPlansDetails.FindSet() then begin
                                 ApplyLCurve := true
                             end
@@ -830,6 +832,7 @@ page 50343 "Planning Line Property Card"
                                         ProdPlansDetails.SetFilter(PlanDate, '%1..%2', JobPlaLineRec."Start Date" - ResourceRec."LV Days", JobPlaLineRec."Start Date" - 1);
                                         ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
                                         ProdPlansDetails.SetFilter("Line No.", '<>%1', JobPlaLineRec."Line No.");
+                                        ProdPlansDetails.SetRange("Resource No.", ResourceRec."No.");
                                         if ProdPlansDetails.FindSet() then
                                             ApplyLCurve := false;
                                     end;
