@@ -333,6 +333,7 @@ report 50865 HourlyProductionReport
 
             trigger OnAfterGetRecord()
             var
+                StylePoRec: Record "Style Master PO";
                 HoProLineRec: Record "Hourly Production Lines";
                 WFH1: Integer;
                 WFH2: Integer;
@@ -409,82 +410,89 @@ report 50865 HourlyProductionReport
                     LineLC6 := HoProLiRec."Work Center No.";
 
 
-                    HoProLiRec.Reset();
-                    HoProLiRec.SetRange("Style No.", HoFinLineRec."Style No.");
-                    HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
-                    HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
-                    if HoProLiRec.FindSet() then begin
-                        HoProLiRec.CalcSums("Hour 01");
-                        WSH1 := HoProLiRec."Hour 01";
+                    // HoProLiRec.Reset();
+                    // HoProLiRec.SetRange("Style No.", HoFinLineRec."Style No.");
+                    // HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
+                    // HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                    // if HoProLiRec.FindSet() then begin
+                    //     HoProLiRec.CalcSums("Hour 01");
+                    //     WSH1 := HoProLiRec."Hour 01";
 
-                        HoProLiRec.CalcSums("Hour 02");
-                        WSH2 := HoProLiRec."Hour 02";
+                    //     HoProLiRec.CalcSums("Hour 02");
+                    //     WSH2 := HoProLiRec."Hour 02";
 
-                        HoProLiRec.CalcSums("Hour 03");
-                        WSH3 := HoProLiRec."Hour 03";
+                    //     HoProLiRec.CalcSums("Hour 03");
+                    //     WSH3 := HoProLiRec."Hour 03";
 
-                        HoProLiRec.CalcSums("Hour 04");
-                        WSH4 := HoProLiRec."Hour 04";
+                    //     HoProLiRec.CalcSums("Hour 04");
+                    //     WSH4 := HoProLiRec."Hour 04";
 
-                        HoProLiRec.CalcSums("Hour 05");
-                        WSH5 := HoProLiRec."Hour 05";
+                    //     HoProLiRec.CalcSums("Hour 05");
+                    //     WSH5 := HoProLiRec."Hour 05";
 
-                        HoProLiRec.CalcSums("Hour 06");
-                        WSH6 := HoProLiRec."Hour 06";
+                    //     HoProLiRec.CalcSums("Hour 06");
+                    //     WSH6 := HoProLiRec."Hour 06";
 
-                        HoProLiRec.CalcSums("Hour 07");
-                        WSH7 := HoProLiRec."Hour 07";
+                    //     HoProLiRec.CalcSums("Hour 07");
+                    //     WSH7 := HoProLiRec."Hour 07";
 
-                        HoProLiRec.CalcSums("Hour 08");
-                        WSH8 := HoProLiRec."Hour 08";
+                    //     HoProLiRec.CalcSums("Hour 08");
+                    //     WSH8 := HoProLiRec."Hour 08";
 
-                        HoProLiRec.CalcSums("Hour 09");
-                        WSH9 := HoProLiRec."Hour 09";
+                    //     HoProLiRec.CalcSums("Hour 09");
+                    //     WSH9 := HoProLiRec."Hour 09";
 
-                        HoProLiRec.CalcSums("Hour 10");
-                        WSH10 := HoProLiRec."Hour 10";
+                    //     HoProLiRec.CalcSums("Hour 10");
+                    //     WSH10 := HoProLiRec."Hour 10";
 
-                        WSHTot := WSH1 + WSH2 + WSH3 + WSH4 + WSH5 + WSH6 + WSH7 + WSH8 + WSH9 + WSH10;
+                    //     WSHTot := WSH1 + WSH2 + WSH3 + WSH4 + WSH5 + WSH6 + WSH7 + WSH8 + WSH9 + WSH10;
+                    // end;
+
+                    // HoProLiRec.Reset();
+                    // HoProLiRec.SetRange("Style No.", HoFinLineRec."Style No.");
+                    // HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
+                    // HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                    // if HoProLiRec.FindSet() then begin
+                    //     HoProLiRec.CalcSums("Hour 01");
+                    //     WFH1 := HoProLiRec."Hour 01";
+
+                    //     HoProLiRec.CalcSums("Hour 02");
+                    //     WFH2 := HoProLiRec."Hour 02";
+
+                    //     HoProLiRec.CalcSums("Hour 03");
+                    //     WFH3 := HoProLiRec."Hour 03";
+
+                    //     HoProLiRec.CalcSums("Hour 04");
+                    //     WFH4 := HoProLiRec."Hour 04";
+
+                    //     HoProLiRec.CalcSums("Hour 05");
+                    //     WFH5 := HoProLiRec."Hour 05";
+
+                    //     HoProLiRec.CalcSums("Hour 06");
+                    //     WFH6 := HoProLiRec."Hour 06";
+
+                    //     HoProLiRec.CalcSums("Hour 07");
+                    //     WFH7 := HoProLiRec."Hour 07";
+
+                    //     HoProLiRec.CalcSums("Hour 08");
+                    //     WFH8 := HoProLiRec."Hour 08";
+
+                    //     HoProLiRec.CalcSums("Hour 09");
+                    //     WFH9 := HoProLiRec."Hour 09";
+
+                    //     HoProLiRec.CalcSums("Hour 10");
+                    //     WFH10 := HoProLiRec."Hour 10";
+
+                    //     WFHTot := WFH1 + WFH2 + WFH3 + WFH4 + WFH5 + WFH6 + WFH7 + WFH8 + WFH9 + WFH10;
+                    // end;
+
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", HoFinLineRec."Style No.");
+                    if StylePoRec.FindSet() then begin
+                        StylePoRec.CalcSums("Sawing Out Qty");
+                        WIPFin := StylePoRec."Sawing Out Qty";
                     end;
-
-                    HoProLiRec.Reset();
-                    HoProLiRec.SetRange("Style No.", HoFinLineRec."Style No.");
-                    HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
-                    HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
-                    if HoProLiRec.FindSet() then begin
-                        HoProLiRec.CalcSums("Hour 01");
-                        WFH1 := HoProLiRec."Hour 01";
-
-                        HoProLiRec.CalcSums("Hour 02");
-                        WFH2 := HoProLiRec."Hour 02";
-
-                        HoProLiRec.CalcSums("Hour 03");
-                        WFH3 := HoProLiRec."Hour 03";
-
-                        HoProLiRec.CalcSums("Hour 04");
-                        WFH4 := HoProLiRec."Hour 04";
-
-                        HoProLiRec.CalcSums("Hour 05");
-                        WFH5 := HoProLiRec."Hour 05";
-
-                        HoProLiRec.CalcSums("Hour 06");
-                        WFH6 := HoProLiRec."Hour 06";
-
-                        HoProLiRec.CalcSums("Hour 07");
-                        WFH7 := HoProLiRec."Hour 07";
-
-                        HoProLiRec.CalcSums("Hour 08");
-                        WFH8 := HoProLiRec."Hour 08";
-
-                        HoProLiRec.CalcSums("Hour 09");
-                        WFH9 := HoProLiRec."Hour 09";
-
-                        HoProLiRec.CalcSums("Hour 10");
-                        WFH10 := HoProLiRec."Hour 10";
-
-                        WFHTot := WFH1 + WFH2 + WFH3 + WFH4 + WFH5 + WFH6 + WFH7 + WFH8 + WFH9 + WFH10;
-                    end;
-                    WIPFin := WSHTot - WFHTot;
+                    // WIPFin := WSHTot - WFHTot;
                 end;
                 //Factory Target Saw
                 HoProLiRec.Reset();
