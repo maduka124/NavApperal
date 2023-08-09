@@ -755,6 +755,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ProdPlansDetails.Reset();
                                 ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                                 ProdPlansDetails.SetRange("Style No.", PlanningQueueeRec."Style No.");
+                                ProdPlansDetails.SetRange("Resource No.", ResourceNo);
                                 if ProdPlansDetails.FindSet() then begin
                                     ApplyLCurve := false;
                                     Message('Learning Curve already applied for the style %1 within %2 days. ', PlanningQueueeRec."Style Name", ResourceRec."LV Days");
@@ -1302,6 +1303,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     ProdPlansDetails.Reset();
                                                     ProdPlansDetails.SetFilter(PlanDate, '%1..%2', JobPlaLineRec."Start Date" - ResourceRec."LV Days", JobPlaLineRec."Start Date" - 1);
                                                     ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
+                                                    ProdPlansDetails.SetRange("Resource No.", ResourceNo);
                                                     if ProdPlansDetails.FindSet() then
                                                         ApplyLCurve := false;
                                                 end;
@@ -2168,6 +2170,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                             ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
                             ProdPlansDetails.SetFilter("Line No.", '<>%1', JobPlaLineRec."Line No.");
+                            ProdPlansDetails.SetRange("Resource No.", ResourceNo);
                             if ProdPlansDetails.FindSet() then begin
                                 ApplyLCurve := false;
                                 Message('Learning Curve already applied for the style %1 within %2 days. ', JobPlaLineRec."Style Name", ResourceRec."LV Days");
@@ -2178,6 +2181,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                                 ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
                                 ProdPlansDetails.SetFilter("Line No.", '=%1', JobPlaLineRec."Line No.");
+                                ProdPlansDetails.SetRange("Resource No.", ResourceNo);
                                 if not ProdPlansDetails.FindSet() then begin
                                     ApplyLCurve := true
                                 end
@@ -2703,6 +2707,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             ProdPlansDetails.SetFilter(PlanDate, '%1..%2', JobPlaLineRec."Start Date" - ResourceRec."LV Days", JobPlaLineRec."Start Date" - 1);
                                             ProdPlansDetails.SetRange("Style No.", JobPlaLineRec."Style No.");
                                             ProdPlansDetails.SetFilter("Line No.", '<>%1', JobPlaLineRec."Line No.");
+                                            ProdPlansDetails.SetRange("Resource No.", ResourceNo);
                                             if ProdPlansDetails.FindSet() then
                                                 ApplyLCurve := false;
                                         end;
