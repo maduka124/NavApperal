@@ -86,7 +86,7 @@ report 51244 ShipementSummaryReport
                     SetRange("LC/Contract No.", ContractFilter);
                 if UdFilter <> '' then
                     SetRange("No.", UdFilter);
-                if (Stdate <> 0D) and (EndDate <> 0D) then
+                if Stdate <> 0D then
                     SetRange("Created Date", Stdate, EndDate);
             end;
 
