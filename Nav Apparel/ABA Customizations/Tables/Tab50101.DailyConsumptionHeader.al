@@ -198,8 +198,51 @@ table 50101 "Daily Consumption Header"
         field(11; PO; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style Name"));
-            ValidateTableRelation = false;
+            //TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style Name"));
+            //ValidateTableRelation = false;
+
+            trigger OnLookup()
+            var
+                ProdOrder: Record "Production Order";
+                UserSetupRec: Record "User Setup";
+                NavAppProdPlanRec: Record "NavApp Prod Plans Details";
+                PONO: code[20];
+            begin
+                ProdOrder.Reset();
+                ProdOrder.SetRange(Status, ProdOrder.Status::Released);
+                ProdOrder.SetRange(BuyerCode, "Buyer Code");
+                ProdOrder.SetRange("Style Name", "Style Name");
+                if ProdOrder.FindSet() then begin
+                    repeat
+                        UserSetupRec.Reset();
+                        UserSetupRec.SetRange("User ID", UserId);
+                        if UserSetupRec.FindSet() then begin
+
+                            NavAppProdPlanRec.Reset();
+                            NavAppProdPlanRec.SetRange("Style Name", "Style Name");
+                            NavAppProdPlanRec.SetRange("PO No.", ProdOrder.PO);
+                            if NavAppProdPlanRec.FindSet() then begin
+                                repeat
+                                    IF PONO <> NavAppProdPlanRec."PO No." THEN BEGIN
+                                        if UserSetupRec."Factory Code" = NavAppProdPlanRec."Factory No." then begin
+                                            PONO := NavAppProdPlanRec."PO No.";
+                                            NavAppProdPlanRec.MARK(TRUE);
+                                        end;
+                                    end;
+                                until NavAppProdPlanRec.Next() = 0;
+                                NavAppProdPlanRec.MARKEDONLY(TRUE);
+                            end
+                            else
+                                Error('Cannot find planned PO details.');
+                        end
+                        else
+                            Error('Cannot find user details in user setup.');
+                    until ProdOrder.Next() = 0;
+                end;
+
+                if Page.RunModal(51386, ProdOrder) = Action::LookupOK then
+                    PO := ProdOrder.PO;
+            end;
 
             trigger OnValidate()
             var
@@ -208,20 +251,17 @@ table 50101 "Daily Consumption Header"
                 ProdOrder.Reset();
                 ProdOrder.SetRange(Status, ProdOrder.Status::Released);
                 ProdOrder.SetRange(BuyerCode, "Buyer Code");
-                // ProdOrder.SetRange("Style Name", "Style No.");
                 ProdOrder.SetRange("Style Name", "Style Name");
                 ProdOrder.SetRange(PO, PO);
                 if not ProdOrder.FindFirst() then
                     Error('There is no Production order')
-                else begin//Done By Sachith on 04/08/23
+                else begin
                     if ProdOrder."No." <> '' then begin
                         "Prod. Order No." := ProdOrder."No.";
-                        //ProductionOrderOldCal();
                     end;
                 end;
 
                 "Style Master No." := ProdOrder."Style No.";
-                //Validate("Prod. Order No.", ProdOrder."No.");
             end;
         }
 
