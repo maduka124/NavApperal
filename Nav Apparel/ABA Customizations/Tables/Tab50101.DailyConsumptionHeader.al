@@ -539,6 +539,8 @@ table 50101 "Daily Consumption Header"
                 repeat
                     ItemRec.Get(ProdOrderLine."Item No.");
                     if "Colour No." = ItemRec."Color No." then begin
+
+                        Total := 0;
                         ItemLed.Reset();
                         ItemLed.SetRange("Entry Type", ItemLed."Entry Type"::Consumption);
                         ItemLed.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
