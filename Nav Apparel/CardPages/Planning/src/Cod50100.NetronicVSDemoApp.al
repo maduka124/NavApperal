@@ -178,6 +178,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnCalendar.Add('Entries', tempEntities);
                 pCalendars.Add(ldnCalendar);
             UNTIL WorkCenterRec.NEXT = 0;
+    
     end;
 
     // procedure GetResourceCurve(pResource: Record "Work Center"; pCurve: JsonObject; pCurveType: Option; pStart: Date; pEnd: Date)

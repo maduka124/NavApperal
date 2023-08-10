@@ -177,6 +177,11 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
 
         }
 
+        field(50029; "Lot No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     fieldgroups
