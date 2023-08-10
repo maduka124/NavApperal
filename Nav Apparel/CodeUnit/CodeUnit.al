@@ -1109,16 +1109,10 @@ codeunit 50618 NavAppCodeUnit
         StyleRec: Record "Style Master";
         LoginSessionsRec: Record LoginSessions;
         LoginRec: Page "Login Card";
-    //Window: Dialog;
-    //TextCon1: TextConst ENU = 'Creating Production Order ####1';
-
     begin
-        //Window.Open(TextCon1);
-
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
-
         if not LoginSessionsRec.FindSet() then begin  //not logged in
             Clear(LoginRec);
             LoginRec.LookupMode(true);
@@ -1128,7 +1122,6 @@ codeunit 50618 NavAppCodeUnit
             LoginSessionsRec.SetRange(SessionID, SessionId());
             LoginSessionsRec.FindSet();
         end;
-
 
         ManufacSetup.Get();
         ManufacSetup.TestField("Firm Planned Order Nos.");
@@ -1141,14 +1134,12 @@ codeunit 50618 NavAppCodeUnit
         ProdOrder."Secondary UserID" := LoginSessionsRec."Secondary UserID";
         ProdOrder.Insert(true);
 
-        // Window.Update(1, ProdOrder."No.");
-        // Sleep(100);
         ProdOrder.Validate("Source Type", ProdOrder."Source Type"::"Sales Header");
         ProdOrder.Validate(BuyerCode, SalesHedd."Sell-to Customer No.");
         ProdOrder."Style Name" := SalesHedd."Style Name";
         ProdOrder."Style No." := SalesHedd."Style No";
         ProdOrder.PO := SalesHedd."PO No";
-        //ProdOrder."Style Name" := SalesHedd."Style Name";
+        ProdOrder."Lot No." := SalesHedd.Lot;
 
         StyleRec.Reset();
         StyleRec.SetRange("No.", SalesHedd."Style No");
@@ -1166,7 +1157,6 @@ codeunit 50618 NavAppCodeUnit
         end;
 
         ProdOrder.Validate("Source No.", SalesHedd."No.");
-
         ProdOrder.Modify();
         Commit();
 
@@ -1177,7 +1167,6 @@ codeunit 50618 NavAppCodeUnit
         COMMIT;
 
         exit(ProdOrder."No.");
-        //Window.Close();
     end;
 
 

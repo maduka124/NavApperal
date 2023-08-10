@@ -108,7 +108,6 @@ page 50120 "Approved Daily Consump. List"
                     ItemJnalRecNew: Record "Item Journal Line";
                     ItemJnlMgt: Codeunit ItemJnlManagement;
                     ItemJrnlLineTempRec: Record ItemJournalLinetemp;
-                    //Mihiranga 2023/02/01
                     CalConsump: Report "Calc. Consumption";
                     ProdOrdComp: Record "Prod. Order Component";
                     DailyConsumpLine: Record "Daily Consumption Line";
@@ -121,6 +120,9 @@ page 50120 "Approved Daily Consump. List"
                     ItemJnalBatch: Record "Item Journal Batch";
                     NoserMangemnt: Codeunit NoSeriesManagement;
                     ManufacSetup: Record "Manufacturing Setup";
+                    DeptRec: Record Department;
+                    MainCategoryRec: Record "Main Category";
+                    ItemRec: Record Item;
                     PostNo: Code[20];
                     Window: Dialog;
                     Inx1: Integer;
@@ -135,183 +137,376 @@ page 50120 "Approved Daily Consump. List"
                     ItemVer: Integer;
                     CalQty: Decimal;
                     User: Text[200];
+                    MainCategoryNo: Code[20];
+                    MainCategoryName: Text[200];
                 begin
+
+                    // ItemJnalRec.Reset();
+                    // ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                    // ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    // ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
+                    // ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                    // if ItemJnalRec.Findset() then
+                    //     ItemJnalRec.DeleteAll();
+
+                    // ItemJnalRec.Reset();
+                    // ItemJnalRec.SetRange("Journal Template Name", rec."Journal Template Name");
+                    // ItemJnlMgt.SetName(rec."Journal Batch Name", ItemJnalRec);
+                    // ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    // ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                    // if not ItemJnalRec.FindSet() then begin
+
+                    //     Inx1 := 0;
+                    //     PostNo := '';
+                    //     Window.Open(Text000 + Text001 + Text002 + Text003);
+
+                    //     ManufacSetup.Get();
+                    //     ManufacSetup.TestField("Posted Daily Consumption Nos.");
+                    //     PostNo := NoserMangemnt.GetNextNo(ManufacSetup."Posted Daily Consumption Nos.", Today, true);
+                    //     ProdOrderRec.Get(ProdOrderRec.Status::Released, rec."Prod. Order No.");
+                    //     ItemJnalBatch.Get(rec."Journal Template Name", rec."Journal Batch Name");
+
+                    //     ItemJnalRec.Reset();
+                    //     ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                    //     ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    //     ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
+                    //     ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                    //     if ItemJnalRec.Findset() then
+                    //         ItemJnalRec.DeleteAll();
+
+
+                    //     ItemJnalRec.Reset();
+                    //     ItemJnalRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                    //     ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                    //     ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    //     if ItemJnalRec.FindLast() then
+                    //         LastLNo := ItemJnalRec."Line No.";
+
+                    //     // if not rec."All Main Categories" then begin
+                    //     //     DeptRec.Reset();
+                    //     //     DeptRec.SetRange("Department Name", rec."Department Name");
+                    //     //     if DeptRec.Findset() then begin
+                    //     //         if DeptRec."Master Cat. Name" <> '' then
+                    //     //             MasterCateName := DeptRec."Master Cat. Name"
+                    //     //         else
+                    //     //             MasterCateName := '';
+                    //     //     end
+                    //     //     else
+                    //     //         MasterCateName := '';
+                    //     // end
+                    //     // else
+                    //     //     MasterCateName := '';
+
+                    //     Window.Update(1, rec."Prod. Order No.");
+
+                    //     ItemJrnlLineTempRec.Reset();
+                    //     ItemJrnlLineTempRec.SetRange("Journal Template Name", rec."Journal Template Name");
+                    //     ItemJrnlLineTempRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    //     ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                    //     if ItemJrnlLineTempRec.FindSet() then begin
+
+                    //         repeat
+                    //             ProdOrderLine.Get(ProdOrderLine.Status::Released, ItemJrnlLineTempRec."Prod. Order No.", ItemJrnlLineTempRec."Prod. Order Line No.");
+                    //             ProdOrdComp.Reset();
+                    //             ProdOrdComp.SetRange("Prod. Order No.", Rec."Prod. Order No.");
+                    //             ProdOrdComp.SetRange("Prod. Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
+                    //             ProdOrdComp.SetFilter("Remaining Quantity", '<>%1', 0);
+                    //             ProdOrdComp.SETFILTER("Flushing Method", '<>%1&<>%2', "Flushing Method"::Backward, "Flushing Method"::"Pick + Backward");
+                    //             // ProdOrdComp.SetRange("Item Cat. Code", Rec."Main Category");
+
+                    //             if ItemJnalBatch."Inventory Posting Group" <> '' then
+                    //                 ProdOrdComp.SetRange("Invent. Posting Group", ItemJnalBatch."Inventory Posting Group");
+
+                    //             if ProdOrdComp.FindFirst() then
+                    //                 repeat
+                    //                     LineCompleted := false;
+                    //                     QtyToLot := 0;
+                    //                     TotRecervQty := 0;
+                    //                     if LastLNo <> 0 then
+                    //                         Inx1 := LastLNo;
+
+                    //                     ItemLedEntry.Reset();
+                    //                     ItemLedEntry.SetCurrentKey("Location Code", "Item No.");
+                    //                     ItemLedEntry.SetRange("Item No.", ProdOrdComp."Item No.");
+                    //                     ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
+                    //                     ItemLedEntry.CalcSums("Remaining Quantity");
+
+                    //                     Window.Update(2, ProdOrdComp."Item No.");
+
+                    //                     //get Main category
+                    //                     ItemRec.Reset();
+                    //                     ItemRec.SetRange("No.", ProdOrdComp."Item No.");
+                    //                     if ItemRec.Findset() then begin
+                    //                         MainCategoryRec.Reset();
+                    //                         MainCategoryRec.SetRange("No.", ItemRec."Main Category No.");
+                    //                         if MainCategoryRec.Findset() then begin
+                    //                             MainCategoryNo := MainCategoryRec."No.";
+                    //                             MainCategoryName := MainCategoryRec."Main Category Name";
+                    //                         end
+                    //                         else begin
+                    //                             MainCategoryNo := '';
+                    //                             MainCategoryName := '';
+                    //                         end;
+                    //                     end
+                    //                     else begin
+                    //                         MainCategoryNo := '';
+                    //                         MainCategoryName := '';
+                    //                     end;
+
+                    //                     ItemJnalRec.Init();
+                    //                     ItemJnalRec."Journal Template Name" := rec."Journal Template Name";
+                    //                     ItemJnalRec."Journal Batch Name" := rec."Journal Batch Name";
+                    //                     ItemJnalRec."Line No." := Inx1 + 10000;
+                    //                     ItemJnalRec.Insert(true);
+
+                    //                     // DailyConsumpLine.Reset();
+                    //                     // DailyConsumpLine.SetRange("Document No.", rec."No.");
+                    //                     // DailyConsumpLine.FindFirst();
+
+                    //                     Sleep(200);
+                    //                     ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
+                    //                     ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
+                    //                     ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
+                    //                     ItemJnalRec.Validate("Source No.", ItemJrnlLineTempRec."Source No.");
+                    //                     ItemJnalRec.Validate("Posting Date", rec."Document Date");
+                    //                     ItemJnalRec."Daily Consumption Doc. No." := ItemJrnlLineTempRec."Daily Consumption Doc. No.";
+                    //                     ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
+                    //                     ItemJnalRec."Posted Daily Output" := ItemJrnlLineTempRec."Daily Consumption";
+                    //                     ItemJnalRec.Validate("Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
+                    //                     ItemJnalRec.PO := ProdOrderRec.PO;
+                    //                     ItemJnalRec."Style No." := ProdOrderRec."Style No.";
+                    //                     ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
+                    //                     ItemJnalRec.MainCategory := MainCategoryNo;
+                    //                     ItemJnalRec.MainCategoryName := MainCategoryName;
+                    //                     // ItemJnalRec.MainCategory := rec."Main Category";
+                    //                     // ItemJnalRec.MainCategoryName := rec."Main Category Name";
+                    //                     // ItemJnalRec.MainCategory := DailyConsumpLine."Main Category";
+                    //                     // ItemJnalRec.MainCategoryName := DailyConsumpLine."Main Category Name";
+
+                    //                     //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
+                    //                     ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");
+
+                    //                     if (ItemJrnlLineTempRec."Original Requirement" - ItemJrnlLineTempRec."Posted requirement") > ProdOrdComp."Remaining Quantity" then
+                    //                         ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
+                    //                     else
+                    //                         ItemJnalRec.Validate(Quantity, (ItemJrnlLineTempRec."Original Requirement" - ItemJrnlLineTempRec."Posted requirement"));
+
+                    //                     Window.Update(3, ItemJnalRec.Quantity);
+                    //                     ItemJnalRec."Line Approved" := true;
+                    //                     ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                    //                     ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
+                    //                     ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
+                    //                     ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
+                    //                     ItemJnalRec.Description := ProdOrdComp.Description;
+                    //                     ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
+                    //                     ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
+                    //                     ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
+                    //                     ItemJnalRec.Modify();
+
+                    //                     Inx1 := ItemJnalRec."Line No.";
+                    //                     LastLNo := 0;
+
+                    //                     ItemLedEntry.Reset();
+                    //                     ItemLedEntry.SetCurrentKey("Item No.", Open, "Variant Code", "Location Code", "Item Tracking", "Lot No.", "Serial No.");
+                    //                     ItemLedEntry.SetRange("Item No.", ProdOrdComp."Item No.");
+                    //                     ItemLedEntry.SetRange("Variant Code", ProdOrdComp."Variant Code");
+                    //                     ItemLedEntry.SetRange(Open, true);
+                    //                     ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
+                    //                     ItemLedEntry.SetFilter("Lot No.", '<>%1', '');
+
+                    //                     if ItemLedEntry.FindFirst() then begin
+                    //                         REPEAT
+                    //                             if not LineCompleted then begin
+                    //                                 //Check Same lot availability
+                    //                                 ReserveEntry.RESET;
+                    //                                 ReserveEntry.SETCURRENTKEY("Entry No.");
+                    //                                 ReserveEntry.SetRange("Item No.", ProdOrdComp."Item No.");
+                    //                                 ReserveEntry.SetRange("Lot No.", ItemLedEntry."Lot No.");
+                    //                                 // ReserveEntry.SetRange("Source ID", rec."Journal Template Name");
+                    //                                 // ReserveEntry.SetRange("Source Batch Name", Rec."Journal Batch Name");
+                    //                                 // ReserveEntry.SetRange("Source Ref. No.", ItemJnalRec."Line No.");
+                    //                                 ReserveEntry.CalcSums(Quantity);
+
+                    //                                 ReserveEntryLast.RESET;
+                    //                                 ReserveEntryLast.SETCURRENTKEY("Entry No.");
+                    //                                 ReserveEntryLast.SetRange("Item No.", ProdOrdComp."Item No.");
+                    //                                 ReserveEntryLast.SetRange("Source ID", rec."Journal Template Name");
+                    //                                 ReserveEntryLast.SetRange("Source Batch Name", Rec."Journal Batch Name");
+                    //                                 ReserveEntryLast.SetRange("Source Ref. No.", ItemJnalRec."Line No.");
+                    //                                 ReserveEntryLast.CalcSums(Quantity);
+                    //                                 TotRecervQty := ABS(ReserveEntryLast.Quantity);
+
+                    //                                 IF (ItemJnalRec.Quantity > TotRecervQty) and (ItemLedEntry."Remaining Quantity" - Abs(ReserveEntry.Quantity) > 0) then begin
+                    //                                     if (ItemLedEntry."Remaining Quantity" - Abs(ReserveEntry.Quantity)) <= (ItemJnalRec.Quantity - TotRecervQty) then
+                    //                                         QtyToLot := ItemLedEntry."Remaining Quantity" - Abs(ReserveEntry.Quantity)
+                    //                                     else
+                    //                                         QtyToLot := ItemJnalRec.Quantity - TotRecervQty;
+
+                    //                                     InsertResvEntry(ItemJnalRec."Item No.", ItemJnalRec."Location Code", 83, 5, -QtyToLot, ItemLedEntry."Lot No.",
+                    //                                             false, ItemJnalRec."Posting Date", rec."Journal Template Name", Rec."Journal Batch Name", ItemJnalRec."Line No.", 'C', LineCompleted,
+                    //                                               ItemLedEntry.Shade, ItemLedEntry."Shade No", ItemLedEntry."Width Act", ItemLedEntry."Width Tag", ItemLedEntry."Length Act", ItemLedEntry."Length Tag"
+                    //                                             , ItemLedEntry."Supplier Batch No.", ItemLedEntry.InvoiceNo, ItemLedEntry.Color, ItemLedEntry."Color No");
+                    //                                 end;
+                    //                             end;
+                    //                         until ItemLedEntry.Next() = 0;
+                    //                     end;
+
+
+                    //                     //Modify the temp table quantity  
+                    //                     ItemJrnlLineTempRec."Original Requirement" := ItemJrnlLineTempRec."Original Requirement" - ItemJrnlLineTempRec."Posted requirement";
+                    //                     ItemJrnlLineTempRec."Posted requirement" := 0;
+                    //                     ItemJrnlLineTempRec.Modify();
+
+                    //                 until ProdOrdComp.Next() = 0;
+
+                    //         until ItemJrnlLineTempRec.Next() = 0;
+
+                    //     end;
+
+
+                    // end;
+
+
+
+                    //Delete all records for the document.
                     ItemJnalRec.Reset();
-                    ItemJnalRec.SetRange("Journal Template Name", rec."Journal Template Name");
-                    ItemJnlMgt.SetName(rec."Journal Batch Name", ItemJnalRec);
+                    ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
                     ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
                     ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
-                    if not ItemJnalRec.FindSet() then begin
-     
-                        Inx1 := 0;
-                        PostNo := '';
-                        Window.Open(Text000 + Text001 + Text002 + Text003);
+                    if ItemJnalRec.Findset() then
+                        ItemJnalRec.DeleteAll();
 
-                        ManufacSetup.Get();
-                        ManufacSetup.TestField("Posted Daily Consumption Nos.");
-                        PostNo := NoserMangemnt.GetNextNo(ManufacSetup."Posted Daily Consumption Nos.", Today, true);
-                        ProdOrderRec.Get(ProdOrderRec.Status::Released, rec."Prod. Order No.");
-                        ItemJnalBatch.Get(rec."Journal Template Name", rec."Journal Batch Name");
+                    Inx1 := 0;
+                    PostNo := '';
+                    Window.Open(Text000 + Text001 + Text002 + Text003);
 
-                        ItemJnalRec.Reset();
-                        ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
-                        ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-                        ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
-                        ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
-                        if ItemJnalRec.Findset() then
-                            ItemJnalRec.DeleteAll();
+                    ManufacSetup.Get();
+                    ManufacSetup.TestField("Posted Daily Consumption Nos.");
+                    PostNo := NoserMangemnt.GetNextNo(ManufacSetup."Posted Daily Consumption Nos.", Today, true);
+                    ProdOrderRec.Get(ProdOrderRec.Status::Released, rec."Prod. Order No.");
+                    ItemJnalBatch.Get(rec."Journal Template Name", rec."Journal Batch Name");
 
+                    ItemJnalRec.Reset();
+                    ItemJnalRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                    ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                    ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    if ItemJnalRec.FindLast() then
+                        LastLNo := ItemJnalRec."Line No.";
 
-                        ItemJnalRec.Reset();
-                        ItemJnalRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                        ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
-                        ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-                        if ItemJnalRec.FindLast() then
-                            LastLNo := ItemJnalRec."Line No.";
+                    Window.Update(1, rec."Prod. Order No.");
 
-                        Window.Update(1, rec."Prod. Order No.");
+                    ItemJrnlLineTempRec.Reset();
+                    ItemJrnlLineTempRec.SetRange("Journal Template Name", rec."Journal Template Name");
+                    ItemJrnlLineTempRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                    ItemJrnlLineTempRec.SetCurrentKey("Source No.");
+                    ItemJrnlLineTempRec.Ascending(true);
+                    if ItemJrnlLineTempRec.FindSet() then begin
 
-                        ItemJrnlLineTempRec.Reset();
-                        ItemJrnlLineTempRec.SetRange("Journal Template Name", rec."Journal Template Name");
-                        ItemJrnlLineTempRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-                        ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", rec."No.");
-                        if ItemJrnlLineTempRec.FindSet() then begin
+                        repeat
+                            //ProdOrderLine.Get(ProdOrderLine.Status::Released, ItemJrnlLineTempRec."Prod. Order No.", ItemJrnlLineTempRec."Prod. Order Line No.");
+                            ProdOrdComp.Reset();
+                            ProdOrdComp.SetRange("Prod. Order No.", Rec."Prod. Order No.");
+                            ProdOrdComp.SetRange("Prod. Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
+                            ProdOrdComp.SetRange("Item No.", ItemJrnlLineTempRec."Item No.");
+                            // ProdOrdComp.SetFilter("Remaining Quantity", '<>%1', 0);
+                            //ProdOrdComp.SETFILTER("Flushing Method", '<>%1&<>%2', "Flushing Method"::Backward, "Flushing Method"::"Pick + Backward");
+                            //if ItemJnalBatch."Inventory Posting Group" <> '' then
+                            //    ProdOrdComp.SetRange("Invent. Posting Group", ItemJnalBatch."Inventory Posting Group");
+                            ProdOrdComp.FindFirst();
 
-                            repeat
-                                ProdOrderLine.Get(ProdOrderLine.Status::Released, ItemJrnlLineTempRec."Prod. Order No.", ItemJrnlLineTempRec."Prod. Order Line No.");
-                                ProdOrdComp.Reset();
-                                ProdOrdComp.SetRange("Prod. Order No.", Rec."Prod. Order No.");
-                                ProdOrdComp.SetRange("Prod. Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
-                                ProdOrdComp.SetFilter("Remaining Quantity", '<>%1', 0);
-                                ProdOrdComp.SETFILTER("Flushing Method", '<>%1&<>%2', "Flushing Method"::Backward, "Flushing Method"::"Pick + Backward");
-                                // ProdOrdComp.SetRange("Item Cat. Code", Rec."Main Category");
+                            if LastLNo <> 0 then
+                                Inx1 := LastLNo;
 
-                                if ItemJnalBatch."Inventory Posting Group" <> '' then
-                                    ProdOrdComp.SetRange("Invent. Posting Group", ItemJnalBatch."Inventory Posting Group");
+                            MainCategoryNo := '';
+                            MainCategoryName := '';
 
-                                if ProdOrdComp.FindFirst() then
-                                    repeat
-                                        LineCompleted := false;
-                                        QtyToLot := 0;
-                                        TotRecervQty := 0;
-                                        if LastLNo <> 0 then
-                                            Inx1 := LastLNo;
+                            //get Main category
+                            ItemRec.Reset();
+                            ItemRec.SetRange("No.", ItemJrnlLineTempRec."Item No.");
+                            if ItemRec.Findset() then begin
+                                MainCategoryRec.Reset();
+                                MainCategoryRec.SetRange("No.", ItemRec."Main Category No.");
+                                if MainCategoryRec.Findset() then begin
+                                    MainCategoryNo := MainCategoryRec."No.";
+                                    MainCategoryName := MainCategoryRec."Main Category Name";
+                                end
+                                else begin
+                                    MainCategoryNo := '';
+                                    MainCategoryName := '';
+                                end;
+                            end
+                            else begin
+                                MainCategoryNo := '';
+                                MainCategoryName := '';
+                            end;
 
-                                        ItemLedEntry.Reset();
-                                        ItemLedEntry.SetCurrentKey("Location Code", "Item No.");
-                                        ItemLedEntry.SetRange("Item No.", ProdOrdComp."Item No.");
-                                        ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
-                                        ItemLedEntry.CalcSums("Remaining Quantity");
+                            ItemLedEntry.Reset();
+                            ItemLedEntry.SetCurrentKey("Location Code", "Item No.");
+                            ItemLedEntry.SetRange("Item No.", ItemJrnlLineTempRec."Item No.");
+                            ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
+                            ItemLedEntry.CalcSums("Remaining Quantity");
 
-                                        Window.Update(2, ProdOrdComp."Item No.");
-                                        ItemJnalRec.Init();
-                                        ItemJnalRec."Journal Template Name" := rec."Journal Template Name";
-                                        ItemJnalRec."Journal Batch Name" := rec."Journal Batch Name";
-                                        ItemJnalRec."Line No." := Inx1 + 10000;
-                                        ItemJnalRec.Insert(true);
+                            ItemLedEntry2.Reset();
+                            // ItemLedEntry2.SetCurrentKey("Daily Consumption Doc. No.", "Item No.");
+                            ItemLedEntry2.SetRange("Item No.", ItemJrnlLineTempRec."Item No.");
+                            ItemLedEntry2.SetRange("Daily Consumption Doc. No.", ItemJrnlLineTempRec."Daily Consumption Doc. No.");
+                            ItemLedEntry2.SetRange("Entry Type", ItemLedEntry2."Entry Type"::Consumption);
+                            ItemLedEntry2.SetRange("Source No.", ItemJrnlLineTempRec."Source No.");
+                            ItemLedEntry2.CalcSums(Quantity);
 
-                                        DailyConsumpLine.Reset();
-                                        DailyConsumpLine.SetRange("Document No.", rec."No.");
-                                        DailyConsumpLine.FindFirst();
+                            Window.Update(2, ItemJrnlLineTempRec."Item No.");
 
-                                        Sleep(200);
-                                        ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
-                                        ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
-                                        ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
-                                        ItemJnalRec.Validate("Source No.", ItemJrnlLineTempRec."Source No.");
-                                        ItemJnalRec.Validate("Posting Date", rec."Document Date");
-                                        ItemJnalRec."Daily Consumption Doc. No." := ItemJrnlLineTempRec."Daily Consumption Doc. No.";
-                                        ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
-                                        ItemJnalRec."Posted Daily Output" := ItemJrnlLineTempRec."Daily Consumption";
-                                        ItemJnalRec.Validate("Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
-                                        ItemJnalRec.PO := ProdOrderRec.PO;
-                                        ItemJnalRec."Style No." := ProdOrderRec."Style No.";
-                                        ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
-                                        // ItemJnalRec.MainCategory := rec."Main Category";
-                                        // ItemJnalRec.MainCategoryName := rec."Main Category Name";
-                                        ItemJnalRec.MainCategory := DailyConsumpLine."Main Category";
-                                        ItemJnalRec.MainCategoryName := DailyConsumpLine."Main Category Name";
+                            ItemJnalRec.Init();
+                            ItemJnalRec."Journal Template Name" := ItemJrnlLineTempRec."Journal Template Name";
+                            ItemJnalRec."Journal Batch Name" := ItemJrnlLineTempRec."Journal Batch Name";
+                            ItemJnalRec."Line No." := Inx1 + 10000;
+                            ItemJnalRec.Insert(true);
 
-                                        //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
-                                        ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");
+                            Sleep(200);
+                            ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
+                            ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
+                            ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
+                            ItemJnalRec.Validate("Source No.", ItemJrnlLineTempRec."Source No.");
+                            ItemJnalRec.Validate("Posting Date", rec."Document Date");
+                            ItemJnalRec."Daily Consumption Doc. No." := ItemJrnlLineTempRec."Daily Consumption Doc. No.";
+                            ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
+                            ItemJnalRec."Posted Daily Output" := ItemJrnlLineTempRec."Daily Consumption";
+                            ItemJnalRec.Validate("Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
+                            ItemJnalRec.PO := ProdOrderRec.PO;
+                            ItemJnalRec."Style No." := ProdOrderRec."Style No.";
+                            ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
+                            ItemJnalRec.MainCategory := MainCategoryNo;
+                            ItemJnalRec.MainCategoryName := MainCategoryName;
+                            ItemJnalRec.Validate("Item No.", ItemJrnlLineTempRec."Item No.");
 
-                                        if (ItemJrnlLineTempRec."Original Requirement" - ItemJrnlLineTempRec."Posted requirement") > ProdOrdComp."Remaining Quantity" then
-                                            ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
-                                        else
-                                            ItemJnalRec.Validate(Quantity, (ItemJrnlLineTempRec."Original Requirement" - ItemJrnlLineTempRec."Posted requirement"));
+                            if (ItemJrnlLineTempRec."Original Requirement" + ItemLedEntry2.Quantity) > ProdOrdComp."Remaining Quantity" then
+                                ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
+                            else
+                                ItemJnalRec.Validate(Quantity, (ItemJrnlLineTempRec."Original Requirement" + ItemLedEntry2.Quantity));
 
-                                        Window.Update(3, ItemJnalRec.Quantity);
-                                        ItemJnalRec."Line Approved" := true;
-                                        ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
-                                        ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
-                                        ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
-                                        ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
-                                        ItemJnalRec.Description := ProdOrdComp.Description;
-                                        ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
-                                        ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
-                                        ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
-                                        ItemJnalRec.Modify();
+                            Window.Update(3, ItemJnalRec.Quantity);
+                            ItemJnalRec."Line Approved" := true;
+                            ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                            ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
+                            ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
+                            ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
+                            ItemJnalRec.Description := ProdOrdComp.Description;
+                            ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
+                            ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
+                            ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
+                            ItemJnalRec.Modify();
 
-                                        Inx1 := ItemJnalRec."Line No.";
-                                        LastLNo := 0;
+                            Inx1 := ItemJnalRec."Line No.";
+                            LastLNo := 0;
 
-                                        ItemLedEntry.Reset();
-                                        ItemLedEntry.SetCurrentKey("Item No.", Open, "Variant Code", "Location Code", "Item Tracking", "Lot No.", "Serial No.");
-                                        ItemLedEntry.SetRange("Item No.", ProdOrdComp."Item No.");
-                                        ItemLedEntry.SetRange("Variant Code", ProdOrdComp."Variant Code");
-                                        ItemLedEntry.SetRange(Open, true);
-                                        ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
-                                        ItemLedEntry.SetFilter("Lot No.", '<>%1', '');
+                        ///Modify the temp table quantity  
+                        // ItemJrnlLineTempRec."Original Requirement" := ItemJrnlLineTempRec."Original Requirement" - ItemJrnlLineTempRec."Posted requirement";
+                        // ItemJrnlLineTempRec."Posted requirement" := 0;
+                        // ItemJrnlLineTempRec.Modify();
 
-                                        if ItemLedEntry.FindFirst() then begin
-                                            REPEAT
-                                                if not LineCompleted then begin
-                                                    //Check Same lot availability
-                                                    ReserveEntry.RESET;
-                                                    ReserveEntry.SETCURRENTKEY("Entry No.");
-                                                    ReserveEntry.SetRange("Item No.", ProdOrdComp."Item No.");
-                                                    ReserveEntry.SetRange("Lot No.", ItemLedEntry."Lot No.");
-                                                    // ReserveEntry.SetRange("Source ID", rec."Journal Template Name");
-                                                    // ReserveEntry.SetRange("Source Batch Name", Rec."Journal Batch Name");
-                                                    // ReserveEntry.SetRange("Source Ref. No.", ItemJnalRec."Line No.");
-                                                    ReserveEntry.CalcSums(Quantity);
-
-                                                    ReserveEntryLast.RESET;
-                                                    ReserveEntryLast.SETCURRENTKEY("Entry No.");
-                                                    ReserveEntryLast.SetRange("Item No.", ProdOrdComp."Item No.");
-                                                    ReserveEntryLast.SetRange("Source ID", rec."Journal Template Name");
-                                                    ReserveEntryLast.SetRange("Source Batch Name", Rec."Journal Batch Name");
-                                                    ReserveEntryLast.SetRange("Source Ref. No.", ItemJnalRec."Line No.");
-                                                    ReserveEntryLast.CalcSums(Quantity);
-                                                    TotRecervQty := ABS(ReserveEntryLast.Quantity);
-
-                                                    IF (ItemJnalRec.Quantity > TotRecervQty) and (ItemLedEntry."Remaining Quantity" - Abs(ReserveEntry.Quantity) > 0) then begin
-                                                        if (ItemLedEntry."Remaining Quantity" - Abs(ReserveEntry.Quantity)) <= (ItemJnalRec.Quantity - TotRecervQty) then
-                                                            QtyToLot := ItemLedEntry."Remaining Quantity" - Abs(ReserveEntry.Quantity)
-                                                        else
-                                                            QtyToLot := ItemJnalRec.Quantity - TotRecervQty;
-
-                                                        InsertResvEntry(ItemJnalRec."Item No.", ItemJnalRec."Location Code", 83, 5, -QtyToLot, ItemLedEntry."Lot No.",
-                                                                false, ItemJnalRec."Posting Date", rec."Journal Template Name", Rec."Journal Batch Name", ItemJnalRec."Line No.", 'C', LineCompleted,
-                                                                  ItemLedEntry.Shade, ItemLedEntry."Shade No", ItemLedEntry."Width Act", ItemLedEntry."Width Tag", ItemLedEntry."Length Act", ItemLedEntry."Length Tag"
-                                                                , ItemLedEntry."Supplier Batch No.", ItemLedEntry.InvoiceNo, ItemLedEntry.Color, ItemLedEntry."Color No");
-                                                    end;
-                                                end;
-                                            until ItemLedEntry.Next() = 0;
-                                        end;
-
-
-                                        //Modify the temp table quantity  
-                                        ItemJrnlLineTempRec."Original Requirement" := ItemJrnlLineTempRec."Original Requirement" - ItemJrnlLineTempRec."Posted requirement";
-                                        ItemJrnlLineTempRec."Posted requirement" := 0;
-                                        ItemJrnlLineTempRec.Modify();
-
-                                    until ProdOrdComp.Next() = 0;
-
-                            until ItemJrnlLineTempRec.Next() = 0;
-
-                        end;
-
+                        until ItemJrnlLineTempRec.Next() = 0;
                     end;
 
                     Commit();

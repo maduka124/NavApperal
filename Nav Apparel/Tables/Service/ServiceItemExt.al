@@ -81,6 +81,7 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         field(50015; "Ownership"; Text[100])
         {
             TableRelation = Location.Name;
+            ValidateTableRelation = false;
         }
 
         field(50016; "Global Dimension Code"; Code[20])

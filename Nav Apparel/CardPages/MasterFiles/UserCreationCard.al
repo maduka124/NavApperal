@@ -101,6 +101,45 @@ page 50978 "Create User Card"
 
         area(Processing)
         {
+            action("Assign Lot No to the Prod order and Daily Consu. Header")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    ProdOrder: Record "Production Order";
+                    StyPo: Record "Style Master PO";
+                    DailyConsuHeader: Record "Daily Consumption Header";
+                begin
+                    ProdOrder.Reset();
+                    ProdOrder.FindSet();
+                    repeat
+                        StyPo.Reset();
+                        StyPo.SetRange("Style No.", ProdOrder."Style No.");
+                        StyPo.SetRange("Po No.", ProdOrder.po);
+                        if StyPo.FindSet() then begin
+                            ProdOrder."Lot No." := StyPo."Lot No.";
+                            ProdOrder.Modify()
+                        end;
+                    until ProdOrder.Next() = 0;
+
+                    DailyConsuHeader.Reset();
+                    DailyConsuHeader.FindSet();
+                    repeat
+                        StyPo.Reset();
+                        StyPo.SetRange("Style No.", DailyConsuHeader."Style Master No.");
+                        StyPo.SetRange("Po No.", DailyConsuHeader.po);
+                        if StyPo.FindSet() then begin
+                            DailyConsuHeader."Lot No." := StyPo."Lot No.";
+                            DailyConsuHeader.Modify()
+                        end;
+                    until DailyConsuHeader.Next() = 0;
+
+                    Message('Completed');
+                end;
+            }
+
             // action("Update sample req status")
             // {
             //     ApplicationArea = All;
@@ -151,76 +190,75 @@ page 50978 "Create User Card"
 
             //     end;
             // }
-            action("Reomove Request Approval")
-            {
-                ApplicationArea = All;
+            // action("Reomove Request Approval")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    ApprovalRec: Record "Approval Entry";
-                begin
-                    ApprovalRec.Reset();
-                    ApprovalRec.SetRange("Document No.", ApprovalNo);
-                    ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
-                    ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
-                    if ApprovalRec.FindSet() then begin
-                        ApprovalRec.DeleteAll();
-                        Message('Request Deleted');
-                    end;
-
-
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         ApprovalRec: Record "Approval Entry";
+            //     begin
+            //         ApprovalRec.Reset();
+            //         ApprovalRec.SetRange("Document No.", ApprovalNo);
+            //         ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
+            //         ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
+            //         if ApprovalRec.FindSet() then begin
+            //             ApprovalRec.DeleteAll();
+            //             Message('Request Deleted');
+            //         end;
+            //     end;
+            // }
 
 
-            action("Remove Assigned PI No")
-            {
-                ApplicationArea = All;
+            // action("Remove Assigned PI No")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    PurchaseHeaderRec: Record "Purchase Header";
-                begin
+            //     trigger OnAction()
+            //     var
+            //         PurchaseHeaderRec: Record "Purchase Header";
+            //     begin
 
-                    PurchaseHeaderRec.Reset();
-                    PurchaseHeaderRec.SetRange("No.", PONo);
-                    if PurchaseHeaderRec.FindSet() then begin
-                        repeat
-                            PurchaseHeaderRec."Assigned PI No." := '';
-                            PurchaseHeaderRec.Modify();
-                        until PurchaseHeaderRec.Next() = 0;
-                        Message('Purchase Header Record Updated');
-                    end;
-                end;
-            }
-            action("Brand Name Update In Sales Invoice Header")
-            {
-                ApplicationArea = All;
+            //         PurchaseHeaderRec.Reset();
+            //         PurchaseHeaderRec.SetRange("No.", PONo);
+            //         if PurchaseHeaderRec.FindSet() then begin
+            //             repeat
+            //                 PurchaseHeaderRec."Assigned PI No." := '';
+            //                 PurchaseHeaderRec.Modify();
+            //             until PurchaseHeaderRec.Next() = 0;
+            //             Message('Purchase Header Record Updated');
+            //         end;
+            //     end;
+            // }
 
-                trigger OnAction()
-                var
-                    SalesInvRec: Record "Sales Invoice Header";
-                    StyleRec: Record "Style Master";
-                begin
+            // action("Brand Name Update In Sales Invoice Header")
+            // {
+            //     ApplicationArea = All;
 
-                    StyleRec.Reset();
-                    if StyleRec.FindSet() then begin
-                        repeat
-                            SalesInvRec.Reset();
-                            SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
-                            if SalesInvRec.FindSet() then begin
-                                repeat
-                                    SalesInvRec."Brand Name" := StyleRec."Brand Name";
-                                    SalesInvRec.Modify();
-                                until SalesInvRec.Next() = 0;
-                            end;
-                        until StyleRec.Next() = 0;
-                        Message('Brand Name Updated');
-                    end;
+            //     trigger OnAction()
+            //     var
+            //         SalesInvRec: Record "Sales Invoice Header";
+            //         StyleRec: Record "Style Master";
+            //     begin
+
+            //         StyleRec.Reset();
+            //         if StyleRec.FindSet() then begin
+            //             repeat
+            //                 SalesInvRec.Reset();
+            //                 SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
+            //                 if SalesInvRec.FindSet() then begin
+            //                     repeat
+            //                         SalesInvRec."Brand Name" := StyleRec."Brand Name";
+            //                         SalesInvRec.Modify();
+            //                     until SalesInvRec.Next() = 0;
+            //                 end;
+            //             until StyleRec.Next() = 0;
+            //             Message('Brand Name Updated');
+            //         end;
 
 
-                end;
-            }
+            //     end;
+            // }
             // action("Update Contract No ")
             // {
             //     ApplicationArea = All;
@@ -279,29 +317,29 @@ page 50978 "Create User Card"
             //     end;
             // }
 
-            action("Remove Export Ref No. From Sales Invoice")
-            {
-                ApplicationArea = All;
+            // action("Remove Export Ref No. From Sales Invoice")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    ExportReferenceHeaderRec: Record ExportReferenceHeader;
-                    SalesInvRec: Record "Sales Invoice Header";
-                begin
+            //     trigger OnAction()
+            //     var
+            //         ExportReferenceHeaderRec: Record ExportReferenceHeader;
+            //         SalesInvRec: Record "Sales Invoice Header";
+            //     begin
 
-                    SalesInvRec.Reset();
-                    if SalesInvRec.FindSet() then begin
-                        repeat
-                            ExportReferenceHeaderRec.Reset();
-                            ExportReferenceHeaderRec.SetRange("Invoice No", SalesInvRec."No.");
-                            if not ExportReferenceHeaderRec.FindSet() then begin
-                                SalesInvRec."Export Ref No." := '';
-                                SalesInvRec.Modify();
-                            end;
-                        until SalesInvRec.Next() = 0;
-                    end;
-                end;
-            }
+            //         SalesInvRec.Reset();
+            //         if SalesInvRec.FindSet() then begin
+            //             repeat
+            //                 ExportReferenceHeaderRec.Reset();
+            //                 ExportReferenceHeaderRec.SetRange("Invoice No", SalesInvRec."No.");
+            //                 if not ExportReferenceHeaderRec.FindSet() then begin
+            //                     SalesInvRec."Export Ref No." := '';
+            //                     SalesInvRec.Modify();
+            //                 end;
+            //             until SalesInvRec.Next() = 0;
+            //         end;
+            //     end;
+            // }
 
 
             // action("Remove value from Purchase Header")

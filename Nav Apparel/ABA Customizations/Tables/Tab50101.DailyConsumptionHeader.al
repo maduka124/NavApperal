@@ -220,17 +220,17 @@ table 50101 "Daily Consumption Header"
 
                             NavAppProdPlanRec.Reset();
                             NavAppProdPlanRec.SetRange("Style Name", "Style Name");
-                            NavAppProdPlanRec.SetRange("PO No.", ProdOrder.PO);
+                            //NavAppProdPlanRec.SetRange("PO No.", ProdOrder.PO);
+                            NavAppProdPlanRec.SetRange("Lot No.", ProdOrder."Lot No.");
                             if NavAppProdPlanRec.FindSet() then begin
                                 repeat
                                     IF PONO <> NavAppProdPlanRec."PO No." THEN BEGIN
                                         if UserSetupRec."Factory Code" = NavAppProdPlanRec."Factory No." then begin
                                             PONO := NavAppProdPlanRec."PO No.";
-                                            NavAppProdPlanRec.MARK(TRUE);
+                                            ProdOrder.MARK(TRUE);
                                         end;
                                     end;
                                 until NavAppProdPlanRec.Next() = 0;
-                                NavAppProdPlanRec.MARKEDONLY(TRUE);
                             end
                             else
                                 Error('Cannot find planned PO details.');
@@ -240,8 +240,10 @@ table 50101 "Daily Consumption Header"
                     until ProdOrder.Next() = 0;
                 end;
 
-                if Page.RunModal(51386, ProdOrder) = Action::LookupOK then
-                    PO := ProdOrder.PO;
+                if Page.RunModal(51386, ProdOrder) = Action::LookupOK then begin
+                    Validate("PO", ProdOrder."PO");
+                    "Lot No." := ProdOrder."Lot No.";
+                end;
             end;
 
             trigger OnValidate()
@@ -352,7 +354,7 @@ table 50101 "Daily Consumption Header"
                 AssortDetails: Record AssortmentDetails;
             begin
                 AssortDetails.Reset();
-                AssortDetails.SetRange("PO No.", PO);
+                AssortDetails.SetRange("Lot No.", "Lot No.");
                 AssortDetails.SetRange("Style No.", "Style Master No.");
                 if Page.RunModal(50109, AssortDetails) = Action::LookupOK then
                     Validate("Colour Name", AssortDetails."Colour Name");
@@ -489,6 +491,11 @@ table 50101 "Daily Consumption Header"
         }
 
         field(29; "All Main Categories"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(30; "Lot No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
