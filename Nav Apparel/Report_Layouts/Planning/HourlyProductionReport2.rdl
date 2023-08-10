@@ -15046,14 +15046,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox112">
+                        <Textbox Name="WFHTot">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Hour_1F.Value+Fields!Hour_2F.Value+Fields!Hour_3F.Value+Fields!Hour_4F.Value+Fields!Hour_5F.Value+Fields!Hour_6F.Value+Fields!Hour_7F.Value+Fields!Hour_8F.Value+Fields!Hour_9F.Value+Fields!Hour_10F.Value</Value>
+                                  <Value>=Fields!WFHTot.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -15065,7 +15065,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox112</rd:DefaultName>
+                          <rd:DefaultName>WFHTot</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -15195,7 +15195,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -15872,17 +15871,16 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TotalAchiveHoursFin4">
+                        <Textbox Name="Textbox112">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TotalAchiveHoursFin.Value)</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -15891,7 +15889,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TotalAchiveHoursFin</rd:DefaultName>
+                          <rd:DefaultName>Textbox112</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -16228,7 +16226,7 @@
                 <Value>=Fields!Line_No_1F.Value</Value>
               </SortExpression>
             </SortExpressions>
-            <Top>14.44837cm</Top>
+            <Top>14.76587cm</Top>
             <Left>0.01074cm</Left>
             <Height>2.2795cm</Height>
             <Width>42.394cm</Width>
@@ -16243,7 +16241,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>11.04754cm</Width>
+                  <Width>7.50944cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.69259cm</Width>
@@ -16279,7 +16277,7 @@
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.17354cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -18923,7 +18921,7 @@
             <Top>17.26354cm</Top>
             <Left>0cm</Left>
             <Height>2.4cm</Height>
-            <Width>42.24013cm</Width>
+            <Width>39.37557cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -18938,7 +18936,7 @@
                   <Width>3.69259cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.47883cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
@@ -22682,7 +22680,7 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>11.04754cm</Size>
+                    <Size>7.50944cm</Size>
                     <CellContents>
                       <Textbox Name="Textbox1455">
                         <CanGrow>true</CanGrow>
@@ -22742,7 +22740,7 @@
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>11.04754cm</Size>
+                    <Size>7.50944cm</Size>
                     <CellContents>
                       <Textbox Name="FactoryName3">
                         <CanGrow>true</CanGrow>
@@ -22812,7 +22810,7 @@
             <Top>8.20802cm</Top>
             <Left>0cm</Left>
             <Height>3cm</Height>
-            <Width>53.44914cm</Width>
+            <Width>49.88987cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -26041,13 +26039,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>19.77671cm</Height>
+        <Height>19.66354cm</Height>
         <Style />
       </Body>
-      <Width>53.47013cm</Width>
+      <Width>53.72317cm</Width>
       <Page>
         <PageFooter>
-          <Height>1.62984cm</Height>
+          <Height>0.80434cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -26723,6 +26721,9 @@ End Function
         </Field>
         <Field Name="WIPFin">
           <DataField>WIPFin</DataField>
+        </Field>
+        <Field Name="WFHTot">
+          <DataField>WFHTot</DataField>
         </Field>
         <Field Name="Hour_1">
           <DataField>Hour_1</DataField>
