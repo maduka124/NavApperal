@@ -1398,7 +1398,7 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                group("Warehouse Reports")
+                group("Store Reports")
                 {
                     Caption = 'Store Reports';
 

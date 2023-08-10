@@ -526,9 +526,6 @@ codeunit 50100 "Customization Management"
     end;
 
 
-
-
-
     procedure ImportPurchaseTrackingExcel(PurchHedd: Record "Purchase Header")
     var
         TrackingRec: Record "Tracking Specification";
@@ -672,7 +669,6 @@ codeunit 50100 "Customization Management"
     end;
 
 
-
     local procedure GetValueAtCell(RowNo: Integer; ColNo: Integer): Text
     var
         Rec_ExcelBuffer: Record "Excel Buffer";
@@ -684,6 +680,4 @@ codeunit 50100 "Customization Management"
 
     var
         PurchaseLineRec: Record "Purchase Line";
-
-
 }

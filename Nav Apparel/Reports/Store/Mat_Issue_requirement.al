@@ -26,9 +26,13 @@ report 51801 MaterialIssueRequition
             { }
             column(PO; PO)
             { }
-            column(Main_Category_Name; 'xxxxx')
-            { }
             column(AllocatedFactory; AllocatedFactory)
+            { }
+            column(Department_Name; "Department Name")
+            { }
+            column(Document_Date; "Document Date")
+            { }
+            column(Approved_Date_Time; "Approved Date/Time")
             { }
 
             dataitem("Item Ledger Entry"; "Item Ledger Entry")
@@ -50,6 +54,10 @@ report 51801 MaterialIssueRequition
                 column(UOM; "Unit of Measure Code")
                 { }
                 column(Original_Daily_Requirement; "Original Daily Requirement")
+                { }
+                column(Posted_Daily_Consump__Doc__No_; "Posted Daily Consump. Doc. No.")
+                { }
+                column(Main_Category_Name; "Main Category Name")
                 { }
 
                 trigger OnAfterGetRecord()
