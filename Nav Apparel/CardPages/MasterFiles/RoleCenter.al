@@ -1886,6 +1886,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+                    action("Finishing Production Report")
+                    {
+                        Caption = 'Finishing Production Report';
+                        Enabled = true;
+                        RunObject = report FinishingProductionReport;
+                        ApplicationArea = all;
+                    }
 
                     //Done By Sachith on 08/03/23
                     action("Line in Out Report Finishing")
