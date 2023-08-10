@@ -701,6 +701,11 @@ page 50964 "NavApp Setup Card"
                     ApplicationArea = All;
                     Caption = 'New BR/Down block period ';
                 }
+                field("Base On Min Ship Days"; Rec."Base On Min Ship Days")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Base On Min Ship Days';
+                }
             }
         }
     }

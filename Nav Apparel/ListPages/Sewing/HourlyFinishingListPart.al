@@ -1099,6 +1099,7 @@ page 51381 HourlyFinishingListPart
                     HourlyRec: Record "Hourly Production Lines";
                     Line: Integer;
                     StyleNo: Code[20];
+                    ShDate: Date;
                 begin
                     // HourlyRec.Reset();
                     // HourlyRec.FindSet();
@@ -1130,7 +1131,23 @@ page 51381 HourlyFinishingListPart
                         if HourlyRec2.FindLast() then begin
                             Line := HourlyRec2."Line No.";
                         end;
+                        repeat
 
+                            StylePoRec.Reset();
+                            StylePoRec.SetCurrentKey("Ship Date");
+                            StylePoRec.Ascending(true);
+                            StylePoRec.SetRange("Style No.", NavAppProdRec."Style No.");
+                            if StylePoRec.FindFirst() then begin
+                                repeat
+                                    ShDate := Today - NavSetupRec."Base On Min Ship Days";
+                                    if ShDate <= StylePoRec."Ship Date" then
+                                        NavAppProdRec.Mark(true);
+
+                                until StylePoRec.Next() = 0;
+                            end;
+                        until NavAppProdRec.Next() = 0;
+
+                        NavAppProdRec.MarkedOnly(true);
                         if Page.RunModal(51380, NavAppProdRec) = Action::LookupOK then begin
 
                             StyleRec.Reset();
@@ -1205,6 +1222,8 @@ page 51381 HourlyFinishingListPart
 
                             CurrPage.Update();
                         end;
+
+
                     end;
                 end;
 
