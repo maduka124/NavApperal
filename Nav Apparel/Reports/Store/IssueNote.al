@@ -84,22 +84,7 @@ report 50605 IssueNoteReport
                         ApplicationArea = All;
                         Caption = 'Requistion No';
                         TableRelation = RoleIssuingNoteHeader."RoleIssuNo.";
-
-
                     }
-                }
-            }
-
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
@@ -113,7 +98,4 @@ report 50605 IssueNoteReport
         ReturnValue: Boolean;
         Report206: Report IssueNoteReport;
         comRec: Record "Company Information";
-
-
-
 }

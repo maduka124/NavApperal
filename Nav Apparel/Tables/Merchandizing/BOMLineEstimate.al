@@ -98,7 +98,7 @@ table 50897 "BOM Line Estimate"
             DataClassification = ToBeClassified;
         }
 
-        field(71012597; "Supplier Name."; text[50])
+        field(71012597; "Supplier Name."; text[200])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Main Category Vendor"."Vendor Name" where("No." = field("Main Category No."));

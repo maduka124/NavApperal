@@ -64,14 +64,11 @@ page 50984 "BOM Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-
-
                         //Check for duplicates
                         BOMRec.Reset();
                         BOMRec.SetRange("Style Name", rec."Style Name");
                         if BOMRec.FindSet() then
                             Error('Style : %1 already used to create a BOM', BOMRec."Style Name");
-
 
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
@@ -129,7 +126,6 @@ page 50984 "BOM Card"
 
                             CurrPage.GetRecord(BOMPOSelectionRec);
 
-
                             //Load BOM Estimate Items to the Grid
                             BOMEstimateRec.Reset();
                             BOMEstimateRec.SetRange("Style No.", rec."Style No.");
@@ -143,16 +139,13 @@ page 50984 "BOM Card"
                             LineNo := 0;
 
                             if BOMEstimateLineRec.FindSet() then begin
-
                                 BOMLineEstimateNewRec.Reset();
                                 BOMLineEstimateNewRec.SetRange("No.", rec."No");
                                 //BOMLineEstimateNewRec.SetRange("Item No.", BOMEstimateLineRec."Item No.");
                                 BOMLineEstimateNewRec.DeleteAll();
 
                                 repeat
-
                                     //if Not BOMLineEstimateNewRec.FindSet() then begin
-
                                     LineNo += 10000;
                                     BOMLineEstimateNewRec.Init();
                                     BOMLineEstimateNewRec."No." := rec."No";
@@ -180,14 +173,10 @@ page 50984 "BOM Card"
                                     BOMLineEstimateNewRec."Line No." := LineNo;
                                     BOMLineEstimateNewRec."Color Sensitive" := true;
                                     BOMLineEstimateNewRec.Insert();
-
                                 //end;
-
                                 until BOMEstimateLineRec.Next() = 0;
-
                                 CurrPage.GetRecord(BOMLineEstimateNewRec);
                             end;
-
                         end
                         else
                             Error('Invalid Style');

@@ -8,154 +8,120 @@ report 51238 GarmentWiseRawMaterialRequest
 
     dataset
     {
-        dataitem("Style Master"; "Style Master")
+        dataitem("Daily Consumption Header"; "Daily Consumption Header")
         {
-            DataItemTableView = sorting("No.");
+            DataItemTableView = where("Journal Template Name" = filter('CONSUMPTIO'));
 
-            column(Style_No_; "Style No.")
+            column(DocNo; "No.")
             { }
-            column(Garment_Type_Name; "Garment Type Name")
+            column(PO; PO)
             { }
-            column(Buyer_Name; "Buyer Name")
-            { }
-            column(Order_Qty; "Order Qty")
+            column(Style_Name; "Style Name")
             { }
             column(CompLogo; comRec.Picture)
             { }
-            column(Factory_Name; "Factory Name")
+
+            column(Garment_Type_Name; "GarmentTypeName")
+            { }
+            column(Buyer_Name; "BuyerName")
+            { }
+            column(Order_Qty; "OrderQty")
+            { }
+            column(Factory_Name; "Factory")
             { }
             column(PoQty; PoQty)
             { }
-            column(PONo; PONo)
-            { }
-            column(LotNo; LotNo)
-            { }
 
-            dataitem("Daily Consumption Header"; "Daily Consumption Header")
+            dataitem("Daily Consumption Line"; "Daily Consumption Line")
             {
-                DataItemLinkReference = "Style Master";
-                DataItemLink = "Style No." = field("Style No.");
-                DataItemTableView = where("Journal Template Name" = filter('CONSUMPTIO'));
+                DataItemLinkReference = "Daily Consumption Header";
+                DataItemLink = "Document No." = field("No.");
+                DataItemTableView = sorting("Document No.", "Line No.");
 
-                column(No_; "No.")
+                column(FGNo; "Item No.")
                 { }
-                column(Main_Category_Name; 'xxxxx')
-                { }
-                column(SizeRange; SizeRange)
+                column(FGName; ItemName)
                 { }
                 column(color; color)
                 { }
-                column(Article; Article)
+                column(SizeRange; SizeRange)
                 { }
-                column(Dimenshion; Dimenshion)
+                column(ReqQtyGM; "Daily Consumption")
                 { }
-                column(UOM; UOM)
+                column(ReqQtyRM; ReqQtyRM)
                 { }
-                column(PO; PO)
+                column(IssuedQtyGM; IssuedQtyGM)
                 { }
-                column(ItemName; ItemName)
-                { }
-
-                ////////////
-                column(ItemLeQuantity; ItemLeQuantity)
-                { }
-                column(OrginalDailyReq; RoundDailyReq)
-                { }
-                column(GMTISSUEQty; GMTISSUEQty)
+                column(IssuedQtyRM; IssuedQtyRM)
                 { }
 
+                // dataitem("Item Ledger Entry"; "Item Ledger Entry")
+                // {
+                //     DataItemLinkReference = "Daily Consumption Line";
+                //     DataItemLink = "Source No." = field("Item No."), "Daily Consumption Doc. No." = field("Document No.");
+                //     DataItemTableView = where("Entry Type" = filter(Consumption));
+                //    
+                //     column(ItemLeQuantity; Quantity * -1)
+                //     { }
+                //     column(OrginalDailyReq; RoundDailyReq)
+                //     { }
+                //     column(GMTISSUEQty; GMTISSUEQty)
+                //     { }
 
-                dataitem("Daily Consumption Line"; "Daily Consumption Line")
-                {
-                    DataItemLinkReference = "Daily Consumption Header";
-                    DataItemLink = "Document No." = field("No.");
-                    DataItemTableView = sorting("Document No.", "Line No.");
-
-                    column(ItemNo; "Item No.")
-                    { }
-                    column(ReqQty; "Daily Consumption")
-                    { }
-                    column(Document_No_; "Document No.")
-                    { }
-
-                    // dataitem("Item Ledger Entry"; "Item Ledger Entry")
-                    // {
-                    //     DataItemLinkReference = "Daily Consumption Line";
-                    //     DataItemLink = "Source No." = field("Item No."), "Daily Consumption Doc. No." = field("Document No.");
-                    //     DataItemTableView = where("Entry Type" = filter(Consumption));
-                    //    
-                    //     column(ItemLeQuantity; Quantity * -1)
-                    //     { }
-                    //     column(OrginalDailyReq; RoundDailyReq)
-                    //     { }
-                    //     column(GMTISSUEQty; GMTISSUEQty)
-                    //     { }
-
-                    //     trigger OnAfterGetRecord()
-                    //     begin
-                    //         RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
-                    //         if RoundDailyReq = 0 then
-                    //             GMTISSUEQty := 0
-                    //         else
-                    //             GMTISSUEQty := round(("Daily Consumption Line"."Daily Consumption" / RoundDailyReq) * (Quantity * -1), 1);
-                    //     end;
-                    // }
-
-                    trigger OnAfterGetRecord()
-                    begin
-                        ItemRec.Reset();
-                        ItemRec.SetRange("No.", "Item No.");
-                        if ItemRec.FindFirst() then begin
-                            SizeRange := ItemRec."Size Range No.";
-                            color := ItemRec."Color No.";
-                            Article := ItemRec."Article No.";
-                            Dimenshion := ItemRec."Dimension Width No.";
-                            UOM := ItemRec."Base Unit of Measure";
-                            ItemName := ItemRec.Description;
-                        end;
-
-                        /////////////////
-                        ItemLeQuantity := 0;
-                        GMTISSUEQty := 0;
-                        RoundDailyReq := 0;
-
-                        //get Original Daily Requirement
-                        ItemLedgRec.Reset();
-                        ItemLedgRec.SetRange("Source No.", "Daily Consumption Line"."Item No.");
-                        ItemLedgRec.SetRange("Daily Consumption Doc. No.", "Daily Consumption Line"."Document No.");
-                        ItemLedgRec.SetFilter("Entry Type", '=%1', ItemLedgRec."Entry Type"::Consumption);
-                        ItemLedgRec.SetCurrentKey("Original Daily Requirement");
-                        ItemLedgRec.Ascending(false);
-                        if ItemLedgRec.FindSet() then
-                            RoundDailyReq := ItemLedgRec."Original Daily Requirement";
-
-
-                        //Calculate parameters
-                        ItemLedgRec.Reset();
-                        ItemLedgRec.SetRange("Source No.", "Daily Consumption Line"."Item No.");
-                        ItemLedgRec.SetRange("Daily Consumption Doc. No.", "Daily Consumption Line"."Document No.");
-                        ItemLedgRec.SetFilter("Entry Type", '=%1', ItemLedgRec."Entry Type"::Consumption);
-                        if ItemLedgRec.FindSet() then begin
-
-                            repeat
-                                //RoundDailyReq += Round(ItemLedgRec."Original Daily Requirement", 0.01, '>');
-
-                                if RoundDailyReq = 0 then
-                                    GMTISSUEQty := 0
-                                else
-                                    GMTISSUEQty += round(("Daily Consumption Line"."Daily Consumption" / RoundDailyReq) * (ItemLedgRec.Quantity * -1), 1);
-
-                                ItemLeQuantity += ItemLedgRec.Quantity * -1;
-
-                            until ItemLedgRec.Next() = 0;
-                        end;
-
-                    end;
-                }
+                //     trigger OnAfterGetRecord()
+                //     begin
+                //         RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
+                //         if RoundDailyReq = 0 then
+                //             GMTISSUEQty := 0
+                //         else
+                //             GMTISSUEQty := round(("Daily Consumption Line"."Daily Consumption" / RoundDailyReq) * (Quantity * -1), 1);
+                //     end;
+                // }
 
                 trigger OnAfterGetRecord()
                 begin
+                    ItemRec.Reset();
+                    ItemRec.SetRange("No.", "Item No.");
+                    if ItemRec.FindFirst() then begin
+                        SizeRange := ItemRec."Size Range No.";
+                        color := ItemRec."Color No.";
+                        ItemName := ItemRec.Description;
+                    end;
 
+                    ReqQtyRM := 0;
+                    IssuedQtyGM := 0;
+                    IssuedQtyRM := 0;
+
+                    //get Original Daily Requirement
+                    ItemLedgRec.Reset();
+                    ItemLedgRec.SetRange("Source No.", "Daily Consumption Line"."Item No.");
+                    ItemLedgRec.SetRange("Daily Consumption Doc. No.", "Daily Consumption Line"."Document No.");
+                    ItemLedgRec.SetFilter("Entry Type", '=%1', ItemLedgRec."Entry Type"::Consumption);
+                    ItemLedgRec.SetCurrentKey("Original Daily Requirement");
+                    ItemLedgRec.Ascending(false);
+                    if ItemLedgRec.FindSet() then
+                        ReqQtyRM := ItemLedgRec."Original Daily Requirement";
+
+                    //Calculate parameters
+                    ItemLedgRec.Reset();
+                    ItemLedgRec.SetRange("Source No.", "Daily Consumption Line"."Item No.");
+                    ItemLedgRec.SetRange("Daily Consumption Doc. No.", "Daily Consumption Line"."Document No.");
+                    ItemLedgRec.SetFilter("Entry Type", '=%1', ItemLedgRec."Entry Type"::Consumption);
+                    if ItemLedgRec.FindSet() then begin
+                        repeat
+                            if ReqQtyRM = 0 then
+                                IssuedQtyGM := 0
+                            else
+                                IssuedQtyGM += round(("Daily Consumption Line"."Daily Consumption" / ReqQtyRM) * (ItemLedgRec.Quantity * -1), 1);
+                            IssuedQtyRM += ItemLedgRec.Quantity * -1;
+                        until ItemLedgRec.Next() = 0;
+                    end;
+                end;
+
+
+                trigger OnPreDataItem()
+                begin
+                    SetFilter("Daily Consumption", '>%1', 0);
                 end;
             }
 
@@ -164,18 +130,25 @@ report 51238 GarmentWiseRawMaterialRequest
                 comRec.Get;
                 comRec.CalcFields(Picture);
                 StylePoRec.Reset();
-                StylePoRec.SetRange("Style No.", "No.");
+                StylePoRec.SetRange("Style No.", "Style Master No.");
+                StylePoRec.SetRange("PO No.", PO);
                 if StylePoRec.FindFirst() then begin
                     PoQty := StylePoRec.Qty;
-                    PONo := StylePoRec."PO No.";
-                    LotNo := StylePoRec."Lot No.";
                 end;
 
+                StyleMasRec.Reset();
+                StyleMasRec.SetRange("No.", "Style Master No.");
+                if StyleMasRec.FindFirst() then begin
+                    BuyerName := StyleMasRec."Buyer Name";
+                    GarmentTypeName := StyleMasRec."Garment Type Name";
+                    OrderQty := StyleMasRec."Order Qty";
+                    Factory := StyleMasRec."Factory Name";
+                end;
             end;
 
             trigger OnPreDataItem()
             begin
-                SetRange("No.", FilterNo);
+                SetRange("Style Name", FilterNo);
             end;
         }
     }
@@ -186,7 +159,7 @@ report 51238 GarmentWiseRawMaterialRequest
         {
             area(Content)
             {
-                group(GroupName)
+                group(Filter)
                 {
                     Caption = 'Filter By';
                     field(FilterNo; FilterNo)
@@ -194,39 +167,50 @@ report 51238 GarmentWiseRawMaterialRequest
                         ApplicationArea = All;
                         Caption = 'Style';
 
-                        TableRelation = "Style Master"."No.";
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            DailyConsRec: Record "Daily Consumption Header";
+                            StyleName: text[200];
+                        begin
+                            DailyConsRec.Reset();
+                            DailyConsRec.SetCurrentKey("Style Name");
+                            DailyConsRec.Ascending(true);
+                            if DailyConsRec.FindSet() then begin
+                                repeat
+                                    if StyleName <> DailyConsRec."Style Name" then begin
+                                        StyleName := DailyConsRec."Style Name";
+                                        DailyConsRec.MARK(TRUE);
+                                    end;
+                                until DailyConsRec.Next() = 0;
+
+                                DailyConsRec.MARKEDONLY(TRUE);
+                                if Page.RunModal(51388, DailyConsRec) = Action::LookupOK then begin
+                                    FilterNo := DailyConsRec."Style Name";
+                                end;
+                            end;
+                        end;
                     }
                 }
             }
         }
     }
 
-
-
-
     var
-        LotNo: Code[20];
-
-        ItemLe: Decimal;
-        RoundDailyReq: Decimal;
-        PONo: Code[20];
-        PoQty: BigInteger;
+        GarmentTypeName: Text[50];
+        BuyerName: Text[50];
+        OrderQty: BigInteger;
+        Factory: Text[50];
+        FilterNo: text[200];
         StylePoRec: Record "Style Master PO";
-        ItemName: Text[100];
-        ReqQty: Decimal;
-        DailyConsLineRec: Record "Daily Consumption Line";
-        UOM: Code[20];
-        Article: Code[20];
-        Dimenshion: code[20];
-        color: Code[20];
+        StyleMasRec: Record "Style Master";
+        PoQty: BigInteger;
         SizeRange: Code[250];
         ItemRec: Record Item;
-        ItemLedgRec: Record "Item Ledger Entry";
-        DailyConsumptionLineRec: Record "Daily Consumption Line";
         comRec: Record "Company Information";
-        FilterNo: Code[30];
-        GMTISSUEQty: Decimal;
-        ItemLeQuantity: Decimal;
-
-
+        ItemLedgRec: Record "Item Ledger Entry";
+        ItemName: Text[100];
+        color: Text[200];
+        ReqQtyRM: Decimal;
+        IssuedQtyGM: Decimal;
+        IssuedQtyRM: Decimal;
 }
