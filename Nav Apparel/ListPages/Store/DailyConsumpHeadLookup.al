@@ -3,6 +3,9 @@ page 51388 "Daily Consumption List Lookup"
     PageType = List;
     SourceTable = "Daily Consumption Header";
     SourceTableView = sorting("No.") order(descending);
+    InsertAllowed = false;
+    DeleteAllowed = false;
+    ModifyAllowed = false;
 
     layout
     {

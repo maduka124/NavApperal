@@ -1,4 +1,4 @@
-page 50101 "Daily Consumption List"
+page 50101 "Daily Consumption List "
 {
     ApplicationArea = All;
     Caption = 'Raw Material Requisition List';
@@ -88,7 +88,7 @@ page 50101 "Daily Consumption List"
             }
         }
     }
-   
+
 
     trigger OnOpenPage()
     var
@@ -206,5 +206,5 @@ page 50101 "Daily Consumption List"
         if Abs(ReserveEntry.Quantity) = ItemJnal.Quantity then
             Completed := true;
     end;
-   
+
 }

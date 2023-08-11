@@ -2,7 +2,7 @@ report 51801 MaterialIssueRequition
 {
     RDLCLayout = 'Report_Layouts/Store/MatRequisitionIssue.rdl';
     DefaultLayout = RDLC;
-    Caption = 'Material Requisition Issue Report';
+    Caption = 'Raw Material Requisition Staus Report';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -10,7 +10,7 @@ report 51801 MaterialIssueRequition
     {
         dataitem("Daily Consumption Header"; "Daily Consumption Header")
         {
-            DataItemTableView = where(Status = filter('Approved'), "Journal Template Name" = filter('CONSUMPTIO'));
+            DataItemTableView = where("Journal Template Name" = filter('CONSUMPTIO'));
 
             column(CompLogo; comRec.Picture)
             { }
@@ -33,6 +33,8 @@ report 51801 MaterialIssueRequition
             column(Document_Date; "Document Date")
             { }
             column(Approved_Date_Time; "Approved Date/Time")
+            { }
+            column(Colour_Name; "Colour Name")
             { }
 
             dataitem("Item Ledger Entry"; "Item Ledger Entry")
@@ -57,13 +59,15 @@ report 51801 MaterialIssueRequition
                 { }
                 column(Posted_Daily_Consump__Doc__No_; "Posted Daily Consump. Doc. No.")
                 { }
-                column(Main_Category_Name; "Main Category Name")
+                column(Main_Category_Name; MainCategoryName1)
                 { }
+
 
                 trigger OnAfterGetRecord()
                 begin
                     UOM := '';
                     DescriptionRec := '';
+                    MainCategoryName1 := '';
 
                     ItemRec.Reset();
                     ItemRec.SetRange("No.", "Item No.");
@@ -71,6 +75,19 @@ report 51801 MaterialIssueRequition
                         UOM := ItemRec."Base Unit of Measure";
                         DescriptionRec := ItemRec.Description;
                     end;
+
+                    ItemRec.Reset();
+                    ItemRec.SetRange("No.", "Item No.");
+                    if ItemRec.Findset() then begin
+                        MainCategoryRec.Reset();
+                        MainCategoryRec.SetRange("No.", ItemRec."Main Category No.");
+                        if MainCategoryRec.Findset() then
+                            MainCategoryName1 := MainCategoryRec."Main Category Name"
+                        else
+                            MainCategoryName1 := '';
+                    end
+                    else
+                        MainCategoryName1 := '';
                 end;
             }
 
@@ -102,15 +119,32 @@ report 51801 MaterialIssueRequition
         {
             area(Content)
             {
-                group(GroupName)
+                group(Filter)
                 {
                     Caption = 'Filter By';
                     field(JournalNo; JournalNo)
                     {
                         ApplicationArea = All;
                         Caption = 'No';
-                        TableRelation = "Daily Consumption Header"."No." where(Status = filter(Approved),
-                        "Issued UserID" = filter(<> ''));
+                        //TableRelation = "Daily Consumption Header"."No.";
+                        //where(Status = filter(Approved),"Issued UserID" = filter(<> ''));
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            DailyConsRec: Record "Daily Consumption Header";
+                        begin
+                            DailyConsRec.Reset();
+                            if DailyConsRec.FindSet() then begin
+                                repeat
+                                    DailyConsRec.MARK(TRUE);
+                                until DailyConsRec.Next() = 0;
+
+                                DailyConsRec.MARKEDONLY(TRUE);
+                                if Page.RunModal(51390, DailyConsRec) = Action::LookupOK then begin
+                                    JournalNo := DailyConsRec."No.";
+                                end;
+                            end;
+                        end;
                     }
                 }
             }
@@ -123,5 +157,7 @@ report 51801 MaterialIssueRequition
         ItemRec: Record Item;
         JournalNo: Code[20];
         comRec: Record "Company Information";
+        MainCategoryRec: Record "Main Category";
         AllocatedFactory: text[50];
+        MainCategoryName1: Text[50];
 }

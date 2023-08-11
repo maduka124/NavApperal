@@ -139,6 +139,7 @@ page 50120 "Approved Daily Consump. List"
                     User: Text[200];
                     MainCategoryNo: Code[20];
                     MainCategoryName: Text[200];
+                    TempQty: Decimal;
                 begin
 
                     // ItemJnalRec.Reset();
@@ -421,6 +422,7 @@ page 50120 "Approved Daily Consump. List"
 
                             MainCategoryNo := '';
                             MainCategoryName := '';
+                            TempQty := 0;
 
                             //get Main category
                             ItemRec.Reset();
@@ -458,47 +460,52 @@ page 50120 "Approved Daily Consump. List"
 
                             Window.Update(2, ItemJrnlLineTempRec."Item No.");
 
-                            ItemJnalRec.Init();
-                            ItemJnalRec."Journal Template Name" := ItemJrnlLineTempRec."Journal Template Name";
-                            ItemJnalRec."Journal Batch Name" := ItemJrnlLineTempRec."Journal Batch Name";
-                            ItemJnalRec."Line No." := Inx1 + 10000;
-                            ItemJnalRec.Insert(true);
+                            //if stock available , insert
+                            if (ItemLedEntry."Remaining Quantity") > 0 then begin
 
-                            Sleep(200);
-                            ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
-                            ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
-                            ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
-                            ItemJnalRec.Validate("Source No.", ItemJrnlLineTempRec."Source No.");
-                            ItemJnalRec.Validate("Posting Date", rec."Document Date");
-                            ItemJnalRec."Daily Consumption Doc. No." := ItemJrnlLineTempRec."Daily Consumption Doc. No.";
-                            ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
-                            ItemJnalRec."Posted Daily Output" := ItemJrnlLineTempRec."Daily Consumption";
-                            ItemJnalRec.Validate("Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
-                            ItemJnalRec.PO := ProdOrderRec.PO;
-                            ItemJnalRec."Style No." := ProdOrderRec."Style No.";
-                            ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
-                            ItemJnalRec.MainCategory := MainCategoryNo;
-                            ItemJnalRec.MainCategoryName := MainCategoryName;
-                            ItemJnalRec.Validate("Item No.", ItemJrnlLineTempRec."Item No.");
+                                ItemJnalRec.Init();
+                                ItemJnalRec."Journal Template Name" := ItemJrnlLineTempRec."Journal Template Name";
+                                ItemJnalRec."Journal Batch Name" := ItemJrnlLineTempRec."Journal Batch Name";
+                                ItemJnalRec."Line No." := Inx1 + 10000;
+                                ItemJnalRec.Insert(true);
 
-                            if (ItemJrnlLineTempRec."Original Requirement" + ItemLedEntry2.Quantity) > ProdOrdComp."Remaining Quantity" then
-                                ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
-                            else
-                                ItemJnalRec.Validate(Quantity, (ItemJrnlLineTempRec."Original Requirement" + ItemLedEntry2.Quantity));
+                                Sleep(200);
+                                ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::Consumption);
+                                ItemJnalRec.Validate("Order Type", ItemJnalRec."Order Type"::Production);
+                                ItemJnalRec.Validate("Order No.", rec."Prod. Order No.");
+                                ItemJnalRec.Validate("Source No.", ItemJrnlLineTempRec."Source No.");
+                                ItemJnalRec.Validate("Posting Date", rec."Document Date");
+                                ItemJnalRec."Daily Consumption Doc. No." := ItemJrnlLineTempRec."Daily Consumption Doc. No.";
+                                ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
+                                ItemJnalRec."Posted Daily Output" := ItemJrnlLineTempRec."Daily Consumption";
+                                ItemJnalRec.Validate("Order Line No.", ItemJrnlLineTempRec."prod. Order Line No.");
+                                ItemJnalRec.PO := ProdOrderRec.PO;
+                                ItemJnalRec."Style No." := ProdOrderRec."Style No.";
+                                ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
+                                ItemJnalRec.MainCategory := MainCategoryNo;
+                                ItemJnalRec.MainCategoryName := MainCategoryName;
+                                ItemJnalRec.Validate("Item No.", ItemJrnlLineTempRec."Item No.");
 
-                            Window.Update(3, ItemJnalRec.Quantity);
-                            ItemJnalRec."Line Approved" := true;
-                            ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
-                            ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
-                            ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
-                            ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
-                            ItemJnalRec.Description := ProdOrdComp.Description;
-                            ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
-                            ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
-                            ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
-                            ItemJnalRec.Modify();
+                                if (ItemJrnlLineTempRec."Original Requirement" + ItemLedEntry2.Quantity) > ProdOrdComp."Remaining Quantity" then
+                                    ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
+                                else
+                                    ItemJnalRec.Validate(Quantity, (ItemJrnlLineTempRec."Original Requirement" + ItemLedEntry2.Quantity));
 
-                            Inx1 := ItemJnalRec."Line No.";
+                                Window.Update(3, ItemJnalRec.Quantity);
+                                ItemJnalRec."Line Approved" := true;
+                                ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                                ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
+                                ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
+                                ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
+                                ItemJnalRec.Description := ProdOrdComp.Description;
+                                ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
+                                ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
+                                ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
+                                ItemJnalRec.Modify();
+
+                                Inx1 := ItemJnalRec."Line No.";
+                            end;
+
                             LastLNo := 0;
 
                         ///Modify the temp table quantity  

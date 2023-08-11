@@ -509,6 +509,14 @@ table 50101 "Daily Consumption Header"
         }
     }
 
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "Style Name", po, "Prod. Order No.")
+        {
+
+        }
+    }
+
     trigger OnInsert()
     var
         ManufacSetup: Record "Manufacturing Setup";

@@ -1164,13 +1164,20 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-
                 action("Raw Material Issue")
                 {
-                    Caption = 'Raw Material Requisition';
+                    Caption = 'Raw Material Requisition (Not Approved)';
                     ApplicationArea = All;
                     RunObject = page "Daily Consumption List";
                     RunPageView = where(Status = filter(Open | "Pending Approval"));
+                }
+
+                action("Raw Material Issue- Approved")
+                {
+                    Caption = 'Raw Material Requisition List (Approved)';
+                    ApplicationArea = All;
+                    RunObject = page "Daily Consumption List Appro";
+                    RunPageView = where(Status = filter("Approved"));
                 }
 
                 group("Common Reports")
@@ -1197,6 +1204,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GarmentWiseRawMaterialRequest;
                         ApplicationArea = All;
                     }
+
+                    action("Material Issue Report Common")
+                    {
+                        Enabled = true;
+                        Caption = 'Raw Material Requisition Staus Report';
+                        RunObject = report MaterialIssueRequition;
+                        ApplicationArea = All;
+                    }
+
                 }
 
             }
@@ -1480,6 +1496,7 @@ page 50968 "Nav Apperal Role Center"
                     action("Material Issue Report")
                     {
                         Enabled = true;
+                        Caption = 'Raw Material Requisition Staus Report';
                         RunObject = report MaterialIssueRequition;
                         ApplicationArea = All;
                     }
