@@ -16226,11 +16226,14 @@
                 <Value>=Fields!Line_No_1F.Value</Value>
               </SortExpression>
             </SortExpressions>
-            <Top>14.76587cm</Top>
-            <Left>0.01074cm</Left>
+            <Top>14.15288cm</Top>
+            <Left>0.5368cm</Left>
             <Height>2.2795cm</Height>
             <Width>42.394cm</Width>
             <ZIndex>4</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -18501,7 +18504,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour1TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour1TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18526,6 +18529,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18537,7 +18541,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour2TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour2TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18562,6 +18566,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18573,7 +18578,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour3TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour3TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18598,6 +18603,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18609,7 +18615,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour4TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour4TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18634,6 +18640,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18645,7 +18652,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour5TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour5TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18670,6 +18677,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18681,7 +18689,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour6TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour6TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18706,6 +18714,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18717,7 +18726,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour7TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour7TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18742,6 +18751,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18753,7 +18763,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour8TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour8TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18778,6 +18788,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18789,7 +18800,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour9TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour9TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18814,6 +18825,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18825,7 +18837,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour10TotFin.Value)</Value>
+                                  <Value>=Fields!FactoryHour10TotFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18850,6 +18862,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18861,7 +18874,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryTotalAchiveHoursFin.Value)</Value>
+                                  <Value>=Fields!FactoryTotalAchiveHoursFin.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0;(#,0);''</Format>
@@ -18886,6 +18899,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -18918,7 +18932,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>17.26354cm</Top>
+            <Top>11.56265cm</Top>
             <Left>0cm</Left>
             <Height>2.4cm</Height>
             <Width>39.37557cm</Width>
@@ -24387,7 +24401,7 @@
                 <Value>=Fields!ResourceName.Value</Value>
               </SortExpression>
             </SortExpressions>
-            <Top>11.29453cm</Top>
+            <Top>14.15203cm</Top>
             <Left>0cm</Left>
             <Height>1.51016cm</Height>
             <Width>26.07605cm</Width>
@@ -26024,7 +26038,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>12.73387cm</Top>
+            <Top>14.63887cm</Top>
             <Left>0cm</Left>
             <Height>1.60216cm</Height>
             <Width>27.51416cm</Width>
@@ -26039,7 +26053,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>19.66354cm</Height>
+        <Height>16.55938cm</Height>
         <Style />
       </Body>
       <Width>53.72317cm</Width>

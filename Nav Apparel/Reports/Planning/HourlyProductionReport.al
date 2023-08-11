@@ -486,8 +486,8 @@ report 50865 HourlyProductionReport
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
-                HoProLiRec.SetRange("Style No.", "Style No.");
-                HoProLiRec.SetRange("Work Center No.", "Resource No.");
+                // HoProLiRec.SetRange("Style No.", "Style No.");
+                // HoProLiRec.SetRange("Work Center No.", "Resource No.");
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
                 HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
                 if HoProLiRec.FindSet() then begin
@@ -748,19 +748,19 @@ report 50865 HourlyProductionReport
                     HoProLiRec.CalcSums("Hour 10");
                     FactoryHour10TotFin := HoProLiRec."Hour 10";
 
-                    if (HoProLiRec."Style No." = StyleLC4) and (HoProLiRec."Work Center No." = LineLC4) then begin
-                        FactoryHour1TotFin := 0;
-                        FactoryHour2TotFin := 0;
-                        FactoryHour3TotFin := 0;
-                        FactoryHour4TotFin := 0;
-                        FactoryHour5TotFin := 0;
-                        FactoryHour6TotFin := 0;
-                        FactoryHour7TotFin := 0;
-                        FactoryHour8TotFin := 0;
-                        FactoryHour9TotFin := 0;
-                        FactoryHour10TotFin := 0;
+                    // if (HoProLiRec."Style No." = StyleLC4) and (HoProLiRec."Work Center No." = LineLC4) then begin
+                    //     FactoryHour1TotFin := 0;
+                    //     FactoryHour2TotFin := 0;
+                    //     FactoryHour3TotFin := 0;
+                    //     FactoryHour4TotFin := 0;
+                    //     FactoryHour5TotFin := 0;
+                    //     FactoryHour6TotFin := 0;
+                    //     FactoryHour7TotFin := 0;
+                    //     FactoryHour8TotFin := 0;
+                    //     FactoryHour9TotFin := 0;
+                    //     FactoryHour10TotFin := 0;
 
-                    end;
+                    // end;
                     FactoryTotalAchiveHoursFin := FactoryHour1TotFin + FactoryHour2TotFin + FactoryHour3TotFin + FactoryHour4TotFin + FactoryHour5TotFin + FactoryHour6TotFin + FactoryHour7TotFin + FactoryHour8TotFin + FactoryHour9TotFin + FactoryHour10TotFin;
                     StyleLC4 := HoProLiRec."Style No.";
                     LineLC4 := HoProLiRec."Work Center No.";
