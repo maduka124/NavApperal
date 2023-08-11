@@ -1,8 +1,8 @@
-report 51801 MaterialIssueRequition
+report 51392 MaterialIssueRequitionCommon
 {
-    RDLCLayout = 'Report_Layouts/Store/MatRequisitionIssue.rdl';
+    RDLCLayout = 'Report_Layouts/Store/MatRequisitionIssueCommon.rdl';
     DefaultLayout = RDLC;
-    Caption = 'Raw Material Issue Report';
+    Caption = 'Raw Material Requisition Status Report';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -10,7 +10,7 @@ report 51801 MaterialIssueRequition
     {
         dataitem("Daily Consumption Header"; "Daily Consumption Header")
         {
-            DataItemTableView = where(Status = filter("Approved"), "Journal Template Name" = filter('CONSUMPTIO'));
+            DataItemTableView = where("Journal Template Name" = filter('CONSUMPTIO'));
 
             column(CompLogo; comRec.Picture)
             { }
@@ -37,31 +37,25 @@ report 51801 MaterialIssueRequition
             column(Colour_Name; "Colour Name")
             { }
 
-            dataitem("Item Ledger Entry"; "Item Ledger Entry")
+            dataitem("Daily Consumption Line2"; "Daily Consumption Line2")
             {
                 DataItemLinkReference = "Daily Consumption Header";
-                DataItemLink = "Daily Consumption Doc. No." = field("No."), "Document No." = field("Prod. Order No.");
-                DataItemTableView = where("Entry Type" = filter(Consumption));
+                DataItemLink = "Daily Consumption Doc. No." = field("No.");
 
                 column(Item_No_; "Item No.")
                 { }
                 column(Source_No_FG; "Source No.")
                 { }
-                column(Quantity; Quantity * -1)
+                column(Quantity; "Posted requirement")
                 { }
                 column(DescriptionLine; DescriptionRec)
                 { }
-                column(SystemCreatedAt; "Posting Date")
+                column(UOM; "UOM")
                 { }
-                column(UOM; "Unit of Measure Code")
-                { }
-                column(Original_Daily_Requirement; "Original Daily Requirement")
-                { }
-                column(Posted_Daily_Consump__Doc__No_; "Posted Daily Consump. Doc. No.")
+                column(Original_Daily_Requirement; "Original Requirement")
                 { }
                 column(Main_Category_Name; MainCategoryName1)
                 { }
-
 
                 trigger OnAfterGetRecord()
                 begin
@@ -102,7 +96,6 @@ report 51801 MaterialIssueRequition
                 StyleMasRec.SetRange("Style No.", "Daily Consumption Header"."Style No.");
                 if StyleMasRec.Findset() then
                     AllocatedFactory := StyleMasRec."Factory Name";
-
             end;
 
             trigger OnPreDataItem()
@@ -125,16 +118,13 @@ report 51801 MaterialIssueRequition
                     field(JournalNo; JournalNo)
                     {
                         ApplicationArea = All;
-                        Caption = 'No';
-                        //TableRelation = "Daily Consumption Header"."No.";
-                        //where(Status = filter(Approved),"Issued UserID" = filter(<> ''));
+                        Caption = 'Req. No';
 
                         trigger OnLookup(var texts: text): Boolean
                         var
                             DailyConsRec: Record "Daily Consumption Header";
                         begin
                             DailyConsRec.Reset();
-                            DailyConsRec.SetFilter(Status, '%1', DailyConsRec.Status::Approved);
                             if DailyConsRec.FindSet() then begin
                                 repeat
                                     DailyConsRec.MARK(TRUE);

@@ -284,6 +284,7 @@ page 50102 "Daily Consumption Card"
                     ItemJnalRec: Record "Item Journal Line";
                     ProdOrdComp: Record "Prod. Order Component";
                     DailyConsumpLine: Record "Daily Consumption Line";
+                    DailyConsumpLine2: Record "Daily Consumption Line2";
                     ProdOrderLine: Record "Prod. Order Line";
                     ProdOrderRec: Record "Production Order";
                     ItemLedEntry: Record "Item Ledger Entry";
@@ -314,6 +315,7 @@ page 50102 "Daily Consumption Card"
                     Text002: Label 'Item No.          #2##########\';
                     Text003: Label 'Quantity          #3##########';
                     Lineno: BigInteger;
+                    Lineno2: BigInteger;
                 begin
                     if (Rec.Status = Rec.Status::"Pending Approval") then
                         Error('Request already sent for approval. Cannot calculate Consumption.');
@@ -606,7 +608,7 @@ page 50102 "Daily Consumption Card"
                                             until ItemLedEntry.Next() = 0;
                                         end;
 
-                                        //Delete old records from temp table
+                                        //Delete old records from TEMP table
                                         ItemJrnlLineTempRec.Reset();
                                         ItemJrnlLineTempRec.SetRange("Journal Template Name", Rec."Journal Template Name");
                                         ItemJrnlLineTempRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
@@ -639,8 +641,42 @@ page 50102 "Daily Consumption Card"
                                         ItemJrnlLineTempRec."Posted requirement" := 0;
                                         ItemJrnlLineTempRec.Insert();
 
-                                    end;
 
+                                        //Delete old records from PERMANENT table
+                                        DailyConsumpLine2.Reset();
+                                        DailyConsumpLine2.SetRange("Journal Template Name", Rec."Journal Template Name");
+                                        DailyConsumpLine2.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                                        DailyConsumpLine2.SetRange("Source No.", DailyConsumpLine."Item No.");
+                                        DailyConsumpLine2.SetRange("Daily Consumption Doc. No.", DailyConsumpLine."Document No.");
+                                        DailyConsumpLine2.SetRange("Item No.", ProdOrdComp."Item No.");
+                                        if DailyConsumpLine2.Findset() then
+                                            DailyConsumpLine2.DeleteAll();
+
+                                        //Get max line;
+                                        Lineno2 := 0;
+                                        DailyConsumpLine2.Reset();
+                                        DailyConsumpLine2.SetRange("Daily Consumption Doc. No.", DailyConsumpLine."Document No.");
+                                        DailyConsumpLine2.SetCurrentKey("Line No.");
+                                        DailyConsumpLine2.Ascending(true);
+                                        if DailyConsumpLine2.FindLast() then
+                                            Lineno2 := DailyConsumpLine2."Line No.";
+
+                                        //Insert to the temp table
+                                        DailyConsumpLine2.Init();
+                                        DailyConsumpLine2."Journal Batch Name" := Rec."Journal Batch Name";
+                                        DailyConsumpLine2."Journal Template Name" := Rec."Journal Template Name";
+                                        DailyConsumpLine2."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
+                                        DailyConsumpLine2."Prod. Order No." := DailyConsumpLine."Prod. Order No.";
+                                        DailyConsumpLine2."Prod. Order Line No." := DailyConsumpLine."Prod. Order Line No.";
+                                        DailyConsumpLine2."Source No." := DailyConsumpLine."Item No.";
+                                        DailyConsumpLine2."Item No." := ProdOrdComp."Item No.";
+                                        DailyConsumpLine2."Daily Consumption" := DailyConsumpLine."Daily Consumption"; //FG qty
+                                        DailyConsumpLine2."Line No." := Lineno2 + 1;
+                                        DailyConsumpLine2."Original Requirement" := ItemJnalRec.Quantity;
+                                        DailyConsumpLine2."Posted requirement" := 0;
+                                        DailyConsumpLine2.Insert();
+
+                                    end;
                                 until ProdOrdComp.Next() = 0;
                         until DailyConsumpLine.Next() = 0;
                     end

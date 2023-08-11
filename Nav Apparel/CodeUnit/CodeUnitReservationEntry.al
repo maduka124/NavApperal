@@ -81,6 +81,7 @@ codeunit 50621 ReservationEntryCodeUnit
     local procedure ItemJnlPostLineOnAfterInitItemLedgEntry(var NewItemLedgEntry: Record "Item Ledger Entry"; ItemJournalLine: Record "Item Journal Line")
     var
         ItemJrnlLineTempRec: Record ItemJournalLinetemp;
+        DailyConsuLine2Rec: Record "Daily Consumption Line2";
         DailyConsuHeaderRec: Record "Daily Consumption Header";
         var1: Decimal;
     begin
@@ -103,7 +104,6 @@ codeunit 50621 ReservationEntryCodeUnit
         ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", ItemJournalLine."Daily Consumption Doc. No.");
         ItemJrnlLineTempRec.SetRange("Source No.", ItemJournalLine."Source No.");
         ItemJrnlLineTempRec.SetRange("Item No.", ItemJournalLine."Item No.");
-
         if ItemJrnlLineTempRec.FindSet() then begin
 
             if (Round(ItemJrnlLineTempRec."Original Requirement", 0.00001) - Round(ItemJournalLine."Quantity", 0.00001)) <= 0 then
@@ -114,6 +114,17 @@ codeunit 50621 ReservationEntryCodeUnit
             end;
         end;
 
+        //update item Consumption Line Permanent table - posted qty (material issuing)
+        DailyConsuLine2Rec.Reset();
+        DailyConsuLine2Rec.SetRange("Journal Template Name", ItemJournalLine."Journal Template Name");
+        DailyConsuLine2Rec.SetRange("Journal Batch Name", ItemJournalLine."Journal Batch Name");
+        DailyConsuLine2Rec.SetRange("Daily Consumption Doc. No.", ItemJournalLine."Daily Consumption Doc. No.");
+        DailyConsuLine2Rec.SetRange("Source No.", ItemJournalLine."Source No.");
+        DailyConsuLine2Rec.SetRange("Item No.", ItemJournalLine."Item No.");
+        if DailyConsuLine2Rec.FindSet() then begin
+            DailyConsuLine2Rec."Posted requirement" += Round(ItemJournalLine."Quantity", 0.00001);
+            DailyConsuLine2Rec.Modify();
+        end;
 
         //Check whether all items fully issued in the document and update header status accordingly
         ItemJrnlLineTempRec.Reset();
@@ -128,6 +139,5 @@ codeunit 50621 ReservationEntryCodeUnit
                 DailyConsuHeaderRec.ModifyAll("Fully Issued", true);
 
         end;
-
     end;
 }

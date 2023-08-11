@@ -1168,7 +1168,7 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Raw Material Requisition (Not Approved)';
                     ApplicationArea = All;
-                    RunObject = page "Daily Consumption List";
+                    RunObject = page "Daily Consumption List ";
                     RunPageView = where(Status = filter(Open | "Pending Approval"));
                 }
 
@@ -1208,8 +1208,8 @@ page 50968 "Nav Apperal Role Center"
                     action("Material Issue Report Common")
                     {
                         Enabled = true;
-                        Caption = 'Raw Material Requisition Staus Report';
-                        RunObject = report MaterialIssueRequition;
+                        Caption = 'Raw Material Requisition Status Report';
+                        RunObject = report MaterialIssueRequitionCommon;
                         ApplicationArea = All;
                     }
 
@@ -1496,7 +1496,7 @@ page 50968 "Nav Apperal Role Center"
                     action("Material Issue Report")
                     {
                         Enabled = true;
-                        Caption = 'Raw Material Requisition Staus Report';
+                        Caption = 'Raw Material Issue Report';
                         RunObject = report MaterialIssueRequition;
                         ApplicationArea = All;
                     }
