@@ -1418,6 +1418,7 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Store Reports';
 
+                    //EnventoryDayBook
                     action("Accessory Status ")
                     {
                         Caption = 'Accessory Status Report';
@@ -1430,6 +1431,14 @@ page 50968 "Nav Apperal Role Center"
                     {
                         Enabled = true;
                         RunObject = report DetailGRNReport;
+                        ApplicationArea = All;
+                    }
+
+                    action("EnventoryDayBook")
+                    {
+                        Enabled = true;
+                        Caption = 'Inventory Day Report';
+                        RunObject = report EnventoryDayBook;
                         ApplicationArea = All;
                     }
 
