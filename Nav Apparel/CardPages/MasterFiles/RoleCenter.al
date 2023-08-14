@@ -241,6 +241,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Qty Wise Extra % For Cutting")
+                {
+                    Caption = 'Qty Wise Extra % For Cutting';
+                    RunObject = Page ExtraPercentageForCuttingList;
+                    ApplicationArea = all;
+                }
+
                 action("Router")
                 {
                     Caption = 'Router';

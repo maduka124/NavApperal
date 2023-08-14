@@ -299,9 +299,30 @@ page 50351 "Daily Cutting Out Card"
 
                     trigger OnValidate()
                     var
+                        StyleMasterPORec: Record "Style Master PO";
+                        WastageRec: Record ExtraPercentageForCutting;
+                        Waistage: Decimal;
                     begin
                         if rec."Input Qty" < rec."Output Qty" then
                             Error('Output quantity is greater than Input quantity.');
+
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                        StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
+                        if StyleMasterPORec.FindSet() then begin
+
+                            //Get the wastage from wastage table
+                            WastageRec.Reset();
+                            WastageRec.SetFilter("Start Qty", '<=%1', StyleMasterPORec.Qty);
+                            WastageRec.SetFilter("Finish Qty", '>=%1', StyleMasterPORec.Qty);
+                            if WastageRec.FindSet() then
+                                Waistage := WastageRec.Percentage;
+
+                            if rec."Output Qty" > (StyleMasterPORec.Qty + StyleMasterPORec.Qty * Waistage) then
+                                Error('Output Qty is greater than the (Order Qty + Extra Qty)');
+                        end
+                        else
+                            Error('Cannot find PO details.');
                     end;
                 }
             }

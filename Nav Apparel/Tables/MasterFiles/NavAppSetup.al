@@ -698,7 +698,7 @@ table 51139 "NavApp Setup"
         field(71012703; "Base On Min Ship Days"; Integer)
         {
             DataClassification = ToBeClassified;
-        }
+        }    
 
     }
 

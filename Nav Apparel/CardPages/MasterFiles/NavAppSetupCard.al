@@ -705,7 +705,7 @@ page 50964 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Base On Min Ship Days';
-                }
+                }             
             }
         }
     }
