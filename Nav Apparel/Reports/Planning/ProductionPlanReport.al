@@ -80,6 +80,7 @@ report 50621 ProductionPlanReport
                 { }
                 column(color; color)
                 { }
+
                 trigger OnAfterGetRecord()
                 var
                 begin
@@ -109,28 +110,21 @@ report 50621 ProductionPlanReport
                     EndDt := 0D;
                     InSpectionDt := 0D;
 
-
-
                     NavAppProdPlanRec.Reset();
                     NavAppProdPlanRec.SetRange("Line No.", "Line No.");
                     NavAppProdPlanRec.SetCurrentKey(PlanDate);
                     NavAppProdPlanRec.Ascending(true);
-                    if NavAppProdPlanRec.FindFirst() then begin
-                        StartDt := NavAppProdPlanRec."PlanDate" - 2;
-                        // StartDate := NavAppProdPlanRec."PlanDate";
-                    end;
-
+                    if NavAppProdPlanRec.FindFirst() then 
+                        StartDt := NavAppProdPlanRec."PlanDate" - 2;                 
 
                     NavAppProdPlanRec.Reset();
                     NavAppProdPlanRec.SetRange("Line No.", "Line No.");
                     NavAppProdPlanRec.SetRange("PO No.", "PO No.");
                     NavAppProdPlanRec.SetCurrentKey(PlanDate);
                     NavAppProdPlanRec.Ascending(true);
-                    if NavAppProdPlanRec.FindFirst() then begin
+                    if NavAppProdPlanRec.FindFirst() then 
                         StartDate := NavAppProdPlanRec."PlanDate";
-                    end;
-
-
+                    
                     NavAppProdPlanRec.Reset();
                     NavAppProdPlanRec.SetRange("Line No.", "Line No.");
                     NavAppProdPlanRec.SetCurrentKey(PlanDate);
@@ -140,28 +134,10 @@ report 50621 ProductionPlanReport
                         InSpectionDt := NavAppProdPlanRec."PlanDate" + 10;
                     end;
 
-
                     color := 0;
                     if EndDt > shDate then
                         color := 1;
-
-
-                    // NavRec.Reset();
-                    // NavRec.SetCurrentKey("Start Date");
-                    // NavRec.SetAscending("Start Date", true);
-                    // // NavRec.SetRange("Style No.", "Style No.");
-                    // NavRec.SetRange("Resource No.", "Resource No.");
-                    // NavRec.SetRange("PO No.", "PO No.");
-                    // if NavRec.FindFirst() then begin
-                    //     StartDt := NavRec."Start Date" - 2;
-                    //     StartDate := NavRec."Start Date";
-                    // end;
-
-                    // if NavRec.FindLast() then begin
-                    //     EndDt := NavRec."End Date";
-                    //     InSpectionDt := NavRec."End Date" + 10;
-                    // end;
-
+                   
                     PRDHR := EndDt - StartDate;
 
                     LineQty := 0;
@@ -172,13 +148,12 @@ report 50621 ProductionPlanReport
                             LineQty += PurchLineRec.Quantity;
                         until PurchLineRec.Next() = 0;
                     end;
+
                     WorkcenterNo := 0;
                     WorkCenterRec.Reset();
                     WorkCenterRec.SetRange("No.", "Resource No.");
-                    if WorkCenterRec.FindFirst() then begin
-                        WorkcenterNo := WorkCenterRec."Work Center Seq No";
-                    end;
-
+                    if WorkCenterRec.FindFirst() then 
+                        WorkcenterNo := WorkCenterRec."Work Center Seq No";                   
                 end;
 
                 trigger OnPreDataItem()
@@ -188,14 +163,11 @@ report 50621 ProductionPlanReport
 
                     if FactoryFilter <> '' then
                         SetRange(Factory, FactoryFilter);
-
-
                 end;
             }
 
             trigger OnPreDataItem()
-            var
-                myInt: Integer;
+            var                
             begin
                 if BuyerNo <> '' then
                     SetRange("Buyer No.", BuyerNo);
@@ -226,7 +198,6 @@ report 50621 ProductionPlanReport
                         ApplicationArea = All;
                         Caption = 'Factory';
 
-
                         trigger OnLookup(var texts: text): Boolean
                         var
                             LocationRec: Record Location;
@@ -254,12 +225,14 @@ report 50621 ProductionPlanReport
                                 end;
                         end;
                     }
+
                     field(BuyerNo; BuyerNo)
                     {
                         ApplicationArea = All;
                         Caption = 'Buyer No';
                         TableRelation = Customer."No.";
                     }
+
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
@@ -282,8 +255,7 @@ report 50621 ProductionPlanReport
         BuyerNo: Code[20];
         WorkcenterNo: Integer;
         WorkCenterRec: Record "Work Center";
-        BPCDPo: Date;
-        myInt: Integer;
+        BPCDPo: Date;    
         StyleMasterPoRec: Record "Style Master PO";
         stDate: Date;
         endDate: Date;
