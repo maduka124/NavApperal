@@ -758,6 +758,8 @@ page 50665 "Bundle Guide Card"
 
                                                         LineNo += 1;
                                                         BundleNo += 1;
+                                                        if BundleNo >= 10000 then
+                                                            BundleNo := 1;
                                                         StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
                                                         BundleGuideLineRec.Init();
@@ -798,6 +800,8 @@ page 50665 "Bundle Guide Card"
                                                         StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
                                                         LineNo += 1;
                                                         BundleNo += 1;
+                                                        if BundleNo >= 10000 then
+                                                            BundleNo := 1;
 
                                                         BundleGuideLineRec.Init();
                                                         BundleGuideLineRec."Bundle No" := BundleNo;
@@ -839,6 +843,8 @@ page 50665 "Bundle Guide Card"
 
                                                             LineNo += 1;
                                                             BundleNo += 1;
+                                                            if BundleNo >= 10000 then
+                                                                BundleNo := 1;
                                                             StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + (LaySheetLine4Rec."Actual Plies" - TempQty1));
 
                                                             BundleGuideLineRec.Init();
@@ -879,6 +885,8 @@ page 50665 "Bundle Guide Card"
                                                             StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
                                                             LineNo += 1;
                                                             BundleNo += 1;
+                                                            if BundleNo >= 10000 then
+                                                                BundleNo := 1;
 
                                                             BundleGuideLineRec.Init();
                                                             BundleGuideLineRec."Bundle No" := BundleNo;
@@ -915,21 +923,64 @@ page 50665 "Bundle Guide Card"
                                                         end;
                                                     end
                                                     else begin
-                                                        BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
-                                                        StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(TempQty + BundleQty);
 
-                                                        //modify previous entry
-                                                        BundleGuideLineRec.Reset();
-                                                        BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
-                                                        BundleGuideLineRec.SetRange("Line No", LineNo);
-                                                        BundleGuideLineRec.FindSet();
-                                                        BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
-                                                        BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                        BundleGuideLineRec.TempQty := TempQty + BundleQty;
-                                                        BundleGuideLineRec.Modify();
+                                                        if TempQty = 0 then begin
+                                                            LineNo += 1;
+                                                            BundleNo += 1;
+                                                            if BundleNo >= 10000 then
+                                                                BundleNo := 1;
+                                                            StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + (LaySheetLine4Rec."Actual Plies" - TempQty1));
 
-                                                        TempQty1 := TempQty1 + BundleQty;
-                                                        TempQty := TempQty + BundleQty;
+                                                            BundleGuideLineRec.Init();
+                                                            BundleGuideLineRec."Bundle No" := BundleNo;
+                                                            BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                            BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                            BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
+                                                            BundleGuideLineRec."Created Date" := Today;
+                                                            BundleGuideLineRec."Created User" := UserId;
+                                                            BundleGuideLineRec."Cut No New" := rec."Cut No New";
+                                                            BundleGuideLineRec."Line No" := LineNo;
+                                                            BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                            BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                            BundleGuideLineRec.Qty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                            BundleGuideLineRec.TempQty := TempQty + LaySheetLine4Rec."Actual Plies" - TempQty1;
+
+                                                            if Ratio = 1 then
+                                                                BundleGuideLineRec.Size := Size
+                                                            else
+                                                                BundleGuideLineRec.Size := Size + '-' + Size1;
+
+                                                            BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                            BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                            BundleGuideLineRec."Role ID" := '';
+                                                            BundleGuideLineRec."Style No" := rec."Style No.";
+                                                            BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                            BundleGuideLineRec.Lot := '';
+                                                            BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                            BundleGuideLineRec.SizeSeq := SizeSeq;
+                                                            BundleGuideLineRec.Insert();
+
+                                                            TempQty := TempQty + LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                            PreviuosBundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                            TempQty1 := TempQty1 + (LaySheetLine4Rec."Actual Plies" - TempQty1);
+                                                        end
+                                                        else begin
+                                                            BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                            StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(TempQty + BundleQty);
+
+                                                            //modify previous entry
+                                                            BundleGuideLineRec.Reset();
+                                                            BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
+                                                            BundleGuideLineRec.SetRange("Line No", LineNo);
+                                                            BundleGuideLineRec.FindSet();
+                                                            BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
+                                                            BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                            BundleGuideLineRec.TempQty := TempQty + BundleQty;
+                                                            BundleGuideLineRec.Modify();
+
+                                                            TempQty1 := TempQty1 + BundleQty;
+                                                            TempQty := TempQty + BundleQty;
+                                                        end;
                                                     end;
                                                 end;
                                             until TempQty1 >= LaySheetLine4Rec."Actual Plies";
@@ -945,7 +996,6 @@ page 50665 "Bundle Guide Card"
                             BundleQty := 0;
                             LaySheetLine4Rec.Reset();
                             LaySheetLine4Rec.SetRange("LaySheetNo.", LaySheetRec."LaySheetNo.");
-
                             if not LaySheetLine4Rec.FindSet() then
                                 Error('Cannot find Roll/Shade Details in Laysheet Lines')
                             else begin
@@ -1400,6 +1450,8 @@ page 50665 "Bundle Guide Card"
 
                                                             LineNo += 1;
                                                             BundleNo += 1;
+                                                            if BundleNo >= 10000 then
+                                                                BundleNo := 1;
                                                             StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
                                                             BundleGuideLineRec.Init();
@@ -1440,6 +1492,8 @@ page 50665 "Bundle Guide Card"
                                                             StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
                                                             LineNo += 1;
                                                             BundleNo += 1;
+                                                            if BundleNo >= 10000 then
+                                                                BundleNo := 1;
 
                                                             BundleGuideLineRec.Init();
                                                             BundleGuideLineRec."Bundle No" := BundleNo;
@@ -1481,6 +1535,8 @@ page 50665 "Bundle Guide Card"
 
                                                                 LineNo += 1;
                                                                 BundleNo += 1;
+                                                                if BundleNo >= 10000 then
+                                                                    BundleNo := 1;
                                                                 StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + (LaySheetLine4Rec."Actual Plies" - TempQty1));
 
                                                                 BundleGuideLineRec.Init();
@@ -1521,6 +1577,8 @@ page 50665 "Bundle Guide Card"
                                                                 StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
                                                                 LineNo += 1;
                                                                 BundleNo += 1;
+                                                                if BundleNo >= 10000 then
+                                                                    BundleNo := 1;
 
                                                                 BundleGuideLineRec.Init();
                                                                 BundleGuideLineRec."Bundle No" := BundleNo;
@@ -1557,21 +1615,64 @@ page 50665 "Bundle Guide Card"
                                                             end;
                                                         end
                                                         else begin
-                                                            BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
-                                                            StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(TempQty + BundleQty);
 
-                                                            //modify previous entry
-                                                            BundleGuideLineRec.Reset();
-                                                            BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
-                                                            BundleGuideLineRec.SetRange("Line No", LineNo);
-                                                            BundleGuideLineRec.FindSet();
-                                                            BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
-                                                            BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                            BundleGuideLineRec.TempQty := TempQty + BundleQty;
-                                                            BundleGuideLineRec.Modify();
+                                                            if TempQty = 0 then begin
+                                                                LineNo += 1;
+                                                                BundleNo += 1;
+                                                                if BundleNo >= 10000 then
+                                                                    BundleNo := 1;
+                                                                StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + (LaySheetLine4Rec."Actual Plies" - TempQty1));
 
-                                                            TempQty1 := TempQty1 + BundleQty;
-                                                            TempQty := TempQty + BundleQty;
+                                                                BundleGuideLineRec.Init();
+                                                                BundleGuideLineRec."Bundle No" := BundleNo;
+                                                                BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                                BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                                BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
+                                                                BundleGuideLineRec."Created Date" := Today;
+                                                                BundleGuideLineRec."Created User" := UserId;
+                                                                BundleGuideLineRec."Cut No New" := rec."Cut No New";
+                                                                BundleGuideLineRec."Line No" := LineNo;
+                                                                BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                                BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                                BundleGuideLineRec.Qty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                                BundleGuideLineRec.TempQty := TempQty + LaySheetLine4Rec."Actual Plies" - TempQty1;
+
+                                                                if Ratio = 1 then
+                                                                    BundleGuideLineRec.Size := Size
+                                                                else
+                                                                    BundleGuideLineRec.Size := Size + '-' + Size1;
+
+                                                                BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                                BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::"Roll Wise";
+                                                                BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                                BundleGuideLineRec."Style No" := rec."Style No.";
+                                                                BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                                BundleGuideLineRec.Lot := '';
+                                                                BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                                BundleGuideLineRec.SizeSeq := SizeSeq;
+                                                                BundleGuideLineRec.Insert();
+
+                                                                TempQty := TempQty + LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                                PreviuosBundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                                TempQty1 := TempQty1 + (LaySheetLine4Rec."Actual Plies" - TempQty1);
+                                                            end
+                                                            else begin
+                                                                BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                                StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(TempQty + BundleQty);
+
+                                                                //modify previous entry
+                                                                BundleGuideLineRec.Reset();
+                                                                BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
+                                                                BundleGuideLineRec.SetRange("Line No", LineNo);
+                                                                BundleGuideLineRec.FindSet();
+                                                                BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
+                                                                BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                                BundleGuideLineRec.TempQty := TempQty + BundleQty;
+                                                                BundleGuideLineRec.Modify();
+
+                                                                TempQty1 := TempQty1 + BundleQty;
+                                                                TempQty := TempQty + BundleQty;
+                                                            end;
                                                         end;
                                                     end;
                                                 until TempQty1 >= LaySheetLine4Rec."Actual Plies";

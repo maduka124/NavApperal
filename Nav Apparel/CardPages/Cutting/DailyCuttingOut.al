@@ -318,7 +318,7 @@ page 50351 "Daily Cutting Out Card"
                             if WastageRec.FindSet() then
                                 Waistage := WastageRec.Percentage;
 
-                            if rec."Output Qty" > (StyleMasterPORec.Qty + StyleMasterPORec.Qty * Waistage) then
+                            if rec."Output Qty" > (StyleMasterPORec.Qty + (StyleMasterPORec.Qty * Waistage) / 100) then
                                 Error('Output Qty is greater than the (Order Qty + Extra Qty)');
                         end
                         else
