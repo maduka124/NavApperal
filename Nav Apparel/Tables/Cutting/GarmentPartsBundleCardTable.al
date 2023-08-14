@@ -73,6 +73,11 @@ table 51268 BundleCardTable
         {
             DataClassification = ToBeClassified;
         }
+
+        field(11; "Cut No New"; Text[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

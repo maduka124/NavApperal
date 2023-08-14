@@ -101,44 +101,44 @@ page 50978 "Create User Card"
 
         area(Processing)
         {
-            action("Assign Lot No to the Prod order and Daily Consu. Header")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("Assign Lot No to the Prod order and Daily Consu. Header")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    ProdOrder: Record "Production Order";
-                    StyPo: Record "Style Master PO";
-                    DailyConsuHeader: Record "Daily Consumption Header";
-                begin
-                    ProdOrder.Reset();
-                    ProdOrder.FindSet();
-                    repeat
-                        StyPo.Reset();
-                        StyPo.SetRange("Style No.", ProdOrder."Style No.");
-                        StyPo.SetRange("Po No.", ProdOrder.po);
-                        if StyPo.FindSet() then begin
-                            ProdOrder."Lot No." := StyPo."Lot No.";
-                            ProdOrder.Modify()
-                        end;
-                    until ProdOrder.Next() = 0;
+            //     trigger OnAction()
+            //     var
+            //         ProdOrder: Record "Production Order";
+            //         StyPo: Record "Style Master PO";
+            //         DailyConsuHeader: Record "Daily Consumption Header";
+            //     begin
+            //         ProdOrder.Reset();
+            //         ProdOrder.FindSet();
+            //         repeat
+            //             StyPo.Reset();
+            //             StyPo.SetRange("Style No.", ProdOrder."Style No.");
+            //             StyPo.SetRange("Po No.", ProdOrder.po);
+            //             if StyPo.FindSet() then begin
+            //                 ProdOrder."Lot No." := StyPo."Lot No.";
+            //                 ProdOrder.Modify()
+            //             end;
+            //         until ProdOrder.Next() = 0;
 
-                    DailyConsuHeader.Reset();
-                    DailyConsuHeader.FindSet();
-                    repeat
-                        StyPo.Reset();
-                        StyPo.SetRange("Style No.", DailyConsuHeader."Style Master No.");
-                        StyPo.SetRange("Po No.", DailyConsuHeader.po);
-                        if StyPo.FindSet() then begin
-                            DailyConsuHeader."Lot No." := StyPo."Lot No.";
-                            DailyConsuHeader.Modify()
-                        end;
-                    until DailyConsuHeader.Next() = 0;
+            //         DailyConsuHeader.Reset();
+            //         DailyConsuHeader.FindSet();
+            //         repeat
+            //             StyPo.Reset();
+            //             StyPo.SetRange("Style No.", DailyConsuHeader."Style Master No.");
+            //             StyPo.SetRange("Po No.", DailyConsuHeader.po);
+            //             if StyPo.FindSet() then begin
+            //                 DailyConsuHeader."Lot No." := StyPo."Lot No.";
+            //                 DailyConsuHeader.Modify()
+            //             end;
+            //         until DailyConsuHeader.Next() = 0;
 
-                    Message('Completed');
-                end;
-            }
+            //         Message('Completed');
+            //     end;
+            // }
 
             // action("Update sample req status")
             // {

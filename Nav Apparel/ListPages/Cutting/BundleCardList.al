@@ -44,6 +44,22 @@ page 51267 "Bundle Card List"
                     ApplicationArea = All;
                     Caption = 'Type';
                 }
+
+                field("Cut No"; Rec."Cut No New")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Cut No';
+                }
+
+                field("Created Date"; rec."Created Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Created User"; rec."Created User")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

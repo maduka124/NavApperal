@@ -47,6 +47,7 @@ page 51276 Bundlecard
                             rec."Style No" := BundleGRec."Style No.";
                             rec.PoNo := BundleGRec."PO No.";
                             rec.Type1 := BundleGRec."Component Group";
+                            rec."Cut No New" := BundleGRec."Cut No New";
                         end;
 
 

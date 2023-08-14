@@ -23,7 +23,7 @@ report 51077 SizeColourwiseQuantity
             { }
             column(Season_Name; "Season Name")
             { }
-            column(Ship_Date; "Ship Date")
+            column(Ship_Date; ShipDate)
             { }
             column(CompLogo; comRec.Picture)
             { }
@@ -215,6 +215,7 @@ report 51077 SizeColourwiseQuantity
 
                 trigger OnAfterGetRecord()
                 var
+                    StyleMasPORec: Record "Style Master PO";
                 begin
                     oneDecimal := 0;
                     twoDecimal := 0;
@@ -283,6 +284,15 @@ report 51077 SizeColourwiseQuantity
 
                     oneDes := oneDecimal;
                     tot += oneDes;
+
+                    StyleMasPORec.Reset();
+                    StyleMasPORec.SetRange("Style No.", "Style No.");
+                    StyleMasPORec.SetRange("PO No.", "PO No.");
+                    StyleMasPORec.SetRange("Lot No.", "Lot No.");
+                    if StyleMasPORec.FindSet() then
+                        ShipDate := StyleMasPORec."Ship Date"
+                    else
+                        ShipDate := 0D;
                 end;
 
             }
@@ -405,4 +415,5 @@ report 51077 SizeColourwiseQuantity
         oneDes: Decimal;
         comRec: Record "Company Information";
         BuyerNo: Code[20];
+        ShipDate: date;
 }

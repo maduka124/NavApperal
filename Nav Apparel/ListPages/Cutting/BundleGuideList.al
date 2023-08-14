@@ -51,6 +51,7 @@ page 50666 "Bundle Guide List"
                 field("Cut No"; Rec."Cut No New")
                 {
                     ApplicationArea = All;
+                    Caption = 'Cut No';
                 }
 
                 field("Bundle Rule"; Rec."Bundle Rule")
