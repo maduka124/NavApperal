@@ -164,6 +164,7 @@ page 51371 StyleChangeCard
                         SeqNo1 += 1;
                         StyleChangeRec.Init();
                         StyleChangeRec.SeqNo := SeqNo1;
+                        StyleChangeRec."Factory No" := Rec."Factory No";
                         StyleChangeRec."Resource No." := 'TOTAL';
                         // StyleChangeRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         StyleChangeRec.Qty := Total;
