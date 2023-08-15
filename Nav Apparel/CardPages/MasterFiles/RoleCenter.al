@@ -1917,6 +1917,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report AccessoriesStatusReportNew;
                         ApplicationArea = all;
                     }
+
+                    action("Finishing Out Report")
+                    {
+                        Caption = 'Finishing Out Report';
+                        Enabled = true;
+                        RunObject = report FinishingOutReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Finishing Production Report")
                     {
                         Caption = 'Hourly Finishing Production Report';
@@ -1959,6 +1968,13 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Ship Out Report")
+                    {
+                        Caption = 'Ship Out Report';
+                        Enabled = true;
+                        RunObject = report ShipOutReport;
+                        ApplicationArea = all;
+                    }
 
                     //Done By Sachith on 22/02/23
                     action("Size Colour Wise Quantity Breakdown Report Finishing")
@@ -2468,6 +2484,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report WashSampleReqReport;
                         ApplicationArea = all;
                     }
+
+                    action("Washing Send & Received Report")
+                    {
+                        Caption = 'Washing Send & Received Report';
+                        Enabled = true;
+                        RunObject = report WashingSendReceiveReport;
+                        ApplicationArea = all;
+                    }
+
 
                     action("WIP3")
                     {
