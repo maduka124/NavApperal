@@ -22,7 +22,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>FINISHING PRODUCTION REPORT</Value>
+                    <Value>HOURLY FINISHING PRODUCTION REPORT</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Calibri</FontFamily>
@@ -38,9 +38,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.28292cm</Top>
-            <Left>13.56771cm</Left>
+            <Left>12.50938cm</Left>
             <Height>0.89958cm</Height>
-            <Width>10.15316cm</Width>
+            <Width>12.58733cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

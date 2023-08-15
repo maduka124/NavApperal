@@ -1001,7 +1001,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report DeliveryInfoProductReport;
                         ApplicationArea = all;
                     }
-
+                    action("Finishing Production Report Planning")
+                    {
+                        Caption = 'Hourly Finishing Production Report';
+                        Enabled = true;
+                        RunObject = report FinishingProductionReport;
+                        ApplicationArea = all;
+                    }
                     action("Hourly Production Report Planning")
                     {
                         Caption = 'Hourly Production Report';
@@ -1911,7 +1917,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report AccessoriesStatusReportNew;
                         ApplicationArea = all;
                     }
-
+                    action("Finishing Production Report")
+                    {
+                        Caption = 'Hourly Finishing Production Report';
+                        Enabled = true;
+                        RunObject = report FinishingProductionReport;
+                        ApplicationArea = all;
+                    }
                     action("Hourly Production Report Finishing")
                     {
                         Caption = 'Hourly Production Report';
@@ -1919,13 +1931,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
-                    action("Finishing Production Report")
-                    {
-                        Caption = 'Finishing Production Report';
-                        Enabled = true;
-                        RunObject = report FinishingProductionReport;
-                        ApplicationArea = all;
-                    }
+
 
                     //Done By Sachith on 08/03/23
                     action("Line in Out Report Finishing")
@@ -3359,6 +3365,13 @@ page 50968 "Nav Apperal Role Center"
                 }
                 group("Dashboard Reports")
                 {
+                    action("Finishing Production Report Dashboard")
+                    {
+                        Caption = 'Hourly Finishing Production Report';
+                        Enabled = true;
+                        RunObject = report FinishingProductionReport;
+                        ApplicationArea = all;
+                    }
                     action("Hourly Production Report Dashboard")
                     {
                         Caption = 'Hourly Production Report';

@@ -26,6 +26,7 @@ page 51381 HourlyFinishingListPart
                     // Editable = false;
                     Caption = 'Line';
                     ShowMandatory = true;
+                    Editable = EditableGB;
 
 
                     trigger OnLookup(var text: Text): Boolean
@@ -1118,11 +1119,10 @@ page 51381 HourlyFinishingListPart
                     StylePoRec.Reset();
                     StylePoRec.SetCurrentKey("Ship Date");
                     StylePoRec.Ascending(true);
-                    // StylePoRec.SetFilter("Ship Date");
                     StylePoRec.FindSet();
 
                     NavAppProdRec.Reset();
-                    NavAppProdRec.SetRange(PlanDate, HourlymasterRec."Prod Date");
+                    // NavAppProdRec.SetRange(PlanDate, HourlymasterRec."Prod Date");
                     NavAppProdRec.SetRange("Factory No.", HourlymasterRec."Factory No.");
                     if NavAppProdRec.FindSet() then begin
 
@@ -1638,37 +1638,37 @@ page 51381 HourlyFinishingListPart
                     TotPassPcsHour13 += HourlyProdLinesRec."Hour 13";
                 end;
 
-                if HourlyProdLinesRec.Item = 'DEFECT PCS' then begin
-                    TotDefectPcsHour1 += HourlyProdLinesRec."Hour 01";
-                    TotDefectPcsHour2 += HourlyProdLinesRec."Hour 02";
-                    TotDefectPcsHour3 += HourlyProdLinesRec."Hour 03";
-                    TotDefectPcsHour4 += HourlyProdLinesRec."Hour 04";
-                    TotDefectPcsHour5 += HourlyProdLinesRec."Hour 05";
-                    TotDefectPcsHour6 += HourlyProdLinesRec."Hour 06";
-                    TotDefectPcsHour7 += HourlyProdLinesRec."Hour 07";
-                    TotDefectPcsHour8 += HourlyProdLinesRec."Hour 08";
-                    TotDefectPcsHour9 += HourlyProdLinesRec."Hour 09";
-                    TotDefectPcsHour10 += HourlyProdLinesRec."Hour 10";
-                    TotDefectPcsHour11 += HourlyProdLinesRec."Hour 11";
-                    TotDefectPcsHour12 += HourlyProdLinesRec."Hour 12";
-                    TotDefectPcsHour13 += HourlyProdLinesRec."Hour 13";
-                end;
+                // if HourlyProdLinesRec.Item = 'DEFECT PCS' then begin
+                //     TotDefectPcsHour1 += HourlyProdLinesRec."Hour 01";
+                //     TotDefectPcsHour2 += HourlyProdLinesRec."Hour 02";
+                //     TotDefectPcsHour3 += HourlyProdLinesRec."Hour 03";
+                //     TotDefectPcsHour4 += HourlyProdLinesRec."Hour 04";
+                //     TotDefectPcsHour5 += HourlyProdLinesRec."Hour 05";
+                //     TotDefectPcsHour6 += HourlyProdLinesRec."Hour 06";
+                //     TotDefectPcsHour7 += HourlyProdLinesRec."Hour 07";
+                //     TotDefectPcsHour8 += HourlyProdLinesRec."Hour 08";
+                //     TotDefectPcsHour9 += HourlyProdLinesRec."Hour 09";
+                //     TotDefectPcsHour10 += HourlyProdLinesRec."Hour 10";
+                //     TotDefectPcsHour11 += HourlyProdLinesRec."Hour 11";
+                //     TotDefectPcsHour12 += HourlyProdLinesRec."Hour 12";
+                //     TotDefectPcsHour13 += HourlyProdLinesRec."Hour 13";
+                // end;
 
-                if HourlyProdLinesRec.Item = 'DHU' then begin
-                    TotDHUPcsHour1 += HourlyProdLinesRec."Hour 01";
-                    TotDHUPcsHour2 += HourlyProdLinesRec."Hour 02";
-                    TotDHUPcsHour3 += HourlyProdLinesRec."Hour 03";
-                    TotDHUPcsHour4 += HourlyProdLinesRec."Hour 04";
-                    TotDHUPcsHour5 += HourlyProdLinesRec."Hour 05";
-                    TotDHUPcsHour6 += HourlyProdLinesRec."Hour 06";
-                    TotDHUPcsHour7 += HourlyProdLinesRec."Hour 07";
-                    TotDHUPcsHour8 += HourlyProdLinesRec."Hour 08";
-                    TotDHUPcsHour9 += HourlyProdLinesRec."Hour 09";
-                    TotDHUPcsHour10 += HourlyProdLinesRec."Hour 10";
-                    TotDHUPcsHour11 += HourlyProdLinesRec."Hour 11";
-                    TotDHUPcsHour12 += HourlyProdLinesRec."Hour 12";
-                    TotDHUPcsHour13 += HourlyProdLinesRec."Hour 13";
-                end;
+                // if HourlyProdLinesRec.Item = 'DHU' then begin
+                //     TotDHUPcsHour1 += HourlyProdLinesRec."Hour 01";
+                //     TotDHUPcsHour2 += HourlyProdLinesRec."Hour 02";
+                //     TotDHUPcsHour3 += HourlyProdLinesRec."Hour 03";
+                //     TotDHUPcsHour4 += HourlyProdLinesRec."Hour 04";
+                //     TotDHUPcsHour5 += HourlyProdLinesRec."Hour 05";
+                //     TotDHUPcsHour6 += HourlyProdLinesRec."Hour 06";
+                //     TotDHUPcsHour7 += HourlyProdLinesRec."Hour 07";
+                //     TotDHUPcsHour8 += HourlyProdLinesRec."Hour 08";
+                //     TotDHUPcsHour9 += HourlyProdLinesRec."Hour 09";
+                //     TotDHUPcsHour10 += HourlyProdLinesRec."Hour 10";
+                //     TotDHUPcsHour11 += HourlyProdLinesRec."Hour 11";
+                //     TotDHUPcsHour12 += HourlyProdLinesRec."Hour 12";
+                //     TotDHUPcsHour13 += HourlyProdLinesRec."Hour 13";
+                // end;
 
             until HourlyProdLinesRec.Next() = 0;
 
@@ -1698,54 +1698,54 @@ page 51381 HourlyFinishingListPart
                 HourlyProdLines1Rec.Modify();
             until HourlyProdLines1Rec.Next() = 0;
             //Update DEFECTS Pcs
-            HourlyProdLines1Rec.Reset();
-            HourlyProdLines1Rec.SetRange("No.", rec."No.");
-            HourlyProdLines1Rec.SetFilter("Factory No.", '=%1', '');
-            HourlyProdLines1Rec.SetRange("Style Name", 'DEFECT PCS (Total)');
-            HourlyProdLines1Rec.FindSet();
+            // HourlyProdLines1Rec.Reset();
+            // HourlyProdLines1Rec.SetRange("No.", rec."No.");
+            // HourlyProdLines1Rec.SetFilter("Factory No.", '=%1', '');
+            // HourlyProdLines1Rec.SetRange("Style Name", 'DEFECT PCS (Total)');
+            // HourlyProdLines1Rec.FindSet();
 
-            TotDefect := 0;
-            HourlyProdLines1Rec."Hour 01" := TotDefectPcsHour1;
-            HourlyProdLines1Rec."Hour 02" := TotDefectPcsHour2;
-            HourlyProdLines1Rec."Hour 03" := TotDefectPcsHour3;
-            HourlyProdLines1Rec."Hour 04" := TotDefectPcsHour4;
-            HourlyProdLines1Rec."Hour 05" := TotDefectPcsHour5;
-            HourlyProdLines1Rec."Hour 06" := TotDefectPcsHour6;
-            HourlyProdLines1Rec."Hour 07" := TotDefectPcsHour7;
-            HourlyProdLines1Rec."Hour 08" := TotDefectPcsHour8;
-            HourlyProdLines1Rec."Hour 09" := TotDefectPcsHour9;
-            HourlyProdLines1Rec."Hour 10" := TotDefectPcsHour10;
-            HourlyProdLines1Rec."Hour 11" := TotDefectPcsHour11;
-            HourlyProdLines1Rec."Hour 12" := TotDefectPcsHour12;
-            HourlyProdLines1Rec."Hour 13" := TotDefectPcsHour13;
-            TotDefect += TotDefectPcsHour1 + TotDefectPcsHour2 + TotDefectPcsHour3 + TotDefectPcsHour4 + TotDefectPcsHour5 + TotDefectPcsHour6 + TotDefectPcsHour7 + TotDefectPcsHour8 + TotDefectPcsHour9 + TotDefectPcsHour10 + TotDefectPcsHour11 + TotDefectPcsHour12 + TotDefectPcsHour13;
-            HourlyProdLines1Rec.Total := TotDefect;
-            HourlyProdLines1Rec.Modify();
+            // TotDefect := 0;
+            // HourlyProdLines1Rec."Hour 01" := TotDefectPcsHour1;
+            // HourlyProdLines1Rec."Hour 02" := TotDefectPcsHour2;
+            // HourlyProdLines1Rec."Hour 03" := TotDefectPcsHour3;
+            // HourlyProdLines1Rec."Hour 04" := TotDefectPcsHour4;
+            // HourlyProdLines1Rec."Hour 05" := TotDefectPcsHour5;
+            // HourlyProdLines1Rec."Hour 06" := TotDefectPcsHour6;
+            // HourlyProdLines1Rec."Hour 07" := TotDefectPcsHour7;
+            // HourlyProdLines1Rec."Hour 08" := TotDefectPcsHour8;
+            // HourlyProdLines1Rec."Hour 09" := TotDefectPcsHour9;
+            // HourlyProdLines1Rec."Hour 10" := TotDefectPcsHour10;
+            // HourlyProdLines1Rec."Hour 11" := TotDefectPcsHour11;
+            // HourlyProdLines1Rec."Hour 12" := TotDefectPcsHour12;
+            // HourlyProdLines1Rec."Hour 13" := TotDefectPcsHour13;
+            // TotDefect += TotDefectPcsHour1 + TotDefectPcsHour2 + TotDefectPcsHour3 + TotDefectPcsHour4 + TotDefectPcsHour5 + TotDefectPcsHour6 + TotDefectPcsHour7 + TotDefectPcsHour8 + TotDefectPcsHour9 + TotDefectPcsHour10 + TotDefectPcsHour11 + TotDefectPcsHour12 + TotDefectPcsHour13;
+            // HourlyProdLines1Rec.Total := TotDefect;
+            // HourlyProdLines1Rec.Modify();
 
             //Update DHU
-            HourlyProdLines1Rec.Reset();
-            HourlyProdLines1Rec.SetRange("No.", rec."No.");
-            HourlyProdLines1Rec.SetFilter("Factory No.", '=%1', '');
-            HourlyProdLines1Rec.SetRange("Style Name", 'DHU (Total)');
-            HourlyProdLines1Rec.FindSet();
+            // HourlyProdLines1Rec.Reset();
+            // HourlyProdLines1Rec.SetRange("No.", rec."No.");
+            // HourlyProdLines1Rec.SetFilter("Factory No.", '=%1', '');
+            // HourlyProdLines1Rec.SetRange("Style Name", 'DHU (Total)');
+            // HourlyProdLines1Rec.FindSet();
 
-            TotDHU := 0;
-            HourlyProdLines1Rec."Hour 01" := TotDHUPcsHour1;
-            HourlyProdLines1Rec."Hour 02" := TotDHUPcsHour2;
-            HourlyProdLines1Rec."Hour 03" := TotDHUPcsHour3;
-            HourlyProdLines1Rec."Hour 04" := TotDHUPcsHour4;
-            HourlyProdLines1Rec."Hour 05" := TotDHUPcsHour5;
-            HourlyProdLines1Rec."Hour 06" := TotDHUPcsHour6;
-            HourlyProdLines1Rec."Hour 07" := TotDHUPcsHour7;
-            HourlyProdLines1Rec."Hour 08" := TotDHUPcsHour8;
-            HourlyProdLines1Rec."Hour 09" := TotDHUPcsHour9;
-            HourlyProdLines1Rec."Hour 10" := TotDHUPcsHour10;
-            HourlyProdLines1Rec."Hour 11" := TotDHUPcsHour11;
-            HourlyProdLines1Rec."Hour 12" := TotDHUPcsHour12;
-            HourlyProdLines1Rec."Hour 13" := TotDHUPcsHour13;
-            TotDHU += TotDHUPcsHour1 + TotDHUPcsHour2 + TotDHUPcsHour3 + TotDHUPcsHour4 + TotDHUPcsHour5 + TotDHUPcsHour6 + TotDHUPcsHour7 + TotDHUPcsHour8 + TotDHUPcsHour9 + TotDHUPcsHour10 + TotDHUPcsHour11 + TotDHUPcsHour12 + TotDHUPcsHour13;
-            HourlyProdLines1Rec.Total := TotDHU;
-            HourlyProdLines1Rec.Modify();
+            // TotDHU := 0;
+            // HourlyProdLines1Rec."Hour 01" := TotDHUPcsHour1;
+            // HourlyProdLines1Rec."Hour 02" := TotDHUPcsHour2;
+            // HourlyProdLines1Rec."Hour 03" := TotDHUPcsHour3;
+            // HourlyProdLines1Rec."Hour 04" := TotDHUPcsHour4;
+            // HourlyProdLines1Rec."Hour 05" := TotDHUPcsHour5;
+            // HourlyProdLines1Rec."Hour 06" := TotDHUPcsHour6;
+            // HourlyProdLines1Rec."Hour 07" := TotDHUPcsHour7;
+            // HourlyProdLines1Rec."Hour 08" := TotDHUPcsHour8;
+            // HourlyProdLines1Rec."Hour 09" := TotDHUPcsHour9;
+            // HourlyProdLines1Rec."Hour 10" := TotDHUPcsHour10;
+            // HourlyProdLines1Rec."Hour 11" := TotDHUPcsHour11;
+            // HourlyProdLines1Rec."Hour 12" := TotDHUPcsHour12;
+            // HourlyProdLines1Rec."Hour 13" := TotDHUPcsHour13;
+            // TotDHU += TotDHUPcsHour1 + TotDHUPcsHour2 + TotDHUPcsHour3 + TotDHUPcsHour4 + TotDHUPcsHour5 + TotDHUPcsHour6 + TotDHUPcsHour7 + TotDHUPcsHour8 + TotDHUPcsHour9 + TotDHUPcsHour10 + TotDHUPcsHour11 + TotDHUPcsHour12 + TotDHUPcsHour13;
+            // HourlyProdLines1Rec.Total := TotDHU;
+            // HourlyProdLines1Rec.Modify();
 
             HourlyProdLinesRec3.Reset();
             HourlyProdLinesRec3.SetRange("Prod Date", Rec."Prod Date");
@@ -1827,9 +1827,15 @@ page 51381 HourlyFinishingListPart
             Clear(SetEdit);
             SetEdit := true;
         end;
+
+        if Rec."Style Name" = '' then
+            EditableGB := true
+        else
+            EditableGB := false;
     end;
 
     var
+        EditableGB: Boolean;
         FinDTotal: Integer;
         HDTotal: Integer;
         FinTotal: Integer;

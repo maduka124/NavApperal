@@ -2,7 +2,7 @@ report 51387 FinishingProductionReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Finishing Production Report';
+    Caption = 'Hourly Finishing Production Report';
     RDLCLayout = 'Report_Layouts/Planning/FinishingSubReport.rdl';
     DefaultLayout = RDLC;
 
@@ -256,7 +256,11 @@ report 51387 FinishingProductionReport
         }
     }
 
-
+    trigger OnInitReport()
+    var
+    begin
+        FilterDate := WorkDate();
+    end;
 
     var
         FactoryTotalAchiveHoursFin: Integer;
