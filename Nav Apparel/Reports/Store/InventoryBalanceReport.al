@@ -112,7 +112,6 @@ report 51310 InventotyBalanceReport
                 StyleRec.Reset();
                 StyleRec.SetRange("No.", StyleNo);
                 if StyleRec.FindSet() then begin
-
                 end;
             end;
 
@@ -124,8 +123,6 @@ report 51310 InventotyBalanceReport
 
                 if BuyerFilter <> '' then
                     SetRange("Buyer No.", BuyerFilter);
-
-
             end;
         }
     }
@@ -144,7 +141,6 @@ report 51310 InventotyBalanceReport
                         ApplicationArea = All;
                         Caption = 'Factory';
 
-
                         trigger OnLookup(var texts: text): Boolean
                         var
                             LocationRec: Record Location;
@@ -162,24 +158,18 @@ report 51310 InventotyBalanceReport
                                 if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactoryFilter := LocationRec.Code;
                                 end;
-                            end
-                            // else
-                            //     if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
-                            //         FactortFilter := LocationRec2.Code;
-                            //     end;
+                            end                          
                         end;
-
                     }
+
                     field(MAinCatFilter; MAinCatFilter)
                     {
-                        ApplicationArea = All;
-                        // TableRelation = "Main Category"."No." where("Style Related" = filter(false));
+                        ApplicationArea = All;                      
                         Caption = 'Main Category';
 
                         trigger OnLookup(var texts: text): Boolean
                         var
                             MainCat: Record "Main Category";
-
                         begin
                             MainCat.Reset();
                             MainCat.SetFilter("Style Related", '=%1', true);
@@ -187,24 +177,20 @@ report 51310 InventotyBalanceReport
                                 if Page.RunModal(50641, MainCat) = Action::LookupOK then begin
                                     MAinCatFilter := MainCat."Master Category Name";
                                 end;
-                            end
-                            // else
-                            // if Page.RunModal(50641, MainCat) = Action::LookupOK then begin
-                            //     MAinCatFilter := MainCat."Master Category Name";
-                            // end;
+                            end                           
                         end;
-
                     }
+
                     field(BuyerFilter; BuyerFilter)
                     {
                         ApplicationArea = All;
                         TableRelation = Customer."No.";
                         Caption = 'Buyer';
                     }
+
                     field(ContractFilter; ContractFilter)
                     {
-                        ApplicationArea = All;
-                        // TableRelation = "Contract/LCMaster"."No.";
+                        ApplicationArea = All;                        
                         Caption = 'Contract No';
 
 
@@ -212,9 +198,7 @@ report 51310 InventotyBalanceReport
                         var
                             ContracRec: Record "Contract/LCMaster";
                         begin
-
                             ContracRec.Reset();
-
                             ContracRec.SetRange("Buyer No.", BuyerFilter);
                             if ContracRec.FindSet() then begin
                                 if Page.RunModal(50503, ContracRec) = Action::LookupOK then
@@ -224,7 +208,6 @@ report 51310 InventotyBalanceReport
                                 if Page.RunModal(50503, ContracRec) = Action::LookupOK then
                                     ContractFilter := ContracRec."No.";
                         end;
-
                     }
                 }
             }

@@ -191,12 +191,12 @@ report 51385 EnventoryDayBook
         Factory: Code[20];
         GRNLineRec: Record "Purch. Rcpt. Line";
         ItemRec: Record Item;
-        GRNQTY: Integer;
+        GRNQTY: Decimal;
         DescriptionRec: Text[200];
         UOM: Code[20];
         UnitPrice: Decimal;
-        ReorderLevel: Integer;
-        ReorderQty: Integer;
+        ReorderLevel: Decimal;
+        ReorderQty: Decimal;
         ItemRec1: Record Item;
         comRec: Record "Company Information";
 }

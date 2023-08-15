@@ -1209,7 +1209,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=SUM(Fields!ReorderQty.Value)</Value>
+                                  <Value>=Fields!ReorderQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -1507,6 +1507,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2289,6 +2290,9 @@ End Function
         <Field Name="GRNQTY">
           <DataField>GRNQTY</DataField>
         </Field>
+        <Field Name="GRNQTYFormat">
+          <DataField>GRNQTYFormat</DataField>
+        </Field>
         <Field Name="UnitPrice">
           <DataField>UnitPrice</DataField>
         </Field>
@@ -2307,8 +2311,14 @@ End Function
         <Field Name="ReorderLevel">
           <DataField>ReorderLevel</DataField>
         </Field>
+        <Field Name="ReorderLevelFormat">
+          <DataField>ReorderLevelFormat</DataField>
+        </Field>
         <Field Name="ReorderQty">
           <DataField>ReorderQty</DataField>
+        </Field>
+        <Field Name="ReorderQtyFormat">
+          <DataField>ReorderQtyFormat</DataField>
         </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>

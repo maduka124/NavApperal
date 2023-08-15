@@ -1504,7 +1504,7 @@ page 50968 "Nav Apperal Role Center"
                     action("EnventoryDayBook")
                     {
                         Enabled = true;
-                        Caption = 'Inventory Day Report';
+                        Caption = 'Inventory Day Book';
                         RunObject = report EnventoryDayBook;
                         ApplicationArea = All;
                     }
