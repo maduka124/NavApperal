@@ -11,253 +11,6 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="StyleOrderQty">
-          <DataField>StyleOrderQty</DataField>
-        </Field>
-        <Field Name="Line_No_">
-          <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Lot_No_">
-          <DataField>Lot_No_</DataField>
-        </Field>
-        <Field Name="Month">
-          <DataField>Month</DataField>
-        </Field>
-        <Field Name="one">
-          <DataField>one</DataField>
-        </Field>
-        <Field Name="oneFormat">
-          <DataField>oneFormat</DataField>
-        </Field>
-        <Field Name="two">
-          <DataField>two</DataField>
-        </Field>
-        <Field Name="twoFormat">
-          <DataField>twoFormat</DataField>
-        </Field>
-        <Field Name="three">
-          <DataField>three</DataField>
-        </Field>
-        <Field Name="threeFormat">
-          <DataField>threeFormat</DataField>
-        </Field>
-        <Field Name="four">
-          <DataField>four</DataField>
-        </Field>
-        <Field Name="fourFormat">
-          <DataField>fourFormat</DataField>
-        </Field>
-        <Field Name="five">
-          <DataField>five</DataField>
-        </Field>
-        <Field Name="fiveFormat">
-          <DataField>fiveFormat</DataField>
-        </Field>
-        <Field Name="six">
-          <DataField>six</DataField>
-        </Field>
-        <Field Name="sixFormat">
-          <DataField>sixFormat</DataField>
-        </Field>
-        <Field Name="seven">
-          <DataField>seven</DataField>
-        </Field>
-        <Field Name="sevenFormat">
-          <DataField>sevenFormat</DataField>
-        </Field>
-        <Field Name="eight">
-          <DataField>eight</DataField>
-        </Field>
-        <Field Name="eightFormat">
-          <DataField>eightFormat</DataField>
-        </Field>
-        <Field Name="nine">
-          <DataField>nine</DataField>
-        </Field>
-        <Field Name="nineFormat">
-          <DataField>nineFormat</DataField>
-        </Field>
-        <Field Name="ten">
-          <DataField>ten</DataField>
-        </Field>
-        <Field Name="tenFormat">
-          <DataField>tenFormat</DataField>
-        </Field>
-        <Field Name="eleven">
-          <DataField>eleven</DataField>
-        </Field>
-        <Field Name="elevenFormat">
-          <DataField>elevenFormat</DataField>
-        </Field>
-        <Field Name="twelve">
-          <DataField>twelve</DataField>
-        </Field>
-        <Field Name="twelveFormat">
-          <DataField>twelveFormat</DataField>
-        </Field>
-        <Field Name="thirteen">
-          <DataField>thirteen</DataField>
-        </Field>
-        <Field Name="thirteenFormat">
-          <DataField>thirteenFormat</DataField>
-        </Field>
-        <Field Name="fourteen">
-          <DataField>fourteen</DataField>
-        </Field>
-        <Field Name="fourteenFormat">
-          <DataField>fourteenFormat</DataField>
-        </Field>
-        <Field Name="fifteen">
-          <DataField>fifteen</DataField>
-        </Field>
-        <Field Name="fifteenFormat">
-          <DataField>fifteenFormat</DataField>
-        </Field>
-        <Field Name="sixteen">
-          <DataField>sixteen</DataField>
-        </Field>
-        <Field Name="sixteenFormat">
-          <DataField>sixteenFormat</DataField>
-        </Field>
-        <Field Name="seventeen">
-          <DataField>seventeen</DataField>
-        </Field>
-        <Field Name="seventeenFormat">
-          <DataField>seventeenFormat</DataField>
-        </Field>
-        <Field Name="eighteen">
-          <DataField>eighteen</DataField>
-        </Field>
-        <Field Name="eighteenFormat">
-          <DataField>eighteenFormat</DataField>
-        </Field>
-        <Field Name="nineteen">
-          <DataField>nineteen</DataField>
-        </Field>
-        <Field Name="nineteenFormat">
-          <DataField>nineteenFormat</DataField>
-        </Field>
-        <Field Name="twenty">
-          <DataField>twenty</DataField>
-        </Field>
-        <Field Name="twentyFormat">
-          <DataField>twentyFormat</DataField>
-        </Field>
-        <Field Name="twentyone">
-          <DataField>twentyone</DataField>
-        </Field>
-        <Field Name="twentyoneFormat">
-          <DataField>twentyoneFormat</DataField>
-        </Field>
-        <Field Name="twentytwo">
-          <DataField>twentytwo</DataField>
-        </Field>
-        <Field Name="twentytwoFormat">
-          <DataField>twentytwoFormat</DataField>
-        </Field>
-        <Field Name="twenythree">
-          <DataField>twenythree</DataField>
-        </Field>
-        <Field Name="twenythreeFormat">
-          <DataField>twenythreeFormat</DataField>
-        </Field>
-        <Field Name="twentyfour">
-          <DataField>twentyfour</DataField>
-        </Field>
-        <Field Name="twentyfourFormat">
-          <DataField>twentyfourFormat</DataField>
-        </Field>
-        <Field Name="twentyfive">
-          <DataField>twentyfive</DataField>
-        </Field>
-        <Field Name="twentyfiveFormat">
-          <DataField>twentyfiveFormat</DataField>
-        </Field>
-        <Field Name="twentysix">
-          <DataField>twentysix</DataField>
-        </Field>
-        <Field Name="twentysixFormat">
-          <DataField>twentysixFormat</DataField>
-        </Field>
-        <Field Name="twentyseven">
-          <DataField>twentyseven</DataField>
-        </Field>
-        <Field Name="twentysevenFormat">
-          <DataField>twentysevenFormat</DataField>
-        </Field>
-        <Field Name="twentyeight">
-          <DataField>twentyeight</DataField>
-        </Field>
-        <Field Name="twentyeightFormat">
-          <DataField>twentyeightFormat</DataField>
-        </Field>
-        <Field Name="twentynine">
-          <DataField>twentynine</DataField>
-        </Field>
-        <Field Name="twentynineFormat">
-          <DataField>twentynineFormat</DataField>
-        </Field>
-        <Field Name="thirty">
-          <DataField>thirty</DataField>
-        </Field>
-        <Field Name="thirtyFormat">
-          <DataField>thirtyFormat</DataField>
-        </Field>
-        <Field Name="thirtyone">
-          <DataField>thirtyone</DataField>
-        </Field>
-        <Field Name="thirtyoneFormat">
-          <DataField>thirtyoneFormat</DataField>
-        </Field>
-        <Field Name="Year">
-          <DataField>Year</DataField>
-        </Field>
-        <Field Name="SawingOut">
-          <DataField>SawingOut</DataField>
-        </Field>
-        <Field Name="stDate">
-          <DataField>stDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -10496,12 +10249,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -10553,4 +10300,251 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="StyleOrderQty">
+          <DataField>StyleOrderQty</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Lot_No_">
+          <DataField>Lot_No_</DataField>
+        </Field>
+        <Field Name="Month">
+          <DataField>Month</DataField>
+        </Field>
+        <Field Name="one">
+          <DataField>one</DataField>
+        </Field>
+        <Field Name="oneFormat">
+          <DataField>oneFormat</DataField>
+        </Field>
+        <Field Name="two">
+          <DataField>two</DataField>
+        </Field>
+        <Field Name="twoFormat">
+          <DataField>twoFormat</DataField>
+        </Field>
+        <Field Name="three">
+          <DataField>three</DataField>
+        </Field>
+        <Field Name="threeFormat">
+          <DataField>threeFormat</DataField>
+        </Field>
+        <Field Name="four">
+          <DataField>four</DataField>
+        </Field>
+        <Field Name="fourFormat">
+          <DataField>fourFormat</DataField>
+        </Field>
+        <Field Name="five">
+          <DataField>five</DataField>
+        </Field>
+        <Field Name="fiveFormat">
+          <DataField>fiveFormat</DataField>
+        </Field>
+        <Field Name="six">
+          <DataField>six</DataField>
+        </Field>
+        <Field Name="sixFormat">
+          <DataField>sixFormat</DataField>
+        </Field>
+        <Field Name="seven">
+          <DataField>seven</DataField>
+        </Field>
+        <Field Name="sevenFormat">
+          <DataField>sevenFormat</DataField>
+        </Field>
+        <Field Name="eight">
+          <DataField>eight</DataField>
+        </Field>
+        <Field Name="eightFormat">
+          <DataField>eightFormat</DataField>
+        </Field>
+        <Field Name="nine">
+          <DataField>nine</DataField>
+        </Field>
+        <Field Name="nineFormat">
+          <DataField>nineFormat</DataField>
+        </Field>
+        <Field Name="ten">
+          <DataField>ten</DataField>
+        </Field>
+        <Field Name="tenFormat">
+          <DataField>tenFormat</DataField>
+        </Field>
+        <Field Name="eleven">
+          <DataField>eleven</DataField>
+        </Field>
+        <Field Name="elevenFormat">
+          <DataField>elevenFormat</DataField>
+        </Field>
+        <Field Name="twelve">
+          <DataField>twelve</DataField>
+        </Field>
+        <Field Name="twelveFormat">
+          <DataField>twelveFormat</DataField>
+        </Field>
+        <Field Name="thirteen">
+          <DataField>thirteen</DataField>
+        </Field>
+        <Field Name="thirteenFormat">
+          <DataField>thirteenFormat</DataField>
+        </Field>
+        <Field Name="fourteen">
+          <DataField>fourteen</DataField>
+        </Field>
+        <Field Name="fourteenFormat">
+          <DataField>fourteenFormat</DataField>
+        </Field>
+        <Field Name="fifteen">
+          <DataField>fifteen</DataField>
+        </Field>
+        <Field Name="fifteenFormat">
+          <DataField>fifteenFormat</DataField>
+        </Field>
+        <Field Name="sixteen">
+          <DataField>sixteen</DataField>
+        </Field>
+        <Field Name="sixteenFormat">
+          <DataField>sixteenFormat</DataField>
+        </Field>
+        <Field Name="seventeen">
+          <DataField>seventeen</DataField>
+        </Field>
+        <Field Name="seventeenFormat">
+          <DataField>seventeenFormat</DataField>
+        </Field>
+        <Field Name="eighteen">
+          <DataField>eighteen</DataField>
+        </Field>
+        <Field Name="eighteenFormat">
+          <DataField>eighteenFormat</DataField>
+        </Field>
+        <Field Name="nineteen">
+          <DataField>nineteen</DataField>
+        </Field>
+        <Field Name="nineteenFormat">
+          <DataField>nineteenFormat</DataField>
+        </Field>
+        <Field Name="twenty">
+          <DataField>twenty</DataField>
+        </Field>
+        <Field Name="twentyFormat">
+          <DataField>twentyFormat</DataField>
+        </Field>
+        <Field Name="twentyone">
+          <DataField>twentyone</DataField>
+        </Field>
+        <Field Name="twentyoneFormat">
+          <DataField>twentyoneFormat</DataField>
+        </Field>
+        <Field Name="twentytwo">
+          <DataField>twentytwo</DataField>
+        </Field>
+        <Field Name="twentytwoFormat">
+          <DataField>twentytwoFormat</DataField>
+        </Field>
+        <Field Name="twenythree">
+          <DataField>twenythree</DataField>
+        </Field>
+        <Field Name="twenythreeFormat">
+          <DataField>twenythreeFormat</DataField>
+        </Field>
+        <Field Name="twentyfour">
+          <DataField>twentyfour</DataField>
+        </Field>
+        <Field Name="twentyfourFormat">
+          <DataField>twentyfourFormat</DataField>
+        </Field>
+        <Field Name="twentyfive">
+          <DataField>twentyfive</DataField>
+        </Field>
+        <Field Name="twentyfiveFormat">
+          <DataField>twentyfiveFormat</DataField>
+        </Field>
+        <Field Name="twentysix">
+          <DataField>twentysix</DataField>
+        </Field>
+        <Field Name="twentysixFormat">
+          <DataField>twentysixFormat</DataField>
+        </Field>
+        <Field Name="twentyseven">
+          <DataField>twentyseven</DataField>
+        </Field>
+        <Field Name="twentysevenFormat">
+          <DataField>twentysevenFormat</DataField>
+        </Field>
+        <Field Name="twentyeight">
+          <DataField>twentyeight</DataField>
+        </Field>
+        <Field Name="twentyeightFormat">
+          <DataField>twentyeightFormat</DataField>
+        </Field>
+        <Field Name="twentynine">
+          <DataField>twentynine</DataField>
+        </Field>
+        <Field Name="twentynineFormat">
+          <DataField>twentynineFormat</DataField>
+        </Field>
+        <Field Name="thirty">
+          <DataField>thirty</DataField>
+        </Field>
+        <Field Name="thirtyFormat">
+          <DataField>thirtyFormat</DataField>
+        </Field>
+        <Field Name="thirtyone">
+          <DataField>thirtyone</DataField>
+        </Field>
+        <Field Name="thirtyoneFormat">
+          <DataField>thirtyoneFormat</DataField>
+        </Field>
+        <Field Name="Year">
+          <DataField>Year</DataField>
+        </Field>
+        <Field Name="SawingOut">
+          <DataField>SawingOut</DataField>
+        </Field>
+        <Field Name="stDate">
+          <DataField>stDate</DataField>
+        </Field>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
