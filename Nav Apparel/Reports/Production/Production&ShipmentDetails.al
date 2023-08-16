@@ -15,22 +15,19 @@ report 50627 ProductionAndShipmentDetails
 
             DataItemTableView = where("Bal. Account Type" = filter("G/L Account"), EntryType = filter(FG));
 
-            column(Buyer_Name; "Sell-to Customer No.")
-            { }
-            column(AssignedContractNo; "Contract No")
-            { }
-            column(Location_Code; "Location Code")
-            { }
 
-
-            dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
+            dataitem("Style Master PO"; "Style Master PO")
             {
                 DataItemLinkReference = "Sales Invoice Header";
                 DataItemLink = "Style No." = field("Style No"), "PO No." = field("PO No"), "Lot No." = field(Lot);
-                DataItemTableView = sorting("No.");
-                column(PoNo; "PO No.")
+                DataItemTableView = sorting("Style No.", "Lot No.");
+                column(OrderQty;Qty)
                 { }
-                column(OrderQty; OrderQty)
+                column(Buyer_Name; Buyer)
+                { }
+                column(Location_Code; Factory)
+                { }
+                column(PoNo; "PO No.")
                 { }
                 column(SMV; SMV)
                 { }
@@ -66,161 +63,175 @@ report 50627 ProductionAndShipmentDetails
                 { }
                 column(ShipOutTotal; ShipOutTotal)
                 { }
+                column(AssignedContractNo; AssignContrantNo)
+                { }
+
                 trigger OnAfterGetRecord()
-
+                var
+                    myInt: Integer;
                 begin
-                    comRec.Get;
-                    comRec.CalcFields(Picture);
+                    // StylePoRec.Reset();
+                    // StylePoRec.SetRange("Style No.", "Style No.");
+                    // StylePoRec.SetRange("PO No.", "PO No.");
+                    // StylePoRec.SetCurrentKey("Style No.", "PO No.");
+                    // StylePoRec.Ascending(true);
+                    // if StylePoRec.FindSet() then begin
+                    //     // if StylePoRec."PO No."='MAE55015FL18-M-14'then begin
+                    //     //     Message('po');
+                    //     // end;
+                    //     // if (StylePoRec."Style No." = STNO) and (StylePoRec."PO No." = PO) then begin
+                    //     //     OrderQty := 0;
 
-                    StyleMasterRec.Reset();
-                    StyleMasterRec.SetRange("No.", "Style No.");
-                    if StyleMasterRec.FindFirst() then begin
-                        Buyer := StyleMasterRec."Buyer Name";
-                        StyleName := StyleMasterRec."Style No.";
-                        SMV := StyleMasterRec.SMV;
-                        AssignContrantNo := StyleMasterRec."LC No/Contract";
-                    end;
-
-                    OrderQty := 0;
-                    StylePoRec.Reset();
-                    StylePoRec.SetRange("Style No.", "Style No.");
-                    StylePoRec.SetRange("PO No.", "PO No.");
-                    StylePoRec.SetRange("Lot No.", "Lot No.");
-                    if StylePoRec.FindSet() then begin
-                        repeat
-                            OrderQty += StylePoRec.Qty;
-                        until StylePoRec.Next() = 0;
-                    end;
-
-                    CutOutQty := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            CutOutQty += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
-
-                    //Cuting Total
-                    CutOutTotal := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            CutOutTotal += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
-
-                    //Sew QTY
-                    SawOutQty := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            SawOutQty += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
-
-                    //Sew Total
-                    SawOutTotal := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            SawOutTotal += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
-
-                    //Finish QTY
-                    WashOutQty := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Fin);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            WashOutQty += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
-
-                    //Finish Total
-                    FinOutTotal := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Fin);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            FinOutTotal += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
-
-                    //Wash QTY
-                    FinOutQty := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Wash);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            FinOutQty += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
-
-                    //Wash Total
-                    WashOutTotal := 0;
-                    ProductionRec.Reset();
-                    ProductionRec.SetRange("Style No.", "Style No.");
-                    ProductionRec.SetRange("PO No", "PO No.");
-                    ProductionRec.SetRange("Lot No.", "Lot No.");
-                    ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
-                    ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Wash);
-                    if ProductionRec.FindSet() then begin
-                        repeat
-                            WashOutTotal += ProductionRec."Output Qty";
-                        until ProductionRec.Next() = 0;
-                    end;
+                    //     // end;
+                    //     OrderQty := StylePoRec.Qty;
+                    //     STNO := StylePoRec."Style No.";
+                    //     PO := StylePoRec."PO No.";
+                    // end;
                 end;
 
             }
-            trigger OnPreDataItem()
-            begin
-                if stDate <> 0D then
-                    SetRange("Shipment Date", stDate, endDate);
-
-                if BuyerNo <> '' then
-                    SetRange("Sell-to Customer No.", BuyerNo);
-
-                if FactoryFilter <> '' then
-                    SetRange("Location Code", FactoryFilter);
-            end;
-
             trigger OnAfterGetRecord()
-            var
-                myInt: Integer;
+
             begin
+                comRec.Get;
+                comRec.CalcFields(Picture);
+
+                StyleMasterRec.Reset();
+                StyleMasterRec.SetRange("No.", "Style No");
+                if StyleMasterRec.FindFirst() then begin
+                    Buyer := StyleMasterRec."Buyer Name";
+                    StyleName := StyleMasterRec."Style No.";
+                    SMV := StyleMasterRec.SMV;
+                    Factory := StyleMasterRec."Factory Code";
+
+                    ContracRec.Reset();
+                    ContracRec.SetRange("No.", StyleMasterRec.AssignedContractNo);
+                    if ContracRec.FindSet() then begin
+                        AssignContrantNo := ContracRec."Contract No";
+                    end;
+                end;
+
+                // OrderQty := 0;
+                // StylePoRec.Reset();
+                // StylePoRec.SetRange("Style No.",sty);
+                // StylePoRec.SetRange("PO No.", "PO No.");
+                // StylePoRec.SetRange("Lot No.", "Lot No.");
+                // if StylePoRec.FindSet() then begin
+                //     repeat
+                //         OrderQty += StylePoRec.Qty;
+                //     until StylePoRec.Next() = 0;
+                // end;
+
+                CutOutQty := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        CutOutQty += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
+
+                //Cuting Total
+                CutOutTotal := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        CutOutTotal += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
+
+                //Sew QTY
+                SawOutQty := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        SawOutQty += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
+
+                //Sew Total
+                SawOutTotal := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        SawOutTotal += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
+
+                //Finish QTY
+                WashOutQty := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Fin);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        WashOutQty += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
+
+                //Finish Total
+                FinOutTotal := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Fin);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        FinOutTotal += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
+
+                //Wash QTY
+                FinOutQty := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Wash);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        FinOutQty += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
+
+                //Wash Total
+                WashOutTotal := 0;
+                ProductionRec.Reset();
+                ProductionRec.SetRange("Style No.", "Style No");
+                ProductionRec.SetRange("PO No", "PO No");
+                ProductionRec.SetRange("Lot No.", Lot);
+                ProductionRec.SetFilter("Prod Date", '<=%1', endDate);
+                ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Wash);
+                if ProductionRec.FindSet() then begin
+                    repeat
+                        WashOutTotal += ProductionRec."Output Qty";
+                    until ProductionRec.Next() = 0;
+                end;
                 ShipOutTotal := 0;
                 SalesInvoiceHrec.Reset();
                 SalesInvoiceHrec.SetRange("No.", "No.");
@@ -271,6 +282,74 @@ report 50627 ProductionAndShipmentDetails
                     end;
                 end;
             end;
+
+
+            trigger OnPreDataItem()
+            begin
+                if stDate <> 0D then
+                    SetRange("Shipment Date", stDate, endDate);
+
+                if BuyerNo <> '' then
+                    SetRange("Sell-to Customer No.", BuyerNo);
+
+                if FactoryFilter <> '' then
+                    SetRange("Location Code", FactoryFilter);
+            end;
+
+            // trigger OnAfterGetRecord()
+            // var
+            //     myInt: Integer;
+            // begin
+            //     ShipOutTotal := 0;
+            //     SalesInvoiceHrec.Reset();
+            //     SalesInvoiceHrec.SetRange("No.", "No.");
+            //     SalesInvoiceHrec.SetRange(Lot, Lot);
+            //     SalesInvoiceHrec.SetRange("PO No", "PO No");
+            //     SalesInvoiceHrec.SetRange("Style No", "Style No");
+            //     SalesInvoiceHrec.SetFilter("Shipment Date", '<=%1', endDate);
+            //     SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
+            //     SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
+            //     if SalesInvoiceHrec.FindSet() then begin
+            //         SalesInvoiceLineRec.Reset();
+            //         SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
+            //         SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+            //         if SalesInvoiceLineRec.FindSet() then begin
+            //             repeat
+            //                 ShipOutTotal += SalesInvoiceLineRec.Quantity;
+            //             until SalesInvoiceLineRec.Next() = 0;
+            //         end;
+            //     end;
+
+            //     SalesInvoiceHrec.Reset();
+            //     SalesInvoiceHrec.SetRange("No.", "No.");
+            //     SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
+            //     SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
+            //     SalesInvoiceHrec.SetRange(Lot, Lot);
+            //     if SalesInvoiceHrec.FindSet() then begin
+            //         Shdate := SalesInvoiceHrec."Shipment Date";
+            //     end;
+
+
+            //     ShipOutQty := 0;
+            //     SalesInvoiceHrec.Reset();
+            //     SalesInvoiceHrec.SetRange("No.", "No.");
+            //     SalesInvoiceHrec.SetRange(Lot, Lot);
+            //     SalesInvoiceHrec.SetRange("PO No", "PO No");
+            //     SalesInvoiceHrec.SetRange("Style No", "Style No");
+            //     SalesInvoiceHrec.SetFilter("Shipment Date", '%1..%2', stDate, endDate);
+            //     SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
+            //     SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
+            //     if SalesInvoiceHrec.FindSet() then begin
+            //         SalesInvoiceLineRec.Reset();
+            //         SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
+            //         SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+            //         if SalesInvoiceLineRec.FindSet() then begin
+            //             repeat
+            //                 ShipOutQty += SalesInvoiceLineRec.Quantity;
+            //             until SalesInvoiceLineRec.Next() = 0;
+            //         end;
+            //     end;
+            // end;
 
         }
     }
@@ -354,6 +433,10 @@ report 50627 ProductionAndShipmentDetails
     }
 
     var
+        STNO: Code[20];
+        PO: Code[20];
+        Factory: Code[20];
+        ContracRec: Record "Contract/LCMaster";
         StylePoRec: Record "Style Master PO";
         Shdate: Date;
         SalesInvoiceHrec: Record "Sales Invoice Header";
