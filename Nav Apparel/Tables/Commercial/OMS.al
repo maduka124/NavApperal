@@ -184,7 +184,11 @@ table 51327 OMS
         field(36; Factory; Code[20])
         {
             DataClassification = ToBeClassified;
+        }
 
+        field(37; "Merchandizer Group Head"; Text[200])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 

@@ -40,8 +40,13 @@ page 51328 OMSList
                 field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;
-
                 }
+
+                field("Merchandizer Group Head"; Rec."Merchandizer Group Head")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Style No"; Rec."Style No")
                 {
                     ApplicationArea = All;
@@ -188,6 +193,8 @@ page 51328 OMSList
         ProdRec: Record ProductionOutHeader;
         StylePoRec1: Record "Style Master PO";
         OMSRec: Record OMS;
+        CustomerRec: Record Customer;
+        MerchantRec: Record MerchandizingGroupTable;
         SalesInvoiceLineRec: Record "Sales Invoice Line";
         BankRefColRec: Record BankRefCollectionHeader;
         BankRefHRec: Record BankReferenceHeader;
@@ -249,6 +256,21 @@ page 51328 OMSList
                             OMSRec."Style Des" := StyleRec."Style No.";
                             OMSRec."Order Qty" := StyleRec."Order Qty";
                             OMSRec.Brand := StyleRec."Brand Name";
+
+                            CustomerRec.Reset();
+                            CustomerRec.SetRange(Name, StyleRec."Buyer Name");
+
+                            if CustomerRec.FindSet() then begin
+
+                                MerchantRec.Reset();
+                                MerchantRec.SetRange("Group Id", CustomerRec."Group Id");
+
+                                if MerchantRec.FindSet() then begin
+                                    OMSRec."Merchandizer Group Head" := MerchantRec."Group Head";
+                                end;
+
+                            end;
+
                             OMSRec.Department := StyleRec."Department Name";
                             OMSRec."Po No" := StylePoRec."PO No.";
                             OMSRec."Po Qty" := StylePoRec.Qty;
@@ -300,9 +322,10 @@ page 51328 OMSList
                                 OMSRec."Ship value" := ShQty * StylePoRec."Unit Price";
                                 OMSRec."EXP QTY" := ShQty;
 
-                                OMSRec."EX Short" := ShQty - POQtyTot;
+                                // OMSRec."EX Short" := ShQty - StylePoRec.Qty;
 
                             end;
+                            OMSRec."EX Short" := ShQty - StylePoRec.Qty;
                         end
                         else begin
                             OMSRec."Lc Contract No" := LcRec."Contract No";
@@ -365,9 +388,10 @@ page 51328 OMSList
                                 OMSRec."Ship value" := ShQty * StylePoRec."Unit Price";
                                 OMSRec."EXP QTY" := ShQty;
 
-                                OMSRec."EX Short" := ShQty - POQtyTot;
+                                // OMSRec."EX Short" := ShQty - StylePoRec.Qty;
 
                             end;
+                            OMSRec."EX Short" := ShQty - StylePoRec.Qty;
                         end;
                         OMSRec.Insert();
                         CurrPage.Update();
