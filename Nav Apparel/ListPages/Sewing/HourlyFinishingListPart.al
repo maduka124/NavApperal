@@ -1188,34 +1188,34 @@ page 51381 HourlyFinishingListPart
                                 HourlyRec.Item := 'PASS PCS';
                                 HourlyRec.Insert();
 
-                                Line += 1;
+                                // Line += 1;
 
-                                HourlyRec.Init();
-                                HourlyRec."No." := Rec."No.";
-                                HourlyRec."Line No." := Line;
-                                HourlyRec."Factory No." := HourlymasterRec."Factory No.";
-                                HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
-                                HourlyRec.Type := Rec.Type;
-                                HourlyRec."Work Center No." := '';
-                                HourlyRec."Style No." := StyleRec."No.";
-                                HourlyRec."Work Center Name" := '';
-                                HourlyRec.Item := 'DEFECT PCS';
-                                HourlyRec.Insert();
+                                // HourlyRec.Init();
+                                // HourlyRec."No." := Rec."No.";
+                                // HourlyRec."Line No." := Line;
+                                // HourlyRec."Factory No." := HourlymasterRec."Factory No.";
+                                // HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
+                                // HourlyRec.Type := Rec.Type;
+                                // HourlyRec."Work Center No." := '';
+                                // HourlyRec."Style No." := StyleRec."No.";
+                                // HourlyRec."Work Center Name" := '';
+                                // HourlyRec.Item := 'DEFECT PCS';
+                                // HourlyRec.Insert();
 
-                                Line += 1;
+                                // Line += 1;
 
-                                HourlyRec.Init();
-                                HourlyRec."No." := rec."No.";
-                                HourlyRec."Line No." := Line;
-                                HourlyRec."Factory No." := HourlymasterRec."Factory No.";
-                                HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
-                                HourlyRec.Type := Rec.Type;
-                                HourlyRec."Style No." := StyleRec."No.";
-                                HourlyRec."Work Center No." := '';
-                                HourlyRec."Work Center Name" := '';
+                                // HourlyRec.Init();
+                                // HourlyRec."No." := rec."No.";
+                                // HourlyRec."Line No." := Line;
+                                // HourlyRec."Factory No." := HourlymasterRec."Factory No.";
+                                // HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
+                                // HourlyRec.Type := Rec.Type;
+                                // HourlyRec."Style No." := StyleRec."No.";
+                                // HourlyRec."Work Center No." := '';
+                                // HourlyRec."Work Center Name" := '';
 
-                                HourlyRec.Item := 'DHU';
-                                HourlyRec.Insert();
+                                // HourlyRec.Item := 'DHU';
+                                // HourlyRec.Insert();
 
                                 // Rec.Modify();
                             end;

@@ -446,6 +446,7 @@ page 51377 "Hourly Finishing Card"
     begin
 
         Rec."Prod Date" := WorkDate();
+        rec.Type := Rec.Type::Finishing;
 
         UserRec.Reset();
         UserRec.Get(UserId);
@@ -480,7 +481,7 @@ page 51377 "Hourly Finishing Card"
                 EditableGB := true;
     end;
 
-   
+
     var
         EditableGB: Boolean;
         LatestDate: Date;
