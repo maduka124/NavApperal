@@ -1,7 +1,7 @@
 pageextension 50669 Jobcardline extends "Firm Planned Prod. Order Lines"
 {
     layout
-    {
+    {       
         addafter("Cost Amount")
         {
             field(Step; rec.Step)
@@ -76,6 +76,6 @@ pageextension 50669 Jobcardline extends "Firm Planned Prod. Order Lines"
                 end;
             }
         }
-    }  
-
+    }
+   
 }

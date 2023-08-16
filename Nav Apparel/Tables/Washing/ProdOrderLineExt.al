@@ -67,36 +67,15 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        // field(50009; "Item No Washing"; code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+
+        // field(50010; "Item Name Washing"; Text[100])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
     }
-
-    // trigger OnDelete()
-    // var
-    //     prodHead: Record "Production Order";
-    // begin
-
-    //     prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
-    //     prodHead."Total Water Ltrs:" -= Water;
-    //     prodHead.Modify(true);
-
-    //     prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
-    //     prodHead."Process Time:" -= "Time(Min)";
-    //     prodHead.Modify(true);
-    // end;
-
-
-    trigger OnAfterDelete()
-    var
-    //prodHead: Record "Production Order";
-    begin
-
-
-        // prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
-        // prodHead."Total Water Ltrs:" -= Water;
-        // prodHead.Modify(true);
-
-        // prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
-        // prodHead."Process Time:" -= "Time(Min)";
-        // prodHead.Modify(true);
-    end;
-
 }

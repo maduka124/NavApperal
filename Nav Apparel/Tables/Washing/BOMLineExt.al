@@ -37,20 +37,31 @@ tableextension 50656 WashingBOMLineExt extends "Production BOM Line"
         field(50007; "Main Category Code"; code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."No.";
+        }
+
+        field(50008; "Main Category Name"; text[100])
+        {
+            DataClassification = ToBeClassified;
+            // TableRelation = "Main Category"."Main Category Name";
+            // ValidateTableRelation = false;         
 
             trigger OnValidate()
             var
                 MainCategoryRec: Record "Main Category";
             begin
                 MainCategoryRec.Reset();
-                MainCategoryRec.SetRange("No.", "Main Category Code");
+                MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                 if MainCategoryRec.FindSet() then
-                    "Main Category Name" := MainCategoryRec."Main Category Name";
+                    "Main Category Code" := MainCategoryRec."No.";
             end;
         }
 
-        field(50008; "Main Category Name"; text[100])
+        field(50009; "Item No Washing"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50010; "Item Name Washing"; Text[100])
         {
             DataClassification = ToBeClassified;
         }
