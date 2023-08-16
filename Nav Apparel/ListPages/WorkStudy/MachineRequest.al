@@ -56,8 +56,9 @@ page 51361 MachineRequestList
         LineNo: Integer;
         LineNo2: Integer;
         MachineCodeGB: Code[20];
-        MachineCount: Integer;
-        TotMachine: Integer;
+        MachineCount: Decimal;
+        TotMachine: Decimal;
+        Workcenter: Text[100];
     begin
         LineNo := 0;
         TotMachine := 0;
@@ -66,9 +67,9 @@ page 51361 MachineRequestList
         if MachineReqRec.FindSet() then
             MachineReqRec.DeleteAll();
 
-        StyleWiseMachineLineRec.Reset();
-        if StyleWiseMachineLineRec.findset() then
-            StyleWiseMachineLineRec.DeleteAll();
+        // StyleWiseMachineLineRec.Reset();
+        // if StyleWiseMachineLineRec.findset() then
+        //     StyleWiseMachineLineRec.DeleteAll();
 
         ManningLevlHeaderRec.Reset();
         ManningLevlHeaderRec.SetCurrentKey("Style No.");
@@ -108,49 +109,55 @@ page 51361 MachineRequestList
                             if NavAppProdDetailRec.FindLast() then
                                 MachineReqRec.Factory := NavAppProdDetailRec."Factory No.";
 
-                            ManingLevelsLineRec.Reset();
-                            ManingLevelsLineRec.SetRange("No.", ManningLevlHeaderRec."No.");
-                            ManingLevelsLineRec.SetCurrentKey("Machine No.");
-                            ManingLevelsLineRec.Ascending(true);
-                            if ManingLevelsLineRec.FindSet() then begin
-                                repeat
-                                    if MachineCodeGB <> ManingLevelsLineRec."Machine No." then begin
-                                        LineNo2 += 1;
-                                        StyleWiseMachineLineRec.Init();
-                                        StyleWiseMachineLineRec.No := ManningLevlHeaderRec."No.";
-                                        StyleWiseMachineLineRec."Line No" := LineNo2;
-                                        StyleWiseMachineLineRec."Machine No" := ManingLevelsLineRec."Machine No.";
-                                        StyleWiseMachineLineRec."Machine Name" := ManingLevelsLineRec."Machine Name";
-                                        StyleWiseMachineLineRec."Style Name" := ManningLevlHeaderRec."Style Name";
-                                        StyleWiseMachineLineRec."Style No" := ManningLevlHeaderRec."Style No.";
-                                        StyleWiseMachineLineRec."Record Type" := 'L';
-                                        MachineCodeGB := ManingLevelsLineRec."Machine No.";
+                            // ManingLevelsLineRec.Reset();
+                            // ManingLevelsLineRec.SetRange("No.", ManningLevlHeaderRec."No.");
+                            // ManingLevelsLineRec.SetCurrentKey("Machine No.");
+                            // ManingLevelsLineRec.Ascending(true);
+                            // if ManingLevelsLineRec.FindSet() then begin
+                            //     repeat
+                            //         MachineCount := 0;
+                            //         if MachineCodeGB <> ManingLevelsLineRec."Machine No." then begin
+                            //             LineNo2 += 1;
+                            //             StyleWiseMachineLineRec.Init();
+                            //             StyleWiseMachineLineRec.No := ManningLevlHeaderRec."No.";
+                            //             StyleWiseMachineLineRec."Line No" := LineNo2;
+                            //             StyleWiseMachineLineRec."Machine No" := ManingLevelsLineRec."Machine No.";
+                            //             StyleWiseMachineLineRec."Machine Name" := ManingLevelsLineRec."Machine Name";
+                            //             StyleWiseMachineLineRec."Style Name" := ManningLevlHeaderRec."Style Name";
+                            //             StyleWiseMachineLineRec."Style No" := ManningLevlHeaderRec."Style No.";
+                            //             StyleWiseMachineLineRec."Work Center Name" := ManningLevlHeaderRec."Work Center Name";
+                            //             StyleWiseMachineLineRec."Record Type" := 'L';
+                            //             MachineCodeGB := ManingLevelsLineRec."Machine No.";
+                            //             Workcenter := ManningLevlHeaderRec."Work Center Name";
 
-                                        // ManingLevelsLine2Rec.Reset();
-                                        ManingLevelsLine2Rec.SetRange("No.", ManningLevlHeaderRec."No.");
-                                        ManingLevelsLine2Rec.SetRange("Machine No.", MachineCodeGB);
-                                        if ManingLevelsLine2Rec.FindSet() then begin
-                                            repeat
-                                                MachineCount := ManingLevelsLine2Rec.Count;
-                                            until ManingLevelsLine2Rec.Next() = 0;
-                                            StyleWiseMachineLineRec."Machine Qty" := MachineCount;
-                                        end;
-                                        StyleWiseMachineLineRec.Insert();
-                                        TotMachine += MachineCount;
-                                    end;
-                                until ManingLevelsLineRec.Next() = 0;
+                            //             // ManingLevelsLine2Rec.Reset();
+                            //             ManingLevelsLine2Rec.SetRange("No.", ManningLevlHeaderRec."No.");
+                            //             ManingLevelsLine2Rec.SetRange("Machine No.", MachineCodeGB);
+                            //             if ManingLevelsLine2Rec.FindSet() then begin
+                            //                 repeat
+                            //                     if ManningLevlHeaderRec."Work Center Name" = Workcenter then begin
+                            //                         if ManingLevelsLine2Rec."Act MO" > 0 then
+                            //                             MachineCount := MachineCount + ManingLevelsLine2Rec."Act MO";
+                            //                     end;
+                            //                 until ManingLevelsLine2Rec.Next() = 0;
+                            //                 StyleWiseMachineLineRec."Machine Qty" := MachineCount;
+                            //             end;
+                            //             StyleWiseMachineLineRec.Insert();
+                            //             TotMachine += MachineCount;
+                            //         end;
+                            //     until ManingLevelsLineRec.Next() = 0;
 
-                            end;
+                            // end;
                             MachineReqRec.Insert();
 
                             //Insert total
-                            StyleWiseMachineLineRec.Init();
-                            StyleWiseMachineLineRec.No := ManningLevlHeaderRec."No.";
-                            StyleWiseMachineLineRec."Line No" := LineNo2 + 1;
-                            StyleWiseMachineLineRec."Machine No" := 'Total';
-                            StyleWiseMachineLineRec."Record Type" := 'H';
-                            StyleWiseMachineLineRec."Machine Qty" := TotMachine;
-                            StyleWiseMachineLineRec.Insert();
+                            // StyleWiseMachineLineRec.Init();
+                            // StyleWiseMachineLineRec.No := ManningLevlHeaderRec."No.";
+                            // StyleWiseMachineLineRec."Line No" := LineNo2 + 1;
+                            // StyleWiseMachineLineRec."Machine No" := 'Total';
+                            // StyleWiseMachineLineRec."Record Type" := 'H';
+                            // StyleWiseMachineLineRec."Machine Qty" := TotMachine;
+                            // StyleWiseMachineLineRec.Insert();
                         end;
 
                     end;
@@ -165,7 +172,8 @@ page 51361 MachineRequestList
     begin
 
         StyleWiseMachineLineRec.Reset();
-        StyleWiseMachineLineRec.SetRange("Style No", Rec."Style No");
+        StyleWiseMachineLineRec.SetRange(No, Rec.No);
+        StyleWiseMachineLineRec.SetRange("Style No", rec."Style No");
         if StyleWiseMachineLineRec.FindSet() then
             StyleWiseMachineLineRec.DeleteAll();
     end;
