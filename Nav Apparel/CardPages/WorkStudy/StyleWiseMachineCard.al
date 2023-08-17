@@ -89,7 +89,7 @@ page 51362 StyleWiseMachineReqCard
                             Workcenter := ManningLevlHeaderRec."Work Center Name";
 
                             if ManingLevelsLineRec."Act MO" > 0 then
-                                StyleWiseMachineLineRec."Machine Qty" := ManingLevelsLineRec."Act MO";
+                                StyleWiseMachineLineRec."Machine Qty New" := ManingLevelsLineRec."Act MO";
 
                             TotMachine := TotMachine + ManingLevelsLineRec."Act MO";
 
@@ -104,7 +104,7 @@ page 51362 StyleWiseMachineReqCard
 
                             if StyleWiseMachineLine2Rec.FindSet() then begin
                                 if ManingLevelsLineRec."Act MO" > 0 then begin
-                                    StyleWiseMachineLine2Rec."Machine Qty" := StyleWiseMachineLine2Rec."Machine Qty" + ManingLevelsLineRec."Act MO";
+                                    StyleWiseMachineLine2Rec."Machine Qty New" := StyleWiseMachineLine2Rec."Machine Qty New" + ManingLevelsLineRec."Act MO";
                                     StyleWiseMachineLine2Rec.Modify();
                                     TotMachine := TotMachine + ManingLevelsLineRec."Act MO";
                                 end;
@@ -121,7 +121,7 @@ page 51362 StyleWiseMachineReqCard
             StyleWiseMachineLineRec."Line No" := LineNo2 + 1;
             StyleWiseMachineLineRec."Machine No" := 'Total';
             StyleWiseMachineLineRec."Record Type" := 'H';
-            StyleWiseMachineLineRec."Machine Qty" := TotMachine;
+            StyleWiseMachineLineRec."Machine Qty New" := TotMachine;
             StyleWiseMachineLineRec.Insert();
         end;
     end;

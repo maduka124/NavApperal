@@ -24,7 +24,7 @@ page 51363 StyleWiseMachineReqListpart
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Machine Qty"; Rec."Machine Qty")
+                field("Machine Qty New"; Rec."Machine Qty New")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
