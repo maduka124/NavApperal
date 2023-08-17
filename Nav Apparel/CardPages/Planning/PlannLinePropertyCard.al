@@ -471,8 +471,14 @@ page 50343 "Planning Line Property Card"
                             HrsPerDay := HrsPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                         end;
 
-                        TargetPerHour := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
-                        TargetPerDay := round(TargetPerHour * HrsPerDay, 1);
+                        TargetPerDay := round(((60 / rec.SMV) * rec.Carder * HrsPerDay * rec.Eff) / 100, 1);
+                        if HrsPerDay > 0 then
+                            TargetPerHour := TargetPerDay / HrsPerDay
+                        else
+                            TargetPerHour := 0;
+
+                        // TargetPerHour := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
+                        // TargetPerDay := round(TargetPerHour * HrsPerDay, 1);
 
                         if (rec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
 
@@ -1004,8 +1010,15 @@ page 50343 "Planning Line Property Card"
                                         // TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
                                     end
                                     else begin
-                                        TargetPerHour := round(((60 / SMV) * Carder * Eff) / 100, 1);
-                                        TargetPerDay := round(TargetPerHour * HrsPerDay, 1);
+
+                                        TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1);
+                                        if HrsPerDay > 0 then
+                                            TargetPerHour := TargetPerDay / HrsPerDay
+                                        else
+                                            TargetPerHour := 0;
+
+                                        // TargetPerHour := round(((60 / SMV) * Carder * Eff) / 100, 1);
+                                        // TargetPerDay := round(TargetPerHour * HrsPerDay, 1);
                                     end;
 
                                     TempQty := 0;
@@ -1503,9 +1516,14 @@ page 50343 "Planning Line Property Card"
     var
     begin
         if rec.SMV <> 0 then begin
-            // rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>')
-            HourlyTarget := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
-            rec.Target := round(HourlyTarget * rec.HoursPerDay, 1);
+            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1);
+            if rec.HoursPerDay > 0 then
+                HourlyTarget := round(rec.Target / rec.HoursPerDay, 1)
+            else
+                Error('Hours Per Day is zero.');
+
+            // HourlyTarget := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
+            // rec.Target := round(HourlyTarget * rec.HoursPerDay, 1);
         end
         else
             Message('SMV is zero. Cannot continue.');
@@ -1524,7 +1542,6 @@ page 50343 "Planning Line Property Card"
         NavAppSetupRec: Record "NavApp Setup";
         UserSetupRec: Record "User Setup";
     begin
-
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
         if not UserSetupRec.FindSet() then
@@ -1540,9 +1557,14 @@ page 50343 "Planning Line Property Card"
         NavAppSetupRec.FindSet();
 
         rec.HoursPerDay := 10;
-        // rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>');
-        HourlyTarget := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
-        rec.Target := round(HourlyTarget * rec.HoursPerDay, 1);
+        rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1);
+        if rec.HoursPerDay > 0 then
+            HourlyTarget := round(rec.Target / rec.HoursPerDay, 1)
+        else
+            Error('Hours Per Day is zero.');
+
+        // HourlyTarget := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
+        // rec.Target := round(HourlyTarget * rec.HoursPerDay, 1);
 
         StyeMasteRec.Reset();
         StyeMasteRec.SetRange("No.", rec."Style No.");
