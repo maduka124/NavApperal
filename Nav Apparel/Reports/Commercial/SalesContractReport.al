@@ -63,6 +63,7 @@ report 51245 SalesContractReport
 
                     StylePoRec.Reset();
                     StylePoRec.SetRange("Style No.", "Style No");
+                    StylePoRec.SetRange("PO No.", "PO No");
                     if StylePoRec.FindSet() then begin
                         UnitPrice := StylePoRec."Unit Price";
                         PoQty := StylePoRec.Qty;
