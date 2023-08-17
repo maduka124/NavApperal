@@ -23,11 +23,11 @@ table 51364 StyleWiseMachineLine
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Machine Qty"; Decimal)
-        {
-            DataClassification = ToBeClassified;
-            Caption = 'No Of Machine';
-        }
+        // field(5; "Machine Qty"; Decimal)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     Caption = 'No Of Machine';
+        // }
 
         field(6; "Machine Name"; text[100])
         {
@@ -52,6 +52,12 @@ table 51364 StyleWiseMachineLine
         field(10; "Work Center Name"; Text[50])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(11; "Machine Qty New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'No Of Machine';
         }
     }
 
