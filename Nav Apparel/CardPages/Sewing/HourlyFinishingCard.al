@@ -445,7 +445,7 @@ page 51377 "Hourly Finishing Card"
         ProdOutHeaderRec: Record ProductionOutHeader;
     begin
 
-        Rec."Prod Date" := WorkDate();
+
         rec.Type := Rec.Type::Finishing;
 
         UserRec.Reset();

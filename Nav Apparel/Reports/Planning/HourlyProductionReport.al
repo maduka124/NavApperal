@@ -1041,7 +1041,6 @@ report 50865 HourlyProductionReport
                 NavAppProdRec.Reset();
                 NavAppProdRec.SetRange("Style No.", "Style No.");
                 NavAppProdRec.SetRange("Resource No.", "Resource No.");
-                NavAppProdRec.SetRange("Line No.", "Line No.");
                 NavAppProdRec.SetCurrentKey(PlanDate);
                 NavAppProdRec.Ascending(true);
                 if NavAppProdRec.FindFirst() then begin
