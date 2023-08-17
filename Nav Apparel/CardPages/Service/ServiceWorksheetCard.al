@@ -183,7 +183,7 @@ page 50726 "Service Worksheet Card"
                             ServiceItemRec.SetRange("Factory", rec.Factory);
                             ServiceItemRec.SetRange("Brand No", ServiceScheHeadeRec."Brand No");
                             ServiceItemRec.SetRange("Model No", ServiceScheHeadeRec."Model No");
-                            ServiceItemRec.SetRange(Description, ServiceScheHeadeRec."Machine Category Code");
+                            ServiceItemRec.SetRange("No.", ServiceScheHeadeRec."Machine Category Code");
                             ServiceItemRec.SetRange("Location Code", rec."Work Center No");
                             ServiceItemRec.SetFilter("Service due date", '%1..%2', rec.StartDate, rec.EndDate);
                             if ServiceItemRec.FindSet() then begin

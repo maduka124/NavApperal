@@ -11,6 +11,67 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="BuyerName">
+          <DataField>BuyerName</DataField>
+        </Field>
+        <Field Name="GarmentType">
+          <DataField>GarmentType</DataField>
+        </Field>
+        <Field Name="Diff">
+          <DataField>Diff</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Resource_No_">
+          <DataField>Resource_No_</DataField>
+        </Field>
+        <Field Name="PlanDate">
+          <DataField>PlanDate</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="Target">
+          <DataField>Target</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="QtyFormat">
+          <DataField>QtyFormat</DataField>
+        </Field>
+        <Field Name="ProdUpdQty">
+          <DataField>ProdUpdQty</DataField>
+        </Field>
+        <Field Name="HoursPerDay">
+          <DataField>HoursPerDay</DataField>
+        </Field>
+        <Field Name="HoursPerDayFormat">
+          <DataField>HoursPerDayFormat</DataField>
+        </Field>
+        <Field Name="LineName">
+          <DataField>LineName</DataField>
+        </Field>
+        <Field Name="DisplaySeq">
+          <DataField>DisplaySeq</DataField>
+        </Field>
+        <Field Name="Factory_No_">
+          <DataField>Factory_No_</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2163,7 +2224,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox27">
+                        <Textbox Name="Textbox3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2183,7 +2244,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox27</rd:DefaultName>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2205,11 +2266,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=round(Sum(Fields!Qty.Value)/COUNTDISTINCT(Fields!PlanDate.Value),0)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>Teal</Color>
+                                    <Color>Brown</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2223,32 +2284,13 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2260,7 +2302,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=round(Sum(Fields!ProdUpdQty.Value)/RowNumber(Nothing),0)</Value>
+                                  <Value>=round(Sum(Fields!ProdUpdQty.Value)/COUNTDISTINCT(Fields!PlanDate.Value),0)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -3182,6 +3224,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3233,65 +3281,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="BuyerName">
-          <DataField>BuyerName</DataField>
-        </Field>
-        <Field Name="GarmentType">
-          <DataField>GarmentType</DataField>
-        </Field>
-        <Field Name="Diff">
-          <DataField>Diff</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Resource_No_">
-          <DataField>Resource_No_</DataField>
-        </Field>
-        <Field Name="PlanDate">
-          <DataField>PlanDate</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-        <Field Name="Target">
-          <DataField>Target</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="QtyFormat">
-          <DataField>QtyFormat</DataField>
-        </Field>
-        <Field Name="ProdUpdQty">
-          <DataField>ProdUpdQty</DataField>
-        </Field>
-        <Field Name="HoursPerDay">
-          <DataField>HoursPerDay</DataField>
-        </Field>
-        <Field Name="HoursPerDayFormat">
-          <DataField>HoursPerDayFormat</DataField>
-        </Field>
-        <Field Name="LineName">
-          <DataField>LineName</DataField>
-        </Field>
-        <Field Name="DisplaySeq">
-          <DataField>DisplaySeq</DataField>
-        </Field>
-        <Field Name="Factory_No_">
-          <DataField>Factory_No_</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

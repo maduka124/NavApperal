@@ -18,6 +18,12 @@ page 51227 ServiceScheduleList
                     Editable = false;
                 }
 
+                field("Factory Name"; rec."Factory Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Factory';
+                }
+
                 field(ServiceType; rec.ServiceType)
                 {
                     ApplicationArea = All;
