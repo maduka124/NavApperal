@@ -39,73 +39,34 @@ page 51381 HourlyFinishingListPart
                     begin
                         HourlymasterRec.Reset();
                         HourlymasterRec.SetRange("No.", Rec."No.");
+                        HourlymasterRec.SetRange("Factory No.", Rec."Factory No.");
                         if HourlymasterRec.FindSet() then begin
                             WorkCenterRec.Reset();
                             WorkCenterRec.SetRange("Factory No.", HourlymasterRec."Factory No.");
                             if WorkCenterRec.FindSet() then begin
                                 if Page.RunModal(99000755, WorkCenterRec) = Action::LookupOK then begin
-                                    // Rec."Work Center No." := WorkCenterRec."No.";
-                                    // Rec."Work Center Name" := WorkCenterRec.Name;
+                                    Rec."Work Center Seq No" := WorkCenterRec."Work Center Seq No";
+                                    Rec."Work Center No." := WorkCenterRec."No.";
+                                    Rec."Work Center Name" := WorkCenterRec.Name;
 
                                     HourlyLineRec.Reset();
                                     HourlyLineRec.SetRange("No.", Rec."No.");
                                     HourlyLineRec.SetRange("Style No.", Rec."Style No.");
-                                    HourlyLineRec.SetRange(Type, HourlyLineRec.Type::Finishing);
-
+                                    HourlyLineRec.SetRange("Line No.", Rec."Line No." - 1);
                                     if HourlyLineRec.FindSet() then begin
-                                        repeat
-                                            if HourlyLineRec.Item <> '' then begin
-                                                if HourlyLineRec.Item = 'PASS PCS' then begin
-                                                    HourlyLineRec."Work Center No." := WorkCenterRec."No.";
-                                                    HourlyLineRec."Work Center Name" := WorkCenterRec.Name;
-
-                                                end;
-                                                if HourlyLineRec.Item = 'DEFECT PCS' then begin
-                                                    HourlyLineRec."Work Center No." := WorkCenterRec."No.";
-                                                    HourlyLineRec."Work Center Name" := WorkCenterRec.Name;
-
-                                                end;
-                                                if HourlyLineRec.Item = 'DHU' then begin
-                                                    HourlyLineRec."Work Center No." := WorkCenterRec."No.";
-                                                    HourlyLineRec."Work Center Name" := WorkCenterRec.Name;
-
-                                                end;
-
-                                            end;
-                                            HourlyLineRec.Modify();
-                                        until HourlyLineRec.Next() = 0;
-                                        CurrPage.Update();
+                                        HourlyLineRec."Work Center Seq No" := WorkCenterRec."Work Center Seq No";
                                     end;
-
-                                    // HourlyLineRec2.Reset();
-                                    // HourlyLineRec2.SetRange("No.", Rec."No.");
-                                    // HourlyLineRec2.SetRange("Style No.", Rec."Style No.");
-                                    // HourlyLineRec2.SetRange(Type, HourlyLineRec.Type::Finishing);
-                                    // HourlyLineRec2.SetFilter(Item, '=%1', 'DEFECT PCS');
-                                    // if HourlyLineRec2.FindSet() then begin
-                                    //     HourlyLineRec2."Work Center No." := WorkCenterRec."No.";
-                                    //     HourlyLineRec2."Work Center Name" := WorkCenterRec.Name;
-                                    //     HourlyLineRec2.Modify();
-                                    // end;
-
-                                    // HourlyLineRec3.Reset();
-                                    // HourlyLineRec3.SetRange("No.", Rec."No.");
-                                    // HourlyLineRec3.SetRange("Style No.", Rec."Style No.");
-                                    // HourlyLineRec3.SetRange(Type, HourlyLineRec.Type::Finishing);
-                                    // HourlyLineRec3.SetFilter(Item, '=%1', 'DHU');
-                                    // if HourlyLineRec3.FindSet() then begin
-                                    //     HourlyLineRec3."Work Center No." := WorkCenterRec."No.";
-                                    //     HourlyLineRec3."Work Center Name" := WorkCenterRec.Name;
-                                    //     HourlyLineRec3.Modify();
-                                    // end;
-
                                 end;
+                                HourlyLineRec.Modify();
                                 CurrPage.Update();
                             end;
                         end;
-
-
+                        CurrPage.Update();
                     end;
+
+
+
+
                 }
 
                 field(Item; rec.Item)
@@ -1089,6 +1050,7 @@ page 51381 HourlyFinishingListPart
 
                 trigger OnAction()
                 var
+
                     NavSetupRec: Record "NavApp Setup";
                     StylePoRec: Record "Style Master PO";
                     WorkSeqNo: Integer;
@@ -1105,6 +1067,17 @@ page 51381 HourlyFinishingListPart
                     // HourlyRec.Reset();
                     // HourlyRec.FindSet();
                     // HourlyRec.DeleteAll();
+
+                    HourlyRec.Reset();
+                    HourlyRec.SetRange("No.", Rec."No.");
+                    HourlyRec.SetRange(Type, HourlyRec.Type::Finishing);
+                    HourlyRec.SetRange(Item, '=%1', 'PASS PCS');
+                    if HourlyRec.FindSet() then begin
+                        repeat
+                            if HourlyRec."Work Center Seq No" = 0 then
+                                Error('Please Enter Line No');
+                        until HourlyRec.Next() = 0;
+                    end;
 
                     Line := 0;
 
@@ -1165,11 +1138,9 @@ page 51381 HourlyFinishingListPart
                                     HourlyRec."No." := Rec."No.";
                                     HourlyRec."Line No." := Line;
                                     HourlyRec.Type := Rec.Type;
-                                    // HourlyRec."Factory No." := HourlymasterRec."Factory No.";
                                     HourlyRec."Style Name" := StyleRec."Style No.";
                                     HourlyRec."Style No." := StyleRec."No.";
                                     HourlyRec.Insert();
-                                    // StyleNo := StyleRec."No.";
                                     WorkSeqNo := HourlyRec."Work Center Seq No";
 
                                 end;
@@ -1188,36 +1159,6 @@ page 51381 HourlyFinishingListPart
                                 HourlyRec.Item := 'PASS PCS';
                                 HourlyRec.Insert();
 
-                                // Line += 1;
-
-                                // HourlyRec.Init();
-                                // HourlyRec."No." := Rec."No.";
-                                // HourlyRec."Line No." := Line;
-                                // HourlyRec."Factory No." := HourlymasterRec."Factory No.";
-                                // HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
-                                // HourlyRec.Type := Rec.Type;
-                                // HourlyRec."Work Center No." := '';
-                                // HourlyRec."Style No." := StyleRec."No.";
-                                // HourlyRec."Work Center Name" := '';
-                                // HourlyRec.Item := 'DEFECT PCS';
-                                // HourlyRec.Insert();
-
-                                // Line += 1;
-
-                                // HourlyRec.Init();
-                                // HourlyRec."No." := rec."No.";
-                                // HourlyRec."Line No." := Line;
-                                // HourlyRec."Factory No." := HourlymasterRec."Factory No.";
-                                // HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
-                                // HourlyRec.Type := Rec.Type;
-                                // HourlyRec."Style No." := StyleRec."No.";
-                                // HourlyRec."Work Center No." := '';
-                                // HourlyRec."Work Center Name" := '';
-
-                                // HourlyRec.Item := 'DHU';
-                                // HourlyRec.Insert();
-
-                                // Rec.Modify();
                             end;
 
                             CurrPage.Update();
@@ -1638,37 +1579,37 @@ page 51381 HourlyFinishingListPart
                     TotPassPcsHour13 += HourlyProdLinesRec."Hour 13";
                 end;
 
-                // if HourlyProdLinesRec.Item = 'DEFECT PCS' then begin
-                //     TotDefectPcsHour1 += HourlyProdLinesRec."Hour 01";
-                //     TotDefectPcsHour2 += HourlyProdLinesRec."Hour 02";
-                //     TotDefectPcsHour3 += HourlyProdLinesRec."Hour 03";
-                //     TotDefectPcsHour4 += HourlyProdLinesRec."Hour 04";
-                //     TotDefectPcsHour5 += HourlyProdLinesRec."Hour 05";
-                //     TotDefectPcsHour6 += HourlyProdLinesRec."Hour 06";
-                //     TotDefectPcsHour7 += HourlyProdLinesRec."Hour 07";
-                //     TotDefectPcsHour8 += HourlyProdLinesRec."Hour 08";
-                //     TotDefectPcsHour9 += HourlyProdLinesRec."Hour 09";
-                //     TotDefectPcsHour10 += HourlyProdLinesRec."Hour 10";
-                //     TotDefectPcsHour11 += HourlyProdLinesRec."Hour 11";
-                //     TotDefectPcsHour12 += HourlyProdLinesRec."Hour 12";
-                //     TotDefectPcsHour13 += HourlyProdLinesRec."Hour 13";
-                // end;
+            // if HourlyProdLinesRec.Item = 'DEFECT PCS' then begin
+            //     TotDefectPcsHour1 += HourlyProdLinesRec."Hour 01";
+            //     TotDefectPcsHour2 += HourlyProdLinesRec."Hour 02";
+            //     TotDefectPcsHour3 += HourlyProdLinesRec."Hour 03";
+            //     TotDefectPcsHour4 += HourlyProdLinesRec."Hour 04";
+            //     TotDefectPcsHour5 += HourlyProdLinesRec."Hour 05";
+            //     TotDefectPcsHour6 += HourlyProdLinesRec."Hour 06";
+            //     TotDefectPcsHour7 += HourlyProdLinesRec."Hour 07";
+            //     TotDefectPcsHour8 += HourlyProdLinesRec."Hour 08";
+            //     TotDefectPcsHour9 += HourlyProdLinesRec."Hour 09";
+            //     TotDefectPcsHour10 += HourlyProdLinesRec."Hour 10";
+            //     TotDefectPcsHour11 += HourlyProdLinesRec."Hour 11";
+            //     TotDefectPcsHour12 += HourlyProdLinesRec."Hour 12";
+            //     TotDefectPcsHour13 += HourlyProdLinesRec."Hour 13";
+            // end;
 
-                // if HourlyProdLinesRec.Item = 'DHU' then begin
-                //     TotDHUPcsHour1 += HourlyProdLinesRec."Hour 01";
-                //     TotDHUPcsHour2 += HourlyProdLinesRec."Hour 02";
-                //     TotDHUPcsHour3 += HourlyProdLinesRec."Hour 03";
-                //     TotDHUPcsHour4 += HourlyProdLinesRec."Hour 04";
-                //     TotDHUPcsHour5 += HourlyProdLinesRec."Hour 05";
-                //     TotDHUPcsHour6 += HourlyProdLinesRec."Hour 06";
-                //     TotDHUPcsHour7 += HourlyProdLinesRec."Hour 07";
-                //     TotDHUPcsHour8 += HourlyProdLinesRec."Hour 08";
-                //     TotDHUPcsHour9 += HourlyProdLinesRec."Hour 09";
-                //     TotDHUPcsHour10 += HourlyProdLinesRec."Hour 10";
-                //     TotDHUPcsHour11 += HourlyProdLinesRec."Hour 11";
-                //     TotDHUPcsHour12 += HourlyProdLinesRec."Hour 12";
-                //     TotDHUPcsHour13 += HourlyProdLinesRec."Hour 13";
-                // end;
+            // if HourlyProdLinesRec.Item = 'DHU' then begin
+            //     TotDHUPcsHour1 += HourlyProdLinesRec."Hour 01";
+            //     TotDHUPcsHour2 += HourlyProdLinesRec."Hour 02";
+            //     TotDHUPcsHour3 += HourlyProdLinesRec."Hour 03";
+            //     TotDHUPcsHour4 += HourlyProdLinesRec."Hour 04";
+            //     TotDHUPcsHour5 += HourlyProdLinesRec."Hour 05";
+            //     TotDHUPcsHour6 += HourlyProdLinesRec."Hour 06";
+            //     TotDHUPcsHour7 += HourlyProdLinesRec."Hour 07";
+            //     TotDHUPcsHour8 += HourlyProdLinesRec."Hour 08";
+            //     TotDHUPcsHour9 += HourlyProdLinesRec."Hour 09";
+            //     TotDHUPcsHour10 += HourlyProdLinesRec."Hour 10";
+            //     TotDHUPcsHour11 += HourlyProdLinesRec."Hour 11";
+            //     TotDHUPcsHour12 += HourlyProdLinesRec."Hour 12";
+            //     TotDHUPcsHour13 += HourlyProdLinesRec."Hour 13";
+            // end;
 
             until HourlyProdLinesRec.Next() = 0;
 
