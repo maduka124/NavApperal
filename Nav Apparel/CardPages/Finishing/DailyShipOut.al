@@ -133,31 +133,110 @@ page 50366 "Daily Shipping Out Card"
                     Caption = 'Style';
                     ShowMandatory = true;
 
+                    // trigger OnLookup(var text: Text): Boolean
+                    // var
+                    //     StyleMasterRec: Record "Style Master";
+                    //     ProdOutHeaderRec: Record ProductionOutHeader;
+                    //     Users: Record "User Setup";
+                    //     Factory: Code[20];
+                    // begin
+
+                    //     Users.Reset();
+                    //     Users.SetRange("User ID", UserId());
+                    //     Users.FindSet();
+
+                    //     ProdOutHeaderRec.Reset();
+                    //     ProdOutHeaderRec.SetFilter(Type, '=%1', 6);
+                    //     ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
+                    //     ProdOutHeaderRec.SetFilter("Prod Date", '%1..%2', rec."Prod Date" - 3, rec."Prod Date");
+                    //     ProdOutHeaderRec.FindSet();
+
+                    //     if Page.RunModal(50758, ProdOutHeaderRec) = Action::LookupOK then begin
+                    //         rec."Style No." := ProdOutHeaderRec."Style No.";
+                    //         StyleMasterRec.Reset();
+                    //         StyleMasterRec.get(rec."Style No.");
+                    //         rec."Style Name" := StyleMasterRec."Style No.";
+                    //     end;
+                    // end;
+
                     trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master";
-                        ProdOutHeaderRec: Record ProductionOutHeader;
+                        StyMasterPORec: Record "Style Master PO";
+                        NavAppRec: Record "NavApp Setup";
+                        ProdOutHeaderRec: Record "ProductionOutHeader";
                         Users: Record "User Setup";
                         Factory: Code[20];
+                        DurationGB: Date;
+                        StyleNo: Code[20];
                     begin
+
+                        StyleMasterRec.Reset();
+                        StyMasterPORec.Reset();
+
+                        NavAppRec.Reset();
+                        NavAppRec.FindSet();
 
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
 
                         ProdOutHeaderRec.Reset();
-                        ProdOutHeaderRec.SetFilter(Type, '=%1', 6);
+                        // ProdOutHeaderRec.SetFilter(Type, '=%1', 1);
+                        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+                        ProdOutHeaderRec.SetFilter("Output Qty", '<>%1', 0);
                         ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
                         ProdOutHeaderRec.SetFilter("Prod Date", '%1..%2', rec."Prod Date" - 3, rec."Prod Date");
-                        ProdOutHeaderRec.FindSet();
+                        ProdOutHeaderRec.SetCurrentKey("Style No.");
+                        ProdOutHeaderRec.Ascending(true);
+                        // ProdOutHeaderRec.FindSet();
 
-                        if Page.RunModal(50758, ProdOutHeaderRec) = Action::LookupOK then begin
-                            rec."Style No." := ProdOutHeaderRec."Style No.";
-                            StyleMasterRec.Reset();
-                            StyleMasterRec.get(rec."Style No.");
-                            rec."Style Name" := StyleMasterRec."Style No.";
+                        // if Page.RunModal(50758, ProdOutHeaderRec) = Action::LookupOK then begin
+                        //     rec."Style No." := ProdOutHeaderRec."Style No.";
+                        //     StyleMasterRec.Reset();
+                        //     StyleMasterRec.get(rec."Style No.");
+                        //     rec."Style Name" := StyleMasterRec."Style No.";
+                        // end;
+
+                        if ProdOutHeaderRec.FindSet() then begin
+
+                            repeat
+
+                                StyleMasterRec.SetRange("No.", ProdOutHeaderRec."Style No.");
+
+                                if StyleMasterRec.FindSet() then begin
+                                    StyMasterPORec.SetRange("Style No.", StyleMasterRec."No.");
+
+                                    if StyleMasterRec.FindSet() then begin
+
+                                        repeat
+
+                                            DurationGB := Today - NavAppRec."Base On Min Ship Days";
+
+                                            if StyleNo <> StyleMasterRec."No." then begin
+                                                if DurationGB <= StyMasterPORec."Ship Date" then begin
+                                                    StyleNo := StyleMasterRec."No.";
+                                                    ProdOutHeaderRec.Mark(true);
+                                                end;
+                                            end;
+
+                                        until StyMasterPORec.Next() = 0;
+                                    end;
+                                end;
+
+                            until ProdOutHeaderRec.Next() = 0;
+
+                            ProdOutHeaderRec.MarkedOnly(true);
+
+                            if page.RunModal(50758, ProdOutHeaderRec) = Action::LookupOK then begin
+                                rec."Style No." := ProdOutHeaderRec."Style No.";
+                                StyleMasterRec.Reset();
+                                StyleMasterRec.get(rec."Style No.");
+                                rec."Style Name" := StyleMasterRec."Style No.";
+                            end;
                         end;
                     end;
+
                 }
 
                 field("Lot No."; rec."Lot No.")
@@ -168,16 +247,34 @@ page 50366 "Daily Shipping Out Card"
 
                     trigger OnLookup(var text: Text): Boolean
                     var
-                        StyleMasterRec: Record "Style Master PO";
+                        StyleMasterPORec: Record "Style Master PO";
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
+                        DurationGB: Date;
+                        NavAppRec: Record "NavApp Setup";
                     begin
 
-                        StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", rec."Style No.");
+                        NavAppRec.Reset();
+                        NavAppRec.FindSet();
 
-                        if Page.RunModal(51068, StyleMasterRec) = Action::LookupOK then begin
-                            rec."PO No" := StyleMasterRec."PO No.";
-                            rec."Lot No." := StyleMasterRec."Lot No.";
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+
+                        if StyleMasterPORec.FindSet() then begin
+                            repeat
+
+                                DurationGB := Today - NavAppRec."Base On Min Ship Days";
+
+                                if DurationGB <= StyleMasterPORec."Ship Date" then begin
+                                    StyleMasterPORec.Mark(true);
+                                end;
+
+                            until StyleMasterPORec.Next() = 0;
+                            StyleMasterPORec.MarkedOnly(true);
+
+                            if Page.RunModal(51068, StyleMasterPORec) = Action::LookupOK then begin
+                                rec."PO No" := StyleMasterPORec."PO No.";
+                                rec."Lot No." := StyleMasterPORec."Lot No.";
+                            end;
                         end;
 
                         GridHeader_Insert();
@@ -185,7 +282,7 @@ page 50366 "Daily Shipping Out Card"
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
                         NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
-                        NavAppProdPlansDetRec.SetRange("Lot No.", StyleMasterRec."Lot No.");
+                        NavAppProdPlansDetRec.SetRange("Lot No.", StyleMasterPORec."Lot No.");
                         NavAppProdPlansDetRec.SetRange(PlanDate, rec."Prod Date");
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
 
