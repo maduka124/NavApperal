@@ -246,6 +246,7 @@ page 51377 "Hourly Finishing Card"
                                     HourlyProdLines1Rec.SetRange("No.", rec."No.");
                                     HourlyProdLines1Rec.SetRange("Prod Date", rec."Prod Date");
                                     HourlyProdLines1Rec.SetRange("Factory No.", rec."Factory No.");
+                                    HourlyProdLines1Rec.SetRange("Line No.", HourlyProdLinesRec3."Line No.");
                                     HourlyProdLines1Rec.SetFilter(Item, '=%1', 'PASS PCS');
                                     HourlyProdLines1Rec.SetRange("Style No.", HourlyProdLinesRec3."Style No.");
                                     HourlyProdLines1Rec.SetRange("Work Center Name", HourlyProdLinesRec3."Work Center No.");
@@ -445,7 +446,7 @@ page 51377 "Hourly Finishing Card"
         ProdOutHeaderRec: Record ProductionOutHeader;
     begin
 
-        Rec."Prod Date" := WorkDate();
+
         rec.Type := Rec.Type::Finishing;
 
         UserRec.Reset();

@@ -223,6 +223,12 @@ table 50514 "Hourly Production Lines"
             InitValue = 0;
         }
 
+        field(39; "Target"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
     }
 
     keys

@@ -815,15 +815,16 @@ report 50865 HourlyProductionReport
                 HourlyTarget := 0;
                 // HourlyTarger2 := 0;
                 DayTarget := 0;
-                NavAppProdRec.Reset();
-                NavAppProdRec.SetRange(PlanDate, PlanDate);
-                NavAppProdRec.SetRange("Style No.", "Style No.");
-                NavAppProdRec.SetRange("Factory No.", "Factory No.");
-                NavAppProdRec.SetRange("Resource No.", "Resource No.");
-                if NavAppProdRec.FindSet() then begin
-                    repeat
-                        DayTarget += NavAppProdRec.Qty;
-                    until NavAppProdRec.Next() = 0;
+                HoProLineRec.Reset();
+                HoProLineRec.SetRange("Prod Date", PlanDate);
+                HoProLineRec.SetRange("Style No.", "Style No.");
+                HoProLineRec.SetRange("Factory No.", "Factory No.");
+                HoProLineRec.SetFilter(Item, '=%1', 'PASS PCS');
+                HoProLineRec.SetRange("Work Center No.", "Resource No.");
+                if HoProLineRec.FindSet() then begin
+                    // repeat
+                    DayTarget := HoProLineRec.Target;
+                    // until NavAppProdRec.Next() = 0;
                     Target1 := DayTarget;
                     if ("Style No." = StyleLC) and ("Resource No." = LineLC) then begin
                         DayTarget := 0;
@@ -1041,7 +1042,6 @@ report 50865 HourlyProductionReport
                 NavAppProdRec.Reset();
                 NavAppProdRec.SetRange("Style No.", "Style No.");
                 NavAppProdRec.SetRange("Resource No.", "Resource No.");
-                NavAppProdRec.SetRange("Line No.", "Line No.");
                 NavAppProdRec.SetCurrentKey(PlanDate);
                 NavAppProdRec.Ascending(true);
                 if NavAppProdRec.FindFirst() then begin
@@ -1190,6 +1190,7 @@ report 50865 HourlyProductionReport
     end;
 
     var
+        HourlyLineRec: Record "Hourly Production Lines";
         WFHTot: Integer;
         WIPFin: Integer;
         ResCapacityEntryRec: Record "Calendar Entry";

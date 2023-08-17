@@ -972,7 +972,7 @@ page 50516 HourlyProductionListPart
             StyleLC := NavAppProdRec."Style No.";
             LineLC := NavAppProdRec."Resource No.";
         end;
-
+        Rec.Target := DayTarget;
 
         TotNavaHours := 0;
         NavAppProdRec.Reset();
