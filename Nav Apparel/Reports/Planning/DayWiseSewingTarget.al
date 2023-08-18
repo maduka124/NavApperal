@@ -245,6 +245,7 @@ report 50646 DayWiseSewingTarget
                 StylePoRec.SetRange("Style No.", "Style No.");
                 StylePoRec.SetRange("Lot No.", "Lot No.");
                 StylePoRec.SetRange("PO No.", "PO No.");
+                StylePoRec.SetRange("Lot No.", "Lot No.");
                 if StylePoRec.FindFirst() then begin
                     SawingOut := StylePoRec."Sawing Out Qty";
                     OrderQty := StylePoRec."Qty"

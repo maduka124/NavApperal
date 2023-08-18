@@ -2,14 +2,16 @@ page 50358 "Daily Washing In/Out Card"
 {
     PageType = Card;
     SourceTable = ProductionOutHeader;
-    Caption = 'Daily Washing In/Out';
+    Caption = 'Daily Washing Sent/Received';
 
     layout
     {
         area(Content)
         {
+
             group("Input/Output Style Detail")
             {
+                Editable = EditableGB;
                 field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
@@ -158,8 +160,8 @@ page 50358 "Daily Washing In/Out Card"
                         // ProdOutHeaderRec.SetFilter(Type, '=%1', 1);
                         ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
                         ProdOutHeaderRec.SetFilter("Output Qty", '<>%1', 0);
-                        ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
-                        ProdOutHeaderRec.SetFilter("Prod Date", '%1..%2', rec."Prod Date" - 3, rec."Prod Date");
+                        // ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
+                        // ProdOutHeaderRec.SetFilter("Prod Date", '%1..%2', rec."Prod Date" - 3, rec."Prod Date");
                         ProdOutHeaderRec.SetCurrentKey("Style No.");
                         ProdOutHeaderRec.Ascending(true);
                         // ProdOutHeaderRec.FindSet();
@@ -296,6 +298,8 @@ page 50358 "Daily Washing In/Out Card"
                 {
                     ApplicationArea = All;
 
+                    Caption = 'Wash Received';
+
                     trigger OnValidate()
                     var
                     begin
@@ -309,6 +313,7 @@ page 50358 "Daily Washing In/Out Card"
 
             group("Color/Size Input Detail")
             {
+                Editable = EditableGB;
                 part(Input; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;
@@ -319,6 +324,7 @@ page 50358 "Daily Washing In/Out Card"
 
             group("Color/Size Output Detail")
             {
+                Editable = EditableGB;
                 part(Output; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;
@@ -329,6 +335,7 @@ page 50358 "Daily Washing In/Out Card"
 
             group("PO Detail")
             {
+                Editable = EditableGB;
                 part(MyFactBox; "Style Master PO Prod ListPart")
                 {
                     ApplicationArea = All;
@@ -441,8 +448,18 @@ page 50358 "Daily Washing In/Out Card"
     var
         AssoRec: Record AssorColorSizeRatio;
         ProductionOutLine: Record ProductionOutLine;
+        ProductionOutLine2: Record ProductionOutLine;
         LineNo: BigInteger;
     begin
+
+        ProductionOutLine2.Reset();
+        ProductionOutLine2.SetRange("No.", Rec."No.");
+        ProductionOutLine2.SetRange(Type, Rec.Type);
+        // ProductionOutLine2.SetFilter(In_Out, '=%1', 'IN');
+
+        if ProductionOutLine2.FindSet() then
+            ProductionOutLine2.DeleteAll();
+
         if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
             ProductionOutLine.Reset();
@@ -792,6 +809,34 @@ page 50358 "Daily Washing In/Out Card"
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."lot No.", 'OUT', 'Wash', rec.Type::Wash);
     end;
 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        EditableGB := true;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then begin
+            if rec."Factory Code" <> '' then begin
+                if Rec."Factory Code" = UserRec."Factory Code" then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := true;
+
+        end
+        else
+            EditableGB := true;
+
+    end;
+
+    var
+        EditableGB: Boolean;
 
 
 }

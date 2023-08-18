@@ -6,6 +6,7 @@ page 50357 "Daily Washing In/Out"
     SourceTable = ProductionOutHeader;
     SourceTableView = sorting("No.") order(descending) where(Type = filter('Wash'));
     CardPageId = "Daily Washing In/Out Card";
+    Caption = 'Daily Washing Sent/Received';
 
 
     layout
@@ -37,6 +38,11 @@ page 50357 "Daily Washing In/Out"
                     ApplicationArea = All;
                 }
 
+                field("Input Qty"; Rec."Input Qty")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Output Qty"; Rec."Output Qty")
                 {
                     ApplicationArea = All;
@@ -49,6 +55,7 @@ page 50357 "Daily Washing In/Out"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -68,6 +75,12 @@ page 50357 "Daily Washing In/Out"
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then
+            Rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
 
     end;
 
