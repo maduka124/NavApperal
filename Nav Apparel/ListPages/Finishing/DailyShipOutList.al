@@ -48,6 +48,7 @@ page 50365 "Daily Shipping Out"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -67,6 +68,12 @@ page 50365 "Daily Shipping Out"
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then
+            Rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
 
     end;
 

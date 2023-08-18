@@ -148,7 +148,10 @@ table 50345 "NavApp Prod Plans Details"
         {
             //Clustered = true;
         }
-
+        key(SK2; "Line No.")
+        {
+            //Clustered = true;
+        }
     }
 
     trigger OnInsert()
