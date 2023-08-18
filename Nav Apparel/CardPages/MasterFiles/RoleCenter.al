@@ -1859,7 +1859,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Daily Washing In/Out")
                 {
-                    Caption = 'Daily Washing In/Out';
+                    Caption = 'Daily Washing Send/Received';
                     RunObject = Page "Daily Washing In/Out";
                     ApplicationArea = all;
                 }
@@ -1982,6 +1982,14 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Size Colour Wise Quantity Breakdown';
                         Enabled = true;
                         RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+
+                    action("Washing Send & Received Report Finishing")
+                    {
+                        Caption = 'Washing Send & Received Report';
+                        Enabled = true;
+                        RunObject = report WashingSendReceiveReport;
                         ApplicationArea = all;
                     }
 

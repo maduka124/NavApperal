@@ -6,6 +6,7 @@ page 50357 "Daily Washing In/Out"
     SourceTable = ProductionOutHeader;
     SourceTableView = sorting("No.") order(descending) where(Type = filter('Wash'));
     CardPageId = "Daily Washing In/Out Card";
+    Caption = 'Daily Washing Sent/Received';
 
 
     layout
@@ -33,6 +34,11 @@ page 50357 "Daily Washing In/Out"
                 }
 
                 field("PO No"; Rec."PO No")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Input Qty"; Rec."Input Qty")
                 {
                     ApplicationArea = All;
                 }
