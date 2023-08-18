@@ -27,13 +27,13 @@ page 50489 "All PO List"
                         if PlanningUser = false then
                             Error('You are not authorized to perform this task.');
 
-                        Rec.Amount := 0;
+                        Total := 0;
                         CurrPage.Update();
                         T.Reset();
                         T.FindSet();
                         repeat
                             if T.Select = true then
-                                Rec.Amount += T.Qty;
+                                Total += T.Qty;
                         until T.Next() = 0;
                         CurrPage.Update();
                     end;
@@ -122,6 +122,7 @@ page 50489 "All PO List"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Prod File H/o';
                 }
 
                 field(UnitPrice; Rec.UnitPrice)
@@ -144,22 +145,188 @@ page 50489 "All PO List"
             }
 
             //Done By Sachith on 27/03/23
-            group(Total)
+            group(Filter)
             {
-                field(Amount; Rec.Amount)
+                grid("")
                 {
-                    ApplicationArea = All;
-                    Caption = 'Total Qty';
+                    GridLayout = Columns;
+
+                    field(Buyer1; Buyer1)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Buyer';
+
+                        trigger OnValidate()
+                        var
+                        begin
+                            UnCheckAll(1, Buyer1);
+                        end;
+                    }
+
+                    field(BuyerBrand; BuyerBrand)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Buyer/Brand';
+
+                        trigger OnValidate()
+                        var
+                        begin
+                            UnCheckAll(2, BuyerBrand);
+                        end;
+                    }
+
+                    field(BuyerBrandStyle; BuyerBrandStyle)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Buyer/Brand/Style';
+
+                        trigger OnValidate()
+                        var
+                        begin
+                            UnCheckAll(3, BuyerBrandStyle);
+                        end;
+                    }
+
+                    field(Brand1; Brand1)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Brand';
+
+                        trigger OnValidate()
+                        var
+                        begin
+                            UnCheckAll(4, Brand1);
+                        end;
+                    }
+
+                    field(BrandStyle; BrandStyle)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Brand/Style';
+
+                        trigger OnValidate()
+                        var
+                        begin
+                            UnCheckAll(5, BrandStyle);
+                        end;
+                    }
+
+                    field(Style1; Style1)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Style';
+
+                        trigger OnValidate()
+                        var
+                        begin
+                            UnCheckAll(6, Style1);
+                        end;
+                    }
+
+                    field(Total; Total)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Total';
+                        Editable = false;
+                    }
                 }
             }
         }
-
     }
 
     actions
     {
         area(Processing)
         {
+            action("Select All")
+            {
+                Caption = 'Select All';
+                Image = SelectMore;
+                ApplicationArea = All;
+
+                trigger OnAction();
+                var
+                    ReqRec: Record StyleMaster_StyleMasterPO_T;
+                begin
+                    //Check the user is planning user or not
+                    if PlanningUser = false then
+                        Error('You are not authorized to perform this task.');
+
+                    //Check selection
+                    if (Buyer1 = false) and (BuyerBrand = false) and (BuyerBrandStyle = false) and (BrandStyle = false) and (Style1 = false) and (Brand1 = false) then
+                        Error('Select at least one filter');
+
+                    //Delsect All
+                    ReqRec.Reset();
+                    if ReqRec.FindSet() then
+                        ReqRec.ModifyAll(Select, false);
+
+                    ReqRec.Reset();
+
+                    //Filter for the selected fields combination
+                    if Buyer1 then
+                        ReqRec.SetRange(Buyer, rec.Buyer);
+
+                    if BuyerBrand then begin
+                        ReqRec.SetRange(Buyer, rec.Buyer);
+                        ReqRec.SetRange(Brand, rec.Brand);
+                    end;
+
+                    if BuyerBrandStyle then begin
+                        ReqRec.SetRange(Buyer, rec.Buyer);
+                        ReqRec.SetRange(Brand, rec.Brand);
+                        ReqRec.SetRange(Style_No, rec.Style_No);
+                    end;
+
+                    if BrandStyle then begin
+                        ReqRec.SetRange(Brand, rec.Brand);
+                        ReqRec.SetRange(Style_No, rec.Style_No);
+                    end;
+
+                    if Style1 then begin
+                        ReqRec.SetRange(Style_No, rec.Style_No);
+                    end;
+
+                    if Brand1 then begin
+                        ReqRec.SetRange(Brand, rec.Brand);
+                    end;
+
+                    //Update select field
+                    if ReqRec.FindSet() then
+                        ReqRec.ModifyAll(Select, true);
+
+                    //Calculate selected record total                   
+                    Total := 0;
+                    ReqRec.Reset();
+                    ReqRec.FindSet();
+                    repeat
+                        if ReqRec.Select = true then
+                            Total += ReqRec.Qty;
+                    until ReqRec.Next() = 0;
+
+                    //CurrPage.Update();
+                end;
+            }
+
+            action("De-Select All")
+            {
+                Caption = 'De-Select All';
+                Image = RemoveLine;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ReqRec: Record StyleMaster_StyleMasterPO_T;
+                begin
+                    ReqRec.Reset();
+                    if ReqRec.FindSet() then
+                        ReqRec.ModifyAll(Select, false);
+
+                    Total := 0;
+                    CurrPage.Update();
+                end;
+            }
+
             //Done By Sachith on 27/03/23
             action("Export To Excel")
             {
@@ -408,6 +575,7 @@ page 50489 "All PO List"
                     Rec.UnitPrice := TempQuery.UnitPrice;
                     Rec."Sewing Out Qty" := StyleMasterPORec."Sawing Out Qty";
                     Rec."Production File Handover Date" := TempQuery.Production_File_Handover_Date;
+                    rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
 
                     // Done By Sachith On 27/03/23
                     StyleMasterRec.Reset();
@@ -421,11 +589,6 @@ page 50489 "All PO List"
             TempQuery.Close();
         end;
     end;
-
-
-    var
-        Factory: Code[20];
-        learningcurve: integer;
 
 
     //Done By Sachith on 27/03/23
@@ -494,8 +657,77 @@ page 50489 "All PO List"
     end;
 
 
+    procedure UnCheckAll(Number: Integer; Status: Boolean)
+    var
+    begin
+        case Number of
+            1:
+                begin
+                    Buyer1 := Status;
+                    BuyerBrand := false;
+                    BuyerBrandStyle := false;
+                    Brand1 := false;
+                    BrandStyle := false;
+                    Style1 := false;
+                end;
+            2:
+                begin
+                    Buyer1 := false;
+                    BuyerBrand := Status;
+                    BuyerBrandStyle := false;
+                    Brand1 := false;
+                    BrandStyle := false;
+                    Style1 := false;
+                end;
+            3:
+                begin
+                    Buyer1 := false;
+                    BuyerBrand := false;
+                    BuyerBrandStyle := Status;
+                    Brand1 := false;
+                    BrandStyle := false;
+                    Style1 := false;
+                end;
+            4:
+                begin
+                    Buyer1 := false;
+                    BuyerBrand := false;
+                    BuyerBrandStyle := false;
+                    Brand1 := Status;
+                    BrandStyle := false;
+                    Style1 := false;
+                end;
+            5:
+                begin
+                    Buyer1 := false;
+                    BuyerBrand := false;
+                    BuyerBrandStyle := false;
+                    Brand1 := false;
+                    BrandStyle := Status;
+                    Style1 := false;
+                end;
+            6:
+                begin
+                    Buyer1 := false;
+                    BuyerBrand := false;
+                    BuyerBrandStyle := false;
+                    Brand1 := false;
+                    BrandStyle := false;
+                    Style1 := Status;
+                end;
+        end;
+    end;
+
+
     var
         PlanningUser: Boolean;
+        Factory: Code[20];
+        learningcurve: integer;
+        Buyer1: Boolean;
+        Brand1: Boolean;
+        Style1: Boolean;
+        BuyerBrand: Boolean;
+        BuyerBrandStyle: Boolean;
+        BrandStyle: Boolean;
+        Total: BigInteger;
 }
-
-

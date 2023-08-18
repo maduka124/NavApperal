@@ -178,7 +178,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnCalendar.Add('Entries', tempEntities);
                 pCalendars.Add(ldnCalendar);
             UNTIL WorkCenterRec.NEXT = 0;
-    
+
     end;
 
     // procedure GetResourceCurve(pResource: Record "Work Center"; pCurve: JsonObject; pCurveType: Option; pStart: Date; pEnd: Date)
@@ -442,6 +442,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         PlanningQueueRec: Record "Planning Queue";
         PlanningQueueSortRec: Record "Planning Queue Sort";
         StyleMasRec: Record "Style Master";
+        StyleMasPoRec: Record "Style Master PO";
         Brand: text[200];
         QueueNo: BigInteger;
     begin
@@ -545,6 +546,12 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 else
                     Brand := '';
 
+                StyleMasPoRec.Reset();
+                StyleMasPoRec.SetRange("Style No.", PlanningQueueRec."Style No.");
+                StyleMasPoRec.SetRange("Lot No.", PlanningQueueRec."Lot No.");
+                StyleMasPoRec.SetRange("PO No.", PlanningQueueRec."PO No.");
+                StyleMasPoRec.FindSet();
+
                 TempString := PlanningQueueRec."Style Name" + '-' + PlanningQueueRec."Lot No." + '-' + PlanningQueueRec."PO No." + '-' + format(PlanningQueueRec."TGTSEWFIN Date") + '-' + format(PlanningQueueRec.Qty);
                 ldnEntity := createJsonObject();
                 ldnEntity.Add('ID', PlanningQueueRec."Queue No.");
@@ -555,10 +562,17 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnEntity.Add('AddIn_ContextMenuID', 'CM_Entity');
                 ldnEntity.Add('AddIn_TooltipText', 'Brand : ' + FORMAT(Brand) + '<br>' + 'Style : ' +
                 FORMAT(PlanningQueueRec."Style Name") + '<br>' + 'LOT : ' + FORMAT(PlanningQueueRec."Lot No.")
-                + '<br>' + 'PO : ' + FORMAT(PlanningQueueRec."PO No.") + '<br>' + 'Ship Date : '
-                + FORMAT(PlanningQueueRec."TGTSEWFIN Date") + '<br>' + 'Order Qty : '
-                + FORMAT(PlanningQueueRec.Qty - Round(PlanningQueueRec.Waistage, 1)) + '<br>' + 'Plan Quantity : '
-                + FORMAT(PlanningQueueRec.Qty));
+                + '<br>' + 'PO : ' + FORMAT(PlanningQueueRec."PO No.")
+                //+ '<br>' + 'Order Qty : ' + FORMAT(PlanningQueueRec.Qty - Round(PlanningQueueRec.Waistage, 1))
+                + '<br>' + 'Order Qty : ' + FORMAT(StyleMasPoRec.Qty)
+                + '<br>' + 'Plan Quantity : ' + FORMAT(PlanningQueueRec.Qty)
+                + '<br>' + 'SMV : ' + FORMAT(PlanningQueueRec.SMV)
+                + '<br>' + 'MC : ' + FORMAT(PlanningQueueRec.Carder)
+                + '<br>' + 'Plan Eff%  : ' + FORMAT(PlanningQueueRec.Eff)
+                + '<br>' + 'Learning Curve : ' + FORMAT(PlanningQueueRec."Learning Curve No.")
+                + '<br>' + 'BPCD : ' + FORMAT(StyleMasPoRec.BPCD)
+                + '<br>' + 'Ship Date : ' + FORMAT(PlanningQueueRec."TGTSEWFIN Date"));
+
                 pEntities.Add(ldnEntity);
             until PlanningQueueRec.Next() = 0;
         end;
