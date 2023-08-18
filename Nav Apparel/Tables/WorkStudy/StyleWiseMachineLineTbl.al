@@ -23,7 +23,7 @@ table 51364 StyleWiseMachineLine
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Machine Qty"; Decimal)
+        field(5; "Machine Qty"; Integer)
         {
             DataClassification = ToBeClassified;
             Caption = 'No Of Machine';
