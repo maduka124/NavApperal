@@ -8778,6 +8778,7 @@
                           <PaddingBottom>2pt</PaddingBottom>
                         </Style>
                       </Textbox>
+                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                   <TablixMembers>
@@ -8899,13 +8900,21 @@
                             </CellContents>
                           </TablixHeader>
                           <TablixMembers>
-                            <TablixMember />
+                            <TablixMember>
+                              <KeepWithGroup>After</KeepWithGroup>
+                              <RepeatOnNewPage>true</RepeatOnNewPage>
+                            </TablixMember>
                           </TablixMembers>
+                          <KeepWithGroup>After</KeepWithGroup>
+                          <RepeatOnNewPage>true</RepeatOnNewPage>
                         </TablixMember>
                       </TablixMembers>
+                      <KeepWithGroup>After</KeepWithGroup>
+                      <RepeatOnNewPage>true</RepeatOnNewPage>
                     </TablixMember>
                   </TablixMembers>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Factory_Name">
@@ -9323,7 +9332,7 @@
             </TablixRowHierarchy>
             <Top>2.6162cm</Top>
             <Left>0cm</Left>
-            <Height>2.96417cm</Height>
+            <Height>2.96416cm</Height>
             <Width>64.53408cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
