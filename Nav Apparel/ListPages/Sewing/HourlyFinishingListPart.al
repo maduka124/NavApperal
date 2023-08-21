@@ -1137,7 +1137,7 @@ page 51381 HourlyFinishingListPart
                                     HourlyRec.Init();
                                     HourlyRec."No." := Rec."No.";
                                     HourlyRec."Line No." := Line;
-                                    HourlyRec.Type := Rec.Type;
+                                    HourlyRec.Type := Rec.Type::Finishing;
                                     HourlyRec."Style Name" := StyleRec."Style No.";
                                     HourlyRec."Style No." := StyleRec."No.";
                                     HourlyRec.Insert();
@@ -1152,7 +1152,7 @@ page 51381 HourlyFinishingListPart
                                 HourlyRec."Line No." := Line;
                                 HourlyRec."Factory No." := HourlymasterRec."Factory No.";
                                 HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
-                                HourlyRec.Type := Rec.Type;
+                                HourlyRec.Type := Rec.Type::Finishing;
                                 HourlyRec."Work Center No." := '';
                                 HourlyRec."Style No." := StyleRec."No.";
                                 HourlyRec."Work Center Name" := '';
@@ -1166,7 +1166,7 @@ page 51381 HourlyFinishingListPart
                                     HourlyRec.Init();
                                     HourlyRec."No." := Rec."No.";
                                     HourlyRec."Line No." := Line;
-                                    HourlyRec.Type := Rec.Type;
+                                    HourlyRec.Type := Rec.Type::Finishing;
                                     HourlyRec."Style Name" := StyleRec."Style No.";
                                     HourlyRec."Style No." := StyleRec."No.";
                                     HourlyRec.Insert();
@@ -1181,7 +1181,7 @@ page 51381 HourlyFinishingListPart
                                 HourlyRec."Line No." := Line;
                                 HourlyRec."Factory No." := HourlymasterRec."Factory No.";
                                 HourlyRec."Prod Date" := HourlymasterRec."Prod Date";
-                                HourlyRec.Type := Rec.Type;
+                                HourlyRec.Type := Rec.Type::Finishing;
                                 HourlyRec."Work Center No." := '';
                                 HourlyRec."Style No." := StyleRec."No.";
                                 HourlyRec."Work Center Name" := '';
