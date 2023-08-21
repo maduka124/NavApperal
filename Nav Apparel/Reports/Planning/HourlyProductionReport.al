@@ -1050,16 +1050,24 @@ report 50865 HourlyProductionReport
                 end;
 
                 // Actual Finish Date
+                // ActualFinishDate := 0D;
+                // ProductionHeaderRec4.Reset();
+                // ProductionHeaderRec4.SetRange("Style No.", "Style No.");
+                // ProductionHeaderRec4.SetRange("Resource No.", "Resource No.");
+                // ProductionHeaderRec4.SetFilter("Output Qty", '<>%1', 0);
+                // ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec4.Type::Saw);
+                // ProductionHeaderRec4.SetCurrentKey("Prod Date");
+                // ProductionHeaderRec4.Ascending(true);
+                // if ProductionHeaderRec4.FindLast() then begin
+                //     ActualFinishDate := ProductionHeaderRec4."Prod Date";
+                // end;
                 ActualFinishDate := 0D;
-                ProductionHeaderRec4.Reset();
-                ProductionHeaderRec4.SetRange("Style No.", "Style No.");
-                ProductionHeaderRec4.SetRange("Resource No.", "Resource No.");
-                ProductionHeaderRec4.SetFilter("Output Qty", '<>%1', 0);
-                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec4.Type::Saw);
-                ProductionHeaderRec4.SetCurrentKey("Prod Date");
-                ProductionHeaderRec4.Ascending(true);
-                if ProductionHeaderRec4.FindLast() then begin
-                    ActualFinishDate := ProductionHeaderRec4."Prod Date";
+                NavAppProdRec.Reset();
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                NavAppProdRec.SetCurrentKey(PlanDate);
+                NavAppProdRec.Ascending(true);
+                if NavAppProdRec.FindLast() then begin
+                    ActualFinishDate := NavAppProdRec.PlanDate;
                 end;
 
                 //Actual Input Date
