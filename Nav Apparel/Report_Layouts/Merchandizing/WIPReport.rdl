@@ -192,6 +192,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2187,14 +2188,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Shipped_Qty">
+                        <Textbox Name="QtyGB">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Shipped_Qty.Value</Value>
+                                  <Value>=Fields!QtyGB.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2207,7 +2208,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Shipped_Qty</rd:DefaultName>
+                          <rd:DefaultName>QtyGB</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2422,7 +2423,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Shipped_Qty.Value -Fields!PoQty.Value</Value>
+                                  <Value>=Fields!QtyGB.Value-Fields!PoQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2529,14 +2530,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="ShValue">
+                        <Textbox Name="ShipValue">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ShValue.Value</Value>
+                                  <Value>=Fields!ShipValue.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2549,7 +2550,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>ShValue</rd:DefaultName>
+                          <rd:DefaultName>ShipValue</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3238,7 +3239,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Shipped_Qty.Value)</Value>
+                                  <Value>=SUM(Fields!QtyGB.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -3468,7 +3469,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=SUM(Fields!Shipped_Qty.Value - Fields!PoQty.Value)</Value>
+                                  <Value>=SUM(Fields!QtyGB.Value-Fields!PoQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -3583,7 +3584,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ShValue.Value)</Value>
+                                  <Value>=Sum(Fields!ShipValue.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -3665,6 +3666,7 @@
                 <TablixMember>
                   <KeepWithGroup>After</KeepWithGroup>
                   <RepeatOnNewPage>true</RepeatOnNewPage>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
@@ -4631,6 +4633,15 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="RoundUnitPriceFormat">
           <DataField>RoundUnitPriceFormat</DataField>
+        </Field>
+        <Field Name="QtyGB">
+          <DataField>QtyGB</DataField>
+        </Field>
+        <Field Name="ShipValue">
+          <DataField>ShipValue</DataField>
+        </Field>
+        <Field Name="ShipValueFormat">
+          <DataField>ShipValueFormat</DataField>
         </Field>
       </Fields>
       <Query>

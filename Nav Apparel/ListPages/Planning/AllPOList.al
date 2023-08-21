@@ -187,41 +187,41 @@ page 50489 "All PO List"
                         end;
                     }
 
-                    field(Brand1; Brand1)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Brand';
+                    // field(Brand1; Brand1)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Brand';
 
-                        trigger OnValidate()
-                        var
-                        begin
-                            UnCheckAll(4, Brand1);
-                        end;
-                    }
+                    //     trigger OnValidate()
+                    //     var
+                    //     begin
+                    //         UnCheckAll(4, Brand1);
+                    //     end;
+                    // }
 
-                    field(BrandStyle; BrandStyle)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Brand/Style';
+                    // field(BrandStyle; BrandStyle)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Brand/Style';
 
-                        trigger OnValidate()
-                        var
-                        begin
-                            UnCheckAll(5, BrandStyle);
-                        end;
-                    }
+                    //     trigger OnValidate()
+                    //     var
+                    //     begin
+                    //         UnCheckAll(5, BrandStyle);
+                    //     end;
+                    // }
 
-                    field(Style1; Style1)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Style';
+                    // field(Style1; Style1)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Style';
 
-                        trigger OnValidate()
-                        var
-                        begin
-                            UnCheckAll(6, Style1);
-                        end;
-                    }
+                    //     trigger OnValidate()
+                    //     var
+                    //     begin
+                    //         UnCheckAll(6, Style1);
+                    //     end;
+                    // }
 
                     field(Total; Total)
                     {

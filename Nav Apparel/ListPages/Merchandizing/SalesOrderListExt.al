@@ -26,6 +26,17 @@ pageextension 51058 SalesOrderListExt extends "Sales Order List"
                 ApplicationArea = ALL;
             }
         }
+
+        addafter("Completely Shipped")
+        {
+            field("Total Quantity_Shipped"; "Total Quantity_Shipped")
+            {
+                ApplicationArea = all;
+                Caption = 'Total Qty. Shipped';
+                Editable = false;
+                ToolTip = 'Specifies the sum of shipped quantity on all lines in the document.';
+            }
+        }
     }
 
 
@@ -58,6 +69,7 @@ pageextension 51058 SalesOrderListExt extends "Sales Order List"
     trigger OnAfterGetRecord()
     var
         ProdOrderRec: Record "Production Order";
+        SalesLineRec: Record "Sales Invoice Line";
     begin
         StatusGB := '';
         ProdOrderRec.Reset();
@@ -77,9 +89,18 @@ pageextension 51058 SalesOrderListExt extends "Sales Order List"
         end
         else
             StatusGB := '';
+
+        //Add shipped qty
+        SalesLineRec.Reset();
+        SalesLineRec.SetRange("Order No.", rec."No.");
+        SalesLineRec.SetFilter(Type, '=%1', SalesLineRec.Type::Item);
+        SalesLineRec.CalcSums(Quantity);
+        "Total Quantity_Shipped" := SalesLineRec.Quantity;
     end;
+
 
 
     var
         StatusGB: Text[20];
+        "Total Quantity_Shipped": BigInteger;
 }

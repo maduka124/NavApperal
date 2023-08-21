@@ -74,10 +74,17 @@ report 50641 WIPReport
                 { }
                 column(RoundUnitPrice; RoundUnitPrice)
                 { }
+                column(QtyGB; QtyGB)
+                { }
+                column(ShipValue; ShipValue)
+                { }
 
                 trigger OnAfterGetRecord()
                 var
                 begin
+                    QtyGB := 0;
+                    ShipValue := 0;
+                    ShipValue2 := 0;
                     ShipMode := Mode;
                     SHMode := '';
                     if ShipMode = 0 then begin
@@ -108,8 +115,33 @@ report 50641 WIPReport
 
                     RoundUnitPrice := Round("Unit Price", 0.01, '=');
 
-                end;
+                    salesInvoiceLineRec.Reset();
 
+                    SalesInvoiceRec.Reset();
+                    SalesInvoiceRec.SetRange(Lot, "Lot No.");
+                    SalesInvoiceRec.SetRange("Style No", "Style No.");
+                    SalesInvoiceRec.SetRange("PO No", "PO No.");
+
+                    if SalesInvoiceRec.FindSet() then begin
+                        repeat
+
+                            SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceRec."No.");
+
+                            if SalesInvoiceLineRec.FindSet() then begin
+                                repeat
+
+                                    if SalesInvoiceLineRec.Type = SalesInvoiceLineRec.Type::Item then begin
+                                        QtyGB := QtyGB + SalesInvoiceLineRec.Quantity;
+                                        // SalesInvoiceLineRec.CalcSums("Line Amount");
+                                        ShipValue2 := SalesInvoiceLineRec."Line Amount";
+                                        ShipValue := ShipValue + ShipValue2;
+                                    end;
+
+                                until SalesInvoiceLineRec.Next() = 0;
+                            end;
+                        until SalesInvoiceRec.Next() = 0;
+                    end;
+                end;
             }
 
             trigger OnAfterGetRecord()
@@ -195,11 +227,15 @@ report 50641 WIPReport
         comRec: Record "Company Information";
         UserReC: Record "User Setup";
         STFilter: Code[200];
-        SalesInvoiceRec: Record "Sales Invoice Header";
+        // SalesInvoiceRec: Record "Sales Invoice Header";
         ExtDate: Date;
         ContractRec: Record "Contract/LCMaster";
         ContractName: Text[100];
         LcStyleRec: Record "Contract/LCStyle";
         RoundUnitPrice: Decimal;
-
+        SalesInvoiceRec: Record "Sales Invoice Header";
+        SalesInvoiceLineRec: Record "Sales Invoice Line";
+        QtyGB: Integer;
+        ShipValue: Decimal;
+        ShipValue2: Decimal;
 }
