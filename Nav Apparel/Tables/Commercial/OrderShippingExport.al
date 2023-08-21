@@ -270,6 +270,11 @@ table 51323 "Order Shipping Export"
 
         }
 
+        field(58; "Factory Invoice No"; Code[35])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

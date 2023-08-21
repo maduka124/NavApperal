@@ -26,6 +26,13 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
             {
                 ApplicationArea = all;
             }
+
+            field(BankReferenceNo; rec.BankReferenceNo)
+            {
+                ApplicationArea = all;
+                Caption = 'Bank Ref. No';
+            }
+
             field("Style Name"; Rec."Style Name")
             {
                 ApplicationArea = all;
@@ -90,9 +97,10 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
 
 
     trigger OnAfterGetRecord()
-    var        
+    var
         SalesInVLineRec: Record "Sales Invoice Line";
-    begin      
+        BankRefeInvoiceRec: Record BankReferenceInvoice;
+    begin
         SalesInVLineRec.Reset();
         SalesInVLineRec.SetRange("Document No.", rec."No.");
         SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
@@ -101,5 +109,17 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
                 Rec."Ship Qty" += SalesInVLineRec.Quantity;
             until SalesInVLineRec.Next() = 0;
         end;
-    end;   
+
+        //Get Bank Ref for the invoice
+        BankRefeInvoiceRec.Reset();
+        BankRefeInvoiceRec.SetRange("Invoice No", rec."No.");
+        if BankRefeInvoiceRec.FindSet() then
+            rec.BankReferenceNo := BankRefeInvoiceRec.BankRefNo
+        else
+            rec.BankReferenceNo := '';
+    end;
+
+
+    // VAr
+    //     BankReferenceNo: code[50];
 }

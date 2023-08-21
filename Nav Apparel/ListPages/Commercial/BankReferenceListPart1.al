@@ -64,7 +64,7 @@ page 50764 "Bank Ref Invoice ListPart1"
 
                 trigger OnAction()
                 var
-                    SalesInvRec: Record "Sales Invoice Header";
+                    // SalesInvRec: Record "Sales Invoice Header";
                     ContPostedInvRec1: Record ContractPostedInvoices;
                     ContPostedInvRec: Record ContractPostedInvoices;
                     BankRefInvRec: Record BankReferenceInvoice;

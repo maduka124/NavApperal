@@ -106,6 +106,12 @@ page 51324 OrderShippingList
                     ApplicationArea = All;
                     Editable = false;
                 }
+                field("Factory Invoice No"; Rec."Factory Invoice No")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Factory Inv. No';
+                }
                 field("No of CTN"; Rec."No of CTN1")
                 {
                     ApplicationArea = All;
@@ -245,6 +251,7 @@ page 51324 OrderShippingList
             }
         }
     }
+
     trigger OnOpenPage()
     var
         SalesInvRec2: Record "Sales Invoice Header";
@@ -268,19 +275,14 @@ page 51324 OrderShippingList
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
-
         if not LoginSessionsRec.FindSet() then begin  //not logged in
             Clear(LoginRec);
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
         end;
 
-        // MaxSeqNo := 0;
-
-        // // Delete Old Records
+        // Delete Old Records
         OrderSummaryRec.Reset();
-        // OrderSummaryRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
-        // OrderSummaryRec.SetRange(No, Rec."No.");
         if OrderSummaryRec.FindSet() then begin
             OrderSummaryRec.DeleteAll();
         end;
@@ -362,22 +364,19 @@ page 51324 OrderShippingList
                                     until SalesInvRec2.Next() = 0;
                                 end;
 
-
                                 OrderSummaryRec."Ship Qty" := ShQty;
                                 OrderSummaryRec."Ship value" := ShQty * StylePoRec."Unit Price";
 
-
                                 BankRefHRec.Reset();
-                                // BankRefHRec.SetRange("Buyer No", Rec.Buyer);
                                 BankRefHRec.SetRange("LC/Contract No.", SalesInvRec."Contract No");
-                                // BankRefHRec.SetRange("No.", SalesInvRec.BankRefNo);
                                 if BankRefHRec.FindSet() then begin
                                     OrderSummaryRec."Doc Sub Bank Date" := BankRefHRec."Reference Date";
                                     OrderSummaryRec."Doc Sub Buyer Date" := BankRefHRec."Reference Date";
-                                    OrderSummaryRec."Bank Ref" := BankRefHRec."No.";
+                                    OrderSummaryRec."Bank Ref" := BankRefHRec."BankRefNo.";
                                     OrderSummaryRec."Bank Ref Date" := BankRefHRec."Reference Date";
                                     OrderSummaryRec."Maturity Date" := BankRefHRec."Maturity Date";
                                     OrderSummaryRec.Remarks := BankRefHRec.Remarks;
+                                    OrderSummaryRec."Factory Invoice No" := SalesInvRec."Your Reference";
 
                                     BankRefColRec.Reset();
                                     BankRefColRec.SetRange("BankRefNo.", BankRefHRec."BankRefNo.");
