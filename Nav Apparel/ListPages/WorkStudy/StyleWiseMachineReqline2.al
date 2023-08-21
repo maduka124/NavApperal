@@ -5,6 +5,7 @@ page 51365 StyleWiseMachineReqLine2
     UsageCategory = Lists;
     SourceTable = FactoryAndLineMachineLine;
     Editable = false;
+    SourceTableView = sorting(Year, Month) order(ascending);
 
 
     layout

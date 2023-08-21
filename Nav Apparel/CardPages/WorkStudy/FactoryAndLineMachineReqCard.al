@@ -343,6 +343,7 @@ page 51368 FactoryAndLineMachineReqCard
                                         FactoryAndLineRec.Reset();
                                         FactoryAndLineRec.SetRange("Machine type", StyleWiseMachineLineRec."Machine No");
                                         FactoryAndLineRec.SetRange(Factory, Rec."Factory Name");
+                                        FactoryAndLineRec.SetRange(Month, MonthText);
 
                                         if not FactoryAndLineRec.FindSet() then begin
 
@@ -695,6 +696,7 @@ page 51368 FactoryAndLineMachineReqCard
                                         FactoryAndLine2Rec.Reset();
                                         FactoryAndLine2Rec.SetRange("Machine type", StyleWiseMachineLineRec."Machine No");
                                         FactoryAndLine2Rec.SetRange(Factory, Rec."Factory Name");
+                                        FactoryAndLine2Rec.SetRange(Month, MonthText);
 
                                         if not FactoryAndLine2Rec.FindSet() then begin
 
