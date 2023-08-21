@@ -34,6 +34,8 @@ report 50724 ContractExportStatus
             { }
             column(RoundShip; RoundShip)
             { }
+            column(Shipment_Date; ShDate)
+            { }
 
             trigger OnPreDataItem()
 
@@ -68,6 +70,8 @@ report 50724 ContractExportStatus
                             POQty += StylePoRec.Qty;
                         until StylePoRec.Next() = 0;
                     end;
+
+
                 end;
 
                 ShipQty := 0;
@@ -93,13 +97,35 @@ report 50724 ContractExportStatus
                 RoundOrderValue := POQty * RoundUnitPrice;
                 RoundShip := ShipQty * RoundUnitPrice;
 
-                SalesInvoiceLineRec.Reset();
-                SalesInvoiceLineRec.SetRange("Document No.", "No.");
-                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                SalesInvoiceLineRec.SetCurrentKey("Shipment Date");
-                SalesInvoiceLineRec.Ascending(true);
-                if SalesInvoiceLineRec.FindFirst() then begin
-                    ShipDate := SalesInvoiceLineRec."Shipment Date";
+                // SalesInvoiceLineRec.Reset();
+                // SalesInvoiceLineRec.SetRange("Document No.", "No.");
+                // SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                // SalesInvoiceLineRec.SetCurrentKey("Shipment Date");
+                // SalesInvoiceLineRec.Ascending(true);
+                // if SalesInvoiceLineRec.FindLast() then begin
+                //     ShipDate := SalesInvoiceLineRec."Shipment Date";
+                // end;
+
+                SalesInvHRec.Reset();
+                SalesInvHRec.SetRange("Style No", "Style No");
+                SalesInvHRec.SetRange("PO No", "PO No");
+                SalesInvHRec.SetRange(EntryType, SalesInvHRec.EntryType::FG);
+                SalesInvHRec.SetRange("Bal. Account Type", SalesInvHRec."Bal. Account Type"::"G/L Account");
+                SalesInvHRec.SetCurrentKey("Shipment Date");
+                SalesInvHRec.Ascending(true);
+                if SalesInvHRec.FindFirst() then begin
+                    ShDate := SalesInvHRec."Shipment Date";
+                end;
+
+                SalesInvHRec.Reset();
+                SalesInvHRec.SetRange("Style No", "Style No");
+                SalesInvHRec.SetRange("PO No", "PO No");
+                SalesInvHRec.SetRange(EntryType, SalesInvHRec.EntryType::FG);
+                SalesInvHRec.SetRange("Bal. Account Type", SalesInvHRec."Bal. Account Type"::"G/L Account");
+                SalesInvHRec.SetCurrentKey("Shipment Date");
+                SalesInvHRec.Ascending(true);
+                if SalesInvHRec.FindLast() then begin
+                    ShipDate := SalesInvHRec."Shipment Date";
                 end;
 
             end;
@@ -169,6 +195,8 @@ report 50724 ContractExportStatus
 
 
     var
+        SalesInvHRec: Record "Sales Invoice Header";
+        ShDate: Date;
         ShipmentLineRec: Record "Sales Shipment Line";
         ShipDate: Date;
         ShipQty: BigInteger;
