@@ -14,7 +14,7 @@ table 51360 MachineRequestListTble
             DataClassification = ToBeClassified;
         }
 
-        field(3; Buyer; Code[20])
+        field(3; Buyer; Code[200])
         {
             DataClassification = ToBeClassified;
         }

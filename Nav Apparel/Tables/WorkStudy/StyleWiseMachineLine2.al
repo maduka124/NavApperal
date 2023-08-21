@@ -305,5 +305,10 @@ table 51365 FactoryAndLineMachineLine
         {
             Clustered = true;
         }
+
+        key(SK; Year, Month)
+        {
+
+        }
     }
 }
