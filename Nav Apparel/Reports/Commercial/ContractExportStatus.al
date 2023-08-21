@@ -62,6 +62,7 @@ report 50724 ContractExportStatus
 
                     StylePoRec.Reset();
                     StylePoRec.SetRange("Style No.", StyleRec."No.");
+                    StylePoRec.SetRange("PO No.", "PO No");
                     if StylePoRec.FindSet() then begin
                         repeat
                             POQty += StylePoRec.Qty;
