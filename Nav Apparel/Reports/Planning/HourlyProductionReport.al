@@ -818,13 +818,14 @@ report 50865 HourlyProductionReport
                 HoProLineRec.Reset();
                 HoProLineRec.SetRange("Prod Date", PlanDate);
                 HoProLineRec.SetRange("Style No.", "Style No.");
+                HoProLineRec.SetRange(Type, HoProLineRec.Type::Sewing);
                 HoProLineRec.SetRange("Factory No.", "Factory No.");
                 HoProLineRec.SetFilter(Item, '=%1', 'PASS PCS');
                 HoProLineRec.SetRange("Work Center No.", "Resource No.");
                 if HoProLineRec.FindSet() then begin
-                    // repeat
+
                     DayTarget := HoProLineRec.Target;
-                    // until NavAppProdRec.Next() = 0;
+
                     Target1 := DayTarget;
                     if ("Style No." = StyleLC) and ("Resource No." = LineLC) then begin
                         DayTarget := 0;
@@ -1054,7 +1055,7 @@ report 50865 HourlyProductionReport
                 ProductionHeaderRec4.SetRange("Style No.", "Style No.");
                 ProductionHeaderRec4.SetRange("Resource No.", "Resource No.");
                 ProductionHeaderRec4.SetFilter("Output Qty", '<>%1', 0);
-                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
+                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec4.Type::Saw);
                 ProductionHeaderRec4.SetCurrentKey("Prod Date");
                 ProductionHeaderRec4.Ascending(true);
                 if ProductionHeaderRec4.FindLast() then begin
