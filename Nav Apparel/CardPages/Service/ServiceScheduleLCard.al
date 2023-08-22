@@ -172,93 +172,93 @@ page 51228 ServiceScheduleLCard
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            action("Update Service Schedule")
-            {
-                ApplicationArea = All;
-                Image = ServiceItemWorksheet;
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action("Update Service Schedule")
+    //         {
+    //             ApplicationArea = All;
+    //             Image = ServiceItemWorksheet;
 
-                trigger OnAction()
-                var
-                    ServiceScheHeadRec: Record ServiceScheduleHeader;
-                    ServiceScheLineRec: Record ServiceScheduleLineNew;
-                    UserSetupRec: Record "User Setup";
-                    LoginRec: Page "Login Card";
-                    LoginSessionsRec: Record LoginSessions;
-                    MaxLineNo: BigInteger;
-                begin
-                    //Check whether user logged in or not
-                    LoginSessionsRec.Reset();
-                    LoginSessionsRec.SetRange(SessionID, SessionId());
-                    if not LoginSessionsRec.FindSet() then begin  //not logged in
-                        Clear(LoginRec);
-                        LoginRec.LookupMode(true);
-                        LoginRec.RunModal();
+    //             trigger OnAction()
+    //             var
+    //                 ServiceScheHeadRec: Record ServiceScheduleHeader;
+    //                 ServiceScheLineRec: Record ServiceScheduleLineNew;
+    //                 UserSetupRec: Record "User Setup";
+    //                 LoginRec: Page "Login Card";
+    //                 LoginSessionsRec: Record LoginSessions;
+    //                 MaxLineNo: BigInteger;
+    //             begin
+    //                 //Check whether user logged in or not
+    //                 LoginSessionsRec.Reset();
+    //                 LoginSessionsRec.SetRange(SessionID, SessionId());
+    //                 if not LoginSessionsRec.FindSet() then begin  //not logged in
+    //                     Clear(LoginRec);
+    //                     LoginRec.LookupMode(true);
+    //                     LoginRec.RunModal();
 
-                        LoginSessionsRec.Reset();
-                        LoginSessionsRec.SetRange(SessionID, SessionId());
-                        LoginSessionsRec.FindSet();
-                    end;
+    //                     LoginSessionsRec.Reset();
+    //                     LoginSessionsRec.SetRange(SessionID, SessionId());
+    //                     LoginSessionsRec.FindSet();
+    //                 end;
 
-                    //Delete old records
-                    ServiceScheHeadRec.Reset();
-                    ServiceScheHeadRec.SetRange("Factory No.", rec."Factory No.");
-                    ServiceScheHeadRec.SetRange("Brand Name", rec."Brand Name");
-                    ServiceScheHeadRec.SetRange("Model Name", rec."Model Name");
-                    ServiceScheHeadRec.SetRange("Machine Category", rec."Machine Category");
-                    ServiceScheHeadRec.SetRange(ServiceType, rec.ServiceType);
-                    if ServiceScheHeadRec.FindSet() then
-                        ServiceScheHeadRec.DeleteAll();
+    //                 //Delete old records
+    //                 ServiceScheHeadRec.Reset();
+    //                 ServiceScheHeadRec.SetRange("Factory No.", rec."Factory No.");
+    //                 ServiceScheHeadRec.SetRange("Brand Name", rec."Brand Name");
+    //                 ServiceScheHeadRec.SetRange("Model Name", rec."Model Name");
+    //                 ServiceScheHeadRec.SetRange("Machine Category", rec."Machine Category");
+    //                 ServiceScheHeadRec.SetRange(ServiceType, rec.ServiceType);
+    //                 if ServiceScheHeadRec.FindSet() then
+    //                     ServiceScheHeadRec.DeleteAll();
 
-                    //Get Max Lineno
-                    MaxLineNo := 0;
-                    ServiceScheHeadRec.Reset();
-                    if ServiceScheHeadRec.FindLast() then
-                        MaxLineNo := ServiceScheHeadRec."No.";
+    //                 //Get Max Lineno
+    //                 MaxLineNo := 0;
+    //                 ServiceScheHeadRec.Reset();
+    //                 if ServiceScheHeadRec.FindLast() then
+    //                     MaxLineNo := ServiceScheHeadRec."No.";
 
-                    ServiceScheLineRec.Reset();
-                    ServiceScheLineRec.SetFilter(Select, '=%1', true);
-                    if ServiceScheLineRec.FindSet() then begin
+    //                 ServiceScheLineRec.Reset();
+    //                 ServiceScheLineRec.SetFilter(Select, '=%1', true);
+    //                 if ServiceScheLineRec.FindSet() then begin
 
-                        repeat
-                            MaxLineNo += 1;
-                            //Insert Part no
-                            ServiceScheHeadRec.Init();
-                            ServiceScheHeadRec."No." := MaxLineNo;
-                            ServiceScheHeadRec."Factory Name" := rec."Factory Name";
-                            ServiceScheHeadRec."Factory No." := rec."Factory No.";
-                            ServiceScheHeadRec."Brand Name" := rec."Brand Name";
-                            ServiceScheHeadRec."Brand No" := rec."Brand No";
-                            ServiceScheHeadRec."Created Date" := WorkDate();
-                            ServiceScheHeadRec."Created User" := UserId;
+    //                     repeat
+    //                         MaxLineNo += 1;
+    //                         //Insert Part no
+    //                         ServiceScheHeadRec.Init();
+    //                         ServiceScheHeadRec."No." := MaxLineNo;
+    //                         ServiceScheHeadRec."Factory Name" := rec."Factory Name";
+    //                         ServiceScheHeadRec."Factory No." := rec."Factory No.";
+    //                         ServiceScheHeadRec."Brand Name" := rec."Brand Name";
+    //                         ServiceScheHeadRec."Brand No" := rec."Brand No";
+    //                         ServiceScheHeadRec."Created Date" := WorkDate();
+    //                         ServiceScheHeadRec."Created User" := UserId;
 
-                            //Get Global Dimension
-                            UserSetupRec.Reset();
-                            UserSetupRec.SetRange("User ID", UserId);
-                            if UserSetupRec.FindSet() then
-                                ServiceScheHeadRec."Global Dimension Code" := UserSetupRec."Global Dimension Code";
+    //                         //Get Global Dimension
+    //                         UserSetupRec.Reset();
+    //                         UserSetupRec.SetRange("User ID", UserId);
+    //                         if UserSetupRec.FindSet() then
+    //                             ServiceScheHeadRec."Global Dimension Code" := UserSetupRec."Global Dimension Code";
 
-                            ServiceScheHeadRec.ServiceType := rec.ServiceType;
-                            ServiceScheHeadRec."Machine Category" := rec."Machine Category";
-                            ServiceScheHeadRec."Machine Category Code" := rec."Machine Category Code";
-                            ServiceScheHeadRec."Model Name" := rec."Model Name";
-                            ServiceScheHeadRec."Model No" := rec."Model No";
-                            ServiceScheHeadRec."Part Name" := ServiceScheLineRec."Part Name";
-                            ServiceScheHeadRec."Part No" := ServiceScheLineRec."Part No";
-                            ServiceScheHeadRec.Qty := ServiceScheLineRec.Qty;
-                            ServiceScheHeadRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                            ServiceScheHeadRec."Unit N0." := ServiceScheLineRec."Unit N0.";
-                            ServiceScheHeadRec.Insert();
-                        until ServiceScheLineRec.Next() = 0;
-                    end;
-                    Message('Completed');
-                end;
-            }
-        }
-    }
+    //                         ServiceScheHeadRec.ServiceType := rec.ServiceType;
+    //                         ServiceScheHeadRec."Machine Category" := rec."Machine Category";
+    //                         ServiceScheHeadRec."Machine Category Code" := rec."Machine Category Code";
+    //                         ServiceScheHeadRec."Model Name" := rec."Model Name";
+    //                         ServiceScheHeadRec."Model No" := rec."Model No";
+    //                         ServiceScheHeadRec."Part Name" := ServiceScheLineRec."Part Name";
+    //                         ServiceScheHeadRec."Part No" := ServiceScheLineRec."Part No";
+    //                         ServiceScheHeadRec.Qty := ServiceScheLineRec.Qty;
+    //                         ServiceScheHeadRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+    //                         ServiceScheHeadRec."Unit N0." := ServiceScheLineRec."Unit N0.";
+    //                         ServiceScheHeadRec.Insert();
+    //                     until ServiceScheLineRec.Next() = 0;
+    //                 end;
+    //                 Message('Completed');
+    //             end;
+    //         }
+    //     }
+    // }
 
     // trigger OnOpenPage()
     // var
