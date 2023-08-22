@@ -945,6 +945,10 @@ page 50516 HourlyProductionListPart
     }
     procedure CalcTarget()
     var
+        LCH: Decimal;
+        Time: Time;
+        WorkingHrs: Decimal;
+        ResCapacityEntryRec: Record "Calendar Entry";
         CheckValue: Decimal;
         TotNavaHours: Decimal;
         TimeVariable: Time;
@@ -974,6 +978,16 @@ page 50516 HourlyProductionListPart
         end;
         Rec.Target := DayTarget;
 
+        WorkingHrs := 0;
+        ResCapacityEntryRec.Reset();
+        ResCapacityEntryRec.SETRANGE("No.", Rec."Work Center No.");
+        ResCapacityEntryRec.SETRANGE(Date, Rec."Prod Date");
+        if ResCapacityEntryRec.FindSet() then begin
+            repeat
+                WorkingHrs += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+            until ResCapacityEntryRec.Next() = 0;
+        end;
+
         TotNavaHours := 0;
         NavAppProdRec.Reset();
         NavAppProdRec.SetRange("Resource No.", Rec."Work Center No.");
@@ -981,9 +995,12 @@ page 50516 HourlyProductionListPart
         NavAppProdRec.SetRange("Style No.", Rec."Style No.");
         NavAppProdRec.SetRange(PlanDate, Rec."Prod Date");
         if NavAppProdRec.FindSet() then begin
-            repeat
-                TotNavaHours += NavAppProdRec.HoursPerDay;
-            until NavAppProdRec.Next() = 0;
+            // repeat
+            //     TotNavaHours += NavAppProdRec.HoursPerDay;
+            // until NavAppProdRec.Next() = 0;
+
+            TotNavaHours := WorkingHrs;
+
             if (NavAppProdRec."Style No." = StyleLC1) and (NavAppProdRec."Resource No." = LineLC1) then begin
                 TotNavaHours := 0;
             end;
@@ -992,15 +1009,84 @@ page 50516 HourlyProductionListPart
 
 
             TimeVariable := 0T;
+            Time := 0T;
             if NavAppProdRec."LCurve Start Time" <> 0T then
-                TimeVariable := NavAppProdRec."LCurve Start Time" + (60 * 60 * 1000 * NavAppProdRec."LCurve Hours Per Day");
+                Time := NavAppProdRec."LCurve Start Time" + (60 * 60 * 1000 * NavAppProdRec."LCurve Hours Per Day");
+
+            LCH := 0;
+            if NavAppProdRec."LCurve Hours Per Day" = 0 then
+                LCH := 0;
+            if (NavAppProdRec."LCurve Hours Per Day" > 0) and (NavAppProdRec."LCurve Hours Per Day" < 1) then
+                LCH := 1;
+            if (NavAppProdRec."LCurve Hours Per Day" > 1) and (NavAppProdRec."LCurve Hours Per Day" < 2) then
+                LCH := 1;
+            if (NavAppProdRec."LCurve Hours Per Day" > 2) and (NavAppProdRec."LCurve Hours Per Day" < 3) then
+                LCH := 2;
+            if (NavAppProdRec."LCurve Hours Per Day" > 3) and (NavAppProdRec."LCurve Hours Per Day" < 4) then
+                LCH := 3;
+            if (NavAppProdRec."LCurve Hours Per Day" > 4) and (NavAppProdRec."LCurve Hours Per Day" < 5) then
+                LCH := 4;
+            if (NavAppProdRec."LCurve Hours Per Day" > 5) and (NavAppProdRec."LCurve Hours Per Day" < 6) then
+                LCH := 5;
+            if (NavAppProdRec."LCurve Hours Per Day" > 6) and (NavAppProdRec."LCurve Hours Per Day" < 7) then
+                LCH := 6;
+            if (NavAppProdRec."LCurve Hours Per Day" > 7) and (NavAppProdRec."LCurve Hours Per Day" < 8) then
+                LCH := 7;
+            if (NavAppProdRec."LCurve Hours Per Day" > 8) and (NavAppProdRec."LCurve Hours Per Day" < 9) then
+                LCH := 8;
+            if (NavAppProdRec."LCurve Hours Per Day" > 9) and (NavAppProdRec."LCurve Hours Per Day" < 10) then
+                LCH := 9;
+            if (NavAppProdRec."LCurve Hours Per Day" > 10) and (NavAppProdRec."LCurve Hours Per Day" < 11) then
+                LCH := 10;
+
+
+
+            TotNavaHours := WorkingHrs - LCH;
+
+            if Time = 000000T then
+                TimeVariable := Time;
+
+            if (Time > 080000T) and (Time < 090000T) then begin
+                TimeVariable := 080000T;
+            end;
+            if (Time > 090000T) and (Time < 100000T) then begin
+                TimeVariable := 090000T;
+            end;
+            if (Time > 100000T) and (Time < 110000T) then begin
+                TimeVariable := 100000T;
+            end;
+            if (Time > 110000T) and (Time < 120000T) then begin
+                TimeVariable := 110000T;
+            end;
+            if (Time > 120000T) and (Time < 130000T) then begin
+                TimeVariable := 120000T;
+            end;
+            if (Time > 130000T) and (Time < 140000T) then begin
+                TimeVariable := 130000T;
+            end;
+            if (Time > 140000T) and (Time < 150000T) then begin
+                TimeVariable := 140000T;
+            end;
+            if (Time > 150000T) and (Time < 160000T) then begin
+                TimeVariable := 150000T;
+            end;
+            if (Time > 160000T) and (Time < 170000T) then begin
+                TimeVariable := 160000T;
+            end;
+            if (Time > 170000T) and (Time < 180000T) then begin
+                TimeVariable := 170000T;
+            end;
+
 
             // if NavAppProdRec."Resource No." = 'VDL-01' then begin
             //     Message('VDL6');
             Rec."Target_Hour 09" := 0;
             Rec."Target_Hour 10" := 0;
             // end;
-            // if "Resource No." = 'VDL-06' then begin
+            // if NavAppProdRec."Resource No." = 'PAL-06' then begin
+            //     Message('VDL7');
+            // end;
+            // if NavAppProdRec."Resource No." = 'PAL-08' then begin
             //     Message('VDL7');
             // end;
             if NavAppProdRec."LCurve Start Time" = 080000T then begin
