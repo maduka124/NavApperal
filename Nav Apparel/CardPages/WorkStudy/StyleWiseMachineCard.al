@@ -55,7 +55,7 @@ page 51362 StyleWiseMachineReqCard
 
         ManningLevlHeaderRec.Reset();
         ManningLevlHeaderRec.SetRange("Style No.", Rec."Style No");
-        ManningLevlHeaderRec.SetRange("No.", Rec.No);
+        // ManningLevlHeaderRec.SetRange("No.", Rec.No);
         ManningLevlHeaderRec.SetRange("Work Center Name", Rec.Line);
 
         if ManningLevlHeaderRec.FindSet() then begin
