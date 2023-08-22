@@ -1540,7 +1540,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox50">
+                        <Textbox Name="Textbox51">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1658,7 +1658,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox20">
+                        <Textbox Name="Textbox45">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1676,7 +1676,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox20</rd:DefaultName>
+                          <rd:DefaultName>Textbox45</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1728,38 +1728,21 @@
               <TablixMembers>
                 <TablixMember />
                 <TablixMember>
-                  <Group Name="Buyer">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!Buyer.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!Buyer.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
+                  <Group Name="Details" />
                   <TablixMembers>
-                    <TablixMember>
-                      <Group Name="Details" />
-                      <TablixMembers>
-                        <TablixMember />
-                      </TablixMembers>
-                      <Visibility>
-                        <Hidden>=IIF(Fields!B2B_LC_No.Value=Previous(Fields!B2B_LC_No.Value),True,False)</Hidden>
-                      </Visibility>
-                    </TablixMember>
-                    <TablixMember>
-                      <Visibility>
-                        <Hidden>=Sum(Fields!B2B_LC_Value.Value)=0</Hidden>
-                      </Visibility>
-                      <KeepWithGroup>Before</KeepWithGroup>
-                    </TablixMember>
+                    <TablixMember />
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!B2B_LC_No.Value=Previous(Fields!B2B_LC_No.Value),True,False)</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember>
+                  <KeepWithGroup>Before</KeepWithGroup>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>5.52662cm</Top>
+            <Top>4.89162cm</Top>
             <Left>0.02328cm</Left>
             <Height>1.68479cm</Height>
             <Width>12.07165cm</Width>
@@ -2599,7 +2582,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Margin_A_C_Amount.Value</Value>
+                                  <Value>=code.AddTotalH(Fields!Margin_A_C_Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -2655,7 +2638,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FC_A_C_Amount.Value</Value>
+                                  <Value>=code.AddTotalI(Fields!FC_A_C_Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -2711,7 +2694,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Current_A_C_Amount.Value</Value>
+                                  <Value>=code.AddTotalJ(Fields!Current_A_C_Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -2833,7 +2816,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Margin_A_C_Amount.Value)</Value>
+                                  <Value>=code.GetTotalH()</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2891,7 +2874,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FC_A_C_Amount.Value)</Value>
+                                  <Value>=code.GetTotalI()</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2949,7 +2932,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Current_A_C_Amount.Value)</Value>
+                                  <Value>=code.GetTotalJ()</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3022,10 +3005,12 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details2" />
-                  <Visibility>
-                    <Hidden>=Fields!Invoice_No.Value=""</Hidden>
-                  </Visibility>
+                  <Group Name="Details2">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!BankRefNo_.Value</GroupExpression>
+                      <GroupExpression>=Fields!Invoice_No.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>
@@ -3033,7 +3018,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>5.52662cm</Top>
+            <Top>4.89162cm</Top>
             <Left>12.70719cm</Left>
             <Height>2.28479cm</Height>
             <Width>14.77797cm</Width>
@@ -3062,7 +3047,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.52917cm</Height>
+                  <Height>0.15875cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3187,7 +3172,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.52917cm</Height>
+                  <Height>0.21166cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3324,7 +3309,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>0.20311cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3482,9 +3467,9 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>8.19891cm</Top>
-            <Left>13.01433cm</Left>
-            <Height>1.65834cm</Height>
+            <Top>6.55201cm</Top>
+            <Left>0.04974cm</Left>
+            <Height>0.57352cm</Height>
             <Width>12.54915cm</Width>
             <ZIndex>4</ZIndex>
             <Visibility>
@@ -3508,7 +3493,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.79375cm</Height>
+                  <Height>0.35334cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3580,7 +3565,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.58208cm</Height>
+                  <Height>0.21166cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3649,7 +3634,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.52062cm</Height>
+                  <Height>0.26662cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3761,9 +3746,9 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>7.56391cm</Top>
+            <Top>6.29391cm</Top>
             <Left>0.49147cm</Left>
-            <Height>1.89645cm</Height>
+            <Height>0.83162cm</Height>
             <Width>8.48685cm</Width>
             <ZIndex>5</ZIndex>
             <Visibility>
@@ -3796,7 +3781,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>4.50528cm</Top>
+            <Top>4.18778cm</Top>
             <Left>2.33068cm</Left>
             <Height>0.71438cm</Height>
             <Width>6.21771cm</Width>
@@ -3833,7 +3818,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>4.50528cm</Top>
+            <Top>4.18778cm</Top>
             <Left>16.49927cm</Left>
             <Height>0.71438cm</Height>
             <Width>7.03792cm</Width>
@@ -3865,7 +3850,7 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>10.33348cm</Height>
+        <Height>7.22726cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -4056,6 +4041,37 @@ Public Function BlankNegAndZero(ByVal Value As Decimal)
         Return ""
     end if
     Return Value
+End Function
+
+
+Dim public totalLicBalanceH as Decimal
+Public Function AddTotalH(ByVal LicValH AS Decimal ) AS Decimal
+                totalLicBalanceH = totalLicBalanceH + LicValH
+                return LicValH
+End Function
+
+Public Function GetTotalH()
+                return totalLicBalanceH
+End Function
+
+Dim public totalLicBalanceI as Decimal
+Public Function AddTotalI(ByVal LicValI AS Decimal ) AS Decimal
+                totalLicBalanceI = totalLicBalanceI + LicValI
+                return LicValI
+End Function
+
+Public Function GetTotalI()
+                return totalLicBalanceI
+End Function
+
+Dim public totalLicBalanceJ as Decimal
+Public Function AddTotalJ(ByVal LicValJ AS Decimal ) AS Decimal
+                totalLicBalanceJ = totalLicBalanceJ + LicValJ
+                return LicValJ
+End Function
+
+Public Function GetTotalJ()
+                return totalLicBalanceJ
 End Function
 </Code>
   <EmbeddedImages>
