@@ -95,32 +95,26 @@ table 51323 "Order Shipping Export"
         field(20; "Sundry Acc"; Integer)
         {
             DataClassification = ToBeClassified;
-
         }
         field(21; Remarks; Text[100])
         {
             DataClassification = ToBeClassified;
-
         }
-        field(22; "Margin Acc"; Integer)
+        field(22; "Margin Acc"; Integer)    //Not using
         {
             DataClassification = ToBeClassified;
-
         }
-        field(23; "FC Acc"; Integer)
+        field(23; "FC Acc"; Integer)       //Not using
         {
             DataClassification = ToBeClassified;
-
         }
         field(24; "Currant Ac Amount"; Text[100])
         {
             DataClassification = ToBeClassified;
-
         }
         field(25; "Excess/Short"; Decimal)
         {
             DataClassification = ToBeClassified;
-
         }
         field(26; Diff; Decimal)
         {
@@ -273,6 +267,17 @@ table 51323 "Order Shipping Export"
         field(58; "Factory Invoice No"; Code[35])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(59; "Margin Acc New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        field(60; "FC Acc New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+
         }
 
     }

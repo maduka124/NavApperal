@@ -259,6 +259,7 @@ page 51324 OrderShippingList
         ShipmentLineRec: Record "Sales Shipment Line";
         BankRefColRec: Record BankRefCollectionHeader;
         BankRefHRec: Record BankReferenceHeader;
+        BankRefInvRec: Record BankReferenceInvoice;
         SalesInvRec: Record "Sales Invoice Header";
         BomEstimateRec: Record "BOM Estimate Cost";
         LcRec: Record "Contract/LCMaster";
@@ -367,26 +368,31 @@ page 51324 OrderShippingList
                                 OrderSummaryRec."Ship Qty" := ShQty;
                                 OrderSummaryRec."Ship value" := ShQty * StylePoRec."Unit Price";
 
-                                BankRefHRec.Reset();
-                                BankRefHRec.SetRange("LC/Contract No.", SalesInvRec."Contract No");
-                                if BankRefHRec.FindSet() then begin
-                                    OrderSummaryRec."Doc Sub Bank Date" := BankRefHRec."Reference Date";
-                                    OrderSummaryRec."Doc Sub Buyer Date" := BankRefHRec."Reference Date";
-                                    OrderSummaryRec."Bank Ref" := BankRefHRec."BankRefNo.";
-                                    OrderSummaryRec."Bank Ref Date" := BankRefHRec."Reference Date";
-                                    OrderSummaryRec."Maturity Date" := BankRefHRec."Maturity Date";
-                                    OrderSummaryRec.Remarks := BankRefHRec.Remarks;
-                                    OrderSummaryRec."Factory Invoice No" := SalesInvRec."Your Reference";
+                                BankRefInvRec.Reset();
+                                BankRefInvRec.SetRange("Factory Inv No", SalesInvRec."Your Reference");
+                                if BankRefInvRec.FindSet() then begin
 
-                                    BankRefColRec.Reset();
-                                    BankRefColRec.SetRange("BankRefNo.", BankRefHRec."BankRefNo.");
-                                    if BankRefColRec.FindSet() then begin
-                                        OrderSummaryRec."Realise Amount" := BankRefColRec."Release Amount";
-                                        OrderSummaryRec."Realise Date" := BankRefColRec."Release Date";
-                                        OrderSummaryRec."Exchange Rate" := BankRefColRec."Exchange Rate";
-                                        OrderSummaryRec."Margin Acc" := BankRefColRec."Margin A/C Amount";
-                                        OrderSummaryRec."FC Acc" := BankRefColRec."FC A/C Amount";
-                                        OrderSummaryRec."Currant Ac Amount1" := BankRefColRec."Current A/C Amount";
+                                    BankRefHRec.Reset();
+                                    BankRefHRec.SetRange("No.", BankRefInvRec."No.");
+                                    if BankRefHRec.FindSet() then begin
+                                        OrderSummaryRec."Doc Sub Bank Date" := BankRefHRec."Reference Date";
+                                        OrderSummaryRec."Doc Sub Buyer Date" := BankRefHRec."Reference Date";
+                                        OrderSummaryRec."Bank Ref" := BankRefHRec."BankRefNo.";
+                                        OrderSummaryRec."Bank Ref Date" := BankRefHRec."Reference Date";
+                                        OrderSummaryRec."Maturity Date" := BankRefHRec."Maturity Date";
+                                        OrderSummaryRec.Remarks := BankRefHRec.Remarks;
+                                        OrderSummaryRec."Factory Invoice No" := SalesInvRec."Your Reference";
+
+                                        BankRefColRec.Reset();
+                                        BankRefColRec.SetRange("BankRefNo.", BankRefHRec."BankRefNo.");
+                                        if BankRefColRec.FindSet() then begin
+                                            OrderSummaryRec."Realise Amount" := BankRefColRec."Release Amount";
+                                            OrderSummaryRec."Realise Date" := BankRefColRec."Release Date";
+                                            OrderSummaryRec."Exchange Rate" := BankRefColRec."Exchange Rate";
+                                            OrderSummaryRec."Margin Acc New" := BankRefColRec."Margin A/C Amount";
+                                            OrderSummaryRec."FC Acc New" := BankRefColRec."FC A/C Amount";
+                                            OrderSummaryRec."Currant Ac Amount1" := BankRefColRec."Current A/C Amount";
+                                        end;
                                     end;
                                 end;
                             end;

@@ -85,6 +85,7 @@ table 50897 "BOM Line Estimate"
         field(71012594; "Rate"; Decimal)
         {
             DataClassification = ToBeClassified;
+            DecimalPlaces = 0 : 5;
         }
 
         field(71012595; "Value"; Decimal)

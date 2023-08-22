@@ -354,6 +354,7 @@ page 50602 "Style Inquiry Card"
                 field(Type; rec.Type)
                 {
                     ApplicationArea = All;
+                    Editable = EditableType;
 
                     trigger OnValidate()
                     var
@@ -529,6 +530,12 @@ page 50602 "Style Inquiry Card"
                 EditableSMVGB := false;
         end;
 
+        //Type dropdown editable or not
+        if rec.SMV > 0 then
+            EditableType := false
+        else
+            EditableType := true;
+
         // if rec.Status = rec.Status::Confirmed then
         //     CurrPage.Editable := false;
     end;
@@ -653,11 +660,18 @@ page 50602 "Style Inquiry Card"
             else
                 EditableSMVGB := false;
         end;
+
+        //Type dropdown editable or not
+        if rec.SMV > 0 then
+            EditableType := false
+        else
+            EditableType := true;
+
     end;
 
 
     var
         EditableGB: Boolean;
         EditableSMVGB: Boolean;
-
+        EditableType: Boolean;
 }

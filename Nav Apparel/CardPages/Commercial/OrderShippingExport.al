@@ -1,4 +1,4 @@
-page 51358 "Order Shipping Export"
+page 51358 "Order Shipping Export"            //Not Using
 {
     PageType = Card;
     SourceTable = "Order Shipping Export Header";
@@ -164,8 +164,8 @@ page 51358 "Order Shipping Export"
                                                     OrderSummaryRec."Realise Amount" := BankRefColRec."Release Amount";
                                                     OrderSummaryRec."Realise Date" := BankRefColRec."Release Date";
                                                     OrderSummaryRec."Exchange Rate" := BankRefColRec."Exchange Rate";
-                                                    OrderSummaryRec."Margin Acc" := BankRefColRec."Margin A/C Amount";
-                                                    OrderSummaryRec."FC Acc" := BankRefColRec."FC A/C Amount";
+                                                    OrderSummaryRec."Margin Acc New" := BankRefColRec."Margin A/C Amount";
+                                                    OrderSummaryRec."FC Acc New" := BankRefColRec."FC A/C Amount";
                                                     OrderSummaryRec."Currant Ac Amount1" := BankRefColRec."Current A/C Amount";
                                                 end;
                                             end;
