@@ -147,7 +147,6 @@ page 50522 "B2B LC Card"
                     end;
                 }
 
-
                 field("LC/Contract No."; rec."LC/Contract No.")
                 {
                     ApplicationArea = All;
@@ -159,6 +158,19 @@ page 50522 "B2B LC Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        B2BLCMasterRec: Record B2BLCMaster;
+                    begin
+                        if rec."B2B LC No" <> '' then begin
+                            B2BLCMasterRec.Reset();
+                            B2BLCMasterRec.SetRange("B2B LC No", rec."B2B LC No");
+                            B2BLCMasterRec.SetFilter("No.", '<>%1', rec."No.");
+                            if B2BLCMasterRec.FindSet() then
+                                Error('B2B LC No already exists.');
+                        end;
+                    end;
                 }
 
                 field(Season; rec.Season)

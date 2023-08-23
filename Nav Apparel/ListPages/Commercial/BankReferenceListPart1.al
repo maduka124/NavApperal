@@ -1,16 +1,12 @@
 page 50764 "Bank Ref Invoice ListPart1"
 {
-    PageType = ListPart;
-    // SourceTable = "Sales Invoice Header";
-    SourceTable = ContractPostedInvoices;
-    //SourceTableView = where(AssignedBankRefNo = filter(''));
+    PageType = ListPart; 
+    SourceTable = ContractPostedInvoices;  
     SourceTableView = where(AssignedBankRefNo = filter(''));
     DeleteAllowed = false;
     InsertAllowed = false;
     Permissions = tabledata "Sales Invoice Header" = rm;
-    // Permissions = tabledata BankReferenceHeader = rimd;
-
-
+ 
     layout
     {
         area(Content)
@@ -63,9 +59,7 @@ page 50764 "Bank Ref Invoice ListPart1"
                 Image = Add;
 
                 trigger OnAction()
-                var
-                    // SalesInvRec: Record "Sales Invoice Header";
-                    ContPostedInvRec1: Record ContractPostedInvoices;
+                var                   
                     ContPostedInvRec: Record ContractPostedInvoices;
                     BankRefInvRec: Record BankReferenceInvoice;
                     BankRefHeadRec: Record BankReferenceHeader;
@@ -75,14 +69,11 @@ page 50764 "Bank Ref Invoice ListPart1"
 
                     ContPostedInvRec.Reset();
                     ContPostedInvRec.SetFilter(Select, '=%1', true);
-
                     if ContPostedInvRec.FindSet() then begin
                         repeat
-
                             BankRefHeadRec.Reset();
                             BankRefHeadRec.SetRange("No.", ContPostedInvRec.BankRefNo);
                             if BankRefHeadRec.FindSet() then begin
-
 
                                 //add new Invoice to the Bankref
                                 BankRefNo1 := ContPostedInvRec.BankRefNo;
@@ -99,7 +90,6 @@ page 50764 "Bank Ref Invoice ListPart1"
                                 BankRefInvRec."Created Date" := WorkDate();
                                 BankRefInvRec."Contract No" := ContPostedInvRec."LC/Contract No.";
                                 BankRefInvRec.Insert();
-
 
                                 //Update Style master contractno
                                 ContPostedInvRec.AssignedBankRefNo := Rec.BankRefNo;

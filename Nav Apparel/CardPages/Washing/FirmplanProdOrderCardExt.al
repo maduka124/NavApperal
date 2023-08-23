@@ -83,6 +83,12 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                     ApplicationArea = All;
                 }
 
+                field("Lot No."; rec."Lot No.")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Lot No';
+                }
+
                 field(Color; rec.Color)
                 {
                     ApplicationArea = All;
