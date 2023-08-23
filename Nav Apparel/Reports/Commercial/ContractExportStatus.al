@@ -62,6 +62,7 @@ report 50724 ContractExportStatus
                         RoundUnitPrice := Round(StylePoRec."Unit Price", 0.01, '=');
                     end;
 
+                    POQty := 0;
                     StylePoRec.Reset();
                     StylePoRec.SetRange("Style No.", StyleRec."No.");
                     StylePoRec.SetRange("PO No.", "PO No");
