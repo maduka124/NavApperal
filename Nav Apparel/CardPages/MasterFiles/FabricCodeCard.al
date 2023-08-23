@@ -21,11 +21,11 @@ page 50680 FabricCodeCard
                         MainCatRec: Record "Main Category";
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        NoSeriesMngment: Codeunit NoSeriesManagement;
                     begin
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -39,7 +39,6 @@ page 50680 FabricCodeCard
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
-
 
                         MainCatRec.Reset();
                         MainCatRec.SetRange("Main Category Name", 'FABRIC');
@@ -59,14 +58,18 @@ page 50680 FabricCodeCard
                             ArticleRec.Insert();
                         end;
 
+                        //get Next Ref no
+                        if rec.Reference = '' then
+                            rec.Reference := NoSeriesMngment.GetNextNo('ABA-REF', Today(), true);
                     end;
                 }
-                //MIhiranga 2023/03/09
+
                 field(Reference; Rec.Reference)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
-                //
+
                 field(Composition; rec.Composition)
                 {
                     ApplicationArea = All;

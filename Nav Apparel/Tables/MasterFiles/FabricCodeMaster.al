@@ -79,11 +79,7 @@ table 50679 FabricCodeMaster
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
+   
     trigger OnDelete()
     var
         FabShadeHeaderRec: Record "FabShadeHeader";
@@ -115,10 +111,4 @@ table 50679 FabricCodeMaster
         if FabTwRec.FindSet() then
             Error('Fabric Code : %1 already used in operations. Cannot delete.', FabricCode);
     end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }
