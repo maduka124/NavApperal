@@ -977,6 +977,7 @@ page 50516 HourlyProductionListPart
             LineLC := NavAppProdRec."Resource No.";
         end;
         Rec.Target := DayTarget;
+        Rec.Modify();
 
         WorkingHrs := 0;
         ResCapacityEntryRec.Reset();
@@ -1083,7 +1084,7 @@ page 50516 HourlyProductionListPart
             Rec."Target_Hour 09" := 0;
             Rec."Target_Hour 10" := 0;
             // end;
-            // if NavAppProdRec."Resource No." = 'PAL-06' then begin
+            // if NavAppProdRec."Resource No." = 'PAL-01' then begin
             //     Message('VDL7');
             // end;
             // if NavAppProdRec."Resource No." = 'PAL-08' then begin

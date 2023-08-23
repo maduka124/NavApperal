@@ -368,6 +368,7 @@ page 50515 "Hourly Production Card"
                                     LineLC := NavAppProdRec."Resource No.";
                                 end;
                                 HourlyProdLinesRec.Target := DayTarget;
+                                HourlyProdLinesRec.Modify();
 
                                 WorkingHrs := 0;
                                 ResCapacityEntryRec.Reset();
