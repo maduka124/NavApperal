@@ -447,6 +447,17 @@ report 50865 HourlyProductionReport
                     // WIPFin := WSHTot - WFHTot;
                 end;
                 //Factory Target Saw
+                TOt1Hour := 0;
+                TOt2Hour := 0;
+                TOt3Hour := 0;
+                TOt4Hour := 0;
+                TOt5Hour := 0;
+                TOt6Hour := 0;
+                TOt7Hour := 0;
+                TOt8Hour := 0;
+                TOt9Hour := 0;
+                TOt10Hour := 0;
+
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
