@@ -1019,25 +1019,25 @@ page 50516 HourlyProductionListPart
                 LCH := 0;
             if (NavAppProdRec."LCurve Hours Per Day" > 0) and (NavAppProdRec."LCurve Hours Per Day" < 1) then
                 LCH := 1;
-            if (NavAppProdRec."LCurve Hours Per Day" > 1) and (NavAppProdRec."LCurve Hours Per Day" < 2) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 1) and (NavAppProdRec."LCurve Hours Per Day" < 2) then
                 LCH := 1;
-            if (NavAppProdRec."LCurve Hours Per Day" > 2) and (NavAppProdRec."LCurve Hours Per Day" < 3) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 2) and (NavAppProdRec."LCurve Hours Per Day" < 3) then
                 LCH := 2;
-            if (NavAppProdRec."LCurve Hours Per Day" > 3) and (NavAppProdRec."LCurve Hours Per Day" < 4) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 3) and (NavAppProdRec."LCurve Hours Per Day" < 4) then
                 LCH := 3;
-            if (NavAppProdRec."LCurve Hours Per Day" > 4) and (NavAppProdRec."LCurve Hours Per Day" < 5) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 4) and (NavAppProdRec."LCurve Hours Per Day" < 5) then
                 LCH := 4;
-            if (NavAppProdRec."LCurve Hours Per Day" > 5) and (NavAppProdRec."LCurve Hours Per Day" < 6) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 5) and (NavAppProdRec."LCurve Hours Per Day" < 6) then
                 LCH := 5;
-            if (NavAppProdRec."LCurve Hours Per Day" > 6) and (NavAppProdRec."LCurve Hours Per Day" < 7) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 6) and (NavAppProdRec."LCurve Hours Per Day" < 7) then
                 LCH := 6;
-            if (NavAppProdRec."LCurve Hours Per Day" > 7) and (NavAppProdRec."LCurve Hours Per Day" < 8) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 7) and (NavAppProdRec."LCurve Hours Per Day" < 8) then
                 LCH := 7;
-            if (NavAppProdRec."LCurve Hours Per Day" > 8) and (NavAppProdRec."LCurve Hours Per Day" < 9) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 8) and (NavAppProdRec."LCurve Hours Per Day" < 9) then
                 LCH := 8;
-            if (NavAppProdRec."LCurve Hours Per Day" > 9) and (NavAppProdRec."LCurve Hours Per Day" < 10) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 9) and (NavAppProdRec."LCurve Hours Per Day" < 10) then
                 LCH := 9;
-            if (NavAppProdRec."LCurve Hours Per Day" > 10) and (NavAppProdRec."LCurve Hours Per Day" < 11) then
+            if (NavAppProdRec."LCurve Hours Per Day" >= 10) and (NavAppProdRec."LCurve Hours Per Day" < 11) then
                 LCH := 10;
 
 
@@ -1047,36 +1047,36 @@ page 50516 HourlyProductionListPart
             if Time = 000000T then
                 TimeVariable := Time;
 
-            if (Time > 080000T) and (Time < 090000T) then begin
+            if (Time >= 080000T) and (Time < 090000T) then begin
                 TimeVariable := 080000T;
-            end;
-            if (Time > 090000T) and (Time < 100000T) then begin
-                TimeVariable := 090000T;
-            end;
-            if (Time > 100000T) and (Time < 110000T) then begin
-                TimeVariable := 100000T;
-            end;
-            if (Time > 110000T) and (Time < 120000T) then begin
-                TimeVariable := 110000T;
-            end;
-            if (Time > 120000T) and (Time < 130000T) then begin
-                TimeVariable := 120000T;
-            end;
-            if (Time > 130000T) and (Time < 140000T) then begin
-                TimeVariable := 130000T;
-            end;
-            if (Time > 140000T) and (Time < 150000T) then begin
-                TimeVariable := 140000T;
-            end;
-            if (Time > 150000T) and (Time < 160000T) then begin
-                TimeVariable := 150000T;
-            end;
-            if (Time > 160000T) and (Time < 170000T) then begin
-                TimeVariable := 160000T;
-            end;
-            if (Time > 170000T) and (Time < 180000T) then begin
-                TimeVariable := 170000T;
-            end;
+            end else
+                if (Time >= 090000T) and (Time < 100000T) then begin
+                    TimeVariable := 090000T;
+                end else
+                    if (Time >= 100000T) and (Time < 110000T) then begin
+                        TimeVariable := 100000T;
+                    end else
+                        if (Time >= 110000T) and (Time < 120000T) then begin
+                            TimeVariable := 110000T;
+                        end else
+                            if (Time >= 120000T) and (Time < 130000T) then begin
+                                TimeVariable := 120000T;
+                            end else
+                                if (Time >= 130000T) and (Time < 140000T) then begin
+                                    TimeVariable := 130000T;
+                                end else
+                                    if (Time >= 140000T) and (Time < 150000T) then begin
+                                        TimeVariable := 140000T;
+                                    end else
+                                        if (Time >= 150000T) and (Time < 160000T) then begin
+                                            TimeVariable := 150000T;
+                                        end else
+                                            if (Time >= 160000T) and (Time < 170000T) then begin
+                                                TimeVariable := 160000T;
+                                            end else
+                                                if (Time >= 170000T) and (Time < 180000T) then begin
+                                                    TimeVariable := 170000T;
+                                                end;
 
 
             // if NavAppProdRec."Resource No." = 'VDL-01' then begin
