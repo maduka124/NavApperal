@@ -285,7 +285,7 @@ page 51303 "Copy Sample Requisition Card"
                                 SampleReqHeaderNewRec."Sample Room Name" := SampleReqHeaderRec."Sample Room Name";
                                 SampleReqHeaderNewRec."Sample Room No." := SampleReqHeaderRec."Sample Room No.";
                                 SampleReqHeaderNewRec.Remarks := SampleReqHeaderRec.Remarks;
-                                SampleReqHeaderNewRec.Status := SampleReqHeaderRec.Status;
+                                SampleReqHeaderNewRec.Status := SampleReqHeaderNewRec.Status::Pending;
                                 SampleReqHeaderNewRec."Global Dimension Code" := SampleReqHeaderRec."Global Dimension Code";
                                 SampleReqHeaderNewRec.Type := SampleReqHeaderRec.Type;
                                 SampleReqHeaderNewRec.Qty := SampleReqHeaderRec.Qty;

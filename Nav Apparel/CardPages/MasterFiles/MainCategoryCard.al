@@ -81,6 +81,44 @@ page 50960 "Main Category Card"
                     end;
                 }
 
+                field("Inventory Category Name"; rec."Inventory Category Name")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "Master Category"."Master Category Name";
+                    Caption = 'Inventory Category';
+
+                    trigger OnValidate()
+                    var
+                        MasterCategoryrec: Record "Master Category";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
+                    begin
+                        MasterCategoryrec.Reset();
+                        MasterCategoryrec.SetRange("Master Category Name", rec."Inventory Category Name");
+                        if MasterCategoryrec.FindSet() then
+                            rec."Inventory Category No." := MasterCategoryrec."No."
+                        else
+                            Error('Invalid Master Category Name');
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+                    end;
+                }
+
                 field("Inv. Posting Group Code"; rec."Inv. Posting Group Code")
                 {
                     ApplicationArea = All;

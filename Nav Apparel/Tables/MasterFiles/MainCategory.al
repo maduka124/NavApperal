@@ -107,6 +107,16 @@ table 51101 "Main Category"
             DataClassification = ToBeClassified;
         }
 
+        field(50103; "Inventory Category No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50104; "Inventory Category Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

@@ -29,6 +29,11 @@ page 50641 "Main Category List"
                     ApplicationArea = All;
                 }
 
+                field("Inventory Category Name"; rec."Inventory Category Name")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Inv. Posting Group Code"; Rec."Inv. Posting Group Code")
                 {
                     ApplicationArea = All;

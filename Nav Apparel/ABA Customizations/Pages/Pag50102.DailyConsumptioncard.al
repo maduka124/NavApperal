@@ -401,7 +401,7 @@ page 50102 "Daily Consumption Card"
                                             MainCategoryRec.Reset();
                                             MainCategoryRec.SetRange("No.", ItemRec."Main Category No.");
                                             if MainCategoryRec.Findset() then begin
-                                                if MainCategoryRec."Master Category Name" = MasterCateName then
+                                                if MainCategoryRec."Inventory Category Name" = MasterCateName then
                                                     Include := true
                                                 else
                                                     Include := false;
