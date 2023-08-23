@@ -357,6 +357,16 @@ report 50865 HourlyProductionReport
                     StyleName := StyleRec."Style No.";
                 end;
                 //Factory Achieve
+                Hour1F := 0;
+                Hour2F := 0;
+                Hour3F := 0;
+                Hour4F := 0;
+                Hour5F := 0;
+                Hour6F := 0;
+                Hour7F := 0;
+                Hour8F := 0;
+                Hour9F := 0;
+                Hour10F := 0;
                 HoFinLineRec.Reset();
                 HoFinLineRec.SetRange("Prod Date", PlanDate);
                 HoFinLineRec.SetRange("Factory No.", "Factory No.");
@@ -447,6 +457,17 @@ report 50865 HourlyProductionReport
                     // WIPFin := WSHTot - WFHTot;
                 end;
                 //Factory Target Saw
+                TOt1Hour := 0;
+                TOt2Hour := 0;
+                TOt3Hour := 0;
+                TOt4Hour := 0;
+                TOt5Hour := 0;
+                TOt6Hour := 0;
+                TOt7Hour := 0;
+                TOt8Hour := 0;
+                TOt9Hour := 0;
+                TOt10Hour := 0;
+
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
@@ -483,6 +504,16 @@ report 50865 HourlyProductionReport
                     LineLC7 := HoProLiRec."Work Center No.";
                 end;
                 //Factory Achive Finishing
+                Hour1TotFin := 0;
+                Hour2TotFin := 0;
+                Hour3TotFin := 0;
+                Hour4TotFin := 0;
+                Hour5TotFin := 0;
+                Hour6TotFin := 0;
+                Hour7TotFin := 0;
+                Hour8TotFin := 0;
+                Hour9TotFin := 0;
+                Hour10TotFin := 0;
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
@@ -542,6 +573,16 @@ report 50865 HourlyProductionReport
 
 
                 //Factory Achive Saw
+                Hour1Tot := 0;
+                Hour2Tot := 0;
+                Hour3Tot := 0;
+                Hour4Tot := 0;
+                Hour5Tot := 0;
+                Hour6Tot := 0;
+                Hour7Tot := 0;
+                Hour8Tot := 0;
+                Hour9Tot := 0;
+                Hour10Tot := 0;
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange("Factory No.", "Factory No.");
@@ -604,6 +645,17 @@ report 50865 HourlyProductionReport
                 end;
 
                 //Group Achieve Saw
+                FactoryHour1Tot := 0;
+                FactoryHour2Tot := 0;
+                FactoryHour3Tot := 0;
+                FactoryHour4Tot := 0;
+                FactoryHour5Tot := 0;
+                FactoryHour6Tot := 0;
+                FactoryHour7Tot := 0;
+                FactoryHour8Tot := 0;
+                FactoryHour9Tot := 0;
+                FactoryHour10Tot := 0;
+
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
@@ -659,6 +711,17 @@ report 50865 HourlyProductionReport
                 end;
 
                 //Group Target
+                FactoryH1 := 0;
+                FactoryH2 := 0;
+                FactoryH3 := 0;
+                FactoryH4 := 0;
+                FactoryH5 := 0;
+                FactoryH6 := 0;
+                FactoryH7 := 0;
+                FactoryH8 := 0;
+                FactoryH9 := 0;
+                FactoryH10 := 0;
+
                 HoProLiRec.Reset();
                 HoProLiRec.SetRange("Prod Date", PlanDate);
                 HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
