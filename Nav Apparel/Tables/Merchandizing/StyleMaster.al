@@ -341,6 +341,11 @@ table 50934 "Style Master"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012641; "Max Ship Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -684,6 +684,14 @@ page 50968 "Nav Apperal Role Center"
                         }
                     }
 
+                    action("CostBreakupReport1")
+                    {
+                        Caption = 'Cost Breakup Report';
+                        Enabled = true;
+                        RunObject = report CostBreakupReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Delivery Details")
                     {
                         Caption = 'Delivery Details';
@@ -2929,149 +2937,157 @@ page 50968 "Nav Apperal Role Center"
                 }
             }
 
-            // group("Finance")
-            // {
-            //     Caption = 'Finance';
+            group("Finance")
+            {
+                Caption = 'Finance';
 
-            //     action("General Journals")
-            //     {
-            //         Caption = 'General Journals';
-            //         RunObject = Page "General Journal";
-            //         ApplicationArea = all;
-            //     }
+                //     action("General Journals")
+                //     {
+                //         Caption = 'General Journals';
+                //         RunObject = Page "General Journal";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Chart Of Accounts")
-            //     {
-            //         Caption = 'Chart Of Accounts';
-            //         RunObject = Page "Chart of Accounts";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Chart Of Accounts")
+                //     {
+                //         Caption = 'Chart Of Accounts';
+                //         RunObject = Page "Chart of Accounts";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("GL Account Categories")
-            //     {
-            //         Caption = 'GL Account Categories';
-            //         RunObject = Page "G/L Account Categories";
-            //         ApplicationArea = all;
-            //     }
+                //     action("GL Account Categories")
+                //     {
+                //         Caption = 'GL Account Categories';
+                //         RunObject = Page "G/L Account Categories";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("GL Budgets")
-            //     {
-            //         Caption = 'GL Budgets';
-            //         RunObject = Page "G/L Budget Entries";
-            //         ApplicationArea = all;
-            //     }
+                //     action("GL Budgets")
+                //     {
+                //         Caption = 'GL Budgets';
+                //         RunObject = Page "G/L Budget Entries";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Fixed Assets")
-            //     {
-            //         Caption = 'Fixed Assets';
-            //         RunObject = Page "Fixed Asset List";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Fixed Assets")
+                //     {
+                //         Caption = 'Fixed Assets';
+                //         RunObject = Page "Fixed Asset List";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Account Schedules")
-            //     {
-            //         Caption = 'Account Schedules';
-            //         RunObject = Page "Account Schedule";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Account Schedules")
+                //     {
+                //         Caption = 'Account Schedules';
+                //         RunObject = Page "Account Schedule";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Intrastat Journals")
-            //     {
-            //         Caption = 'Intrastat Journals';
-            //         RunObject = Page "Intrastat Journal";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Intrastat Journals")
+                //     {
+                //         Caption = 'Intrastat Journals';
+                //         RunObject = Page "Intrastat Journal";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Sales Budgets")
-            //     {
-            //         Caption = 'Sales Budgets';
-            //         RunObject = Page "Sales Budget Overview";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Sales Budgets")
+                //     {
+                //         Caption = 'Sales Budgets';
+                //         RunObject = Page "Sales Budget Overview";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Purchase Budgets")
-            //     {
-            //         Caption = 'Purchase Budgets';
-            //         RunObject = Page "Purchase Budget Overview";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Purchase Budgets")
+                //     {
+                //         Caption = 'Purchase Budgets';
+                //         RunObject = Page "Purchase Budget Overview";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Sales Analysis Reports")
-            //     {
-            //         Caption = 'Sales Analysis Reports';
-            //         RunObject = Page "Sales Analysis Report";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Sales Analysis Reports")
+                //     {
+                //         Caption = 'Sales Analysis Reports';
+                //         RunObject = Page "Sales Analysis Report";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Purchase Analysis Reports")
-            //     {
-            //         Caption = 'Purchase Analysis Reports';
-            //         RunObject = Page "Purchase Analysis Report";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Purchase Analysis Reports")
+                //     {
+                //         Caption = 'Purchase Analysis Reports';
+                //         RunObject = Page "Purchase Analysis Report";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Inventory Analysis Reports")
-            //     {
-            //         Caption = 'Inventory Analysis Reports';
-            //         RunObject = Page "Inventory Analysis Report";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Inventory Analysis Reports")
+                //     {
+                //         Caption = 'Inventory Analysis Reports';
+                //         RunObject = Page "Inventory Analysis Report";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("VAT Returns")
-            //     {
-            //         Caption = 'VAT Returns';
-            //         RunObject = Page "VAT Return Period List";
-            //         ApplicationArea = all;
-            //     }
+                //     action("VAT Returns")
+                //     {
+                //         Caption = 'VAT Returns';
+                //         RunObject = Page "VAT Return Period List";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Currencies")
-            //     {
-            //         Caption = 'Currencies';
-            //         RunObject = Page Currencies;
-            //         ApplicationArea = all;
-            //     }
+                //     action("Currencies")
+                //     {
+                //         Caption = 'Currencies';
+                //         RunObject = Page Currencies;
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Employees")
-            //     {
-            //         Caption = 'Employees';
-            //         RunObject = Page "Employee List";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Employees")
+                //     {
+                //         Caption = 'Employees';
+                //         RunObject = Page "Employee List";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("VAT Statements")
-            //     {
-            //         Caption = 'VAT Statements';
-            //         RunObject = Page "VAT Statement";
-            //         ApplicationArea = all;
-            //     }
+                //     action("VAT Statements")
+                //     {
+                //         Caption = 'VAT Statements';
+                //         RunObject = Page "VAT Statement";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Dimensions")
-            //     {
-            //         Caption = 'Dimensions';
-            //         RunObject = Page "Dimension List";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Dimensions")
+                //     {
+                //         Caption = 'Dimensions';
+                //         RunObject = Page "Dimension List";
+                //         ApplicationArea = all;
+                //     }
 
-            //     action("Posted General Journals")
-            //     {
-            //         Caption = 'Posted General Journals';
-            //         RunObject = Page "Posted General Journal";
-            //         ApplicationArea = all;
-            //     }
+                //     action("Posted General Journals")
+                //     {
+                //         Caption = 'Posted General Journals';
+                //         RunObject = Page "Posted General Journal";
+                //         ApplicationArea = all;
+                //     }
 
-            //     group("Finance Reports")
-            //     {
-            //         Caption = 'Finance Reports';
+                group("Finance Reports")
+                {
+                    Caption = 'Finance Reports';
 
-            //         action("Statement Of Net Margin")
-            //         {
-            //             Caption = 'Statement Of Net Margin Report';
-            //             Enabled = true;
-            //             RunObject = report StatementOfNetMargin;
-            //             ApplicationArea = all;
-            //         }
-            //     }
-            // }
+                    // action("Statement Of Net Margin")
+                    // {
+                    //     Caption = 'Statement Of Net Margin Report';
+                    //     Enabled = true;
+                    //     RunObject = report StatementOfNetMargin;
+                    //     ApplicationArea = all;
+                    // }
+
+                    action("CostBreakupReport")
+                    {
+                        Caption = 'Cost Breakup Report';
+                        Enabled = true;
+                        RunObject = report CostBreakupReport;
+                        ApplicationArea = all;
+                    }
+                }
+            }
 
             // group("Purchasing")
             // {

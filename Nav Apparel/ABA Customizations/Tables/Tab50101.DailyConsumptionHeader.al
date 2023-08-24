@@ -214,13 +214,15 @@ table 50101 "Daily Consumption Header"
                 ProdOrder.SetRange("Style Name", "Style Name");
                 if ProdOrder.FindSet() then begin
                     repeat
+                        if ProdOrder."Lot No." = '' then
+                            Error('Lot No is blank in RPO : %1', ProdOrder."No.");
+
                         UserSetupRec.Reset();
                         UserSetupRec.SetRange("User ID", UserId);
                         if UserSetupRec.FindSet() then begin
 
                             NavAppProdPlanRec.Reset();
                             NavAppProdPlanRec.SetRange("Style Name", "Style Name");
-                            //NavAppProdPlanRec.SetRange("PO No.", ProdOrder.PO);
                             NavAppProdPlanRec.SetRange("Lot No.", ProdOrder."Lot No.");
                             if NavAppProdPlanRec.FindSet() then begin
                                 repeat
@@ -231,9 +233,9 @@ table 50101 "Daily Consumption Header"
                                         end;
                                     end;
                                 until NavAppProdPlanRec.Next() = 0;
-                            end
-                            else
-                                Error('Cannot find planned PO details.');
+                            end;
+                            // else
+                            //     Error('Cannot find planned PO details.');
                         end
                         else
                             Error('Cannot find user details in user setup.');
