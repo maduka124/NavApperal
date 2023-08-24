@@ -36,7 +36,6 @@ page 50763 "Bank Reference Card"
                         LoginRec: Page "Login Card";
                     begin
                         SalesInvRec.Reset();
-
                         if SalesInvRec.FindSet() then begin
                             repeat
                                 SalesInvRec.BankRefNo := rec."No.";
@@ -90,10 +89,8 @@ page 50763 "Bank Reference Card"
                     var
                         CustomerRec: Record Customer;
                     begin
-
                         CustomerRec.Reset();
                         CustomerRec.SetRange(Name, Rec."Buyer Name");
-
                         if CustomerRec.FindSet() then
                             Rec."Buyer No" := CustomerRec."No.";
                     end;
@@ -115,7 +112,6 @@ page 50763 "Bank Reference Card"
                         //Validate contract no
                         LCContractRec.Reset();
                         LCContractRec.SetRange("Contract No", rec."LC/Contract No.");
-
                         if not LCContractRec.FindSet() then
                             Error('Invalid Contract No.')
                         else begin
@@ -128,19 +124,14 @@ page 50763 "Bank Reference Card"
 
                             ContractStyleRec.Reset();
                             ContractStyleRec.SetRange("No.", LCContractRec."No.");
-
                             if ContractStyleRec.FindSet() then begin
-
                                 repeat
-
                                     //Get invoices for the  Style
                                     SalesInvoiceRec.Reset();
-                                    SalesInvoiceRec.SetRange("Style No", ContractStyleRec."Style No.");
+                                    SalesInvoiceRec.SetRange("Style Name", ContractStyleRec."Style Name");
                                     SalesInvoiceRec.SetRange("Sell-to Customer No.", rec."Buyer No");
-
                                     //New 
                                     SalesInvoiceRec.SetRange("Contract No", Rec."LC/Contract No.");
-
                                     if SalesInvoiceRec.FindSet() then begin
                                         repeat
                                             //Check duplicates
@@ -149,11 +140,12 @@ page 50763 "Bank Reference Card"
                                             // BankrefInveRec.Reset();
                                             // if BankrefInveRec.FindSet() then begin
 
+                                            // if SalesInvoiceRec."Your Reference" = 'AFL/LPP-23/318' then
+                                            //     Message('AFL/LPP-23/318');
+
                                             ContPostedInvRec.SetRange("LC/Contract No.", Rec."LC/Contract No.");
                                             ContPostedInvRec.SetRange("Inv No.", SalesInvoiceRec."No.");
                                             ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
-
-
                                             if not ContPostedInvRec.FindSet() then begin
                                                 //Insert 
                                                 ContPostedInvRec.Init();

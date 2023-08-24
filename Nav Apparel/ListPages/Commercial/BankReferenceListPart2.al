@@ -54,7 +54,6 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                 trigger OnAction()
                 var
-
                     BankRefInvRec1: Record BankReferenceInvoice;
                     BankRefHeadRec: Record BankReferenceHeader;
                     ContPostedInvRec: Record ContractPostedInvoices;
@@ -67,8 +66,6 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                     if BankRefInvRec.FindSet() then begin
                         repeat
-
-
                             //Update Purchase order pi no
                             ContPostedInvRec.Reset();
                             ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
@@ -90,7 +87,6 @@ page 50765 "Bank Ref Invoice ListPart2"
                     CodeUnitNav.CalQtyBankRef(Rec."No.");
                     CurrPage.Update();
 
-
                     BankRefInvRec1.Reset();
                     BankRefInvRec1.SetRange("No.", rec."No.");
                     BankRefHeadRec.Reset();
@@ -108,7 +104,6 @@ page 50765 "Bank Ref Invoice ListPart2"
                             // CurrPage.Update();
                         end;
                     end;
-
 
                 end;
             }

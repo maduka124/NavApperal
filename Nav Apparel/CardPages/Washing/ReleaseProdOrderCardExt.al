@@ -78,6 +78,12 @@ pageextension 50801 ReleaseProductionOrder extends "Released Production Order"
                 Caption = 'PO';
             }
 
+            field("Lot No."; rec."Lot No.")
+            {
+                ApplicationArea = all;
+                Caption = 'Lot No';
+            }
+
         }
 
 
