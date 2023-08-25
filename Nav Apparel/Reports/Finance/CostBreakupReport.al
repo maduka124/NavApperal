@@ -28,6 +28,8 @@ report 51403 CostBreakupReport
             { }
             column(Rate; Rate)
             { }
+            column(Total; Total)
+            { }
             column(DayTGT; DayTGT)
             { }
             column(Fabric; Fabric)
@@ -36,11 +38,22 @@ report 51403 CostBreakupReport
             { }
             column(Wash; Wash)
             { }
-            column(CommCash; CommCash)
-            { }
             column(CommLC; CommLC)
             { }
-
+            column(Sourcing; Sourcing)
+            { }
+            column(CommExpr; CommExpr)
+            { }
+            column(RiskFactor; RiskFactor)
+            { }
+            column(PrdExp; PrdExp)
+            { }
+            column(PrdExpPcs; PrdExpPcs)
+            { }
+            column(TotalCost; TotalCost)
+            { }
+            column(Balance; Balance)
+            { }
 
             trigger OnAfterGetRecord()
             var
@@ -49,7 +62,6 @@ report 51403 CostBreakupReport
                 BOMRec: Record BOM;
                 EstCostingRec: Record "BOM Estimate Cost";
                 BOMAutoGenLineRec: Record "BOM Line AutoGen";
-                // EstCostingLineRec: Record "BOM Estimate Costing Line";
                 NavAppProdDetailRec: Record "NavApp Prod Plans Details";
             begin
                 comRec.Get;
@@ -77,6 +89,9 @@ report 51403 CostBreakupReport
                 if EstCostingRec.FindSet() then
                     Rate := EstCostingRec."FOB Pcs";
 
+                //Calculate Total
+                Total := CostBrQty * Rate;
+
 
                 //DayTGT
                 DayTGT := 0;
@@ -95,12 +110,101 @@ report 51403 CostBreakupReport
                 if BOMRec.FindFirst() then begin
                     BOMAutoGenLineRec.Reset();
                     BOMAutoGenLineRec.SetRange("No.", BOMRec."No");
-                    BOMAutoGenLineRec.SetFilter("Main Category Name", '=%1',);
+                    BOMAutoGenLineRec.SetFilter("Main Category Name", '=%1', 'FABRIC');
                     if BOMAutoGenLineRec.FindSet() then
-                        Fabric := BOMAutoGenLineRec.Qty;
+                        repeat
+                            Fabric += BOMAutoGenLineRec.Value;
+                        until BOMAutoGenLineRec.Next() = 0;
                 end;
 
 
+                //Access
+                Access := 0;
+                BOMRec.Reset();
+                BOMRec.SetRange("Style No.", "No.");
+                if BOMRec.FindFirst() then begin
+                    BOMAutoGenLineRec.Reset();
+                    BOMAutoGenLineRec.SetRange("No.", BOMRec."No");
+                    BOMAutoGenLineRec.SetFilter("Main Category Name", '<>%1&<>%2', 'FABRIC', 'WASHING');
+                    if BOMAutoGenLineRec.FindSet() then
+                        repeat
+                            Access += BOMAutoGenLineRec.Value;
+                        until BOMAutoGenLineRec.Next() = 0;
+                end;
+
+
+                //WASH
+                Wash := 0;
+                BOMRec.Reset();
+                BOMRec.SetRange("Style No.", "No.");
+                if BOMRec.FindFirst() then begin
+                    BOMAutoGenLineRec.Reset();
+                    BOMAutoGenLineRec.SetRange("No.", BOMRec."No");
+                    BOMAutoGenLineRec.SetFilter("Main Category Name", '=%1', 'WASHING');
+                    if BOMAutoGenLineRec.FindSet() then
+                        repeat
+                            Wash += BOMAutoGenLineRec.Value;
+                        until BOMAutoGenLineRec.Next() = 0;
+                end;
+
+
+                //Get CommLC  
+                CommLC := 0;
+                Sourcing := 0;
+                CommExpr := 0;
+                RiskFactor := 0;
+                PrdExp := 0;
+                EstCostingRec.Reset();
+                EstCostingRec.SetRange("Style No.", "No.");
+                if EstCostingRec.FindSet() then begin
+                    CommLC := (Total * EstCostingRec."Commission %") / 100;
+                    Sourcing := (Total * EstCostingRec."ABA Sourcing %") / 100;
+                    CommExpr := (Total * EstCostingRec."Commercial %") / 100;
+                    RiskFactor := (Total * EstCostingRec."Risk factor %") / 100;
+                    PrdExp := (Total * EstCostingRec."MFG Cost %") / 100;
+                end;
+
+
+                //Get Unique Plandates count for the style                
+                TempDate := 0D;
+                NavAppProdDetailRec.Reset();
+                NavAppProdDetailRec.SetRange("Style No.", "No.");
+                NavAppProdDetailRec.SetFilter(ProdUpd, '=%1', 0);
+                NavAppProdDetailRec.SetCurrentKey(PlanDate);
+                NavAppProdDetailRec.Ascending(true);
+                if NavAppProdDetailRec.Findset() then begin
+                    repeat
+                        if TempDate <> NavAppProdDetailRec.PlanDate then begin
+                            TempDate := NavAppProdDetailRec.PlanDate;
+                            DateCount += 1;
+                        end;
+                    until NavAppProdDetailRec.Next() = 0;
+                end;
+
+
+                //Get total actual output
+                TotalOutput := 0;
+                StyleMasPORec.Reset();
+                StyleMasPORec.SetRange("Style No.", "No.");
+                if StyleMasPORec.Findset() then
+                    repeat
+                        TotalOutput += StyleMasPORec."Sawing Out Qty";
+                    until StyleMasPORec.Next() = 0;
+
+
+                //calculate PrdExpPcs
+                PrdExpPcs := 0;
+                if DateCount > 0 then
+                    PrdExpPcs := TotalOutput / DateCount;
+
+
+                //Calculate TotalCost
+                TotalCost := 0;
+                TotalCost := Fabric + Access + Wash + CommLC + Sourcing + CommExpr + RiskFactor + PrdExp;
+
+                //Calculate Balance
+                Balance := 0;
+                Balance := Total - TotalCost;
 
             end;
 
@@ -212,8 +316,6 @@ report 51403 CostBreakupReport
             until StyelMasRec.Next() = 0;
         end;
         Commit();
-
-        Message('completed');
     end;
 
 
@@ -224,13 +326,22 @@ report 51403 CostBreakupReport
         Buyer: Code[20];
         "All buyers": Boolean;
         BuyerEditable: Boolean;
-        CostBrQty: BigInteger;
+        CostBrQty: Decimal;
         Rate: Decimal;
-        DayTGT: BigInteger;
+        DayTGT: Decimal;
         Fabric: Decimal;
         Access: Decimal;
         Wash: Decimal;
-        CommCash: Decimal;
         CommLC: Decimal;
         Sourcing: Decimal;
+        CommExpr: Decimal;
+        RiskFactor: Decimal;
+        PrdExp: Decimal;
+        PrdExpPcs: Decimal;
+        Total: Decimal;
+        TempDate: Date;
+        DateCount: Integer;
+        TotalOutput: Decimal;
+        TotalCost: Decimal;
+        Balance: Decimal;
 }
