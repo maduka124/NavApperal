@@ -11,127 +11,6 @@
       <rd:DataSourceID>d5b9ef1e-aa04-49fb-ab2c-39d61d84bfca</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="stDate">
-          <DataField>stDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="CostBrQty">
-          <DataField>CostBrQty</DataField>
-        </Field>
-        <Field Name="CostBrQtyFormat">
-          <DataField>CostBrQtyFormat</DataField>
-        </Field>
-        <Field Name="Rate">
-          <DataField>Rate</DataField>
-        </Field>
-        <Field Name="RateFormat">
-          <DataField>RateFormat</DataField>
-        </Field>
-        <Field Name="Total">
-          <DataField>Total</DataField>
-        </Field>
-        <Field Name="TotalFormat">
-          <DataField>TotalFormat</DataField>
-        </Field>
-        <Field Name="DayTGT">
-          <DataField>DayTGT</DataField>
-        </Field>
-        <Field Name="DayTGTFormat">
-          <DataField>DayTGTFormat</DataField>
-        </Field>
-        <Field Name="Fabric">
-          <DataField>Fabric</DataField>
-        </Field>
-        <Field Name="FabricFormat">
-          <DataField>FabricFormat</DataField>
-        </Field>
-        <Field Name="Access">
-          <DataField>Access</DataField>
-        </Field>
-        <Field Name="AccessFormat">
-          <DataField>AccessFormat</DataField>
-        </Field>
-        <Field Name="Wash">
-          <DataField>Wash</DataField>
-        </Field>
-        <Field Name="WashFormat">
-          <DataField>WashFormat</DataField>
-        </Field>
-        <Field Name="CommLC">
-          <DataField>CommLC</DataField>
-        </Field>
-        <Field Name="CommLCFormat">
-          <DataField>CommLCFormat</DataField>
-        </Field>
-        <Field Name="Sourcing">
-          <DataField>Sourcing</DataField>
-        </Field>
-        <Field Name="SourcingFormat">
-          <DataField>SourcingFormat</DataField>
-        </Field>
-        <Field Name="CommExpr">
-          <DataField>CommExpr</DataField>
-        </Field>
-        <Field Name="CommExprFormat">
-          <DataField>CommExprFormat</DataField>
-        </Field>
-        <Field Name="RiskFactor">
-          <DataField>RiskFactor</DataField>
-        </Field>
-        <Field Name="RiskFactorFormat">
-          <DataField>RiskFactorFormat</DataField>
-        </Field>
-        <Field Name="PrdExp">
-          <DataField>PrdExp</DataField>
-        </Field>
-        <Field Name="PrdExpFormat">
-          <DataField>PrdExpFormat</DataField>
-        </Field>
-        <Field Name="PrdExpPcs">
-          <DataField>PrdExpPcs</DataField>
-        </Field>
-        <Field Name="PrdExpPcsFormat">
-          <DataField>PrdExpPcsFormat</DataField>
-        </Field>
-        <Field Name="TotalCost">
-          <DataField>TotalCost</DataField>
-        </Field>
-        <Field Name="TotalCostFormat">
-          <DataField>TotalCostFormat</DataField>
-        </Field>
-        <Field Name="Balance">
-          <DataField>Balance</DataField>
-        </Field>
-        <Field Name="BalanceFormat">
-          <DataField>BalanceFormat</DataField>
-        </Field>
-        <Field Name="Created_User">
-          <DataField>Created_User</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -3756,12 +3635,6 @@ AMOUNT</Value>
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3813,4 +3686,125 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="stDate">
+          <DataField>stDate</DataField>
+        </Field>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="CostBrQty">
+          <DataField>CostBrQty</DataField>
+        </Field>
+        <Field Name="CostBrQtyFormat">
+          <DataField>CostBrQtyFormat</DataField>
+        </Field>
+        <Field Name="Rate">
+          <DataField>Rate</DataField>
+        </Field>
+        <Field Name="RateFormat">
+          <DataField>RateFormat</DataField>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
+        </Field>
+        <Field Name="TotalFormat">
+          <DataField>TotalFormat</DataField>
+        </Field>
+        <Field Name="DayTGT">
+          <DataField>DayTGT</DataField>
+        </Field>
+        <Field Name="DayTGTFormat">
+          <DataField>DayTGTFormat</DataField>
+        </Field>
+        <Field Name="Fabric">
+          <DataField>Fabric</DataField>
+        </Field>
+        <Field Name="FabricFormat">
+          <DataField>FabricFormat</DataField>
+        </Field>
+        <Field Name="Access">
+          <DataField>Access</DataField>
+        </Field>
+        <Field Name="AccessFormat">
+          <DataField>AccessFormat</DataField>
+        </Field>
+        <Field Name="Wash">
+          <DataField>Wash</DataField>
+        </Field>
+        <Field Name="WashFormat">
+          <DataField>WashFormat</DataField>
+        </Field>
+        <Field Name="CommLC">
+          <DataField>CommLC</DataField>
+        </Field>
+        <Field Name="CommLCFormat">
+          <DataField>CommLCFormat</DataField>
+        </Field>
+        <Field Name="Sourcing">
+          <DataField>Sourcing</DataField>
+        </Field>
+        <Field Name="SourcingFormat">
+          <DataField>SourcingFormat</DataField>
+        </Field>
+        <Field Name="CommExpr">
+          <DataField>CommExpr</DataField>
+        </Field>
+        <Field Name="CommExprFormat">
+          <DataField>CommExprFormat</DataField>
+        </Field>
+        <Field Name="RiskFactor">
+          <DataField>RiskFactor</DataField>
+        </Field>
+        <Field Name="RiskFactorFormat">
+          <DataField>RiskFactorFormat</DataField>
+        </Field>
+        <Field Name="PrdExp">
+          <DataField>PrdExp</DataField>
+        </Field>
+        <Field Name="PrdExpFormat">
+          <DataField>PrdExpFormat</DataField>
+        </Field>
+        <Field Name="PrdExpPcs">
+          <DataField>PrdExpPcs</DataField>
+        </Field>
+        <Field Name="PrdExpPcsFormat">
+          <DataField>PrdExpPcsFormat</DataField>
+        </Field>
+        <Field Name="TotalCost">
+          <DataField>TotalCost</DataField>
+        </Field>
+        <Field Name="TotalCostFormat">
+          <DataField>TotalCostFormat</DataField>
+        </Field>
+        <Field Name="Balance">
+          <DataField>Balance</DataField>
+        </Field>
+        <Field Name="BalanceFormat">
+          <DataField>BalanceFormat</DataField>
+        </Field>
+        <Field Name="Created_User">
+          <DataField>Created_User</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

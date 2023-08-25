@@ -155,12 +155,11 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
 
         addafter("Request Approval")
         {
-            action("Purchase Order Report")
+            action("Purchase Order Report (Detail)")
             {
                 ApplicationArea = all;
                 trigger OnAction()
                 var
-
                     PurchaseorderReportRec: Report PurchaseOrderReportCard;
                 begin
                     PurchaseorderReportRec.Set_value(rec."No.");
@@ -168,6 +167,17 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 end;
             }
 
+            action("Purchase Order Report (Summary)")
+            {
+                ApplicationArea = all;
+                trigger OnAction()
+                var
+                    PurchaseorderReportSummaryRec: Report PurchaseOrderReportSummaryCard;
+                begin
+                    PurchaseorderReportSummaryRec.Set_value(rec."No.");
+                    PurchaseorderReportSummaryRec.RunModal();
+                end;
+            }
         }
     }
 
