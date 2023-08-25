@@ -54,6 +54,8 @@ report 51403 CostBreakupReport
             { }
             column(Balance; Balance)
             { }
+            column(Created_User; "Created User")
+            { }
 
             trigger OnAfterGetRecord()
             var
