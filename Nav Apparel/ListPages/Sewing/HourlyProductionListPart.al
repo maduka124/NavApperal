@@ -980,6 +980,20 @@ page 50516 HourlyProductionListPart
         Rec.Target := DayTarget;
         Rec.Modify();
 
+        if DayTarget = 0 then begin
+            Rec."Target_Hour 01" := 0;
+            Rec."Target_Hour 02" := 0;
+            Rec."Target_Hour 03" := 0;
+            Rec."Target_Hour 04" := 0;
+            Rec."Target_Hour 05" := 0;
+            Rec."Target_Hour 06" := 0;
+            Rec."Target_Hour 07" := 0;
+            Rec."Target_Hour 08" := 0;
+            Rec."Target_Hour 09" := 0;
+            Rec."Target_Hour 10" := 0;
+            Rec.Modify();
+        end;
+
         WorkingHrs := 0;
         ResCapacityEntryRec.Reset();
         ResCapacityEntryRec.SETRANGE("No.", Rec."Work Center No.");
@@ -1130,13 +1144,16 @@ page 50516 HourlyProductionListPart
             Rec."Target_Hour 09" := 0;
             Rec."Target_Hour 10" := 0;
             // end;
-            // if NavAppProdRec."Resource No." = 'PAL-06' then begin
-            //     if NavAppProdRec."Lot No." = '1' then
-            //         Message('VDL7');
-            // end;
+            if NavAppProdRec."Resource No." = 'PAL-03' then begin
+                if NavAppProdRec."Lot No." = '1' then
+                    Message('VDL7');
+            end;
             // if NavAppProdRec."Resource No." = 'PAL-07' then begin
             //     Message('VDL7');
             // end;
+
+
+
             if StartTime = 080000T then begin
                 if NavAppProdRec."Learning Curve No." > 1 then begin
                     if TimeVariable = 090000T then begin
@@ -1906,6 +1923,8 @@ page 50516 HourlyProductionListPart
             else begin
                 //coorect
                 if StartTime = 090000T then begin
+                    Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                    rec.Modify();
                     if NavAppProdRec."Learning Curve No." > 1 then begin
                         if TimeVariable = 100000T then begin
                             Rec."Target_Hour 02" := 0;
@@ -2518,6 +2537,7 @@ page 50516 HourlyProductionListPart
                                     end else
                                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours);
                                     rec.Modify();
+
                                 end
                                 else begin
                                     // Rec."Target_Hour 10" := 0;
@@ -2534,6 +2554,9 @@ page 50516 HourlyProductionListPart
                     //Correct
 
                     if StartTime = 100000T then begin
+                        Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                        Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                        rec.Modify();
                         if NavAppProdRec."Learning Curve No." > 1 then begin
                             if TimeVariable = 110000T then begin
                                 Rec."Target_Hour 03" := 0;
@@ -3023,6 +3046,10 @@ page 50516 HourlyProductionListPart
 
                         //Correct
                         if StartTime = 110000T then begin
+                            Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                            Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                            Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                            rec.Modify();
                             if NavAppProdRec."Learning Curve No." > 1 then begin
                                 if TimeVariable = 120000T then begin
                                     Rec."Target_Hour 04" := 0;
@@ -3403,6 +3430,11 @@ page 50516 HourlyProductionListPart
 
                             //Correct
                             if StartTime = 120000T then begin
+                                Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                rec.Modify();
                                 if NavAppProdRec."Learning Curve No." > 1 then begin
                                     if TimeVariable = 130000T then begin
                                         Rec."Target_Hour 05" := 0;
@@ -3682,6 +3714,12 @@ page 50516 HourlyProductionListPart
 
                                 //Correct
                                 if StartTime = 130000T then begin
+                                    Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                    Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                    Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                    Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                    Rec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                    rec.Modify();
                                     if NavAppProdRec."Learning Curve No." > 1 then begin
                                         if TimeVariable = 140000T then begin
                                             Rec."Target_Hour 06" := 0;
@@ -3867,6 +3905,13 @@ page 50516 HourlyProductionListPart
 
                                     //correct
                                     if StartTime = 140000T then begin
+                                        Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                        Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                        Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                        Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                        Rec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                        Rec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                        rec.Modify();
                                         if NavAppProdRec."Learning Curve No." > 1 then begin
                                             if TimeVariable = 150000T then begin
                                                 Rec."Target_Hour 07" := 0;
@@ -3984,6 +4029,14 @@ page 50516 HourlyProductionListPart
 
                                         //correct
                                         if StartTime = 150000T then begin
+                                            Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                            Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                            Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                            Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                            Rec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                            Rec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                            Rec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                            rec.Modify();
                                             if NavAppProdRec."Learning Curve No." > 1 then
                                                 if TimeVariable = 160000T then begin
                                                     Rec."Target_Hour 08" := 0;
@@ -4043,6 +4096,15 @@ page 50516 HourlyProductionListPart
 
                                             //correct
                                             if StartTime = 160000T then begin
+                                                Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                                Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                                Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                                Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                Rec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                Rec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                Rec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                rec.Modify();
                                                 if NavAppProdRec."Learning Curve No." > 1 then
                                                     if TimeVariable = 170000T then begin
                                                         Rec."Target_Hour 09" := 0;
@@ -4065,6 +4127,16 @@ page 50516 HourlyProductionListPart
                                             else begin
 
                                                 if StartTime = 170000T then begin
+                                                    Rec."Target_Hour 01" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 02" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 03" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 04" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 05" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 06" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 07" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 08" := (DayTarget / TotNavaHours);
+                                                    Rec."Target_Hour 09" := (DayTarget / TotNavaHours);
+                                                    rec.Modify();
                                                     if NavAppProdRec."Learning Curve No." > 1 then
                                                         Rec."Target_Hour 10" := 0;
                                                     if (NavAppProdRec."LCurve Hours Per Day" > 0) and (NavAppProdRec."LCurve Hours Per Day" < 1) and (WorkingHrs = 10) then
@@ -4656,13 +4728,7 @@ page 50516 HourlyProductionListPart
         ProdOutHeaderRec.SetRange("Resource No.", rec."Work Center No.");
         ProdOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
         ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
-
-        if rec.Type = rec.Type::Sewing then
-            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
-
-        if rec.Type = rec.Type::Finishing then
-            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Fin);
-
+        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
         if ProdOutHeaderRec.FindSet() then begin
             repeat
                 InputQtyVar += ProdOutHeaderRec."Input Qty";
@@ -4672,6 +4738,7 @@ page 50516 HourlyProductionListPart
 
         if (InputQtyVar - OutQtyVar) < rec.Total then
             Error('Hourly Production Total is greater than balance Sew. In Qty/Sew. Out Qty.');
+
 
         CurrPage.Update();
 
