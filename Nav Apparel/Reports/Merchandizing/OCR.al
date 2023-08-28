@@ -2,16 +2,13 @@ report 50612 OCR
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-
     RDLCLayout = 'Report_Layouts/Merchandizing/OCR.rdl';
     DefaultLayout = RDLC;
 
     dataset
     {
-
         dataitem("Style Master"; "Style Master")
         {
-
             DataItemTableView = sorting("No.");
             column(Season_Name; "Season Name")
             { }
@@ -47,16 +44,20 @@ report 50612 OCR
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting(No);
+
                 dataitem("BOM Line AutoGen"; "BOM Line AutoGen")
                 {
                     DataItemLinkReference = BOM;
                     DataItemLink = "No." = field(No);
                     DataItemTableView = sorting("Item No.");
+
                     column(Placement_of_GMT; "Placement of GMT")
                     { }
                     column(GMT_Color_Name; "GMT Color Name")
                     { }
                     column(Article_Name_; "Article Name.")
+                    { }
+                    column(Item_No_; "Item No.")
                     { }
                     column(Item_Color_Name; "Item Color Name")
                     { }
@@ -84,12 +85,10 @@ report 50612 OCR
                     { }
                     column(Main_Category_Name; "Main Category Name")
                     { }
-
                     column(Value; Value)
                     { }
                     column(TotFab; TotFab)
                     { }
-
                     column(GarmentConsumption; GarmentConsumption)
                     { }
                     column(GMT_Qty; "GMT Qty")
@@ -98,48 +97,41 @@ report 50612 OCR
                     { }
                     column(Actual_Procured; ActualProc)
                     { }
+                    column(ActualProcVal; ActualProcVal)
+                    { }
                     column(TransferLineRecSReceived; TransferLineRecSReceived)
                     { }
-
                     column(NewItemNo; "New Item No.")
                     { }
+                    column(Supplier_Name_; "Supplier Name.")
+                    { }
 
-                    // dataitem("Item Ledger Entry"; "Item Ledger Entry")
-                    // {
-                    //     DataItemLinkReference = "BOM Line AutoGen";
-                    //     DataItemLink = "Item No." = field("Item No.");
-                    //     DataItemTableView = sorting("Entry No.");
-
-
-                    //     column(TransferLineRecSReceived; TransferLineRecSReceived)
-                    //     { }
-                    //     // trigger OnAfterGetRecord()
-
-                    //     // begin
-
-                    //     //     if "Entry Type" = "Entry Type"::Consumption then begin
-                    //     //         TransferLineRecSReceived := Quantity * -1;
-                    //     //     end;
-                    //     // end;
-
-
-                    // }
                     trigger OnAfterGetRecord()
                     var
                     begin
                         ActualProc := 0;
                         purchRec.Reset();
-                        purchRec.SetRange("No.", "New Item No.");
+                        purchRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
                         purchRec.SetRange(StyleName, "Style Master"."Style No.");
-                        if purchRec.FindFirst() then begin
-                            ActualProc := purchRec.Quantity;
+                        purchRec.SetRange(PONo, "BOM Line AutoGen"."PO");
+                        purchRec.SetRange(Lot, "BOM Line AutoGen"."Lot No.");
+                        purchRec.SetRange("Color Name", "BOM Line AutoGen"."Item Color Name");
+                        if purchRec.Findset() then begin
+                            repeat
+                                ActualProc += purchRec.Quantity;
+                            until purchRec.Next() = 0;
                         end;
+
+                        // if "Item No." = 'ABA-ITEM-0407' then
+                        //     "Item No." := "Item No.";
+
+                        ActualProcVal := ActualProc * Rate;
 
                         TransferLineRecSReceived := 0;
                         ItemLeRec.Reset();
                         ItemLeRec.SetRange("Style No.", "Style Master"."No.");
+                        ItemLeRec.SetRange(PO, "BOM Line AutoGen"."PO");
                         ItemLeRec.SetRange("Item No.", "BOM Line AutoGen"."New Item No.");
-                        // ItemLeRec.SetRange(Color);
                         if ItemLeRec.FindSet() then begin
                             repeat
                                 if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
@@ -147,21 +139,15 @@ report 50612 OCR
                                 end;
                             until ItemLeRec.Next() = 0;
                         end;
-                        // TransferLineRecSReceived := IssueQty * -1;
 
                         TotFab := 0;
                         GarmentConsumption := Qty * Consumption;
 
-                        // vendorRec.get("No.");
-                        TransferLineRec.Reset();
-                        TransferLineRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
-                        if TransferLineRec.FindSet() then begin
-
-                            // TransferLineRecSReceived := TransferLineRec."Quantity Received"
-
-                        end;
-
-
+                        // TransferLineRec.Reset();
+                        // TransferLineRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
+                        // if TransferLineRec.FindSet() then begin
+                        //     // TransferLineRecSReceived := TransferLineRec."Quantity Received"
+                        // end;
 
                         BomRec.Reset();
                         BomRec.SetRange(No, "Style Master"."No.");
@@ -180,16 +166,15 @@ report 50612 OCR
                         else
                             Divi := 1;
                     end;
-
-
-
                 }
             }
+
             dataitem("Style Master PO"; "Style Master PO")
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("Style No.");
+
                 column(PoNum; "PO No.")
                 { }
                 column(shipDate; "Ship Date")
@@ -202,90 +187,71 @@ report 50612 OCR
                 { }
                 column(Style_No_po; "Style No.")
                 { }
-                dataitem("Sales Invoice Header"; "Sales Invoice Header")
-                {
-                    DataItemLinkReference = "Style Master PO";
-                    DataItemLink = "Order No." = field("PO No.");
-                    DataItemTableView = sorting("No.");
-                    column(salesInvoiceLineQuanty; salesInvoiceLineQuanty)
-                    { }
-                    trigger OnAfterGetRecord()
-                    var
+                column(salesInvoiceLineQuanty; salesInvoiceLineQuanty)
+                { }
 
-                    begin
-                        salesInvoiceLineRec.Reset();
-                        salesInvoiceLineRec.SetRange("Document No.", "Sales Invoice Header"."No.");
-                        if salesInvoiceLineRec.FindFirst() then begin
-                            salesInvoiceLineQuanty := salesInvoiceLineRec.Quantity
+                // dataitem("Sales Invoice Header"; "Sales Invoice Header")
+                // {
+                //     DataItemLinkReference = "Style Master PO";
+                //     DataItemLink = "Order No." = field("PO No.");
+                //     DataItemTableView = sorting("No.");
+                //     column(salesInvoiceLineQuanty; salesInvoiceLineQuanty)
+                //     { }
 
-                        end;
-                    end;
-
-                }
+                //     trigger OnAfterGetRecord()
+                //     var
+                //     begin
+                //         salesInvoiceLineRec.Reset();
+                //         salesInvoiceLineRec.SetRange("Document No.", "Sales Invoice Header"."No.");
+                //         if salesInvoiceLineRec.FindFirst() then begin
+                //             salesInvoiceLineQuanty := salesInvoiceLineRec.Quantity
+                //         end;
+                //     end;
+                // }
 
                 trigger OnAfterGetRecord()
                 var
-
+                    SalesInvHeaderRec: Record "Sales Invoice Header";
+                    SalesInvLineRec: Record "Sales Invoice Line";
                 begin
-
-                    // TransferLineRecSReceived := 0;
-                    // TransferLineRec.Reset();
-                    // TransferLineRec.SetRange("Style No.", "Style Master"."Style No.");
-                    // if TransferLineRec.FindSet() then begin
-
-                    //     TransferLineRecSReceived := TransferLineRec."Quantity Received"
-
-                    // end;
-
-
                     lineAmt := 0;
+                    salesInvoiceLineQuanty := 0;
                     lineAmt := "Style Master PO".Qty * "Style Master PO"."Unit Price";
-                    // Message('%1', lineAmt);
 
+                    SalesInvHeaderRec.Reset();
+                    SalesInvHeaderRec.SetRange("Style No", "Style No.");
+                    SalesInvHeaderRec.SetRange("PO No", "po No.");
+                    if SalesInvHeaderRec.Findset() then begin
+                        repeat
+                            SalesInvLineRec.Reset();
+                            SalesInvLineRec.SetRange("Document No.", SalesInvHeaderRec."No.");
+                            if SalesInvLineRec.Findset() then begin
+                                repeat
+                                    salesInvoiceLineQuanty += SalesInvLineRec.Quantity;
+                                until SalesInvLineRec.Next() = 0;
+                            end;
+                        until SalesInvHeaderRec.Next() = 0;
+                    end;
                 end;
-
             }
 
-
-
             trigger OnAfterGetRecord()
-
             begin
-                // ItemLedgerRec.Reset();
-
-                // ItemLedgerRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
-                // ItemLedgerRec.SetRange("Style No.", "No.");
-                // if ItemLedgerRec.FindSet() then begin
-                //     if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
-                //         IssueQty := ItemLedgerRec.Quantity
-                //     end;
-                // end;
-
-
-                // postedPurchLineRec.Reset();
-                // postedPurchLineRec.SetRange(StyleNo, "No.");
-                // // postedPurchLineRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
-                // postedPurchLineRec.SetRange("Line No.", "BOM Line AutoGen"."Line No.");
-                // if postedPurchLineRec.FindFirst() then begin
-                //     QuantityPurch := postedPurchLineRec.Quantity;
-                // end;
                 PoTOt := "PO Total";
                 BomEstiRec.SetRange("No.", "No.");
                 if BomEstiRec.FindFirst() then begin
                     FobPcs := BomEstiRec."FOB Pcs";
                 end;
+
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
 
             trigger OnPreDataItem()
-
             begin
                 SetRange("No.", FilterNo);
             end;
-
         }
-
     }
 
 
@@ -303,27 +269,13 @@ report 50612 OCR
                         ApplicationArea = All;
                         Caption = 'Style';
                         TableRelation = "Style Master"."No.";
-
                     }
-                }
-
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
     }
+
     var
-        myInt: Integer;
         NoFilter: Code[20];
         StyleMasterPoRec: Record "Style Master PO";
         BomRec: Record BOM;
@@ -333,7 +285,7 @@ report 50612 OCR
         QuantityPurch: Decimal;
         TotFab: Decimal;
         lineAmt: Decimal;
-        TransferLineRec: Record "Transfer Line";
+        // TransferLineRec: Record "Transfer Line";
         TransferLineRecSReceived: Decimal;
         styleNOFil: Text[50];
         salesInvoiceLineRec: Record "Sales Invoice Line";
@@ -352,9 +304,7 @@ report 50612 OCR
         IssueQty: Decimal;
         purchRec: Record "Purch. Rcpt. Line";
         ActualProc: Decimal;
-
-
-
+        ActualProcVal: Decimal;
 }
 
 
