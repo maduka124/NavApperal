@@ -34,6 +34,10 @@ report 51245 SalesContractReport
             { }
             column(Contract_Value; "Contract Value")
             { }
+            column(Quantity__Pcs_; "Quantity (Pcs)")
+            { }
+            column(BBLCOPENED; BBLCOPENED)
+            { }
             dataitem("Sales Invoice Header"; "Sales Invoice Header")
             {
                 DataItemLinkReference = "Contract/LCMaster";
@@ -58,23 +62,38 @@ report 51245 SalesContractReport
                 { }
                 column(Color; Color)
                 { }
+                column(PoQtySum; PoQtySum)
+                { }
                 trigger OnAfterGetRecord()
                 begin
 
+                    PoQty := 0;
                     StylePoRec.Reset();
                     StylePoRec.SetRange("Style No.", "Style No");
                     StylePoRec.SetRange("PO No.", "PO No");
                     if StylePoRec.FindSet() then begin
                         UnitPrice := StylePoRec."Unit Price";
-                        PoQty := StylePoRec.Qty;
                         ShipDate := StylePoRec."Ship Date";
+                        repeat
+                            PoQty += StylePoRec.Qty;
+                        until StylePoRec.Next() = 0;
                     end;
+
+                    // PoQtySum := 0;
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", "Style No");
+                    if StylePoRec.FindSet() then begin
+                        StylePoRec.CalcSums(Qty);
+                        PoQtySum := StylePoRec.Qty;
+                    end;
+
                     StyleRec.Reset();
                     StyleRec.SetRange("No.", "Style No");
                     if StyleRec.FindFirst() then begin
                         GarmentType := StyleRec."Garment Type Name";
                     end;
 
+                    // OrderQty := 0;
                     StyleRec.Reset();
                     StyleRec.SetRange("No.", "Style No");
                     if StyleRec.FindFirst() then begin
@@ -91,24 +110,24 @@ report 51245 SalesContractReport
                         Color := AssormentDetailRec."Colour Name";
                     end;
 
-                    // ShipQty := 0;
-                    // SalesInvoiceLineRec.Reset();
-                    // SalesInvoiceLineRec.SetRange("Document No.", "No.");
-                    // SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                    // if SalesInvoiceLineRec.FindFirst() then begin
+      
+                    // ShipmentLineRec.Reset();
+                    // ShipmentLineRec.SetRange("Order No.", "Order No.");
+                    // ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
+                    // if ShipmentLineRec.FindSet() then begin
                     //     repeat
-                    //         ShipQty += SalesInvoiceLineRec.Quantity;
-                    //     until SalesInvoiceLineRec.Next() = 0;
-
+                    //         ShipQty += ShipmentLineRec.Quantity;
+                    //     until ShipmentLineRec.Next() = 0;
                     // end;
+                    
                     ShipQty := 0;
-                    ShipmentLineRec.Reset();
-                    ShipmentLineRec.SetRange("Order No.", "Order No.");
-                    ShipmentLineRec.SetRange(Type, ShipmentLineRec.Type::Item);
-                    if ShipmentLineRec.FindSet() then begin
+                    SalesInVLineRec.Reset();
+                    SalesInVLineRec.SetRange("Document No.", "No.");
+                    SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
+                    if SalesInVLineRec.FindSet() then begin
                         repeat
-                            ShipQty += ShipmentLineRec.Quantity;
-                        until ShipmentLineRec.Next() = 0;
+                            ShipQty += SalesInVLineRec.Quantity;
+                        until SalesInVLineRec.Next() = 0;
                     end;
                 end;
 
@@ -126,8 +145,19 @@ report 51245 SalesContractReport
                         QTYG += ContracStyleRec.Qty;
                     until ContracStyleRec.Next() = 0;
                 end;
-            end;
 
+                BBLCOPENED := 0;
+                B2BRec.Reset();
+                B2BRec.SetRange("LC/Contract No.", "Contract No");
+
+                if B2BRec.FindSet() then begin
+                    repeat
+                        BBLCOPENED += B2BRec."B2B LC Value";
+                    until B2BRec.Next() = 0;
+                end;
+
+
+            end;
 
         }
     }
@@ -164,10 +194,14 @@ report 51245 SalesContractReport
 
 
     var
+        SalesInvoiceHRec: Record "Sales Invoice Header";
+        BBLCOPENED: Decimal;
+        B2BRec: Record B2BLCMaster;
+        PoQtySum: BigInteger;
         ShipmentLineRec: Record "Sales Shipment Line";
         ShipDate: Date;
         PoQty: BigInteger;
-        SalesInvoiceLineRec: Record "Sales Invoice Line";
+        SalesInVLineRec: Record "Sales Invoice Line";
         ContracStyleRec: Record "Contract/LCStyle";
         StylePoRec: Record "Style Master PO";
         QTYG: BigInteger;
