@@ -173,6 +173,11 @@ table 50526 "GITBaseonLC"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(33; "Remarks"; Text[500])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -180,6 +185,10 @@ table 50526 "GITBaseonLC"
         key(PK; "GITLCNo.")
         {
             Clustered = true;
+        }
+
+        key(SK; "B2B LC No.", "ContractLC No")
+        {
         }
     }
 

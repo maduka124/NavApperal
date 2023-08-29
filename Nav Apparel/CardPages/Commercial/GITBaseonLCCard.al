@@ -41,7 +41,6 @@ page 50528 "GIT Baseon LC Card"
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -77,7 +76,6 @@ page 50528 "GIT Baseon LC Card"
                         ReqTotal: Decimal;
                         GRNTotal: Decimal;
                     begin
-
                         //Delete old rfecords
                         GITLCItemsRec.Reset();
                         GITLCItemsRec.SetRange("GITLCNo.", rec."GITLCNo.");
@@ -85,7 +83,6 @@ page 50528 "GIT Baseon LC Card"
 
                         B2BLCRec.Reset();
                         B2BLCRec.SetRange("No.", rec."B2B LC No. (System)");
-
                         if B2BLCRec.FindSet() then begin
                             rec."ContractLC No" := B2BLCRec."LC/Contract No.";
                             rec."B2B LC No." := B2BLCRec."B2B LC No";
@@ -94,20 +91,17 @@ page 50528 "GIT Baseon LC Card"
                             //Load Items
                             B2BLCPI.Reset();
                             B2BLCPI.SetRange("B2BNo.", rec."B2B LC No. (System)");
-
                             if B2BLCPI.FindSet() then begin
 
                                 //Get Max Lineno
                                 GITLCItemsRec.Reset();
                                 GITLCItemsRec.SetRange("GITLCNo.", rec."GITLCNo.");
-
                                 if GITLCItemsRec.FindLast() then
                                     LineNo := GITLCItemsRec."Line No";
 
                                 repeat
                                     PIPOItemsRec.Reset();
                                     PIPOItemsRec.SetRange("PI No.", B2BLCPI."PI No.");
-
                                     if PIPOItemsRec.FindSet() then begin
                                         repeat
 
@@ -157,7 +151,6 @@ page 50528 "GIT Baseon LC Card"
 
                                 rec."GRN Balance" := GRNTotal - ReqTotal;
                             end;
-
                         end
                         else
                             rec."ContractLC No" := '';
@@ -192,6 +185,23 @@ page 50528 "GIT Baseon LC Card"
                 field("Invoice Value"; rec."Invoice Value")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        GITBaseonLCRec: Record GITBaseonLC;
+                        Tot: Decimal;
+                    begin
+                        CurrPage.Update();
+                        GITBaseonLCRec.Reset();
+                        GITBaseonLCRec.SetRange("B2B LC No.", rec."B2B LC No.");
+                        if GITBaseonLCRec.FindSet() then begin
+                            repeat
+                                tot += GITBaseonLCRec."Invoice Value";
+                            until GITBaseonLCRec.Next() = 0;
+                            rec."B2B LC Balance" := rec."B2B LC Value" - Tot;
+                        end;
+                        CurrPage.Update();
+                    end;
                 }
 
                 field("Invoice Date"; rec."Invoice Date")
@@ -288,6 +298,11 @@ page 50528 "GIT Baseon LC Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field(Remarks; rec.Remarks)
+                {
+                    ApplicationArea = All;
+                }
             }
 
             group("  ")
@@ -331,5 +346,39 @@ page 50528 "GIT Baseon LC Card"
     begin
         GITBaseonLCLineRec.SetRange("GITLCNo.", rec."GITLCNo.");
         GITBaseonLCLineRec.DeleteAll();
+    end;
+
+
+    trigger OnOpenPage()
+    var
+        GITBaseonLCRec: Record GITBaseonLC;
+        Tot: Decimal;
+    begin
+        GITBaseonLCRec.Reset();
+        GITBaseonLCRec.SetRange("B2B LC No.", rec."B2B LC No.");
+        if GITBaseonLCRec.FindSet() then begin
+            repeat
+                tot += GITBaseonLCRec."Invoice Value";
+            until GITBaseonLCRec.Next() = 0;
+            rec."B2B LC Balance" := rec."B2B LC Value" - Tot;
+        end;
+        CurrPage.Update();
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        GITBaseonLCRec: Record GITBaseonLC;
+        Tot: Decimal;
+    begin
+        GITBaseonLCRec.Reset();
+        GITBaseonLCRec.SetRange("B2B LC No.", rec."B2B LC No.");
+        if GITBaseonLCRec.FindSet() then begin
+            repeat
+                tot += GITBaseonLCRec."Invoice Value";
+            until GITBaseonLCRec.Next() = 0;
+            rec."B2B LC Balance" := rec."B2B LC Value" - Tot;
+        end;
+        //CurrPage.Update();
     end;
 }

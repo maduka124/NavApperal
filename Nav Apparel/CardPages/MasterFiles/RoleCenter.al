@@ -2636,7 +2636,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("GIT Base On PI")
                 {
-                    Caption = 'GIT Base On PI';
+                    Caption = 'GIT Based On PI/TT/FDD';
                     RunObject = Page "GIT Baseon PI List";
                     ApplicationArea = all;
                 }
@@ -2718,6 +2718,14 @@ page 50968 "Nav Apperal Role Center"
                 group("Commercial Reports")
                 {
                     Caption = 'Commercial Reports';
+
+                    action("BBLC Payment Summary Report")
+                    {
+                        Caption = 'BBLC Payment Summary Report';
+                        Enabled = true;
+                        RunObject = report BBLCPaymentSummaryReport;
+                        ApplicationArea = all;
+                    }
 
                     action("Contract Export Status Report")
                     {

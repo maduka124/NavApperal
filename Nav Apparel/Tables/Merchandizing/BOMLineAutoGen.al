@@ -95,7 +95,7 @@ table 50895 "BOM Line AutoGen"
             TableRelation = "Main Category Vendor"."Vendor No." where("No." = field("Main Category No."));
         }
 
-        field(71012597; "Supplier Name."; text[50])
+        field(71012597; "Supplier Name."; text[100])
         {
             DataClassification = ToBeClassified;
         }

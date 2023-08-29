@@ -2,7 +2,7 @@ page 50532 "GIT Baseon PI Card"
 {
     PageType = Card;
     SourceTable = GITBaseonPI;
-    Caption = 'Goods In Transit - Base On PI';
+    Caption = 'Goods In Transit - Based On PI/TT/FDD';
 
     layout
     {
@@ -191,6 +191,11 @@ page 50532 "GIT Baseon PI Card"
                 }
 
                 field("Bill of entry"; rec."Bill of entry")
+                {
+                    ApplicationArea = All;
+                }
+
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                 }
