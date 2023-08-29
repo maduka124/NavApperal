@@ -106,11 +106,12 @@ page 50766 "Bank Reference List"
         SalesInvRec: Record "Sales Invoice Header";
         ContPostedInvRec: Record ContractPostedInvoices;
     begin
-
-        BankRefCollHeaderRec.Reset();
-        BankRefCollHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
-        if BankRefCollHeaderRec.FindSet() then
-            Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
+        if rec."BankRefNo." <> '' then begin
+            BankRefCollHeaderRec.Reset();
+            BankRefCollHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
+            if BankRefCollHeaderRec.FindSet() then
+                Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
+        end;
 
         //Update sales invoice header recods
         // BankRefeInvRec.Reset();
@@ -137,6 +138,11 @@ page 50766 "Bank Reference List"
                 ContPostedInvRec.Modify();
             until ContPostedInvRec.Next() = 0;
         end;
-    end;
 
+        BankRefeInvRec.Reset();
+        BankRefeInvRec.SetRange("No.", Rec."No.");
+        if BankRefeInvRec.FindSet() then begin
+            Error('Please remove selected invoices');
+        end;
+    end;
 }

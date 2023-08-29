@@ -274,11 +274,12 @@ page 50763 "Bank Reference Card"
         SalesInvRec: Record "Sales Invoice Header";
         ContPostedInvRec: Record ContractPostedInvoices;
     begin
-
-        BankRefCollHeaderRec.Reset();
-        BankRefCollHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
-        if BankRefCollHeaderRec.FindSet() then
-            Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
+        if rec."BankRefNo." <> '' then begin
+            BankRefCollHeaderRec.Reset();
+            BankRefCollHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
+            if BankRefCollHeaderRec.FindSet() then
+                Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
+        end;
 
         //Update sales invoice header recods
         // BankRefeInvRec.Reset();
@@ -296,7 +297,6 @@ page 50763 "Bank Reference Card"
         //     //Delete Line records
         //     BankRefeInvRec.Delete();
         // end;
-
 
         BankRefeInvRec.Reset();
         BankRefeInvRec.SetRange("No.", Rec."No.");
@@ -324,9 +324,7 @@ page 50763 "Bank Reference Card"
         BankRefeInvRec.Reset();
         BankRefeInvRec.SetRange("No.", Rec."No.");
         if BankRefeInvRec.FindSet() then begin
-            Error('Please Remove Selected Invoices');
-
-
+            Error('Please remove selected invoices');
 
             // BankRefeInvRec.DeleteAll();
             // BankRefeInvRec."No." := '';
@@ -334,9 +332,6 @@ page 50763 "Bank Reference Card"
             // BankRefeInvRec.Modify();
 
         end;
-
-
-
     end;
 
 
