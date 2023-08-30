@@ -754,11 +754,19 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Purchase Order Report")
+                    action("Purchase Order Report Detail")
                     {
-                        Caption = 'Purchase Order Report';
+                        Caption = 'Purchase Order Report - Detail';
                         Enabled = true;
                         RunObject = report PurchaseOrderReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Purchase Order Report Summary")
+                    {
+                        Caption = 'Purchase Order Report - Summary';
+                        Enabled = true;
+                        RunObject = report PurchaseOrderReportSummary;
                         ApplicationArea = all;
                     }
 

@@ -208,6 +208,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -871,7 +872,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1629,7 +1629,10 @@
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
-                <TablixMember />
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
+                </TablixMember>
                 <TablixMember>
                   <Group Name="MainCategory">
                     <GroupExpressions>
@@ -1728,7 +1731,7 @@
                   </Paragraphs>
                   <rd:DefaultName>Textbox1</rd:DefaultName>
                   <Top>0.3175cm</Top>
-                  <Left>6.48905cm</Left>
+                  <Left>6.24777cm</Left>
                   <Height>1.2573cm</Height>
                   <Width>8.91646cm</Width>
                   <Style>
@@ -1746,7 +1749,7 @@
                   <Source>Database</Source>
                   <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
                   <MIMEType>image/png</MIMEType>
-                  <Top>0cm</Top>
+                  <Top>0.3175cm</Top>
                   <Left>16.29023cm</Left>
                   <Height>1.56104cm</Height>
                   <Width>3.39739cm</Width>
@@ -1973,7 +1976,7 @@
                   </Paragraphs>
                   <rd:DefaultName>Textbox30</rd:DefaultName>
                   <Top>2.17771cm</Top>
-                  <Left>0.22705cm</Left>
+                  <Left>0.02328cm</Left>
                   <Height>1.64923cm</Height>
                   <Width>10.3011cm</Width>
                   <ZIndex>4</ZIndex>
@@ -2027,7 +2030,7 @@
                   </Paragraphs>
                   <rd:DefaultName>Textbox32</rd:DefaultName>
                   <Top>4.00333cm</Top>
-                  <Left>0.22705cm</Left>
+                  <Left>0.02328cm</Left>
                   <Height>2.8575cm</Height>
                   <Width>10.3011cm</Width>
                   <ZIndex>5</ZIndex>
@@ -2083,7 +2086,7 @@ Fields!Pay_to_Post_Code.Value</Value>
                   </Paragraphs>
                   <rd:DefaultName>Textbox2</rd:DefaultName>
                   <Top>4.00333cm</Top>
-                  <Left>1.09134cm</Left>
+                  <Left>0.79712cm</Left>
                   <Height>2.8575cm</Height>
                   <Width>9.14577cm</Width>
                   <ZIndex>6</ZIndex>

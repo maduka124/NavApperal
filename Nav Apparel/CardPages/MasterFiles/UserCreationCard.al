@@ -370,8 +370,8 @@ page 50978 "Create User Card"
                 begin
                     Sty.Reset();
                     Sty.SetFilter(PlannedQty, '<%1', 0);
-                    Sty.FindSet();
-                    Sty.ModifyAll(PlannedQty, 0);
+                    if Sty.FindSet() then
+                        Sty.ModifyAll(PlannedQty, 0);
 
                     Message('Completed');
                 end;
@@ -389,8 +389,8 @@ page 50978 "Create User Card"
                     NavApp.Reset();
                     NavApp.SetFilter(Qty, '<%1', 0);
                     NavApp.SetFilter(ProdUpd, '=%1', 0);
-                    NavApp.FindSet();
-                    NavApp.DeleteAll();
+                    if NavApp.FindSet() then
+                        NavApp.DeleteAll();
 
                     Message('Completed');
                 end;
