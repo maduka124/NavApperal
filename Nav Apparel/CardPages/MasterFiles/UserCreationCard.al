@@ -359,23 +359,42 @@ page 50978 "Create User Card"
             //         end;
             //     end;
             // }
-            // action("Remove minus Planned Qty")
-            // {
-            //     ApplicationArea = All;
-            //     Image = AddAction;
+            action("Remove minus Planned Qty in wip")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
 
-            //     trigger OnAction()
-            //     var
-            //         Sty: Record "Style Master PO";
-            //     begin
-            //         Sty.Reset();
-            //         Sty.SetFilter(PlannedQty, '<%1', 0);
-            //         Sty.FindSet();
-            //         Sty.ModifyAll(PlannedQty, 0);
-            //         Message('Completed');
-            //     end;
-            // }
+                trigger OnAction()
+                var
+                    Sty: Record "Style Master PO";
+                begin
+                    Sty.Reset();
+                    Sty.SetFilter(PlannedQty, '<%1', 0);
+                    Sty.FindSet();
+                    Sty.ModifyAll(PlannedQty, 0);
 
+                    Message('Completed');
+                end;
+            }
+
+            action("Remove minus Target qty in planned detail")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    NavApp: Record "NavApp Prod Plans Details";
+                begin
+                    NavApp.Reset();
+                    NavApp.SetFilter(Qty, '<%1', 0);
+                    NavApp.SetFilter(ProdUpd, '=%1', 0);
+                    NavApp.FindSet();
+                    NavApp.DeleteAll();
+
+                    Message('Completed');
+                end;
+            }
 
             // action("update prod update status")
             // {

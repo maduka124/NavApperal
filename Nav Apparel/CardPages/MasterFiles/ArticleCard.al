@@ -65,7 +65,12 @@ page 50944 "Article Card"
                     trigger OnValidate()
                     var
                         ArticleRec: Record Article;
+                        length: Integer;
                     begin
+                        length := StrLen(rec.Article);
+                        if length > 25 then
+                            Error('Article text length cannot exceed 25 characters');
+
                         ArticleRec.Reset();
                         ArticleRec.SetRange(Article, rec.Article);
                         if ArticleRec.FindSet() then

@@ -159,7 +159,6 @@ page 50371 "Prod Update Card"
         ddddddtttt: DateTime;
         FactoryFinishTime: Time;
     begin
-
         //Check the user is planning user or not
         if PlanningUser = false then
             Error('You are not authorized to perform this task.');
@@ -172,16 +171,12 @@ page 50371 "Prod Update Card"
         if ProdOutHeaderRec.FindSet() then
             ProdOutHeaderRec.DeleteAll();
 
-
         //Check for blank factory / line records
         ProdOutHeaderRec.Reset();
         ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
         ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
         if ProdOutHeaderRec.FindSet() then begin
             repeat
-                // if ProdOutHeaderRec."Factory Name" = '' then
-                //     Error('Prod. Out Entries exists with blank Factory. Entry No : %1', ProdOutHeaderRec."No.");
-
                 if ProdOutHeaderRec."Resource Name" = '' then
                     Error('Prod. Out Entries exists with blank Line. Entry No : %1', ProdOutHeaderRec."No.");
             until ProdOutHeaderRec.Next() = 0;
@@ -190,7 +185,6 @@ page 50371 "Prod Update Card"
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
-        // LocationRec.SetRange(Code, 'PAL');
         if LocationRec.FindSet() then begin
 
             repeat
@@ -198,7 +192,6 @@ page 50371 "Prod Update Card"
                 WorkCenterRec.Reset();
                 WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                 WorkCenterRec.SetFilter("Planning Line", '=%1', true);
-                // WorkCenterRec.SetRange("No.", 'PAL-01');
                 if WorkCenterRec.FindSet() then begin
 
                     repeat
@@ -328,7 +321,6 @@ page 50371 "Prod Update Card"
                         xQty := 0;
                         TempHours := 0;
                         OutputQty := 0;
-                        // TImeStart := 0T;
                         TimeEnd1 := 0T;
                         TimeEnd2 := 0T;
                         dtEnd1 := 0D;
@@ -341,7 +333,6 @@ page 50371 "Prod Update Card"
                             WorkCenCapacityEntryRec.Reset();
                             WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
                             WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
                             if WorkCenCapacityEntryRec.FindSet() then begin
                                 repeat
                                     HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
@@ -356,14 +347,12 @@ page 50371 "Prod Update Card"
                                 WorkCenCapacityEntryRec.Reset();
                                 WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
                                 WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
-
                                 if WorkCenCapacityEntryRec.FindSet() then
                                     Count += WorkCenCapacityEntryRec.Count;
 
                                 if Count < 14 then
                                     Error('Calender is not setup for the Line : %1', WorkCenterName);
                             end;
-
 
                             if HoursPerDay = 0 then
                                 dtStart := dtStart + 1;
@@ -376,7 +365,6 @@ page 50371 "Prod Update Card"
                         JobPlaLineRec.Ascending(true);
                         JobPlaLineRec.SetRange("Resource No.", WorkCenterNo);
                         JobPlaLineRec.SetFilter("Start Date", '<=%1', ProdDate);
-
                         if JobPlaLineRec.FindFirst() then
                             RowCount := JobPlaLineRec.Count;
 
@@ -390,7 +378,6 @@ page 50371 "Prod Update Card"
                                 JobPlaLineRec.Ascending(true);
                                 JobPlaLineRec.SetRange("Resource No.", WorkCenterNo);
                                 JobPlaLineRec.SetFilter("Start Date", '<=%1', ProdDate);
-
                                 if JobPlaLineRec.FindFirst() then begin
 
                                     TempQty := 0;
@@ -410,15 +397,6 @@ page 50371 "Prod Update Card"
                                     // TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
                                     // TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
 
-                                    // //Update Prod status of all lines                                                
-                                    // ProdOutHeaderRec.Reset();
-                                    // ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
-                                    // ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
-                                    // ProdOutHeaderRec.SetRange("Resource No.", WorkCenterNo);
-                                    // if ProdOutHeaderRec.FindSet() then
-                                    //     ProdOutHeaderRec.ModifyAll("Prod Updated", 1);
-
-
                                     //Get sewing out qty for the prod date
                                     OutputQty := 0;
                                     ProdOutHeaderRec.Reset();
@@ -428,12 +406,10 @@ page 50371 "Prod Update Card"
                                     ProdOutHeaderRec.SetRange("Out Style No.", JobPlaLineRec."Style No.");
                                     ProdOutHeaderRec.SetRange("Out PO No", JobPlaLineRec."PO No.");
                                     ProdOutHeaderRec.SetRange("Out Lot No.", JobPlaLineRec."Lot No.");
-
                                     if ProdOutHeaderRec.FindSet() then
                                         repeat
                                             OutputQty += ProdOutHeaderRec."Output Qty";
                                         until ProdOutHeaderRec.Next() = 0;
-
 
                                     //Update production status for the selected date
                                     ProdPlansDetails.Reset();
@@ -457,9 +433,6 @@ page 50371 "Prod Update Card"
                                         TempDate := dtEnd1;
                                         dtStart := dtEnd1;
                                     end;
-
-                                    // if LineNo = 2666 then
-                                    //     Message('AFL-04');
 
                                     //Check learning curve                        
                                     LCurveFinishDate := dtStart;
@@ -797,73 +770,6 @@ page 50371 "Prod Update Card"
                                             end;
                                         end;
 
-                                        // if JobPlaLineRec."Learning Curve No." <> 0 then begin
-
-                                        //     //Aplly learning curve
-                                        //     LearningCurveRec.Reset();
-                                        //     LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
-                                        //     if LearningCurveRec.FindSet() then begin
-                                        //         case i of
-                                        //             1:
-                                        //                 Rate := LearningCurveRec.Day1;
-                                        //             2:
-                                        //                 Rate := LearningCurveRec.Day2;
-                                        //             3:
-                                        //                 Rate := LearningCurveRec.Day3;
-                                        //             4:
-                                        //                 Rate := LearningCurveRec.Day4;
-                                        //             5:
-                                        //                 Rate := LearningCurveRec.Day5;
-                                        //             6:
-                                        //                 Rate := LearningCurveRec.Day6;
-                                        //             7:
-                                        //                 Rate := LearningCurveRec.Day7;
-                                        //             else
-                                        //                 Rate := 100;
-                                        //         end;
-                                        //     end;
-
-                                        //     if Rate = 0 then
-                                        //         Rate := 100;
-
-                                        //     if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < (JobPlaLineRec.Qty - OutputQty)) then begin
-                                        //         TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                        //         xQty := round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                        //     end
-                                        //     else begin
-                                        //         TempQty1 := (JobPlaLineRec.Qty - OutputQty) - TempQty;
-                                        //         TempQty := TempQty + TempQty1;
-                                        //         TempHours := TempQty1 / TargetPerHour;
-                                        //         xQty := TempQty1;
-
-                                        //         if (TempHours IN [0.0001 .. 0.99]) then
-                                        //             TempHours := 1;
-
-                                        //         // TempHours := round(TempHours, 1, '>');
-                                        //         TempHours := round(TempHours, 0.01);
-                                        //     end;
-                                        // end
-                                        // else begin
-
-                                        //     if (TempQty + (TargetPerHour * HoursPerDay)) < (JobPlaLineRec.Qty - OutputQty) then begin
-                                        //         TempQty += (TargetPerHour * HoursPerDay);
-                                        //         xQty := TargetPerHour * HoursPerDay;
-                                        //     end
-                                        //     else begin
-                                        //         TempQty1 := (JobPlaLineRec.Qty - OutputQty) - TempQty;
-                                        //         TempQty := TempQty + TempQty1;
-                                        //         TempHours := TempQty1 / TargetPerHour;
-                                        //         xQty := TempQty1;
-
-                                        //         if (TempHours IN [0.0001 .. 0.99]) then
-                                        //             TempHours := 1;
-
-                                        //         // TempHours := round(TempHours, 1, '>');
-                                        //         TempHours := round(TempHours, 0.01);
-                                        //     end;
-
-                                        // end;
-
                                         //Get Max Lineno
                                         MaxLineNo := 0;
                                         ProdPlansDetails.Reset();
@@ -873,7 +779,8 @@ page 50371 "Prod Update Card"
                                         MaxLineNo += 1;
                                         FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, TempDate, LocationRec."Start Time");
 
-                                        if (JobPlaLineRec.Qty - OutputQty) > 0 then begin
+                                        // if (JobPlaLineRec.Qty - OutputQty) > 0 then begin
+                                        if (xQty) > 0 then begin
                                             //insert to ProdPlansDetails
                                             ProdPlansDetails.Init();
                                             ProdPlansDetails."No." := MaxLineNo;
@@ -1011,10 +918,11 @@ page 50371 "Prod Update Card"
                                     StyleMasterPORec.SetRange("lot No.", JobPlaLineRec."lot No.");
                                     StyleMasterPORec.FindSet();
 
-                                    // if (StyleMasterPORec.PlannedQty - OutputQty) < 0 then
-                                    //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+                                    if (StyleMasterPORec.PlannedQty - OutputQty) <= 0 then
+                                        StyleMasterPORec.PlannedQty := 0
+                                    else
+                                        StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - OutputQty;
 
-                                    StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - OutputQty;
                                     StyleMasterPORec.OutputQty := StyleMasterPORec.OutputQty + OutputQty;
                                     StyleMasterPORec.Modify();
 
@@ -1599,74 +1507,6 @@ page 50371 "Prod Update Card"
                                                                 end;
                                                             end;
 
-                                                            // if JobPlaLine1Rec."Learning Curve No." <> 0 then begin
-
-                                                            //     //Aplly learning curve
-                                                            //     LearningCurveRec.Reset();
-                                                            //     LearningCurveRec.SetRange("No.", JobPlaLine1Rec."Learning Curve No.");
-                                                            //     if LearningCurveRec.FindSet() then begin
-                                                            //         case i of
-                                                            //             1:
-                                                            //                 Rate := LearningCurveRec.Day1;
-                                                            //             2:
-                                                            //                 Rate := LearningCurveRec.Day2;
-                                                            //             3:
-                                                            //                 Rate := LearningCurveRec.Day3;
-                                                            //             4:
-                                                            //                 Rate := LearningCurveRec.Day4;
-                                                            //             5:
-                                                            //                 Rate := LearningCurveRec.Day5;
-                                                            //             6:
-                                                            //                 Rate := LearningCurveRec.Day6;
-                                                            //             7:
-                                                            //                 Rate := LearningCurveRec.Day7;
-                                                            //             else
-                                                            //                 Rate := 100;
-                                                            //         end;
-                                                            //     end;
-
-                                                            //     if Rate = 0 then
-                                                            //         Rate := 100;
-
-                                                            //     if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < (Qty - OutputQty)) then begin
-                                                            //         TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                                            //         xQty := round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                                            //     end
-                                                            //     else begin
-                                                            //         TempQty1 := (Qty - OutputQty) - TempQty;
-                                                            //         TempQty := TempQty + TempQty1;
-                                                            //         TempHours := TempQty1 / TargetPerHour;
-                                                            //         xQty := TempQty1;
-
-                                                            //         if (TempHours IN [0.0001 .. 0.99]) then
-                                                            //             TempHours := 1;
-
-                                                            //         // TempHours := round(TempHours, 1, '>');
-                                                            //         TempHours := round(TempHours, 0.01);
-
-                                                            //     end;
-                                                            // end
-                                                            // else begin
-
-                                                            //     if (TempQty + (TargetPerHour * HoursPerDay)) < (Qty - OutputQty) then begin
-                                                            //         TempQty += (TargetPerHour * HoursPerDay);
-                                                            //         xQty := TargetPerHour * HoursPerDay;
-                                                            //     end
-                                                            //     else begin
-                                                            //         TempQty1 := (Qty - OutputQty) - TempQty;
-                                                            //         TempQty := TempQty + TempQty1;
-                                                            //         TempHours := TempQty1 / TargetPerHour;
-                                                            //         xQty := TempQty1;
-
-                                                            //         if (TempHours IN [0.0001 .. 0.99]) then
-                                                            //             TempHours := 1;
-
-                                                            //         // TempHours := round(TempHours, 1, '>');
-                                                            //         TempHours := round(TempHours, 0.01);
-                                                            //     end;
-
-                                                            // end;
-
                                                             //Get Max Lineno
                                                             MaxLineNo := 0;
                                                             ProdPlansDetails.Reset();
@@ -1676,73 +1516,75 @@ page 50371 "Prod Update Card"
                                                             MaxLineNo += 1;
                                                             FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, TempDate, LocationRec."Start Time");
 
-                                                            //insert to ProdPlansDetails
-                                                            ProdPlansDetails.Init();
-                                                            ProdPlansDetails."No." := MaxLineNo;
-                                                            ProdPlansDetails.PlanDate := TempDate;
-                                                            ProdPlansDetails."Style No." := JobPlaLine1Rec."Style No.";
-                                                            ProdPlansDetails."Style Name" := JobPlaLine1Rec."Style Name";
-                                                            ProdPlansDetails."PO No." := JobPlaLine1Rec."PO No.";
-                                                            ProdPlansDetails."Lot No." := JobPlaLine1Rec."Lot No.";
-                                                            ProdPlansDetails."Line No." := LineNo;
-                                                            ProdPlansDetails."Resource No." := WorkCenterNo;
-                                                            ProdPlansDetails.Carder := Carder;
-                                                            ProdPlansDetails.Eff := Eff;
-                                                            ProdPlansDetails.SMV := JobPlaLine1Rec.SMV;
+                                                            if (xQty) > 0 then begin
+                                                                //insert to ProdPlansDetails
+                                                                ProdPlansDetails.Init();
+                                                                ProdPlansDetails."No." := MaxLineNo;
+                                                                ProdPlansDetails.PlanDate := TempDate;
+                                                                ProdPlansDetails."Style No." := JobPlaLine1Rec."Style No.";
+                                                                ProdPlansDetails."Style Name" := JobPlaLine1Rec."Style Name";
+                                                                ProdPlansDetails."PO No." := JobPlaLine1Rec."PO No.";
+                                                                ProdPlansDetails."Lot No." := JobPlaLine1Rec."Lot No.";
+                                                                ProdPlansDetails."Line No." := LineNo;
+                                                                ProdPlansDetails."Resource No." := WorkCenterNo;
+                                                                ProdPlansDetails.Carder := Carder;
+                                                                ProdPlansDetails.Eff := Eff;
+                                                                ProdPlansDetails.SMV := JobPlaLine1Rec.SMV;
 
-                                                            if Holiday = 'NO' then begin
-                                                                if i = 1 then
-                                                                    ProdPlansDetails."Start Time" := TImeStart
-                                                                else
-                                                                    ProdPlansDetails."Start Time" := LocationRec."Start Time";
-
-                                                                if TempHours = 0 then
-                                                                    ProdPlansDetails."Finish Time" := FactoryFinishTime
-                                                                else begin
+                                                                if Holiday = 'NO' then begin
                                                                     if i = 1 then
-                                                                        if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                                            ProdPlansDetails."Finish Time" := FactoryFinishTime
-                                                                        else
-                                                                            ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                                                        ProdPlansDetails."Start Time" := TImeStart
                                                                     else
-                                                                        ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                                                        ProdPlansDetails."Start Time" := LocationRec."Start Time";
+
+                                                                    if TempHours = 0 then
+                                                                        ProdPlansDetails."Finish Time" := FactoryFinishTime
+                                                                    else begin
+                                                                        if i = 1 then
+                                                                            if (FactoryFinishTime < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                                                ProdPlansDetails."Finish Time" := FactoryFinishTime
+                                                                            else
+                                                                                ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                                                        else
+                                                                            ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                                                    end;
                                                                 end;
+
+                                                                ProdPlansDetails.Qty := xQty;
+                                                                ProdPlansDetails.Target := TargetPerDay;
+
+                                                                if Holiday = 'NO' then begin
+                                                                    if TempHours > 0 then
+                                                                        ProdPlansDetails.HoursPerDay := TempHours
+                                                                    else
+                                                                        ProdPlansDetails.HoursPerDay := HoursPerDay;
+                                                                end
+                                                                else begin
+                                                                    ProdPlansDetails.HoursPerDay := 0;
+                                                                end;
+
+                                                                if Holiday = 'YES' then begin
+                                                                    ProdPlansDetails."LCurve Hours Per Day" := 0;
+                                                                    ProdPlansDetails."LCurve Start Time" := 0T;
+                                                                    ProdPlansDetails."Learning Curve No." := 0;
+                                                                end
+                                                                else begin
+                                                                    ProdPlansDetails."LCurve Hours Per Day" := LcurveHoursPerday;
+                                                                    ProdPlansDetails."LCurve Start Time" := LCurveStartTimePerDay;
+
+                                                                    if ProdPlansDetails."LCurve Hours Per Day" = 0 then
+                                                                        ProdPlansDetails."Learning Curve No." := 0
+                                                                    else
+                                                                        ProdPlansDetails."Learning Curve No." := JobPlaLine1Rec."Learning Curve No.";
+                                                                end;
+
+                                                                ProdPlansDetails.ProdUpd := 0;
+                                                                ProdPlansDetails.ProdUpdQty := 0;
+                                                                ProdPlansDetails."Created User" := UserId;
+                                                                ProdPlansDetails."Created Date" := WorkDate();
+                                                                ProdPlansDetails."Factory No." := JobPlaLine1Rec.Factory;
+                                                                ProdPlansDetails.Insert();
                                                             end;
-
-                                                            ProdPlansDetails.Qty := xQty;
-                                                            ProdPlansDetails.Target := TargetPerDay;
-
-                                                            if Holiday = 'NO' then begin
-                                                                if TempHours > 0 then
-                                                                    ProdPlansDetails.HoursPerDay := TempHours
-                                                                else
-                                                                    ProdPlansDetails.HoursPerDay := HoursPerDay;
-                                                            end
-                                                            else begin
-                                                                ProdPlansDetails.HoursPerDay := 0;
-                                                            end;
-
-                                                            if Holiday = 'YES' then begin
-                                                                ProdPlansDetails."LCurve Hours Per Day" := 0;
-                                                                ProdPlansDetails."LCurve Start Time" := 0T;
-                                                                ProdPlansDetails."Learning Curve No." := 0;
-                                                            end
-                                                            else begin
-                                                                ProdPlansDetails."LCurve Hours Per Day" := LcurveHoursPerday;
-                                                                ProdPlansDetails."LCurve Start Time" := LCurveStartTimePerDay;
-
-                                                                if ProdPlansDetails."LCurve Hours Per Day" = 0 then
-                                                                    ProdPlansDetails."Learning Curve No." := 0
-                                                                else
-                                                                    ProdPlansDetails."Learning Curve No." := JobPlaLine1Rec."Learning Curve No.";
-                                                            end;
-
-                                                            ProdPlansDetails.ProdUpd := 0;
-                                                            ProdPlansDetails.ProdUpdQty := 0;
-                                                            ProdPlansDetails."Created User" := UserId;
-                                                            ProdPlansDetails."Created Date" := WorkDate();
-                                                            ProdPlansDetails."Factory No." := JobPlaLine1Rec.Factory;
-                                                            ProdPlansDetails.Insert();
 
                                                             TempDate := TempDate + 1;
 
@@ -1786,7 +1628,6 @@ page 50371 "Prod Update Card"
                                                         //delete allocation if remaining qty is 0 or less than 0
                                                         JobPlaLine2Rec.Reset();
                                                         JobPlaLine2Rec.SetRange("Line No.", LineNo);
-
                                                         if JobPlaLine2Rec.FindSet() then begin
                                                             if JobPlaLine2Rec.Qty <= 0 then
                                                                 JobPlaLine2Rec.DeleteAll();
