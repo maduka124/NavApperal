@@ -8,20 +8,17 @@ report 50627 ProductionAndShipmentDetails
 
     dataset
     {
-
-
         dataitem("Sales Invoice Header"; "Sales Invoice Header")
         {
-
             DataItemTableView = where("Bal. Account Type" = filter("G/L Account"), EntryType = filter(FG));
-
 
             dataitem("Style Master PO"; "Style Master PO")
             {
                 DataItemLinkReference = "Sales Invoice Header";
                 DataItemLink = "Style No." = field("Style No"), "PO No." = field("PO No"), "Lot No." = field(Lot);
                 DataItemTableView = sorting("Style No.", "Lot No.");
-                column(OrderQty;Qty)
+
+                column(OrderQty; Qty)
                 { }
                 column(Buyer_Name; Buyer)
                 { }
@@ -65,33 +62,9 @@ report 50627 ProductionAndShipmentDetails
                 { }
                 column(AssignedContractNo; AssignContrantNo)
                 { }
-
-                trigger OnAfterGetRecord()
-                var
-                    myInt: Integer;
-                begin
-                    // StylePoRec.Reset();
-                    // StylePoRec.SetRange("Style No.", "Style No.");
-                    // StylePoRec.SetRange("PO No.", "PO No.");
-                    // StylePoRec.SetCurrentKey("Style No.", "PO No.");
-                    // StylePoRec.Ascending(true);
-                    // if StylePoRec.FindSet() then begin
-                    //     // if StylePoRec."PO No."='MAE55015FL18-M-14'then begin
-                    //     //     Message('po');
-                    //     // end;
-                    //     // if (StylePoRec."Style No." = STNO) and (StylePoRec."PO No." = PO) then begin
-                    //     //     OrderQty := 0;
-
-                    //     // end;
-                    //     OrderQty := StylePoRec.Qty;
-                    //     STNO := StylePoRec."Style No.";
-                    //     PO := StylePoRec."PO No.";
-                    // end;
-                end;
-
             }
-            trigger OnAfterGetRecord()
 
+            trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -110,17 +83,6 @@ report 50627 ProductionAndShipmentDetails
                         AssignContrantNo := ContracRec."Contract No";
                     end;
                 end;
-
-                // OrderQty := 0;
-                // StylePoRec.Reset();
-                // StylePoRec.SetRange("Style No.",sty);
-                // StylePoRec.SetRange("PO No.", "PO No.");
-                // StylePoRec.SetRange("Lot No.", "Lot No.");
-                // if StylePoRec.FindSet() then begin
-                //     repeat
-                //         OrderQty += StylePoRec.Qty;
-                //     until StylePoRec.Next() = 0;
-                // end;
 
                 CutOutQty := 0;
                 ProductionRec.Reset();
@@ -295,62 +257,6 @@ report 50627 ProductionAndShipmentDetails
                 if FactoryFilter <> '' then
                     SetRange("Location Code", FactoryFilter);
             end;
-
-            // trigger OnAfterGetRecord()
-            // var
-            //     myInt: Integer;
-            // begin
-            //     ShipOutTotal := 0;
-            //     SalesInvoiceHrec.Reset();
-            //     SalesInvoiceHrec.SetRange("No.", "No.");
-            //     SalesInvoiceHrec.SetRange(Lot, Lot);
-            //     SalesInvoiceHrec.SetRange("PO No", "PO No");
-            //     SalesInvoiceHrec.SetRange("Style No", "Style No");
-            //     SalesInvoiceHrec.SetFilter("Shipment Date", '<=%1', endDate);
-            //     SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
-            //     SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
-            //     if SalesInvoiceHrec.FindSet() then begin
-            //         SalesInvoiceLineRec.Reset();
-            //         SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
-            //         SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-            //         if SalesInvoiceLineRec.FindSet() then begin
-            //             repeat
-            //                 ShipOutTotal += SalesInvoiceLineRec.Quantity;
-            //             until SalesInvoiceLineRec.Next() = 0;
-            //         end;
-            //     end;
-
-            //     SalesInvoiceHrec.Reset();
-            //     SalesInvoiceHrec.SetRange("No.", "No.");
-            //     SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
-            //     SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
-            //     SalesInvoiceHrec.SetRange(Lot, Lot);
-            //     if SalesInvoiceHrec.FindSet() then begin
-            //         Shdate := SalesInvoiceHrec."Shipment Date";
-            //     end;
-
-
-            //     ShipOutQty := 0;
-            //     SalesInvoiceHrec.Reset();
-            //     SalesInvoiceHrec.SetRange("No.", "No.");
-            //     SalesInvoiceHrec.SetRange(Lot, Lot);
-            //     SalesInvoiceHrec.SetRange("PO No", "PO No");
-            //     SalesInvoiceHrec.SetRange("Style No", "Style No");
-            //     SalesInvoiceHrec.SetFilter("Shipment Date", '%1..%2', stDate, endDate);
-            //     SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
-            //     SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
-            //     if SalesInvoiceHrec.FindSet() then begin
-            //         SalesInvoiceLineRec.Reset();
-            //         SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
-            //         SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-            //         if SalesInvoiceLineRec.FindSet() then begin
-            //             repeat
-            //                 ShipOutQty += SalesInvoiceLineRec.Quantity;
-            //             until SalesInvoiceLineRec.Next() = 0;
-            //         end;
-            //     end;
-            // end;
-
         }
     }
 
@@ -407,26 +313,13 @@ report 50627 ProductionAndShipmentDetails
                     {
                         ApplicationArea = All;
                         Caption = 'Shipping Start Date';
-
                     }
+
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Shipping End Date';
-
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
@@ -452,7 +345,7 @@ report 50627 ProductionAndShipmentDetails
         SawOutQty: BigInteger;
         CutOutQty: BigInteger;
         ProductionRec: Record ProductionOutHeader;
-        AssignContrantNo: Code[20];
+        AssignContrantNo: Code[50];
         OrderQty: BigInteger;
         SMV: Decimal;
         StyleName: Text[50];

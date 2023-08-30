@@ -1840,6 +1840,14 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Production and Shipment Details Report1")
+                    {
+                        Caption = 'Production and Shipment Details Report';
+                        Enabled = true;
+                        RunObject = report ProductionAndShipmentDetails;
+                        ApplicationArea = all;
+                    }
+
                     //Done By Sachith on 22/02/23
                     action("Production Plan Report Sewing")
                     {
