@@ -11,6 +11,301 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Season_Name">
+          <DataField>Season_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="Garment_Type_No_">
+          <DataField>Garment_Type_No_</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="PO_Total">
+          <DataField>PO_Total</DataField>
+        </Field>
+        <Field Name="styleNO_p">
+          <DataField>styleNO_p</DataField>
+        </Field>
+        <Field Name="Department_Name_style">
+          <DataField>Department_Name_style</DataField>
+        </Field>
+        <Field Name="Ship_Date_Style">
+          <DataField>Ship_Date_Style</DataField>
+        </Field>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="ContractNo">
+          <DataField>ContractNo</DataField>
+        </Field>
+        <Field Name="FobPcs">
+          <DataField>FobPcs</DataField>
+        </Field>
+        <Field Name="FobPcsFormat">
+          <DataField>FobPcsFormat</DataField>
+        </Field>
+        <Field Name="TotFab">
+          <DataField>TotFab</DataField>
+        </Field>
+        <Field Name="TotFabFormat">
+          <DataField>TotFabFormat</DataField>
+        </Field>
+        <Field Name="TotEmb">
+          <DataField>TotEmb</DataField>
+        </Field>
+        <Field Name="TotEmbFormat">
+          <DataField>TotEmbFormat</DataField>
+        </Field>
+        <Field Name="TotTrims">
+          <DataField>TotTrims</DataField>
+        </Field>
+        <Field Name="TotTrimsFormat">
+          <DataField>TotTrimsFormat</DataField>
+        </Field>
+        <Field Name="Totwash">
+          <DataField>Totwash</DataField>
+        </Field>
+        <Field Name="TotwashFormat">
+          <DataField>TotwashFormat</DataField>
+        </Field>
+        <Field Name="CommerVal">
+          <DataField>CommerVal</DataField>
+        </Field>
+        <Field Name="CommerValFormat">
+          <DataField>CommerValFormat</DataField>
+        </Field>
+        <Field Name="CommiVal">
+          <DataField>CommiVal</DataField>
+        </Field>
+        <Field Name="CommiValFormat">
+          <DataField>CommiValFormat</DataField>
+        </Field>
+        <Field Name="MFGVal">
+          <DataField>MFGVal</DataField>
+        </Field>
+        <Field Name="MFGValFormat">
+          <DataField>MFGValFormat</DataField>
+        </Field>
+        <Field Name="OverHeadVal">
+          <DataField>OverHeadVal</DataField>
+        </Field>
+        <Field Name="OverHeadValFormat">
+          <DataField>OverHeadValFormat</DataField>
+        </Field>
+        <Field Name="DeffPayVal">
+          <DataField>DeffPayVal</DataField>
+        </Field>
+        <Field Name="DeffPayValFormat">
+          <DataField>DeffPayValFormat</DataField>
+        </Field>
+        <Field Name="RiskFacVal">
+          <DataField>RiskFacVal</DataField>
+        </Field>
+        <Field Name="RiskFacValFormat">
+          <DataField>RiskFacValFormat</DataField>
+        </Field>
+        <Field Name="TaxVal">
+          <DataField>TaxVal</DataField>
+        </Field>
+        <Field Name="TaxValFormat">
+          <DataField>TaxValFormat</DataField>
+        </Field>
+        <Field Name="SourcingVal">
+          <DataField>SourcingVal</DataField>
+        </Field>
+        <Field Name="SourcingValFormat">
+          <DataField>SourcingValFormat</DataField>
+        </Field>
+        <Field Name="CMDOZ">
+          <DataField>CMDOZ</DataField>
+        </Field>
+        <Field Name="CMDOZFormat">
+          <DataField>CMDOZFormat</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="CPM">
+          <DataField>CPM</DataField>
+        </Field>
+        <Field Name="CPMFormat">
+          <DataField>CPMFormat</DataField>
+        </Field>
+        <Field Name="Placement_of_GMT">
+          <DataField>Placement_of_GMT</DataField>
+        </Field>
+        <Field Name="GMT_Color_Name">
+          <DataField>GMT_Color_Name</DataField>
+        </Field>
+        <Field Name="Article_Name_">
+          <DataField>Article_Name_</DataField>
+        </Field>
+        <Field Name="Item_No_">
+          <DataField>Item_No_</DataField>
+        </Field>
+        <Field Name="Item_Color_Name">
+          <DataField>Item_Color_Name</DataField>
+        </Field>
+        <Field Name="Unit_N0_">
+          <DataField>Unit_N0_</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="WST">
+          <DataField>WST</DataField>
+        </Field>
+        <Field Name="WSTFormat">
+          <DataField>WSTFormat</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="Consumption">
+          <DataField>Consumption</DataField>
+        </Field>
+        <Field Name="ConsumptionFormat">
+          <DataField>ConsumptionFormat</DataField>
+        </Field>
+        <Field Name="RequirmentQTY">
+          <DataField>RequirmentQTY</DataField>
+        </Field>
+        <Field Name="RequirmentQTYFormat">
+          <DataField>RequirmentQTYFormat</DataField>
+        </Field>
+        <Field Name="AjstReq">
+          <DataField>AjstReq</DataField>
+        </Field>
+        <Field Name="AjstReqFormat">
+          <DataField>AjstReqFormat</DataField>
+        </Field>
+        <Field Name="Dimension_Name_">
+          <DataField>Dimension_Name_</DataField>
+        </Field>
+        <Field Name="Revishion">
+          <DataField>Revishion</DataField>
+        </Field>
+        <Field Name="Item_Name">
+          <DataField>Item_Name</DataField>
+        </Field>
+        <Field Name="UnitPrice">
+          <DataField>UnitPrice</DataField>
+        </Field>
+        <Field Name="UnitPriceFormat">
+          <DataField>UnitPriceFormat</DataField>
+        </Field>
+        <Field Name="Main_Category_Name">
+          <DataField>Main_Category_Name</DataField>
+        </Field>
+        <Field Name="Value">
+          <DataField>Value</DataField>
+        </Field>
+        <Field Name="ValueFormat">
+          <DataField>ValueFormat</DataField>
+        </Field>
+        <Field Name="GarmentConsumption">
+          <DataField>GarmentConsumption</DataField>
+        </Field>
+        <Field Name="GarmentConsumptionFormat">
+          <DataField>GarmentConsumptionFormat</DataField>
+        </Field>
+        <Field Name="GMT_Qty">
+          <DataField>GMT_Qty</DataField>
+        </Field>
+        <Field Name="Divi">
+          <DataField>Divi</DataField>
+        </Field>
+        <Field Name="Actual_Procured">
+          <DataField>Actual_Procured</DataField>
+        </Field>
+        <Field Name="Actual_ProcuredFormat">
+          <DataField>Actual_ProcuredFormat</DataField>
+        </Field>
+        <Field Name="ActualProcVal">
+          <DataField>ActualProcVal</DataField>
+        </Field>
+        <Field Name="ActualProcValFormat">
+          <DataField>ActualProcValFormat</DataField>
+        </Field>
+        <Field Name="TransferLineRecSReceived">
+          <DataField>TransferLineRecSReceived</DataField>
+        </Field>
+        <Field Name="TransferLineRecSReceivedFormat">
+          <DataField>TransferLineRecSReceivedFormat</DataField>
+        </Field>
+        <Field Name="NewItemNo">
+          <DataField>NewItemNo</DataField>
+        </Field>
+        <Field Name="Supplier_Name_">
+          <DataField>Supplier_Name_</DataField>
+        </Field>
+        <Field Name="PoNum">
+          <DataField>PoNum</DataField>
+        </Field>
+        <Field Name="LOT">
+          <DataField>LOT</DataField>
+        </Field>
+        <Field Name="shipDate">
+          <DataField>shipDate</DataField>
+        </Field>
+        <Field Name="QTY1">
+          <DataField>QTY1</DataField>
+        </Field>
+        <Field Name="lineAmt">
+          <DataField>lineAmt</DataField>
+        </Field>
+        <Field Name="lineAmtFormat">
+          <DataField>lineAmtFormat</DataField>
+        </Field>
+        <Field Name="Unit_Price_PO">
+          <DataField>Unit_Price_PO</DataField>
+        </Field>
+        <Field Name="Unit_Price_POFormat">
+          <DataField>Unit_Price_POFormat</DataField>
+        </Field>
+        <Field Name="Style_No_po">
+          <DataField>Style_No_po</DataField>
+        </Field>
+        <Field Name="salesInvoiceLineQuanty">
+          <DataField>salesInvoiceLineQuanty</DataField>
+        </Field>
+        <Field Name="salesInvoiceLineQuantyFormat">
+          <DataField>salesInvoiceLineQuantyFormat</DataField>
+        </Field>
+        <Field Name="salesInvoiceLineValue">
+          <DataField>salesInvoiceLineValue</DataField>
+        </Field>
+        <Field Name="salesInvoiceLineValueFormat">
+          <DataField>salesInvoiceLineValueFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1855,7 +2150,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value</Value>
+                                  <Value>=Sum(Fields!Consumption.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1891,7 +2186,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!WST.Value</Value>
+                                  <Value>=max(Fields!WST.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1963,7 +2258,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UnitPrice.Value*(Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*(1+Fields!WST.Value)</Value>
+                                  <Value>=sum((Fields!Consumption.Value*Fields!UnitPrice.Value) * (1+Fields!WST.Value/100))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1999,7 +2294,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(((((Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*Fields!PO_Total.Value)*Fields!WST.Value)/100)+(Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*Fields!PO_Total.Value)/Fields!Divi.Value</Value>
+                                  <Value>=sum((Fields!PO_Total.Value*Fields!Consumption.Value)*(1+Fields!WST.Value/100))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2035,7 +2330,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=((((((Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*Fields!PO_Total.Value)*Fields!WST.Value)/100)+(Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*Fields!PO_Total.Value)/Fields!Divi.Value)*Fields!UnitPrice.Value</Value>
+                                  <Value>=sum((Fields!PO_Total.Value*Fields!Consumption.Value)*(1+Fields!WST.Value/100)*Fields!UnitPrice.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2256,10 +2551,19 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>Sub Total : </Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!Main_Category_Name.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2271,78 +2575,18 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox322">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox322</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox323">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox323</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox124">
@@ -2486,7 +2730,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value</Value>
+                                  <Value>=Sum(Fields!Consumption.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2506,6 +2750,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2523,16 +2768,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Sub Total : </Value>
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>Teal</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Fields!Main_Category_Name.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2551,6 +2787,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2570,7 +2807,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!UnitPrice.Value*Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*(1+Fields!WST.Value)</Value>
+                                  <Value>=sum((Fields!Consumption.Value*Fields!UnitPrice.Value) * (1+Fields!WST.Value/100))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2591,6 +2828,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2625,6 +2863,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2642,7 +2881,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=((((((Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*Fields!PO_Total.Value)*Fields!WST.Value)/100)+(Sum(Fields!Consumption.Value)*Fields!GMT_Qty.Value)*Fields!PO_Total.Value)/Fields!Divi.Value)*Fields!UnitPrice.Value</Value>
+                                  <Value>=sum((Fields!PO_Total.Value*Fields!Consumption.Value)*(1+Fields!WST.Value/100)*Fields!UnitPrice.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2663,12 +2902,14 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2697,6 +2938,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2731,6 +2973,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2765,6 +3008,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2799,6 +3043,7 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2837,6 +3082,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2910,7 +3156,6 @@
                           <PaddingBottom>2pt</PaddingBottom>
                         </Style>
                       </Textbox>
-                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                   <TablixMembers>
@@ -8961,7 +9206,7 @@
                 <TablixMember>
                   <Group Name="PoNum">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!PoNum.Value</GroupExpression>
+                      <GroupExpression>=Fields!LOT.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
@@ -9184,6 +9429,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -9235,296 +9486,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Season_Name">
-          <DataField>Season_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Garment_Type_No_">
-          <DataField>Garment_Type_No_</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="PO_Total">
-          <DataField>PO_Total</DataField>
-        </Field>
-        <Field Name="styleNO_p">
-          <DataField>styleNO_p</DataField>
-        </Field>
-        <Field Name="Department_Name_style">
-          <DataField>Department_Name_style</DataField>
-        </Field>
-        <Field Name="Ship_Date_Style">
-          <DataField>Ship_Date_Style</DataField>
-        </Field>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="ContractNo">
-          <DataField>ContractNo</DataField>
-        </Field>
-        <Field Name="FobPcs">
-          <DataField>FobPcs</DataField>
-        </Field>
-        <Field Name="FobPcsFormat">
-          <DataField>FobPcsFormat</DataField>
-        </Field>
-        <Field Name="TotFab">
-          <DataField>TotFab</DataField>
-        </Field>
-        <Field Name="TotFabFormat">
-          <DataField>TotFabFormat</DataField>
-        </Field>
-        <Field Name="TotEmb">
-          <DataField>TotEmb</DataField>
-        </Field>
-        <Field Name="TotEmbFormat">
-          <DataField>TotEmbFormat</DataField>
-        </Field>
-        <Field Name="TotTrims">
-          <DataField>TotTrims</DataField>
-        </Field>
-        <Field Name="TotTrimsFormat">
-          <DataField>TotTrimsFormat</DataField>
-        </Field>
-        <Field Name="Totwash">
-          <DataField>Totwash</DataField>
-        </Field>
-        <Field Name="TotwashFormat">
-          <DataField>TotwashFormat</DataField>
-        </Field>
-        <Field Name="CommerVal">
-          <DataField>CommerVal</DataField>
-        </Field>
-        <Field Name="CommerValFormat">
-          <DataField>CommerValFormat</DataField>
-        </Field>
-        <Field Name="CommiVal">
-          <DataField>CommiVal</DataField>
-        </Field>
-        <Field Name="CommiValFormat">
-          <DataField>CommiValFormat</DataField>
-        </Field>
-        <Field Name="MFGVal">
-          <DataField>MFGVal</DataField>
-        </Field>
-        <Field Name="MFGValFormat">
-          <DataField>MFGValFormat</DataField>
-        </Field>
-        <Field Name="OverHeadVal">
-          <DataField>OverHeadVal</DataField>
-        </Field>
-        <Field Name="OverHeadValFormat">
-          <DataField>OverHeadValFormat</DataField>
-        </Field>
-        <Field Name="DeffPayVal">
-          <DataField>DeffPayVal</DataField>
-        </Field>
-        <Field Name="DeffPayValFormat">
-          <DataField>DeffPayValFormat</DataField>
-        </Field>
-        <Field Name="RiskFacVal">
-          <DataField>RiskFacVal</DataField>
-        </Field>
-        <Field Name="RiskFacValFormat">
-          <DataField>RiskFacValFormat</DataField>
-        </Field>
-        <Field Name="TaxVal">
-          <DataField>TaxVal</DataField>
-        </Field>
-        <Field Name="TaxValFormat">
-          <DataField>TaxValFormat</DataField>
-        </Field>
-        <Field Name="SourcingVal">
-          <DataField>SourcingVal</DataField>
-        </Field>
-        <Field Name="SourcingValFormat">
-          <DataField>SourcingValFormat</DataField>
-        </Field>
-        <Field Name="CMDOZ">
-          <DataField>CMDOZ</DataField>
-        </Field>
-        <Field Name="CMDOZFormat">
-          <DataField>CMDOZFormat</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="CPM">
-          <DataField>CPM</DataField>
-        </Field>
-        <Field Name="CPMFormat">
-          <DataField>CPMFormat</DataField>
-        </Field>
-        <Field Name="Placement_of_GMT">
-          <DataField>Placement_of_GMT</DataField>
-        </Field>
-        <Field Name="GMT_Color_Name">
-          <DataField>GMT_Color_Name</DataField>
-        </Field>
-        <Field Name="Article_Name_">
-          <DataField>Article_Name_</DataField>
-        </Field>
-        <Field Name="Item_No_">
-          <DataField>Item_No_</DataField>
-        </Field>
-        <Field Name="Item_Color_Name">
-          <DataField>Item_Color_Name</DataField>
-        </Field>
-        <Field Name="Unit_N0_">
-          <DataField>Unit_N0_</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="WST">
-          <DataField>WST</DataField>
-        </Field>
-        <Field Name="WSTFormat">
-          <DataField>WSTFormat</DataField>
-        </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-        </Field>
-        <Field Name="Consumption">
-          <DataField>Consumption</DataField>
-        </Field>
-        <Field Name="ConsumptionFormat">
-          <DataField>ConsumptionFormat</DataField>
-        </Field>
-        <Field Name="RequirmentQTY">
-          <DataField>RequirmentQTY</DataField>
-        </Field>
-        <Field Name="RequirmentQTYFormat">
-          <DataField>RequirmentQTYFormat</DataField>
-        </Field>
-        <Field Name="AjstReq">
-          <DataField>AjstReq</DataField>
-        </Field>
-        <Field Name="AjstReqFormat">
-          <DataField>AjstReqFormat</DataField>
-        </Field>
-        <Field Name="Dimension_Name_">
-          <DataField>Dimension_Name_</DataField>
-        </Field>
-        <Field Name="Revishion">
-          <DataField>Revishion</DataField>
-        </Field>
-        <Field Name="Item_Name">
-          <DataField>Item_Name</DataField>
-        </Field>
-        <Field Name="UnitPrice">
-          <DataField>UnitPrice</DataField>
-        </Field>
-        <Field Name="UnitPriceFormat">
-          <DataField>UnitPriceFormat</DataField>
-        </Field>
-        <Field Name="Main_Category_Name">
-          <DataField>Main_Category_Name</DataField>
-        </Field>
-        <Field Name="Value">
-          <DataField>Value</DataField>
-        </Field>
-        <Field Name="ValueFormat">
-          <DataField>ValueFormat</DataField>
-        </Field>
-        <Field Name="GarmentConsumption">
-          <DataField>GarmentConsumption</DataField>
-        </Field>
-        <Field Name="GarmentConsumptionFormat">
-          <DataField>GarmentConsumptionFormat</DataField>
-        </Field>
-        <Field Name="GMT_Qty">
-          <DataField>GMT_Qty</DataField>
-        </Field>
-        <Field Name="Divi">
-          <DataField>Divi</DataField>
-        </Field>
-        <Field Name="Actual_Procured">
-          <DataField>Actual_Procured</DataField>
-        </Field>
-        <Field Name="Actual_ProcuredFormat">
-          <DataField>Actual_ProcuredFormat</DataField>
-        </Field>
-        <Field Name="ActualProcVal">
-          <DataField>ActualProcVal</DataField>
-        </Field>
-        <Field Name="ActualProcValFormat">
-          <DataField>ActualProcValFormat</DataField>
-        </Field>
-        <Field Name="TransferLineRecSReceived">
-          <DataField>TransferLineRecSReceived</DataField>
-        </Field>
-        <Field Name="TransferLineRecSReceivedFormat">
-          <DataField>TransferLineRecSReceivedFormat</DataField>
-        </Field>
-        <Field Name="NewItemNo">
-          <DataField>NewItemNo</DataField>
-        </Field>
-        <Field Name="Supplier_Name_">
-          <DataField>Supplier_Name_</DataField>
-        </Field>
-        <Field Name="PoNum">
-          <DataField>PoNum</DataField>
-        </Field>
-        <Field Name="shipDate">
-          <DataField>shipDate</DataField>
-        </Field>
-        <Field Name="QTY1">
-          <DataField>QTY1</DataField>
-        </Field>
-        <Field Name="lineAmt">
-          <DataField>lineAmt</DataField>
-        </Field>
-        <Field Name="lineAmtFormat">
-          <DataField>lineAmtFormat</DataField>
-        </Field>
-        <Field Name="Unit_Price_PO">
-          <DataField>Unit_Price_PO</DataField>
-        </Field>
-        <Field Name="Unit_Price_POFormat">
-          <DataField>Unit_Price_POFormat</DataField>
-        </Field>
-        <Field Name="Style_No_po">
-          <DataField>Style_No_po</DataField>
-        </Field>
-        <Field Name="salesInvoiceLineQuanty">
-          <DataField>salesInvoiceLineQuanty</DataField>
-        </Field>
-        <Field Name="salesInvoiceLineQuantyFormat">
-          <DataField>salesInvoiceLineQuantyFormat</DataField>
-        </Field>
-        <Field Name="salesInvoiceLineValue">
-          <DataField>salesInvoiceLineValue</DataField>
-        </Field>
-        <Field Name="salesInvoiceLineValueFormat">
-          <DataField>salesInvoiceLineValueFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

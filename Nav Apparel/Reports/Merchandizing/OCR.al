@@ -203,6 +203,8 @@ report 50612 OCR
 
                 column(PoNum; "PO No.")
                 { }
+                column(LOT; "Lot No.")
+                { }
                 column(shipDate; "Ship Date")
                 { }
                 column(QTY1; Qty)
@@ -254,6 +256,8 @@ report 50612 OCR
                 BOMAutoGenRec: Record "BOM Line AutoGen";
                 BOMRec: Record "BOM";
                 BOMEstCostRec: Record "BOM Estimate Cost";
+                NavAppSetupRec: Record "NavApp Setup";
+                Temp: Decimal;
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -294,9 +298,14 @@ report 50612 OCR
                     RiskFacVal := (TotFOBVal * BOMEstCostRec."Risk factor %") / 100;
                     TaxVal := (TotFOBVal * BOMEstCostRec."TAX %") / 100;
                     SourcingVal := (TotFOBVal * BOMEstCostRec."ABA Sourcing %") / 100;
-                    CPM := BOMEstCostRec.CPM;
                     SMV := BOMEstCostRec.SMV;
                     CMDOZ := BOMEstCostRec."CM Doz";
+
+                    //Calculate NewCPM
+                    NavAppSetupRec.Reset();
+                    NavAppSetupRec.FindSet();
+                    Temp := NavAppSetupRec."Base Efficiency" - BOMEstCostRec."Project Efficiency.";
+                    CPM := BOMEstCostRec.CPM + (BOMEstCostRec.CPM * Temp) / 100;
                 end;
 
 
