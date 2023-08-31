@@ -22,7 +22,7 @@ report 51408 BBLCPaymentSummaryReport
             { }
             column(B2BLCNo; B2BLCNo)
             { }
-            column(B2B_LC_Value; "B2B LC Value")
+            column(B2B_LC_Value; B2BLCValue)
             { }
             column(Supplier; "Suppler Name")
             { }
@@ -87,9 +87,17 @@ report 51408 BBLCPaymentSummaryReport
             trigger OnAfterGetRecord()
             var
                 AcceptanceHeaderRec: Record AcceptanceHeader;
+                B2BLCRec: Record B2BLCMaster;
             begin
+                B2BLCValue := 0;
+
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                B2BLCRec.Reset();
+                B2BLCRec.SetRange("B2B LC No", B2BLCNo);
+                if B2BLCRec.FindSet() then
+                    B2BLCValue := B2BLCRec."B2B LC Value";
 
                 AcceptanceHeaderRec.Reset();
                 AcceptanceHeaderRec.SetRange("B2BLC No", B2BLCNo);
@@ -199,5 +207,6 @@ report 51408 BBLCPaymentSummaryReport
         comRec: Record "Company Information";
         AcceptedDate: Date;
         AcceptedValue: Decimal;
+        B2BLCValue: Decimal;
 
 }

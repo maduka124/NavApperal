@@ -99,4 +99,20 @@ page 50527 "GIT Baseon LC List"
         GITBaseonLCLineRec.SetRange("GITLCNo.", Rec."GITLCNo.");
         GITBaseonLCLineRec.DeleteAll();
     end;
+
+    trigger OnAfterGetRecord()
+    var
+        GITRec: Record GITBaseonLC;
+        Tot: Decimal;
+    begin
+        GITRec.Reset();
+        GITRec.SetRange("B2B LC No.", rec."B2B LC No.");
+        if GITRec.FindSet() then begin
+            repeat
+                tot += GITRec."Invoice Value";
+            until GITRec.Next() = 0;
+        end;
+        rec."B2B LC Balance" := rec."B2B LC Value" - Tot;
+        rec.Modify();
+    end;
 }

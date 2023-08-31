@@ -396,23 +396,30 @@ page 50978 "Create User Card"
                 end;
             }
 
-            // action("update prod update status")
+            // action("update GIT LC balance value")
             // {
             //     ApplicationArea = All;
             //     Image = AddAction;
 
             //     trigger OnAction()
             //     var
-            //         Prodout: Record ProductionOutHeader;
-            //         dtStart: Date;
+            //         GITBaseonLCRec: Record GITBaseonLC;
+            //         GITRec: Record GITBaseonLC;
+            //         Tot: Decimal;
             //     begin
-            //         dtStart := DMY2DATE(2, 5, 2023);
-            //         Prodout.Reset();
-            //         Prodout.SetRange("Prod Date", dtStart);
-            //         Prodout.FindSet();
-            //         Prodout.ModifyAll("Prod Updated", 0);
-
-
+            //         GITBaseonLCRec.Reset();
+            //         if GITBaseonLCRec.FindSet() then
+            //             repeat
+            //                 GITRec.Reset();
+            //                 GITRec.SetRange("B2B LC No.", GITBaseonLCRec."B2B LC No.");
+            //                 if GITRec.FindSet() then begin
+            //                     repeat
+            //                         tot += GITRec."Invoice Value";
+            //                     until GITRec.Next() = 0;
+            //                 end;
+            //                 GITBaseonLCRec."B2B LC Balance" := GITBaseonLCRec."B2B LC Value" - Tot;
+            //                 GITBaseonLCRec.Modify();
+            //             until GITBaseonLCRec.Next() = 0;
             //     end;
             // }
 

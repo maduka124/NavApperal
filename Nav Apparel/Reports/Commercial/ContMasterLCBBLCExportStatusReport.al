@@ -8,29 +8,27 @@ report 50630 ExportStatusReport1
 
     dataset
     {
-
         dataitem(B2BLCMaster; B2BLCMaster)
         {
             DataItemTableView = sorting("No.");
-            column(BBLC; BBLC)
+
+            column(Buyer; Buyer)
             { }
-            column(Quantity__Pcs_; QtyContract)
-            { }
-            column(Contract_Value; ContractValue)
+            column(LC_Contract_No_; "LC/Contract No.")
             { }
             column(Currency; Currency)
             { }
-            column(BuyerFilter; Buyer)
+            column(LC_Value; "LC Value")
             { }
-            column(No_; ContractName)
-            { }
-            column(CompLogo; comRec.Picture)
-            { }
-            column(Qty; Qty)
-            { }
-            column(UniPrice; UniPrice)
+            column(Quantity__Pcs_; "QtyContract")
             { }
             column(tot; Qty * UniPrice)
+            { }
+            column(B2B_LC_Value; "B2B LC Value")
+            { }
+            column(BBLC; BBLC)
+            { }
+            column(CompLogo; comRec.Picture)
             { }
             column(B2B_LC_No; "B2B LC No")
             { }
@@ -38,39 +36,44 @@ report 50630 ExportStatusReport1
             { }
             column(Expiry_Date; "Expiry Date")
             { }
-            column(LC_Value; "LC Value")
+            column(No_; ContractName)
             { }
-            column(Buyer; Buyer)
-            { }
-            column(LC_Contract_No_; "LC/Contract No.")
-            { }
-            column(B2B_LC_Value; "B2B LC Value")
-            { }
-            column(Margin_A_C_Amount; MarginAcAmt)
+            column(Contract_Value; ContractValue)
             { }
             column(Invoice_No; FtyInvoiceNo)
             { }
-            column(Invoice_Amount; Total)
-            { }
-            column(BankRefNo_; BankRefNo)
-            { }
-            column(Release_Amount; ReleaseAmt)
-            { }
-            column(FC_A_C_Amount; FCACAMT)
-            { }
-            column(Current_A_C_Amount; CurrentACAMT)
-            { }
-       
 
+
+            // dataitem("Contract/LCStyle "; "Contract/LCStyle")
+            // {
+            //     DataItemLinkReference = B2BLCMaster;
+            //     DataItemLink = "Contract No" = field("LC/Contract No.");
+            //     DataItemTableView = sorting("No.");
+
+            //     column(Inv_No; "No.")
+            //     { }
+            //     column(Invoice_Amount; Total)
+            //     { }
+            //     column(BankRefNo_; BankRefNo)
+            //     { }
+            //     column(Release_Amount; ReleaseAmt)
+            //     { }
+            //     column(FC_A_C_Amount; FCACAMT)
+            //     { }
+            //     column(Current_A_C_Amount; CurrentACAMT)
+            //     { }
+            //     column(Margin_A_C_Amount; MarginAcAmt)
+            //     { }
+
+            // }
 
             trigger OnPreDataItem()
-
             begin
-                SetRange("LC/Contract No.", No);
+                SetRange("LC/Contract No.", ContractNoFilter);
             end;
 
-            trigger OnAfterGetRecord()
 
+            trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -94,8 +97,6 @@ report 50630 ExportStatusReport1
                     end;
                 end;
 
-
-
                 BankRecColHRec.Reset();
                 BankRecColHRec.SetRange("LC/Contract No.", "LC/Contract No.");
                 if BankRecColHRec.FindSet() then begin
@@ -106,7 +107,6 @@ report 50630 ExportStatusReport1
                     FCACAMT := BankRecColHRec."FC A/C Amount";
                     CurrentACAMT := BankRecColHRec."Current A/C Amount";
 
-
                     BankRefColLineRec.Reset();
                     BankRefColLineRec.SetRange("BankRefNo.", BankRecColHRec."BankRefNo.");
                     if BankRefColLineRec.FindFirst() then begin
@@ -114,9 +114,7 @@ report 50630 ExportStatusReport1
                     end;
                 end;
             end;
-
         }
-
     }
 
     requestpage
@@ -128,40 +126,23 @@ report 50630 ExportStatusReport1
                 group(GroupName)
                 {
                     Caption = 'Filter By';
-                    field(No; No)
+                    field(ContractNoFilter; ContractNoFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Contract No';
-
-
 
                         trigger OnLookup(var texts: text): Boolean
                         var
                             ContractRec: Record "Contract/LCMaster";
                         begin
-
                             ContractRec.Reset();
                             if ContractRec.FindSet() then begin
                                 if Page.RunModal(50503, ContractRec) = Action::LookupOK then begin
-                                    No := ContractRec."Contract No";
+                                    ContractNoFilter := ContractRec."Contract No";
                                 end;
                             end;
                         end;
-
-
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
@@ -195,8 +176,6 @@ report 50630 ExportStatusReport1
         UniPrice: Decimal;
         ConStRec: Record "Contract/LCStyle";
         Qty: BigInteger;
-        No: Code[50];
+        ContractNoFilter: Code[50];
         comRec: Record "Company Information";
-
-
 }
