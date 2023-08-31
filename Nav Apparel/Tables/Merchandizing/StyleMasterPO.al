@@ -220,6 +220,12 @@ table 50935 "Style Master PO"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012619; "Actual Shipment Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

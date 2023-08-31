@@ -464,6 +464,52 @@ page 50978 "Create User Card"
             //         Message('Completed');
             //     end;
             // }  
+
+            action("Update AC Shipped Qty")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    SalesInvoiceheader: Record "Sales Invoice Header";
+                    SalesInvoiceLineRec: Record "Sales Invoice Line";
+                    SatylemsterPORec: Record "Style Master PO";
+                    ShippedQty: BigInteger;
+                begin
+
+                    SalesInvoiceheader.Reset();
+                    if SalesInvoiceheader.FindSet() then begin
+                        repeat
+
+
+                            SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceheader."No.");
+
+                            if SalesInvoiceLineRec.FindSet() then begin
+                                ShippedQty := 0;
+                                repeat
+
+                                    ShippedQty += SalesInvoiceLineRec.Quantity;
+
+                                until SalesInvoiceLineRec.Next() = 0;
+
+                                SatylemsterPORec.Reset();
+                                SatylemsterPORec.SetRange("Style No.", SalesInvoiceheader."Style No");
+                                SatylemsterPORec.SetRange("PO No.", SalesInvoiceheader."PO No");
+                                SatylemsterPORec.SetRange("Lot No.", SalesInvoiceheader.Lot);
+
+                                if SatylemsterPORec.FindSet() then begin
+                                    SatylemsterPORec."Actual Shipment Qty" := SatylemsterPORec."Actual Shipment Qty" + ShippedQty;
+                                    SatylemsterPORec.Modify();
+                                end;
+                            end;
+
+                        until SalesInvoiceheader.Next() = 0;
+                    end;
+
+                    Message('Completed');
+                end;
+            }
         }
     }
 
