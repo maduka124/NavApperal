@@ -270,6 +270,14 @@ page 51300 "WIP Style PO Listpart"
                 field("Shipped Qty"; Rec."Shipped Qty")
                 {
                     ApplicationArea = All;
+                    Caption = 'Factory Shipped Qty';
+                }
+
+                field("Actual Shipment Qty"; Rec."Actual Shipment Qty")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Actual Shipped Qty';
+                    Editable = false;
                 }
 
                 field(PlannedStatus; rec.PlannedStatus)

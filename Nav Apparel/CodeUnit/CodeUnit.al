@@ -1038,7 +1038,11 @@ codeunit 50618 NavAppCodeUnit
     var
         Stylerec: Record "Style Master";
         StylePoRec: Record "Style Master PO";
+        SalesinvoiceHeaderRec: Record "Sales Invoice Header";
         SalesInvoiceLineRec: Record "Sales Invoice Line";
+        SalesLineRec: Record "Sales Line";
+        SalesHeaderRec: Record "Sales Header";
+        ShipedQty: BigInteger;
     begin
         SalesInvHeader."Style No" := SalesHeader."Style No";
         SalesInvHeader."Style Name" := SalesHeader."Style Name";
@@ -1065,10 +1069,44 @@ codeunit 50618 NavAppCodeUnit
 
         end;
 
+        //Done By Sachith 23/08/31
+        ShipedQty := 0;
+
+        SalesInvoiceLineRec.Reset();
+
+        SalesinvoiceHeaderRec.Reset();
+        SalesinvoiceHeaderRec.SetRange("Style No", SalesHeader."Style No");
+        SalesinvoiceHeaderRec.SetRange("PO No", SalesHeader."PO No");
+        SalesinvoiceHeaderRec.SetRange(Lot, SalesHeader.Lot);
+
+        if SalesinvoiceHeaderRec.FindSet() then begin
+
+            repeat
+
+                SalesInvoiceLineRec.SetRange("Document No.", SalesinvoiceHeaderRec."No.");
+
+                if SalesInvoiceLineRec.FindSet() then begin
+                    repeat
+                        ShipedQty += SalesInvoiceLineRec.Quantity;
+                    until SalesInvoiceLineRec.Next() = 0;
+                end;
+
+            until SalesinvoiceHeaderRec.Next() = 0;
+
+
+            StylePoRec.Reset();
+            StylePoRec.SetRange("Style No.", SalesinvoiceHeaderRec."Style No");
+            StylePoRec.SetRange("PO No.", SalesinvoiceHeaderRec."PO No");
+            StylePoRec.SetRange("Lot No.", SalesinvoiceHeaderRec.Lot);
+
+            if StylePoRec.FindSet() then begin
+                StylePoRec."Actual Shipment Qty" := ShipedQty;
+                StylePoRec.Modify();
+            end;
+
+        end;
 
     end;
-
-
 
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', true, true)]
     local procedure OnAfterCopyGenJnlLineFromPurchHeader(PurchaseHeader: Record "Purchase Header"; var GenJournalLine: Record "Gen. Journal Line")
