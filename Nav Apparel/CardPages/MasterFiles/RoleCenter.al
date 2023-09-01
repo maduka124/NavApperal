@@ -3110,6 +3110,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report CostBreakupReport;
                         ApplicationArea = all;
                     }
+
+                    //Done By sachith On 01/09/23
+                    action("Order Completion Report - Finace")
+                    {
+                        Caption = 'Order Completion Report';
+                        Enabled = true;
+                        RunObject = report OCR;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
