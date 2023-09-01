@@ -18,8 +18,10 @@ report 50629 ExportSummartReport
             { }
             column(Posting_Date; "Posting Date")
             { }
-            column(Amount_Including_VAT; "Amount Including VAT")
+            column(Amount_Including_VAT; ShipValue)
             { }
+            //   column(Amount_Including_VAT; "Amount Including VAT")
+            // { }
             column(ShipQty; ShipQty)
             { }
             column(Shipment_Date; "Shipment Date")
@@ -110,12 +112,14 @@ report 50629 ExportSummartReport
                 end;
 
                 ShipQty := 0;
+                ShipValue := 0;
                 SalesInvoiceLineRec.Reset();
                 SalesInvoiceLineRec.SetRange("Document No.", "No.");
                 SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
                 if SalesInvoiceLineRec.FindFirst() then begin
                     repeat
                         ShipQty += SalesInvoiceLineRec.Quantity;
+                        ShipValue += SalesInvoiceLineRec.Quantity * SalesInvoiceLineRec."Unit Price";
                     until SalesInvoiceLineRec.Next() = 0;
                 end;
 
@@ -363,5 +367,6 @@ report 50629 ExportSummartReport
         POBalance: BigInteger;
         BalanceQty: BigInteger;
         POLc: Code[20];
+        ShipValue: Decimal;
 
 }

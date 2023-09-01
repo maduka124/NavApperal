@@ -80,11 +80,9 @@ page 50656 "LaySheetCard"
                         if BuyerRec.FindSet() then
                             rec."Buyer No." := BuyerRec."No.";
 
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -195,7 +193,6 @@ page 50656 "LaySheetCard"
                         StyleMasterRec: Record "Style Master";
                         StyleName: text[50];
                     begin
-
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
@@ -217,8 +214,6 @@ page 50656 "LaySheetCard"
                                         StyleName := NavProdDetRec."Style Name";
                                     end;
                                 end;
-                            // else
-                            //     StyleName := NavProdDetRec."Style Name";
                             until NavProdDetRec.Next() = 0;
 
                             NavProdDetRec.MARKEDONLY(TRUE);
@@ -257,11 +252,16 @@ page 50656 "LaySheetCard"
                         AssoColorRec.SetFilter(Type, '=%1', '1');
                         if AssoColorRec.FindSet() then begin
                             repeat
-                                LaySsheetColorRec.Init();
-                                LaySsheetColorRec."LaySheetNo." := rec."LaySheetNo.";
-                                LaySsheetColorRec.Color := AssoColorRec."Colour Name";
-                                LaySsheetColorRec."Color No." := AssoColorRec."Colour No";
-                                LaySsheetColorRec.Insert();
+                                LaySsheetColorRec.Reset();
+                                LaySsheetColorRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                                LaySsheetColorRec.SetRange("Color No.", AssoColorRec."Colour No");
+                                if Not LaySsheetColorRec.FindSet() then begin
+                                    LaySsheetColorRec.Init();
+                                    LaySsheetColorRec."LaySheetNo." := rec."LaySheetNo.";
+                                    LaySsheetColorRec.Color := AssoColorRec."Colour Name";
+                                    LaySsheetColorRec."Color No." := AssoColorRec."Colour No";
+                                    LaySsheetColorRec.Insert();
+                                end;
                             until AssoColorRec.Next() = 0;
                         end;
                     end;

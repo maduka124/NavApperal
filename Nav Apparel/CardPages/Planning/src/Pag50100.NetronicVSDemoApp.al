@@ -4102,28 +4102,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end;
                 }
 
-                // action("Return To Queue")
-                // {
-                //     ToolTip = 'Return To Queue';
-                //     Image = TaskList;
-                //     ApplicationArea = All;
-
-                //     trigger OnAction()
-                //     var
-                //         ReturnToQueueListPage: Page "Return To Queue List";
-                //     begin
-                //         if FactoryNo = '' then
-                //             Error('Select a factory');
-
-                //         Clear(ReturnToQueueListPage);
-                //         ReturnToQueueListPage.LookupMode(true);
-                //         ReturnToQueueListPage.PassParameters(FactoryNo);
-                //         ReturnToQueueListPage.RunModal();
-                //         LoadData();
-                //         SetconVSControlAddInSettings();
-                //     end;
-                // }
-
                 action("Show/Hide Plannnig Queue")
                 {
                     ToolTip = 'Show/Hide Plannnig Queue';
@@ -4190,32 +4168,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
                     end;
                 }
-
-                // action(Reload)
-                // {
-                //     Image = RefreshLines;
-                //     ApplicationArea = All;
-
-                //     trigger OnAction()
-
-                //     begin
-                //         LoadData();
-                //     end;
-                // }
-
-                // action("Generate Queue")
-                // {
-                //     ToolTip = 'Generate Queue';
-                //     Image = TaskList;
-                //     ApplicationArea = All;
-
-                //     trigger OnAction()
-                //     begin
-                //         GenerateQueue();
-                //         LoadData();
-                //         SetconVSControlAddInSettings();
-                //     end;
-                // }
 
                 action("Save as PDF")
                 {

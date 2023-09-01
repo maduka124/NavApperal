@@ -10,14 +10,14 @@ report 50315 DailyCuttingReport
     {
         dataitem(ProductionOutHeader; ProductionOutHeader)
         {
-            DataItemTableView = where(Type = filter('Cut'));
+            DataItemTableView = where(Type = filter('Cut'), "Output Qty" = filter(> 0));
             column(Style_Name; "Style Name")
             { }
             column(PO_No; "PO No")
             { }
             column(BuyerName; BuyerName)
             { }
-            column(Output_Qty; "Input Qty")
+            column(Output_Qty; "Output Qty")
             { }
             column(OrderQty; OrderQty)
             { }
@@ -29,20 +29,16 @@ report 50315 DailyCuttingReport
             { }
             column(CutTotal; CutTotal)
             { }
-            //  column()
-            // {}
 
             trigger OnAfterGetRecord()
-
             begin
                 CutTotal := 0;
                 ProdRec.Reset();
                 ProdRec.SetRange("Style No.", "Style No.");
                 ProdRec.SetRange(Type, ProdRec.Type::Cut);
-                // ProdRec.SetFilter("Prod Date",'');
                 if ProdRec.FindSet() then begin
                     repeat
-                        CutTotal += ProdRec."Input Qty";
+                        CutTotal += ProdRec."Output Qty";
                     until ProdRec.Next() = 0;
                 end;
 
@@ -59,9 +55,7 @@ report 50315 DailyCuttingReport
 
             trigger OnPreDataItem()
             var
-                myInt: Integer;
             begin
-
                 if Stdate <> 0D then
                     SetRange("Prod Date", Stdate);
 
@@ -83,7 +77,6 @@ report 50315 DailyCuttingReport
                     field(FactoryFilter; FactoryFilter)
                     {
                         ApplicationArea = All;
-                        // TableRelation = Location.Code;
                         Caption = 'Factory';
 
                         trigger OnLookup(var texts: text): Boolean
@@ -109,26 +102,13 @@ report 50315 DailyCuttingReport
                                     FactoryFilter := LocationRec2.Code;
                                 end;
                         end;
-
                     }
+
                     field(Stdate; Stdate)
                     {
                         ApplicationArea = All;
                         Caption = 'Production Date';
                     }
-
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
@@ -144,5 +124,4 @@ report 50315 DailyCuttingReport
         OrderQty: BigInteger;
         StyleRec: Record "Style Master";
         BuyerName: Text[200];
-
 }

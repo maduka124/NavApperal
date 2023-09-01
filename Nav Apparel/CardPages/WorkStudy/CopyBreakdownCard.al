@@ -128,11 +128,9 @@ page 50471 "Copy Breakdown Card"
                     LoginSessionsRec: Record LoginSessions;
                     LoginRec: Page "Login Card";
                 begin
-
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
                     LoginSessionsRec.SetRange(SessionID, SessionId());
-
                     if not LoginSessionsRec.FindSet() then begin  //not logged in
                         Clear(LoginRec);
                         LoginRec.LookupMode(true);
@@ -162,7 +160,6 @@ page 50471 "Copy Breakdown Card"
                             //Get old breakdown details
                             NewBrRec.Reset();
                             NewBrRec.SetRange("Style No.", SourceStyle);
-
                             if NewBrRec.FindSet() then begin
 
                                 NewBrRec1.Reset();
@@ -172,6 +169,25 @@ page 50471 "Copy Breakdown Card"
 
                                 NavAppSetup.Get('0001');
                                 NextBRNO := NoSeriesManagementCode.GetNextNo(NavAppSetup."NEWBR Nos.", Today(), true);
+
+                                //Delete old records , if exists
+                                NewBrRec1.Reset();
+                                NewBrRec1.SetRange("No.", NextBRNO);
+                                if NewBrRec1.FindSet() then
+                                    NewBrRec1.DeleteAll();
+
+                                //Delete old records , if exists
+                                NewBrOpLine1Rec.Reset();
+                                NewBrOpLine1Rec.SetRange("NewBRNo.", NextBRNO);
+                                if NewBrOpLine1Rec.FindSet() then
+                                    NewBrOpLine1Rec.DeleteAll();
+
+                                //Delete old records , if exists
+                                NewBrOpLineRec.Reset();
+                                NewBrOpLineRec.SetRange("No.", NextBRNO);
+                                if NewBrOpLineRec.FindSet() then
+                                    NewBrOpLineRec.DeleteAll();
+
 
                                 //Insert Header
                                 NewBrRec1.Init();
@@ -200,7 +216,6 @@ page 50471 "Copy Breakdown Card"
                                 //Insert OP Lines
                                 NewBrOpLine1Rec.Reset();
                                 NewBrOpLine1Rec.SetRange("NewBRNo.", NewBrRec."No.");
-
                                 if NewBrOpLine1Rec.FindSet() then begin
                                     repeat
                                         NewBrOpLine1Rec1.Init();
@@ -233,7 +248,6 @@ page 50471 "Copy Breakdown Card"
                                 //Insert BR Lines                        
                                 NewBrOpLineRec.Reset();
                                 NewBrOpLineRec.SetRange("No.", NewBrRec."No.");
-
                                 if NewBrOpLineRec.FindSet() then begin
                                     repeat
                                         NewBrOpLineRec1.Init();
@@ -264,6 +278,7 @@ page 50471 "Copy Breakdown Card"
                                         NewBrOpLineRec1.Insert();
                                     until NewBrOpLineRec.Next() = 0
                                 end;
+
                                 Message('Completed');
                             end
                             else

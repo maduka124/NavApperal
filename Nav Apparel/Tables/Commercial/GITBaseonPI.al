@@ -147,6 +147,11 @@ table 50531 "GITBaseonPI"
             DataClassification = ToBeClassified;
         }
 
+        field(28; "Remarks"; Text[500])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

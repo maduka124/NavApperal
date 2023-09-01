@@ -66,7 +66,12 @@ page 50952 "Dimension Width Card"
                     trigger OnValidate()
                     var
                         DimensionWidthRec: Record DimensionWidth;
+                        length: Integer;
                     begin
+                        length := StrLen(rec."Dimension Width");
+                        if length > 25 then
+                            Error('Dimension/Width text length cannot exceed 25 characters');
+
                         DimensionWidthRec.Reset();
                         DimensionWidthRec.SetRange("Main Category No.", rec."Main Category No.");
                         DimensionWidthRec.SetRange("Dimension Width", rec."Dimension Width");

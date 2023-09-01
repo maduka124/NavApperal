@@ -98,11 +98,13 @@ page 50458 "New Breakdown"
     begin
         NewBrOpLine1Rec.Reset();
         NewBrOpLine1Rec.SetRange("NewBRNo.", rec."No.");
-        NewBrOpLine1Rec.DeleteAll();
+        if NewBrOpLine1Rec.FindSet() then
+            NewBrOpLine1Rec.DeleteAll();
 
         NewBrOpLine2Rec.Reset();
         NewBrOpLine2Rec.SetRange("No.", rec."No.");
-        NewBrOpLine2Rec.DeleteAll();
+        if NewBrOpLine2Rec.FindSet() then
+            NewBrOpLine2Rec.DeleteAll();
     end;
 
 

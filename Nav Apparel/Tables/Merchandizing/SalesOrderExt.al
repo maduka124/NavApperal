@@ -79,9 +79,10 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
         field(50016; "Contract No"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Contract/LCMaster"."Contract No";
+            TableRelation = LCMaster."LC No" where("Buyer No." = field("Sell-to Customer No."));  //Changed to LC Master table by maduka on 28/8/2023 
             ValidateTableRelation = false;
         }
+
         field(50017; "LC Name"; Text[50])
         {
             DataClassification = ToBeClassified;

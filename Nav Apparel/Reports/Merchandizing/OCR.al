@@ -34,9 +34,47 @@ report 50612 OCR
             { }
             column(Factory_Name; "Factory Name")
             { }
+            column(CompLogo; comRec.Picture)
+            { }
+            column(ContractNo; ContractNo)
+            { }
             column(FobPcs; FobPcs)
             { }
-            column(CompLogo; comRec.Picture)
+            column(TotFab; TotFab)
+            { }
+            column(TotEmb; TotEmb)
+            { }
+            column(TotTrims; TotTrims)
+            { }
+            column(Totwash; Totwash)
+            { }
+            column(CommerVal; CommerVal)
+            { }
+            column(CommiVal; CommiVal)
+            { }
+            column(MFGVal; MFGVal)
+            { }
+            column(OverHeadVal; OverHeadVal)
+            { }
+            column(DeffPayVal; DeffPayVal)
+            { }
+            column(RiskFacVal; RiskFacVal)
+            { }
+            column(TaxVal; TaxVal)
+            { }
+            column(SourcingVal; SourcingVal)
+            { }
+            column(CMDOZ; CMDOZ)
+            { }
+            column(SMV; SMV)
+            { }
+            column(CPM; CPM)
+            { }
+            column(salesInvoiceLineQuanty; salesInvoiceLineQuanty)
+            { }
+            column(salesInvoiceLineValue; salesInvoiceLineValue)
+            { }
+            column(ProfitMarginDOZ; ProfitMarginDOZ)
             { }
 
             dataitem(BOM; BOM)
@@ -86,8 +124,6 @@ report 50612 OCR
                     column(Main_Category_Name; "Main Category Name")
                     { }
                     column(Value; Value)
-                    { }
-                    column(TotFab; TotFab)
                     { }
                     column(GarmentConsumption; GarmentConsumption)
                     { }
@@ -140,7 +176,6 @@ report 50612 OCR
                             until ItemLeRec.Next() = 0;
                         end;
 
-                        TotFab := 0;
                         GarmentConsumption := Qty * Consumption;
 
                         // TransferLineRec.Reset();
@@ -156,9 +191,6 @@ report 50612 OCR
                             Revishion := BomRec.Revision;
                         end;
 
-                        if "Main Category Name" = 'FABRIC' then begin
-                            TotFab += Value;
-                        end;
                         Divi := 0;
                         if Type = 0 then begin
                             Divi := 12;
@@ -173,9 +205,11 @@ report 50612 OCR
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
-                DataItemTableView = sorting("Style No.");
+                DataItemTableView = sorting("Style No.") where("PO No." = filter(<> ''));
 
                 column(PoNum; "PO No.")
+                { }
+                column(LOT; "Lot No.")
                 { }
                 column(shipDate; "Ship Date")
                 { }
@@ -187,64 +221,159 @@ report 50612 OCR
                 { }
                 column(Style_No_po; "Style No.")
                 { }
-                column(salesInvoiceLineQuanty; salesInvoiceLineQuanty)
-                { }
-
-                // dataitem("Sales Invoice Header"; "Sales Invoice Header")
-                // {
-                //     DataItemLinkReference = "Style Master PO";
-                //     DataItemLink = "Order No." = field("PO No.");
-                //     DataItemTableView = sorting("No.");
-                //     column(salesInvoiceLineQuanty; salesInvoiceLineQuanty)
-                //     { }
-
-                //     trigger OnAfterGetRecord()
-                //     var
-                //     begin
-                //         salesInvoiceLineRec.Reset();
-                //         salesInvoiceLineRec.SetRange("Document No.", "Sales Invoice Header"."No.");
-                //         if salesInvoiceLineRec.FindFirst() then begin
-                //             salesInvoiceLineQuanty := salesInvoiceLineRec.Quantity
-                //         end;
-                //     end;
-                // }
 
                 trigger OnAfterGetRecord()
                 var
-                    SalesInvHeaderRec: Record "Sales Invoice Header";
-                    SalesInvLineRec: Record "Sales Invoice Line";
+                // SalesInvHeaderRec: Record "Sales Invoice Header";
+                // SalesInvLineRec: Record "Sales Invoice Line";
                 begin
                     lineAmt := 0;
-                    salesInvoiceLineQuanty := 0;
                     lineAmt := "Style Master PO".Qty * "Style Master PO"."Unit Price";
+                    TotlineAmt += lineAmt;
 
-                    SalesInvHeaderRec.Reset();
-                    SalesInvHeaderRec.SetRange("Style No", "Style No.");
-                    SalesInvHeaderRec.SetRange("PO No", "po No.");
-                    if SalesInvHeaderRec.Findset() then begin
-                        repeat
-                            SalesInvLineRec.Reset();
-                            SalesInvLineRec.SetRange("Document No.", SalesInvHeaderRec."No.");
-                            if SalesInvLineRec.Findset() then begin
-                                repeat
-                                    salesInvoiceLineQuanty += SalesInvLineRec.Quantity;
-                                until SalesInvLineRec.Next() = 0;
-                            end;
-                        until SalesInvHeaderRec.Next() = 0;
-                    end;
+                    // SalesInvHeaderRec.Reset();
+                    // SalesInvHeaderRec.SetRange("Style No", "Style No.");
+                    // SalesInvHeaderRec.SetRange("PO No", "po No.");
+                    // if SalesInvHeaderRec.Findset() then begin
+                    //     repeat
+                    //         SalesInvLineRec.Reset();
+                    //         SalesInvLineRec.SetRange("Document No.", SalesInvHeaderRec."No.");
+                    //         SalesInvLineRec.SetRange(Type, SalesInvLineRec.Type::Item);
+                    //         if SalesInvLineRec.Findset() then begin
+                    //             repeat
+                    //                 salesInvoiceLineQuanty += SalesInvLineRec.Quantity;
+                    //                 salesInvoiceLineValue += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
+                    //             until SalesInvLineRec.Next() = 0;
+                    //         end;
+                    //     until SalesInvHeaderRec.Next() = 0;
+                    // end;
                 end;
             }
 
-            trigger OnAfterGetRecord()
-            begin
-                PoTOt := "PO Total";
-                BomEstiRec.SetRange("No.", "No.");
-                if BomEstiRec.FindFirst() then begin
-                    FobPcs := BomEstiRec."FOB Pcs";
-                end;
 
+            trigger OnAfterGetRecord()
+            var
+                StyleContractRec: Record "Contract/LCStyle";
+                ContractMasterRec: Record "Contract/LCMaster";
+                StyleMasPoRec: Record "Style Master PO";
+                BOMAutoGenRec: Record "BOM Line AutoGen";
+                BOMRec: Record "BOM";
+                BOMEstCostRec: Record "BOM Estimate Cost";
+                NavAppSetupRec: Record "NavApp Setup";
+                Temp: Decimal;
+                SalesInvHeaderRec: Record "Sales Invoice Header";
+                SalesInvLineRec: Record "Sales Invoice Line";
+            begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                //get contract
+                StyleContractRec.Reset();
+                StyleContractRec.SetRange("Style No.", "No.");
+                if StyleContractRec.Findset() then begin
+                    ContractMasterRec.Reset();
+                    ContractMasterRec.SetRange("No.", StyleContractRec."No.");
+                    if ContractMasterRec.Findset() then
+                        ContractNo := ContractMasterRec."Contract No";
+                end;
+
+                Fobpcs := 0;
+                PoTOt := 0;
+                salesInvoiceLineQuanty := 0;
+                salesInvoiceLineValue := 0;
+                CommerVal := 0;
+                CommiVal := 0;
+                MFGVal := 0;
+                OverHeadVal := 0;
+                DeffPayVal := 0;
+                RiskFacVal := 0;
+                TaxVal := 0;
+                SourcingVal := 0;
+                TotFab := 0;
+                TotEmb := 0;
+                TotTrims := 0;
+                TotWash := 0;
+
+                StyleMasPoRec.Reset();
+                StyleMasPoRec.SetRange("Style No.", "No.");
+                if StyleMasPoRec.Findset() then begin
+                    repeat
+                        PoTOt += StyleMasPoRec.Qty;
+                        TotlineAmt += StyleMasPoRec.Qty * StyleMasPoRec."Unit Price";
+
+                        SalesInvHeaderRec.Reset();
+                        SalesInvHeaderRec.SetRange("Style No", "No.");
+                        SalesInvHeaderRec.SetRange("PO No", StyleMasPoRec."po No.");
+                        SalesInvHeaderRec.SetRange(Lot, StyleMasPoRec."Lot No.");
+                        if SalesInvHeaderRec.Findset() then begin
+                            repeat
+                                SalesInvLineRec.Reset();
+                                SalesInvLineRec.SetRange("Document No.", SalesInvHeaderRec."No.");
+                                SalesInvLineRec.SetRange(Type, SalesInvLineRec.Type::Item);
+                                if SalesInvLineRec.Findset() then begin
+                                    repeat
+                                        salesInvoiceLineQuanty += SalesInvLineRec.Quantity;
+                                        salesInvoiceLineValue += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
+                                    until SalesInvLineRec.Next() = 0;
+                                end;
+                            until SalesInvHeaderRec.Next() = 0;
+                        end;
+
+                    until StyleMasPoRec.Next() = 0;
+                    if PoTOt > 0 then
+                        Fobpcs := TotlineAmt / PoTOt;
+                end;
+                TotFOBVal := PoTOt * Fobpcs;
+
+
+                BOMEstCostRec.Reset();
+                BOMEstCostRec.SetRange("Style No.", "No.");
+                if BOMEstCostRec.Findset() then begin
+                    CommerVal := (TotFOBVal * BOMEstCostRec."Commercial %") / 100;
+                    CommiVal := (TotFOBVal * BOMEstCostRec."Commission %") / 100;
+                    MFGVal := (TotFOBVal * BOMEstCostRec."MFG Cost %") / 100;
+                    OverHeadVal := (TotFOBVal * BOMEstCostRec."Overhead %") / 100;
+                    DeffPayVal := (TotFOBVal * BOMEstCostRec."Deferred Payment %") / 100;
+                    RiskFacVal := (TotFOBVal * BOMEstCostRec."Risk factor %") / 100;
+                    TaxVal := (TotFOBVal * BOMEstCostRec."TAX %") / 100;
+                    SourcingVal := (TotFOBVal * BOMEstCostRec."ABA Sourcing %") / 100;
+                    SMV := BOMEstCostRec.SMV;
+                    CMDOZ := BOMEstCostRec."CM Doz";
+                    ProfitMarginDOZ := BOMEstCostRec."Profit Margin Dz.";
+
+                    //Calculate NewCPM
+                    NavAppSetupRec.Reset();
+                    NavAppSetupRec.FindSet();
+                    Temp := NavAppSetupRec."Base Efficiency" - BOMEstCostRec."Project Efficiency.";
+                    CPM := BOMEstCostRec.CPM + (BOMEstCostRec.CPM * Temp) / 100;
+                end;
+
+
+                BOMRec.Reset();
+                BOMRec.SetRange("Style No.", "No.");
+                if BOMRec.Findset() then begin
+                    BOMAutoGenRec.Reset();
+                    BOMAutoGenRec.SetRange("No.", BOMRec."No");
+                    if BOMAutoGenRec.Findset() then
+                        repeat
+                            if BOMAutoGenRec."Main Category Name" = 'FABRIC' then begin
+                                TotFab += BOMAutoGenRec.Value;
+                            end;
+
+                            if (BOMAutoGenRec."Main Category Name" = 'EMBROIDERY') or (BOMAutoGenRec."Main Category Name" = 'PRINT') then begin
+                                TotEmb += BOMAutoGenRec.Value;
+                            end;
+
+                            if (BOMAutoGenRec."Main Category Name" <> 'WASHING') and (BOMAutoGenRec."Main Category Name" <> 'FABRIC') and (BOMAutoGenRec."Main Category Name" <> 'EMBROIDERY') and (BOMAutoGenRec."Main Category Name" <> 'PRINT') then begin
+                                TotTrims += BOMAutoGenRec.Value;
+                            end;
+
+                            if BOMAutoGenRec."Main Category Name" = 'WASHING' then begin
+                                TotWash += BOMAutoGenRec.Value;
+                            end;
+                        until BOMAutoGenRec.Next() = 0;
+                end;
+
             end;
 
             trigger OnPreDataItem()
@@ -284,12 +413,16 @@ report 50612 OCR
         postedPurchLineRec: Record "Purch. Rcpt. Line";
         QuantityPurch: Decimal;
         TotFab: Decimal;
+        TotEmb: Decimal;
+        TotWash: Decimal;
+        TotTrims: Decimal;
         lineAmt: Decimal;
-        // TransferLineRec: Record "Transfer Line";
+        TotlineAmt: Decimal;
         TransferLineRecSReceived: Decimal;
         styleNOFil: Text[50];
         salesInvoiceLineRec: Record "Sales Invoice Line";
         salesInvoiceLineQuanty: Decimal;
+        salesInvoiceLineValue: Decimal;
         GarmentConsumption: Decimal;
         ItemLeRec: Record "Item Ledger Entry";
         ReqQty: Decimal;
@@ -305,6 +438,21 @@ report 50612 OCR
         purchRec: Record "Purch. Rcpt. Line";
         ActualProc: Decimal;
         ActualProcVal: Decimal;
+        ContractNo: Text[50];
+        CommerVal: Decimal;
+        CommiVal: Decimal;
+        MFGVal: Decimal;
+        OverHeadVal: Decimal;
+        DeffPayVal: Decimal;
+        RiskFacVal: Decimal;
+        TaxVal: Decimal;
+        SourcingVal: Decimal;
+        TotFOBVal: Decimal;
+        CPM: Decimal;
+        SMV: Decimal;
+        CMDOZ: Decimal;
+        ProfitMarginDOZ: Decimal;
+
 }
 
 

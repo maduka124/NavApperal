@@ -205,7 +205,7 @@ page 51328 OMSList
         StylePoRec: Record "Style Master PO";
         ContractStyleRec: Record "Contract/LCStyle";
         LoginRec: Page "Login Card";
-        LoginSessionsRec: Record LoginSessions;
+        //LoginSessionsRec: Record LoginSessions;
         UserRec: Record "User Setup";
         MaxSeqNo: BigInteger;
         ShQty: Decimal;
@@ -214,14 +214,13 @@ page 51328 OMSList
         ShQty := 0;
         POQtyTot := 0;
         //Check whether user logged in or not
-        LoginSessionsRec.Reset();
-        LoginSessionsRec.SetRange(SessionID, SessionId());
-
-        if not LoginSessionsRec.FindSet() then begin  //not logged in
-            Clear(LoginRec);
-            LoginRec.LookupMode(true);
-            LoginRec.RunModal();
-        end;
+        // LoginSessionsRec.Reset();
+        // LoginSessionsRec.SetRange(SessionID, SessionId());
+        // if not LoginSessionsRec.FindSet() then begin  //not logged in
+        //     Clear(LoginRec);
+        //     LoginRec.LookupMode(true);
+        //     LoginRec.RunModal();
+        // end;
 
         OMSRec.Reset();
         if OMSRec.FindSet() then begin
@@ -306,7 +305,7 @@ page 51328 OMSList
                             SalesInvRec.SetRange(Lot, StylePoRec."Lot No.");
                             SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
                             SalesInvRec.SetRange("PO No", StylePoRec."PO No.");
-                            SalesInvRec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
+                            //SalesInvRec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
                             if SalesInvRec.FindSet() then begin
                                 repeat
                                     SalesInvoiceLineRec.Reset();
@@ -315,11 +314,12 @@ page 51328 OMSList
                                     if SalesInvoiceLineRec.FindSet() then begin
                                         repeat
                                             ShQty += SalesInvoiceLineRec.Quantity;
+                                            OMSRec."Ship value" += (SalesInvoiceLineRec.Quantity * SalesInvoiceLineRec."Unit Price");
                                         until SalesInvoiceLineRec.Next() = 0;
                                     end;
                                 until SalesInvRec.Next() = 0;
                                 OMSRec."Ship Qty" := ShQty;
-                                OMSRec."Ship value" := ShQty * StylePoRec."Unit Price";
+                                // OMSRec."Ship value" := ShQty * StylePoRec."Unit Price";
                                 OMSRec."EXP QTY" := ShQty;
 
                                 // OMSRec."EX Short" := ShQty - StylePoRec.Qty;

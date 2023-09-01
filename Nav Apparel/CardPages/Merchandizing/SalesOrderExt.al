@@ -10,6 +10,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
                 ApplicationArea = All;
             }
         }
+
         addafter("Work Description")
         {
 
@@ -140,6 +141,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
                 end;
             end;
         }
+        
         addafter("External Document No.")
         {
             field("LC Name"; Rec."LC Name")

@@ -8478,6 +8478,9 @@ page 50984 "BOM Card"
                                         Description := Description + ' / ' + AutoGenRec."GMT Size Name";
                                 end;
 
+                                length := StrLen(Description);
+                                if length > 100 then
+                                    Description := Description.Substring(1, 100);
 
                                 //Check whether item exists
                                 ItemMasterRec.Reset();

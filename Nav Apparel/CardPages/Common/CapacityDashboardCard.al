@@ -194,50 +194,51 @@ page 51349 CapacityDashboardCard
                             //     until SalesShipmentLineRec.Next() = 0;
                             // end;
 
-                            SalesInvHeaderRec.Reset();
-                            SalesInvHeaderRec.SetRange("Shipment Date", StartDate1, FinishDate1);
-                            if SalesInvHeaderRec.FindSet() then begin
-                                repeat
-                                    SalesInvHeaderRec.CalcFields("Amount Including VAT");
-                                    Ship_Value += SalesInvHeaderRec."Amount Including VAT";
-                                    Ship_ValueTot += SalesInvHeaderRec."Amount Including VAT";
-
-                                    SalesShipHeaderRec.Reset();
-                                    SalesShipHeaderRec.SetRange("Order No.", SalesInvHeaderRec."Order No.");
-                                    if SalesShipHeaderRec.FindSet() then begin
-                                        repeat
-                                            SalesShipLineRec.Reset();
-                                            SalesShipLineRec.SetRange("Document No.", SalesShipHeaderRec."No.");
-                                            SalesShipLineRec.SetRange(Type, SalesShipLineRec.Type::Item);
-                                            if SalesShipLineRec.FindSet() then begin
-                                                repeat
-                                                    Ship_Pcs += SalesShipLineRec.Quantity;
-                                                    Ship_PcsTot += SalesShipLineRec.Quantity;
-                                                until SalesShipLineRec.Next() = 0;
-                                            end;
-                                        until SalesShipHeaderRec.Next() = 0;
-                                    end;
-                                until SalesInvHeaderRec.Next() = 0;
-                            end;
-
-
                             // SalesInvHeaderRec.Reset();
                             // SalesInvHeaderRec.SetRange("Shipment Date", StartDate1, FinishDate1);
                             // if SalesInvHeaderRec.FindSet() then begin
                             //     repeat
-                            //         SalesInvLineRec.Reset();
-                            //         SalesInvLineRec.SetRange("Document No.", SalesInvHeaderRec."No.");
-                            //         SalesInvLineRec.SetRange(Type, SalesInvLineRec.Type::Item);
-                            //         if SalesInvLineRec.FindSet() then begin
+                            //         SalesInvHeaderRec.CalcFields("Amount Including VAT");
+                            //         Ship_Value += SalesInvHeaderRec."Amount Including VAT";
+                            //         Ship_ValueTot += SalesInvHeaderRec."Amount Including VAT";
+
+                            //         SalesShipHeaderRec.Reset();
+                            //         SalesShipHeaderRec.SetRange("Order No.", SalesInvHeaderRec."Order No.");
+                            //         if SalesShipHeaderRec.FindSet() then begin
                             //             repeat
-                            //                 Ship_Pcs += SalesInvLineRec.Quantity;
-                            //                 Ship_Value += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
-                            //                 Ship_PcsTot += SalesInvLineRec.Quantity;
-                            //                 Ship_ValueTot += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
-                            //             until SalesInvLineRec.Next() = 0;
+                            //                 SalesShipLineRec.Reset();
+                            //                 SalesShipLineRec.SetRange("Document No.", SalesShipHeaderRec."No.");
+                            //                 SalesShipLineRec.SetRange(Type, SalesShipLineRec.Type::Item);
+                            //                 if SalesShipLineRec.FindSet() then begin
+                            //                     repeat
+                            //                         Ship_Pcs += SalesShipLineRec.Quantity;
+                            //                         Ship_PcsTot += SalesShipLineRec.Quantity;
+                            //                     until SalesShipLineRec.Next() = 0;
+                            //                 end;
+                            //             until SalesShipHeaderRec.Next() = 0;
                             //         end;
                             //     until SalesInvHeaderRec.Next() = 0;
                             // end;
+
+
+                            SalesInvHeaderRec.Reset();
+                            SalesInvHeaderRec.SetRange("Shipment Date", StartDate1, FinishDate1);
+                            SalesInvHeaderRec.SetFilter(Closed, '=%1', false);
+                            if SalesInvHeaderRec.FindSet() then begin
+                                repeat
+                                    SalesInvLineRec.Reset();
+                                    SalesInvLineRec.SetRange("Document No.", SalesInvHeaderRec."No.");
+                                    SalesInvLineRec.SetRange(Type, SalesInvLineRec.Type::Item);
+                                    if SalesInvLineRec.FindSet() then begin
+                                        repeat
+                                            Ship_Pcs += SalesInvLineRec.Quantity;
+                                            Ship_Value += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
+                                            Ship_PcsTot += SalesInvLineRec.Quantity;
+                                            Ship_ValueTot += SalesInvLineRec.Quantity * SalesInvLineRec."Unit Price";
+                                        until SalesInvLineRec.Next() = 0;
+                                    end;
+                                until SalesInvHeaderRec.Next() = 0;
+                            end;
 
                             //Get all factories
                             LocationRec.Reset();

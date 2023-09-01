@@ -359,41 +359,67 @@ page 50978 "Create User Card"
             //         end;
             //     end;
             // }
-            // action("Remove minus Planned Qty")
+            action("Remove minus Planned Qty in wip")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    Sty: Record "Style Master PO";
+                begin
+                    Sty.Reset();
+                    Sty.SetFilter(PlannedQty, '<%1', 0);
+                    if Sty.FindSet() then
+                        Sty.ModifyAll(PlannedQty, 0);
+
+                    Message('Completed');
+                end;
+            }
+
+            action("Remove minus Target qty in planned detail")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    NavApp: Record "NavApp Prod Plans Details";
+                begin
+                    NavApp.Reset();
+                    NavApp.SetFilter(Qty, '<%1', 0);
+                    NavApp.SetFilter(ProdUpd, '=%1', 0);
+                    if NavApp.FindSet() then
+                        NavApp.DeleteAll();
+
+                    Message('Completed');
+                end;
+            }
+
+            // action("update GIT LC balance value")
             // {
             //     ApplicationArea = All;
             //     Image = AddAction;
 
             //     trigger OnAction()
             //     var
-            //         Sty: Record "Style Master PO";
+            //         GITBaseonLCRec: Record GITBaseonLC;
+            //         GITRec: Record GITBaseonLC;
+            //         Tot: Decimal;
             //     begin
-            //         Sty.Reset();
-            //         Sty.SetFilter(PlannedQty, '<%1', 0);
-            //         Sty.FindSet();
-            //         Sty.ModifyAll(PlannedQty, 0);
-            //         Message('Completed');
-            //     end;
-            // }
-
-
-            // action("update prod update status")
-            // {
-            //     ApplicationArea = All;
-            //     Image = AddAction;
-
-            //     trigger OnAction()
-            //     var
-            //         Prodout: Record ProductionOutHeader;
-            //         dtStart: Date;
-            //     begin
-            //         dtStart := DMY2DATE(2, 5, 2023);
-            //         Prodout.Reset();
-            //         Prodout.SetRange("Prod Date", dtStart);
-            //         Prodout.FindSet();
-            //         Prodout.ModifyAll("Prod Updated", 0);
-
-
+            //         GITBaseonLCRec.Reset();
+            //         if GITBaseonLCRec.FindSet() then
+            //             repeat
+            //                 GITRec.Reset();
+            //                 GITRec.SetRange("B2B LC No.", GITBaseonLCRec."B2B LC No.");
+            //                 if GITRec.FindSet() then begin
+            //                     repeat
+            //                         tot += GITRec."Invoice Value";
+            //                     until GITRec.Next() = 0;
+            //                 end;
+            //                 GITBaseonLCRec."B2B LC Balance" := GITBaseonLCRec."B2B LC Value" - Tot;
+            //                 GITBaseonLCRec.Modify();
+            //             until GITBaseonLCRec.Next() = 0;
             //     end;
             // }
 
@@ -438,6 +464,52 @@ page 50978 "Create User Card"
             //         Message('Completed');
             //     end;
             // }  
+
+            action("Update AC Shipped Qty")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    SalesInvoiceheader: Record "Sales Invoice Header";
+                    SalesInvoiceLineRec: Record "Sales Invoice Line";
+                    SatylemsterPORec: Record "Style Master PO";
+                    ShippedQty: BigInteger;
+                begin
+
+                    SalesInvoiceheader.Reset();
+                    if SalesInvoiceheader.FindSet() then begin
+                        repeat
+
+
+                            SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceheader."No.");
+
+                            if SalesInvoiceLineRec.FindSet() then begin
+                                ShippedQty := 0;
+                                repeat
+
+                                    ShippedQty += SalesInvoiceLineRec.Quantity;
+
+                                until SalesInvoiceLineRec.Next() = 0;
+
+                                SatylemsterPORec.Reset();
+                                SatylemsterPORec.SetRange("Style No.", SalesInvoiceheader."Style No");
+                                SatylemsterPORec.SetRange("PO No.", SalesInvoiceheader."PO No");
+                                SatylemsterPORec.SetRange("Lot No.", SalesInvoiceheader.Lot);
+
+                                if SatylemsterPORec.FindSet() then begin
+                                    SatylemsterPORec."Actual Shipment Qty" := SatylemsterPORec."Actual Shipment Qty" + ShippedQty;
+                                    SatylemsterPORec.Modify();
+                                end;
+                            end;
+
+                        until SalesInvoiceheader.Next() = 0;
+                    end;
+
+                    Message('Completed');
+                end;
+            }
         }
     }
 

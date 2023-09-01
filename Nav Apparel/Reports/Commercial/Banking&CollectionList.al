@@ -38,7 +38,6 @@ report 50643 BankingAndCollectionList
                         DataItemTableView = sorting("No.");
                         column(Ship_Value; "Ship Value")
                         { }
-
                         column(BankRefNo_; Bank_RefNo)
                         { }
                         column(Reference_Date; RefDate)

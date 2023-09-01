@@ -754,11 +754,19 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Purchase Order Report")
+                    action("Purchase Order Report Detail")
                     {
-                        Caption = 'Purchase Order Report';
+                        Caption = 'Purchase Order Report - Detail';
                         Enabled = true;
                         RunObject = report PurchaseOrderReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Purchase Order Report Summary")
+                    {
+                        Caption = 'Purchase Order Report - Summary';
+                        Enabled = true;
+                        RunObject = report PurchaseOrderReportSummary;
                         ApplicationArea = all;
                     }
 
@@ -1832,6 +1840,14 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Production and Shipment Details Report1")
+                    {
+                        Caption = 'Production and Shipment Details Report';
+                        Enabled = true;
+                        RunObject = report ProductionAndShipmentDetails;
+                        ApplicationArea = all;
+                    }
+
                     //Done By Sachith on 22/02/23
                     action("Production Plan Report Sewing")
                     {
@@ -2636,7 +2652,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("GIT Base On PI")
                 {
-                    Caption = 'GIT Base On PI';
+                    Caption = 'GIT Based On PI/TT/FDD';
                     RunObject = Page "GIT Baseon PI List";
                     ApplicationArea = all;
                 }
@@ -2718,6 +2734,14 @@ page 50968 "Nav Apperal Role Center"
                 group("Commercial Reports")
                 {
                     Caption = 'Commercial Reports';
+
+                    action("BBLC Payment Summary Report")
+                    {
+                        Caption = 'BBLC Payment Summary Report';
+                        Enabled = true;
+                        RunObject = report BBLCPaymentSummaryReport;
+                        ApplicationArea = all;
+                    }
 
                     action("Contract Export Status Report")
                     {
