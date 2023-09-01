@@ -190,24 +190,24 @@ page 50978 "Create User Card"
 
             //     end;
             // }
-            // action("Reomove Request Approval")
-            // {
-            //     ApplicationArea = All;
+            action("Reomove Request Approval")
+            {
+                ApplicationArea = All;
 
-            //     trigger OnAction()
-            //     var
-            //         ApprovalRec: Record "Approval Entry";
-            //     begin
-            //         ApprovalRec.Reset();
-            //         ApprovalRec.SetRange("Document No.", ApprovalNo);
-            //         ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
-            //         ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
-            //         if ApprovalRec.FindSet() then begin
-            //             ApprovalRec.DeleteAll();
-            //             Message('Request Deleted');
-            //         end;
-            //     end;
-            // }
+                trigger OnAction()
+                var
+                    ApprovalRec: Record "Approval Entry";
+                begin
+                    ApprovalRec.Reset();
+                    ApprovalRec.SetRange("Document No.", ApprovalNo);
+                    ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
+                    ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
+                    if ApprovalRec.FindSet() then begin
+                        ApprovalRec.DeleteAll();
+                        Message('Request Deleted');
+                    end;
+                end;
+            }
 
 
             // action("Remove Assigned PI No")
