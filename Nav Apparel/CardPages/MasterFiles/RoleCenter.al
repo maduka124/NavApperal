@@ -3357,6 +3357,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "User List";
                     ApplicationArea = all;
                 }
+                action("Approval Entry List")
+                {
+                    Caption = 'Approval Entry List';
+                    RunObject = Page ApprovalEntryList;
+                    ApplicationArea = all;
+                }
 
                 // Done By Sachith On 16/01/23
                 action("User Roles")
