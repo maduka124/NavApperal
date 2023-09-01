@@ -101,9 +101,10 @@ page 50522 "B2B LC Card"
                         //Done By Sachith 01/02/23
                         ContLCMasRec.Reset();
                         ContLCMasRec.SetRange("Contract No", rec.LCContractNo);
-
-                        if ContLCMasRec.FindSet() then
+                        if ContLCMasRec.FindSet() then begin
                             Rec."Global Dimension Code" := ContLCMasRec."Global Dimension Code";
+                            rec."Contract Sys No." := ContLCMasRec."No.";
+                        end;
 
                         PIDetMasterRec.Reset();
                         PIDetMasterRec.SetCurrentKey("Supplier No.");

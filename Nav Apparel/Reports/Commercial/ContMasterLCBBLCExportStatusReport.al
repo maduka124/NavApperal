@@ -40,32 +40,45 @@ report 50630 ExportStatusReport1
             { }
             column(Contract_Value; ContractValue)
             { }
-            column(Invoice_No; FtyInvoiceNo)
-            { }
 
 
-            // dataitem("Contract/LCStyle "; "Contract/LCStyle")
-            // {
-            //     DataItemLinkReference = B2BLCMaster;
-            //     DataItemLink = "Contract No" = field("LC/Contract No.");
-            //     DataItemTableView = sorting("No.");
+            dataitem("Contract/LCStyle"; "Contract/LCStyle")
+            {
+                DataItemLinkReference = B2BLCMaster;
+                DataItemLink = "No." = field("Contract Sys No.");
+                DataItemTableView = sorting("No.");
 
-            //     column(Inv_No; "No.")
-            //     { }
-            //     column(Invoice_Amount; Total)
-            //     { }
-            //     column(BankRefNo_; BankRefNo)
-            //     { }
-            //     column(Release_Amount; ReleaseAmt)
-            //     { }
-            //     column(FC_A_C_Amount; FCACAMT)
-            //     { }
-            //     column(Current_A_C_Amount; CurrentACAMT)
-            //     { }
-            //     column(Margin_A_C_Amount; MarginAcAmt)
-            //     { }
+                dataitem("Sales Invoice Header"; "Sales Invoice Header")
+                {
+                    DataItemLinkReference = "Contract/LCStyle";
+                    DataItemLink = "Style No" = field("Style No.");
+                    DataItemTableView = sorting("No.");
 
-            // }
+                    column("InvNo"; "No.")
+                    { }
+                    column(Invoice_No; "Your Reference")
+                    { }
+                    column(Invoice_Amount; "Amount Including VAT")
+                    { }
+
+                    dataitem(BankRefCollectionLine; "BankRefCollectionLine")
+                    {
+                        DataItemLinkReference = "Sales Invoice Header";
+                        DataItemLink = "Invoice No" = field("No.");
+
+                        column(BankRefNo_; "BankRefNo.")
+                        { }
+                        column(Release_Amount; "Release Amount")
+                        { }
+                        column(FC_A_C_Amount; "FC A/C Amount")
+                        { }
+                        column(Current_A_C_Amount; "Current A/C Amount")
+                        { }
+                        column(Margin_A_C_Amount; "Margin A/C Amount")
+                        { }
+                    }
+                }
+            }
 
             trigger OnPreDataItem()
             begin

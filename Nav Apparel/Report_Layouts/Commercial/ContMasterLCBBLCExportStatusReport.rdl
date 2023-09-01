@@ -38,7 +38,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.3175cm</Top>
-            <Left>5.85323cm</Left>
+            <Left>7.75823cm</Left>
             <Height>1.19062cm</Height>
             <Width>14.81668cm</Width>
             <Style>
@@ -1762,16 +1762,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.08583cm</Width>
+                  <Width>3.29213cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.02375cm</Width>
+                  <Width>2.25658cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.94438cm</Width>
+                  <Width>3.72238cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.70191cm</Width>
+                  <Width>2.56238cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.94438cm</Width>
@@ -1785,7 +1785,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.52917cm</Height>
+                  <Height>1.08479cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3025,8 +3025,8 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>4.89162cm</Top>
             <Left>12.70719cm</Left>
-            <Height>2.28479cm</Height>
-            <Width>14.77797cm</Width>
+            <Height>2.84041cm</Height>
+            <Width>17.85557cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -3112,8 +3112,8 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0cm</Top>
-            <Left>22.82536cm</Left>
+            <Top>0.3175cm</Top>
+            <Left>26.00036cm</Left>
             <Height>1.71979cm</Height>
             <Width>3.7073cm</Width>
             <ZIndex>6</ZIndex>
@@ -3131,7 +3131,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>27.54783cm</Width>
+      <Width>31.76cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -3200,7 +3200,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox71</rd:DefaultName>
               <Top>0.22931cm</Top>
-              <Left>11.68823cm</Left>
+              <Left>13.91073cm</Left>
               <Height>0.97896cm</Height>
               <Width>6.37646cm</Width>
               <ZIndex>1</ZIndex>
@@ -3250,7 +3250,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
               <Top>0.17639cm</Top>
-              <Left>25.31864cm</Left>
+              <Left>27.54114cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
@@ -3271,8 +3271,8 @@
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>21cm</PageHeight>
-        <PageWidth>29.7cm</PageWidth>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>34cm</PageWidth>
         <LeftMargin>1cm</LeftMargin>
         <RightMargin>1cm</RightMargin>
         <TopMargin>1cm</TopMargin>
@@ -3427,8 +3427,44 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Contract_ValueFormat">
           <DataField>Contract_ValueFormat</DataField>
         </Field>
+        <Field Name="InvNo">
+          <DataField>InvNo</DataField>
+        </Field>
         <Field Name="Invoice_No">
           <DataField>Invoice_No</DataField>
+        </Field>
+        <Field Name="Invoice_Amount">
+          <DataField>Invoice_Amount</DataField>
+        </Field>
+        <Field Name="Invoice_AmountFormat">
+          <DataField>Invoice_AmountFormat</DataField>
+        </Field>
+        <Field Name="BankRefNo_">
+          <DataField>BankRefNo_</DataField>
+        </Field>
+        <Field Name="Release_Amount">
+          <DataField>Release_Amount</DataField>
+        </Field>
+        <Field Name="Release_AmountFormat">
+          <DataField>Release_AmountFormat</DataField>
+        </Field>
+        <Field Name="FC_A_C_Amount">
+          <DataField>FC_A_C_Amount</DataField>
+        </Field>
+        <Field Name="FC_A_C_AmountFormat">
+          <DataField>FC_A_C_AmountFormat</DataField>
+        </Field>
+        <Field Name="Current_A_C_Amount">
+          <DataField>Current_A_C_Amount</DataField>
+        </Field>
+        <Field Name="Current_A_C_AmountFormat">
+          <DataField>Current_A_C_AmountFormat</DataField>
+        </Field>
+        <Field Name="Margin_A_C_Amount">
+          <DataField>Margin_A_C_Amount</DataField>
+        </Field>
+        <Field Name="Margin_A_C_AmountFormat">
+          <DataField>Margin_A_C_AmountFormat</DataField>
         </Field>
       </Fields>
       <Query>
