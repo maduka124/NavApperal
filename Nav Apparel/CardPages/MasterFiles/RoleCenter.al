@@ -3110,6 +3110,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report CostBreakupReport;
                         ApplicationArea = all;
                     }
+
+                    //Done By sachith On 01/09/23
+                    action("Order Completion Report - Finace")
+                    {
+                        Caption = 'Order Completion Report';
+                        Enabled = true;
+                        RunObject = report OCR;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
@@ -3355,6 +3364,12 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Create User';
                     RunObject = Page "User List";
+                    ApplicationArea = all;
+                }
+                action("Approval Entry List")
+                {
+                    Caption = 'Approval Entry List';
+                    RunObject = Page ApprovalEntryList;
                     ApplicationArea = all;
                 }
 

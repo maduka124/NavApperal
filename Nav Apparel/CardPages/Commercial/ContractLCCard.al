@@ -435,6 +435,61 @@ page 50502 "Contract/LC Card"
         end;
     end;
 
+    trigger OnAfterGetCurrRecord()
+    var
+        StyleRec: Record "Style Master";
+        ContractLcStyleRec: Record "Contract/LCStyle";
+        ContractRec: Record "Contract/LCMaster";
+    begin
+        ContractLcStyleRec.Reset();
+        ContractLcStyleRec.SetRange("No.", Rec."No.");
+        if ContractLcStyleRec.FindSet() then begin
+            StyleRec.Reset();
+            StyleRec.SetRange("No.", ContractLcStyleRec."Style No.");
+            if StyleRec.FindSet() then begin
+                repeat
+                    ContractLcStyleRec.Qty := StyleRec."Order Qty";
+                until StyleRec.Next() = 0;
+                ContractLcStyleRec.Modify();
+            end;
 
+            ContractRec.Reset();
+            ContractRec.SetRange("No.", Rec."No.");
+            if ContractRec.FindSet() then begin
+                ContractLcStyleRec.CalcSums(Qty);
+                ContractRec."Quantity (Pcs)" := ContractLcStyleRec.Qty;
+                ContractRec.Modify();
+            end;
+        end;
+    end;
+
+
+    trigger OnOpenPage()
+    var
+        StyleRec: Record "Style Master";
+        ContractLcStyleRec: Record "Contract/LCStyle";
+        ContractRec: Record "Contract/LCMaster";
+    begin
+        ContractLcStyleRec.Reset();
+        ContractLcStyleRec.SetRange("No.", Rec."No.");
+        if ContractLcStyleRec.FindSet() then begin
+            StyleRec.Reset();
+            StyleRec.SetRange("No.", ContractLcStyleRec."Style No.");
+            if StyleRec.FindSet() then begin
+                repeat
+                    ContractLcStyleRec.Qty := StyleRec."Order Qty";
+                until StyleRec.Next() = 0;
+                ContractLcStyleRec.Modify();
+            end;
+
+            ContractRec.Reset();
+            ContractRec.SetRange("No.", Rec."No.");
+            if ContractRec.FindSet() then begin
+                ContractLcStyleRec.CalcSums(Qty);
+                ContractRec."Quantity (Pcs)" := ContractLcStyleRec.Qty;
+                ContractRec.Modify();
+            end;
+        end;
+    end;
 
 }

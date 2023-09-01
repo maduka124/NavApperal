@@ -10,6 +10,8 @@ page 51062 SampleReqLineListPart
         {
             repeater(General)
             {
+                Editable = EditableGB;
+
                 field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
@@ -243,4 +245,24 @@ page 51062 SampleReqLineListPart
         else
             exit(0);
     end;
+
+    //Done By Sachith on 01/09/23
+    trigger OnAfterGetRecord()
+    var
+        SampleReqLineRec: Record "Sample Requsition Line";
+    begin
+        SampleReqLineRec.Reset();
+        SampleReqLineRec.SetRange("No.", Rec."No.");
+
+        if SampleReqLineRec.FindSet() then begin
+            if SampleReqLineRec."Pattern Date" <> 0D then begin
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+        end;
+    end;
+
+    var
+        EditableGB: Boolean;
 }

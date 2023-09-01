@@ -747,7 +747,7 @@
                                   <Value>=Fields!Contract_Value.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n1</Format>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -880,7 +880,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ShippedQty.Value</Value>
+                                  <Value>=Sum(Fields!ShippedQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -1087,9 +1087,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UnitPrice.Value * Fields!ShippedQty.Value</Value>
+                                  <Value>=Sum(Fields!UnitPrice.Value) * Sum(Fields!ShippedQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2049,7 +2050,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PoQty2">
+                        <Textbox Name="PoQty3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2526,7 +2527,6 @@
                               <PaddingBottom>2pt</PaddingBottom>
                             </Style>
                           </Textbox>
-                          <rd:Selected>true</rd:Selected>
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>
@@ -2935,10 +2935,11 @@
                               </TablixHeader>
                               <TablixMembers>
                                 <TablixMember>
-                                  <Group Name="Details" />
-                                  <Visibility>
-                                    <Hidden>=Fields!Color.Value=""</Hidden>
-                                  </Visibility>
+                                  <Group Name="Details">
+                                    <GroupExpressions>
+                                      <GroupExpression>=Fields!Color.Value</GroupExpression>
+                                    </GroupExpressions>
+                                  </Group>
                                 </TablixMember>
                               </TablixMembers>
                             </TablixMember>
@@ -3213,7 +3214,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>7.64003cm</Height>
+        <Height>7.47153cm</Height>
         <Style />
       </Body>
       <Width>28.63048cm</Width>
@@ -3481,6 +3482,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Style_Name">
           <DataField>Style_Name</DataField>
         </Field>
+        <Field Name="PoQtySum">
+          <DataField>PoQtySum</DataField>
+        </Field>
         <Field Name="Qty">
           <DataField>Qty</DataField>
         </Field>
@@ -3507,9 +3511,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Color">
           <DataField>Color</DataField>
-        </Field>
-        <Field Name="PoQtySum">
-          <DataField>PoQtySum</DataField>
         </Field>
       </Fields>
       <Query>
