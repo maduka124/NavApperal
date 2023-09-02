@@ -647,6 +647,7 @@ codeunit 50822 NavAppCodeUnit2
         //StyleNo1: Code[20];
         xxx: Integer;
         Tot: BigInteger;
+        SewTot: Decimal;
     begin
         if YearPara > 0 then begin
 
@@ -1128,89 +1129,95 @@ codeunit 50822 NavAppCodeUnit2
                                 // if (StyleMasterRec."Buyer Name" = 'Inditex') and (StyleMasterRec."Brand Name" = 'STRAVARIUS') then
                                 //     xxx := ProductionOutHeaderRec."No.";
 
+                                if StyleMasterPORec."Sawing Out Qty" >= StyleMasterPORec.Qty then
+                                    SewTot := StyleMasterPORec.qty
+                                else
+                                    SewTot := StyleMasterPORec."Sawing Out Qty";
+
                                 //Check existance
                                 BuyerWiseOdrBookinBalatoSewRec.Reset();
                                 BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, YearPara);
                                 BuyerWiseOdrBookinBalatoSewRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                                BuyerWiseOdrBookinBalatoSewRec.SetRange("Brand No", StyleMasterRec."Brand No.");
+                                // BuyerWiseOdrBookinBalatoSewRec.SetRange("Brand No", StyleMasterRec."Brand No.");
+                                BuyerWiseOdrBookinBalatoSewRec.SetRange("Brand Name", StyleMasterRec."Brand Name");
                                 if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
 
                                     case i of
                                         1:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.JAN < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.JAN := 0;
                                             end;
                                         2:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.FEB < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.FEB := 0;
                                             end;
                                         3:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.MAR < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.MAR := 0;
                                             end;
                                         4:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.APR < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.APR := 0;
                                             end;
                                         5:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.MAY < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.MAY := 0;
                                             end;
                                         6:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.JUN < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.JUN := 0;
                                             end;
                                         7:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.JUL < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.JUL := 0;
                                             end;
                                         8:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.AUG < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.AUG := 0;
                                             end;
                                         9:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.SEP < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.SEP := 0;
                                             end;
                                         10:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.OCT < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.OCT := 0;
                                             end;
                                         11:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.NOV < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.NOV := 0;
                                             end;
                                         12:
                                             begin
-                                                BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - StyleMasterPORec."Sawing Out Qty";
+                                                BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - SewTot;
                                                 if BuyerWiseOdrBookinBalatoSewRec.DEC < 0 then
                                                     BuyerWiseOdrBookinBalatoSewRec.DEC := 0;
                                             end;
                                     end;
 
-                                    BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - StyleMasterPORec."Sawing Out Qty";
+                                    BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - SewTot;
                                     if BuyerWiseOdrBookinBalatoSewRec.Total < 0 then
                                         BuyerWiseOdrBookinBalatoSewRec.Total := 0;
 
@@ -1511,6 +1518,8 @@ codeunit 50822 NavAppCodeUnit2
                                     until PostSalesInvHeaderRec.Next() = 0;
                                 end;
 
+                                if Tot >= StyleMasterPORec.Qty then
+                                    Tot := StyleMasterPORec.qty;
 
                                 //Check existance
                                 BuyerWiseOdrBookinBalatoShipRec.Reset();

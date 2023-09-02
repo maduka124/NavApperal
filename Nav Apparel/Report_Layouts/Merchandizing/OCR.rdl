@@ -2632,7 +2632,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -6631,9 +6630,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PO_Total.Value/
+                                  <Value>=
 ((Fields!FobPcs.Value*Fields!salesInvoiceLineQuanty.Value) -
-(Fields!TotFab.Value+Fields!TotEmb.Value+Fields!TotTrims.Value+Fields!Totwash.Value+Fields!CommiVal.Value+Fields!CommerVal.Value+Fields!MFGVal.Value+Fields!OverHeadVal.Value+Fields!DeffPayVal.Value+Fields!RiskFacVal.Value+Fields!TaxVal.Value+Fields!SourcingVal.Value))*12</Value>
+(Fields!TotFab.Value+Fields!TotEmb.Value+Fields!TotTrims.Value+Fields!Totwash.Value+Fields!CommiVal.Value+Fields!CommerVal.Value+Fields!MFGVal.Value+Fields!OverHeadVal.Value+Fields!DeffPayVal.Value+Fields!RiskFacVal.Value+Fields!TaxVal.Value+Fields!SourcingVal.Value))/Fields!PO_Total.Value*12</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6731,9 +6730,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!PO_Total.Value/
-((Fields!FobPcs.Value*Fields!salesInvoiceLineQuanty.Value) -
-(Fields!TotFab.Value+Fields!TotEmb.Value+Fields!TotTrims.Value+Fields!Totwash.Value+Fields!CommiVal.Value+Fields!CommerVal.Value+Fields!MFGVal.Value+Fields!OverHeadVal.Value+Fields!DeffPayVal.Value+Fields!RiskFacVal.Value+Fields!TaxVal.Value+Fields!SourcingVal.Value))*12) -
+                                  <Value>=(((Fields!FobPcs.Value*Fields!salesInvoiceLineQuanty.Value) -
+(Fields!TotFab.Value+Fields!TotEmb.Value+Fields!TotTrims.Value+Fields!Totwash.Value+Fields!CommiVal.Value+Fields!CommerVal.Value+Fields!MFGVal.Value+Fields!OverHeadVal.Value+Fields!DeffPayVal.Value+Fields!RiskFacVal.Value+Fields!TaxVal.Value+Fields!SourcingVal.Value))/Fields!PO_Total.Value*12) -
 Fields!ProfitMarginDOZ.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>

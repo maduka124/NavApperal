@@ -396,31 +396,31 @@ page 50978 "Create User Card"
                 end;
             }
 
-            action("update contract sys no in b2b master")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("update contract sys no in b2b master")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    B2BLCMaster: Record B2BLCMaster;
-                    "ContLCMasRec": Record "Contract/LCMaster";
-                begin
-                    B2BLCMaster.Reset();
-                    if B2BLCMaster.FindSet() then begin
-                        repeat
-                            ContLCMasRec.Reset();
-                            ContLCMasRec.SetRange("Contract No", B2BLCMaster."LC/Contract No.");
-                            if ContLCMasRec.FindSet() then begin
-                                B2BLCMaster."Contract Sys No." := ContLCMasRec."No.";
-                                B2BLCMaster.Modify();
-                            end;
-                        until B2BLCMaster.Next() = 0;
-                    end;
+            //     trigger OnAction()
+            //     var
+            //         B2BLCMaster: Record B2BLCMaster;
+            //         "ContLCMasRec": Record "Contract/LCMaster";
+            //     begin
+            //         B2BLCMaster.Reset();
+            //         if B2BLCMaster.FindSet() then begin
+            //             repeat
+            //                 ContLCMasRec.Reset();
+            //                 ContLCMasRec.SetRange("Contract No", B2BLCMaster."LC/Contract No.");
+            //                 if ContLCMasRec.FindSet() then begin
+            //                     B2BLCMaster."Contract Sys No." := ContLCMasRec."No.";
+            //                     B2BLCMaster.Modify();
+            //                 end;
+            //             until B2BLCMaster.Next() = 0;
+            //         end;
 
-                    Message('Completed');
-                end;
-            }
+            //         Message('Completed');
+            //     end;
+            // }
 
             // action("update GIT LC balance value")
             // {
