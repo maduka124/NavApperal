@@ -682,6 +682,22 @@ page 50968 "Nav Apperal Role Center"
                             RunObject = report CapacityByPcsGroupWiseReport;
                             ApplicationArea = all;
                         }
+
+                        action("Month Wise Sewing Balance Report Style/PO")
+                        {
+                            Caption = 'Month Wise Sewing Balance Report-Style/PO';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToSewReport2;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Ship Balance Report Style/PO")
+                        {
+                            Caption = 'Month Wise Ship Balance Report-Style/PO';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToShipReport2;
+                            ApplicationArea = all;
+                        }
                     }
 
                     action("CostBreakupReport1")
@@ -975,6 +991,22 @@ page 50968 "Nav Apperal Role Center"
                             Caption = 'Month Wise Merchant Group Booking Report';
                             Enabled = true;
                             RunObject = report CapacityByPcsGroupWiseReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Sewing Balance Report Style/PO1")
+                        {
+                            Caption = 'Month Wise Sewing Balance Report-Style/PO';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToSewReport2;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Ship Balance Report Style/PO1")
+                        {
+                            Caption = 'Month Wise Ship Balance Report-Style/PO';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToShipReport2;
                             ApplicationArea = all;
                         }
                     }
