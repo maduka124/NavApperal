@@ -251,9 +251,9 @@ page 51062 SampleReqLineListPart
     var
         SampleReqLineRec: Record "Sample Requsition Line";
     begin
+        EditableGB := true;
         SampleReqLineRec.Reset();
         SampleReqLineRec.SetRange("No.", Rec."No.");
-
         if SampleReqLineRec.FindSet() then begin
             if SampleReqLineRec."Pattern Date" <> 0D then begin
                 EditableGB := false;
@@ -262,6 +262,24 @@ page 51062 SampleReqLineListPart
                 EditableGB := true;
         end;
     end;
+
+
+    trigger OnOpenPage()
+    var
+        SampleReqLineRec: Record "Sample Requsition Line";
+    begin
+        EditableGB := true;
+        SampleReqLineRec.Reset();
+        SampleReqLineRec.SetRange("No.", Rec."No.");
+        if SampleReqLineRec.FindSet() then begin
+            if SampleReqLineRec."Pattern Date" <> 0D then begin
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+        end;
+    end;
+
 
     var
         EditableGB: Boolean;
