@@ -1525,7 +1525,7 @@ codeunit 50822 NavAppCodeUnit2
                                 BuyerWiseOdrBookinBalatoShipRec.Reset();
                                 BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, YearPara);
                                 BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                                BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand No", StyleMasterRec."Brand No.");
+                                BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand Name", StyleMasterRec."Brand Name");
                                 if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
 
                                     case i of

@@ -1101,7 +1101,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>#,0.00;(#,0.00)</Format>
+                                    <Format>#,0;(#,0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1653,12 +1653,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=sum(Fields!Sawing_Out_Qty.Value-Fields!Qty.Value)</Value>
+                                  <Value>=sum(iif((Fields!Sawing_Out_Qty.Value-Fields!Qty.Value)&lt;0,(Fields!Sawing_Out_Qty.Value-Fields!Qty.Value),0))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
+                                    <Format>#,0;(#,0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2083,12 +2083,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=sum(Fields!Sawing_Out_Qty.Value-Fields!Qty.Value)</Value>
+                                  <Value>=sum(iif((Fields!Sawing_Out_Qty.Value-Fields!Qty.Value)&lt;0,(Fields!Sawing_Out_Qty.Value-Fields!Qty.Value),0))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
+                                    <Format>#,0;(#,0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2422,7 +2422,7 @@
                             <TablixMember />
                           </TablixMembers>
                           <Visibility>
-                            <Hidden>=iif(IsNothing(Fields!Qty.Value),true,false)</Hidden>
+                            <Hidden>=iif((Fields!Sawing_Out_Qty.Value-Fields!Qty.Value)&gt;=0,true,false)</Hidden>
                           </Visibility>
                         </TablixMember>
                         <TablixMember>
@@ -2547,7 +2547,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Month Wise Sewing Balance Report - Style/PO Wise</Value>
+                    <Value>Sewing Balances Report</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Calibri</FontFamily>

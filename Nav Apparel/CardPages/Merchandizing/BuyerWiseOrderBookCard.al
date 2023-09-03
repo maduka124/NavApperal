@@ -857,7 +857,6 @@ page 51165 "BuyerWiseOrderBooking"
                                         PostSalesInvHeaderRec.Reset();
                                         PostSalesInvHeaderRec.SetRange("Style No", StyleMasterPORec."Style No.");
                                         PostSalesInvHeaderRec.SetRange("po No", StyleMasterPORec."po No.");
-                                        //Get sales line for the sales invoice
                                         if PostSalesInvHeaderRec.FindSet() then begin
                                             repeat
 
@@ -879,7 +878,7 @@ page 51165 "BuyerWiseOrderBooking"
                                         BuyerWiseOdrBookinBalatoShipRec.Reset();
                                         BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
                                         BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                                        BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand No", StyleMasterRec."Brand No.");
+                                        BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand Name", StyleMasterRec."Brand Name");
                                         if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
 
                                             case i of

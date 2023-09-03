@@ -2,7 +2,7 @@ report 51411 CapacityByPcsBalToSewReport2
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Month Wise Sewing Balance Report-Style/PO';
+    Caption = 'Sewing Balances Report';
     RDLCLayout = 'Report_Layouts/Merchandizing/CapacityByPcsBalToSewReport2.rdl';
     DefaultLayout = RDLC;
 
@@ -143,7 +143,7 @@ report 51411 CapacityByPcsBalToSewReport2
                 }
             }
         }
-        
+
         //Done By Sachith on  28/02/23
         trigger OnOpenPage()
         begin

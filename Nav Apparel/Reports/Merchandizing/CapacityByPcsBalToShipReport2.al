@@ -2,7 +2,7 @@ report 51412 CapacityByPcsBalToShipReport2
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Month Wise Shipping Balance Report-Style/PO';
+    Caption = 'Shipping Balances Report';
     RDLCLayout = 'Report_Layouts/Merchandizing/CapacityByPcsBalToShipReport2.rdl';
     DefaultLayout = RDLC;
 
@@ -10,7 +10,8 @@ report 51412 CapacityByPcsBalToShipReport2
     {
         dataitem("Style Master"; "Style Master")
         {
-            DataItemTableView = where(Status = filter('Confirmed'));
+            DataItemTableView = where(Status = filter('Confirmed'), "Buyer Name" = filter(<> ''));
+
             column(Season_Name; "Season Name")
             { }
             column(No_; "No.")
@@ -60,12 +61,37 @@ report 51412 CapacityByPcsBalToShipReport2
                 { }
                 column(Ship_Date; "Ship Date")
                 { }
-                column(Actual_Shipment_Qty; "Actual Shipment Qty")
+                column(Actual_Shipment_Qty; "ActualShipmentQty")
+                { }
+                column(BalShipment; "ActualShipmentQty" - Qty)
                 { }
 
                 trigger OnAfterGetRecord()
+                var
+                    PostSalesInvHeaderRec: Record "Sales Invoice Header";
+                    PostSalesInvLineRec: Record "Sales Invoice Line";
                 begin
-                    UnitPriceRound := Round("Unit Price", 0.01, '=')
+                    UnitPriceRound := Round("Unit Price", 0.01, '=');
+                  
+                    //Get postes salin invoices for the style / po
+                    ActualShipmentQty := 0;
+                    PostSalesInvHeaderRec.Reset();
+                    PostSalesInvHeaderRec.SetRange("Style No", "Style No.");
+                    PostSalesInvHeaderRec.SetRange("po No", "po No.");
+                    if PostSalesInvHeaderRec.FindSet() then begin
+                        repeat
+                            PostSalesInvLineRec.Reset();
+                            PostSalesInvLineRec.SetFilter("Document No.", PostSalesInvHeaderRec."No.");
+                            if PostSalesInvLineRec.FindSet() then begin
+                                repeat
+                                    ActualShipmentQty += PostSalesInvLineRec.Quantity;
+                                until PostSalesInvLineRec.Next() = 0;
+                            end
+                        until PostSalesInvHeaderRec.Next() = 0;
+                    end;
+
+                    if ActualShipmentQty >= Qty then
+                        ActualShipmentQty := Qty;
                 end;
 
                 //Done By Sachith on 14/03/23
@@ -165,4 +191,5 @@ report 51412 CapacityByPcsBalToShipReport2
         Buyer: Code[20];
         "All buyers": Boolean;
         BuyerEditable: Boolean;
+        ActualShipmentQty: Decimal;
 }

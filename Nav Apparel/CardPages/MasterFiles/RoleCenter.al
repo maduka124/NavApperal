@@ -685,15 +685,15 @@ page 50968 "Nav Apperal Role Center"
 
                         action("Month Wise Sewing Balance Report Style/PO")
                         {
-                            Caption = 'Month Wise Sewing Balance Report-Style/PO';
+                            Caption = 'Sewing Balances Report';
                             Enabled = true;
                             RunObject = report CapacityByPcsBalToSewReport2;
                             ApplicationArea = all;
                         }
 
-                        action("Month Wise Ship Balance Report Style/PO")
+                        action("Shipping Balances Report")
                         {
-                            Caption = 'Month Wise Ship Balance Report-Style/PO';
+                            Caption = 'Shipping Balances Report';
                             Enabled = true;
                             RunObject = report CapacityByPcsBalToShipReport2;
                             ApplicationArea = all;
@@ -996,7 +996,7 @@ page 50968 "Nav Apperal Role Center"
 
                         action("Month Wise Sewing Balance Report Style/PO1")
                         {
-                            Caption = 'Month Wise Sewing Balance Report-Style/PO';
+                            Caption = 'Sewing Balances Report';
                             Enabled = true;
                             RunObject = report CapacityByPcsBalToSewReport2;
                             ApplicationArea = all;
@@ -1004,7 +1004,7 @@ page 50968 "Nav Apperal Role Center"
 
                         action("Month Wise Ship Balance Report Style/PO1")
                         {
-                            Caption = 'Month Wise Ship Balance Report-Style/PO';
+                            Caption = 'Shipping Balances Report';
                             Enabled = true;
                             RunObject = report CapacityByPcsBalToShipReport2;
                             ApplicationArea = all;
@@ -3485,6 +3485,59 @@ page 50968 "Nav Apperal Role Center"
                 }
                 group("Dashboard Reports")
                 {
+                    group("Capacity By Pcs Reports1-Chairman")
+                    {
+                        Caption = 'Capacity By Pcs Reports';
+
+                        action("Month Wise Order Booking Report1-Chairman")
+                        {
+                            Caption = 'Month Wise Order Booking Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsAllBookingReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Sewing Balance Repor1-Chairman")
+                        {
+                            Caption = 'Month Wise Sewing Balance Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToSewingReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Ship Balance Report1-Chairman")
+                        {
+                            Caption = 'Month Wise Ship Balance Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToShipReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Merchant Group Report1-Chairman")
+                        {
+                            Caption = 'Month Wise Merchant Group Booking Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsGroupWiseReport;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Sewing Balance Report Style/PO1-Chairman")
+                        {
+                            Caption = 'Sewing Balances Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToSewReport2;
+                            ApplicationArea = all;
+                        }
+
+                        action("Month Wise Ship Balance Report Style/PO1-Chairman")
+                        {
+                            Caption = 'Shipping Balances Report';
+                            Enabled = true;
+                            RunObject = report CapacityByPcsBalToShipReport2;
+                            ApplicationArea = all;
+                        }
+                    }
+
                     action("Finishing Production Report Dashboard")
                     {
                         Caption = 'Hourly Finishing Production Report';
