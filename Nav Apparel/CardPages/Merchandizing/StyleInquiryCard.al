@@ -581,7 +581,9 @@ page 50602 "Style Inquiry Card"
 
     trigger OnDeleteRecord(): Boolean
     var
-        //StyleRec: Record "Style Master";
+        StyleRec: Record "Style Master";
+        SampleReq: Record "Sample Requsition Header";
+        NewBreakdownRec: Record "New Breakdown";
         StylePORec: Record "Style Master PO";
         SpecialOpRec: Record "Special Operation Style";
         NavAppPlanLineRec: Record "NavApp Planning Lines";
@@ -589,6 +591,14 @@ page 50602 "Style Inquiry Card"
         ContractLCStyleRec: Record "Contract/LCStyle";
         PlanningQueueRec: Record "Planning Queue";
     begin
+
+        StyleRec.Reset();
+        StyleRec.SetRange("No.", Rec."No.");
+        StyleRec.SetRange(Status, StyleRec.Status::Confirmed);
+        if StyleRec.FindSet() then begin
+            Error('Style already confirmed. Cannot delete.');
+        end;
+
         if rec.Status = rec.status::Confirmed then
             Error('Style already confirmed. Cannot delete.');
 
@@ -607,6 +617,17 @@ page 50602 "Style Inquiry Card"
         if NavAppProdPlanRec.FindSet() then
             Error('Style already planned. Cannot delete.');
 
+        NewBreakdownRec.Reset();
+        NewBreakdownRec.SetRange("Style No.", Rec."No.");
+        if NewBreakdownRec.FindSet() then begin
+            Error('Style already added to New Breakdown');
+        end;
+
+        SampleReq.Reset();
+        SampleReq.SetRange("Style No.", Rec."No.");
+        if SampleReq.FindSet() then begin
+            Error('Style already added to Sample Requisition');
+        end;
 
         SpecialOpRec.SetRange("Style No.", rec."No.");
         if SpecialOpRec.FindSet() then
