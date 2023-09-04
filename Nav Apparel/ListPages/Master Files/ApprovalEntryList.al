@@ -9,6 +9,7 @@ page 51407 ApprovalEntryList
     ModifyAllowed = false;
     InsertAllowed = false;
     DeleteAllowed = true;
+    Permissions = tabledata "Approval Entry" = rmID;
 
     layout
     {
@@ -41,39 +42,7 @@ page 51407 ApprovalEntryList
                 {
                     ApplicationArea = All;
                 }
-                // field()
-                // {
-                //     ApplicationArea = All;
-                // }
-                // field()
-                // {
-                //     ApplicationArea = All;
-                // }
-                // field()
-                // {
-                //     ApplicationArea = All;
-                // }
             }
         }
-        area(Factboxes)
-        {
-
-        }
-    }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-                ApplicationArea = All;
-
-                trigger OnAction();
-                begin
-
-                end;
-            }
-        }
-    }
+    }   
 }
