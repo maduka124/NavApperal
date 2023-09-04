@@ -21,7 +21,7 @@ report 50646 DayWiseSewingTarget
             { }
             column(StyleOrderQty; StyleOrderQty)
             { }
-            column(Line_No_; "Line No.")
+            column(Line_No_; "Resource No.")
             { }
             column(Style_Name; "Style Name")
             { }
@@ -115,6 +115,7 @@ report 50646 DayWiseSewingTarget
                 Month := '';
                 MonthNo := Date2DMY(PlanDate, 2);
 
+
                 case MonthNo of
                     1:
                         Month := 'Jan';
@@ -141,7 +142,8 @@ report 50646 DayWiseSewingTarget
                     12:
                         Month := 'Dec';
                 end;
-
+                
+                DayQty := 0;
                 DayQty := Qty;
                 one := 0;
                 two := 0;
@@ -170,7 +172,7 @@ report 50646 DayWiseSewingTarget
                 twentyfive := 0;
                 twentysix := 0;
                 twentyseven := 0;
-                twentyseven := 0;
+                twentyeight := 0;
                 twentynine := 0;
                 thirty := 0;
                 thirtyone := 0;
