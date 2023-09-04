@@ -5,6 +5,7 @@ page 50600 "Sample Request Card"
     Caption = 'Sample Requisition';
 
 
+
     layout
     {
         area(Content)
@@ -12,6 +13,7 @@ page 50600 "Sample Request Card"
             group(General)
             {
                 Editable = EditableGB;
+
                 field("No."; rec."No.")
                 {
                     ApplicationArea = All;
@@ -501,9 +503,11 @@ page 50600 "Sample Request Card"
         SampleReqAcceRec: Record "Sample Requsition Acce";
         SampleReqDocRec: Record "Sample Requsition Doc";
     begin
-
         if rec.WriteToMRPStatus = 1 then
             Error('Sample request has been posted already. You cannot delete.');
+
+        if EditableGb = false then
+            Error('Cannot delete Sample Requisition.');
 
         SampleReqLineRec.Reset();
         SampleReqLineRec.SetRange("No.", rec."No.");
@@ -1140,7 +1144,6 @@ page 50600 "Sample Request Card"
     trigger OnOpenPage()
     var
     begin
-
         //Mihiranga 2023/01/23
         if SampleNo <> '' then begin
             rec."No." := SampleNo;

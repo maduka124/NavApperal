@@ -63,10 +63,24 @@ page 51063 "Sample Request"
         SampleReqLineRec: Record "Sample Requsition Line";
         SampleReqAcceRec: Record "Sample Requsition Acce";
         SampleReqDocRec: Record "Sample Requsition Doc";
+        EditableGB: Boolean;
     begin
+        EditableGB := true;
+        SampleReqLineRec.Reset();
+        SampleReqLineRec.SetRange("No.", Rec."No.");
+        if SampleReqLineRec.FindSet() then begin
+            if SampleReqLineRec."Pattern Date" <> 0D then begin
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+        end;
 
         if rec.WriteToMRPStatus = 1 then
             Error('Sample request has been posted already. You cannot delete.');
+
+        if EditableGb = false then
+            Error('Cannot delete Sample Requisition.');
 
         SampleReqLineRec.Reset();
         SampleReqLineRec.SetRange("No.", rec."No.");

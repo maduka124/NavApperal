@@ -240,7 +240,10 @@ page 50466 "New Breakdown Op Listpart2"
                     Stage: code[50];
                     Style: code[20];
                     DateRange: Integer;
+                    NavAppSetRec: Record "NavApp Setup";
                 begin
+                    NavAppSetRec.Reset();
+                    NavAppSetRec.FindSet();
 
                     NewBreakdownRec.Reset();
                     NewBreakdownRec.SetRange("No.", rec."No.");
@@ -252,13 +255,16 @@ page 50466 "New Breakdown Op Listpart2"
                     SwingProduction2Rec.Reset();
                     SwingProduction2Rec.SetRange("Style No.", Style);
                     SwingProduction2Rec.SetRange(Type, SwingProduction2Rec.Type::Saw);
-                    if SwingProduction2Rec.FindSet() then begin
-                        if SwingProduction2Rec."Input Qty" <> 0 then begin
+                    SwingProduction2Rec.SetCurrentKey("Prod Date");
+                    SwingProduction2Rec.Ascending(true);
+                    if SwingProduction2Rec.FindFirst() then begin
 
+                        if SwingProduction2Rec."Input Qty" <> 0 then begin
                             DateRange := Today - SwingProduction2Rec."Prod Date";
-                            if DateRange >= 10 then
+                            if DateRange >= NavAppSetRec."New BR/Down block period " then
                                 Error('Can not caculate SMV.because of more than ten days after Production');
                         end;
+
                     end;
 
                     EstimateCostRec.Reset();
