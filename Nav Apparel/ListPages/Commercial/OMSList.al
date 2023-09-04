@@ -15,28 +15,28 @@ page 51328 OMSList
                 field("Lc Contract No"; Rec."Lc Contract No")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Store; Rec.Store)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Season; Rec.Season)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Brand; Rec.Brand)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Department; Rec.Department)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;
@@ -51,143 +51,144 @@ page 51328 OMSList
                 {
                     ApplicationArea = All;
                     Visible = false;
-
                 }
+
                 field("Style Des"; Rec."Style Des")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Factory; Rec.Factory)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Order Qty"; Rec."Order Qty")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Lot; Rec.Lot)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("PO No"; Rec."PO No")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Mode; Rec.Mode)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Po Qty"; Rec."Po Qty")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Cut Qty"; Rec."Cut Qty")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("EMB OUT"; Rec."EMB OUT")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("EMB IN"; Rec."EMB IN")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Print OUT"; Rec."Print OUT")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Print IN"; Rec."Print IN")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Line IN"; Rec."Line IN")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Line OUT"; Rec."Line OUT")
                 {
-                    ApplicationArea = All;
-
+                    ApplicationArea = All;                    
                 }
+
                 field("Wash OUT"; Rec."Wash OUT")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Wash IN"; Rec."Wash IN")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Poly OUT"; Rec."Poly OUT")
                 {
-                    ApplicationArea = All;
-
+                    ApplicationArea = All;                    
                 }
+
                 field("Ship Qty"; Rec."Ship Qty")
                 {
-                    ApplicationArea = All;
-
+                    ApplicationArea = All;                    
                 }
+
                 field("Ship Date"; Rec."Ship Date")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(FOB; Rec.FOB)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("EXP QTY"; Rec."EXP QTY")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("EX Date"; Rec."EX Date")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("EX Short"; Rec."EX Short")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Ship Value"; Rec."Ship Value")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("Comm Cash"; Rec."Comm Cash")
                 {
                     ApplicationArea = All;
                     Visible = false;
-
                 }
+
                 field("Comm Lc"; Rec."Comm Lc")
                 {
                     ApplicationArea = All;
                     Visible = false;
-
                 }
             }
         }
     }
+
+
     trigger OnOpenPage()
     var
         ProdRec: Record ProductionOutHeader;
@@ -212,15 +213,7 @@ page 51328 OMSList
         POQtyTot: BigInteger;
     begin
         ShQty := 0;
-        POQtyTot := 0;
-        //Check whether user logged in or not
-        // LoginSessionsRec.Reset();
-        // LoginSessionsRec.SetRange(SessionID, SessionId());
-        // if not LoginSessionsRec.FindSet() then begin  //not logged in
-        //     Clear(LoginRec);
-        //     LoginRec.LookupMode(true);
-        //     LoginRec.RunModal();
-        // end;
+        POQtyTot := 0;       
 
         OMSRec.Reset();
         if OMSRec.FindSet() then begin

@@ -233,6 +233,11 @@ table 50520 "B2BLCMaster"
             ValidateTableRelation = false;
         }
 
+        field(40; "Contract Sys No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

@@ -396,6 +396,32 @@ page 50978 "Create User Card"
                 end;
             }
 
+            // action("update contract sys no in b2b master")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
+
+            //     trigger OnAction()
+            //     var
+            //         B2BLCMaster: Record B2BLCMaster;
+            //         "ContLCMasRec": Record "Contract/LCMaster";
+            //     begin
+            //         B2BLCMaster.Reset();
+            //         if B2BLCMaster.FindSet() then begin
+            //             repeat
+            //                 ContLCMasRec.Reset();
+            //                 ContLCMasRec.SetRange("Contract No", B2BLCMaster."LC/Contract No.");
+            //                 if ContLCMasRec.FindSet() then begin
+            //                     B2BLCMaster."Contract Sys No." := ContLCMasRec."No.";
+            //                     B2BLCMaster.Modify();
+            //                 end;
+            //             until B2BLCMaster.Next() = 0;
+            //         end;
+
+            //         Message('Completed');
+            //     end;
+            // }
+
             // action("update GIT LC balance value")
             // {
             //     ApplicationArea = All;
@@ -465,51 +491,51 @@ page 50978 "Create User Card"
             //     end;
             // }  
 
-            action("Update AC Shipped Qty")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("Update AC Shipped Qty")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    SalesInvoiceheader: Record "Sales Invoice Header";
-                    SalesInvoiceLineRec: Record "Sales Invoice Line";
-                    SatylemsterPORec: Record "Style Master PO";
-                    ShippedQty: BigInteger;
-                begin
+            //     trigger OnAction()
+            //     var
+            //         SalesInvoiceheader: Record "Sales Invoice Header";
+            //         SalesInvoiceLineRec: Record "Sales Invoice Line";
+            //         SatylemsterPORec: Record "Style Master PO";
+            //         ShippedQty: BigInteger;
+            //     begin
 
-                    SalesInvoiceheader.Reset();
-                    if SalesInvoiceheader.FindSet() then begin
-                        repeat
+            //         SalesInvoiceheader.Reset();
+            //         if SalesInvoiceheader.FindSet() then begin
+            //             repeat
 
 
-                            SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceheader."No.");
+            //                 SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceheader."No.");
 
-                            if SalesInvoiceLineRec.FindSet() then begin
-                                ShippedQty := 0;
-                                repeat
+            //                 if SalesInvoiceLineRec.FindSet() then begin
+            //                     ShippedQty := 0;
+            //                     repeat
 
-                                    ShippedQty += SalesInvoiceLineRec.Quantity;
+            //                         ShippedQty += SalesInvoiceLineRec.Quantity;
 
-                                until SalesInvoiceLineRec.Next() = 0;
+            //                     until SalesInvoiceLineRec.Next() = 0;
 
-                                SatylemsterPORec.Reset();
-                                SatylemsterPORec.SetRange("Style No.", SalesInvoiceheader."Style No");
-                                SatylemsterPORec.SetRange("PO No.", SalesInvoiceheader."PO No");
-                                SatylemsterPORec.SetRange("Lot No.", SalesInvoiceheader.Lot);
+            //                     SatylemsterPORec.Reset();
+            //                     SatylemsterPORec.SetRange("Style No.", SalesInvoiceheader."Style No");
+            //                     SatylemsterPORec.SetRange("PO No.", SalesInvoiceheader."PO No");
+            //                     SatylemsterPORec.SetRange("Lot No.", SalesInvoiceheader.Lot);
 
-                                if SatylemsterPORec.FindSet() then begin
-                                    SatylemsterPORec."Actual Shipment Qty" := SatylemsterPORec."Actual Shipment Qty" + ShippedQty;
-                                    SatylemsterPORec.Modify();
-                                end;
-                            end;
+            //                     if SatylemsterPORec.FindSet() then begin
+            //                         SatylemsterPORec."Actual Shipment Qty" := SatylemsterPORec."Actual Shipment Qty" + ShippedQty;
+            //                         SatylemsterPORec.Modify();
+            //                     end;
+            //                 end;
 
-                        until SalesInvoiceheader.Next() = 0;
-                    end;
+            //             until SalesInvoiceheader.Next() = 0;
+            //         end;
 
-                    Message('Completed');
-                end;
-            }
+            //         Message('Completed');
+            //     end;
+            // }
         }
     }
 

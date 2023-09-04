@@ -1100,6 +1100,7 @@ page 50600 "Sample Request Card"
     trigger OnAfterGetRecord()
     var
         SampleRec: Record "Sample Requsition Header";
+        SampleReqLineRec: Record "Sample Requsition Line";
     begin
         if rec.WriteToMRPStatus = 1 then
             CurrPage.Editable(false)
@@ -1113,6 +1114,16 @@ page 50600 "Sample Request Card"
                 EditableGb := false;
         end;
 
+        EditableGB := true;
+        SampleReqLineRec.Reset();
+        SampleReqLineRec.SetRange("No.", Rec."No.");
+        if SampleReqLineRec.FindSet() then begin
+            if SampleReqLineRec."Pattern Date" <> 0D then begin
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+        end;
     end;
 
 
