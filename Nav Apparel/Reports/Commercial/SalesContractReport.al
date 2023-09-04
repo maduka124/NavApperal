@@ -38,15 +38,18 @@ report 51245 SalesContractReport
             { }
             column(BBLCOPENED; "BBLC BALANCE")
             { }
+
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
                 DataItemLinkReference = "Contract/LCMaster";
                 DataItemLink = "No." = field("No.");
                 DataItemTableView = sorting("No.", "Style No.");
+
                 column(Style_Name; "Style Name")
                 { }
                 column(PoQtySum; Qty)
                 { }
+
                 dataitem("Style Master PO"; "Style Master PO")
                 {
                     DataItemLinkReference = "Contract/LCStyle";
@@ -75,8 +78,6 @@ report 51245 SalesContractReport
 
                     trigger OnAfterGetRecord()
                     begin
-
-
                         StylePoRec.Reset();
                         StylePoRec.SetRange("Style No.", "Style No.");
                         StylePoRec.SetRange("PO No.", "PO No.");
@@ -97,7 +98,6 @@ report 51245 SalesContractReport
                             until StylePoRec.Next() = 0;
                         end;
 
-
                         StyleRec.Reset();
                         StyleRec.SetRange("No.", "Style No.");
                         if StyleRec.FindFirst() then begin
@@ -105,8 +105,6 @@ report 51245 SalesContractReport
                         end;
 
                         // OrderQty := 0;
-
-
                         AssormentDetailRec.Reset();
                         AssormentDetailRec.SetRange("Style No.", "Style No.");
                         AssormentDetailRec.SetRange("PO No.", "PO No.");
@@ -114,33 +112,34 @@ report 51245 SalesContractReport
                             Color := AssormentDetailRec."Colour Name";
                         end;
 
+                        ShipQty := 0;
                         SalesInvoiceHRec.Reset();
                         SalesInvoiceHRec.SetRange("Style No", "Style No.");
                         SalesInvoiceHRec.SetRange("PO No", "PO No.");
-                        SalesInvoiceHRec.SetRange(EntryType, SalesInvoiceHRec.EntryType::FG);
-                        SalesInvoiceHRec.SetRange("Bal. Account Type", SalesInvoiceHRec."Bal. Account Type"::"G/L Account");
+                        // SalesInvoiceHRec.SetRange(EntryType, SalesInvoiceHRec.EntryType::FG);
+                        // SalesInvoiceHRec.SetRange("Bal. Account Type", SalesInvoiceHRec."Bal. Account Type"::"G/L Account");
                         if SalesInvoiceHRec.FindSet() then begin
-                            ShipDate := SalesInvoiceHRec."Shipment Date";
+                            repeat
+                                ShipDate := SalesInvoiceHRec."Shipment Date";
 
-                            ShipQty := 0;
-                            SalesInVLineRec.Reset();
-                            SalesInVLineRec.SetRange("Document No.", SalesInvoiceHRec."No.");
-                            SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
-                            if SalesInVLineRec.FindSet() then begin
-                                repeat
-                                    ShipQty += SalesInVLineRec.Quantity;
-                                until SalesInVLineRec.Next() = 0;
-                                ShValue += ShipQty * "Unit Price";
-                            end;
+                                SalesInVLineRec.Reset();
+                                SalesInVLineRec.SetRange("Document No.", SalesInvoiceHRec."No.");
+                                // SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
+                                if SalesInVLineRec.FindSet() then begin
+                                    repeat
+                                        ShipQty += SalesInVLineRec.Quantity;
+                                        ShValue += SalesInVLineRec.Quantity * SalesInVLineRec."Unit Price";
+                                    until SalesInVLineRec.Next() = 0;
+                                    // ShValue += ShipQty * "Unit Price";
+                                end;
+                            until SalesInvoiceHRec.Next() = 0;
                         end;
-
-
                     end;
                 }
             }
 
-            trigger OnAfterGetRecord()
 
+            trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -168,22 +167,15 @@ report 51245 SalesContractReport
                 BBLCOPENED := 0;
                 B2BRec.Reset();
                 B2BRec.SetRange("LC/Contract No.", "Contract No");
-
                 if B2BRec.FindSet() then begin
                     repeat
                         BBLCOPENED += B2BRec."B2B LC Value";
                     until B2BRec.Next() = 0;
-
-
-
-
                 end;
 
                 "BBLC BALANCE" := "BBLC AMOUNT" - BBLCOPENED;
-
             end;
         }
-
     }
 
     requestpage
@@ -200,18 +192,6 @@ report 51245 SalesContractReport
 
                 //     // }
                 // }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
             }
         }
     }
