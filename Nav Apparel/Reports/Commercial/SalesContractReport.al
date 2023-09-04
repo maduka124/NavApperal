@@ -36,7 +36,7 @@ report 51245 SalesContractReport
             { }
             column(Quantity__Pcs_; "Quantity (Pcs)")
             { }
-            column(BBLCOPENED; BBLCOPENED)
+            column(BBLCOPENED; "BBLC BALANCE")
             { }
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
@@ -68,6 +68,8 @@ report 51245 SalesContractReport
                     column(ShipDate; ShipDate)
                     { }
                     column(Color; Color)
+                    { }
+                    column(ShValue; ShValue)
                     { }
 
 
@@ -128,8 +130,11 @@ report 51245 SalesContractReport
                                 repeat
                                     ShipQty += SalesInVLineRec.Quantity;
                                 until SalesInVLineRec.Next() = 0;
+                                ShValue += ShipQty * "Unit Price";
                             end;
                         end;
+
+
                     end;
                 }
             }
@@ -157,13 +162,24 @@ report 51245 SalesContractReport
                     until B2BRec.Next() = 0;
                 end;
 
-                // StyleRec.Reset();
-                // StyleRec.SetRange(AssignedContractNo, "No.");
-                // if StyleRec.FindSet() then begin
-                //     repeat
-                //         OrderQty += StyleRec."Order Qty";
-                //     until StyleRec.Next() = 0;
-                // end;
+                Amount := "Contract Value";
+                "BBLC AMOUNT" := ("Contract Value" * BBLC) / 100;
+
+                BBLCOPENED := 0;
+                B2BRec.Reset();
+                B2BRec.SetRange("LC/Contract No.", "Contract No");
+
+                if B2BRec.FindSet() then begin
+                    repeat
+                        BBLCOPENED += B2BRec."B2B LC Value";
+                    until B2BRec.Next() = 0;
+
+
+
+
+                end;
+
+                "BBLC BALANCE" := "BBLC AMOUNT" - BBLCOPENED;
 
             end;
         }
@@ -202,6 +218,12 @@ report 51245 SalesContractReport
 
 
     var
+        ShValue: Decimal;
+        "BBLC BALANCE": Decimal;
+        "BBLC Opened": Decimal;
+        Amount: Decimal;
+        BalanceBBLC: Decimal;
+        "BBLC AMOUNT": Decimal;
         Style1: Code[20];
         PONo1: Code[20];
         SalesInvoiceHRec: Record "Sales Invoice Header";

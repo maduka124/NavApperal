@@ -5,6 +5,10 @@ page 51407 ApprovalEntryList
     UsageCategory = Lists;
     SourceTable = "Approval Entry";
     Caption = 'Approval Entry List';
+    Editable = true;
+    ModifyAllowed = false;
+    InsertAllowed = false;
+    DeleteAllowed = true;
 
     layout
     {
