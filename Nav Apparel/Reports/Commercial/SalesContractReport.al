@@ -130,10 +130,11 @@ report 51245 SalesContractReport
                                 repeat
                                     ShipQty += SalesInVLineRec.Quantity;
                                 until SalesInVLineRec.Next() = 0;
+                                ShValue += ShipQty * "Unit Price";
                             end;
                         end;
 
-                        ShValue += ShipQty * "Unit Price";
+
                     end;
                 }
             }
