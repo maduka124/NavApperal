@@ -21,11 +21,13 @@ page 50505 "StyleMasterContract ListPart 2"
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
+                    Editable = false;
                 }
 
                 field("Qty"; Rec."Qty")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
         }

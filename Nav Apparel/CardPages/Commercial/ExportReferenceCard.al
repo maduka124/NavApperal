@@ -102,9 +102,11 @@ page 51241 "Export Reference Card"
                         if xRec."Invoice No" <> '' then begin
                             SalesInvRec.Reset();
                             SalesInvRec.SetRange("No.", xRec."Invoice No");
-                            SalesInvRec.FindSet();
-                            SalesInvRec."Export Ref No." := '';
-                            SalesInvRec.Modify();
+                            if SalesInvRec.FindSet() then begin
+                                SalesInvRec."Export Ref No." := '';
+                                SalesInvRec.Modify();
+                            end;
+
                         end;
 
                         SalesInvRec.Reset();

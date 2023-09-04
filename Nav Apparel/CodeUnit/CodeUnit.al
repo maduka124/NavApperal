@@ -1382,6 +1382,34 @@ codeunit 50618 NavAppCodeUnit
     end;
 
 
+    [EventSubscriber(ObjectType::Page, page::"Posted Sales Inv. - Update", 'OnAfterRecordChanged', '', true, true)]
+
+    local procedure UpdateRec(var SalesInvoiceHeader: Record "Sales Invoice Header"; xSalesInvoiceHeader: Record "Sales Invoice Header"; var IsChanged: Boolean)
+
+    begin
+
+        // SalesInvoiceHeader.Modify(True);
+        // IsChanged := true
+
+
+        if (SalesInvoiceHeader."Export Ref No." <> xSalesInvoiceHeader."Export Ref No.") then
+            IsChanged := true
+
+        else
+            IsChanged := false;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Inv. Header - Edit", 'OnOnRunOnBeforeTestFieldNo', '', true, true)]
+
+    local procedure UpdateFields(var SalesInvoiceHeader: Record "Sales Invoice Header"; SalesInvoiceHeaderRec: Record "Sales Invoice Header")
+
+    begin
+
+        SalesInvoiceHeader."Export Ref No." := SalesInvoiceHeaderRec."Export Ref No.";
+        // IsChanged := true;
+    end;
+
+
 
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeUpdateDeleteLines', '', true, true)]
     // local procedure OnBeforeUpdateDeleteLines(var ItemJournalLine: Record "Item Journal Line"; ItemRegNo: Integer)
