@@ -1044,7 +1044,27 @@ codeunit 50618 NavAppCodeUnit
         SalesHeaderRec: Record "Sales Header";
         ShipedQty: BigInteger;
     begin
-        SalesInvHeader."Style No" := SalesHeader."Style No";
+        if SalesHeader."Style Name" = '' then
+            Error('Style Name is blank in sales order %1', SalesHeader."No.");
+
+        if SalesHeader."PO No" = '' then
+            Error('PO No is blank in sales order %1', SalesHeader."No.");
+
+        if SalesHeader.Lot = '' then
+            Error('Lot is blank in sales order %1', SalesHeader."No.");
+
+        if SalesHeader."Style No" = '' then begin
+            Stylerec.Reset();
+            Stylerec.SetRange("Style No.", SalesHeader."Style Name");
+            if Stylerec.FindSet() then begin
+                SalesInvHeader."Style No" := Stylerec."No.";
+            end
+            else
+                Error('Cannot find Style details in Style Master. %1', SalesHeader."Style Name");
+        end
+        else
+            SalesInvHeader."Style No" := SalesHeader."Style No";
+
         SalesInvHeader."Style Name" := SalesHeader."Style Name";
         SalesInvHeader."PO No" := SalesHeader."PO No";
         SalesInvHeader.Lot := SalesHeader.Lot;
@@ -1053,7 +1073,6 @@ codeunit 50618 NavAppCodeUnit
         SalesInvHeader."Merchandizer Group Name" := SalesHeader."Merchandizer Group Name";
         SalesInvHeader."Contract No" := SalesHeader."Contract No";
         SalesInvHeader."LC No" := SalesHeader."External Document No.";
-
 
         Stylerec.Reset();
         Stylerec.SetRange("Style No.", SalesHeader."Style Name");
@@ -1066,33 +1085,25 @@ codeunit 50618 NavAppCodeUnit
         if StylePoRec.FindSet() then begin
             SalesInvHeader."PO QTY" := StylePoRec.Qty;
             SalesInvHeader."Unit Price" := StylePoRec."Unit Price";
-
         end;
 
         //Done By Sachith 23/08/31
         ShipedQty := 0;
-
         SalesInvoiceLineRec.Reset();
 
         SalesinvoiceHeaderRec.Reset();
         SalesinvoiceHeaderRec.SetRange("Style No", SalesHeader."Style No");
         SalesinvoiceHeaderRec.SetRange("PO No", SalesHeader."PO No");
         SalesinvoiceHeaderRec.SetRange(Lot, SalesHeader.Lot);
-
         if SalesinvoiceHeaderRec.FindSet() then begin
-
             repeat
-
                 SalesInvoiceLineRec.SetRange("Document No.", SalesinvoiceHeaderRec."No.");
-
                 if SalesInvoiceLineRec.FindSet() then begin
                     repeat
                         ShipedQty += SalesInvoiceLineRec.Quantity;
                     until SalesInvoiceLineRec.Next() = 0;
                 end;
-
             until SalesinvoiceHeaderRec.Next() = 0;
-
 
             StylePoRec.Reset();
             StylePoRec.SetRange("Style No.", SalesinvoiceHeaderRec."Style No");
@@ -1103,9 +1114,7 @@ codeunit 50618 NavAppCodeUnit
                 StylePoRec."Actual Shipment Qty" := ShipedQty;
                 StylePoRec.Modify();
             end;
-
         end;
-
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', true, true)]
@@ -1166,6 +1175,27 @@ codeunit 50618 NavAppCodeUnit
         SalesHedd.get(SalesHedd."Document Type"::Order, PassSoNo);
         ProdOrder.LockTable();
 
+        if SalesHedd."Style Name" = '' then
+            Error('Style Name is blank in sales order %1', SalesHedd."No.");
+
+        if SalesHedd."PO No" = '' then
+            Error('PO No is blank in sales order %1', SalesHedd."No.");
+
+        if SalesHedd.Lot = '' then
+            Error('Lot is blank in sales order %1', SalesHedd."No.");
+
+        if SalesHedd."Style No" = '' then begin
+            Stylerec.Reset();
+            Stylerec.SetRange("Style No.", SalesHedd."Style Name");
+            if Stylerec.FindSet() then begin
+                ProdOrder."Style No." := Stylerec."No.";
+            end
+            else
+                Error('Cannot find Style details in Style Master. %1', SalesHedd."Style Name");
+        end
+        else
+            ProdOrder."Style No." := SalesHedd."Style No";
+
         ProdOrder.Init();
         ProdOrder.Status := ProdOrder.Status::"Firm Planned";
         ProdOrder."No." := NoserMangement.GetNextNo(ManufacSetup."Firm Planned Order Nos.", WorkDate(), true);
@@ -1175,7 +1205,7 @@ codeunit 50618 NavAppCodeUnit
         ProdOrder.Validate("Source Type", ProdOrder."Source Type"::"Sales Header");
         ProdOrder.Validate(BuyerCode, SalesHedd."Sell-to Customer No.");
         ProdOrder."Style Name" := SalesHedd."Style Name";
-        ProdOrder."Style No." := SalesHedd."Style No";
+        // ProdOrder."Style No." := SalesHedd."Style No";
         ProdOrder.PO := SalesHedd."PO No";
         ProdOrder."Lot No." := SalesHedd.Lot;
 
@@ -1383,28 +1413,20 @@ codeunit 50618 NavAppCodeUnit
 
 
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Inv. - Update", 'OnAfterRecordChanged', '', true, true)]
-
     local procedure UpdateRec(var SalesInvoiceHeader: Record "Sales Invoice Header"; xSalesInvoiceHeader: Record "Sales Invoice Header"; var IsChanged: Boolean)
-
     begin
-
         // SalesInvoiceHeader.Modify(True);
         // IsChanged := true
-
-
         if (SalesInvoiceHeader."Export Ref No." <> xSalesInvoiceHeader."Export Ref No.") then
             IsChanged := true
-
         else
             IsChanged := false;
     end;
 
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Inv. Header - Edit", 'OnOnRunOnBeforeTestFieldNo', '', true, true)]
-
     local procedure UpdateFields(var SalesInvoiceHeader: Record "Sales Invoice Header"; SalesInvoiceHeaderRec: Record "Sales Invoice Header")
-
     begin
-
         SalesInvoiceHeader."Export Ref No." := SalesInvoiceHeaderRec."Export Ref No.";
         // IsChanged := true;
     end;
