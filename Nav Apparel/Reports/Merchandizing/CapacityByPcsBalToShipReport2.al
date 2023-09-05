@@ -72,12 +72,13 @@ report 51412 CapacityByPcsBalToShipReport2
                     PostSalesInvLineRec: Record "Sales Invoice Line";
                 begin
                     UnitPriceRound := Round("Unit Price", 0.01, '=');
-                  
+
                     //Get postes salin invoices for the style / po
                     ActualShipmentQty := 0;
                     PostSalesInvHeaderRec.Reset();
                     PostSalesInvHeaderRec.SetRange("Style No", "Style No.");
                     PostSalesInvHeaderRec.SetRange("po No", "po No.");
+                    PostSalesInvHeaderRec.SetRange(Lot, "lot No.");
                     if PostSalesInvHeaderRec.FindSet() then begin
                         repeat
                             PostSalesInvLineRec.Reset();

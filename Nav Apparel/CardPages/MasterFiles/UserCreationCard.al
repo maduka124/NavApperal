@@ -190,24 +190,24 @@ page 50978 "Create User Card"
 
             //     end;
             // }
-            action("Reomove Request Approval")
-            {
-                ApplicationArea = All;
+            // action("Reomove Request Approval")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    ApprovalRec: Record "Approval Entry";
-                begin
-                    ApprovalRec.Reset();
-                    ApprovalRec.SetRange("Document No.", ApprovalNo);
-                    ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
-                    ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
-                    if ApprovalRec.FindSet() then begin
-                        ApprovalRec.DeleteAll();
-                        Message('Request Deleted');
-                    end;
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         ApprovalRec: Record "Approval Entry";
+            //     begin
+            //         ApprovalRec.Reset();
+            //         ApprovalRec.SetRange("Document No.", ApprovalNo);
+            //         ApprovalRec.SetRange(Status, ApprovalRec.Status::Open);
+            //         ApprovalRec.SetRange("Document Type", ApprovalRec."Document Type"::Order);
+            //         if ApprovalRec.FindSet() then begin
+            //             ApprovalRec.DeleteAll();
+            //             Message('Request Deleted');
+            //         end;
+            //     end;
+            // }
 
 
             // action("Remove Assigned PI No")
@@ -395,6 +395,31 @@ page 50978 "Create User Card"
                     Message('Completed');
                 end;
             }
+
+            // action("Style no update in Sales Invoice Header")
+            // {
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     var
+            //         SalesInvRec: Record "Sales Invoice Header";
+            //         StyleRec: Record "Style Master";
+            //     begin
+            //         SalesInvRec.Reset();
+            //         SalesInvRec.SetFilter("Style No", '=%1', '');
+            //         if SalesInvRec.FindSet() then begin
+            //             repeat
+            //                 Stylerec.Reset();
+            //                 Stylerec.SetRange("Style No.", SalesInvRec."Style Name");
+            //                 if Stylerec.FindSet() then begin
+            //                     SalesInvRec."Style No" := Stylerec."No.";
+            //                     SalesInvRec.Modify();
+            //                 end
+            //             until SalesInvRec.Next() = 0;
+            //         end;
+            //         Message('Completed');
+            //     end;
+            // }
 
             // action("update contract sys no in b2b master")
             // {
