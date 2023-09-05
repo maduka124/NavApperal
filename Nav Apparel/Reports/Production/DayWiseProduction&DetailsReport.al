@@ -81,7 +81,7 @@ report 50622 DayWiseProductionReport
 
                 CutQty := 0;
                 ProdOutRec.Reset();
-                  ProdOutRec.SetRange("No.", "No.");
+                ProdOutRec.SetRange("No.", "No.");
                 ProdOutRec.SetRange("Style No.", "Style No.");
                 ProdOutRec.SetRange("PO No", "PO No");
                 ProdOutRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
@@ -95,7 +95,7 @@ report 50622 DayWiseProductionReport
 
                 SewingoutQty := 0;
                 ProdOutRec.Reset();
-                  ProdOutRec.SetRange("No.", "No.");
+                ProdOutRec.SetRange("No.", "No.");
                 ProdOutRec.SetRange("Style No.", "Style No.");
                 ProdOutRec.SetRange("PO No", "PO No");
                 ProdOutRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
@@ -108,7 +108,7 @@ report 50622 DayWiseProductionReport
 
                 FinishQty := 0;
                 ProdOutRec.Reset();
-                  ProdOutRec.SetRange("No.", "No.");
+                ProdOutRec.SetRange("No.", "No.");
                 ProdOutRec.SetRange("Style No.", "Style No.");
                 ProdOutRec.SetRange("PO No", "PO No");
                 ProdOutRec.SetFilter("Prod Date", '%1..%2', stDate, endDate);
