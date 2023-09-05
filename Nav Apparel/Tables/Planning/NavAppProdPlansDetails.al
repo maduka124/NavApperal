@@ -131,6 +131,7 @@ table 50345 "NavApp Prod Plans Details"
         {
             DataClassification = ToBeClassified;
         }
+        
         field(26; "Merchandizing GRP Head"; Text[200])
         {
             DataClassification = ToBeClassified;
