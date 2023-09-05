@@ -142,7 +142,7 @@ report 50646 DayWiseSewingTarget
                     12:
                         Month := 'Dec';
                 end;
-                
+
                 DayQty := 0;
                 DayQty := Qty;
                 one := 0;
@@ -243,18 +243,24 @@ report 50646 DayWiseSewingTarget
                         thirtyone := DayQty;
                 end;
 
+                OrderQty := 0;
+                SawingOut := 0;
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
                 StylePoRec.SetRange("Lot No.", "Lot No.");
                 StylePoRec.SetRange("PO No.", "PO No.");
                 StylePoRec.SetRange("Lot No.", "Lot No.");
-                if StylePoRec.FindFirst() then begin
-                    SawingOut := StylePoRec."Sawing Out Qty";
-                    OrderQty := StylePoRec."Qty"
+                if StylePoRec.FindSet() then begin
+                    repeat
+                        SawingOut += StylePoRec."Sawing Out Qty";
+                        OrderQty += StylePoRec."Qty"
+                    until StylePoRec.Next() = 0;
                 end
                 else
                     SawingOut := 0;
 
+
+                StyleOrderQty := 0;
                 StyleRec.SetRange("No.", "Style No.");
                 if StyleRec.FindFirst() then begin
                     // FactoryName := StyleRec."Factory Name";
