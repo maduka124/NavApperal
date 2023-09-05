@@ -11,253 +11,6 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="StyleOrderQty">
-          <DataField>StyleOrderQty</DataField>
-        </Field>
-        <Field Name="Line_No_">
-          <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Lot_No_">
-          <DataField>Lot_No_</DataField>
-        </Field>
-        <Field Name="Month">
-          <DataField>Month</DataField>
-        </Field>
-        <Field Name="one">
-          <DataField>one</DataField>
-        </Field>
-        <Field Name="oneFormat">
-          <DataField>oneFormat</DataField>
-        </Field>
-        <Field Name="two">
-          <DataField>two</DataField>
-        </Field>
-        <Field Name="twoFormat">
-          <DataField>twoFormat</DataField>
-        </Field>
-        <Field Name="three">
-          <DataField>three</DataField>
-        </Field>
-        <Field Name="threeFormat">
-          <DataField>threeFormat</DataField>
-        </Field>
-        <Field Name="four">
-          <DataField>four</DataField>
-        </Field>
-        <Field Name="fourFormat">
-          <DataField>fourFormat</DataField>
-        </Field>
-        <Field Name="five">
-          <DataField>five</DataField>
-        </Field>
-        <Field Name="fiveFormat">
-          <DataField>fiveFormat</DataField>
-        </Field>
-        <Field Name="six">
-          <DataField>six</DataField>
-        </Field>
-        <Field Name="sixFormat">
-          <DataField>sixFormat</DataField>
-        </Field>
-        <Field Name="seven">
-          <DataField>seven</DataField>
-        </Field>
-        <Field Name="sevenFormat">
-          <DataField>sevenFormat</DataField>
-        </Field>
-        <Field Name="eight">
-          <DataField>eight</DataField>
-        </Field>
-        <Field Name="eightFormat">
-          <DataField>eightFormat</DataField>
-        </Field>
-        <Field Name="nine">
-          <DataField>nine</DataField>
-        </Field>
-        <Field Name="nineFormat">
-          <DataField>nineFormat</DataField>
-        </Field>
-        <Field Name="ten">
-          <DataField>ten</DataField>
-        </Field>
-        <Field Name="tenFormat">
-          <DataField>tenFormat</DataField>
-        </Field>
-        <Field Name="eleven">
-          <DataField>eleven</DataField>
-        </Field>
-        <Field Name="elevenFormat">
-          <DataField>elevenFormat</DataField>
-        </Field>
-        <Field Name="twelve">
-          <DataField>twelve</DataField>
-        </Field>
-        <Field Name="twelveFormat">
-          <DataField>twelveFormat</DataField>
-        </Field>
-        <Field Name="thirteen">
-          <DataField>thirteen</DataField>
-        </Field>
-        <Field Name="thirteenFormat">
-          <DataField>thirteenFormat</DataField>
-        </Field>
-        <Field Name="fourteen">
-          <DataField>fourteen</DataField>
-        </Field>
-        <Field Name="fourteenFormat">
-          <DataField>fourteenFormat</DataField>
-        </Field>
-        <Field Name="fifteen">
-          <DataField>fifteen</DataField>
-        </Field>
-        <Field Name="fifteenFormat">
-          <DataField>fifteenFormat</DataField>
-        </Field>
-        <Field Name="sixteen">
-          <DataField>sixteen</DataField>
-        </Field>
-        <Field Name="sixteenFormat">
-          <DataField>sixteenFormat</DataField>
-        </Field>
-        <Field Name="seventeen">
-          <DataField>seventeen</DataField>
-        </Field>
-        <Field Name="seventeenFormat">
-          <DataField>seventeenFormat</DataField>
-        </Field>
-        <Field Name="eighteen">
-          <DataField>eighteen</DataField>
-        </Field>
-        <Field Name="eighteenFormat">
-          <DataField>eighteenFormat</DataField>
-        </Field>
-        <Field Name="nineteen">
-          <DataField>nineteen</DataField>
-        </Field>
-        <Field Name="nineteenFormat">
-          <DataField>nineteenFormat</DataField>
-        </Field>
-        <Field Name="twenty">
-          <DataField>twenty</DataField>
-        </Field>
-        <Field Name="twentyFormat">
-          <DataField>twentyFormat</DataField>
-        </Field>
-        <Field Name="twentyone">
-          <DataField>twentyone</DataField>
-        </Field>
-        <Field Name="twentyoneFormat">
-          <DataField>twentyoneFormat</DataField>
-        </Field>
-        <Field Name="twentytwo">
-          <DataField>twentytwo</DataField>
-        </Field>
-        <Field Name="twentytwoFormat">
-          <DataField>twentytwoFormat</DataField>
-        </Field>
-        <Field Name="twenythree">
-          <DataField>twenythree</DataField>
-        </Field>
-        <Field Name="twenythreeFormat">
-          <DataField>twenythreeFormat</DataField>
-        </Field>
-        <Field Name="twentyfour">
-          <DataField>twentyfour</DataField>
-        </Field>
-        <Field Name="twentyfourFormat">
-          <DataField>twentyfourFormat</DataField>
-        </Field>
-        <Field Name="twentyfive">
-          <DataField>twentyfive</DataField>
-        </Field>
-        <Field Name="twentyfiveFormat">
-          <DataField>twentyfiveFormat</DataField>
-        </Field>
-        <Field Name="twentysix">
-          <DataField>twentysix</DataField>
-        </Field>
-        <Field Name="twentysixFormat">
-          <DataField>twentysixFormat</DataField>
-        </Field>
-        <Field Name="twentyseven">
-          <DataField>twentyseven</DataField>
-        </Field>
-        <Field Name="twentysevenFormat">
-          <DataField>twentysevenFormat</DataField>
-        </Field>
-        <Field Name="twentyeight">
-          <DataField>twentyeight</DataField>
-        </Field>
-        <Field Name="twentyeightFormat">
-          <DataField>twentyeightFormat</DataField>
-        </Field>
-        <Field Name="twentynine">
-          <DataField>twentynine</DataField>
-        </Field>
-        <Field Name="twentynineFormat">
-          <DataField>twentynineFormat</DataField>
-        </Field>
-        <Field Name="thirty">
-          <DataField>thirty</DataField>
-        </Field>
-        <Field Name="thirtyFormat">
-          <DataField>thirtyFormat</DataField>
-        </Field>
-        <Field Name="thirtyone">
-          <DataField>thirtyone</DataField>
-        </Field>
-        <Field Name="thirtyoneFormat">
-          <DataField>thirtyoneFormat</DataField>
-        </Field>
-        <Field Name="Year">
-          <DataField>Year</DataField>
-        </Field>
-        <Field Name="SawingOut">
-          <DataField>SawingOut</DataField>
-        </Field>
-        <Field Name="stDate">
-          <DataField>stDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -598,10 +351,10 @@
                   <Width>2.09783cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.119cm</Width>
+                  <Width>2.21079cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.21079cm</Width>
+                  <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.1842cm</Width>
@@ -818,14 +571,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox18">
+                        <Textbox Name="Textbox20">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>SEWING OUT</Value>
+                                  <Value>ORDER QTY</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -837,7 +590,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox7</rd:DefaultName>
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -874,14 +627,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox20">
+                        <Textbox Name="Textbox19">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ORDER QTY</Value>
+                                  <Value>SEWING OUT</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -893,7 +646,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox16</rd:DefaultName>
+                          <rd:DefaultName>Textbox7</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2773,7 +2526,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2835,14 +2587,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="SawingOut5">
+                        <Textbox Name="Order_Qty2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.AddTotalI(Fields!SawingOut.Value)</Value>
+                                  <Value>=code.AddTotalJ(Fields!Order_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2855,7 +2607,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>SawingOut</rd:DefaultName>
+                          <rd:DefaultName>Order_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2892,18 +2644,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Order_Qty2">
+                        <Textbox Name="Textbox587">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.AddTotalJ(Fields!Order_Qty.Value)</Value>
+                                  <Value>=code.AddTotalI(Fields!SawingOut.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2912,7 +2663,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Order_Qty</rd:DefaultName>
+                          <rd:DefaultName>Textbox587</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4107,7 +3858,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4190,14 +3941,14 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="SawingOut12">
+                        <Textbox Name="Textbox284">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalI</Value>
+                                  <Value>=code.GetTotalJ</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -4211,7 +3962,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>SawingOut</rd:DefaultName>
+                          <rd:DefaultName>Textbox270</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4249,14 +4000,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox284">
+                        <Textbox Name="SawingOut13">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalJ</Value>
+                                  <Value>=code.GetTotalI</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -4270,7 +4021,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox270</rd:DefaultName>
+                          <rd:DefaultName>SawingOut</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -5529,7 +5280,7 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5613,14 +5364,14 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="SawingOut10">
+                        <Textbox Name="Textbox280">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalI</Value>
+                                  <Value>=code.GetTotalJ</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5634,7 +5385,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>SawingOut</rd:DefaultName>
+                          <rd:DefaultName>Textbox270</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -5672,14 +5423,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox280">
+                        <Textbox Name="SawingOut14">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalJ</Value>
+                                  <Value>=code.GetTotalI</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5693,7 +5444,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox270</rd:DefaultName>
+                          <rd:DefaultName>SawingOut</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -6952,7 +6703,7 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7036,14 +6787,14 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="SawingOut11">
+                        <Textbox Name="Textbox282">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalI</Value>
+                                  <Value>=code.GetTotalJ</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -7057,7 +6808,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>SawingOut</rd:DefaultName>
+                          <rd:DefaultName>Textbox270</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7095,14 +6846,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox282">
+                        <Textbox Name="SawingOut15">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalJ</Value>
+                                  <Value>=code.GetTotalI</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -7116,7 +6867,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox270</rd:DefaultName>
+                          <rd:DefaultName>SawingOut</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -8375,7 +8126,7 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8458,14 +8209,14 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="SawingOut9">
+                        <Textbox Name="Textbox278">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalI()</Value>
+                                  <Value>=code.GetTotalJ()</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -8479,7 +8230,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>SawingOut</rd:DefaultName>
+                          <rd:DefaultName>Textbox270</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -8516,14 +8267,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox278">
+                        <Textbox Name="SawingOut16">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.GetTotalJ()</Value>
+                                  <Value>=code.GetTotalI</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -8537,7 +8288,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox270</rd:DefaultName>
+                          <rd:DefaultName>SawingOut</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -9764,7 +9515,7 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -9786,6 +9537,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -9836,7 +9588,7 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>2.5cm</Size>
+                    <Size>2.01317cm</Size>
                     <CellContents>
                       <Textbox Name="Textbox171">
                         <CanGrow>true</CanGrow>
@@ -9895,7 +9647,7 @@
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>2.5cm</Size>
+                        <Size>1.97083cm</Size>
                         <CellContents>
                           <Textbox Name="Textbox111">
                             <CanGrow>true</CanGrow>
@@ -10013,7 +9765,7 @@
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>4.89206cm</Size>
+                                <Size>5.40006cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox163">
                                     <CanGrow>true</CanGrow>
@@ -10137,8 +9889,6 @@
                           </TablixMembers>
                         </TablixMember>
                       </TablixMembers>
-                      <KeepWithGroup>After</KeepWithGroup>
-                      <RepeatOnNewPage>true</RepeatOnNewPage>
                     </TablixMember>
                   </TablixMembers>
                   <KeepWithGroup>After</KeepWithGroup>
@@ -10156,7 +9906,7 @@
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>2.5cm</Size>
+                    <Size>2.01317cm</Size>
                     <CellContents>
                       <Textbox Name="Year">
                         <CanGrow>true</CanGrow>
@@ -10225,7 +9975,7 @@
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>2.5cm</Size>
+                        <Size>1.97083cm</Size>
                         <CellContents>
                           <Textbox Name="Month">
                             <CanGrow>true</CanGrow>
@@ -10363,7 +10113,7 @@
                                 </SortExpression>
                               </SortExpressions>
                               <TablixHeader>
-                                <Size>4.89206cm</Size>
+                                <Size>5.40006cm</Size>
                                 <CellContents>
                                   <Textbox Name="Style_Name1">
                                     <CanGrow>true</CanGrow>
@@ -10490,7 +10240,11 @@
                                   </TablixHeader>
                                   <TablixMembers>
                                     <TablixMember>
-                                      <Group Name="Details" />
+                                      <Group Name="Details">
+                                        <GroupExpressions>
+                                          <GroupExpression>=Fields!Line_No_.Value</GroupExpression>
+                                        </GroupExpressions>
+                                      </Group>
                                       <SortExpressions>
                                         <SortExpression>
                                           <Value>=Fields!Line_No_.Value</Value>
@@ -10566,7 +10320,7 @@
                             </TablixMember>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>4.89206cm</Size>
+                                <Size>5.40006cm</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox666">
                                     <CanGrow>true</CanGrow>
@@ -10693,7 +10447,7 @@
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>17.00705cm</Size>
+                    <Size>16.49905cm</Size>
                     <CellContents>
                       <Textbox Name="Textbox173">
                         <CanGrow>true</CanGrow>
@@ -10752,7 +10506,7 @@
             <Top>2.6162cm</Top>
             <Left>0cm</Left>
             <Height>3.56416cm</Height>
-            <Width>64.95975cm</Width>
+            <Width>64.83275cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -10785,7 +10539,7 @@
         <Height>6.32853cm</Height>
         <Style />
       </Body>
-      <Width>64.95975cm</Width>
+      <Width>64.88905cm</Width>
       <Page>
         <PageFooter>
           <Height>0.82374cm</Height>
@@ -10947,12 +10701,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -11024,4 +10772,251 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="StyleOrderQty">
+          <DataField>StyleOrderQty</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Lot_No_">
+          <DataField>Lot_No_</DataField>
+        </Field>
+        <Field Name="Month">
+          <DataField>Month</DataField>
+        </Field>
+        <Field Name="one">
+          <DataField>one</DataField>
+        </Field>
+        <Field Name="oneFormat">
+          <DataField>oneFormat</DataField>
+        </Field>
+        <Field Name="two">
+          <DataField>two</DataField>
+        </Field>
+        <Field Name="twoFormat">
+          <DataField>twoFormat</DataField>
+        </Field>
+        <Field Name="three">
+          <DataField>three</DataField>
+        </Field>
+        <Field Name="threeFormat">
+          <DataField>threeFormat</DataField>
+        </Field>
+        <Field Name="four">
+          <DataField>four</DataField>
+        </Field>
+        <Field Name="fourFormat">
+          <DataField>fourFormat</DataField>
+        </Field>
+        <Field Name="five">
+          <DataField>five</DataField>
+        </Field>
+        <Field Name="fiveFormat">
+          <DataField>fiveFormat</DataField>
+        </Field>
+        <Field Name="six">
+          <DataField>six</DataField>
+        </Field>
+        <Field Name="sixFormat">
+          <DataField>sixFormat</DataField>
+        </Field>
+        <Field Name="seven">
+          <DataField>seven</DataField>
+        </Field>
+        <Field Name="sevenFormat">
+          <DataField>sevenFormat</DataField>
+        </Field>
+        <Field Name="eight">
+          <DataField>eight</DataField>
+        </Field>
+        <Field Name="eightFormat">
+          <DataField>eightFormat</DataField>
+        </Field>
+        <Field Name="nine">
+          <DataField>nine</DataField>
+        </Field>
+        <Field Name="nineFormat">
+          <DataField>nineFormat</DataField>
+        </Field>
+        <Field Name="ten">
+          <DataField>ten</DataField>
+        </Field>
+        <Field Name="tenFormat">
+          <DataField>tenFormat</DataField>
+        </Field>
+        <Field Name="eleven">
+          <DataField>eleven</DataField>
+        </Field>
+        <Field Name="elevenFormat">
+          <DataField>elevenFormat</DataField>
+        </Field>
+        <Field Name="twelve">
+          <DataField>twelve</DataField>
+        </Field>
+        <Field Name="twelveFormat">
+          <DataField>twelveFormat</DataField>
+        </Field>
+        <Field Name="thirteen">
+          <DataField>thirteen</DataField>
+        </Field>
+        <Field Name="thirteenFormat">
+          <DataField>thirteenFormat</DataField>
+        </Field>
+        <Field Name="fourteen">
+          <DataField>fourteen</DataField>
+        </Field>
+        <Field Name="fourteenFormat">
+          <DataField>fourteenFormat</DataField>
+        </Field>
+        <Field Name="fifteen">
+          <DataField>fifteen</DataField>
+        </Field>
+        <Field Name="fifteenFormat">
+          <DataField>fifteenFormat</DataField>
+        </Field>
+        <Field Name="sixteen">
+          <DataField>sixteen</DataField>
+        </Field>
+        <Field Name="sixteenFormat">
+          <DataField>sixteenFormat</DataField>
+        </Field>
+        <Field Name="seventeen">
+          <DataField>seventeen</DataField>
+        </Field>
+        <Field Name="seventeenFormat">
+          <DataField>seventeenFormat</DataField>
+        </Field>
+        <Field Name="eighteen">
+          <DataField>eighteen</DataField>
+        </Field>
+        <Field Name="eighteenFormat">
+          <DataField>eighteenFormat</DataField>
+        </Field>
+        <Field Name="nineteen">
+          <DataField>nineteen</DataField>
+        </Field>
+        <Field Name="nineteenFormat">
+          <DataField>nineteenFormat</DataField>
+        </Field>
+        <Field Name="twenty">
+          <DataField>twenty</DataField>
+        </Field>
+        <Field Name="twentyFormat">
+          <DataField>twentyFormat</DataField>
+        </Field>
+        <Field Name="twentyone">
+          <DataField>twentyone</DataField>
+        </Field>
+        <Field Name="twentyoneFormat">
+          <DataField>twentyoneFormat</DataField>
+        </Field>
+        <Field Name="twentytwo">
+          <DataField>twentytwo</DataField>
+        </Field>
+        <Field Name="twentytwoFormat">
+          <DataField>twentytwoFormat</DataField>
+        </Field>
+        <Field Name="twenythree">
+          <DataField>twenythree</DataField>
+        </Field>
+        <Field Name="twenythreeFormat">
+          <DataField>twenythreeFormat</DataField>
+        </Field>
+        <Field Name="twentyfour">
+          <DataField>twentyfour</DataField>
+        </Field>
+        <Field Name="twentyfourFormat">
+          <DataField>twentyfourFormat</DataField>
+        </Field>
+        <Field Name="twentyfive">
+          <DataField>twentyfive</DataField>
+        </Field>
+        <Field Name="twentyfiveFormat">
+          <DataField>twentyfiveFormat</DataField>
+        </Field>
+        <Field Name="twentysix">
+          <DataField>twentysix</DataField>
+        </Field>
+        <Field Name="twentysixFormat">
+          <DataField>twentysixFormat</DataField>
+        </Field>
+        <Field Name="twentyseven">
+          <DataField>twentyseven</DataField>
+        </Field>
+        <Field Name="twentysevenFormat">
+          <DataField>twentysevenFormat</DataField>
+        </Field>
+        <Field Name="twentyeight">
+          <DataField>twentyeight</DataField>
+        </Field>
+        <Field Name="twentyeightFormat">
+          <DataField>twentyeightFormat</DataField>
+        </Field>
+        <Field Name="twentynine">
+          <DataField>twentynine</DataField>
+        </Field>
+        <Field Name="twentynineFormat">
+          <DataField>twentynineFormat</DataField>
+        </Field>
+        <Field Name="thirty">
+          <DataField>thirty</DataField>
+        </Field>
+        <Field Name="thirtyFormat">
+          <DataField>thirtyFormat</DataField>
+        </Field>
+        <Field Name="thirtyone">
+          <DataField>thirtyone</DataField>
+        </Field>
+        <Field Name="thirtyoneFormat">
+          <DataField>thirtyoneFormat</DataField>
+        </Field>
+        <Field Name="Year">
+          <DataField>Year</DataField>
+        </Field>
+        <Field Name="SawingOut">
+          <DataField>SawingOut</DataField>
+        </Field>
+        <Field Name="stDate">
+          <DataField>stDate</DataField>
+        </Field>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
