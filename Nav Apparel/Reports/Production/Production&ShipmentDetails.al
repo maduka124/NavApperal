@@ -232,7 +232,6 @@ report 50627 ProductionAndShipmentDetails
                 SalesInvoiceHrec.SetRange("Style No", "Style No");
                 SalesInvoiceHrec.SetFilter("Shipment Date", '%1..%2', stDate, endDate);
                 SalesInvoiceHrec.SetRange(EntryType, SalesInvoiceHrec.EntryType::FG);
-                SalesInvoiceHrec.SetRange("Bal. Account Type", SalesInvoiceHrec."Bal. Account Type"::"G/L Account");
                 if SalesInvoiceHrec.FindSet() then begin
                     SalesInvoiceLineRec.Reset();
                     SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceHrec."No.");
