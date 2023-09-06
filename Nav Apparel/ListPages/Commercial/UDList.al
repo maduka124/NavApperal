@@ -50,6 +50,30 @@ page 51206 "UD List"
                 {
                     ApplicationArea = All;
                 }
+
+                field(UDQty; rec.UDQty)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Qty';
+                }
+
+                field(UDValue; rec.UDValue)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Value';
+                }
+
+                field(UDBalance; rec.UDBalance)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Balance';
+                }
+
+                field(UDBalanceValue; rec.UDBalanceValue)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Balance Value';
+                }
             }
         }
     }

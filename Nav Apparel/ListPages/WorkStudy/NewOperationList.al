@@ -87,6 +87,18 @@ page 50455 "New Operation"
         }
     }
 
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        NewBrOpLineRec: Record "New Breakdown Op Line2";
+    begin
+        NewBrOpLineRec.Reset();
+        NewBrOpLineRec.SetRange(Code, rec.Code);
+        if NewBrOpLineRec.FindSet() then
+            Error('Operation in use in New Breakdown. Cannot delete.');
+    end;
+
+
     trigger OnOpenPage()
     var
         LoginRec: Page "Login Card";

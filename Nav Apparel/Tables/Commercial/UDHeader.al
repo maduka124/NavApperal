@@ -73,6 +73,31 @@ table 51205 UDHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; UDQty; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(14; UDValue; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(15; UDBalance; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(16; UDBalanceValue; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
     }
 
     keys

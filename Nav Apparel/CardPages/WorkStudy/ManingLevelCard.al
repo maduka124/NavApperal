@@ -76,6 +76,7 @@ page 50475 "Maning Level Card"
                                 ManingLevelRec.Reset();
                                 ManingLevelRec.SetRange("Style No.", StyeleMasRec."No.");
                                 ManingLevelRec.SetRange("Work Center Name", rec."Work Center Name");
+                                ManingLevelRec.SetFilter("No.", '<>%1', rec."No.");
                                 if ManingLevelRec.FindSet() then
                                     Error('Duplicate entry for Style and Line.');
                             end;
@@ -119,6 +120,9 @@ page 50475 "Maning Level Card"
                                         LineNo := ManingLevelsLineRec."Line No.";
 
                                     repeat
+                                        // if NewBrOpLineRec.Code = 'BABA872' then
+                                        //     NewBrOpLineRec.Code := NewBrOpLineRec.Code;
+
                                         LineNo += 1;
                                         ManingLevelsLineRec.Init();
                                         ManingLevelsLineRec."No." := rec."No.";
@@ -254,6 +258,7 @@ page 50475 "Maning Level Card"
                             ManingLevelRec.Reset();
                             ManingLevelRec.SetRange("Style No.", rec."Style No.");
                             ManingLevelRec.SetRange("Work Center Name", rec."Work Center Name");
+                            ManingLevelRec.SetFilter("No.", '<>%1', rec."No.");
                             if ManingLevelRec.FindSet() then
                                 Error('Duplicate entry for Style and Line.');
                         end;

@@ -171,6 +171,9 @@ page 50464 "New Breakdown Op Listpart1"
                                 NewBreakOpLine2Rec.SetRange(Code, NewBreakOpLine1Rec.Code);
                                 if not NewBreakOpLine2Rec.FindSet() then begin
 
+                                    // if NewBreakOpLine1Rec.Code = 'BABA872' then
+                                    //     NewBreakOpLine1Rec.Code := NewBreakOpLine1Rec.Code;
+
                                     //Get Machine Type
                                     MachineRec.Reset();
                                     MachineRec.SetRange("Machine No.", NewBreakOpLine1Rec."Machine No.");

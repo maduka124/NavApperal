@@ -36,7 +36,17 @@ report 51245 SalesContractReport
             { }
             column(Quantity__Pcs_; "Quantity (Pcs)")
             { }
-            column(BBLCOPENED; "BBLC BALANCE")
+            column(BBLCOPENED; BBLCOPENED)
+            { }
+            column(UDNo; UDNo)
+            { }
+            column(UDQty; UDQty)
+            { }
+            column(UDValue; UDValue)
+            { }
+            column(UDBalance; UDBalance)
+            { }
+            column(UDBalanceValue; UDBalanceValue)
             { }
 
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
@@ -153,6 +163,8 @@ report 51245 SalesContractReport
 
 
             trigger OnAfterGetRecord()
+            var
+                UDRec: Record UDHeader;
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -187,28 +199,21 @@ report 51245 SalesContractReport
                 end;
 
                 "BBLC BALANCE" := "BBLC AMOUNT" - BBLCOPENED;
+
+                //UD Values
+                UDRec.Reset();
+                UDRec.SetRange("LC/Contract No.", "Contract No");
+                if UDRec.FindSet() then begin
+                    UDQty := UDRec.UDQty;
+                    UDValue := UDRec.Value;
+                    UDBalance := UDRec.UDBalance;
+                    UDBalanceValue := UDRec.UDBalanceValue;
+                    UDNo := UDRec."No.";
+                end;
+
             end;
         }
     }
-
-    requestpage
-    {
-        layout
-        {
-            area(Content)
-            {
-                // group(GroupName)
-                // {
-                //     // field(Name; SourceExpression)
-                //     // {
-                //     //     ApplicationArea = All;
-
-                //     // }
-                // }
-            }
-        }
-    }
-
 
     var
         ShValue: Decimal;
@@ -240,4 +245,9 @@ report 51245 SalesContractReport
         StyleRec: Record "Style Master";
         ShipQty: BigInteger;
         UnitPrice: Decimal;
+        UDQty: BigInteger;
+        UDValue: Decimal;
+        UDBalance: BigInteger;
+        UDBalanceValue: Decimal;
+        UDNo: Code[20];
 }

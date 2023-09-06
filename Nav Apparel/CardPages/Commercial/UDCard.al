@@ -40,7 +40,6 @@ page 51207 "UD Card"
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -80,7 +79,6 @@ page 51207 "UD Card"
                         //Calculate B2B LC opened  and %
                         B2BRec.Reset();
                         B2BRec.SetRange("LC/Contract No.", rec."LC/Contract No.");
-
                         if B2BRec.FindSet() then begin
                             repeat
                                 "B2B LC Opened (Value)" += B2BRec."B2B LC Value";
@@ -93,7 +91,6 @@ page 51207 "UD Card"
                         //Get total order qty
                         "Contract/LCStyleRec".Reset();
                         "Contract/LCStyleRec".SetRange("No.", ContLCMasRec."No.");
-
                         if "Contract/LCStyleRec".FindSet() then begin
                             repeat
                                 TotalQty += "Contract/LCStyleRec".Qty;
@@ -136,6 +133,44 @@ page 51207 "UD Card"
                 field("B2BLC%"; rec."B2BLC%")
                 {
                     ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field(UDQty; rec.UDQty)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Qty';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        rec.UDBalance := rec.Qantity - rec.UDQty;
+                    end;
+                }
+
+                field(UDValue; rec.UDValue)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Value';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        rec.UDBalanceValue := rec.Value - rec.UDValue;
+                    end;
+                }
+
+                field(UDBalance; rec.UDBalance)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Balance';
+                    Editable = false;
+                }
+
+                field(UDBalanceValue; rec.UDBalanceValue)
+                {
+                    ApplicationArea = All;
+                    Caption = 'UD Balance Value';
                     Editable = false;
                 }
             }
