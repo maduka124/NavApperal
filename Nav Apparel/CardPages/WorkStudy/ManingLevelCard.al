@@ -40,6 +40,7 @@ page 50475 "Maning Level Card"
                         LineNo: Integer;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        ManingLevelRec: Record "Maning Level";
                     begin
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -70,6 +71,15 @@ page 50475 "Maning Level Card"
                         end;
 
                         if Page.RunModal(51185, StyeleMasRec) = Action::LookupOK then begin
+
+                            if ((rec."Work Center Name" <> '') and (StyeleMasRec."No." <> '')) then begin
+                                ManingLevelRec.Reset();
+                                ManingLevelRec.SetRange("Style No.", StyeleMasRec."No.");
+                                ManingLevelRec.SetRange("Work Center Name", rec."Work Center Name");
+                                if ManingLevelRec.FindSet() then
+                                    Error('Duplicate entry for Style and Line.');
+                            end;
+
                             rec."Style No." := StyeleMasRec."No.";
                             rec."Style Name" := StyeleMasRec."Style No.";
 
@@ -238,7 +248,16 @@ page 50475 "Maning Level Card"
                     var
                         WorkCenterRec: Record "Work Center";
                         NavAppPlanLineRec: Record "NavApp Planning Lines";
+                        ManingLevelRec: Record "Maning Level";
                     begin
+                        if ((rec."Work Center Name" <> '') and (rec."Style No." <> '')) then begin
+                            ManingLevelRec.Reset();
+                            ManingLevelRec.SetRange("Style No.", rec."Style No.");
+                            ManingLevelRec.SetRange("Work Center Name", rec."Work Center Name");
+                            if ManingLevelRec.FindSet() then
+                                Error('Duplicate entry for Style and Line.');
+                        end;
+
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Work Center Name");
                         IF WorkCenterRec.FindSet() THEN

@@ -164,16 +164,144 @@ table 51370 FactoryAndLineMachine2Line
         {
             DataClassification = ToBeClassified;
         }
-        field(40; "Resourse No"; code[50])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(41; "Resource Name"; Text[200])
+
+        field(40; "Record TYpe"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(42; "Record TYpe"; Code[20])
+        field(41; "1 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(42; "2 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(43; "3 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(44; "4 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(45; "5 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(46; "6 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(47; "7 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(48; "8 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(49; "9 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50; "10 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(51; "11 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(52; "12 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(53; "13 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(54; "14 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(55; "15 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(56; "16 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(57; "17 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(58; "18 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(59; "19 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(60; "20 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(61; "21 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(62; "22 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(63; "23 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(64; "24 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(65; "25 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(66; "26 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(67; "27 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(68; "28 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(69; "29 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(70; "30 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(71; "31 New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(72; "Resourse No"; code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(73; "Resource Name"; Text[200])
         {
             DataClassification = ToBeClassified;
         }
