@@ -1137,6 +1137,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ProdPlansDetails."Created User" := UserId;
                                 ProdPlansDetails."Created Date" := WorkDate();
                                 ProdPlansDetails."Factory No." := FactoryNo;
+                                ProdPlansDetails."Group Id" := GetMerchGroupId(PlanningQueueeRec."Style No.");
                                 ProdPlansDetails.Insert();
 
                                 if LCurveFinishDate = TempDate then begin
@@ -1876,6 +1877,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     ProdPlansDetails."Created User" := UserId;
                                                     ProdPlansDetails."Created Date" := WorkDate();
                                                     ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
+                                                    ProdPlansDetails."Group Id" := GetMerchGroupId(JobPlaLineRec."Style No.");
                                                     ProdPlansDetails.Insert();
 
                                                     if LCurveFinishDate = TempDate then begin
@@ -2590,6 +2592,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ProdPlansDetails."Created User" := UserId;
                             ProdPlansDetails."Created Date" := WorkDate();
                             ProdPlansDetails."Factory No." := FactoryNo;
+                            ProdPlansDetails."Group Id" := GetMerchGroupId(JobPlaLineRec."Style No.");
                             ProdPlansDetails.Insert();
 
                             if LCurveFinishDate = TempDate then begin
@@ -3282,6 +3285,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             ProdPlansDetails."Created User" := UserId;
                                             ProdPlansDetails."Created Date" := WorkDate();
                                             ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
+                                            ProdPlansDetails."Group Id" := GetMerchGroupId(JobPlaLineRec."Style No.");
                                             ProdPlansDetails.Insert();
 
                                             if LCurveFinishDate = TempDate then begin
@@ -4472,6 +4476,29 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
             CurrPage.conVSControlAddIn.ScrollToDate(CREATEDATETIME(WORKDATE(), 000000T));
         end;
     end;
+
+
+    local procedure GetMerchGroupId(StyleNoPara: code[20]): Code[20]
+    var
+        CustomerRec: Record Customer;
+        StyleMasRec: Record "Style Master";
+        GroupId: Code[20];
+    begin
+        GroupId := '';
+        StyleMasRec.Reset();
+        StyleMasRec.SetRange("No.", StyleNoPara);
+        if StyleMasRec.FindSet() then begin
+            CustomerRec.Reset();
+            CustomerRec.SetRange("No.", StyleMasRec."Buyer No.");
+            if CustomerRec.FindSet() then
+                exit(CustomerRec."Group Id")
+            else
+                exit(GroupId);
+        end
+        else
+            exit(GroupId);
+    end;
+
 
     // local procedure SetView(pViewType: Integer)
     // begin
