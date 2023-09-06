@@ -700,13 +700,13 @@ page 50968 "Nav Apperal Role Center"
                         }
                     }
 
-                    action("CostBreakupReport1")
-                    {
-                        Caption = 'Cost Breakup Report';
-                        Enabled = true;
-                        RunObject = report CostBreakupReport;
-                        ApplicationArea = all;
-                    }
+                    // action("CostBreakupReport1")
+                    // {
+                    //     Caption = 'Cost Breakup Report';
+                    //     Enabled = true;
+                    //     RunObject = report CostBreakupReport;
+                    //     ApplicationArea = all;
+                    // }
 
                     action("Delivery Details")
                     {
