@@ -10,7 +10,8 @@ report 50627 ProductionAndShipmentDetails
     {
         dataitem("Sales Invoice Header"; "Sales Invoice Header")
         {
-            DataItemTableView = where("Bal. Account Type" = filter("G/L Account"), EntryType = filter(FG));
+            // DataItemTableView = where("Bal. Account Type" = filter("G/L Account"), EntryType = filter(FG));
+            DataItemTableView = sorting("No.");
 
             dataitem("Style Master PO"; "Style Master PO")
             {

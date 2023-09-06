@@ -700,13 +700,13 @@ page 50968 "Nav Apperal Role Center"
                         }
                     }
 
-                    action("CostBreakupReport1")
-                    {
-                        Caption = 'Cost Breakup Report';
-                        Enabled = true;
-                        RunObject = report CostBreakupReport;
-                        ApplicationArea = all;
-                    }
+                    // action("CostBreakupReport1")
+                    // {
+                    //     Caption = 'Cost Breakup Report';
+                    //     Enabled = true;
+                    //     RunObject = report CostBreakupReport;
+                    //     ApplicationArea = all;
+                    // }
 
                     action("Delivery Details")
                     {
@@ -1061,6 +1061,14 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Hourly Production Report';
                         Enabled = true;
                         RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Hourly Production Report Planning Merchandising")
+                    {
+                        Caption = 'Merchandising Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionMerchandizing;
                         ApplicationArea = all;
                     }
 
