@@ -79,6 +79,28 @@ page 50371 "Prod Update Card"
     end;
 
 
+    local procedure GetMerchGroupId(StyleNoPara: code[20]): Code[20]
+    var
+        CustomerRec: Record Customer;
+        StyleMasRec: Record "Style Master";
+        GroupId: Code[20];
+    begin
+        GroupId := '';
+        StyleMasRec.Reset();
+        StyleMasRec.SetRange("No.", StyleNoPara);
+        if StyleMasRec.FindSet() then begin
+            CustomerRec.Reset();
+            CustomerRec.SetRange("No.", StyleMasRec."Buyer No.");
+            if CustomerRec.FindSet() then
+                exit(CustomerRec."Group Id")
+            else
+                exit(GroupId);
+        end
+        else
+            exit(GroupId);
+    end;
+
+
     procedure Reschedule()
     var
         WorkCenCapacityEntryRec: Record "Calendar Entry";
@@ -854,6 +876,7 @@ page 50371 "Prod Update Card"
                                             ProdPlansDetails."Created User" := UserId;
                                             ProdPlansDetails."Created Date" := WorkDate();
                                             ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
+                                            ProdPlansDetails."Group Id" := GetMerchGroupId(JobPlaLineRec."Style No.");
                                             ProdPlansDetails.Insert();
                                         end;
 
@@ -1583,6 +1606,7 @@ page 50371 "Prod Update Card"
                                                                 ProdPlansDetails."Created User" := UserId;
                                                                 ProdPlansDetails."Created Date" := WorkDate();
                                                                 ProdPlansDetails."Factory No." := JobPlaLine1Rec.Factory;
+                                                                ProdPlansDetails."Group Id" := GetMerchGroupId(JobPlaLine1Rec."Style No.");
                                                                 ProdPlansDetails.Insert();
                                                             end;
 

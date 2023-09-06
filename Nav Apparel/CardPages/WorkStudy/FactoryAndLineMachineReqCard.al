@@ -4,7 +4,7 @@ page 51368 FactoryAndLineMachineReqCard
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = FactoryandlinemachineReqlist;
-    Caption = 'Planed Machine Requirment';
+    Caption = 'Planned Machine Requirment';
 
     layout
     {
@@ -45,8 +45,6 @@ page 51368 FactoryAndLineMachineReqCard
                             Rec."Resource No." := '';
                             CurrPage.Update();
                         end;
-
-
                     end;
                 }
 
@@ -60,14 +58,11 @@ page 51368 FactoryAndLineMachineReqCard
                     var
                         WorkcenterRec: Record "Work Center";
                     begin
-
                         WorkcenterRec.Reset();
                         WorkcenterRec.SetRange(Name, Rec."Resource Name");
-
                         if WorkcenterRec.FindSet() then
                             Rec."Resource No." := WorkcenterRec."No.";
                     end;
-
                 }
             }
 
@@ -117,20 +112,21 @@ page 51368 FactoryAndLineMachineReqCard
                     M: Integer;
                     D: Integer;
                     MonthText: Text[50];
+                    PreResourceNo: code[20];
+                    PreDate: Integer;
                 begin
-
                     if REc."Start Date" = 0D then
-                        Error('Start Date cannot be empty');
+                        Error('Start Date is blank.');
 
                     if REc."End Date" = 0D then
-                        Error('Start Date cannot be empty');
+                        Error('Start Date is blank.');
 
                     if Rec."End Date" < Rec."Start Date" then
-                        Error('Invalid date range');
+                        Error('Invalid date range.');
 
                     if VisibleGB = true then begin
                         if Rec."Resource Name" = '' then
-                            Error('Resource Name cannot be blank');
+                            Error('Resource Name is blank.');
                     end;
 
                     FactoryAndLineRec.Reset();
@@ -143,14 +139,14 @@ page 51368 FactoryAndLineMachineReqCard
                     if FactoryAndLine2Rec.FindSet() then
                         FactoryAndLine2Rec.DeleteAll();
 
-                    if Rec."Resource No." = '' then begin
+                    if Rec."Resource No." = '' then begin   //Filter by line option not clicked
 
+                        //Get all planning lines for the date period
                         NavAppPlanProdLineRec.Reset();
                         NavAppPlanProdLineRec.SetRange("Factory No.", Rec."Factory Code");
                         NavAppPlanProdLineRec.SetRange(PlanDate, Rec."Start Date", Rec."End Date");
-                        NavAppPlanProdLineRec.SetCurrentKey("Style No.");
+                        NavAppPlanProdLineRec.SetCurrentKey("Resource No.", PlanDate);
                         NavAppPlanProdLineRec.Ascending(True);
-
                         if NavAppPlanProdLineRec.FindSet() then begin
 
                             repeat
@@ -185,19 +181,19 @@ page 51368 FactoryAndLineMachineReqCard
                                 If M = 12 then
                                     MonthText := 'December';
 
-
+                                //Get Style wise machine requirment
                                 StyleWiseMachineLineRec.Reset();
                                 StyleWiseMachineLineRec.SetRange("Style No", NavAppPlanProdLineRec."Style No.");
+                                StyleWiseMachineLineRec.SetFilter("Record Type", '=%1', 'L');
                                 StyleWiseMachineLineRec.SetCurrentKey("Machine No");
                                 StyleWiseMachineLineRec.Ascending(true);
-
                                 if StyleWiseMachineLineRec.FindSet() then begin
-                                    repeat
 
+                                    repeat
+                                        //Insert or Modify Total
                                         FactoryAndLineTotRec.Reset();
                                         FactoryAndLineTotRec.SetRange(Factory, Rec."Factory Name");
                                         FactoryAndLineTotRec.SetFilter("Record Type", '=%1', 'T');
-
                                         if not FactoryAndLineTotRec.FindSet() then begin
 
                                             FactoryAndLineTotRec.Init();
@@ -344,18 +340,16 @@ page 51368 FactoryAndLineMachineReqCard
                                         FactoryAndLineRec.SetRange("Machine type", StyleWiseMachineLineRec."Machine No");
                                         FactoryAndLineRec.SetRange(Factory, Rec."Factory Name");
                                         FactoryAndLineRec.SetRange(Month, MonthText);
-
                                         if not FactoryAndLineRec.FindSet() then begin
 
                                             LineNo += 1;
                                             FactoryAndLineRec.Init();
                                             FactoryAndLineRec.Factory := Rec."Factory Name";
-                                            // FactoryAndLineRec.fa
                                             FactoryAndLineRec."Machine type" := StyleWiseMachineLineRec."Machine No";
                                             FactoryAndLineRec."Machine Description" := StyleWiseMachineLineRec."Machine Name";
                                             FactoryAndLineRec."Line No" := LineNo;
                                             FactoryAndLineRec.Month := MonthText;
-                                            FactoryAndLineRec.Year := y;
+                                            FactoryAndLineRec.Year := Y;
                                             FactoryAndLineRec."Record Type" := 'R';
 
                                             if D = 1 then
@@ -421,9 +415,18 @@ page 51368 FactoryAndLineMachineReqCard
                                             if D = 31 then
                                                 FactoryAndLineRec."31 New" := StyleWiseMachineLineRec."Machine Qty New";
                                             FactoryAndLineRec.Insert();
-
+                                            PreResourceNo := NavAppPlanProdLineRec."Resource No.";
+                                            PreDate := D;
                                         end
                                         else begin
+
+                                            if PreResourceNo = NavAppPlanProdLineRec."Resource No." then begin
+
+
+
+
+                                            end;
+
                                             if D = 1 then
                                                 FactoryAndLineRec."1 New" := FactoryAndLineRec."1 New" + StyleWiseMachineLineRec."Machine Qty New";
                                             if D = 2 then
@@ -486,14 +489,16 @@ page 51368 FactoryAndLineMachineReqCard
                                                 FactoryAndLineRec."30 New" := FactoryAndLineRec."30 New" + StyleWiseMachineLineRec."Machine Qty New";
                                             if D = 31 then
                                                 FactoryAndLineRec."31 New" := FactoryAndLineRec."31 New" + StyleWiseMachineLineRec."Machine Qty New";
-                                            FactoryAndLineRec.Modify()
+
+                                            FactoryAndLineRec.Modify();
+                                            PreResourceNo := NavAppPlanProdLineRec."Resource No.";
+                                            PreDate := D;
                                         end;
 
                                     until StyleWiseMachineLineRec.Next() = 0;
                                 end;
                             until NavAppPlanProdLineRec.Next() = 0;
                         end;
-
                     end
                     else begin
                         NavAppPlanProdLineRec.Reset();
@@ -851,6 +856,7 @@ page 51368 FactoryAndLineMachineReqCard
         }
     }
 
+
     trigger OnOpenPage()
     begin
         VisibleGB := false;
@@ -862,7 +868,6 @@ page 51368 FactoryAndLineMachineReqCard
         FactoryAndLineMachineLineRec: Record FactoryAndLineMachineLine;
         FactoryAndLineMachine2LineRec: Record FactoryAndLineMachine2Line;
     begin
-
         FactoryAndLineMachineLineRec.Reset();
         FactoryAndLineMachineLineRec.SetRange(Factory, Rec."Factory Name");
         if FactoryAndLineMachineLineRec.FindSet() then
@@ -872,7 +877,6 @@ page 51368 FactoryAndLineMachineReqCard
         FactoryAndLineMachine2LineRec.SetRange(Factory, Rec."Factory Name");
         if FactoryAndLineMachine2LineRec.FindSet() then
             FactoryAndLineMachine2LineRec.DeleteAll();
-
     end;
 
     var
