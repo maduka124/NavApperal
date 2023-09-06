@@ -252,7 +252,7 @@ report 51406 HourlyProductionMerchandizing
             { }
             column(WFHTot; WFHTot)
             { }
-            column(Merchandizing_GRP_Head; "Merchandizing GRP Head")
+            column(Merchandizing_GRP_Head; GRPHeadName)
             { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
@@ -1170,6 +1170,11 @@ report 51406 HourlyProductionMerchandizing
                     until NavAppProdRec.Next() = 0;
                 end;
 
+                MerchandizingRec.Reset();
+                MerchandizingRec.SetRange("Group Id", "Group Id");
+                if MerchandizingRec.FindSet() then begin
+                    GRPHeadName := MerchandizingRec."Group Head"
+                end;
 
 
                 LocationRec.SetRange(Code, "Factory No.");
@@ -1202,7 +1207,7 @@ report 51406 HourlyProductionMerchandizing
             begin
 
                 SetRange(PlanDate, FilterDate);
-                SetRange("Merchandizing GRP Head", MerchantFilter);
+                SetRange("Group Id", MerchantFilter);
 
             end;
         }
@@ -1224,23 +1229,23 @@ report 51406 HourlyProductionMerchandizing
                     {
                         ApplicationArea = All;
                         Caption = 'Merchandising Head';
+                        TableRelation = MerchandizingGroupTable."Group Id";
+                        // trigger OnLookup(var texts: text): Boolean
+                        // var
+                        //     LocationRec: Record Location;
+                        //     UserRec: Record "User Setup";
+                        //     MerchanRec: Record MerchandizingGroupTable;
+                        // begin
+                        //     UserRec.Reset();
+                        //     UserRec.Get(UserId);
 
-                        trigger OnLookup(var texts: text): Boolean
-                        var
-                            LocationRec: Record Location;
-                            UserRec: Record "User Setup";
-                            MerchanRec: Record MerchandizingGroupTable;
-                        begin
-                            UserRec.Reset();
-                            UserRec.Get(UserId);
-
-                            MerchanRec.Reset();
-                            if MerchanRec.FindSet() then begin
-                                if Page.RunModal(50848, MerchanRec) = Action::LookupOK then begin
-                                    MerchantFilter := MerchanRec."Group Head";
-                                end;
-                            end;
-                        end;
+                        //     MerchanRec.Reset();
+                        //     if MerchanRec.FindSet() then begin
+                        //         if Page.RunModal(50848, MerchanRec) = Action::LookupOK then begin
+                        //             MerchantFilter := MerchanRec."Group Head";
+                        //         end;
+                        //     end;
+                        // end;
                     }
 
                     field(FilterDate; FilterDate)
@@ -1261,6 +1266,8 @@ report 51406 HourlyProductionMerchandizing
     end;
 
     var
+        GRPHeadName: Text[200];
+        MerchandizingRec: Record MerchandizingGroupTable;
         HourlyLineRec: Record "Hourly Production Lines";
         WFHTot: Integer;
         WIPFin: Integer;

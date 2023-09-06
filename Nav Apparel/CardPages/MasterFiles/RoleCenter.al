@@ -1064,6 +1064,14 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Hourly Production Report Planning Merchandising")
+                    {
+                        Caption = 'Merchandising Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionMerchandizing;
+                        ApplicationArea = all;
+                    }
+
                     //Done By Sachith on 08/03/23
                     action("Line in Out Report Planning")
                     {

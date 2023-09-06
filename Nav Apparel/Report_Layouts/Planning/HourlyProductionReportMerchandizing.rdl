@@ -13042,7 +13042,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.4525cm</Width>
+                  <Width>3.86273cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>11.80394cm</Width>
@@ -13061,7 +13061,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>FACTORY</Value>
+                                  <Value>MERCHANDISING HEAD</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -13096,7 +13096,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryName.Value</Value>
+                                  <Value>=Fields!Merchandizing_GRP_Head.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -13223,10 +13223,11 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
+            <DataSetName>DataSet_Result</DataSetName>
             <Top>0.49847cm</Top>
             <Left>0cm</Left>
             <Height>1.26834cm</Height>
-            <Width>15.25644cm</Width>
+            <Width>15.66667cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
