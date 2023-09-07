@@ -13211,7 +13211,7 @@
                 <TablixMember>
                   <Group Name="Details1">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!FactoryName.Value</GroupExpression>
+                      <GroupExpression>=Fields!Merchandizing_GRP_Head.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <Visibility>
@@ -13224,7 +13224,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>0.49847cm</Top>
+            <Top>0.51964cm</Top>
             <Left>0cm</Left>
             <Height>1.26834cm</Height>
             <Width>15.66667cm</Width>
