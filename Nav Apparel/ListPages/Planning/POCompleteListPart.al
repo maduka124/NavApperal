@@ -48,7 +48,7 @@ page 51332 POCompleteListPart
                                 //Update Style Master po table
                                 rec.PlannedQty := 0;
                                 rec.QueueQty := 0;
-                                //rec.PlannedStatus := false;                                
+                                rec.PlannedStatus := true;
                                 rec.Modify();
 
                                 Message('Completed');
@@ -99,6 +99,7 @@ page 51332 POCompleteListPart
                                 rec.PlannedQty := 0;
                                 rec.QueueQty := 0;
                                 rec.PlannedStatus := false;
+                                rec."PO Complete" := false;
                                 rec.Modify();
 
                                 Message('Completed');
