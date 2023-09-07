@@ -352,12 +352,12 @@ page 51324 OrderShippingList
                                 SalesInvRec2.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
                                 SalesInvRec2.SetRange("PO No", StylePoRec."PO No.");
                                 SalesInvRec2.SetRange(Lot, StylePoRec."Lot No.");
-                                if SalesInvRec.FindSet() then begin
+                                if SalesInvRec2.FindSet() then begin
                                     repeat
                                         SalesLineRec.Reset();
-                                        SalesLineRec.SetRange("Order No.", SalesInvRec2."Order No.");
+                                        SalesLineRec.SetRange("Document No.", SalesInvRec2."No.");
                                         SalesLineRec.SetRange(Type, SalesLineRec.Type::Item);
-                                        if SalesInvRec.FindSet() then begin
+                                        if SalesLineRec.FindSet() then begin
                                             repeat
                                                 ShQty += SalesLineRec.Quantity;
                                             until SalesLineRec.Next() = 0;
