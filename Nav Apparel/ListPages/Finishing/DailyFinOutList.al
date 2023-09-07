@@ -83,7 +83,34 @@ page 50363 "Daily Finishing Out"
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
+        UserRec: Record "User Setup";
+        NavappProdRec: Record "NavApp Prod Plans Details";
     begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+            else begin
+                NavappProdRec.Reset();
+                NavappProdRec.SetRange("Factory No.", Rec."Factory Code");
+                NavappProdRec.SetRange("Style No.", Rec."Style No.");
+                NavappProdRec.SetRange(PlanDate, Rec."Prod Date");
+                NavappProdRec.SetRange("PO No.", Rec."PO No");
+                NavappProdRec.SetRange("Lot No.", Rec."Lot No.");
+                NavappProdRec.SetRange(ProdUpd, 1);
+                if NavappProdRec.FindSet() then begin
+                    Error('Production updated against this entry. You cannot delete it.');
+                end;
+
+            end;
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'OUT', 'Fin', Rec.Type::Fin);
+
+
     end;
 }
