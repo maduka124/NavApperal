@@ -2835,7 +2835,7 @@ page 50968 "Nav Apperal Role Center"
 
                     action("Shipment Summary Report")
                     {
-                        Caption = 'Shipment Summary As Per SC/UD';
+                        Caption = 'SC/UD Wise Export Summary';
                         Enabled = true;
                         RunObject = report ShipementSummaryReport;
                         ApplicationArea = all;

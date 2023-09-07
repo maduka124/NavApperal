@@ -2,7 +2,7 @@ report 51244 ShipementSummaryReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Shipment Summary As Per SC/UD';
+    Caption = 'SC/UD Wise Export Summary';
     RDLCLayout = 'Report_Layouts/Commercial/ShipementSummaryReport.rdl';
     DefaultLayout = RDLC;
 
@@ -84,10 +84,10 @@ report 51244 ShipementSummaryReport
                     SetRange("Buyer No.", BuyerFilter);
                 if ContractFilter <> '' then
                     SetRange("LC/Contract No.", ContractFilter);
-                if UdFilter <> '' then
-                    SetRange("No.", UdFilter);
-                if Stdate <> 0D then
-                    SetRange("Created Date", Stdate, EndDate);
+                // if UdFilter <> '' then
+                //     SetRange("No.", UdFilter);
+                // if Stdate <> 0D then
+                //     SetRange("Created Date", Stdate, EndDate);
             end;
 
         }
@@ -101,12 +101,12 @@ report 51244 ShipementSummaryReport
             {
                 group(GroupName)
                 {
-                    field(UdFilter; UdFilter)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'UD No';
-                        TableRelation = UDHeader."No.";
-                    }
+                    // field(UdFilter; UdFilter)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'UD No';
+                    //     TableRelation = UDHeader."No.";
+                    // }
                     field(BuyerFilter; BuyerFilter)
                     {
                         ApplicationArea = All;
@@ -117,20 +117,48 @@ report 51244 ShipementSummaryReport
                     {
                         ApplicationArea = All;
                         Caption = 'Contract No';
-                        TableRelation = "Contract/LCMaster"."No.";
-                    }
-                    field(Stdate; Stdate)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Start Date';
+                        // TableRelation = "Contract/LCMaster"."No.";
+
+
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            ContractRec: Record "Contract/LCMaster";
+                            ContractRec1: Record "Contract/LCMaster";
+                        begin
+                            ContractRec1.Reset();
+                            ContractRec1.FindSet();
+
+                            if BuyerFilter <> '' then begin
+                                ContractRec.Reset();
+                                ContractRec.SetRange("Buyer No.", BuyerFilter);
+                                if ContractRec.FindSet() then begin
+                                    if Page.RunModal(50503, ContractRec) = Action::LookupOK then begin
+                                        ContractFilter := ContractRec."Contract No";
+                                    end;
+                                end
+                            end
+                            else begin
+                                if Page.RunModal(50503, ContractRec1) = Action::LookupOK then begin
+                                    ContractFilter := ContractRec1."Contract No";
+                                end;
+                            end;
+
+                        end;
 
                     }
-                    field(EndDate; EndDate)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'End Date';
+                    // field(Stdate; Stdate)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Start Date';
 
-                    }
+                    // }
+                    // field(EndDate; EndDate)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'End Date';
+
+                    // }
                 }
             }
         }

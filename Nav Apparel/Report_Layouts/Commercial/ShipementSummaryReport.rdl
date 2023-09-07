@@ -22,7 +22,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>SHIPMENT SUMMARY AS PER SC/UD</Value>
+                    <Value>SC/UD WISE EXPORT SUMMARY</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>18pt</FontSize>
