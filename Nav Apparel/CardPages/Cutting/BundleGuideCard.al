@@ -781,8 +781,12 @@ page 50665 "Bundle Guide Card"
 
                                                     if (TempQty + BundleQty) < 10000 then
                                                         StickerSeq := Format(z + 1) + '-' + Format(TempQty + BundleQty)
-                                                    else
-                                                        StickerSeq := Format(z + 1) + '-' + Format(BundleQty - (9999 - TempQty));
+                                                    else begin
+                                                        if TempQty <= 9999 then
+                                                            StickerSeq := Format(z + 1) + '-' + Format(BundleQty - (9999 - TempQty))
+                                                        else
+                                                            StickerSeq := Format(z + 1) + '-' + Format(BundleQty);
+                                                    end;
 
                                                     BundleGuideLineRec.Init();
                                                     BundleGuideLineRec."Bundle No" := BundleNo;
@@ -799,8 +803,12 @@ page 50665 "Bundle Guide Card"
 
                                                     if (TempQty + BundleQty) < 10000 then
                                                         BundleGuideLineRec.TempQty := TempQty + BundleQty - TempQty1
-                                                    else
-                                                        BundleGuideLineRec.TempQty := BundleQty - (9999 - TempQty);
+                                                    else begin
+                                                        if TempQty <= 9999 then
+                                                            BundleGuideLineRec.TempQty := BundleQty - (9999 - TempQty)
+                                                        else
+                                                            BundleGuideLineRec.TempQty := BundleQty;
+                                                    end;
 
                                                     if Ratio = 1 then
                                                         BundleGuideLineRec.Size := Size
@@ -823,7 +831,11 @@ page 50665 "Bundle Guide Card"
                                                         TempQty1 := TempQty1 + BundleQty;
                                                     end
                                                     else begin
-                                                        TempQty := (BundleQty - (9999 - TempQty));
+                                                        if TempQty <= 9999 then
+                                                            TempQty := (BundleQty - (9999 - TempQty))
+                                                        else
+                                                            TempQty := (BundleQty);
+
                                                         PreviuosBundleQty := BundleQty;
                                                         TempQty1 := TempQty1 + BundleQty;
                                                     end;
