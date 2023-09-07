@@ -76,7 +76,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.64823cm</Height>
+                  <Height>0.5424cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -184,139 +184,37 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Tablix Name="Tablix5">
-                          <TablixBody>
-                            <TablixColumns>
-                              <TablixColumn>
-                                <Width>6.85012cm</Width>
-                              </TablixColumn>
-                            </TablixColumns>
-                            <TablixRows>
-                              <TablixRow>
-                                <Height>0.56886cm</Height>
-                                <TablixCells>
-                                  <TablixCell>
-                                    <CellContents>
-                                      <Textbox Name="LC_Value">
-                                        <CanGrow>true</CanGrow>
-                                        <KeepTogether>true</KeepTogether>
-                                        <Paragraphs>
-                                          <Paragraph>
-                                            <TextRuns>
-                                              <TextRun>
-                                                <Value>=Fields!LC_Value.Value</Value>
-                                                <Style>
-                                                  <FontFamily>Calibri</FontFamily>
-                                                  <Format>n2</Format>
-                                                </Style>
-                                              </TextRun>
-                                            </TextRuns>
-                                            <Style>
-                                              <TextAlign>Left</TextAlign>
-                                            </Style>
-                                          </Paragraph>
-                                        </Paragraphs>
-                                        <rd:DefaultName>LC_Value</rd:DefaultName>
-                                        <Style>
-                                          <Border>
-                                            <Style>None</Style>
-                                          </Border>
-                                          <VerticalAlign>Bottom</VerticalAlign>
-                                          <PaddingLeft>2pt</PaddingLeft>
-                                          <PaddingRight>2pt</PaddingRight>
-                                          <PaddingTop>2pt</PaddingTop>
-                                          <PaddingBottom>2pt</PaddingBottom>
-                                        </Style>
-                                      </Textbox>
-                                    </CellContents>
-                                  </TablixCell>
-                                </TablixCells>
-                              </TablixRow>
-                              <TablixRow>
-                                <Height>0.07938cm</Height>
-                                <TablixCells>
-                                  <TablixCell>
-                                    <CellContents>
-                                      <Textbox Name="Textbox15">
-                                        <CanGrow>true</CanGrow>
-                                        <KeepTogether>true</KeepTogether>
-                                        <Paragraphs>
-                                          <Paragraph>
-                                            <TextRuns>
-                                              <TextRun>
-                                                <Value>=Sum(Fields!Contract_Value.Value)</Value>
-                                                <Style>
-                                                  <FontFamily>Calibri</FontFamily>
-                                                  <Format>n2</Format>
-                                                </Style>
-                                              </TextRun>
-                                            </TextRuns>
-                                            <Style>
-                                              <TextAlign>Left</TextAlign>
-                                            </Style>
-                                          </Paragraph>
-                                        </Paragraphs>
-                                        <rd:DefaultName>Textbox4</rd:DefaultName>
-                                        <Visibility>
-                                          <Hidden>true</Hidden>
-                                        </Visibility>
-                                        <Style>
-                                          <Border>
-                                            <Style>None</Style>
-                                          </Border>
-                                          <PaddingLeft>2pt</PaddingLeft>
-                                          <PaddingRight>2pt</PaddingRight>
-                                          <PaddingTop>2pt</PaddingTop>
-                                          <PaddingBottom>2pt</PaddingBottom>
-                                        </Style>
-                                      </Textbox>
-                                    </CellContents>
-                                  </TablixCell>
-                                </TablixCells>
-                              </TablixRow>
-                            </TablixRows>
-                          </TablixBody>
-                          <TablixColumnHierarchy>
-                            <TablixMembers>
-                              <TablixMember />
-                            </TablixMembers>
-                          </TablixColumnHierarchy>
-                          <TablixRowHierarchy>
-                            <TablixMembers>
-                              <TablixMember>
-                                <Group Name="No_">
-                                  <GroupExpressions>
-                                    <GroupExpression>=Fields!No_.Value</GroupExpression>
-                                  </GroupExpressions>
-                                </Group>
-                                <SortExpressions>
-                                  <SortExpression>
-                                    <Value>=Fields!No_.Value</Value>
-                                  </SortExpression>
-                                </SortExpressions>
-                                <TablixMembers>
-                                  <TablixMember>
-                                    <Group Name="Details3" />
-                                    <TablixMembers>
-                                      <TablixMember />
-                                      <TablixMember />
-                                    </TablixMembers>
-                                    <Visibility>
-                                      <Hidden>=IIF(Fields!No_.Value=Previous(Fields!No_.Value),True,False)</Hidden>
-                                    </Visibility>
-                                  </TablixMember>
-                                </TablixMembers>
-                              </TablixMember>
-                            </TablixMembers>
-                          </TablixRowHierarchy>
-                          <DataSetName>DataSet_Result</DataSetName>
-                          <ZIndex>6</ZIndex>
+                        <Textbox Name="Contract_Value">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Contract_Value.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Contract_Value</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Tablix>
+                        </Textbox>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -392,7 +290,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.67938cm</Height>
+                  <Height>0.65821cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -500,135 +398,37 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Tablix Name="Tablix7">
-                          <TablixBody>
-                            <TablixColumns>
-                              <TablixColumn>
-                                <Width>6.85012cm</Width>
-                              </TablixColumn>
-                            </TablixColumns>
-                            <TablixRows>
-                              <TablixRow>
-                                <Height>0.07938cm</Height>
-                                <TablixCells>
-                                  <TablixCell>
-                                    <CellContents>
-                                      <Textbox Name="Quantity__Pcs_4">
-                                        <CanGrow>true</CanGrow>
-                                        <KeepTogether>true</KeepTogether>
-                                        <Paragraphs>
-                                          <Paragraph>
-                                            <TextRuns>
-                                              <TextRun>
-                                                <Value>=Fields!Quantity__Pcs_.Value</Value>
-                                                <Style>
-                                                  <FontFamily>Calibri</FontFamily>
-                                                </Style>
-                                              </TextRun>
-                                            </TextRuns>
-                                            <Style />
-                                          </Paragraph>
-                                        </Paragraphs>
-                                        <rd:DefaultName>Quantity__Pcs_2</rd:DefaultName>
-                                        <Visibility>
-                                          <Hidden>true</Hidden>
-                                        </Visibility>
-                                        <Style>
-                                          <Border>
-                                            <Style>None</Style>
-                                          </Border>
-                                          <PaddingLeft>2pt</PaddingLeft>
-                                          <PaddingRight>2pt</PaddingRight>
-                                          <PaddingTop>2pt</PaddingTop>
-                                          <PaddingBottom>2pt</PaddingBottom>
-                                        </Style>
-                                      </Textbox>
-                                    </CellContents>
-                                  </TablixCell>
-                                </TablixCells>
-                              </TablixRow>
-                              <TablixRow>
-                                <Height>0.6cm</Height>
-                                <TablixCells>
-                                  <TablixCell>
-                                    <CellContents>
-                                      <Textbox Name="Textbox47">
-                                        <CanGrow>true</CanGrow>
-                                        <KeepTogether>true</KeepTogether>
-                                        <Paragraphs>
-                                          <Paragraph>
-                                            <TextRuns>
-                                              <TextRun>
-                                                <Value>=Sum(Fields!Quantity__Pcs_.Value)</Value>
-                                                <Style>
-                                                  <FontFamily>Calibri</FontFamily>
-                                                  <Format>n2</Format>
-                                                </Style>
-                                              </TextRun>
-                                            </TextRuns>
-                                            <Style>
-                                              <TextAlign>Left</TextAlign>
-                                            </Style>
-                                          </Paragraph>
-                                        </Paragraphs>
-                                        <rd:DefaultName>Textbox41</rd:DefaultName>
-                                        <Style>
-                                          <Border>
-                                            <Style>None</Style>
-                                          </Border>
-                                          <PaddingLeft>2pt</PaddingLeft>
-                                          <PaddingRight>2pt</PaddingRight>
-                                          <PaddingTop>2pt</PaddingTop>
-                                          <PaddingBottom>2pt</PaddingBottom>
-                                        </Style>
-                                      </Textbox>
-                                    </CellContents>
-                                  </TablixCell>
-                                </TablixCells>
-                              </TablixRow>
-                            </TablixRows>
-                          </TablixBody>
-                          <TablixColumnHierarchy>
-                            <TablixMembers>
-                              <TablixMember />
-                            </TablixMembers>
-                          </TablixColumnHierarchy>
-                          <TablixRowHierarchy>
-                            <TablixMembers>
-                              <TablixMember>
-                                <Group Name="No_3">
-                                  <GroupExpressions>
-                                    <GroupExpression>=Fields!No_.Value</GroupExpression>
-                                  </GroupExpressions>
-                                </Group>
-                                <SortExpressions>
-                                  <SortExpression>
-                                    <Value>=Fields!No_.Value</Value>
-                                  </SortExpression>
-                                </SortExpressions>
-                                <TablixMembers>
-                                  <TablixMember>
-                                    <Group Name="Details5" />
-                                    <TablixMembers>
-                                      <TablixMember />
-                                      <TablixMember />
-                                    </TablixMembers>
-                                    <Visibility>
-                                      <Hidden>=IIF(Fields!No_.Value = Previous(Fields!No_.Value), True, False)</Hidden>
-                                    </Visibility>
-                                  </TablixMember>
-                                </TablixMembers>
-                              </TablixMember>
-                            </TablixMembers>
-                          </TablixRowHierarchy>
-                          <DataSetName>DataSet_Result</DataSetName>
-                          <ZIndex>7</ZIndex>
+                        <Textbox Name="QtyPcs">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!QtyPcs.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>QtyPcs</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Tablix>
+                        </Textbox>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -704,7 +504,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>0.57883cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -812,14 +612,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox7">
+                        <Textbox Name="Contract_Value2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!tot.Value)</Value>
+                                  <Value>=Fields!Contract_Value.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -831,7 +631,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox4</rd:DefaultName>
+                          <rd:DefaultName>Contract_Value</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -938,7 +738,7 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>2.13995cm</Top>
             <Left>0cm</Left>
-            <Height>1.92761cm</Height>
+            <Height>1.77944cm</Height>
             <Width>27.48517cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -1431,7 +1231,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!B2B_LC_Value.Value</Value>
+                                  <Value>=code.AddTotalM(Fields!B2B_LC_Value.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1607,7 +1407,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!B2B_LC_Value.Value)</Value>
+                                  <Value>=code.GetTotalM()</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3528,6 +3328,16 @@ End Function
 Public Function GetTotalK()
                 return totalLicBalanceK
 End Function
+
+Dim public totalLicBalanceM as Decimal
+Public Function AddTotalM(ByVal LicValM AS Decimal ) AS Decimal
+                totalLicBalanceM = totalLicBalanceM + LicValM
+                return LicValM
+End Function
+
+Public Function GetTotalM()
+                return totalLicBalanceM
+End Function
 </Code>
   <EmbeddedImages>
     <EmbeddedImage Name="ABA">
@@ -3608,6 +3418,18 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Contract_ValueFormat">
           <DataField>Contract_ValueFormat</DataField>
         </Field>
+        <Field Name="BBLCAmount">
+          <DataField>BBLCAmount</DataField>
+        </Field>
+        <Field Name="BBLCAmountFormat">
+          <DataField>BBLCAmountFormat</DataField>
+        </Field>
+        <Field Name="QtyPcs">
+          <DataField>QtyPcs</DataField>
+        </Field>
+        <Field Name="QtyPcsFormat">
+          <DataField>QtyPcsFormat</DataField>
+        </Field>
         <Field Name="InvNo">
           <DataField>InvNo</DataField>
         </Field>
@@ -3619,6 +3441,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Invoice_AmountFormat">
           <DataField>Invoice_AmountFormat</DataField>
+        </Field>
+        <Field Name="FOBValue">
+          <DataField>FOBValue</DataField>
+        </Field>
+        <Field Name="FOBValueFormat">
+          <DataField>FOBValueFormat</DataField>
         </Field>
         <Field Name="BankRefNo_">
           <DataField>BankRefNo_</DataField>

@@ -40,6 +40,12 @@ report 50630 ExportStatusReport1
             { }
             column(Contract_Value; ContractValue)
             { }
+            column(BBLCAmount; BBLCAmount)
+            { }
+            // column(FOBValue; FOBValue)
+            // { }
+            column(QtyPcs; QtyPcs)
+            { }
 
 
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
@@ -60,11 +66,13 @@ report 50630 ExportStatusReport1
                     { }
                     column(Invoice_Amount; "Amount Including VAT")
                     { }
+                    column(FOBValue; FOBValue)
+                    { }
 
                     dataitem(BankRefCollectionLine; "BankRefCollectionLine")
                     {
                         DataItemLinkReference = "Sales Invoice Header";
-                        DataItemLink = "Invoice No" = field("No.");
+                        DataItemLink = "Factory Invoice No" = field("Your Reference");
 
                         column(BankRefNo_; "BankRefNo.")
                         { }
@@ -76,7 +84,24 @@ report 50630 ExportStatusReport1
                         { }
                         column(Margin_A_C_Amount; "Margin A/C Amount")
                         { }
+
                     }
+
+                    trigger OnAfterGetRecord()
+                    var
+                        SalesInVRec: Record "Sales Invoice Header";
+                    begin
+
+                        FOBValue := 0;
+                        SalesInVRec.Reset();
+                        SalesInVRec.SetRange("Style No", "Style No");
+                        if StyleRec.FindSet() then begin
+                            repeat
+                                FOBValue += SalesInVRec."Amount Including VAT";
+                            until SalesInVRec.Next() = 0;
+
+                        end;
+                    end;
                 }
             }
 
@@ -91,6 +116,7 @@ report 50630 ExportStatusReport1
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
+                FOBValue := 0;
                 ContractRec.Reset();
                 ContractRec.SetRange("Contract No", "LC/Contract No.");
                 if ContractRec.FindSet() then begin
@@ -98,11 +124,16 @@ report 50630 ExportStatusReport1
                     QtyContract := ContractRec."Quantity (Pcs)";
                     ContractValue := ContractRec."Contract Value";
                     ContractName := ContractRec."Contract No";
+                    BBLCAmount := (ContractRec."Contract Value" * ContractRec.BBLC) / 100;
 
                     ConStRec.Reset();
                     ConStRec.SetRange("No.", ContractRec."No.");
                     if ConStRec.FindSet() then begin
                         Qty := ConStRec.Qty;
+
+                        ConStRec.CalcSums(Qty);
+                        QtyPcs := ConStRec.Qty;
+
                         StyleRec.SetRange("Style No.", ConStRec."Style No.");
                         if StyleRec.FindFirst() then begin
                             UniPrice := StyleRec."Unit Price";
@@ -124,6 +155,7 @@ report 50630 ExportStatusReport1
                     BankRefColLineRec.SetRange("BankRefNo.", BankRecColHRec."BankRefNo.");
                     if BankRefColLineRec.FindFirst() then begin
                         FtyInvoiceNo := BankRefColLineRec."Factory Invoice No";
+
                     end;
                 end;
             end;
@@ -163,6 +195,9 @@ report 50630 ExportStatusReport1
 
 
     var
+        QtyPcs: Decimal;
+        FOBValue: Decimal;
+        BBLCAmount: Decimal;
         ContractName: Text[100];
         QtyContract: Decimal;
         ContractValue: Decimal;
