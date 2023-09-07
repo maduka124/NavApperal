@@ -66,6 +66,8 @@ report 50629 ExportSummartReport
             { }
             column(BalanceQty; BalanceQty)
             { }
+            column(Invoice_Discount_Amount; "Invoice Discount Amount")
+            { }
 
             trigger OnAfterGetRecord()
             var
