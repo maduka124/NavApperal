@@ -4532,6 +4532,7 @@ page 50516 HourlyProductionListPart
 
     procedure CalTotal()
     var
+        TodayOut: Decimal;
         HourlyProdLinesRec: Record "Hourly Production Lines";
         HourlyProdLines1Rec: Record "Hourly Production Lines";
         ProductionOutLine: Record ProductionOutLine;
@@ -4723,7 +4724,7 @@ page 50516 HourlyProductionListPart
 
         //Get sewing line in qty/out qty
         InputQtyVar := 0;
-        OutQtyVar := 0;
+
         ProdOutHeaderRec.Reset();
         ProdOutHeaderRec.SetRange("Resource No.", rec."Work Center No.");
         ProdOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
@@ -4732,9 +4733,24 @@ page 50516 HourlyProductionListPart
         if ProdOutHeaderRec.FindSet() then begin
             repeat
                 InputQtyVar += ProdOutHeaderRec."Input Qty";
-                OutQtyVar += ProdOutHeaderRec."Output Qty";
+            // OutQtyVar += ProdOutHeaderRec."Output Qty";
             until ProdOutHeaderRec.Next() = 0;
         end;
+
+
+        OutQtyVar := 0;
+        HourlyProdLinesRec.Reset();
+        HourlyProdLinesRec.SetFilter("No.", '<>%1', Rec."No.");
+        HourlyProdLinesRec.SetRange("Style No.", Rec."Style No.");
+        HourlyProdLinesRec.SetRange("Work Center No.", Rec."Work Center No.");
+        HourlyProdLinesRec.SetRange("Factory No.", Rec."Factory No.");
+        HourlyProdLinesRec.SetRange(Type, HourlyProdLinesRec.Type::Sewing);
+        if HourlyProdLinesRec.FindSet() then begin
+            repeat
+                OutQtyVar += HourlyProdLinesRec."Hour 01" + HourlyProdLinesRec."Hour 02" + HourlyProdLinesRec."Hour 03" + HourlyProdLinesRec."Hour 04" + HourlyProdLinesRec."Hour 05" + HourlyProdLinesRec."Hour 06" + HourlyProdLinesRec."Hour 07" + HourlyProdLinesRec."Hour 08" + HourlyProdLinesRec."Hour 09" + HourlyProdLinesRec."Hour 10" + HourlyProdLinesRec."Hour 11" + HourlyProdLinesRec."Hour 12" + HourlyProdLinesRec."Hour 13";
+            until HourlyProdLinesRec.Next() = 0;
+        end;
+
 
         if (InputQtyVar - OutQtyVar) < rec.Total then
             Error('Hourly Production Total is greater than balance Sew. In Qty/Sew. Out Qty.');
