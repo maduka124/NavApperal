@@ -108,69 +108,10 @@ page 51333 "PO Complete List"
     }
 
 
-    // trigger OnOpenPage()
-    // var
-    //     LoginRec: Page "Login Card";
-    //     LoginSessionsRec: Record LoginSessions;
-    //     UserSetupRec: Record "User Setup";
-    // begin
-
-    //     //Check whether user logged in or not
-    //     LoginSessionsRec.Reset();
-    //     LoginSessionsRec.SetRange(SessionID, SessionId());
-
-    //     if not LoginSessionsRec.FindSet() then begin  //not logged in
-    //         Clear(LoginRec);
-    //         LoginRec.LookupMode(true);
-    //         LoginRec.RunModal();
-    //     end;
-
-
-    //     UserSetupRec.Reset();
-    //     UserSetupRec.SetRange("User ID", UserId);
-
-    //     if UserSetupRec.FindSet() then begin
-    //         if UserSetupRec."Merchandizer All Group" = false then begin
-    //             if UserSetupRec."Merchandizer Group Name" = '' then
-    //                 Error('Merchandiser Group Name has not set up for the user : %1', UserId)
-    //             else
-    //                 rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name");
-    //         end
-    //     end
-    //     else
-    //         Error('Cannot find user details in user setup table');
-
-
-    // end;
-
-
-    // trigger OnDeleteRecord(): Boolean
-    // var
-    // // StyleMasterPORec: Record "Style Master PO";
-    // begin
-    //     //StyleMasterPORec.SetRange("Style No.", "No.");
-    //     //StyleMasterPORec.DeleteAll();
-    //     Error('Style already confirmed. Cannot delete.');
-
-    // end;
-
     trigger OnAfterGetRecord()
-    var
-        // UserSetupRec: Record "User Setup";
+    var       
         LCContractRec: Record "Contract/LCMaster";
-    begin
-        // UserSetupRec.Reset();
-        // UserSetupRec.SetRange("User ID", UserId);
-
-        // if UserSetupRec.FindSet() then begin
-        //     if UserSetupRec."Merchandizer All Group" = false then begin
-        //         if rec."Merchandizer Group Name" <> '' then begin
-        //             if rec."Merchandizer Group Name" <> UserSetupRec."Merchandizer Group Name" then
-        //                 Error('You are not authorized to view other Merchandiser Group information.');
-        //         END;
-        //     END;
-        // end;
-
+    begin    
         //Get LC Contract No
         LCContractRec.Reset();
         LCContractRec.SetRange("No.", rec.AssignedContractNo);

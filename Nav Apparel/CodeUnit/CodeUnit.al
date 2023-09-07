@@ -90,7 +90,6 @@ codeunit 50618 NavAppCodeUnit
         ProductionOutLineRec: Record ProductionOutLine;
         ProductionOutHeaderRec: Record ProductionOutHeader;
     begin
-
         ProductionOutLineRec.Reset();
         ProductionOutLineRec.SetRange("No.", No);
         if ProductionOutLineRec.FindSet() then
@@ -102,7 +101,6 @@ codeunit 50618 NavAppCodeUnit
             ProductionOutHeaderRec.DeleteAll();
 
         Update_Sty_Master_PO(StyleNo, LotNo, Input, Type, Type1);
-
     end;
 
     procedure ChangeColor(OpList: Record "New Breakdown Op Line2"): Text[50]
