@@ -226,6 +226,10 @@ table 50935 "Style Master PO"
             DataClassification = ToBeClassified;
         }
 
+        field(71012620; "Re-Call PO"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -61,6 +61,56 @@ page 51332 POCompleteListPart
                     end;
                 }
 
+                field("Re-Call PO"; rec."Re-Call PO")
+                {
+                    ApplicationArea = All;
+                    Editable = true;
+
+                    trigger OnValidate()
+                    var
+                        NavAppPlanLineRec: Record "NavApp Planning Lines";
+                        PlanningQueueeRec: Record "Planning Queue";
+                        ProdPlansDetails: Record "NavApp Prod Plans Details";
+                        StyleMasterPORec: Record "Style Master PO";
+                    begin
+                        if rec."Re-Call PO" = true then begin
+                            if (Dialog.CONFIRM('Do you want to Re-Call this PO?', true) = true) then begin
+
+                                NavAppPlanLineRec.Reset();
+                                NavAppPlanLineRec.SetRange("Style No.", rec."Style No.");
+                                NavAppPlanLineRec.SetRange("Lot No.", rec."Lot No.");
+                                if NavAppPlanLineRec.FindSet() then
+                                    NavAppPlanLineRec.DeleteAll();
+
+                                ProdPlansDetails.Reset();
+                                ProdPlansDetails.SetRange("Style No.", rec."Style No.");
+                                ProdPlansDetails.SetRange("Lot No.", rec."Lot No.");
+                                ProdPlansDetails.SetFilter(ProdUpd, '=%1', 0);
+                                if ProdPlansDetails.FindSet() then
+                                    ProdPlansDetails.DeleteAll();
+
+                                PlanningQueueeRec.Reset();
+                                PlanningQueueeRec.SetRange("Style No.", rec."Style No.");
+                                PlanningQueueeRec.SetRange("Lot No.", rec."Lot No.");
+                                if PlanningQueueeRec.FindSet() then
+                                    PlanningQueueeRec.DeleteAll();
+
+                                //Update Style Master po table
+                                rec.PlannedQty := 0;
+                                rec.QueueQty := 0;
+                                rec.PlannedStatus := false;
+                                rec.Modify();
+
+                                Message('Completed');
+                            end
+                            else begin
+                                rec."Re-Call PO" := false;
+                                rec.Modify();
+                            end;
+                        end;
+                    end;
+                }
+
                 field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
