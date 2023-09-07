@@ -16378,14 +16378,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TOtalTarget6">
+                        <Textbox Name="TOtalTarget9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH1.Value)</Value>
+                                  <Value>=Sum(Fields!TOt1Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16414,14 +16414,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox119">
+                        <Textbox Name="Textbox189">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH2.Value)</Value>
+                                  <Value>=Sum(Fields!TOt2Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16470,14 +16470,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox138">
+                        <Textbox Name="Textbox191">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH3.Value)</Value>
+                                  <Value>=Sum(Fields!TOt3Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16526,14 +16526,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox139">
+                        <Textbox Name="Textbox192">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH4.Value)</Value>
+                                  <Value>=Sum(Fields!TOt4Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16582,14 +16582,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox140">
+                        <Textbox Name="Textbox209">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH5.Value)</Value>
+                                  <Value>=Sum(Fields!TOt5Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16638,14 +16638,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox160">
+                        <Textbox Name="Textbox226">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH6.Value)</Value>
+                                  <Value>=Sum(Fields!TOt6Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16694,14 +16694,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox164">
+                        <Textbox Name="Textbox227">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH7.Value)</Value>
+                                  <Value>=Sum(Fields!TOt7Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16750,14 +16750,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox176">
+                        <Textbox Name="Textbox228">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH8.Value)</Value>
+                                  <Value>=Sum(Fields!TOt8Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16806,14 +16806,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox179">
+                        <Textbox Name="Textbox233">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH9.Value)</Value>
+                                  <Value>=Sum(Fields!TOt9Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16862,14 +16862,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox184">
+                        <Textbox Name="Textbox235">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryH10.Value)</Value>
+                                  <Value>=Sum(Fields!TOt10Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16918,14 +16918,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox187">
+                        <Textbox Name="Textbox238">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Sum(Fields!FactoryH1.Value) + Sum(Fields!FactoryH2.Value) + Sum(Fields!FactoryH3.Value) + Sum(Fields!FactoryH4.Value) + Sum(Fields!FactoryH5.Value) + Sum(Fields!FactoryH6.Value) + Sum(Fields!FactoryH7.Value) + Sum(Fields!FactoryH8.Value) + Sum(Fields!FactoryH9.Value) + Sum(Fields!FactoryH10.Value))</Value>
+                                  <Value>=Sum(Fields!TOt1Hour.Value) + Sum(Fields!TOt2Hour.Value) + Sum(Fields!TOt3Hour.Value) + Sum(Fields!TOt4Hour.Value) + Sum(Fields!TOt5Hour.Value) + Sum(Fields!TOt6Hour.Value) + Sum(Fields!TOt7Hour.Value) + Sum(Fields!TOt8Hour.Value) + Sum(Fields!TOt9Hour.Value) + Sum(Fields!TOt10Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -16986,9 +16986,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ABA GROUP TOTAL</Value>
+                                  <Value>=Fields!Merchandizing_GRP_Head.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -17074,14 +17075,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour1Tot6">
+                        <Textbox Name="Hour1Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour1Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour1Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17130,14 +17131,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour2Tot6">
+                        <Textbox Name="Hour2Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour2Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour2Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17186,14 +17187,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour3Tot6">
+                        <Textbox Name="Hour3Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour3Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour3Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17242,14 +17243,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour4Tot6">
+                        <Textbox Name="Hour4Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour4Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour4Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17298,14 +17299,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour5Tot6">
+                        <Textbox Name="Hour5Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour5Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour5Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17354,14 +17355,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour6Tot6">
+                        <Textbox Name="Hour6Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour6Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour6Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17410,14 +17411,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour7Tot6">
+                        <Textbox Name="Hour7Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour7Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour7Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17466,14 +17467,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour8Tot6">
+                        <Textbox Name="Hour8Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour8Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour8Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17522,14 +17523,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour9Tot6">
+                        <Textbox Name="Hour9Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour9Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour9Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17578,14 +17579,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour10Tot6">
+                        <Textbox Name="Hour10Tot8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour10Tot.Value)</Value>
+                                  <Value>=Sum(Fields!Hour10Tot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17634,14 +17635,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TotalAchiveHours4">
+                        <Textbox Name="TotalAchiveHours6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TotalFactoryAchiveHours.Value)</Value>
+                                  <Value>=Sum(Fields!TotalAchiveHours.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17702,14 +17703,16 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>TOTAL</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox92</rd:DefaultName>
@@ -17724,6 +17727,7 @@
                             <BottomBorder>
                               <Style>None</Style>
                             </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -17787,14 +17791,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour1Tot7">
+                        <Textbox Name="Hour1Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour1Tot.Value)-Sum(Fields!FactoryH1.Value)</Value>
+                                  <Value>=Sum(Fields!Hour1Tot.Value) - Sum(Fields!TOt1Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17843,14 +17847,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour2Tot7">
+                        <Textbox Name="Hour2Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour2Tot.Value)-Sum(Fields!FactoryH2.Value)</Value>
+                                  <Value>=Sum(Fields!Hour2Tot.Value) - Sum(Fields!TOt2Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17899,14 +17903,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour3Tot7">
+                        <Textbox Name="Hour3Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour3Tot.Value)-Sum(Fields!FactoryH3.Value)</Value>
+                                  <Value>=Sum(Fields!Hour3Tot.Value) - Sum(Fields!TOt3Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -17955,14 +17959,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour4Tot7">
+                        <Textbox Name="Hour4Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour4Tot.Value)-Sum(Fields!FactoryH4.Value)</Value>
+                                  <Value>=Sum(Fields!Hour4Tot.Value) - Sum(Fields!TOt4Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18011,14 +18015,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour5Tot7">
+                        <Textbox Name="Hour5Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour5Tot.Value)-Sum(Fields!FactoryH5.Value)</Value>
+                                  <Value>=Sum(Fields!Hour5Tot.Value) - Sum(Fields!TOt5Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18067,14 +18071,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour6Tot7">
+                        <Textbox Name="Hour6Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour6Tot.Value)-Sum(Fields!FactoryH6.Value)</Value>
+                                  <Value>=Sum(Fields!Hour6Tot.Value) - Sum(Fields!TOt6Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18123,14 +18127,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour7Tot7">
+                        <Textbox Name="Hour7Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour7Tot.Value)-Sum(Fields!FactoryH7.Value)</Value>
+                                  <Value>=Sum(Fields!Hour7Tot.Value) - Sum(Fields!TOt7Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18179,14 +18183,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour8Tot7">
+                        <Textbox Name="Hour8Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour8Tot.Value)-Sum(Fields!FactoryH8.Value)</Value>
+                                  <Value>=Sum(Fields!Hour8Tot.Value) - Sum(Fields!TOt8Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18235,14 +18239,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour9Tot7">
+                        <Textbox Name="Hour9Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour9Tot.Value)-Sum(Fields!FactoryH9.Value)</Value>
+                                  <Value>=Sum(Fields!Hour9Tot.Value) - Sum(Fields!TOt9Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18291,14 +18295,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour10Tot7">
+                        <Textbox Name="Hour10Tot9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!FactoryHour10Tot.Value)-Sum(Fields!FactoryH10.Value)</Value>
+                                  <Value>=Sum(Fields!Hour10Tot.Value) - Sum(Fields!TOt10Hour.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18347,14 +18351,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TotalAchiveHours5">
+                        <Textbox Name="TotalAchiveHours7">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TotalFactoryAchiveHours.Value)-Sum(Sum(Fields!FactoryH1.Value) + Sum(Fields!FactoryH2.Value) + Sum(Fields!FactoryH3.Value) + Sum(Fields!FactoryH4.Value) + Sum(Fields!FactoryH5.Value) + Sum(Fields!FactoryH6.Value) + Sum(Fields!FactoryH7.Value) + Sum(Fields!FactoryH8.Value) + Sum(Fields!FactoryH9.Value) + Sum(Fields!FactoryH10.Value))</Value>
+                                  <Value>=Sum(Fields!TotalAchiveHours.Value) - (Sum(Fields!TOt1Hour.Value) + Sum(Fields!TOt2Hour.Value) + Sum(Fields!TOt3Hour.Value) + Sum(Fields!TOt4Hour.Value) + Sum(Fields!TOt5Hour.Value) + Sum(Fields!TOt6Hour.Value) + Sum(Fields!TOt7Hour.Value) + Sum(Fields!TOt8Hour.Value) + Sum(Fields!TOt9Hour.Value) + Sum(Fields!TOt10Hour.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -18440,6 +18444,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -18497,17 +18502,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour1TotFin">
+                        <Textbox Name="Hour1TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour1TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour1TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18516,12 +18521,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour1TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour1TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18533,17 +18558,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour2TotFin">
+                        <Textbox Name="Hour2TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour2TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour2TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18552,12 +18577,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour2TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour2TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18569,17 +18614,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour3TotFin">
+                        <Textbox Name="Hour3TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour3TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour3TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18588,12 +18633,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour3TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour3TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18605,17 +18670,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour4TotFin">
+                        <Textbox Name="Hour4TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour4TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour4TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18624,12 +18689,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour4TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour4TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18641,17 +18726,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour5TotFin">
+                        <Textbox Name="Hour5TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour5TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour5TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18660,12 +18745,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour5TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour5TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18677,17 +18782,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour6TotFin">
+                        <Textbox Name="Hour6TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour6TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour6TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18696,12 +18801,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour6TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour6TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18713,17 +18838,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour7TotFin">
+                        <Textbox Name="Hour7TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour7TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour7TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18732,12 +18857,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour7TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour7TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18749,17 +18894,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour8TotFin">
+                        <Textbox Name="Hour8TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour8TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour8TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18768,12 +18913,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour8TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour8TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18785,17 +18950,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour9TotFin">
+                        <Textbox Name="Hour9TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour9TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour9TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18804,12 +18969,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour9TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour9TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18821,17 +19006,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryHour10TotFin">
+                        <Textbox Name="Hour10TotFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryHour10TotFin.Value</Value>
+                                  <Value>=Sum(Fields!Hour10TotFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18840,12 +19025,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryHour10TotFin</rd:DefaultName>
+                          <rd:DefaultName>Hour10TotFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -18857,17 +19062,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FactoryTotalAchiveHoursFin">
+                        <Textbox Name="TotalAchiveHoursFin4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FactoryTotalAchiveHoursFin.Value</Value>
+                                  <Value>=Sum(Fields!TotalAchiveHoursFin.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -18876,12 +19081,32 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FactoryTotalAchiveHoursFin</rd:DefaultName>
+                          <rd:DefaultName>TotalAchiveHoursFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
