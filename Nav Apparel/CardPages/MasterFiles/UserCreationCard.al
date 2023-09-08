@@ -394,7 +394,7 @@ page 50978 "Create User Card"
 
                     Message('Completed');
                 end;
-            }
+            }          
 
             // action("Style no update in Sales Invoice Header")
             // {

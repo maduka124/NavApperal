@@ -103,11 +103,13 @@ page 51368 FactoryAndLineMachineReqCard
                 var
                     NavAppPlanProdLineRec: Record "NavApp Prod Plans Details";
                     StyleWiseMachineLineRec: Record StyleWiseMachineLine;
+                    StyleWiseMachineLine1Rec: Record StyleWiseMachineLine;
                     FactoryAndLineRec: Record FactoryAndLineMachineLine;
                     FactoryAndLine1Rec: Record FactoryAndLineMachineLine;
                     FactoryAndLineTotRec: Record FactoryAndLineMachineLine;
                     FactoryAndLine2Rec: Record FactoryAndLineMachine2Line;
                     FactoryAndLine2TotaRec: Record FactoryAndLineMachine2Line;
+                    WorkCenterRec: Record "Work Center";
                     LineNo: Integer;
                     Y: Integer;
                     M: Integer;
@@ -116,6 +118,7 @@ page 51368 FactoryAndLineMachineReqCard
                     PreResourceNo: code[20];
                     PreDate: Integer;
                     PreVal: Decimal;
+                    PrevStyleNo: code[20];
                 begin
                     if REc."Start Date" = 0D then
                         Error('Start Date is blank.');
@@ -190,6 +193,7 @@ page 51368 FactoryAndLineMachineReqCard
                                 //Get Style wise machine requirment
                                 StyleWiseMachineLineRec.Reset();
                                 StyleWiseMachineLineRec.SetRange("Style No", NavAppPlanProdLineRec."Style No.");
+                                StyleWiseMachineLineRec.SetRange(Factory, rec."Factory Code");
                                 StyleWiseMachineLineRec.SetFilter("Record Type", '=%1', 'L');
                                 StyleWiseMachineLineRec.SetCurrentKey("Machine No");
                                 StyleWiseMachineLineRec.Ascending(true);
@@ -430,6 +434,23 @@ page 51368 FactoryAndLineMachineReqCard
                                                 FactoryAndLine1Rec.SetRange(Factory, Rec."Factory Name");
                                                 FactoryAndLine1Rec.SetRange(Month, MonthText);
                                                 if FactoryAndLine1Rec.FindSet() then begin
+
+                                                    WorkCenterRec.Reset();
+                                                    WorkCenterRec.SetRange("No.", NavAppPlanProdLineRec."Resource No.");
+                                                    WorkCenterRec.FindSet();
+
+                                                    StyleWiseMachineLine1Rec.Reset();
+                                                    StyleWiseMachineLine1Rec.SetRange("Style No", PrevStyleNo);
+                                                    StyleWiseMachineLine1Rec.SetRange(Factory, rec."Factory Code");
+                                                    StyleWiseMachineLine1Rec.SetRange("Work Center Name", WorkCenterRec.Name);
+                                                    StyleWiseMachineLine1Rec.SetRange("Machine No", StyleWiseMachineLineRec."Machine No");
+                                                    StyleWiseMachineLine1Rec.SetFilter("Record Type", '=%1', 'L');
+                                                    if StyleWiseMachineLine1Rec.FindSet() then
+                                                        PreVal := StyleWiseMachineLine1Rec."Machine Qty New"
+                                                    else
+                                                        PreVal := 0;
+
+
                                                     if D = 1 then
                                                         if PreVal < StyleWiseMachineLineRec."Machine Qty New" then
                                                             FactoryAndLineRec."1 New" := FactoryAndLineRec."1 New" + (StyleWiseMachineLineRec."Machine Qty New" - PreVal);
@@ -594,14 +615,12 @@ page 51368 FactoryAndLineMachineReqCard
 
                                                 FactoryAndLineRec.Modify();
                                             end;
-
                                         end;
-
-                                        PreResourceNo := NavAppPlanProdLineRec."Resource No.";
-                                        PreDate := D;
-                                        PreVal := StyleWiseMachineLineRec."Machine Qty New";
-
                                     until StyleWiseMachineLineRec.Next() = 0;
+
+                                    PreResourceNo := NavAppPlanProdLineRec."Resource No.";
+                                    PreDate := D;
+                                    PrevStyleNo := NavAppPlanProdLineRec."Style No.";
                                 end;
                             until NavAppPlanProdLineRec.Next() = 0;
                         end;

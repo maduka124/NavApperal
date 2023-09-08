@@ -2253,7 +2253,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Planed Machine Requirment")
                 {
-                    Caption = 'Planed Machine Requirment';
+                    Caption = 'Planned Machine Requirment';
                     RunObject = Page FactoryAndMachineReq;
                     ApplicationArea = all;
                 }

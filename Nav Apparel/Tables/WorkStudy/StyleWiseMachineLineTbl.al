@@ -59,6 +59,11 @@ table 51364 StyleWiseMachineLine
             DataClassification = ToBeClassified;
             Caption = 'No Of Machine';
         }
+
+        field(12; Factory; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
