@@ -82,7 +82,6 @@ page 51241 "Export Reference Card"
                         SalesInvRec: Record "Sales Invoice Header";
                         ContracStRec: Record "Contract/LCStyle";
                         LcMaterRec: Record "Contract/LCMaster";
-                        // SalesInvRec: Record "Sales Invoice Header";
                         SalesInvLineRec: Record "Sales Invoice Line";
                         ExportRefLineRec: Record ExportReferenceLine;
                     begin
@@ -90,81 +89,85 @@ page 51241 "Export Reference Card"
                         SalesInvRec.Reset();
                         SalesInvRec.SetRange("Sell-to Customer No.", Rec."Buyer No");
                         SalesInvRec.SetFilter("Export Ref No.", '=%1', '');
+                        SalesInvRec.FindSet();
 
                         if Page.RunModal(51321, SalesInvRec) = Action::LookupOK then begin
                             Rec."Invoice No" := SalesInvRec."No.";
 
-                            // //Assign "Export Ref No."
-                            SalesInvRec."Export Ref No." := rec."No.";
-                            SalesInvRec.Modify();
-                        end;
-
-                        if xRec."Invoice No" <> '' then begin
-                            SalesInvRec.Reset();
-                            SalesInvRec.SetRange("No.", xRec."Invoice No");
-                            if SalesInvRec.FindSet() then begin
-                                SalesInvRec."Export Ref No." := '';
-                                SalesInvRec.Modify();
-                            end;
-
-                        end;
-
-                        SalesInvRec.Reset();
-                        SalesInvRec.SetRange("No.", rec."Invoice No");
-
-                        if SalesInvRec.FindSet() then begin
-
-                            //Delete old record
-                            ExportRefLineRec.Reset();
-                            ExportRefLineRec.SetRange("No.", rec."No.");
-                            if ExportRefLineRec.FindSet() then
-                                ExportRefLineRec.DeleteAll();
-
-                            //Insert new line
-                            ExportRefLineRec.Init();
-                            ExportRefLineRec."No." := rec."No.";
-                            ExportRefLineRec."Created Date" := WorkDate();
-                            ExportRefLineRec."Created User" := UserId;
-                            ExportRefLineRec."Fty Inv No." := SalesInvRec."Your Reference";
-                            SalesInvRec.CalcFields(SalesInvRec."Amount Including VAT");
-                            ExportRefLineRec."Inv Value" := SalesInvRec."Amount Including VAT";
-                            InvValue += SalesInvRec."Amount Including VAT";
-                            ExportRefLineRec."Invoice Date" := SalesInvRec."Document Date";
-                            ExportRefLineRec."Invoice No" := rec."Invoice No";
-                            ExportRefLineRec."Line No." := 1;
-
-
-                            //Get qty 
-                            SalesInvLineRec.Reset();
-                            SalesInvLineRec.SetRange("Document No.", rec."Invoice No");
-                            if SalesInvLineRec.FindSet() then
-                                repeat
-                                    ExportRefLineRec.Qty += SalesInvLineRec.Quantity;
-                                until SalesInvLineRec.Next() = 0;
-
-                            ExportRefLineRec.Insert();
-
-
-
-                            Rec."Factory Inv No" := SalesInvRec."Your Reference";
-                            Rec."Order No" := SalesInvRec."PO No";
-
                             SalesInvRec.Reset();
                             SalesInvRec.SetRange("No.", Rec."Invoice No");
                             if SalesInvRec.FindSet() then begin
-                                Rec."Contract No" := SalesInvRec."Contract No";
-                                Rec."Invoice Date" := SalesInvRec."Document Date";
-                                Rec."X Factory Date" := SalesInvRec."Shipment Date";
-                                CurrPage.Update();
-                                Rec.Modify();
+                                SalesInvRec."Export Ref No." := rec."No.";
+                                SalesInvRec.Modify();
+                            end
+                            else
+                                Error('Invalid Invoice No selected');
+
+                            if xRec."Invoice No" <> '' then begin
+                                SalesInvRec.Reset();
+                                SalesInvRec.SetRange("No.", xRec."Invoice No");
+                                if SalesInvRec.FindSet() then begin
+                                    SalesInvRec."Export Ref No." := '';
+                                    SalesInvRec.Modify();
+                                end;
                             end;
-                        end;
-                        ExportReFHeadRec.Reset();
-                        ExportReFHeadRec.SetRange("No.", Rec."No.");
-                        if ExportReFHeadRec.FindSet() then begin
-                            Rec."Invoice Value" := InvValue;
-                            ExportReFHeadRec.Modify();
-                            CurrPage.Update();
+
+                            SalesInvRec.Reset();
+                            SalesInvRec.SetRange("No.", rec."Invoice No");
+                            if SalesInvRec.FindSet() then begin
+
+                                //Delete old record
+                                ExportRefLineRec.Reset();
+                                ExportRefLineRec.SetRange("No.", rec."No.");
+                                if ExportRefLineRec.FindSet() then
+                                    ExportRefLineRec.DeleteAll();
+
+                                //Insert new line
+                                ExportRefLineRec.Init();
+                                ExportRefLineRec."No." := rec."No.";
+                                ExportRefLineRec."Created Date" := WorkDate();
+                                ExportRefLineRec."Created User" := UserId;
+                                ExportRefLineRec."Fty Inv No." := SalesInvRec."Your Reference";
+                                SalesInvRec.CalcFields(SalesInvRec."Amount Including VAT");
+                                ExportRefLineRec."Inv Value" := SalesInvRec."Amount Including VAT";
+                                InvValue += SalesInvRec."Amount Including VAT";
+                                ExportRefLineRec."Invoice Date" := SalesInvRec."Document Date";
+                                ExportRefLineRec."Invoice No" := rec."Invoice No";
+                                ExportRefLineRec."Line No." := 1;
+
+
+                                //Get qty 
+                                SalesInvLineRec.Reset();
+                                SalesInvLineRec.SetRange("Document No.", rec."Invoice No");
+                                if SalesInvLineRec.FindSet() then
+                                    repeat
+                                        ExportRefLineRec.Qty += SalesInvLineRec.Quantity;
+                                    until SalesInvLineRec.Next() = 0;
+
+                                ExportRefLineRec.Insert();
+
+                                Rec."Factory Inv No" := SalesInvRec."Your Reference";
+                                Rec."Order No" := SalesInvRec."PO No";
+
+                                SalesInvRec.Reset();
+                                SalesInvRec.SetRange("No.", Rec."Invoice No");
+                                if SalesInvRec.FindSet() then begin
+                                    Rec."Contract No" := SalesInvRec."Contract No";
+                                    Rec."Invoice Date" := SalesInvRec."Document Date";
+                                    Rec."X Factory Date" := SalesInvRec."Shipment Date";
+                                    CurrPage.Update();
+                                    Rec.Modify();
+                                end;
+                            end;
+
+                            ExportReFHeadRec.Reset();
+                            ExportReFHeadRec.SetRange("No.", Rec."No.");
+                            if ExportReFHeadRec.FindSet() then begin
+                                Rec."Invoice Value" := InvValue;
+                                ExportReFHeadRec.Modify();
+                                CurrPage.Update();
+                            end;
+
                         end;
                     end;
                 }
