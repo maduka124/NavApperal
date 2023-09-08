@@ -3560,6 +3560,14 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+                    action("Hourly Production Report Dashboard Merchandising")
+                    {
+                        Caption = 'Merchandising Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionMerchandizing;
+                        ApplicationArea = all;
+                    }
+
 
                 }
             }
