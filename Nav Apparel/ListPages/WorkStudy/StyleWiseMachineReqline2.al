@@ -213,7 +213,7 @@ page 51365 StyleWiseMachineReqLine2
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
-                    Caption = '27';
+                    Caption = '29';
                 }
                 field("30 New"; Rec."30 New")
                 {
