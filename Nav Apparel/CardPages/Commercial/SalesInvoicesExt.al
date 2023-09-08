@@ -40,7 +40,6 @@ pageextension 51317 SalesInvoicesExt extends "Sales Invoice"
             {
                 ApplicationArea = All;
             }
-
         }
     }
 }
