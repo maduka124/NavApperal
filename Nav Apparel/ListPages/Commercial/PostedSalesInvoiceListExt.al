@@ -32,6 +32,12 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
                 ApplicationArea = all;
                 Caption = 'Bank Ref. No';
             }
+            field("Export Ref No."; Rec."Export Ref No.")
+            {
+                ApplicationArea = all;
+                Caption = 'Export Ref No.';
+            }
+
 
             field("Style Name"; Rec."Style Name")
             {
