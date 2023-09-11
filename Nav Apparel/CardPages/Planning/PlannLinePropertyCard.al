@@ -1341,9 +1341,9 @@ page 50343 "Planning Line Property Card"
                                             end;
                                         end
                                         else begin
-                                            if (TempQty + (TargetPerHour * HrsPerDay)) < Qty then begin
-                                                TempQty += round((TargetPerHour * HrsPerDay), 1);
-                                                xQty := TargetPerHour * HrsPerDay;
+                                            if (TempQty + round(TargetPerHour * HrsPerDay, 1)) < Qty then begin
+                                                TempQty += round(TargetPerHour * HrsPerDay, 1);
+                                                xQty := round(TargetPerHour * HrsPerDay, 1);
                                             end
                                             else begin
                                                 TempQty1 := Qty - TempQty;

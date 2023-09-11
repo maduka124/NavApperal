@@ -412,12 +412,16 @@ page 50371 "Prod Update Card"
 
                                     SMV := JobPlaLineRec.SMV;
                                     LineNo := JobPlaLineRec."Line No.";
-                                    TargetPerHour := round(((60 / SMV) * Carder * Eff) / 100, 1);
-                                    TargetPerDay := round(TargetPerHour * HoursPerDay, 1);
                                     TempDate := dtStart;
+                                    TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
+                                    if HoursPerDay > 0 then
+                                        TargetPerHour := TargetPerDay / HoursPerDay
+                                    else
+                                        TargetPerHour := 0;
 
-                                    // TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
-                                    // TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
+
+                                    // TargetPerHour := round(((60 / SMV) * Carder * Eff) / 100, 1);
+                                    // TargetPerDay := round(TargetPerHour * HoursPerDay, 1);
 
                                     //Get sewing out qty for the prod date
                                     OutputQty := 0;
@@ -1177,7 +1181,11 @@ page 50371 "Prod Update Card"
                                                         until HoursPerDay > 0;
 
                                                         TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
-                                                        TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
+                                                        if HoursPerDay > 0 then
+                                                            TargetPerHour := TargetPerDay / HoursPerDay
+                                                        else
+                                                            TargetPerHour := 0;
+
                                                         TempQty := 0;
 
                                                         //Get sewing out qty for the prod date

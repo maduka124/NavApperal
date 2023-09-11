@@ -744,7 +744,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 until HoursPerDay > 0;
                             end;
 
-                            TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1, '>');
+                            TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
                             TargetPerHour := TargetPerDay / HoursPerDay;
                             TempDate := dtStart;
 
@@ -1474,7 +1474,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 until HoursPerDay > 0;
 
                                                 TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
-                                                TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
+                                                TargetPerHour := TargetPerDay / HoursPerDay;
                                                 TempQty := 0;
 
                                                 //Delete old lines
@@ -1785,9 +1785,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     end
                                                     else begin
 
-                                                        if (TempQty + (TargetPerHour * HoursPerDay)) < Qty then begin
-                                                            TempQty += (TargetPerHour * HoursPerDay);
-                                                            xQty := TargetPerHour * HoursPerDay;
+                                                        if (TempQty + round(TargetPerHour * HoursPerDay, 1)) < Qty then begin
+                                                            TempQty += round(TargetPerHour * HoursPerDay, 1);
+                                                            xQty := round(TargetPerHour * HoursPerDay, 1);
                                                         end
                                                         else begin
                                                             TempQty1 := Qty - TempQty;
@@ -2153,12 +2153,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         JobPlaLineRec.SetRange("Line No.", LineNo);
                         JobPlaLineRec.FindSet();
 
-                        // TargetPerDay := round(((60 / JobPlaLineRec.SMV) * Carder * HoursPerDay * Eff) / 100, 1);
-                        // TargetPerHour := TargetPerDay / HoursPerDay;
+                        TargetPerDay := round(((60 / JobPlaLineRec.SMV) * Carder * HoursPerDay * Eff) / 100, 1);
+                        TargetPerHour := TargetPerDay / HoursPerDay;
 
-                        TargetPerHour := round(((60 / JobPlaLineRec.SMV) * Carder * Eff) / 100, 1);
-                        TargetPerDay := round(TargetPerHour * HoursPerDay, 1);
-
+                        // TargetPerHour := round(((60 / JobPlaLineRec.SMV) * Carder * Eff) / 100, 1);
+                        // TargetPerDay := round(TargetPerHour * HoursPerDay, 1);
                         // TargetPerHour := round(TargetPerDay / HoursPerDay, 1, '>');
                         TempDate := dtStart;
 
@@ -2879,7 +2878,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         until HoursPerDay > 0;
 
                                         TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
-                                        TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
+                                        TargetPerHour := TargetPerDay / HoursPerDay;
                                         TempQty := 0;
 
                                         //Delete old lines
@@ -3191,9 +3190,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 end;
                                             end
                                             else begin
-                                                if (TempQty + (TargetPerHour * HoursPerDay)) < Qty then begin
-                                                    TempQty += (TargetPerHour * HoursPerDay);
-                                                    xQty := TargetPerHour * HoursPerDay;
+                                                if (TempQty + round(TargetPerHour * HoursPerDay, 1)) < Qty then begin
+                                                    TempQty += round(TargetPerHour * HoursPerDay, 1);
+                                                    xQty := round(TargetPerHour * HoursPerDay, 1);
                                                 end
                                                 else begin
                                                     TempQty1 := Qty - TempQty;
