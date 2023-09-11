@@ -1106,6 +1106,14 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Planning Summary Report")
+                    {
+                        Caption = 'Planning Summary Report';
+                        Enabled = true;
+                        RunObject = report PlanningSummarryReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Planning Efficiency Dashboard")
                     {
                         Caption = 'Planning Efficiency Dashboard';

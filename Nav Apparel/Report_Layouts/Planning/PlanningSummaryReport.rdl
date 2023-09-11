@@ -11,6 +11,64 @@
       <rd:DataSourceID>9b37f395-ae4e-4c84-9f2d-f2313594c74e</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Factory_No_">
+          <DataField>Factory_No_</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="Resource_No_">
+          <DataField>Resource_No_</DataField>
+        </Field>
+        <Field Name="PlanStartDate">
+          <DataField>PlanStartDate</DataField>
+        </Field>
+        <Field Name="PlanEndDate">
+          <DataField>PlanEndDate</DataField>
+        </Field>
+        <Field Name="TotalPlanQty">
+          <DataField>TotalPlanQty</DataField>
+        </Field>
+        <Field Name="TotalPlanQtyFormat">
+          <DataField>TotalPlanQtyFormat</DataField>
+        </Field>
+        <Field Name="MerchandGroupHead">
+          <DataField>MerchandGroupHead</DataField>
+        </Field>
+        <Field Name="BuyerName">
+          <DataField>BuyerName</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
+        </Field>
+        <Field Name="EndDate">
+          <DataField>EndDate</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="QtyFormat">
+          <DataField>QtyFormat</DataField>
+        </Field>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -19,10 +77,10 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.86667in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.875in</Width>
+                  <Width>0.75178in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.79154in</Width>
@@ -288,7 +346,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>TotalPlanQty</rd:DefaultName>
@@ -664,7 +724,7 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1in</Size>
+                    <Size>0.52094in</Size>
                     <CellContents>
                       <Textbox Name="Textbox2">
                         <CanGrow>true</CanGrow>
@@ -700,7 +760,7 @@
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.98425in</Size>
+                        <Size>1.68603in</Size>
                         <CellContents>
                           <Textbox Name="Textbox20">
                             <CanGrow>true</CanGrow>
@@ -736,7 +796,7 @@
                       <TablixMembers>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>0.77906in</Size>
+                            <Size>1.03562in</Size>
                             <CellContents>
                               <Textbox Name="Textbox26">
                                 <CanGrow>true</CanGrow>
@@ -776,7 +836,8 @@
                       </TablixMembers>
                     </TablixMember>
                   </TablixMembers>
-                  <KeepTogether>true</KeepTogether>
+                  <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Resource_No_">
@@ -790,7 +851,7 @@
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>1in</Size>
+                    <Size>0.52094in</Size>
                     <CellContents>
                       <Textbox Name="Resource_No_1">
                         <CanGrow>true</CanGrow>
@@ -835,7 +896,7 @@
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>0.98425in</Size>
+                        <Size>1.68603in</Size>
                         <CellContents>
                           <Textbox Name="Style_Name2">
                             <CanGrow>true</CanGrow>
@@ -880,7 +941,7 @@
                             </SortExpression>
                           </SortExpressions>
                           <TablixHeader>
-                            <Size>0.77906in</Size>
+                            <Size>1.03562in</Size>
                             <CellContents>
                               <Textbox Name="PO_No_1">
                                 <CanGrow>true</CanGrow>
@@ -922,6 +983,9 @@
                               <TablixMembers>
                                 <TablixMember />
                               </TablixMembers>
+                              <Visibility>
+                                <Hidden>=SUM(Fields!TotalPlanQty.Value)=0</Hidden>
+                              </Visibility>
                             </TablixMember>
                           </TablixMembers>
                         </TablixMember>
@@ -929,7 +993,7 @@
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.98425in</Size>
+                        <Size>1.68603in</Size>
                         <CellContents>
                           <Textbox Name="Textbox30">
                             <CanGrow>true</CanGrow>
@@ -964,7 +1028,7 @@
                       <TablixMembers>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>0.77906in</Size>
+                            <Size>1.03562in</Size>
                             <CellContents>
                               <Textbox Name="Textbox28">
                                 <CanGrow>true</CanGrow>
@@ -1008,7 +1072,7 @@
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1in</Size>
+                    <Size>0.52094in</Size>
                     <CellContents>
                       <Textbox Name="Textbox4">
                         <CanGrow>true</CanGrow>
@@ -1043,7 +1107,7 @@
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.98425in</Size>
+                        <Size>1.68603in</Size>
                         <CellContents>
                           <Textbox Name="Textbox33">
                             <CanGrow>true</CanGrow>
@@ -1078,7 +1142,7 @@
                       <TablixMembers>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>0.77906in</Size>
+                            <Size>1.03562in</Size>
                             <CellContents>
                               <Textbox Name="Textbox29">
                                 <CanGrow>true</CanGrow>
@@ -1120,9 +1184,9 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>1.08834in</Top>
+            <Top>1.21334in</Top>
             <Height>0.97244in</Height>
-            <Width>7.15485in</Width>
+            <Width>7.37758in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1139,6 +1203,7 @@
                     <Value>FACTORY</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1168,7 +1233,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!Factory_No_.Value</Value>
+                    <Value>=Fields!Factory_Name.Value</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                     </Style>
@@ -1179,9 +1244,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>1.4097cm</Top>
-            <Left>2.01881cm</Left>
+            <Left>1.70131cm</Left>
             <Height>0.5365cm</Height>
-            <Width>2.5cm</Width>
+            <Width>5.97133cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -1198,7 +1263,7 @@
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
             <Top>0cm</Top>
-            <Left>15.00297cm</Left>
+            <Left>15.02414cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
             <ZIndex>3</ZIndex>
@@ -1249,7 +1314,14 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>DATE RANGE -</Value>
+                    <Value>DATE RANGE</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> -</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                     </Style>
@@ -1288,7 +1360,20 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> TO </Value>
+                    <Value xml:space="preserve"> </Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>TO</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                     </Style>
@@ -1380,7 +1465,8 @@
                                 <TextRun>
                                   <Value>=SUM(Fields!Qty.Value)</Value>
                                   <Style>
-                                    <Format>n0</Format>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1388,6 +1474,45 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Qty</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox27">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=SUM(SUM(Fields!Qty.Value))</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox23</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1474,7 +1599,9 @@
                             <TextRuns>
                               <TextRun>
                                 <Value>=Fields!MerchandGroupHead.Value</Value>
-                                <Style />
+                                <Style>
+                                  <FontFamily>Calibri</FontFamily>
+                                </Style>
                               </TextRun>
                             </TextRuns>
                             <Style />
@@ -1498,12 +1625,49 @@
                     <TablixMember />
                   </TablixMembers>
                 </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>2.5cm</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox45">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>TOTAL</Value>
+                                <Style>
+                                  <FontFamily>Calibri</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox45</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <KeepWithGroup>Before</KeepWithGroup>
+                </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>6.02403cm</Top>
             <Left>0.05503cm</Left>
-            <Height>1.2cm</Height>
+            <Height>1.8cm</Height>
             <Width>5cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
@@ -1513,10 +1677,10 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>7.35103cm</Height>
+        <Height>7.82403cm</Height>
         <Style />
       </Body>
-      <Width>18.40036cm</Width>
+      <Width>18.73905cm</Width>
       <Page>
         <PageFooter>
           <Height>1.98967cm</Height>
@@ -1634,8 +1798,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
-              <Top>0.80698cm</Top>
-              <Left>16.18411cm</Left>
+              <Top>0.75406cm</Top>
+              <Left>16.52278cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
@@ -1656,10 +1820,10 @@
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>21cm</PageHeight>
+        <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>1cm</LeftMargin>
-        <RightMargin>1cm</RightMargin>
+        <RightMargin>0.8cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
@@ -1667,6 +1831,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1716,59 +1886,4 @@ End Function</Code>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Factory_No_">
-          <DataField>Factory_No_</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-        <Field Name="Resource_No_">
-          <DataField>Resource_No_</DataField>
-        </Field>
-        <Field Name="PlanStartDate">
-          <DataField>PlanStartDate</DataField>
-        </Field>
-        <Field Name="PlanEndDate">
-          <DataField>PlanEndDate</DataField>
-        </Field>
-        <Field Name="TotalPlanQty">
-          <DataField>TotalPlanQty</DataField>
-        </Field>
-        <Field Name="TotalPlanQtyFormat">
-          <DataField>TotalPlanQtyFormat</DataField>
-        </Field>
-        <Field Name="MerchandGroupHead">
-          <DataField>MerchandGroupHead</DataField>
-        </Field>
-        <Field Name="BuyerName">
-          <DataField>BuyerName</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="StartDate">
-          <DataField>StartDate</DataField>
-        </Field>
-        <Field Name="EndDate">
-          <DataField>EndDate</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="QtyFormat">
-          <DataField>QtyFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
