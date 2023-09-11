@@ -10,7 +10,7 @@ report 51385 EnventoryDayBook
     {
         dataitem("Item Ledger Entry"; "Item Ledger Entry")
         {
-            DataItemTableView = sorting("Entry No.") where("Entry Type" = filter(Consumption));
+            DataItemTableView = sorting("Entry No.") where("Entry Type" = filter(Consumption | Purchase));
 
             column(Main_Category_Name; "Main Category Name")
             { }
@@ -18,10 +18,6 @@ report 51385 EnventoryDayBook
             { }
             column(Unit_of_Measure_Code; "Unit of Measure Code")
             { }
-
-            // column(Description; Description)
-            // { }
-
             column(Quantity; Quantity * -1)
             { }
             column(UOM; UOM)
@@ -44,10 +40,11 @@ report 51385 EnventoryDayBook
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(IsssueQty; IsssueQty * -1)
+            { }
 
             trigger OnPreDataItem()
             begin
-
                 if StartDate = 0D then
                     Error('Invalid Start Date');
 
@@ -69,70 +66,59 @@ report 51385 EnventoryDayBook
                 UOM := '';
                 DescriptionRec := '';
                 GRNQTY := 0;
-
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                if EndDate = 0D then begin
-                    GRNLineRec.Reset();
-                    GRNLineRec.SetRange("Posting Date", StartDate);
-                    GRNLineRec.SetRange("Location Code", Factory);
-                    GRNLineRec.SetFilter(Type, '=%1', GRNLineRec.Type::Item);
-                    GRNLineRec.SetRange("No.", "Item Ledger Entry"."Item No.");
+                //GRN Qty and item details
+                GRNLineRec.Reset();
 
-                    if GRNLineRec.FindFirst() then
-                        repeat
-                            ItemRec.Get(GRNLineRec."No.");
-
-                            GRNQTY := GRNQTY + GRNLineRec.Quantity;
-                            UOM := ItemRec."Base Unit of Measure";
-                            DescriptionRec := ItemRec.Description;
-                            ReorderLevel := ItemRec."Reorder Point";
-                            ReorderQty := ItemRec."Reorder Quantity";
-                            UnitPrice := ItemRec."Unit Price";
-
-                        until GRNLineRec.Next() = 0
-                    else begin
-
-                        ItemRec1.Get("Item Ledger Entry"."Item No.");
-
-                        UOM := ItemRec1."Base Unit of Measure";
-                        DescriptionRec := ItemRec1.Description;
-                        ReorderLevel := ItemRec1."Reorder Point";
-                        ReorderQty := ItemRec1."Reorder Quantity";
-                        UnitPrice := ItemRec1."Unit Price";
-                    end;
-                end
-                else begin
-                    GRNLineRec.Reset();
+                if EndDate = 0D then
+                    GRNLineRec.SetRange("Posting Date", StartDate)
+                else
                     GRNLineRec.SetRange("Posting Date", StartDate, EndDate);
-                    GRNLineRec.SetRange("Location Code", Factory);
-                    GRNLineRec.SetRange("No.", "Item Ledger Entry"."Item No.");
-                    GRNLineRec.SetFilter(Type, '=%1', GRNLineRec.Type::Item);
 
-                    if GRNLineRec.FindSet() then
-                        repeat
-                            ItemRec.Get(GRNLineRec."No.");
-
-                            GRNQTY := GRNQTY + GRNLineRec.Quantity;
-                            UOM := ItemRec."Base Unit of Measure";
-                            DescriptionRec := ItemRec.Description;
-                            ReorderLevel := ItemRec."Reorder Point";
-                            ReorderQty := ItemRec."Reorder Quantity";
-                            UnitPrice := ItemRec."Unit Price";
-
-                        until GRNLineRec.Next() = 0
-
-                    else begin
-                        ItemRec1.Get("Item Ledger Entry"."Item No.");
-
-                        UOM := ItemRec1."Base Unit of Measure";
-                        DescriptionRec := ItemRec1.Description;
-                        ReorderLevel := ItemRec1."Reorder Point";
-                        ReorderQty := ItemRec1."Reorder Quantity";
-                        UnitPrice := ItemRec1."Unit Price";
-                    end;
+                GRNLineRec.SetRange("Location Code", Factory);
+                GRNLineRec.SetFilter(Type, '=%1', GRNLineRec.Type::Item);
+                GRNLineRec.SetRange("No.", "Item Ledger Entry"."Item No.");
+                if GRNLineRec.FindFirst() then
+                    repeat
+                        ItemRec.Get(GRNLineRec."No.");
+                        GRNQTY := GRNQTY + GRNLineRec.Quantity;
+                        UOM := ItemRec."Base Unit of Measure";
+                        DescriptionRec := ItemRec.Description;
+                        ReorderLevel := ItemRec."Reorder Point";
+                        ReorderQty := ItemRec."Reorder Quantity";
+                        UnitPrice := ItemRec."Unit Price";
+                    until GRNLineRec.Next() = 0
+                else begin
+                    ItemRec1.Get("Item Ledger Entry"."Item No.");
+                    GRNQTY := 0;
+                    UOM := ItemRec1."Base Unit of Measure";
+                    DescriptionRec := ItemRec1.Description;
+                    ReorderLevel := ItemRec1."Reorder Point";
+                    ReorderQty := ItemRec1."Reorder Quantity";
+                    UnitPrice := ItemRec1."Unit Price";
                 end;
+
+
+                //Issue Qty
+                IsssueQty := 0;
+                ItemLedgerEntryRec.Reset();
+
+                if EndDate = 0D then
+                    ItemLedgerEntryRec.SetRange("Posting Date", StartDate)
+                else
+                    ItemLedgerEntryRec.SetRange("Posting Date", StartDate, EndDate);
+
+                ItemLedgerEntryRec.SetRange("Location Code", Factory);
+                ItemLedgerEntryRec.SetFilter("Entry Type", '=%1', "Entry Type"::Consumption);
+                ItemLedgerEntryRec.SetRange("Item No.", "Item Ledger Entry"."Item No.");
+                if ItemLedgerEntryRec.FindSet() then
+                    repeat
+                        IsssueQty := IsssueQty + ItemLedgerEntryRec.Quantity;
+                    until ItemLedgerEntryRec.Next() = 0
+                else
+                    IsssueQty := 0;
             end;
         }
     }
@@ -190,6 +176,8 @@ report 51385 EnventoryDayBook
         EndDate: Date;
         Factory: Code[20];
         GRNLineRec: Record "Purch. Rcpt. Line";
+        ItemLedgerEntryRec: Record "Item Ledger Entry";
+        IsssueQty: Decimal;
         ItemRec: Record Item;
         GRNQTY: Decimal;
         DescriptionRec: Text[200];

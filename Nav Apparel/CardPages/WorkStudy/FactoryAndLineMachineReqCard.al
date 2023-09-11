@@ -531,48 +531,49 @@ page 51368 FactoryAndLineMachineReqCard
                         FactoryAndLine1Rec.Reset();
                         FactoryAndLine1Rec.SetRange(Factory, Rec."Factory Name");
                         FactoryAndLine1Rec.SetFilter("Record Type", '=%1', 'T');
-                        FactoryAndLine1Rec.FindSet();
+                        if FactoryAndLine1Rec.FindSet() then begin
 
-                        FactoryAndLineRec.Reset();
-                        FactoryAndLineRec.SetRange(Factory, Rec."Factory Name");
-                        FactoryAndLineRec.SetRange(Month, MonthText);
-                        FactoryAndLineRec.SetRange(Year, Y);
-                        FactoryAndLineRec.SetFilter("Record Type", '=%1', 'R');
-                        if FactoryAndLineRec.FindSet() then begin
-                            repeat
-                                FactoryAndLine1Rec."1 New" := FactoryAndLine1Rec."1 New" + FactoryAndLineRec."1 New";
-                                FactoryAndLine1Rec."2 New" := FactoryAndLine1Rec."2 New" + FactoryAndLineRec."2 New";
-                                FactoryAndLine1Rec."3 New" := FactoryAndLine1Rec."3 New" + FactoryAndLineRec."3 New";
-                                FactoryAndLine1Rec."4 New" := FactoryAndLine1Rec."4 New" + FactoryAndLineRec."4 New";
-                                FactoryAndLine1Rec."5 New" := FactoryAndLine1Rec."5 New" + FactoryAndLineRec."5 New";
-                                FactoryAndLine1Rec."6 New" := FactoryAndLine1Rec."6 New" + FactoryAndLineRec."6 New";
-                                FactoryAndLine1Rec."7 New" := FactoryAndLine1Rec."7 New" + FactoryAndLineRec."7 New";
-                                FactoryAndLine1Rec."8 New" := FactoryAndLine1Rec."8 New" + FactoryAndLineRec."8 New";
-                                FactoryAndLine1Rec."9 New" := FactoryAndLine1Rec."9 New" + FactoryAndLineRec."9 New";
-                                FactoryAndLine1Rec."10 New" := FactoryAndLine1Rec."10 New" + FactoryAndLineRec."10 New";
-                                FactoryAndLine1Rec."11 New" := FactoryAndLine1Rec."11 New" + FactoryAndLineRec."11 New";
-                                FactoryAndLine1Rec."12 New" := FactoryAndLine1Rec."12 New" + FactoryAndLineRec."12 New";
-                                FactoryAndLine1Rec."13 New" := FactoryAndLine1Rec."13 New" + FactoryAndLineRec."13 New";
-                                FactoryAndLine1Rec."14 New" := FactoryAndLine1Rec."14 New" + FactoryAndLineRec."14 New";
-                                FactoryAndLine1Rec."15 New" := FactoryAndLine1Rec."15 New" + FactoryAndLineRec."15 New";
-                                FactoryAndLine1Rec."16 New" := FactoryAndLine1Rec."16 New" + FactoryAndLineRec."16 New";
-                                FactoryAndLine1Rec."17 New" := FactoryAndLine1Rec."17 New" + FactoryAndLineRec."17 New";
-                                FactoryAndLine1Rec."18 New" := FactoryAndLine1Rec."18 New" + FactoryAndLineRec."18 New";
-                                FactoryAndLine1Rec."19 New" := FactoryAndLine1Rec."19 New" + FactoryAndLineRec."19 New";
-                                FactoryAndLine1Rec."20 New" := FactoryAndLine1Rec."20 New" + FactoryAndLineRec."20 New";
-                                FactoryAndLine1Rec."21 New" := FactoryAndLine1Rec."21 New" + FactoryAndLineRec."21 New";
-                                FactoryAndLine1Rec."22 New" := FactoryAndLine1Rec."22 New" + FactoryAndLineRec."22 New";
-                                FactoryAndLine1Rec."23 New" := FactoryAndLine1Rec."23 New" + FactoryAndLineRec."23 New";
-                                FactoryAndLine1Rec."24 New" := FactoryAndLine1Rec."24 New" + FactoryAndLineRec."24 New";
-                                FactoryAndLine1Rec."25 New" := FactoryAndLine1Rec."25 New" + FactoryAndLineRec."25 New";
-                                FactoryAndLine1Rec."26 New" := FactoryAndLine1Rec."26 New" + FactoryAndLineRec."26 New";
-                                FactoryAndLine1Rec."27 New" := FactoryAndLine1Rec."27 New" + FactoryAndLineRec."27 New";
-                                FactoryAndLine1Rec."28 New" := FactoryAndLine1Rec."28 New" + FactoryAndLineRec."28 New";
-                                FactoryAndLine1Rec."29 New" := FactoryAndLine1Rec."29 New" + FactoryAndLineRec."29 New";
-                                FactoryAndLine1Rec."30 New" := FactoryAndLine1Rec."30 New" + FactoryAndLineRec."30 New";
-                                FactoryAndLine1Rec."31 New" := FactoryAndLine1Rec."31 New" + FactoryAndLineRec."31 New";
-                                FactoryAndLine1Rec.Modify();
-                            until FactoryAndLineRec.Next() = 0;
+                            FactoryAndLineRec.Reset();
+                            FactoryAndLineRec.SetRange(Factory, Rec."Factory Name");
+                            FactoryAndLineRec.SetRange(Month, MonthText);
+                            FactoryAndLineRec.SetRange(Year, Y);
+                            FactoryAndLineRec.SetFilter("Record Type", '=%1', 'R');
+                            if FactoryAndLineRec.FindSet() then begin
+                                repeat
+                                    FactoryAndLine1Rec."1 New" := FactoryAndLine1Rec."1 New" + FactoryAndLineRec."1 New";
+                                    FactoryAndLine1Rec."2 New" := FactoryAndLine1Rec."2 New" + FactoryAndLineRec."2 New";
+                                    FactoryAndLine1Rec."3 New" := FactoryAndLine1Rec."3 New" + FactoryAndLineRec."3 New";
+                                    FactoryAndLine1Rec."4 New" := FactoryAndLine1Rec."4 New" + FactoryAndLineRec."4 New";
+                                    FactoryAndLine1Rec."5 New" := FactoryAndLine1Rec."5 New" + FactoryAndLineRec."5 New";
+                                    FactoryAndLine1Rec."6 New" := FactoryAndLine1Rec."6 New" + FactoryAndLineRec."6 New";
+                                    FactoryAndLine1Rec."7 New" := FactoryAndLine1Rec."7 New" + FactoryAndLineRec."7 New";
+                                    FactoryAndLine1Rec."8 New" := FactoryAndLine1Rec."8 New" + FactoryAndLineRec."8 New";
+                                    FactoryAndLine1Rec."9 New" := FactoryAndLine1Rec."9 New" + FactoryAndLineRec."9 New";
+                                    FactoryAndLine1Rec."10 New" := FactoryAndLine1Rec."10 New" + FactoryAndLineRec."10 New";
+                                    FactoryAndLine1Rec."11 New" := FactoryAndLine1Rec."11 New" + FactoryAndLineRec."11 New";
+                                    FactoryAndLine1Rec."12 New" := FactoryAndLine1Rec."12 New" + FactoryAndLineRec."12 New";
+                                    FactoryAndLine1Rec."13 New" := FactoryAndLine1Rec."13 New" + FactoryAndLineRec."13 New";
+                                    FactoryAndLine1Rec."14 New" := FactoryAndLine1Rec."14 New" + FactoryAndLineRec."14 New";
+                                    FactoryAndLine1Rec."15 New" := FactoryAndLine1Rec."15 New" + FactoryAndLineRec."15 New";
+                                    FactoryAndLine1Rec."16 New" := FactoryAndLine1Rec."16 New" + FactoryAndLineRec."16 New";
+                                    FactoryAndLine1Rec."17 New" := FactoryAndLine1Rec."17 New" + FactoryAndLineRec."17 New";
+                                    FactoryAndLine1Rec."18 New" := FactoryAndLine1Rec."18 New" + FactoryAndLineRec."18 New";
+                                    FactoryAndLine1Rec."19 New" := FactoryAndLine1Rec."19 New" + FactoryAndLineRec."19 New";
+                                    FactoryAndLine1Rec."20 New" := FactoryAndLine1Rec."20 New" + FactoryAndLineRec."20 New";
+                                    FactoryAndLine1Rec."21 New" := FactoryAndLine1Rec."21 New" + FactoryAndLineRec."21 New";
+                                    FactoryAndLine1Rec."22 New" := FactoryAndLine1Rec."22 New" + FactoryAndLineRec."22 New";
+                                    FactoryAndLine1Rec."23 New" := FactoryAndLine1Rec."23 New" + FactoryAndLineRec."23 New";
+                                    FactoryAndLine1Rec."24 New" := FactoryAndLine1Rec."24 New" + FactoryAndLineRec."24 New";
+                                    FactoryAndLine1Rec."25 New" := FactoryAndLine1Rec."25 New" + FactoryAndLineRec."25 New";
+                                    FactoryAndLine1Rec."26 New" := FactoryAndLine1Rec."26 New" + FactoryAndLineRec."26 New";
+                                    FactoryAndLine1Rec."27 New" := FactoryAndLine1Rec."27 New" + FactoryAndLineRec."27 New";
+                                    FactoryAndLine1Rec."28 New" := FactoryAndLine1Rec."28 New" + FactoryAndLineRec."28 New";
+                                    FactoryAndLine1Rec."29 New" := FactoryAndLine1Rec."29 New" + FactoryAndLineRec."29 New";
+                                    FactoryAndLine1Rec."30 New" := FactoryAndLine1Rec."30 New" + FactoryAndLineRec."30 New";
+                                    FactoryAndLine1Rec."31 New" := FactoryAndLine1Rec."31 New" + FactoryAndLineRec."31 New";
+                                    FactoryAndLine1Rec.Modify();
+                                until FactoryAndLineRec.Next() = 0;
+                            end;
                         end;
                     end
                     else begin       ////////////////////////line wise
@@ -960,50 +961,50 @@ page 51368 FactoryAndLineMachineReqCard
                     FactoryAndLine3Rec.Reset();
                     FactoryAndLine3Rec.SetRange(Factory, Rec."Factory Name");
                     FactoryAndLine3Rec.SetFilter("Record Type", '=%1', 'T');
-                    FactoryAndLine3Rec.FindSet();
+                    if FactoryAndLine3Rec.FindSet() then begin
 
-                    FactoryAndLine2Rec.Reset();
-                    FactoryAndLine2Rec.SetRange(Factory, Rec."Factory Name");
-                    FactoryAndLine2Rec.SetRange(Month, MonthText);
-                    FactoryAndLine2Rec.SetRange(Year, Y);
-                    FactoryAndLine2Rec.SetFilter("Record Type", '=%1', 'R');
-                    if FactoryAndLine2Rec.FindSet() then begin
-                        repeat
-                            FactoryAndLine3Rec."1 New" := FactoryAndLine3Rec."1 New" + FactoryAndLine2Rec."1 New";
-                            FactoryAndLine3Rec."2 New" := FactoryAndLine3Rec."2 New" + FactoryAndLine2Rec."2 New";
-                            FactoryAndLine3Rec."3 New" := FactoryAndLine3Rec."3 New" + FactoryAndLine2Rec."3 New";
-                            FactoryAndLine3Rec."4 New" := FactoryAndLine3Rec."4 New" + FactoryAndLine2Rec."4 New";
-                            FactoryAndLine3Rec."5 New" := FactoryAndLine3Rec."5 New" + FactoryAndLine2Rec."5 New";
-                            FactoryAndLine3Rec."6 New" := FactoryAndLine3Rec."6 New" + FactoryAndLine2Rec."6 New";
-                            FactoryAndLine3Rec."7 New" := FactoryAndLine3Rec."7 New" + FactoryAndLine2Rec."7 New";
-                            FactoryAndLine3Rec."8 New" := FactoryAndLine3Rec."8 New" + FactoryAndLine2Rec."8 New";
-                            FactoryAndLine3Rec."9 New" := FactoryAndLine3Rec."9 New" + FactoryAndLine2Rec."9 New";
-                            FactoryAndLine3Rec."10 New" := FactoryAndLine3Rec."10 New" + FactoryAndLine2Rec."10 New";
-                            FactoryAndLine3Rec."11 New" := FactoryAndLine3Rec."11 New" + FactoryAndLine2Rec."11 New";
-                            FactoryAndLine3Rec."12 New" := FactoryAndLine3Rec."12 New" + FactoryAndLine2Rec."12 New";
-                            FactoryAndLine3Rec."13 New" := FactoryAndLine3Rec."13 New" + FactoryAndLine2Rec."13 New";
-                            FactoryAndLine3Rec."14 New" := FactoryAndLine3Rec."14 New" + FactoryAndLine2Rec."14 New";
-                            FactoryAndLine3Rec."15 New" := FactoryAndLine3Rec."15 New" + FactoryAndLine2Rec."15 New";
-                            FactoryAndLine3Rec."16 New" := FactoryAndLine3Rec."16 New" + FactoryAndLine2Rec."16 New";
-                            FactoryAndLine3Rec."17 New" := FactoryAndLine3Rec."17 New" + FactoryAndLine2Rec."17 New";
-                            FactoryAndLine3Rec."18 New" := FactoryAndLine3Rec."18 New" + FactoryAndLine2Rec."18 New";
-                            FactoryAndLine3Rec."19 New" := FactoryAndLine3Rec."19 New" + FactoryAndLine2Rec."19 New";
-                            FactoryAndLine3Rec."20 New" := FactoryAndLine3Rec."20 New" + FactoryAndLine2Rec."20 New";
-                            FactoryAndLine3Rec."21 New" := FactoryAndLine3Rec."21 New" + FactoryAndLine2Rec."21 New";
-                            FactoryAndLine3Rec."22 New" := FactoryAndLine3Rec."22 New" + FactoryAndLine2Rec."22 New";
-                            FactoryAndLine3Rec."23 New" := FactoryAndLine3Rec."23 New" + FactoryAndLine2Rec."23 New";
-                            FactoryAndLine3Rec."24 New" := FactoryAndLine3Rec."24 New" + FactoryAndLine2Rec."24 New";
-                            FactoryAndLine3Rec."25 New" := FactoryAndLine3Rec."25 New" + FactoryAndLine2Rec."25 New";
-                            FactoryAndLine3Rec."26 New" := FactoryAndLine3Rec."26 New" + FactoryAndLine2Rec."26 New";
-                            FactoryAndLine3Rec."27 New" := FactoryAndLine3Rec."27 New" + FactoryAndLine2Rec."27 New";
-                            FactoryAndLine3Rec."28 New" := FactoryAndLine3Rec."28 New" + FactoryAndLine2Rec."28 New";
-                            FactoryAndLine3Rec."29 New" := FactoryAndLine3Rec."29 New" + FactoryAndLine2Rec."29 New";
-                            FactoryAndLine3Rec."30 New" := FactoryAndLine3Rec."30 New" + FactoryAndLine2Rec."30 New";
-                            FactoryAndLine3Rec."31 New" := FactoryAndLine3Rec."31 New" + FactoryAndLine2Rec."31 New";
-                            FactoryAndLine3Rec.Modify();
-                        until FactoryAndLine2Rec.Next() = 0;
+                        FactoryAndLine2Rec.Reset();
+                        FactoryAndLine2Rec.SetRange(Factory, Rec."Factory Name");
+                        FactoryAndLine2Rec.SetRange(Month, MonthText);
+                        FactoryAndLine2Rec.SetRange(Year, Y);
+                        FactoryAndLine2Rec.SetFilter("Record Type", '=%1', 'R');
+                        if FactoryAndLine2Rec.FindSet() then begin
+                            repeat
+                                FactoryAndLine3Rec."1 New" := FactoryAndLine3Rec."1 New" + FactoryAndLine2Rec."1 New";
+                                FactoryAndLine3Rec."2 New" := FactoryAndLine3Rec."2 New" + FactoryAndLine2Rec."2 New";
+                                FactoryAndLine3Rec."3 New" := FactoryAndLine3Rec."3 New" + FactoryAndLine2Rec."3 New";
+                                FactoryAndLine3Rec."4 New" := FactoryAndLine3Rec."4 New" + FactoryAndLine2Rec."4 New";
+                                FactoryAndLine3Rec."5 New" := FactoryAndLine3Rec."5 New" + FactoryAndLine2Rec."5 New";
+                                FactoryAndLine3Rec."6 New" := FactoryAndLine3Rec."6 New" + FactoryAndLine2Rec."6 New";
+                                FactoryAndLine3Rec."7 New" := FactoryAndLine3Rec."7 New" + FactoryAndLine2Rec."7 New";
+                                FactoryAndLine3Rec."8 New" := FactoryAndLine3Rec."8 New" + FactoryAndLine2Rec."8 New";
+                                FactoryAndLine3Rec."9 New" := FactoryAndLine3Rec."9 New" + FactoryAndLine2Rec."9 New";
+                                FactoryAndLine3Rec."10 New" := FactoryAndLine3Rec."10 New" + FactoryAndLine2Rec."10 New";
+                                FactoryAndLine3Rec."11 New" := FactoryAndLine3Rec."11 New" + FactoryAndLine2Rec."11 New";
+                                FactoryAndLine3Rec."12 New" := FactoryAndLine3Rec."12 New" + FactoryAndLine2Rec."12 New";
+                                FactoryAndLine3Rec."13 New" := FactoryAndLine3Rec."13 New" + FactoryAndLine2Rec."13 New";
+                                FactoryAndLine3Rec."14 New" := FactoryAndLine3Rec."14 New" + FactoryAndLine2Rec."14 New";
+                                FactoryAndLine3Rec."15 New" := FactoryAndLine3Rec."15 New" + FactoryAndLine2Rec."15 New";
+                                FactoryAndLine3Rec."16 New" := FactoryAndLine3Rec."16 New" + FactoryAndLine2Rec."16 New";
+                                FactoryAndLine3Rec."17 New" := FactoryAndLine3Rec."17 New" + FactoryAndLine2Rec."17 New";
+                                FactoryAndLine3Rec."18 New" := FactoryAndLine3Rec."18 New" + FactoryAndLine2Rec."18 New";
+                                FactoryAndLine3Rec."19 New" := FactoryAndLine3Rec."19 New" + FactoryAndLine2Rec."19 New";
+                                FactoryAndLine3Rec."20 New" := FactoryAndLine3Rec."20 New" + FactoryAndLine2Rec."20 New";
+                                FactoryAndLine3Rec."21 New" := FactoryAndLine3Rec."21 New" + FactoryAndLine2Rec."21 New";
+                                FactoryAndLine3Rec."22 New" := FactoryAndLine3Rec."22 New" + FactoryAndLine2Rec."22 New";
+                                FactoryAndLine3Rec."23 New" := FactoryAndLine3Rec."23 New" + FactoryAndLine2Rec."23 New";
+                                FactoryAndLine3Rec."24 New" := FactoryAndLine3Rec."24 New" + FactoryAndLine2Rec."24 New";
+                                FactoryAndLine3Rec."25 New" := FactoryAndLine3Rec."25 New" + FactoryAndLine2Rec."25 New";
+                                FactoryAndLine3Rec."26 New" := FactoryAndLine3Rec."26 New" + FactoryAndLine2Rec."26 New";
+                                FactoryAndLine3Rec."27 New" := FactoryAndLine3Rec."27 New" + FactoryAndLine2Rec."27 New";
+                                FactoryAndLine3Rec."28 New" := FactoryAndLine3Rec."28 New" + FactoryAndLine2Rec."28 New";
+                                FactoryAndLine3Rec."29 New" := FactoryAndLine3Rec."29 New" + FactoryAndLine2Rec."29 New";
+                                FactoryAndLine3Rec."30 New" := FactoryAndLine3Rec."30 New" + FactoryAndLine2Rec."30 New";
+                                FactoryAndLine3Rec."31 New" := FactoryAndLine3Rec."31 New" + FactoryAndLine2Rec."31 New";
+                                FactoryAndLine3Rec.Modify();
+                            until FactoryAndLine2Rec.Next() = 0;
+                        end;
                     end;
-
                     Message('Completed');
                 end;
             }
