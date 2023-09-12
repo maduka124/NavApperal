@@ -100,6 +100,8 @@ report 51414 PlanningSummarryReport
                     repeat
                         TotalPlanQty += NavProdetailRec.Qty;
                     until NavProdetailRec.Next() = 0;
+
+                    // TotalPlanQty := Round(TotalPlanQty, 1);
                 end;
 
                 NavProdetailRec.Reset();
