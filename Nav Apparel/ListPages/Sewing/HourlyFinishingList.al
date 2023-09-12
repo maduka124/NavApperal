@@ -65,7 +65,7 @@ page 51378 "Hourly Finishing List"
     begin
 
         //Check whether production updated or not
-        if rec.Type = rec.Type::Sewing then begin
+        if rec.Type = rec.Type::Finishing then begin
             ProdOutHeaderRec.Reset();
             ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
             ProdOutHeaderRec.SetRange("Factory Code", rec."Factory No.");

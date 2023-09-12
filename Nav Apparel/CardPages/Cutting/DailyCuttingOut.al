@@ -430,9 +430,20 @@ page 50351 "Daily Cutting Out Card"
 
     trigger OnDeleteRecord(): Boolean
     var
+        ProdOutHeaderRec: Record ProductionOutHeader;
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
         UserRec: Record "User Setup";
     begin
+        if rec.Type = rec.Type::Cut then begin
+            ProdOutHeaderRec.Reset();
+            ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
+            ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
+            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+            ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+            if ProdOutHeaderRec.FindSet() then
+                Error('Production updated against Date : %1 , Factory : %2 has been updates. You cannot delete this entry.', rec."Prod Date", rec."Factory Name");
+        end;
+
         UserRec.Reset();
         UserRec.Get(UserId);
         if UserRec."Factory Code" <> '' then begin
@@ -476,6 +487,7 @@ page 50351 "Daily Cutting Out Card"
     trigger OnAfterGetCurrRecord()
     var
         UserRec: Record "User Setup";
+        ProdOutHeaderRec: Record ProductionOutHeader;
     begin
         UserRec.Reset();
         UserRec.Get(UserId);
@@ -484,8 +496,19 @@ page 50351 "Daily Cutting Out Card"
             if (UserRec."Factory Code" <> '') then begin
                 if (UserRec."Factory Code" <> rec."Factory Code") then
                     EditableGB := false
-                else
-                    EditableGB := true;
+                else begin
+                    if rec.Type = rec.Type::Cut then begin
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
+                        ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
+                        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+                        ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+                        if ProdOutHeaderRec.FindSet() then
+                            EditableGB := false
+                        else
+                            EditableGB := true;
+                    end;
+                end;
             end
             else
                 EditableGB := false;

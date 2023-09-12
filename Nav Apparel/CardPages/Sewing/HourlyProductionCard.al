@@ -4776,6 +4776,7 @@ page 50515 "Hourly Production Card"
     end;
 
 
+
     var
         EditableGB: Boolean;
 }
