@@ -12,6 +12,8 @@ table 50707 "Wash Sample Job Creation"
         field(17; " GRN No"; Code[20])
         {
             DataClassification = ToBeClassified;
+            ObsoleteReason = 'Removed';
+            ObsoleteState = Removed;
         }
 
         field(18; "Gate Pass No"; code[20])

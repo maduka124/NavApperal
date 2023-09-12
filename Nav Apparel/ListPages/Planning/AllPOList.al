@@ -2,7 +2,7 @@
 page 50489 "All PO List"
 {
     PageType = Card;
-    SourceTable = StyleMaster_StyleMasterPO_T;
+    SourceTable = StyleMaster_StyleMasterPO_TNew;
     SourceTableView = sorting(Buyer, Style_No, PONo, ShipDate) where(PlannedStatus = filter(false), smv = filter(> 0));
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -21,7 +21,7 @@ page 50489 "All PO List"
 
                     trigger OnValidate()
                     var
-                        T: Record StyleMaster_StyleMasterPO_T;
+                        T: Record StyleMaster_StyleMasterPO_TNew;
                     begin
                         //Check the user is planning user or not
                         if PlanningUser = false then
@@ -30,6 +30,7 @@ page 50489 "All PO List"
                         Total := 0;
                         CurrPage.Update();
                         T.Reset();
+                        T.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
                         T.FindSet();
                         repeat
                             if T.Select = true then
@@ -246,7 +247,7 @@ page 50489 "All PO List"
 
                 trigger OnAction();
                 var
-                    ReqRec: Record StyleMaster_StyleMasterPO_T;
+                    ReqRec: Record StyleMaster_StyleMasterPO_TNew;
                 begin
                     //Check the user is planning user or not
                     if PlanningUser = false then
@@ -258,10 +259,12 @@ page 50489 "All PO List"
 
                     //Delsect All
                     ReqRec.Reset();
+                    ReqRec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
                     if ReqRec.FindSet() then
                         ReqRec.ModifyAll(Select, false);
 
                     ReqRec.Reset();
+                    ReqRec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
 
                     //Filter for the selected fields combination
                     if Buyer1 then
@@ -298,6 +301,7 @@ page 50489 "All PO List"
                     //Calculate selected record total                   
                     Total := 0;
                     ReqRec.Reset();
+                    ReqRec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
                     ReqRec.FindSet();
                     repeat
                         if ReqRec.Select = true then
@@ -316,9 +320,10 @@ page 50489 "All PO List"
 
                 trigger OnAction()
                 var
-                    ReqRec: Record StyleMaster_StyleMasterPO_T;
+                    ReqRec: Record StyleMaster_StyleMasterPO_TNew;
                 begin
                     ReqRec.Reset();
+                    ReqRec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
                     if ReqRec.FindSet() then
                         ReqRec.ModifyAll(Select, false);
 
@@ -349,14 +354,12 @@ page 50489 "All PO List"
     trigger OnQueryClosePage(CloseAction: Action): Boolean;
     var
         StyleMasterPORec: Record "Style Master PO";
-        TempRec: Record StyleMaster_StyleMasterPO_T;
+        TempRec: Record StyleMaster_StyleMasterPO_TNew;
         PlanningQueueRec: Record "Planning Queue";
         WastageRec: Record Wastage;
         PlanningQueueNewRec: Record "Planning Queue";
         StyleMasterRec: Record "Style Master";
         StyleMasterPONewRec: Record "Style Master PO";
-        LoginSessionsRec: Record LoginSessions;
-        LoginRec: Page "Login Card";
         NavAppSetupRec: Record "NavApp Setup";
         Waistage: Decimal;
         QtyWithWaistage: Decimal;
@@ -392,6 +395,7 @@ page 50489 "All PO List"
 
                 TempRec.Reset();
                 TempRec.SetRange(select, true);
+                TempRec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
                 TempRec.SetFilter(PlannedStatus, '=%1', false);
                 //TempRec.SetFilter(Status, '=%1', TempRec.Status::Confirm); //Nevil asked to remove this
 
@@ -480,11 +484,9 @@ page 50489 "All PO List"
     trigger OnOpenPage()
     var
         TempQuery: Query StyleMaster_StyleMasterPO_Q;
-        TempRec: Record StyleMaster_StyleMasterPO_T;
-        LoginRec: Page "Login Card";
+        TempRec: Record StyleMaster_StyleMasterPO_TNew;
         StyleMasterRec: Record "Style Master";
         StyleMasterPORec: Record "Style Master PO";
-        LoginSessionsRec: Record LoginSessions;
         NavAppLineRec: Record "NavApp Planning Lines";
         ProcutionOutHeaderRec: Record ProductionOutHeader;
         WastageRec: Record Wastage;
@@ -516,6 +518,7 @@ page 50489 "All PO List"
 
         //Delete old records
         TempRec.Reset();
+        TempRec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         if TempRec.FindSet() then
             TempRec.DeleteAll();
 
@@ -588,16 +591,26 @@ page 50489 "All PO List"
             end;
             TempQuery.Close();
         end;
+
+        rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
     end;
 
 
     //Done By Sachith on 27/03/23
-    procedure ExportData(var StyleMasterQuaryRec: Record StyleMaster_StyleMasterPO_T)
+    procedure ExportData(var StyleMasterQuaryRec: Record StyleMaster_StyleMasterPO_TNew)
     var
         TempExcelBuffer: Record "Excel Buffer" temporary;
         Exellable: Label 'All PO List';
         ExcelFileName: Label 'All Po List';
     begin
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+        end;
 
         TempExcelBuffer.Reset();
         TempExcelBuffer.DeleteAll();
@@ -618,7 +631,7 @@ page 50489 "All PO List"
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Status), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(ConfirmDate), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
 
-
+        StyleMasterQuaryRec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         if StyleMasterQuaryRec.FindSet() then begin
             repeat
                 TempExcelBuffer.NewRow();
@@ -730,4 +743,6 @@ page 50489 "All PO List"
         BuyerBrandStyle: Boolean;
         BrandStyle: Boolean;
         Total: BigInteger;
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
 }
