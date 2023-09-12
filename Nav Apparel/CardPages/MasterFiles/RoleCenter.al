@@ -648,7 +648,13 @@ page 50968 "Nav Apperal Role Center"
                     //     RunObject = report TestBarcode;
                     //     ApplicationArea = all;
                     // }
-
+                    action("Hourly Production Report Merchandising")
+                    {
+                        Caption = 'Merchandising Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionMerchandizing;
+                        ApplicationArea = all;
+                    }
                     group("Capacity By Pcs Reports")
                     {
                         action("Month Wise Order Booking Report")
@@ -753,6 +759,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+
                     action("Order Completion Report")
                     {
                         Caption = 'Order Completion Report';
