@@ -207,6 +207,7 @@ page 50371 "Prod Update Card"
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
+        // LocationRec.SetRange(Code, 'VDL');
         if LocationRec.FindSet() then begin
 
             repeat
@@ -214,6 +215,7 @@ page 50371 "Prod Update Card"
                 WorkCenterRec.Reset();
                 WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                 WorkCenterRec.SetFilter("Planning Line", '=%1', true);
+                // WorkCenterRec.SetRange("No.", 'VDL-06');
                 if WorkCenterRec.FindSet() then begin
 
                     repeat

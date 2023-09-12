@@ -110,6 +110,7 @@ page 50666 "Bundle Guide List"
     var
         BundleGuideLineRec: Record BundleGuideLine;
         UserRec: Record "User Setup";
+        LaySheetRec: Record LaySheetHeader;
     begin
         // Done By sachith on 03/04/23
         UserRec.Reset();
@@ -124,6 +125,13 @@ page 50666 "Bundle Guide List"
         BundleGuideLineRec.reset();
         BundleGuideLineRec.SetRange("BundleGuideNo.", Rec."BundleGuideNo.");
         BundleGuideLineRec.DeleteAll();
+
+        LaySheetRec.reset();
+        LaySheetRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaySheetRec.FindSet() then begin
+            LaySheetRec."BundleGuideNo." := '';
+            LaySheetRec.Modify();
+        end;
     end;
 
     var

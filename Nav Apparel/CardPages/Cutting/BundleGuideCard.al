@@ -29,14 +29,14 @@ page 50665 "Bundle Guide Card"
                 {
                     ApplicationArea = All;
                     Caption = 'LaySheet No';
+                    Editable = EditableGBLay;
 
-                    trigger OnLookup(var texts: text): Boolean
+                    trigger OnValidate()
                     var
-                        LaySheetHeaderRec: Record LaySheetHeader;
                         LoginSessionsRec: Record LoginSessions;
-                        BundleGRec: Record BundleGuideHeader;
                         LoginRec: Page "Login Card";
                         UserRec: Record "User Setup";
+                        LaySheetHeaderRec: Record LaySheetHeader;
                     begin
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -54,47 +54,89 @@ page 50665 "Bundle Guide Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-                        UserRec.Reset();
-                        UserRec.Get(UserId);
-                        if UserRec."Factory Code" <> '' then begin
-                            Rec."Factory Code" := UserRec."Factory Code";
+                        LaySheetHeaderRec.Reset();
+                        LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                        if LaySheetHeaderRec.FindSet() then begin
+                            rec."Style Name" := LaySheetHeaderRec."Style Name";
+                            rec."Style No." := LaySheetHeaderRec."Style No.";
+                            rec."PO No." := LaySheetHeaderRec."PO No.";
+                            rec."Component Group" := LaySheetHeaderRec."Component Group Name";
+                            rec."Cut No New" := LaySheetHeaderRec."Cut No New";
+                            EditableGBLay := false;
                         end
                         else
-                            Error('Factory not assigned for the user.');
+                            Error('Invalid Layshhet No.');
 
-                        LaySheetHeaderRec.RESET;
-                        LaySheetHeaderRec.SetCurrentKey("LaySheetNo.");
-                        LaySheetHeaderRec.Ascending(false);
-                        LaySheetHeaderRec.SetRange("Factory Code", rec."Factory Code");
+                        CurrPage.Update();
+                    end;
 
-                        IF LaySheetHeaderRec.FINDFIRST THEN BEGIN
-                            REPEAT
-                                BundleGRec.Reset();
-                                BundleGRec.SetRange("LaySheetNo.", LaySheetHeaderRec."LaySheetNo.");
-                                if not BundleGRec.FindSet() then
-                                    LaySheetHeaderRec.MARK(TRUE);
-                            UNTIL LaySheetHeaderRec.NEXT = 0;
-                            LaySheetHeaderRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(51320, LaySheetHeaderRec) = Action::LookupOK then begin
-                                rec."LaySheetNo." := LaySheetHeaderRec."LaySheetNo.";
 
-                                LaySheetHeaderRec.Reset();
-                                LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
-                                if LaySheetHeaderRec.FindSet() then begin
-                                    rec."Style Name" := LaySheetHeaderRec."Style Name";
-                                    rec."Style No." := LaySheetHeaderRec."Style No.";
-                                    rec."PO No." := LaySheetHeaderRec."PO No.";
-                                    rec."Component Group" := LaySheetHeaderRec."Component Group Name";
-                                    rec."Cut No New" := LaySheetHeaderRec."Cut No New";
-                                end
-                                else
-                                    Error('Invalid Layshhet No.');
+                    // trigger OnLookup(var texts: text): Boolean
+                    // var
+                    //     LaySheetHeaderRec: Record LaySheetHeader;
+                    //     LoginSessionsRec: Record LoginSessions;
+                    //     BundleGRec: Record BundleGuideHeader;
+                    //     LoginRec: Page "Login Card";
+                    //     UserRec: Record "User Setup";
+                    // begin
+                    //     LoginSessionsRec.Reset();
+                    //     LoginSessionsRec.SetRange(SessionID, SessionId());
+                    //     if not LoginSessionsRec.FindSet() then begin  //not logged in
+                    //         Clear(LoginRec);
+                    //         LoginRec.LookupMode(true);
+                    //         LoginRec.RunModal();
 
-                                CurrPage.Update();
-                            end;
-                        END;
-                    END;
+                    //         LoginSessionsRec.Reset();
+                    //         LoginSessionsRec.SetRange(SessionID, SessionId());
+                    //         if LoginSessionsRec.FindSet() then
+                    //             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    //     end
+                    //     else begin   //logged in
+                    //         rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    //     end;
+
+                    //     UserRec.Reset();
+                    //     UserRec.Get(UserId);
+                    //     if UserRec."Factory Code" <> '' then begin
+                    //         Rec."Factory Code" := UserRec."Factory Code";
+                    //     end
+                    //     else
+                    //         Error('Factory not assigned for the user.');
+
+                    //     LaySheetHeaderRec.RESET;
+                    //     LaySheetHeaderRec.SetCurrentKey("LaySheetNo.");
+                    //     LaySheetHeaderRec.Ascending(false);
+                    //     LaySheetHeaderRec.SetRange("Factory Code", rec."Factory Code");
+
+                    //     IF LaySheetHeaderRec.FINDFIRST THEN BEGIN
+                    //         REPEAT
+                    //             BundleGRec.Reset();
+                    //             BundleGRec.SetRange("LaySheetNo.", LaySheetHeaderRec."LaySheetNo.");
+                    //             if not BundleGRec.FindSet() then
+                    //                 LaySheetHeaderRec.MARK(TRUE);
+                    //         UNTIL LaySheetHeaderRec.NEXT = 0;
+                    //         LaySheetHeaderRec.MARKEDONLY(TRUE);
+
+                    //         if Page.RunModal(51320, LaySheetHeaderRec) = Action::LookupOK then begin
+                    //             rec."LaySheetNo." := LaySheetHeaderRec."LaySheetNo.";
+
+                    //             LaySheetHeaderRec.Reset();
+                    //             LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                    //             if LaySheetHeaderRec.FindSet() then begin
+                    //                 rec."Style Name" := LaySheetHeaderRec."Style Name";
+                    //                 rec."Style No." := LaySheetHeaderRec."Style No.";
+                    //                 rec."PO No." := LaySheetHeaderRec."PO No.";
+                    //                 rec."Component Group" := LaySheetHeaderRec."Component Group Name";
+                    //                 rec."Cut No New" := LaySheetHeaderRec."Cut No New";
+                    //             end
+                    //             else
+                    //                 Error('Invalid Layshhet No.');
+
+                    //             CurrPage.Update();
+                    //         end;
+                    //     END;
+                    // END;
                 }
 
                 field("Style Name"; rec."Style Name")
@@ -263,7 +305,15 @@ page 50665 "Bundle Guide Card"
                     LaySheetRec.Reset();
                     LaySheetRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
                     if not LaySheetRec.FindSet() then
-                        Error('Cannot find matching Laysheet');
+                        Error('Cannot find matching Laysheet')
+                    else begin
+                        LaySheetRec."BundleGuideNo." := rec."BundleGuideNo.";
+                        LaySheetRec.Modify();
+                    end;
+
+                    LaySheetRec.Reset();
+                    LaySheetRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                    LaySheetRec.FindSet();
 
                     //Get Max bundle no
                     if LocationRec."Bundle Guide Sequence" = LocationRec."Bundle Guide Sequence"::Continue then begin
@@ -1624,6 +1674,7 @@ page 50665 "Bundle Guide Card"
     trigger OnDeleteRecord(): Boolean
     var
         BundleGuideLineRec: Record BundleGuideLine;
+        LaySheetRec: Record LaySheetHeader;
         UserRec: Record "User Setup";
     begin
         //Done By sachith on 04/04/23
@@ -1640,6 +1691,13 @@ page 50665 "Bundle Guide Card"
         BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
         if BundleGuideLineRec.FindSet() then
             BundleGuideLineRec.DeleteAll();
+
+        LaySheetRec.reset();
+        LaySheetRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaySheetRec.FindSet() then begin
+            LaySheetRec."BundleGuideNo." := '';
+            LaySheetRec.Modify();
+        end;
     end;
 
 
@@ -1678,11 +1736,18 @@ page 50665 "Bundle Guide Card"
                 Error('Factory not assigned for the user.');
                 EditableGB := false;
             end
-            else
+            else begin
                 EditableGB := true;
+            end;
+
+        if rec."LaySheetNo." <> '' then
+            EditableGBLay := false
+        else
+            EditableGBLay := true;
     end;
 
 
     var
         EditableGB: Boolean;
+        EditableGBLay: Boolean;
 }

@@ -89,7 +89,7 @@ table 50664 BundleGuideHeader
         field(15; "LaySheetNo."; Code[20])
         {
             DataClassification = ToBeClassified;
-            //TableRelation = LaySheetHeader."LaySheetNo." where("Style Name" = field("Style Name"));
+            TableRelation = LaySheetHeader."LaySheetNo." where("BundleGuideNo." = filter(''), "Factory Code" = field("Factory Code"));
         }
         field(16; "Bundle No"; Code[20])
         {
@@ -142,10 +142,23 @@ table 50664 BundleGuideHeader
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        UserRec: Record "User Setup";
+        BundleGuideHeaderRec: Record BundleGuideHeader;
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("BundleGuide Nos.");
         "BundleGuideNo." := NoSeriesMngment.GetNextNo(NavAppSetup."BundleGuide Nos.", Today, true);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        // BundleGuideHeaderRec.Reset();
+        // BundleGuideHeaderRec.SetRange("BundleGuideNo.", "BundleGuideNo.");
+        // BundleGuideHeaderRec.FindSet();
+        //BundleGuideHeaderRec."Factory Code" := UserRec."Factory Code";
+        // BundleGuideHeaderRec.Modify();
+
+        "Factory Code" := UserRec."Factory Code";
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;

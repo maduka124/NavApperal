@@ -182,6 +182,11 @@ table 50645 LaySheetHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(34; "BundleGuideNo."; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
