@@ -121,15 +121,12 @@ report 50641 WIPReport
                     SalesInvoiceRec.SetRange(Lot, "Lot No.");
                     SalesInvoiceRec.SetRange("Style No", "Style No.");
                     SalesInvoiceRec.SetRange("PO No", "PO No.");
-
+                    SalesInvoiceRec.SetFilter(Cancelled, '<>%1', true);
                     if SalesInvoiceRec.FindSet() then begin
-                        repeat
-
+                        // repeat
                             SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceRec."No.");
-
                             if SalesInvoiceLineRec.FindSet() then begin
                                 repeat
-
                                     if SalesInvoiceLineRec.Type = SalesInvoiceLineRec.Type::Item then begin
                                         QtyGB := QtyGB + SalesInvoiceLineRec.Quantity;
                                         // SalesInvoiceLineRec.CalcSums("Line Amount");
@@ -139,7 +136,7 @@ report 50641 WIPReport
 
                                 until SalesInvoiceLineRec.Next() = 0;
                             end;
-                        until SalesInvoiceRec.Next() = 0;
+                        // until SalesInvoiceRec.Next() = 0;
                     end;
                 end;
             }
