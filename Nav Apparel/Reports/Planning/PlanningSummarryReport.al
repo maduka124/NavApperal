@@ -48,6 +48,9 @@ report 51414 PlanningSummarryReport
             column(Qty; Qty)
             { }
 
+            column(Factory_Name; "Factory Name")
+            { }
+
             trigger OnPreDataItem()
             begin
                 SetRange(PlanDate, StartDate, EndDate);
@@ -59,7 +62,14 @@ report 51414 PlanningSummarryReport
                 MerchandGroupRec: Record MerchandizingGroupTable;
                 NavProdetailRec: Record "NavApp Prod Plans Details";
                 StyleMasterRec: Record "Style Master";
+                LocationRec: Record Location;
             begin
+
+                LocationRec.Reset();
+                LocationRec.SetRange(Code, Factory);
+
+                if LocationRec.FindSet() then
+                    "Factory Name" := LocationRec.Name;
 
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -90,6 +100,8 @@ report 51414 PlanningSummarryReport
                     repeat
                         TotalPlanQty += NavProdetailRec.Qty;
                     until NavProdetailRec.Next() = 0;
+
+                    // TotalPlanQty := Round(TotalPlanQty, 1);
                 end;
 
                 NavProdetailRec.Reset();
@@ -129,6 +141,8 @@ report 51414 PlanningSummarryReport
                     Caption = 'Filterd By';
                     field(Factory; Factory)
                     {
+
+                        Caption = 'Factory';
                         ApplicationArea = All;
                         TableRelation = Location.Code;
                     }
@@ -136,11 +150,13 @@ report 51414 PlanningSummarryReport
                     field(StartDate; StartDate)
                     {
                         ApplicationArea = All;
+                        Caption = 'Start Date';
                     }
 
                     field(EndDate; EndDate)
                     {
                         ApplicationArea = All;
+                        Caption = 'End Date';
                     }
                 }
             }
@@ -158,4 +174,5 @@ report 51414 PlanningSummarryReport
         MerchandGroupHead: Text[200];
         BuyerName: Text[50];
         comRec: Record "Company Information";
+        "Factory Name": Text[200];
 }

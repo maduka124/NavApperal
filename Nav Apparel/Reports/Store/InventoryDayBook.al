@@ -12,9 +12,7 @@ report 51385 EnventoryDayBook
         {
             DataItemTableView = sorting("Entry No.") where("Entry Type" = filter(Consumption | Purchase));
 
-            column(Main_Category_Name; "Main Category Name")
-            { }
-            column(MainCategoryName; MainCategoryName)
+            column(MainCategoryName; MainCategory1)
             { }
             column(Unit_of_Measure_Code; "Unit of Measure Code")
             { }
@@ -89,6 +87,7 @@ report 51385 EnventoryDayBook
                         ReorderLevel := ItemRec."Reorder Point";
                         ReorderQty := ItemRec."Reorder Quantity";
                         UnitPrice := ItemRec."Unit Price";
+                        MainCategory1 := ItemRec."Main Category Name";
                     until GRNLineRec.Next() = 0
                 else begin
                     ItemRec1.Get("Item Ledger Entry"."Item No.");
@@ -98,6 +97,7 @@ report 51385 EnventoryDayBook
                     ReorderLevel := ItemRec1."Reorder Point";
                     ReorderQty := ItemRec1."Reorder Quantity";
                     UnitPrice := ItemRec1."Unit Price";
+                    MainCategory1 := ItemRec1."Main Category Name";
                 end;
 
 
@@ -187,4 +187,5 @@ report 51385 EnventoryDayBook
         ReorderQty: Decimal;
         ItemRec1: Record Item;
         comRec: Record "Company Information";
+        MainCategory1: Text[50];
 }

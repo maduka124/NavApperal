@@ -1,5 +1,5 @@
 
-table 50773 "StyleMaster_StyleMasterPO_T"         //Not using anymore, New table created (StyleMaster_StyleMasterPO_TNew)
+table 51416 "StyleMaster_StyleMasterPO_TNew"
 {
     DataClassification = CustomerContent;
 
@@ -139,7 +139,7 @@ table 50773 "StyleMaster_StyleMasterPO_T"         //Not using anymore, New table
 
     keys
     {
-        key(PK; "No", Lot_No)
+        key(PK; "No", Lot_No, "Secondary UserID")
         {
             Clustered = true;
         }

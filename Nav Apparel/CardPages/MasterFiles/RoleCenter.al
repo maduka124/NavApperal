@@ -768,15 +768,6 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    //Done By Sachith on 06/05/23
-                    action("OMS Report Merchant")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
-                        ApplicationArea = all;
-                    }
-
                     action("Purchase Order Report Detail")
                     {
                         Caption = 'Purchase Order Report - Detail';
@@ -1088,15 +1079,6 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = All;
                     }
 
-                    //Done By Sachith on 06/05/23
-                    action("OMS Report Planning")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
-                        ApplicationArea = all;
-                    }
-
                     action("Production Plan Report")
                     {
                         Caption = 'Production Plan Report';
@@ -1110,6 +1092,14 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Production Status Report';
                         Enabled = true;
                         RunObject = report ProductionStatus;
+                        ApplicationArea = all;
+                    }
+
+                    action("Planning Summary Report")
+                    {
+                        Caption = 'Planning Summary Report';
+                        Enabled = true;
+                        RunObject = report PlanningSummarryReport;
                         ApplicationArea = all;
                     }
 
@@ -1586,15 +1576,6 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = All;
                     }
 
-                    //Done By Sachith on 06/05/23
-                    action("OMS Report Store")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
-                        ApplicationArea = all;
-                    }
-
                     action("Phys. Inventory List Report")
                     {
                         Enabled = true;
@@ -1789,15 +1770,6 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = All;
                     }
 
-                    //Done By Sachith on 06/05/23
-                    action("OMS Report Cutting")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
-                        ApplicationArea = all;
-                    }
-
                     action("Production Plan Report2")
                     {
                         Caption = 'Production Plan Report';
@@ -1875,15 +1847,6 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Hourly Production Report';
                         Enabled = true;
                         RunObject = report HourlyProductionReport;
-                        ApplicationArea = all;
-                    }
-
-                    //Done By Sachith on 06/05/23
-                    action("OMS Report Sewing")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
                         ApplicationArea = all;
                     }
 
@@ -2020,15 +1983,6 @@ page 50968 "Nav Apperal Role Center"
                         Enabled = true;
                         RunObject = report lineinoutReport;
                         ApplicationArea = All;
-                    }
-
-                    //Done By Sachith on 06/05/23
-                    action("OMS Report Finishing")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
-                        ApplicationArea = all;
                     }
 
                     action("Production Plan Report3")
@@ -2832,13 +2786,13 @@ page 50968 "Nav Apperal Role Center"
                     }
 
                     //Done By Sachith on 06/05/23
-                    action("OMS Report Commercial")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
-                        ApplicationArea = all;
-                    }
+                    // action("OMS Report Commercial")
+                    // {
+                    //     Caption = 'OMS Report';
+                    //     Enabled = true;
+                    //     RunObject = report OMSReport;
+                    //     ApplicationArea = all;
+                    // }
 
                     action("Shipment Summary Report")
                     {
@@ -2976,13 +2930,13 @@ page 50968 "Nav Apperal Role Center"
                     }
 
                     //Done By Sachith on 06/05/23
-                    action("OMS Report Quality")
-                    {
-                        Caption = 'OMS Report';
-                        Enabled = true;
-                        RunObject = report OMSReport;
-                        ApplicationArea = all;
-                    }
+                    // action("OMS Report Quality")
+                    // {
+                    //     Caption = 'OMS Report';
+                    //     Enabled = true;
+                    //     RunObject = report OMSReport;
+                    //     ApplicationArea = all;
+                    // }
 
                     action("Size Colour Wise Quantity Breakdown Report Finishing7")
                     {
