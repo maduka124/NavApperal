@@ -85,10 +85,35 @@ page 50363 "Daily Finishing Out"
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
         UserRec: Record "User Setup";
         NavappProdRec: Record "NavApp Prod Plans Details";
+        ProdOutHeaderRec: Record ProductionOutHeader;
     begin
 
         UserRec.Reset();
         UserRec.Get(UserId);
+
+
+        if rec.Type = rec.Type::Fin then begin
+            ProdOutHeaderRec.Reset();
+            ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
+            ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
+            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+            ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+            if ProdOutHeaderRec.FindSet() then
+                Error('Production updated against Date : %1 , Factory : %2 has been updates. You cannot delete this entry.', rec."Prod Date", rec."Factory Name");
+        end;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.');
+        end
+        else
+            Error('You are not authorized to delete records.');
+
+
+
+
         if UserRec."Factory Code" <> '' then begin
             if (UserRec."Factory Code" <> rec."Factory Code") then
                 Error('You are not authorized to delete this record.')
