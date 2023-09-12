@@ -127,7 +127,7 @@ page 51377 "Hourly Finishing Card"
 
             group(" ")
             {
-                // Editable = EditableGB;
+                Editable = EditableGB;
                 part(HourlyFinishingListPart; HourlyFinishingListPart)
                 {
                     ApplicationArea = All;
@@ -461,7 +461,7 @@ page 51377 "Hourly Finishing Card"
                         ProdOutHeaderRec.Reset();
                         ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
                         ProdOutHeaderRec.SetRange("Factory Code", rec."Factory No.");
-                        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Fin);
+                        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
                         ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
                         if ProdOutHeaderRec.FindSet() then
                             EditableGB := false
