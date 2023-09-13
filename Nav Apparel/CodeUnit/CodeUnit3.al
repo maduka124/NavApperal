@@ -38,4 +38,30 @@ codeunit 51366 NavAppCodeUnit3
         exit(Status);
     end;
 
+
+    procedure CheckforHolidays(DatePara: Date; LineNoPara: code[20]): Boolean
+    var
+        WorkCenterRec: Record "Work Center";
+        SHCalHolidayRec: Record "Shop Calendar Holiday";
+        Status: Boolean;
+    begin
+        Status := false;
+
+        if (DatePara <> 0D) and (LineNoPara <> '') then begin
+            WorkCenterRec.Reset();
+            WorkCenterRec.SetRange("No.", LineNoPara);
+            WorkCenterRec.FindSet();
+
+            //Validate the day (Holiday)
+            SHCalHolidayRec.Reset();
+            SHCalHolidayRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+            SHCalHolidayRec.SETRANGE(Date, DatePara);
+            if SHCalHolidayRec.FindSet() then
+                Status := true
+            else
+                Status := false;
+        end;
+
+        exit(Status);
+    end;
 }
