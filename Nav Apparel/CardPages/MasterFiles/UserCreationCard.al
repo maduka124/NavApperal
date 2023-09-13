@@ -396,33 +396,33 @@ page 50978 "Create User Card"
                 end;
             }
 
-            action("Update BundleGuideNo in Laysheet")
-            {
-                ApplicationArea = All;
+            // action("Update BundleGuideNo in Laysheet")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    Bundle: Record BundleGuideHeader;
-                    LaySheetHeader: Record LaySheetHeader;
-                begin
-                    Bundle.Reset();
-                    if Bundle.FindSet() then begin
-                        repeat
-                            if Bundle."LaySheetNo." <> '' then begin
-                                LaySheetHeader.Reset();
-                                LaySheetHeader.SetRange("LaySheetNo.", Bundle."LaySheetNo.");
-                                if LaySheetHeader.FindSet() then begin
-                                    repeat
-                                        LaySheetHeader."BundleGuideNo." := Bundle."BundleGuideNo.";
-                                        LaySheetHeader.Modify();
-                                    until LaySheetHeader.Next() = 0;
-                                end;
-                            end;
-                        until Bundle.Next() = 0;
-                        Message('completed');
-                    end;
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         Bundle: Record BundleGuideHeader;
+            //         LaySheetHeader: Record LaySheetHeader;
+            //     begin
+            //         Bundle.Reset();
+            //         if Bundle.FindSet() then begin
+            //             repeat
+            //                 if Bundle."LaySheetNo." <> '' then begin
+            //                     LaySheetHeader.Reset();
+            //                     LaySheetHeader.SetRange("LaySheetNo.", Bundle."LaySheetNo.");
+            //                     if LaySheetHeader.FindSet() then begin
+            //                         repeat
+            //                             LaySheetHeader."BundleGuideNo." := Bundle."BundleGuideNo.";
+            //                             LaySheetHeader.Modify();
+            //                         until LaySheetHeader.Next() = 0;
+            //                     end;
+            //                 end;
+            //             until Bundle.Next() = 0;
+            //             Message('completed');
+            //         end;
+            //     end;
+            // }
 
             // action("Style no update in Sales Invoice Header")
             // {
