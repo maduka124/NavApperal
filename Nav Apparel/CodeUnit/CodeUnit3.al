@@ -43,23 +43,41 @@ codeunit 51366 NavAppCodeUnit3
     var
         WorkCenterRec: Record "Work Center";
         SHCalHolidayRec: Record "Shop Calendar Holiday";
+        WorkCenCapacityEntryRec: Record "Calendar Entry";
         Status: Boolean;
+        HoursPerDay: Decimal;
     begin
         Status := false;
+        HoursPerDay := 0;
 
         if (DatePara <> 0D) and (LineNoPara <> '') then begin
-            WorkCenterRec.Reset();
-            WorkCenterRec.SetRange("No.", LineNoPara);
-            WorkCenterRec.FindSet();
 
-            //Validate the day (Holiday)
-            SHCalHolidayRec.Reset();
-            SHCalHolidayRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
-            SHCalHolidayRec.SETRANGE(Date, DatePara);
-            if SHCalHolidayRec.FindSet() then
+            WorkCenCapacityEntryRec.Reset();
+            WorkCenCapacityEntryRec.SETRANGE("No.", LineNoPara);
+            WorkCenCapacityEntryRec.SETRANGE(Date, DatePara);
+            if WorkCenCapacityEntryRec.FindSet() then begin
+                repeat
+                    HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
+                until WorkCenCapacityEntryRec.Next() = 0;
+            end;
+
+            if HoursPerDay = 0 then
                 Status := true
             else
                 Status := false;
+
+            // WorkCenterRec.Reset();
+            // WorkCenterRec.SetRange("No.", LineNoPara);
+            // WorkCenterRec.FindSet();
+
+            // //Validate the day (Holiday)
+            // SHCalHolidayRec.Reset();
+            // SHCalHolidayRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+            // SHCalHolidayRec.SETRANGE(Date, DatePara);
+            // if SHCalHolidayRec.FindSet() then
+            //     Status := true
+            // else
+            //     Status := false;
         end;
 
         exit(Status);
