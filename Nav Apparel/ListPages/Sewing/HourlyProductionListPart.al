@@ -1146,7 +1146,7 @@ page 50516 HourlyProductionListPart
             //     if NavAppProdRec."Lot No." = '1' then
             //         Message('VDL7');
             // end;
-            // if NavAppProdRec."Resource No." = 'PAL-07' then begin
+            // if NavAppProdRec."Resource No." = 'PAL-09' then begin
             //     Message('VDL7');
             // end;
 
@@ -4400,7 +4400,7 @@ page 50516 HourlyProductionListPart
                                                 end
                                                 else begin
 
-                                                 
+
 
 
                                                     //correct
@@ -4760,9 +4760,9 @@ page 50516 HourlyProductionListPart
                     rec.Modify();
                 end;
 
-                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 9 then begin
+                if TotNavaHours >= 9 then begin
                     CheckValue := 0;
-                    CheckValue := (TotNavaHours + NavAppProdRec."LCurve Hours Per Day") - 9;
+                    CheckValue := (TotNavaHours) - 9;
                     if CheckValue < 1 then begin
                         Rec."Target_Hour 10" := (DayTarget / TotNavaHours) * CheckValue;
                         rec.Modify();
@@ -4775,7 +4775,7 @@ page 50516 HourlyProductionListPart
                     rec.Modify();
                 end;
 
-                if TotNavaHours + NavAppProdRec."LCurve Hours Per Day" >= 10 then begin
+                if TotNavaHours >= 10 then begin
                     if (DayTarget / TotNavaHours) > DayTarget then begin
                         Rec."Target_Hour 10" := DayTarget;
                         rec.Modify();
