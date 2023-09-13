@@ -11,6 +11,55 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Resource_Name">
+          <DataField>Resource_Name</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="orderQty">
+          <DataField>orderQty</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="Input_Qty">
+          <DataField>Input_Qty</DataField>
+        </Field>
+        <Field Name="Output_Qty">
+          <DataField>Output_Qty</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="StDate">
+          <DataField>StDate</DataField>
+        </Field>
+        <Field Name="EndDate">
+          <DataField>EndDate</DataField>
+        </Field>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="LocationRec">
+          <DataField>LocationRec</DataField>
+        </Field>
+        <Field Name="Resource_No_">
+          <DataField>Resource_No_</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -722,7 +771,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!orderQty.Value)</Value>
+                                  <Value>=Fields!orderQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -955,7 +1004,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!orderQty.Value)</Value>
+                                  <Value>=SUM(MAX(Fields!orderQty.Value,"Details"),"Resource_Name")</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1131,7 +1180,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>  STYLE  TOTAL</Value>
+                                  <Value>  GRAND TOTAL</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1191,7 +1240,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!orderQty.Value)</Value>
+                                  <Value>=Sum(SUM(MAX(Fields!orderQty.Value,"Details"),"Resource_Name"))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1418,16 +1467,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>8.22928cm</Width>
+                  <Width>8.39332cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.50921cm</Width>
+                  <Width>1.67325cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.66876cm</Width>
+                  <Width>0.8328cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.95642cm</Width>
+                  <Width>2.12046cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1593,9 +1642,9 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>1.19062cm</Top>
-            <Left>3.175cm</Left>
+            <Left>2.51883cm</Left>
             <Height>0.59796cm</Height>
-            <Width>12.36367cm</Width>
+            <Width>13.01984cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1758,6 +1807,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1809,53 +1864,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Resource_Name">
-          <DataField>Resource_Name</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="orderQty">
-          <DataField>orderQty</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="Input_Qty">
-          <DataField>Input_Qty</DataField>
-        </Field>
-        <Field Name="Output_Qty">
-          <DataField>Output_Qty</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="StDate">
-          <DataField>StDate</DataField>
-        </Field>
-        <Field Name="EndDate">
-          <DataField>EndDate</DataField>
-        </Field>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="LocationRec">
-          <DataField>LocationRec</DataField>
-        </Field>
-        <Field Name="Resource_No_">
-          <DataField>Resource_No_</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

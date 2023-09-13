@@ -51,6 +51,7 @@ report 51256 lineinoutReport
 
                 orderQty := 0;
                 StyleMasterPORec.Reset();
+                StyleMasterPORec.SetRange("Lot No.", "Lot No.");
                 StyleMasterPORec.SetRange("PO No.", "PO No");
                 StyleMasterPORec.SetRange("Style No.", "Style No.");
 
