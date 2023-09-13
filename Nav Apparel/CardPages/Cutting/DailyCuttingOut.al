@@ -20,7 +20,12 @@ page 50351 "Daily Cutting Out Card"
 
                     trigger OnValidate()
                     var
+                        CodeUnitRec: Codeunit NavAppCodeUnit3;
                     begin
+                        //Check for Holidays
+                        if CodeUnitRec.CheckforHolidays(rec."Prod Date", rec."Resource No.") then
+                            Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", rec."Resource Name");
+
                         rec.Type := rec.Type::Cut;
                     end;
                 }
@@ -72,6 +77,7 @@ page 50351 "Daily Cutting Out Card"
                         WorkCentrRec: Record "Work Center";
                         LoginRec: Page "Login Card";
                         LoginSessionsRec: Record LoginSessions;
+                        CodeUnitRec: Codeunit NavAppCodeUnit3;
                     begin
 
                         UserSetupRec.Get(UserId);
@@ -81,6 +87,10 @@ page 50351 "Daily Cutting Out Card"
                         WorkCentrRec.FindSet();
 
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
+                            //Check for Holidays
+                            if CodeUnitRec.CheckforHolidays(rec."Prod Date", WorkCentrRec."No.") then
+                                Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", WorkCentrRec.Name);
+
                             Rec."Resource No." := WorkCentrRec."No.";
                             Rec."Resource Name" := WorkCentrRec.Name;
                             Rec."Factory Code" := WorkCentrRec."Factory No.";
@@ -90,7 +100,6 @@ page 50351 "Daily Cutting Out Card"
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -115,7 +124,6 @@ page 50351 "Daily Cutting Out Card"
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
-
                         if WorkCenterRec.FindSet() then begin
                             rec."Resource No." := WorkCenterRec."No.";
                             Rec."Factory Code" := WorkCenterRec."Factory No.";
