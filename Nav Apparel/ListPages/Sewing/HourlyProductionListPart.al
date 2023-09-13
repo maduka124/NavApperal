@@ -1139,9 +1139,6 @@ page 50516 HourlyProductionListPart
 
 
 
-            if NavAppProdRec."Resource No." = 'PAL-11' then begin
-                Message('VDL6');
-            end;
             Rec."Target_Hour 09" := 0;
             Rec."Target_Hour 10" := 0;
             // end;
