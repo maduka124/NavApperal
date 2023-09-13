@@ -518,19 +518,19 @@ page 50351 "Daily Cutting Out Card"
             if (UserRec."Factory Code" <> '') then begin
                 if (UserRec."Factory Code" <> rec."Factory Code") then
                     EditableGB := false
-                else begin
-                    if rec.Type = rec.Type::Cut then begin
-                        ProdOutHeaderRec.Reset();
-                        ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
-                        ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
-                        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
-                        ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
-                        if ProdOutHeaderRec.FindSet() then
-                            EditableGB := false
-                        else
-                            EditableGB := true;
-                    end;
-                end;
+                // else begin
+                //     if rec.Type = rec.Type::Cut then begin
+                //         ProdOutHeaderRec.Reset();
+                //         ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
+                //         ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
+                //         ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+                //         ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+                //         if ProdOutHeaderRec.FindSet() then
+                //             EditableGB := false
+                //         else
+                //             EditableGB := true;
+                //     end;
+                // end;
             end
             else
                 EditableGB := false;
