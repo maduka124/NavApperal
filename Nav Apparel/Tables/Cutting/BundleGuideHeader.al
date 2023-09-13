@@ -89,7 +89,7 @@ table 50664 BundleGuideHeader
         field(15; "LaySheetNo."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = LaySheetHeader."LaySheetNo." where("BundleGuideNo." = filter(''), "Factory Code" = field("Factory Code"));
+            TableRelation = LaySheetHeader."LaySheetNo." where("BundleGuideNo." = filter(''), "Factory Code" = field("Factory Code"), "Style Name" = filter(<> ''));
         }
         field(16; "Bundle No"; Code[20])
         {

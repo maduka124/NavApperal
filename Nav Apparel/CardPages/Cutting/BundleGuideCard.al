@@ -37,6 +37,7 @@ page 50665 "Bundle Guide Card"
                         LoginRec: Page "Login Card";
                         UserRec: Record "User Setup";
                         LaySheetHeaderRec: Record LaySheetHeader;
+                        BundleGuideRec: Record BundleGuideHeader;
                     begin
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -53,6 +54,13 @@ page 50665 "Bundle Guide Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+
+                        //Validate Laysheet No
+                        BundleGuideRec.Reset();
+                        BundleGuideRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                        BundleGuideRec.SetFilter("BundleGuideNo.", '<>%1', rec."BundleGuideNo.");
+                        if BundleGuideRec.FindSet() then
+                            Error('Laysheet already used in Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");
 
                         LaySheetHeaderRec.Reset();
                         LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");

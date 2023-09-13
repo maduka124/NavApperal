@@ -71,31 +71,28 @@ page 50666 "Bundle Guide List"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
-
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
-
         if not LoginSessionsRec.FindSet() then begin  //not logged in
             Clear(LoginRec);
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
-
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end
-        else begin   //logged in
-            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then
+            rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
     end;
 
 
     trigger OnAfterGetRecord()
     var
         StyleMasterRec: Record "Style Master";
+        UserSetupRec: Record "User Setup";
     begin
         StyleMasterRec.Reset();
         StyleMasterRec.SetRange("No.", rec."Style No.");
@@ -103,6 +100,15 @@ page 50666 "Bundle Guide List"
             Buyer := StyleMasterRec."Buyer Name"
         else
             Buyer := '';
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if UserSetupRec.FindSet() then begin
+            if UserSetupRec."Factory Code" <> '' then begin
+                if rec."Factory Code" <> UserSetupRec."Factory Code" then
+                    Error('You are not authorized to view other factory details.');
+            END;
+        end;
     end;
 
 

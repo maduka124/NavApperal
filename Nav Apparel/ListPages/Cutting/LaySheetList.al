@@ -90,26 +90,42 @@ page 50651 "Lay Sheet List"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
-
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
-
         if not LoginSessionsRec.FindSet() then begin  //not logged in
             Clear(LoginRec);
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
-
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end
-        else begin   //logged in
-            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then
+            rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
+
+        // rec.SetCurrentKey("LaySheetNo.");
+        // rec.Ascending(false);
+
+    end;
+
+
+    trigger OnAfterGetRecord()
+    var
+        UserSetupRec: Record "User Setup";
+    begin
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if UserSetupRec.FindSet() then begin
+            if UserSetupRec."Factory Code" <> '' then begin
+                if rec."Factory Code" <> '' then begin
+                    if rec."Factory Code" <> UserSetupRec."Factory Code" then
+                        Error('You are not authorized to view other factory details.');
+                end;
+            END;
+        end;
     end;
 
 

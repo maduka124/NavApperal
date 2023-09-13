@@ -21,7 +21,12 @@ page 50364 "Daily Finishing Out Card"
 
                     trigger OnValidate()
                     var
+                        CodeUnitRec: Codeunit NavAppCodeUnit3;
                     begin
+                        //Check for Holidays
+                        if CodeUnitRec.CheckforHolidays(rec."Prod Date", rec."Resource No.") then
+                            Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", rec."Resource Name");
+
                         rec.Type := rec.Type::Fin;
                     end;
                 }
@@ -74,20 +79,22 @@ page 50364 "Daily Finishing Out Card"
                         WorkCentrRec: Record "Work Center";
                         LoginRec: Page "Login Card";
                         LoginSessionsRec: Record LoginSessions;
+                        CodeUnitRec: Codeunit NavAppCodeUnit3;
                     begin
-
                         UserSetupRec.Get(UserId);
                         WorkCentrRec.Reset();
                         WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
                         WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
                         WorkCentrRec.FindSet();
 
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
+                            //Check for Holidays
+                            if CodeUnitRec.CheckforHolidays(rec."Prod Date", WorkCentrRec."No.") then
+                                Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", WorkCentrRec.Name);
+
                             Rec."Resource No." := WorkCentrRec."No.";
                             rec."Resource Name" := WorkCentrRec.Name;
                             Rec."Factory Code" := WorkCentrRec."Factory No.";
@@ -117,7 +124,6 @@ page 50364 "Daily Finishing Out Card"
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
-
                         if WorkCenterRec.FindSet() then begin
                             Rec."Resource No." := WorkCenterRec."No.";
                             Rec."Factory Code" := WorkCenterRec."Factory No.";
