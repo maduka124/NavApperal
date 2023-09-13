@@ -74,7 +74,7 @@ report 50641 WIPReport
                 { }
                 column(RoundUnitPrice; RoundUnitPrice)
                 { }
-                column(QtyGB; QtyGB)
+                column(QtyGB; "Actual Shipment Qty")
                 { }
                 column(ShipValue; ShipValue)
                 { }
@@ -116,7 +116,7 @@ report 50641 WIPReport
                     RoundUnitPrice := Round("Unit Price", 0.01, '=');
 
                     salesInvoiceLineRec.Reset();
-
+                    // QtyGB := 0;
                     SalesInvoiceRec.Reset();
                     SalesInvoiceRec.SetRange(Lot, "Lot No.");
                     SalesInvoiceRec.SetRange("Style No", "Style No.");
@@ -124,18 +124,16 @@ report 50641 WIPReport
                     SalesInvoiceRec.SetFilter(Cancelled, '<>%1', true);
                     if SalesInvoiceRec.FindSet() then begin
                         // repeat
-                            SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceRec."No.");
-                            if SalesInvoiceLineRec.FindSet() then begin
-                                repeat
-                                    if SalesInvoiceLineRec.Type = SalesInvoiceLineRec.Type::Item then begin
-                                        QtyGB := QtyGB + SalesInvoiceLineRec.Quantity;
-                                        // SalesInvoiceLineRec.CalcSums("Line Amount");
-                                        ShipValue2 := SalesInvoiceLineRec."Line Amount";
-                                        ShipValue := ShipValue + ShipValue2;
-                                    end;
-
-                                until SalesInvoiceLineRec.Next() = 0;
-                            end;
+                        SalesInvoiceLineRec.SetRange("Document No.", SalesInvoiceRec."No.");
+                        SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                        if SalesInvoiceLineRec.FindSet() then begin
+                            repeat
+                                // QtyGB := QtyGB + SalesInvoiceLineRec.Quantity;
+                                // SalesInvoiceLineRec.CalcSums("Line Amount");
+                                ShipValue2 := SalesInvoiceLineRec."Line Amount";
+                                ShipValue := ShipValue + ShipValue2;
+                            until SalesInvoiceLineRec.Next() = 0;
+                        end;
                         // until SalesInvoiceRec.Next() = 0;
                     end;
                 end;
