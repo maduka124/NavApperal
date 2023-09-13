@@ -22,14 +22,18 @@ page 50355 "Daily Sewing In/Out Card"
                         LoginSessionsRec: Record LoginSessions;
                         ProdOutHeaderRec: Record ProductionOutHeader;
                         LoginRec: Page "Login Card";
+                        CodeUnitRec: Codeunit NavAppCodeUnit3;
                     begin
+                        //Check for Holidays
+                        if CodeUnitRec.CheckforHolidays(rec."Prod Date", rec."Resource No.") then
+                            Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", rec."Resource Name");
+
                         rec.Type := rec.Type::Saw;
 
                         //Check Production already updated not not for the selected date
                         ProdOutHeaderRec.Reset();
                         ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
                         ProdOutHeaderRec.SetFilter("Prod Date", '=%1', rec."Prod Date");
-
                         if ProdOutHeaderRec.FindSet() then begin
                             repeat
                                 if ProdOutHeaderRec."Prod Updated" = 1 then
@@ -97,7 +101,9 @@ page 50355 "Daily Sewing In/Out Card"
                         UserSetupRec: Record "User Setup";
                         WorkCentrRec: Record "Work Center";
                         ProdOutHeaderRec: Record ProductionOutHeader;
+                        CodeUnitRec: Codeunit NavAppCodeUnit3;
                     begin
+
                         //Mihiranga 2022/12/14
                         UserSetupRec.Get(UserId);
                         WorkCentrRec.Reset();
@@ -106,6 +112,10 @@ page 50355 "Daily Sewing In/Out Card"
                         WorkCentrRec.FindSet();
 
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
+                            //Check for Holidays
+                            if CodeUnitRec.CheckforHolidays(rec."Prod Date", WorkCentrRec."No.") then
+                                Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", WorkCentrRec.Name);
+
                             Rec."Resource No." := WorkCentrRec."No.";
                             Rec."Resource Name" := WorkCentrRec.Name;
                             Rec."Factory Code" := WorkCentrRec."Factory No.";
@@ -130,11 +140,8 @@ page 50355 "Daily Sewing In/Out Card"
                     var
                         WorkCenterRec: Record "Work Center";
                     begin
-
-
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
-
                         if WorkCenterRec.FindSet() then begin
                             rec."Resource No." := WorkCenterRec."No.";
                             Rec."Factory Code" := WorkCenterRec."Factory No.";
