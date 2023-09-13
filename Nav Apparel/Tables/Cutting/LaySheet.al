@@ -176,6 +176,7 @@ table 50645 LaySheetHeader
         field(32; "Cut No New"; Text[20])
         {
             DataClassification = ToBeClassified;
+            Caption = 'Cut No';
         }
 
         field(33; "TotalPies"; Decimal)
@@ -199,11 +200,13 @@ table 50645 LaySheetHeader
 
     fieldgroups
     {
-        fieldgroup(DropDown; "LaySheetNo.", "FabReqNo.", "Style Name")
+        fieldgroup(DropDown; "LaySheetNo.", "Cut No New", "Style Name")
         {
 
         }
     }
+
+
 
 
     trigger OnInsert()
