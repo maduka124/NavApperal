@@ -101,6 +101,7 @@ page 50516 HourlyProductionListPart
                         end;
 
                         CalTotal();
+                        CheckHoliday();
                         CalcTarget();
 
                     end;
@@ -172,6 +173,7 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -241,6 +243,7 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -310,6 +313,7 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -378,6 +382,7 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -447,6 +452,7 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -516,6 +522,7 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -585,6 +592,7 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -723,7 +731,9 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
+
                     end;
                 }
 
@@ -792,7 +802,9 @@ page 50516 HourlyProductionListPart
 
                         end;
                         CalcTarget();
+                        CheckHoliday();
                         CalTotal();
+
                     end;
                 }
 
@@ -862,6 +874,7 @@ page 50516 HourlyProductionListPart
                         end;
                         CalcTarget();
                         CalTotal();
+                        CheckHoliday();
                     end;
                 }
 
@@ -931,6 +944,7 @@ page 50516 HourlyProductionListPart
                         end;
                         CalcTarget();
                         CalTotal();
+                        CheckHoliday();
                     end;
                 }
 
@@ -943,6 +957,16 @@ page 50516 HourlyProductionListPart
             }
         }
     }
+    procedure CheckHoliday()
+    var
+        CodeUnitRec: Codeunit NavAppCodeUnit3;
+    begin
+        //Check for Holidays
+        if CodeUnitRec.CheckforHolidays(rec."Prod Date", rec."Work Center No.") then
+            Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", rec."Work Center No.");
+
+    end;
+
     procedure CalcTarget()
     var
         StartTime: Time;
@@ -1146,9 +1170,9 @@ page 50516 HourlyProductionListPart
             //     if NavAppProdRec."Lot No." = '1' then
             //         Message('VDL7');
             // end;
-            // if NavAppProdRec."Resource No." = 'PAL-09' then begin
-            //     Message('VDL7');
-            // end;
+            if NavAppProdRec."Resource No." = 'LINE-09' then begin
+                Message('VDL7');
+            end;
 
 
 
