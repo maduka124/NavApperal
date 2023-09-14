@@ -145,6 +145,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
 
 
@@ -221,6 +222,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -294,6 +296,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -367,6 +370,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -439,6 +443,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -512,6 +517,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -585,6 +591,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -658,6 +665,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -731,6 +739,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -804,6 +813,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -877,6 +887,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -950,6 +961,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -1023,6 +1035,7 @@ page 51381 HourlyFinishingListPart
 
                         end;
                         CheckValue();
+                        CheckHoliday();
                         CalTotal();
                     end;
                 }
@@ -1036,6 +1049,8 @@ page 51381 HourlyFinishingListPart
             }
         }
     }
+
+
     actions
     {
         area(Processing)
@@ -1347,7 +1362,7 @@ page 51381 HourlyFinishingListPart
 
 
             if FinDTotal > HDTotal then begin
-                Error('Hourly Finishing Value greater than Hourly Sewing');
+                Error('Hourly finishing production total cannot be grater than total sewing out total');
             end;
 
         end;
@@ -1627,6 +1642,17 @@ page 51381 HourlyFinishingListPart
         else
             EditableGB := false;
     end;
+
+    procedure CheckHoliday()
+    var
+        CodeUnitRec: Codeunit NavAppCodeUnit3;
+    begin
+        //Check for Holidays
+        if CodeUnitRec.CheckforHolidays(rec."Prod Date", rec."Work Center No.") then
+            Error('In %1 , Line No : %2 is a holiday. You cannot put IN/OUT.', rec."Prod Date", rec."Work Center No.");
+
+    end;
+
 
     var
         EditableGB: Boolean;
