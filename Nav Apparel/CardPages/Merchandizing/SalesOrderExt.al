@@ -141,7 +141,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
                 end;
             end;
         }
-        
+
         addafter("External Document No.")
         {
             field("LC Name"; Rec."LC Name")
@@ -295,25 +295,37 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
     trigger OnAfterGetRecord()
     var
         ProdOrderRec: Record "Production Order";
+        ProdOrder2Rec: Record "Production Order";
     begin
         StatusGB := '';
         ProdOrderRec.Reset();
         ProdOrderRec.SetRange("Source No.", rec."No.");
         ProdOrderRec.SetRange("Source Type", ProdOrderRec."Source Type"::"Sales Header");
+        ProdOrderRec.SetFilter(Status, '=%1', ProdOrderRec.Status::Released);
         if ProdOrderRec.FindSet() then begin
-            case ProdOrderRec.Status of
-                ProdOrderRec.Status::"Firm Planned":
-                    StatusGB := 'Firm Planned';
-                ProdOrderRec.Status::Released:
-                    StatusGB := 'Released';
-                ProdOrderRec.Status::Finished:
-                    StatusGB := 'Finished';
-                ProdOrderRec.Status::Planned:
-                    StatusGB := 'Planned';
-            end;
+            // case ProdOrderRec.Status of
+            //     ProdOrderRec.Status::"Firm Planned":
+            //         StatusGB := 'Firm Planned';
+            //     ProdOrderRec.Status::Released:
+            //         StatusGB := 'Released';
+            //     ProdOrderRec.Status::Finished:
+            //         StatusGB := 'Finished';
+            //     ProdOrderRec.Status::Planned:
+            //         StatusGB := 'Planned';
+            // end;
+            StatusGB := 'Released';
         end
-        else
-            StatusGB := '';
+        else begin
+            ProdOrder2Rec.Reset();
+            ProdOrder2Rec.SetRange("Source No.", rec."No.");
+            ProdOrder2Rec.SetRange("Source Type", ProdOrder2Rec."Source Type"::"Sales Header");
+            ProdOrder2Rec.SetFilter(Status, '=%1', ProdOrder2Rec.Status::Planned);
+            if ProdOrder2Rec.FindSet() then begin
+                StatusGB := 'Planned';
+            end
+            else
+                StatusGB := 'Firm Planned';
+        end;
     end;
 
     var
