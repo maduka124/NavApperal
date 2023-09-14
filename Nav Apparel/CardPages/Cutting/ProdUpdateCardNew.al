@@ -180,6 +180,7 @@ page 50371 "Prod Update Card"
         HoursPerDay2: Decimal;
         ddddddtttt: DateTime;
         FactoryFinishTime: Time;
+        TImeStartLoop: Time;
     begin
         //Check the user is planning user or not
         if PlanningUser = false then
@@ -207,7 +208,7 @@ page 50371 "Prod Update Card"
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
-        // LocationRec.SetRange(Code, 'VDL');
+        // LocationRec.SetRange(Code, 'PAL');
         if LocationRec.FindSet() then begin
 
             repeat
@@ -215,7 +216,7 @@ page 50371 "Prod Update Card"
                 WorkCenterRec.Reset();
                 WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                 WorkCenterRec.SetFilter("Planning Line", '=%1', true);
-                // WorkCenterRec.SetRange("No.", 'VDL-06');
+                // WorkCenterRec.SetRange("No.", 'PAL-02');
                 if WorkCenterRec.FindSet() then begin
 
                     repeat
@@ -462,6 +463,14 @@ page 50371 "Prod Update Card"
                                         dtStart := dtEnd1;
                                     end;
 
+                                    if TimeEnd1 <> 0T then
+                                        TImeStart := TimeEnd1;
+
+                                    FactoryFinishTime := NavAppCodeUnit3Rec.Get_FacFinishTime(WorkCenterNo, dtStart, LocationRec."Start Time");
+
+                                    if ((TImeStart - FactoryFinishTime) = 0) then
+                                        TImeStart := LocationRec."Start Time";
+
                                     //Check learning curve                        
                                     LCurveFinishDate := dtStart;
                                     LCurveFinishTime := TImeStart;
@@ -560,6 +569,7 @@ page 50371 "Prod Update Card"
                                         end;
                                     end;
 
+                                    TImeStartLoop := TImeStart;
                                     repeat
                                         //Get working hours for the day
                                         HoursPerDay := 0;
@@ -639,9 +649,14 @@ page 50371 "Prod Update Card"
                                         if HoursPerDay > 0 then
                                             i += 1;
 
-                                        if (i = 1) and (HoursPerDay > 0) then begin
-                                            //Calculate hours for the first day (substracti hours if delay start)
-                                            HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
+                                        // if (i = 1) and (HoursPerDay > 0) then begin
+                                        //     //Calculate hours for the first day (substracti hours if delay start)
+                                        //     HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
+                                        // end;
+
+                                        if HoursPerDay > 0 then begin
+                                            //Calculate working hours (substracti hours if delay start)
+                                            HoursPerDay := HoursPerDay - (TImeStartLoop - LocationRec."Start Time") / 3600000;
                                         end;
 
                                         if JobPlaLineRec."Learning Curve No." <> 0 then begin
@@ -714,25 +729,25 @@ page 50371 "Prod Update Card"
                                                     else begin
                                                         if LCurveFinishDate = TempDate then begin
                                                             if i = 1 then begin
-                                                                if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then begin
+                                                                if ((LCurveFinishTime - TImeStartLoop) / 3600000) < 0 then begin
 
-                                                                    LcurveHoursPerday := (TImeStart - LCurveFinishTime) / 3600000;   //Hourly target calculation purpose
+                                                                    LcurveHoursPerday := (TImeStartLoop - LCurveFinishTime) / 3600000;   //Hourly target calculation purpose
                                                                     if LcurveHoursPerday = 0 then
                                                                         LCurveStartTimePerDay := 0T
                                                                     else
-                                                                        LCurveStartTimePerDay := TImeStart;
+                                                                        LCurveStartTimePerDay := TImeStartLoop;
 
-                                                                    HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000;
+                                                                    HoursPerDay := HoursPerDay - (TImeStartLoop - LCurveFinishTime) / 3600000;
                                                                 end
                                                                 else begin
 
-                                                                    LcurveHoursPerday := (LCurveFinishTime - TImeStart) / 3600000;   //Hourly target calculation purpose
+                                                                    LcurveHoursPerday := (LCurveFinishTime - TImeStartLoop) / 3600000;   //Hourly target calculation purpose
                                                                     if LcurveHoursPerday = 0 then
                                                                         LCurveStartTimePerDay := 0T
                                                                     else
-                                                                        LCurveStartTimePerDay := TImeStart;
+                                                                        LCurveStartTimePerDay := TImeStartLoop;
 
-                                                                    HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                                    HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStartLoop) / 3600000;
                                                                 end;
                                                             end
                                                             else begin
@@ -828,7 +843,7 @@ page 50371 "Prod Update Card"
                                                     ProdPlansDetails."Start Time" := TimeEnd1
                                                 else
                                                     if i = 1 then
-                                                        ProdPlansDetails."Start Time" := TImeStart
+                                                        ProdPlansDetails."Start Time" := TImeStartLoop
                                                     else
                                                         ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
@@ -888,6 +903,7 @@ page 50371 "Prod Update Card"
 
                                         TempDate := TempDate + 1;
                                         TimeEnd1 := 0T;
+                                        TImeStartLoop := LocationRec."Start Time";
 
                                     until (TempQty >= (JobPlaLineRec.Qty - OutputQty));
 

@@ -90,18 +90,12 @@ page 51069 "Style Master PO ListPart"
                         SalseInvoiceRec: Record "Sales Invoice Header";
                         SalesHeader2Rec: Record "Sales Header";
                     begin
-                        // SalesHeader2Rec.Reset();
-                        // SalesHeader2Rec.SetRange("PO No", xRec."PO No.");
-                        // if SalesHeader2Rec.FindSet() then begin
-                        //     repeat
                         SalseInvoiceRec.Reset();
                         SalseInvoiceRec.SetRange("po No", xRec."PO No.");
                         SalseInvoiceRec.SetRange("Style No", rec."Style No.");
                         SalseInvoiceRec.SetRange(Lot, rec."Lot No.");
                         if SalseInvoiceRec.FindSet() then
                             Error('PO already invoiced. Cannot change PO No.');
-                        // until SalesHeader2Rec.Next() = 0;
-                        // end;
 
                         NavappPlanLineRec.Reset();
                         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
@@ -115,7 +109,6 @@ page 51069 "Style Master PO ListPart"
                         if PlanningQueueRec.FindSet() then
                             Error('PO already in the Queue. Cannot change PO No.');
 
-
                         AssorColorSizeRatioRec.Reset();
                         AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
                         AssorColorSizeRatioRec.SetRange("PO No.", xrec."PO No.");
@@ -125,6 +118,7 @@ page 51069 "Style Master PO ListPart"
                         NavAppProdPlanRec.Reset();
                         NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlanRec.SetRange("PO No.", xrec."PO No.");
+                        NavAppProdPlanRec.SetFilter(ProdUpd, '=%1', 0);
                         if NavAppProdPlanRec.FindSet() then
                             Error('PO already planned. Cannot change PO No.');
 
@@ -137,7 +131,6 @@ page 51069 "Style Master PO ListPart"
                         SalesHeaderRec.SetCurrentKey("Style No", Lot);
                         SalesHeaderRec.SetRange("Style No", rec."Style No.");
                         SalesHeaderRec.SetRange(Lot, rec."Lot No.");
-
                         if SalesHeaderRec.FindSet() then
                             SalesHeaderRec.ModifyAll("PO No", rec."PO No.");
                     end;
