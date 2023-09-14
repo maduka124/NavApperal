@@ -1202,6 +1202,12 @@ report 50865 HourlyProductionReport
                 SetRange(PlanDate, FilterDate);
                 SetRange("Factory No.", FactortFilter);
 
+                HourlyLineRec.Reset();
+                HourlyLineRec.SetRange("Factory No.", FactortFilter);
+                HourlyLineRec.SetRange("Prod Date", FilterDate);
+                if not HourlyLineRec.FindSet() then begin
+                    Error('Data not available');
+                end;
             end;
         }
 
