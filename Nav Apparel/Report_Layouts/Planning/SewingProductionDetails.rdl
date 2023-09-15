@@ -2177,7 +2177,7 @@
                 <TablixMember>
                   <Group Name="Factory">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Factory.Value</GroupExpression>
+                      <GroupExpression>=Fields!Factory_Code.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
@@ -2613,6 +2613,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Style_No_">
           <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Factory_Code">
+          <DataField>Factory_Code</DataField>
         </Field>
       </Fields>
       <Query>

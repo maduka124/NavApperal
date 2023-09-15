@@ -47,6 +47,8 @@ report 50852 SewingProductionDetails
             { }
             column(Style_No_; "Out Style No.")
             { }
+            column(Factory_Code; "Factory Code")
+            { }
 
             trigger OnPreDataItem()
             begin
