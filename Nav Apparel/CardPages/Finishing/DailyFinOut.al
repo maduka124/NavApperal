@@ -294,16 +294,7 @@ page 50364 "Daily Finishing Out Card"
                         //     Error('Output quantity is greater than total washing out quantity.');
                         // CurrPage.Update();
 
-                        // SewOutQty := 0;
-                        // ProdOutHRec.Reset();
-                        // ProdOutHRec.SetRange("Style No.", Rec."Out Style No.");
-                        // ProdOutHRec.SetRange("PO No", Rec."OUT PO No");
-                        // ProdOutHRec.SetRange(Type, ProdOutHRec.Type::Saw);
-                        // if ProdOutHRec.FindSet() then begin
-                        //     repeat
-                        //         SewOutQty += ProdOutHRec."Output Qty";
-                        //     until ProdOutHRec.Next() = 0;
-                        // end;
+
                         SewOutQty := 0;
                         StyleMasterPORec.Reset();
                         StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
@@ -395,6 +386,7 @@ page 50364 "Daily Finishing Out Card"
         StyleMasterPORec: Record "Style Master PO";
         LineTotal_In: BigInteger;
         LineTotal_Out: BigInteger;
+        WashOutQty: BigInteger;
     begin
 
         if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
@@ -403,16 +395,20 @@ page 50364 "Daily Finishing Out Card"
             LineTotal_Out := 0;
 
             //Check Input qty with Sawing out qty
+            WashOutQty := 0;
             StyleMasterPORec.Reset();
             StyleMasterPORec.SetRange("Style No.", rec."Style No.");
             StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
-            StyleMasterPORec.FindSet();
-
-            if rec."Output Qty" > StyleMasterPORec."Wash Out Qty" then begin
-                Error('Output quantity is greater than wash out quantity.');
-                exit;
+            StyleMasterPORec.SetRange("PO No.", Rec."PO No");
+            if StyleMasterPORec.FindSet() then begin
+                WashOutQty += StyleMasterPORec."Wash Out Qty";
             end;
 
+
+        end;
+        if rec."Output Qty" > WashOutQty then begin
+            Error('Output quantity is greater than wash out quantity.');
+            exit;
 
             //Line Out Qty
             ProductionOutLine.Reset();
