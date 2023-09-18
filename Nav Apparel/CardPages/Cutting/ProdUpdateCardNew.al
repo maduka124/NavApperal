@@ -385,9 +385,6 @@ page 50371 "Prod Update Card"
 
                         until HoursPerDay > 0;
 
-                        if WorkCenterNo = 'AFL-17' then
-                            WorkCenterNo := WorkCenterNo;
-
                         //Get no of existing all planning lines for the work center line
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetCurrentKey(StartDateTime);
@@ -420,12 +417,43 @@ page 50371 "Prod Update Card"
                                     SMV := JobPlaLineRec.SMV;
                                     LineNo := JobPlaLineRec."Line No.";
                                     TempDate := dtStart;
+
+                                    //Get working hours for the start date. If start date is a holiday, shift start date to next date.
+                                    repeat
+                                        WorkCenCapacityEntryRec.Reset();
+                                        WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                        WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
+                                        if WorkCenCapacityEntryRec.FindSet() then begin
+                                            repeat
+                                                HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
+                                            until WorkCenCapacityEntryRec.Next() = 0;
+                                        end
+                                        else begin
+                                            Count := 0;
+                                            dtNextMonth := CalcDate('<+1M>', dtStart);
+                                            dtSt := CalcDate('<-CM>', dtNextMonth);
+                                            dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                            WorkCenCapacityEntryRec.Reset();
+                                            WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                            WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+                                            if WorkCenCapacityEntryRec.FindSet() then
+                                                Count += WorkCenCapacityEntryRec.Count;
+
+                                            if Count < 14 then
+                                                Error('Calender is not setup for the Line : %1', WorkCenterName);
+                                        end;
+
+                                        if HoursPerDay = 0 then
+                                            dtStart := dtStart + 1;
+
+                                    until HoursPerDay > 0;
+
                                     TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
                                     if HoursPerDay > 0 then
                                         TargetPerHour := TargetPerDay / HoursPerDay
                                     else
                                         TargetPerHour := 0;
-
 
                                     // TargetPerHour := round(((60 / SMV) * Carder * Eff) / 100, 1);
                                     // TargetPerDay := round(TargetPerHour * HoursPerDay, 1);
@@ -603,7 +631,7 @@ page 50371 "Prod Update Card"
                                                 Count += WorkCenCapacityEntryRec.Count;
 
                                             if Count < 14 then
-                                                Error('Calender is not setup for the Line : %1', WorkCenterName);
+                                                Error('Calender is not setup for the Line : %1 and Period : %2 - %3', WorkCenterName, dtSt, dtEd);
                                         end;
 
                                         //if production updated, learning curve shoube incremented
