@@ -280,17 +280,53 @@ page 50364 "Daily Finishing Out Card"
                     trigger OnValidate()
                     var
                         StyleMasterPORec: Record "Style Master PO";
+                        ProdOutHRec: Record ProductionOutHeader;
+                        SewOutQty: BigInteger;
+                        CurrOutQty: BigInteger;
                     begin
                         //Check Input qty with sewing out qty
+                        // StyleMasterPORec.Reset();
+                        // StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                        // StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
+                        // StyleMasterPORec.FindSet();
+
+                        // if rec."Output Qty" > StyleMasterPORec."Wash Out Qty" then
+                        //     Error('Output quantity is greater than total washing out quantity.');
+                        // CurrPage.Update();
+
+                        // SewOutQty := 0;
+                        // ProdOutHRec.Reset();
+                        // ProdOutHRec.SetRange("Style No.", Rec."Out Style No.");
+                        // ProdOutHRec.SetRange("PO No", Rec."OUT PO No");
+                        // ProdOutHRec.SetRange(Type, ProdOutHRec.Type::Saw);
+                        // if ProdOutHRec.FindSet() then begin
+                        //     repeat
+                        //         SewOutQty += ProdOutHRec."Output Qty";
+                        //     until ProdOutHRec.Next() = 0;
+                        // end;
+                        SewOutQty := 0;
                         StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
-                        StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
-                        StyleMasterPORec.FindSet();
+                        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                        StyleMasterPORec.SetRange("PO No.", Rec."PO No");
+                        StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
+                        if StyleMasterPORec.FindSet() then begin
+                            repeat
+                                SewOutQty += StyleMasterPORec."Sawing Out Qty";
+                            until StyleMasterPORec.Next() = 0;
+                        end;
 
-                        if rec."Output Qty" > StyleMasterPORec."Wash Out Qty" then
-                            Error('Output quantity is greater than total washing out quantity.');
+                        CurrOutQty := 0;
+                        ProdOutHRec.Reset();
+                        ProdOutHRec.SetRange("No.", Rec."No.");
+                        ProdOutHRec.SetRange(Type, Rec.Type);
+                        if ProdOutHRec.FindSet() then begin
+                            CurrOutQty := ProdOutHRec."Output Qty"
+                        end;
 
-                        CurrPage.Update();
+                        if Rec."Output Qty" > (SewOutQty - CurrOutQty) then begin
+                            Error('PO wise Finishing out quantity greater than the Sewing out entered total');
+                        end;
+
                     end;
                 }
             }
