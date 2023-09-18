@@ -287,16 +287,30 @@ page 50996 "PI Details Card"
                                 until PurchaseHeaderRec.Next() = 0;
                             end;
 
-                            PurchaseHeaderRec.Reset();
-                            PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
-                            PurchaseHeaderRec.SetRange("Buy-from Vendor No.", SupplierRec."No.");
-                            if PurchaseHeaderRec.FindSet() then begin
-                                repeat
-                                    PurchaseHeaderRec."PI No." := rec."No.";
-                                    PurchaseHeaderRec.Modify();
-                                until PurchaseHeaderRec.Next() = 0;
-                            end;
                         end;
+                    end;
+
+                    trigger OnValidate()
+                    var
+                        DocNo: Code[20];
+                        PipoRec2: Record "PI Po Details";
+                        PiPODetailsRec: Record PIPODetails1;
+                        StyleMasterRec: Record "Style Master";
+                        PurchHRec: Record "Purchase Header";
+                        PurchHLineRe: Record "Purchase Line";
+                        Line: BigInteger;
+
+                        SupplierRec: Record Vendor;
+                        "Suplier No": Code[20];
+                        PurchaseHeaderRec: Record "Purchase Header";
+                        BOMAutogenRec: Record "BOM Line AutoGen";
+                        BOMRec: Record bom;
+                    begin
+
+                        SupplierRec.Reset();
+                        SupplierRec.SetRange(Name, Rec."Supplier Name");
+                        if not SupplierRec.FindSet() then
+                            Error('Invalid Supplier');
 
                         PiPODetailsRec.Reset();
                         if PiPODetailsRec.FindLast() then begin
@@ -392,17 +406,6 @@ page 50996 "PI Details Card"
                             end;
                         end;
                         CurrPage.Update();
-                    end;
-
-                    trigger OnValidate()
-                    var
-                        SupplierRec: Record Vendor;
-                    begin
-                        SupplierRec.Reset();
-                        SupplierRec.SetRange(Name, Rec."Supplier Name");
-                        if not SupplierRec.FindSet() then
-                            Error('Invalid Supplier');
-
                     end;
 
                 }
