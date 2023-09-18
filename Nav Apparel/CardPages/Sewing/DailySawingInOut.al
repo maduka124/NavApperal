@@ -492,6 +492,9 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnValidate()
                     var
+                        TotOutQty: BigInteger;
+                        TotProdQty: Integer;
+                        HourlyProdLineRec: Record "Hourly Production Lines";
                         ProductionRec: Record ProductionOutHeader;
                         InputQty: BigInteger;
                         OutPutQty: BigInteger;
@@ -537,7 +540,35 @@ page 50355 "Daily Sewing In/Out Card"
                             until ProductionRec.Next() = 0;
 
                         if InputQty < (Rec."Output Qty" + OutPutQty) then
-                            Error('Output quantity is greater than the input quantity.');
+                            Error('PO wise sewing out quantity greater than the day hourly production entered total.');
+
+                        TotOutQty := 0;
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Out Style No.", Rec."Out Style No.");
+                        ProductionRec.SetRange("Prod Date", Rec."Prod Date");
+                        ProductionRec.SetFilter("No.", '<>%1', Rec."No.");
+                        if ProductionRec.FindSet() then begin
+                            repeat
+                                TotOutQty += ProductionRec."Output Qty";
+                            until ProductionRec.Next() = 0;
+                        end;
+
+                        TotProdQty := 0;
+                        HourlyProdLineRec.Reset();
+                        HourlyProdLineRec.SetRange("Style No.", Rec."Out Style No.");
+                        HourlyProdLineRec.SetRange("Work Center No.", Rec."Resource No.");
+                        HourlyProdLineRec.SetRange("Prod Date", Rec."Prod Date");
+                        if HourlyProdLineRec.FindSet() then begin
+                            repeat
+                                TotProdQty += HourlyProdLineRec."Hour 01" + HourlyProdLineRec."Hour 02" + HourlyProdLineRec."Hour 03" + HourlyProdLineRec."Hour 04" + HourlyProdLineRec."Hour 05" +
+                                HourlyProdLineRec."Hour 06" + HourlyProdLineRec."Hour 07" + HourlyProdLineRec."Hour 08" + HourlyProdLineRec."Hour 09" + HourlyProdLineRec."Hour 10" + HourlyProdLineRec."Hour 11" + HourlyProdLineRec."Hour 12" + HourlyProdLineRec."Hour 13";
+                            until HourlyProdLineRec.Next() = 0;
+                        end;
+
+                        if (Rec."Output Qty" + TotOutQty) > TotProdQty then
+                            Error('Output Qty biger than the Production Qty');
 
                         CurrPage.Update();
                     end;

@@ -791,7 +791,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report ProductionPlanReport;
                         ApplicationArea = all;
                     }
-
+                    action("Planning Summary Report Merchandizing")
+                    {
+                        Caption = 'Planning Summary Report';
+                        Enabled = true;
+                        RunObject = report PlanningSummarryReport;
+                        ApplicationArea = all;
+                    }
                     action("Style Transfer Report")
                     {
                         Caption = 'Style Transfer Report';

@@ -82,6 +82,16 @@ page 50651 "Lay Sheet List"
                 // {
                 //     ApplicationArea = All;
                 // }
+
+                field("Created Date"; Rec."Created Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Created User"; Rec."Created User")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

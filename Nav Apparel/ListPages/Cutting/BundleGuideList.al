@@ -63,6 +63,16 @@ page 50666 "Bundle Guide List"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Created Date"; Rec."Created Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Created User"; Rec."Created User")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
