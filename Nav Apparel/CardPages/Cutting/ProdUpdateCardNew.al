@@ -181,6 +181,7 @@ page 50371 "Prod Update Card"
         ddddddtttt: DateTime;
         FactoryFinishTime: Time;
         TImeStartLoop: Time;
+        JobPlaLineRec_StartTime: Time;
     begin
         //Check the user is planning user or not
         if PlanningUser = false then
@@ -208,7 +209,7 @@ page 50371 "Prod Update Card"
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
-        // LocationRec.SetRange(Code, 'PAL');
+        // LocationRec.SetRange(Code, 'AFL');
         if LocationRec.FindSet() then begin
 
             repeat
@@ -216,7 +217,7 @@ page 50371 "Prod Update Card"
                 WorkCenterRec.Reset();
                 WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                 WorkCenterRec.SetFilter("Planning Line", '=%1', true);
-                // WorkCenterRec.SetRange("No.", 'PAL-02');
+                // WorkCenterRec.SetRange("No.", 'AFL-17');
                 if WorkCenterRec.FindSet() then begin
 
                     repeat
@@ -383,6 +384,9 @@ page 50371 "Prod Update Card"
                                 dtStart := dtStart + 1;
 
                         until HoursPerDay > 0;
+
+                        if WorkCenterNo = 'AFL-17' then
+                            WorkCenterNo := WorkCenterNo;
 
                         //Get no of existing all planning lines for the work center line
                         JobPlaLineRec.Reset();
@@ -570,6 +574,7 @@ page 50371 "Prod Update Card"
                                     end;
 
                                     TImeStartLoop := TImeStart;
+
                                     repeat
                                         //Get working hours for the day
                                         HoursPerDay := 0;
@@ -912,64 +917,89 @@ page 50371 "Prod Update Card"
                                     if (TempHours = 0) and ((JobPlaLineRec.Qty - OutputQty) > 0) then
                                         TempDate := TempDate - 1;
 
-                                    JobPlaLineRec."Start Date" := dtStart;
-                                    JobPlaLineRec."End Date" := TempDate;
-
-                                    if TimeEnd2 <> 0T then
-                                        JobPlaLineRec."Start Time" := TimeEnd2
-                                    else
-                                        JobPlaLineRec."Start Time" := TImeStart;
-
-                                    if TempHours = 0 then
-                                        JobPlaLineRec."Finish Time" := FactoryFinishTime
-                                    else begin
-                                        if i = 1 then
-                                            if (FactoryFinishTime < JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours) then
-                                                JobPlaLineRec."Finish Time" := FactoryFinishTime
-                                            else
-                                                JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours
-                                        else begin
-                                            if TimeEnd2 = 0T then
-                                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours
-                                            else
-                                                JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours;
-                                        end;
-                                    end;
-
-                                    if TimeEnd2 <> 0T then
-                                        JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TimeEnd2)
-                                    else
-                                        JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-
-                                    //Get previuos finish time;
-                                    if N = 1 then
-                                        Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime
-                                    else
+                                    //Check for remaining qty less than 20
+                                    if (JobPlaLineRec.Qty - OutputQty) < 20 then begin
                                         Prev_FinishedDateTime := 0DT;
+                                        TempTIme := JobPlaLineRec."Start Time";
+                                        TimeEnd1 := JobPlaLineRec."Start Time";
+                                        TimeEnd2 := JobPlaLineRec."Start Time";
+                                        TempDate := dtStart;
+                                        dtEnd1 := dtStart;
+                                        JobPlaLineRec_StartTime := JobPlaLineRec."Start Time";
 
-                                    JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
-                                    JobPlaLineRec.ProdUpdDays := JobPlaLineRec.ProdUpdDays + 1;
-                                    JobPlaLineRec.Qty := JobPlaLineRec.Qty - OutputQty;
-                                    JobPlaLineRec.Modify();
+                                        //Update StyleMsterPO table
+                                        StyleMasterPORec.Reset();
+                                        StyleMasterPORec.SetRange("Style No.", JobPlaLineRec."Style No.");
+                                        StyleMasterPORec.SetRange("lot No.", JobPlaLineRec."lot No.");
+                                        StyleMasterPORec.FindSet();
+                                        StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - JobPlaLineRec.Qty;
+                                        StyleMasterPORec.OutputQty := StyleMasterPORec.OutputQty + OutputQty;
+                                        StyleMasterPORec.Modify();
 
-                                    TempTIme := JobPlaLineRec."Finish Time";
-                                    TimeEnd1 := JobPlaLineRec."Finish Time";
-                                    TimeEnd2 := JobPlaLineRec."Finish Time";
-                                    dtEnd1 := TempDate;
+                                        //Delete small qty strip
+                                        JobPlaLineRec.Delete();
+                                    end
+                                    else begin
+                                        JobPlaLineRec."Start Date" := dtStart;
+                                        JobPlaLineRec."End Date" := TempDate;
 
-                                    //Update StyleMsterPO table
-                                    StyleMasterPORec.Reset();
-                                    StyleMasterPORec.SetRange("Style No.", JobPlaLineRec."Style No.");
-                                    StyleMasterPORec.SetRange("lot No.", JobPlaLineRec."lot No.");
-                                    StyleMasterPORec.FindSet();
+                                        if TimeEnd2 <> 0T then
+                                            JobPlaLineRec."Start Time" := TimeEnd2
+                                        else
+                                            JobPlaLineRec."Start Time" := TImeStart;
 
-                                    if (StyleMasterPORec.PlannedQty - OutputQty) <= 0 then
-                                        StyleMasterPORec.PlannedQty := 0
-                                    else
-                                        StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - OutputQty;
+                                        if TempHours = 0 then
+                                            JobPlaLineRec."Finish Time" := FactoryFinishTime
+                                        else begin
+                                            if i = 1 then
+                                                if (FactoryFinishTime < JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours) then
+                                                    JobPlaLineRec."Finish Time" := FactoryFinishTime
+                                                else
+                                                    JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours
+                                            else begin
+                                                if TimeEnd2 = 0T then
+                                                    JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours
+                                                else
+                                                    JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                            end;
+                                        end;
 
-                                    StyleMasterPORec.OutputQty := StyleMasterPORec.OutputQty + OutputQty;
-                                    StyleMasterPORec.Modify();
+                                        if TimeEnd2 <> 0T then
+                                            JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TimeEnd2)
+                                        else
+                                            JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
+
+                                        //Get previuos finish time;
+                                        if N = 1 then
+                                            Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime
+                                        else
+                                            Prev_FinishedDateTime := 0DT;
+
+                                        JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
+                                        JobPlaLineRec.ProdUpdDays := JobPlaLineRec.ProdUpdDays + 1;
+                                        JobPlaLineRec.Qty := JobPlaLineRec.Qty - OutputQty;
+                                        JobPlaLineRec.Modify();
+
+                                        TempTIme := JobPlaLineRec."Finish Time";
+                                        TimeEnd1 := JobPlaLineRec."Finish Time";
+                                        TimeEnd2 := JobPlaLineRec."Finish Time";
+                                        dtEnd1 := TempDate;
+                                        JobPlaLineRec_StartTime := JobPlaLineRec."Start Time";
+
+                                        //Update StyleMsterPO table
+                                        StyleMasterPORec.Reset();
+                                        StyleMasterPORec.SetRange("Style No.", JobPlaLineRec."Style No.");
+                                        StyleMasterPORec.SetRange("lot No.", JobPlaLineRec."lot No.");
+                                        StyleMasterPORec.FindSet();
+
+                                        if (StyleMasterPORec.PlannedQty - OutputQty) <= 0 then
+                                            StyleMasterPORec.PlannedQty := 0
+                                        else
+                                            StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - OutputQty;
+
+                                        StyleMasterPORec.OutputQty := StyleMasterPORec.OutputQty + OutputQty;
+                                        StyleMasterPORec.Modify();
+                                    end;
 
                                     //delete allocation if remaining qty is 0 or less than 0
                                     JobPlaLine1Rec.Reset();
@@ -985,7 +1015,7 @@ page 50371 "Prod Update Card"
 
                                     JobPlaLine1Rec.Reset();
                                     JobPlaLine1Rec.SetRange("Resource No.", WorkCenterNo);
-                                    JobPlaLine1Rec.SetRange("StartDateTime", CreateDateTime(dtStart, JobPlaLineRec."Start Time"), CreateDateTime(TempDate, TempTIme));
+                                    JobPlaLine1Rec.SetRange("StartDateTime", CreateDateTime(dtStart, JobPlaLineRec_StartTime), CreateDateTime(TempDate, TempTIme));
                                     JobPlaLine1Rec.SetCurrentKey(StartDateTime);
                                     JobPlaLine1Rec.Ascending(true);
                                     JobPlaLine1Rec.SetFilter("Line No.", '<>%1', LineNo);
@@ -993,7 +1023,7 @@ page 50371 "Prod Update Card"
 
                                         JobPlaLine1Rec.Reset();
                                         JobPlaLine1Rec.SetRange("Resource No.", WorkCenterNo);
-                                        JobPlaLine1Rec.SetFilter("StartDateTime", '>=%1', CreateDateTime(dtStart, JobPlaLineRec."Start Time"));
+                                        JobPlaLine1Rec.SetFilter("StartDateTime", '>=%1', CreateDateTime(dtStart, JobPlaLineRec_StartTime));
                                         JobPlaLine1Rec.SetCurrentKey(StartDateTime);
                                         JobPlaLine1Rec.Ascending(true);
                                         JobPlaLine1Rec.SetFilter("Line No.", '<>%1', LineNo);
@@ -1004,7 +1034,7 @@ page 50371 "Prod Update Card"
                                             N1 := 0;
                                             TempQty := 0;
                                             RowCount1 := JobPlaLine1Rec.Count;
-                                            StartTime2 := JobPlaLineRec."Start Time";
+                                            StartTime2 := JobPlaLineRec_StartTime;
 
                                             if RowCount1 > 0 then begin
 
@@ -1030,6 +1060,10 @@ page 50371 "Prod Update Card"
                                                     JobPlaLine1Rec.SetFilter("Line No.", '=%1', ArrayOfAllocations[N1]);
 
                                                     if JobPlaLine1Rec.FindSet() then begin
+
+                                                        // if JobPlaLine1Rec."Line No." = 16691 then
+                                                        //     HoursPerDay := HoursPerDay;
+
                                                         i := 0;
                                                         Qty := JobPlaLine1Rec.Qty;
                                                         LineNo := JobPlaLine1Rec."Line No.";
@@ -1640,9 +1674,13 @@ page 50371 "Prod Update Card"
 
                                                         until (TempQty >= (Qty - OutputQty));
 
+                                                        // if JobPlaLine1Rec."Line No." = 16692 then
+                                                        //     HoursPerDay := HoursPerDay;
+
+
                                                         TempDate := TempDate - 1;
 
-                                                        if TempHours = 0 then
+                                                        if (TempHours = 0) and ((TempDate - 1) >= dtStart) then
                                                             TempDate := TempDate - 1;
 
                                                         //modift the line

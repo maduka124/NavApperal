@@ -14,6 +14,13 @@ page 50655 "Lay Sheet Line4"
         {
             repeater(General)
             {
+                field("Line No."; Rec."Line No.")
+                {
+                    Caption = 'Seq No';
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field(Color; rec.Color)
                 {
                     ApplicationArea = All;

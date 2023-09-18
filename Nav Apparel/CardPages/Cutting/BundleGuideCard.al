@@ -899,7 +899,8 @@ page 50665 "Bundle Guide Card"
                                                     end;
                                                 end
                                                 else begin
-                                                    if (LaySheetLine4Rec."Actual Plies" - TempQty1) > rec."Bundle Rule" / 2 then begin
+                                                    // if (LaySheetLine4Rec."Actual Plies" - TempQty1) > rec."Bundle Rule" / 2 then begin
+                                                    if (LaySheetLine4Rec."Actual Plies" - TempQty1) > 5 then begin
 
                                                         BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
                                                         LineNo += 1;
@@ -1540,7 +1541,8 @@ page 50665 "Bundle Guide Card"
                                                         end;
                                                     end
                                                     else begin
-                                                        if (LaySheetLine4Rec."Actual Plies" - TempQty1) > rec."Bundle Rule" / 2 then begin
+                                                        // if (LaySheetLine4Rec."Actual Plies" - TempQty1) > rec."Bundle Rule" / 2 then begin
+                                                        if (LaySheetLine4Rec."Actual Plies" - TempQty1) > 5 then begin
 
                                                             BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
                                                             LineNo += 1;
