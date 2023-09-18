@@ -37,7 +37,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 01"; rec."Hour 01")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H1Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -111,7 +112,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 02"; rec."Hour 02")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H2Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -181,7 +183,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 03"; rec."Hour 03")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H3Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -251,7 +254,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 04"; rec."Hour 04")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H4Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -321,7 +325,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 05"; rec."Hour 05")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H5Edit;
                     StyleExpr = StyleExprTxt;
                     trigger OnValidate()
                     var
@@ -390,7 +395,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 06"; rec."Hour 06")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H6Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -460,7 +466,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 07"; rec."Hour 07")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H7Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -530,7 +537,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 08"; rec."Hour 08")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H8Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -600,7 +608,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 09"; rec."Hour 09")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H9Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -669,7 +678,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 10"; rec."Hour 10")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H10Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -740,7 +750,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 11"; rec."Hour 11")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;/
+                    Editable = H11Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -811,7 +822,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 12"; rec."Hour 12")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H12Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -881,7 +893,8 @@ page 50516 HourlyProductionListPart
                 field("Hour 13"; rec."Hour 13")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
+                    // Editable = SetEdit;
+                    Editable = H13Edit;
                     StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
@@ -1027,6 +1040,7 @@ page 50516 HourlyProductionListPart
                 WorkingHrs += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
             until ResCapacityEntryRec.Next() = 0;
         end;
+
 
         TotNavaHours := 0;
         NavAppProdRec.Reset();
@@ -5044,20 +5058,91 @@ page 50516 HourlyProductionListPart
 
     trigger OnAfterGetRecord()
     var
+        ResCapacityEntryRec: Record "Calendar Entry";
     begin
+        H1Edit := false;
+        H2Edit := false;
+        H3Edit := false;
+        H4Edit := false;
+        H5Edit := false;
+        H6Edit := false;
+        H7Edit := false;
+        H8Edit := false;
+        H9Edit := false;
+        H10Edit := false;
+        H11Edit := false;
+        H12Edit := false;
+        H13Edit := false;
+
         StyleExprTxt := ChangeColor.ChangeHourlyProduction(Rec);
 
-        if (rec."Factory No." = '') or (rec.Item = 'DHU') then begin
-            Clear(SetEdit);
-            SetEdit := false;
-        end
-        ELSE begin
-            Clear(SetEdit);
-            SetEdit := true;
+        // if (rec."Factory No." = '') or (rec.Item = 'DHU') then begin
+        //     Clear(SetEdit);
+        //     SetEdit := false;
+        // end
+        // ELSE begin
+        //     Clear(SetEdit);
+        //     SetEdit := true;
+        // end;
+
+        WrkHours := 0;
+        ResCapacityEntryRec.Reset();
+        ResCapacityEntryRec.SETRANGE("No.", Rec."Work Center No.");
+        ResCapacityEntryRec.SETRANGE(Date, Rec."Prod Date");
+        if ResCapacityEntryRec.FindSet() then begin
+            repeat
+                WrkHours += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+            until ResCapacityEntryRec.Next() = 0;
         end;
+
+
+
+        if (WrkHours >= 1) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H1Edit := true;
+        if (WrkHours >= 2) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H2Edit := true;
+        if (WrkHours >= 3) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H3Edit := true;
+        if (WrkHours >= 4) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H4Edit := true;
+        if (WrkHours >= 5) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H5Edit := true;
+        if (WrkHours >= 6) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H6Edit := true;
+        if (WrkHours >= 7) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H7Edit := true;
+        if (WrkHours >= 8) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H8Edit := true;
+        if (WrkHours >= 9) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H9Edit := true;
+        if (WrkHours >= 10) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H10Edit := true;
+        if (WrkHours >= 11) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H11Edit := true;
+        if (WrkHours >= 12) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H12Edit := true;
+        if (WrkHours >= 13) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H13Edit := true;
+
+
     end;
 
     var
+        H1Edit: Boolean;
+        H2Edit: Boolean;
+        H3Edit: Boolean;
+        H4Edit: Boolean;
+        H5Edit: Boolean;
+        H6Edit: Boolean;
+        H7Edit: Boolean;
+        H8Edit: Boolean;
+        H9Edit: Boolean;
+        H10Edit: Boolean;
+        H11Edit: Boolean;
+        H12Edit: Boolean;
+        H13Edit: Boolean;
+
+        WrkHours: Decimal;
         TotPass: Integer;
         TotDHU: Integer;
         TotDefect: Integer;
