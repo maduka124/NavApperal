@@ -80,6 +80,9 @@ report 50621 ProductionPlanReport
                 { }
                 column(color; color)
                 { }
+                column(Line_No_; "Line No.")
+                { }
+
                 trigger OnAfterGetRecord()
                 var
                 begin

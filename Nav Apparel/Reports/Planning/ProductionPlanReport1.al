@@ -65,6 +65,9 @@ report 51402 ProductionPlanReport1
             column(color; color)
             { }
 
+            column(Line_No_; "Line No.")
+            { }
+
             dataitem("Style Master"; "Style Master")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
