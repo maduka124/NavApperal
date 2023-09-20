@@ -71,6 +71,8 @@ page 50984 "BOM Card"
                             Error('Style : %1 already used to create a BOM', BOMRec."Style Name");
 
                         StyleMasterRec.Reset();
+                        // StyleMasterRec.SetRange("No.",Rec."Style No.");
+                        StyleMasterRec.SetFilter(Status, '<>%1', StyleMasterRec.Status::Rejected);
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then begin
 

@@ -134,7 +134,7 @@ table 50887 "BOM"
         field(71012602; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where(Type = filter(Costing), "Merchandizer Group Name" = field("Merchandizer Group Name"));
+            TableRelation = "Style Master"."Style No." where(Type = filter(Costing), "Merchandizer Group Name" = field("Merchandizer Group Name"), Status = filter(<> 'Rejected'));
             ValidateTableRelation = false;
         }
 
