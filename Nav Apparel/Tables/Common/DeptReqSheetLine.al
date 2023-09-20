@@ -246,6 +246,10 @@ table 50820 DeptReqSheetLine
             DataClassification = ToBeClassified;
             TableRelation = "Unit of Measure".Code;
         }
+        field(35; "Copy"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

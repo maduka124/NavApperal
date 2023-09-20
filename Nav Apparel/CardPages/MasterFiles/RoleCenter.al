@@ -1208,6 +1208,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = page "Department Requisition Sheet";
                     ApplicationArea = All;
                 }
+                action("Department Requisition Sheet Copy")
+                {
+                    Caption = 'Department Requisition Sheet Copy';
+                    RunObject = page "DepartmentRequisitionSheetCopy";
+                    ApplicationArea = All;
+                }
 
                 action("General Item Requisitions")
                 {

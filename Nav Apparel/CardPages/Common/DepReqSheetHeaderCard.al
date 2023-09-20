@@ -255,6 +255,92 @@ page 50709 "DepReqSheetHeaderCard"
                     end;
                 end;
             }
+            action(Copy)
+            {
+                ApplicationArea = all;
+                Image = Copy;
+                trigger OnAction()
+                var
+                    DepReqHRec: Record DeptReqSheetHeader;
+                    DepReqSheetHRec: Record DeptReqSheetHeader;
+                    DepReqLine: Record DeptReqSheetLine;
+                    DepreqLineCopy: Record DeptReqSheetLine;
+                    NoSeriesManagementCode: Codeunit NoSeriesManagement;
+                    NavAppSetupRec: Record "NavApp Setup";
+                    UserRec: Record "User Setup";
+                    NextReqNo: Code[20];
+                begin
+                    DepReqSheetHRec.Reset();
+                    DepReqSheetHRec.SetRange("Req No", Rec."Req No");
+                    DepReqSheetHRec.SetFilter(Copy, '=%1', 1);
+                    if DepReqSheetHRec.FindSet() then begin
+                        Error('This Req already copied');
+                    end;
+
+                    // DepReqHRec.Reset();
+                    // DepReqHRec.SetRange("Req No", Rec."Req No");
+                    // if DepReqHRec.FindSet() then begin
+                    // end;
+
+                    NavAppSetupRec.Reset();
+                    NavAppSetupRec.FindSet();
+
+                    NextReqNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."DepReq No", Today(), true);
+
+                    DepReqSheetHRec.Init();
+                    DepReqSheetHRec."Req No" := NextReqNo;
+                    DepReqSheetHRec."Department Code" := Rec."Department Code";
+                    DepReqSheetHRec."Department Name" := Rec."Department Name";
+                    DepReqSheetHRec."Factory Code" := Rec."Factory Code";
+                    DepReqSheetHRec."Factory Name" := Rec."Factory Name";
+                    DepReqSheetHRec."Request Date" := Rec."Request Date";
+                    DepReqSheetHRec.Remarks := Rec.Remarks;
+                    DepReqSheetHRec."Completely Received" := Rec."Completely Received";
+                    DepReqSheetHRec."Approved By" := '';
+                    DepReqSheetHRec."Approved Date" := 0D;
+                    DepReqSheetHRec.Status := DepReqSheetHRec.Status::New;
+                    DepReqSheetHRec.Copy := 1;
+                    DepReqSheetHRec.Insert();
+
+
+                    DepReqLine.Reset();
+                    DepReqLine.SetRange("Req No", Rec."Req No");
+                    if DepReqLine.FindSet() then begin
+                        repeat
+
+
+                            DepreqLineCopy.Init();
+                            DepreqLineCopy."Req No" := NextReqNo;
+                            DepreqLineCopy."Line No" := DepReqLine."Line No";
+                            DepreqLineCopy."Main Category No." := DepReqLine."Main Category No.";
+                            DepreqLineCopy."Main Category Name" := DepReqLine."Main Category Name";
+                            DepreqLineCopy."Item No" := DepReqLine."Item No";
+                            DepreqLineCopy."Item Name" := DepReqLine."Item Name";
+                            DepreqLineCopy."Sub Category No." := DepReqLine."Sub Category No.";
+                            DepreqLineCopy."Sub Category Name" := DepReqLine."Sub Category Name";
+                            DepreqLineCopy."Article No." := DepReqLine."Article No.";
+                            DepreqLineCopy.Article := DepReqLine.Article;
+                            DepreqLineCopy."Size Range No." := DepReqLine."Size Range No.";
+                            DepreqLineCopy."Dimension No." := DepReqLine."Dimension No.";
+                            DepreqLineCopy."Dimension Name." := DepReqLine."Dimension Name.";
+                            DepreqLineCopy.Other := DepReqLine.Other;
+                            DepreqLineCopy.UOM := DepReqLine.UOM;
+                            DepreqLineCopy."UOM Code" := DepReqLine."UOM Code";
+                            DepreqLineCopy.Qty := DepReqLine.Qty;
+                            DepreqLineCopy."Qty Received" := DepReqLine."Qty Received";
+                            DepreqLineCopy."Qty to Received" := DepReqLine."Qty to Received";
+                            DepreqLineCopy.Remarks := DepReqLine.Remarks;
+                            DepreqLineCopy."PO Raized" := DepReqLine."PO Raized";
+                            DepreqLineCopy.Copy := 1;
+                            DepreqLineCopy.Insert();
+
+                        until DepReqLine.Next() = 0;
+
+                        CurrPage.Update();
+                    end;
+                    Message('Data Copied');
+                end;
+            }
         }
     }
 

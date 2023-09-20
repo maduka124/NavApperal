@@ -87,6 +87,10 @@ table 50819 DeptReqSheetHeader
         {
             DataClassification = ToBeClassified;
         }
+           field(16; "Copy";Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
