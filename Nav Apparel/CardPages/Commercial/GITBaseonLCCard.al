@@ -361,8 +361,8 @@ page 50528 "GIT Baseon LC Card"
                 tot += GITBaseonLCRec."Invoice Value";
             until GITBaseonLCRec.Next() = 0;
             rec."B2B LC Balance" := rec."B2B LC Value" - Tot;
+            CurrPage.Update();
         end;
-        CurrPage.Update();
     end;
 
 
