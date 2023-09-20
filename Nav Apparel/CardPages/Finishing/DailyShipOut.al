@@ -21,8 +21,44 @@ page 50366 "Daily Shipping Out Card"
 
                     trigger OnValidate()
                     var
+                        UserSetupRec: Record "User Setup";
+                        WorkCentrRec: Record "Work Center";
+                        LoginRec: Page "Login Card";
+                        LoginSessionsRec: Record LoginSessions;
                     begin
                         rec.Type := rec.Type::Ship;
+
+                        UserSetupRec.Get(UserId);
+                        WorkCentrRec.Reset();
+                        // WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
+                        WorkCentrRec.SetRange("Global Dimension 1 Code", UserSetupRec."Factory Code");
+                        // WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
+                        WorkCentrRec.SetFilter("Department Name", '=%1', 'FINISHING');
+                        if WorkCentrRec.FindSet() then begin
+                            Rec."Factory Code" := WorkCentrRec."Factory No.";
+                            Rec."Factory Name" := WorkCentrRec."Factory Name";
+                            Rec."Resource Name" := WorkCentrRec.Name;
+                            Rec."Resource No." := WorkCentrRec."No.";
+                        end;
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+
                     end;
                 }
 
@@ -30,7 +66,8 @@ page 50366 "Daily Shipping Out Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Section';
-                    ShowMandatory = true;
+                    // ShowMandatory = true;
+                    Editable = false;
 
                     // trigger OnValidate()
                     // var
@@ -69,65 +106,70 @@ page 50366 "Daily Shipping Out Card"
 
 
                     //Mihiranga 2022/12/15
-                    trigger OnLookup(var texts: text): Boolean
-                    var
-                        UserSetupRec: Record "User Setup";
-                        WorkCentrRec: Record "Work Center";
-                        LoginRec: Page "Login Card";
-                        LoginSessionsRec: Record LoginSessions;
-                    begin
+                    // trigger OnLookup(var texts: text): Boolean
+                    // var
+                    //     UserSetupRec: Record "User Setup";
+                    //     WorkCentrRec: Record "Work Center";
+                    //     LoginRec: Page "Login Card";
+                    //     LoginSessionsRec: Record LoginSessions;
+                    // begin
 
-                        UserSetupRec.Get(UserId);
-                        WorkCentrRec.Reset();
-                        WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
-                        WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
-                        WorkCentrRec.FindSet();
+                    //     UserSetupRec.Get(UserId);
+                    //     WorkCentrRec.Reset();
+                    //     WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
+                    //     WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
+                    //     WorkCentrRec.SetFilter("Department No", '=%1', 'FINISHING');
+                    //     if WorkCentrRec.FindSet() then begin
+                    //         Rec."Factory Code" := WorkCentrRec."Factory No.";
+                    //         Rec."Factory Name" := WorkCentrRec."Factory Name";
+                    //         Rec."Resource Name" := WorkCentrRec.Name;
+                    //     end;
 
-                        if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
-                            Rec."Resource No." := WorkCentrRec."No.";
-                            Rec."Resource Name" := WorkCentrRec.Name;
-                            Rec."Factory Code" := WorkCentrRec."Factory No.";
-                            Rec."Factory Name" := WorkCentrRec."Factory Name";
-                        end;
-
-
-                        //Check whether user logged in or not
-                        LoginSessionsRec.Reset();
-                        LoginSessionsRec.SetRange(SessionID, SessionId());
-
-                        if not LoginSessionsRec.FindSet() then begin  //not logged in
-                            Clear(LoginRec);
-                            LoginRec.LookupMode(true);
-                            LoginRec.RunModal();
-
-                            LoginSessionsRec.Reset();
-                            LoginSessionsRec.SetRange(SessionID, SessionId());
-                            if LoginSessionsRec.FindSet() then
-                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                        end
-                        else begin   //logged in
-                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                        end;
-
-                        CurrPage.Update();
-                    end;
+                    // if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
+                    //     Rec."Resource No." := WorkCentrRec."No.";
+                    //     Rec."Resource Name" := WorkCentrRec.Name;
+                    //     Rec."Factory Code" := WorkCentrRec."Factory No.";
+                    //     Rec."Factory Name" := WorkCentrRec."Factory Name";
+                    // end;
 
 
-                    trigger OnValidate()
-                    var
-                        WorkCenterRec: Record "Work Center";
-                    begin
-                        WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, rec."Resource Name");
+                    // //Check whether user logged in or not
+                    // LoginSessionsRec.Reset();
+                    // LoginSessionsRec.SetRange(SessionID, SessionId());
 
-                        if WorkCenterRec.FindSet() then begin
-                            Rec."Resource No." := WorkCenterRec."No.";
-                            Rec."Factory Code" := WorkCenterRec."Factory No.";
-                            Rec."Factory Name" := WorkCenterRec."Factory Name";
-                        end
-                        else
-                            Error('Invalid Section');
-                    end;
+                    // if not LoginSessionsRec.FindSet() then begin  //not logged in
+                    //     Clear(LoginRec);
+                    //     LoginRec.LookupMode(true);
+                    //     LoginRec.RunModal();
+
+                    //     LoginSessionsRec.Reset();
+                    //     LoginSessionsRec.SetRange(SessionID, SessionId());
+                    //     if LoginSessionsRec.FindSet() then
+                    //         rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    // end
+                    // else begin   //logged in
+                    //     rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    // end;
+
+                    // CurrPage.Update();
+                    // end;
+
+
+                    // trigger OnValidate()
+                    // var
+                    //     WorkCenterRec: Record "Work Center";
+                    // begin
+                    //     WorkCenterRec.Reset();
+                    //     WorkCenterRec.SetRange(Name, rec."Resource Name");
+
+                    //     if WorkCenterRec.FindSet() then begin
+                    //         Rec."Resource No." := WorkCenterRec."No.";
+                    //         Rec."Factory Code" := WorkCenterRec."Factory No.";
+                    //         Rec."Factory Name" := WorkCenterRec."Factory Name";
+                    //     end
+                    //     else
+                    //         Error('Invalid Section');
+                    // end;
                 }
 
                 field("Style Name"; rec."Style Name")
@@ -172,7 +214,13 @@ page 50366 "Daily Shipping Out Card"
                         Factory: Code[20];
                         DurationGB: Date;
                         StyleNo: Code[20];
+                        LoginRec: Page "Login Card";
+                        LoginSessionsRec: Record LoginSessions;
                     begin
+
+
+                        // CurrPage.Update();
+
 
                         StyleMasterRec.Reset();
                         StyMasterPORec.Reset();
