@@ -89,6 +89,7 @@ page 51069 "Style Master PO ListPart"
                         PlanningQueueRec: Record "Planning Queue";
                         SalseInvoiceRec: Record "Sales Invoice Header";
                         SalesHeader2Rec: Record "Sales Header";
+                        AssorDetailRec: Record AssortmentDetails;
                     begin
                         SalseInvoiceRec.Reset();
                         SalseInvoiceRec.SetRange("po No", xRec."PO No.");
@@ -121,6 +122,12 @@ page 51069 "Style Master PO ListPart"
                         NavAppProdPlanRec.SetFilter(ProdUpd, '=%1', 0);
                         if NavAppProdPlanRec.FindSet() then
                             Error('PO already planned. Cannot change PO No.');
+
+                        AssorDetailRec.Reset();
+                        AssorDetailRec.SetRange("Style No.", Rec."Style No.");
+                        AssorDetailRec.SetRange("PO No.", Rec."PO No.");
+                        if AssorDetailRec.FindSet() then
+                            Error('PO already in Assortment Details. Cannot change PO No.');
 
                         PONOVar := rec."PO No.";
                         if PONOVar.Contains('/') then
