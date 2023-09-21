@@ -463,8 +463,37 @@ page 50351 "Daily Cutting Out Card"
         ProdOutHeaderRec: Record ProductionOutHeader;
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
         UserRec: Record "User Setup";
+        SawOut: Integer;
+        SawIn: Integer;
     begin
         if rec.Type = rec.Type::Cut then begin
+
+            SawIn := 0;
+            ProdOutHeaderRec.Reset();
+            ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+            ProdOutHeaderRec.SetRange("PO No", Rec."PO No");
+            ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+            ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+            if ProdOutHeaderRec.FindSet() then begin
+                repeat
+                    SawIn += ProdOutHeaderRec."Input Qty";
+                until ProdOutHeaderRec.Next() = 0;
+            end;
+            SawOut := 0;
+            ProdOutHeaderRec.Reset();
+            ProdOutHeaderRec.SetRange("Out Style No.", Rec."Style No.");
+            ProdOutHeaderRec.SetRange("PO No", Rec."PO No");
+            ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+            ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+            if ProdOutHeaderRec.FindSet() then begin
+                repeat
+                    SawOut += ProdOutHeaderRec."Output Qty";
+                until ProdOutHeaderRec.Next() = 0;
+            end;
+
+            if SawOut > SawIn - Rec."Output Qty" then
+                Error('This Record Cannot delete');
+
             ProdOutHeaderRec.Reset();
             ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
             ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");

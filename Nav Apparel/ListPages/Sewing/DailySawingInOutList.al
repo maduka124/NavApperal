@@ -105,7 +105,7 @@ page 50356 "Daily Sewing In/Out"
         if not LoginSessionsRec.FindSet() then begin  //not logged in
             Clear(LoginRec);
             LoginRec.LookupMode(true);
-            LoginRec.RunModal();          
+            LoginRec.RunModal();
         end;
 
         UserRec.Reset();
@@ -136,9 +136,38 @@ page 50356 "Daily Sewing In/Out"
 
     trigger OnDeleteRecord(): Boolean
     var
+        ProdOutHeaderRec: Record ProductionOutHeader;
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
         UserRec: Record "User Setup";
+        washOut: Integer;
+        washIn: Integer;
     begin
+        washIn := 0;
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+        ProdOutHeaderRec.SetRange("PO No", Rec."PO No");
+        ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Wash);
+        if ProdOutHeaderRec.FindSet() then begin
+            repeat
+                washIn += ProdOutHeaderRec."Input Qty";
+            until ProdOutHeaderRec.Next() = 0;
+        end;
+        washOut := 0;
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetRange("Out Style No.", Rec."Style No.");
+        ProdOutHeaderRec.SetRange("PO No", Rec."PO No");
+        ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Wash);
+        if ProdOutHeaderRec.FindSet() then begin
+            repeat
+                washOut += ProdOutHeaderRec."Output Qty";
+            until ProdOutHeaderRec.Next() = 0;
+        end;
+
+        if washOut > washIn - Rec."Output Qty" then
+            Error('This Record Cannot delete');
+
         UserRec.Reset();
         UserRec.Get(UserId);
         if UserRec."Factory Code" <> '' then begin
