@@ -56,6 +56,10 @@ report 51403 CostBreakupReport
             { }
             column(Created_User; "Created User")
             { }
+            column(MFGCostPcs; MFGCostPcs)
+            { }
+            column(Avgarchive; Avgarchive)
+            { }
 
             trigger OnAfterGetRecord()
             var
@@ -68,6 +72,9 @@ report 51403 CostBreakupReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                Avgarchive := 0;
+
 
                 //Get CostBrQty
                 CostBrQty := 0;
@@ -83,6 +90,41 @@ report 51403 CostBreakupReport
                             CostBrQty += StyleMasPORec.Qty;
                     until BOMPOSelectionRec.Next() = 0;
 
+                EstCostingRec.Reset();
+                EstCostingRec.SetRange("Style No.", "No.");
+                if EstCostingRec.FindSet() then
+                    MFGCostPcs := EstCostingRec."MFG Cost Pcs";
+
+                NoOfDates := 0;
+                NavAppProdDetailRec.Reset();
+                NavAppProdDetailRec.SetRange("Style No.", "No.");
+                NavAppProdDetailRec.SetRange(PlanDate, stDate, endDate);
+                // NavAppProdDetailRec.SetFilter(ProdUpd, '=%1', 0);
+                NavAppProdDetailRec.SetCurrentKey(PlanDate);
+                NavAppProdDetailRec.Ascending(true);
+
+                if NavAppProdDetailRec.FindFirst() then
+                    repeat
+
+                        if TempDate2 <> NavAppProdDetailRec.PlanDate then begin
+                            TempDate2 := NavAppProdDetailRec.PlanDate;
+                            NoOfDates += 1;
+                        end;
+
+                    until NavAppProdDetailRec.Next() = 0;
+
+                productioOutRec.Reset();
+                productioOutRec.SetRange("Out Style No.", "No.");
+                productioOutRec.SetRange(Type, productioOutRec.Type::Saw);
+
+                if productioOutRec.FindSet() then begin
+                    repeat
+                        SewTotQty := productioOutRec."Output Qty";
+                    until productioOutRec.Next() = 0;
+                end;
+
+                if NoOfDates <> 0 then
+                    Avgarchive := SewTotQty / NoOfDates;
 
                 //Get Rate  
                 Rate := 0;
@@ -169,6 +211,7 @@ report 51403 CostBreakupReport
 
                 //Get Unique Plandates count for the style                
                 TempDate := 0D;
+                DateCount := 0;
                 NavAppProdDetailRec.Reset();
                 NavAppProdDetailRec.SetRange("Style No.", "No.");
                 NavAppProdDetailRec.SetFilter(ProdUpd, '=%1', 0);
@@ -323,6 +366,9 @@ report 51403 CostBreakupReport
 
     var
         comRec: Record "Company Information";
+        productioOutRec: Record ProductionOutHeader;
+        SewTotQty: Integer;
+        Avgarchive: Decimal;
         stDate: Date;
         endDate: Date;
         Buyer: Code[20];
@@ -346,4 +392,9 @@ report 51403 CostBreakupReport
         TotalOutput: Decimal;
         TotalCost: Decimal;
         Balance: Decimal;
+        EstimateCostingRec: Record "BOM Estimate Cost";
+        MFGCostPcs: Decimal;
+        PlstartDate: Date;
+        TempDate2: Date;
+        NoOfDates: Integer;
 }
