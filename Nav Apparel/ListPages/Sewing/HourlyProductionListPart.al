@@ -1184,9 +1184,9 @@ page 50516 HourlyProductionListPart
             //     if NavAppProdRec."Lot No." = '1' then
             //         Message('VDL7');
             // end;
-            if NavAppProdRec."Resource No." = 'LINE-09' then begin
-                Message('VDL7');
-            end;
+            // if NavAppProdRec."Resource No." = 'LINE-09' then begin
+            //     Message('VDL7');
+            // end;
 
 
 
