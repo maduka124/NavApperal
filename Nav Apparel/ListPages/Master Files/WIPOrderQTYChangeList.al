@@ -105,7 +105,17 @@ page 51296 "WIP Order QTY Change List"
             }
         }
     }
-
+    trigger OnOpenPage()
+    var
+        UserSetupRec: Record "User Setup";
+    begin
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        UserSetupRec.SetFilter(UserRole, '<>%1', 'ADMIN');
+        if UserSetupRec.FindSet() then begin
+            Error('WIP Order QTY Change List has not set up for the user');
+        end;
+    end;
 
     // trigger OnOpenPage()
     // var
