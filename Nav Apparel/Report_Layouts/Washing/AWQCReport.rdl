@@ -11,55 +11,6 @@
       <rd:DataSourceID>caf97d4f-a508-4d74-bfd6-92c12111318b</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="QC_AW_Date">
-          <DataField>QC_AW_Date</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-        <Field Name="Sample_Req_No">
-          <DataField>Sample_Req_No</DataField>
-        </Field>
-        <Field Name="Pass_Qty">
-          <DataField>Pass_Qty</DataField>
-        </Field>
-        <Field Name="Fail_Qty">
-          <DataField>Fail_Qty</DataField>
-        </Field>
-        <Field Name="Remarks">
-          <DataField>Remarks</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Fabric_Description">
-          <DataField>Fabric_Description</DataField>
-        </Field>
-        <Field Name="Req_Qty">
-          <DataField>Req_Qty</DataField>
-        </Field>
-        <Field Name="Defect">
-          <DataField>Defect</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="Comment">
-          <DataField>Comment</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1550,12 +1501,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1595,4 +1540,53 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="QC_AW_Date">
+          <DataField>QC_AW_Date</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Sample_Req_No">
+          <DataField>Sample_Req_No</DataField>
+        </Field>
+        <Field Name="Pass_Qty">
+          <DataField>Pass_Qty</DataField>
+        </Field>
+        <Field Name="Fail_Qty">
+          <DataField>Fail_Qty</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Fabric_Description">
+          <DataField>Fabric_Description</DataField>
+        </Field>
+        <Field Name="Req_Qty">
+          <DataField>Req_Qty</DataField>
+        </Field>
+        <Field Name="Defect">
+          <DataField>Defect</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="Comment">
+          <DataField>Comment</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

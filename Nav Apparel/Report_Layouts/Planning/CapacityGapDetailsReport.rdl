@@ -11,73 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Factory_No_">
-          <DataField>Factory_No_</DataField>
-        </Field>
-        <Field Name="Resource_No_">
-          <DataField>Resource_No_</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="BookingEff">
-          <DataField>BookingEff</DataField>
-        </Field>
-        <Field Name="BookingEffFormat">
-          <DataField>BookingEffFormat</DataField>
-        </Field>
-        <Field Name="BookingSMV">
-          <DataField>BookingSMV</DataField>
-        </Field>
-        <Field Name="BookingSMVFormat">
-          <DataField>BookingSMVFormat</DataField>
-        </Field>
-        <Field Name="HoursPerDay">
-          <DataField>HoursPerDay</DataField>
-        </Field>
-        <Field Name="HoursPerDayFormat">
-          <DataField>HoursPerDayFormat</DataField>
-        </Field>
-        <Field Name="Carder">
-          <DataField>Carder</DataField>
-        </Field>
-        <Field Name="Line_No_">
-          <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="StartDate">
-          <DataField>StartDate</DataField>
-        </Field>
-        <Field Name="EndDate">
-          <DataField>EndDate</DataField>
-        </Field>
-        <Field Name="Days">
-          <DataField>Days</DataField>
-        </Field>
-        <Field Name="stDateFilter">
-          <DataField>stDateFilter</DataField>
-        </Field>
-        <Field Name="endDateFilter">
-          <DataField>endDateFilter</DataField>
-        </Field>
-        <Field Name="DisplaySeq">
-          <DataField>DisplaySeq</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Pcs">
-          <DataField>Pcs</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1444,12 +1377,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1501,4 +1428,71 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Factory_No_">
+          <DataField>Factory_No_</DataField>
+        </Field>
+        <Field Name="Resource_No_">
+          <DataField>Resource_No_</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="BookingEff">
+          <DataField>BookingEff</DataField>
+        </Field>
+        <Field Name="BookingEffFormat">
+          <DataField>BookingEffFormat</DataField>
+        </Field>
+        <Field Name="BookingSMV">
+          <DataField>BookingSMV</DataField>
+        </Field>
+        <Field Name="BookingSMVFormat">
+          <DataField>BookingSMVFormat</DataField>
+        </Field>
+        <Field Name="HoursPerDay">
+          <DataField>HoursPerDay</DataField>
+        </Field>
+        <Field Name="HoursPerDayFormat">
+          <DataField>HoursPerDayFormat</DataField>
+        </Field>
+        <Field Name="Carder">
+          <DataField>Carder</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
+        </Field>
+        <Field Name="EndDate">
+          <DataField>EndDate</DataField>
+        </Field>
+        <Field Name="Days">
+          <DataField>Days</DataField>
+        </Field>
+        <Field Name="stDateFilter">
+          <DataField>stDateFilter</DataField>
+        </Field>
+        <Field Name="endDateFilter">
+          <DataField>endDateFilter</DataField>
+        </Field>
+        <Field Name="DisplaySeq">
+          <DataField>DisplaySeq</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Pcs">
+          <DataField>Pcs</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

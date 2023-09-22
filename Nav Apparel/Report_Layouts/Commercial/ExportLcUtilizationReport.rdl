@@ -11,133 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Contract_No">
-          <DataField>Contract_No</DataField>
-        </Field>
-        <Field Name="Opening_Date">
-          <DataField>Opening_Date</DataField>
-        </Field>
-        <Field Name="Expiry_Date">
-          <DataField>Expiry_Date</DataField>
-        </Field>
-        <Field Name="Freight_Value">
-          <DataField>Freight_Value</DataField>
-        </Field>
-        <Field Name="Freight_ValueFormat">
-          <DataField>Freight_ValueFormat</DataField>
-        </Field>
-        <Field Name="Last_Shipment_Date">
-          <DataField>Last_Shipment_Date</DataField>
-        </Field>
-        <Field Name="BBLC">
-          <DataField>BBLC</DataField>
-        </Field>
-        <Field Name="BBLCFormat">
-          <DataField>BBLCFormat</DataField>
-        </Field>
-        <Field Name="ShipDate">
-          <DataField>ShipDate</DataField>
-        </Field>
-        <Field Name="Amount">
-          <DataField>Amount</DataField>
-        </Field>
-        <Field Name="AmountFormat">
-          <DataField>AmountFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Quantity__Pcs_">
-          <DataField>Quantity__Pcs_</DataField>
-        </Field>
-        <Field Name="Quantity__Pcs_Format">
-          <DataField>Quantity__Pcs_Format</DataField>
-        </Field>
-        <Field Name="Contract_Value">
-          <DataField>Contract_Value</DataField>
-        </Field>
-        <Field Name="Contract_ValueFormat">
-          <DataField>Contract_ValueFormat</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="UniPrice">
-          <DataField>UniPrice</DataField>
-        </Field>
-        <Field Name="UniPriceFormat">
-          <DataField>UniPriceFormat</DataField>
-        </Field>
-        <Field Name="tot">
-          <DataField>tot</DataField>
-        </Field>
-        <Field Name="totFormat">
-          <DataField>totFormat</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="OrderQty">
-          <DataField>OrderQty</DataField>
-        </Field>
-        <Field Name="B2B_LC_No">
-          <DataField>B2B_LC_No</DataField>
-        </Field>
-        <Field Name="Opening_Date_B2B">
-          <DataField>Opening_Date_B2B</DataField>
-        </Field>
-        <Field Name="Remarks">
-          <DataField>Remarks</DataField>
-        </Field>
-        <Field Name="Balance">
-          <DataField>Balance</DataField>
-        </Field>
-        <Field Name="BalanceFormat">
-          <DataField>BalanceFormat</DataField>
-        </Field>
-        <Field Name="LC_Value">
-          <DataField>LC_Value</DataField>
-        </Field>
-        <Field Name="LC_ValueFormat">
-          <DataField>LC_ValueFormat</DataField>
-        </Field>
-        <Field Name="Beneficiary_Name">
-          <DataField>Beneficiary_Name</DataField>
-        </Field>
-        <Field Name="Currency">
-          <DataField>Currency</DataField>
-        </Field>
-        <Field Name="PIValue">
-          <DataField>PIValue</DataField>
-        </Field>
-        <Field Name="PIValueFormat">
-          <DataField>PIValueFormat</DataField>
-        </Field>
-        <Field Name="MainCatName">
-          <DataField>MainCatName</DataField>
-        </Field>
-        <Field Name="B2B_LC_Value">
-          <DataField>B2B_LC_Value</DataField>
-        </Field>
-        <Field Name="B2B_LC_ValueFormat">
-          <DataField>B2B_LC_ValueFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -4036,12 +3909,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -4093,4 +3960,131 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Contract_No">
+          <DataField>Contract_No</DataField>
+        </Field>
+        <Field Name="Opening_Date">
+          <DataField>Opening_Date</DataField>
+        </Field>
+        <Field Name="Expiry_Date">
+          <DataField>Expiry_Date</DataField>
+        </Field>
+        <Field Name="Freight_Value">
+          <DataField>Freight_Value</DataField>
+        </Field>
+        <Field Name="Freight_ValueFormat">
+          <DataField>Freight_ValueFormat</DataField>
+        </Field>
+        <Field Name="Last_Shipment_Date">
+          <DataField>Last_Shipment_Date</DataField>
+        </Field>
+        <Field Name="BBLC">
+          <DataField>BBLC</DataField>
+        </Field>
+        <Field Name="BBLCFormat">
+          <DataField>BBLCFormat</DataField>
+        </Field>
+        <Field Name="ShipDate">
+          <DataField>ShipDate</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="AmountFormat">
+          <DataField>AmountFormat</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Quantity__Pcs_">
+          <DataField>Quantity__Pcs_</DataField>
+        </Field>
+        <Field Name="Quantity__Pcs_Format">
+          <DataField>Quantity__Pcs_Format</DataField>
+        </Field>
+        <Field Name="Contract_Value">
+          <DataField>Contract_Value</DataField>
+        </Field>
+        <Field Name="Contract_ValueFormat">
+          <DataField>Contract_ValueFormat</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="UniPrice">
+          <DataField>UniPrice</DataField>
+        </Field>
+        <Field Name="UniPriceFormat">
+          <DataField>UniPriceFormat</DataField>
+        </Field>
+        <Field Name="tot">
+          <DataField>tot</DataField>
+        </Field>
+        <Field Name="totFormat">
+          <DataField>totFormat</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="OrderQty">
+          <DataField>OrderQty</DataField>
+        </Field>
+        <Field Name="B2B_LC_No">
+          <DataField>B2B_LC_No</DataField>
+        </Field>
+        <Field Name="Opening_Date_B2B">
+          <DataField>Opening_Date_B2B</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="Balance">
+          <DataField>Balance</DataField>
+        </Field>
+        <Field Name="BalanceFormat">
+          <DataField>BalanceFormat</DataField>
+        </Field>
+        <Field Name="LC_Value">
+          <DataField>LC_Value</DataField>
+        </Field>
+        <Field Name="LC_ValueFormat">
+          <DataField>LC_ValueFormat</DataField>
+        </Field>
+        <Field Name="Beneficiary_Name">
+          <DataField>Beneficiary_Name</DataField>
+        </Field>
+        <Field Name="Currency">
+          <DataField>Currency</DataField>
+        </Field>
+        <Field Name="PIValue">
+          <DataField>PIValue</DataField>
+        </Field>
+        <Field Name="PIValueFormat">
+          <DataField>PIValueFormat</DataField>
+        </Field>
+        <Field Name="MainCatName">
+          <DataField>MainCatName</DataField>
+        </Field>
+        <Field Name="B2B_LC_Value">
+          <DataField>B2B_LC_Value</DataField>
+        </Field>
+        <Field Name="B2B_LC_ValueFormat">
+          <DataField>B2B_LC_ValueFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

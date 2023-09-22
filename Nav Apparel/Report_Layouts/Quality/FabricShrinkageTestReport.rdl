@@ -11,85 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FabShrTestNo_">
-          <DataField>FabShrTestNo_</DataField>
-        </Field>
-        <Field Name="Buyer_Name_">
-          <DataField>Buyer_Name_</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-        <Field Name="GRN">
-          <DataField>GRN</DataField>
-        </Field>
-        <Field Name="Color_Name">
-          <DataField>Color_Name</DataField>
-        </Field>
-        <Field Name="Item_Name">
-          <DataField>Item_Name</DataField>
-        </Field>
-        <Field Name="Fabric_Code">
-          <DataField>Fabric_Code</DataField>
-        </Field>
-        <Field Name="Composition">
-          <DataField>Composition</DataField>
-        </Field>
-        <Field Name="Construction">
-          <DataField>Construction</DataField>
-        </Field>
-        <Field Name="No_of_Roll">
-          <DataField>No_of_Roll</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Pattern_Code">
-          <DataField>Pattern_Code</DataField>
-        </Field>
-        <Field Name="Pattern_Name">
-          <DataField>Pattern_Name</DataField>
-        </Field>
-        <Field Name="SHRINKAGE">
-          <DataField>SHRINKAGE</DataField>
-        </Field>
-        <Field Name="Length_">
-          <DataField>Length_</DataField>
-        </Field>
-        <Field Name="PTN_VARI_Length">
-          <DataField>PTN_VARI_Length</DataField>
-        </Field>
-        <Field Name="WiDth_">
-          <DataField>WiDth_</DataField>
-        </Field>
-        <Field Name="PTN_VARI_WiDth">
-          <DataField>PTN_VARI_WiDth</DataField>
-        </Field>
-        <Field Name="Avg_Pattern__Length">
-          <DataField>Avg_Pattern__Length</DataField>
-        </Field>
-        <Field Name="Avg_Pattern__LengthFormat">
-          <DataField>Avg_Pattern__LengthFormat</DataField>
-        </Field>
-        <Field Name="Avg_Pattern__Width">
-          <DataField>Avg_Pattern__Width</DataField>
-        </Field>
-        <Field Name="Avg_Pattern__WidthFormat">
-          <DataField>Avg_Pattern__WidthFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2296,12 +2217,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2353,4 +2268,83 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FabShrTestNo_">
+          <DataField>FabShrTestNo_</DataField>
+        </Field>
+        <Field Name="Buyer_Name_">
+          <DataField>Buyer_Name_</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="GRN">
+          <DataField>GRN</DataField>
+        </Field>
+        <Field Name="Color_Name">
+          <DataField>Color_Name</DataField>
+        </Field>
+        <Field Name="Item_Name">
+          <DataField>Item_Name</DataField>
+        </Field>
+        <Field Name="Fabric_Code">
+          <DataField>Fabric_Code</DataField>
+        </Field>
+        <Field Name="Composition">
+          <DataField>Composition</DataField>
+        </Field>
+        <Field Name="Construction">
+          <DataField>Construction</DataField>
+        </Field>
+        <Field Name="No_of_Roll">
+          <DataField>No_of_Roll</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Pattern_Code">
+          <DataField>Pattern_Code</DataField>
+        </Field>
+        <Field Name="Pattern_Name">
+          <DataField>Pattern_Name</DataField>
+        </Field>
+        <Field Name="SHRINKAGE">
+          <DataField>SHRINKAGE</DataField>
+        </Field>
+        <Field Name="Length_">
+          <DataField>Length_</DataField>
+        </Field>
+        <Field Name="PTN_VARI_Length">
+          <DataField>PTN_VARI_Length</DataField>
+        </Field>
+        <Field Name="WiDth_">
+          <DataField>WiDth_</DataField>
+        </Field>
+        <Field Name="PTN_VARI_WiDth">
+          <DataField>PTN_VARI_WiDth</DataField>
+        </Field>
+        <Field Name="Avg_Pattern__Length">
+          <DataField>Avg_Pattern__Length</DataField>
+        </Field>
+        <Field Name="Avg_Pattern__LengthFormat">
+          <DataField>Avg_Pattern__LengthFormat</DataField>
+        </Field>
+        <Field Name="Avg_Pattern__Width">
+          <DataField>Avg_Pattern__Width</DataField>
+        </Field>
+        <Field Name="Avg_Pattern__WidthFormat">
+          <DataField>Avg_Pattern__WidthFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -295,14 +295,14 @@ page 51300 "WIP Style PO Listpart"
         Tot: BigInteger;
     begin
         //Update Po Total         
+        Tot := 0;
         StyleMasterPORec.Reset();
         StyleMasterPORec.SetRange("Style No.", rec."Style No.");
-        StyleMasterPORec.FindSet();
-
-        repeat
-            Tot += StyleMasterPORec.Qty;
-        until StyleMasterPORec.Next() = 0;
-
+        if StyleMasterPORec.FindSet() then begin
+            repeat
+                Tot += StyleMasterPORec.Qty;
+            until StyleMasterPORec.Next() = 0;
+        end;
         StyleMasterRec.Reset();
         StyleMasterRec.SetRange("No.", rec."Style No.");
         if StyleMasterRec.FindSet() then begin
