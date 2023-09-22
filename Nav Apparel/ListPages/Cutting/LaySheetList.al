@@ -173,6 +173,15 @@ page 50651 "Lay Sheet List"
 
         //Check in the Lay SHeet
         BundleGuideRec.Reset();
+        BundleGuideRec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
+
+        if BundleGuideRec.FindSet() then begin
+            Message('Cannot delete. Lay Sheet details already used in the Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");
+            exit(false);
+        end;
+
+        //Check in the Lay SHeet
+        BundleGuideRec.Reset();
         BundleGuideRec.SetRange("Style No.", rec."Style No.");
         BundleGuideRec.SetRange("Color No", rec."Color No.");
         // BundleGuideRec.SetRange("Group ID", rec."Group ID");
@@ -180,8 +189,19 @@ page 50651 "Lay Sheet List"
         BundleGuideRec.SetRange("Cut No New", rec."Cut No New");
 
         if BundleGuideRec.FindSet() then begin
-            Message('Cannot delete. Lay Sheet details already used in the Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");
-            exit(false);
+            if BundleGuideRec."Style No." <> '' then begin
+                if BundleGuideRec."Color No" <> '' then begin
+                    if BundleGuideRec."Component Group" <> '' then begin
+                        if BundleGuideRec."Cut No New" <> '' then begin
+
+                            Message('Cannot delete. Lay Sheet details already used in the Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");
+                            exit(false);
+
+                        end;
+                    end;
+                end;
+            end;
+
         end;
 
 
