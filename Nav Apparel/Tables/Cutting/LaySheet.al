@@ -200,7 +200,7 @@ table 50645 LaySheetHeader
 
     fieldgroups
     {
-        fieldgroup(DropDown; "LaySheetNo.", "Cut No New", "Style Name")
+        fieldgroup(DropDown; "LaySheetNo.", "Cut No New", "Style Name", "Created User", "Created Date")
         {
 
         }
