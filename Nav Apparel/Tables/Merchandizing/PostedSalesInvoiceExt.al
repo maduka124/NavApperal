@@ -25,10 +25,10 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
             OptionMembers = FG,Sample,Washing;
         }
 
-        // field(50006; "BankRefNo"; Code[50])   //System no
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(50006; "BankRefNo"; Code[50])   //System no
+        {
+            DataClassification = ToBeClassified;
+        }
 
         field(50007; "AssignedBankRefNo"; Code[50])
         {
