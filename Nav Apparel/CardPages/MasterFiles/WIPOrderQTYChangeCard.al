@@ -235,7 +235,16 @@ page 51297 "WIP Order QTY Change Card"
     var
         BOMEstimateCostRec: Record "BOM Estimate Cost";
         StyleMasterRec: Record "Style Master";
+        UserSetupRec: Record "User Setup";
     begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        UserSetupRec.SetFilter(UserRole, '<>%1', 'ADMIN');
+        if UserSetupRec.FindSet() then begin
+            Error('WIP Order QTY Change List has not set up for the user');
+        end;
+
         BOMEstimateCostRec.Reset();
         BOMEstimateCostRec.SetCurrentKey("Style No.");
         BOMEstimateCostRec.SetRange("Style No.", rec."No.");
