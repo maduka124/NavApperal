@@ -35,13 +35,13 @@ page 50763 "Bank Reference Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
-                        SalesInvRec.Reset();
-                        if SalesInvRec.FindSet() then begin
-                            repeat
-                                SalesInvRec.BankRefNo := rec."No.";
-                                SalesInvRec.Modify();
-                            until SalesInvRec.Next() = 0;
-                        end;
+                        // SalesInvRec.Reset();
+                        // if SalesInvRec.FindSet() then begin
+                        //     repeat
+                        //         SalesInvRec.BankRefNo := rec."No.";
+                        //         SalesInvRec.Modify();
+                        //     until SalesInvRec.Next() = 0;
+                        // end;
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -335,20 +335,20 @@ page 50763 "Bank Reference Card"
     end;
 
 
-    trigger OnAfterGetCurrRecord()
-    var
-        SalesInvRec: Record "Sales Invoice Header";
-    begin
-        if rec."No." <> '' then begin
-            SalesInvRec.Reset();
-            if SalesInvRec.FindSet() then begin
-                repeat
-                    SalesInvRec.BankRefNo := rec."No.";
-                    SalesInvRec.Modify();
-                until SalesInvRec.Next() = 0;
-            end;
-        end;
-    end;
+    // trigger OnAfterGetCurrRecord()
+    // var
+    //     SalesInvRec: Record "Sales Invoice Header";
+    // begin
+    //     if rec."No." <> '' then begin
+    //         SalesInvRec.Reset();
+    //         if SalesInvRec.FindSet() then begin
+    //             repeat
+    //                 SalesInvRec.BankRefNo := rec."No.";
+    //                 SalesInvRec.Modify();
+    //             until SalesInvRec.Next() = 0;
+    //         end;
+    //     end;
+    // end;
 
     var
 
