@@ -85,6 +85,9 @@ page 51378 "Hourly Finishing List"
         else
             Error('You are not authorized to delete records.');
 
+        if Today <> Rec."Prod Date" then
+            Error('You Cannot delete previous Date records');
+
         HourlyProdLinesRec.Reset();
         HourlyProdLinesRec.SetRange("No.", rec."No.");
         if HourlyProdLinesRec.FindSet() then
