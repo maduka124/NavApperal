@@ -4818,6 +4818,10 @@ page 50515 "Hourly Production Card"
         else
             Error('You are not authorized to delete records.');
 
+
+        if Today <> Rec."Prod Date" then
+            Error('You Cannot delete previous Date records');
+
         HourlyProdLinesRec.Reset();
         HourlyProdLinesRec.SetRange("No.", rec."No.");
         if HourlyProdLinesRec.FindSet() then
