@@ -46,7 +46,7 @@ report 50865 HourlyProductionReport
             { }
             column(ActualPlanDt; ActualPlanDT)
             { }
-            column(MC; MC)
+            column(MC; Carder)
             { }
             column(OutPutStartDate; OutPutStartDate)
             { }
@@ -932,16 +932,28 @@ report 50865 HourlyProductionReport
                     ResourceName := WorkcenterRec.Name;
                 end;
 
+
+                PlanTarget := 0;
                 NavLinesRec.Reset();
                 NavLinesRec.SetRange("Style No.", "Style No.");
                 NavLinesRec.SetRange("PO No.", "PO No.");
                 NavLinesRec.SetRange("Line No.", "Line No.");
+                NavLinesRec.SetRange("Lot No.", "Lot No.");
                 if NavLinesRec.FindFirst() then begin
                     InputDate := NavLinesRec.StartDateTime;
                     OutputComDate := NavLinesRec.FinishDateTime;
                     PlanTarget := NavLinesRec.Target;
+                end;
+
+                MC := 0;
+                NavLinesRec.SetRange("Style No.", "Style No.");
+                NavLinesRec.SetRange("PO No.", "PO No.");
+                NavLinesRec.SetRange("Line No.", "Line No.");
+                NavLinesRec.SetRange("Lot No.", "Lot No.");
+                if NavLinesRec.FindSet() then begin
                     MC := NavLinesRec.Carder;
                 end;
+
 
 
                 AchieveQty := 0;
