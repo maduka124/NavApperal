@@ -124,6 +124,11 @@ table 50540 AcceptanceHeader
             DataClassification = ToBeClassified;
         }
 
+        field(50023; "APB NO"; Code[200])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

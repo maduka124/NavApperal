@@ -103,6 +103,13 @@ page 50600 "Sample Request Card"
                     Editable = false;
                 }
 
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Brand';
+                    Editable = false;
+                }
+
                 field("Wash Type Name"; rec."Wash Type Name")
                 {
                     ApplicationArea = All;
