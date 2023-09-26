@@ -32,6 +32,12 @@ page 50541 "Acceptance List"
                     Caption = 'Suppler';
                 }
 
+                field("APB NO"; Rec."APB NO")
+                {
+                    ApplicationArea = All;
+                    Caption = 'APB No';
+                }
+
                 field("Accept Value"; Rec."Accept Value")
                 {
                     ApplicationArea = All;
