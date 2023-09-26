@@ -91,6 +91,11 @@ page 50436 SampleProdLineCutListPart
                     ApplicationArea = All;
                     Editable = false;
                 }
+                field("Created Date"; Rec."Created Date")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                }
 
                 field("Req Date"; rec."Req Date")
                 {
@@ -219,6 +224,10 @@ page 50436 SampleProdLineCutListPart
                     begin
                         CurrPage.Update();
                     end;
+                }
+                field(Priority; Rec.Priority)
+                {
+                    ApplicationArea = all;
                 }
             }
         }

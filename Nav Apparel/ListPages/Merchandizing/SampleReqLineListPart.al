@@ -130,8 +130,8 @@ page 51062 SampleReqLineListPart
                         else
                             Error('Invalid Color');
 
-                        if Get_Count() = 1 then
-                            Error('You cannot put more than one item');
+                        // if Get_Count() = 1 then
+                        //     Error('You cannot put more than one item');
 
                         //Insert garment type 
                         SampleReqHeaderRec.Reset();

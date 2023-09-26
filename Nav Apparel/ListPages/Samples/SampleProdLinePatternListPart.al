@@ -91,6 +91,11 @@ page 50435 SampleProdLinePatternListPart
                     ApplicationArea = All;
                     Editable = false;
                 }
+                field("Created Date"; Rec."Created Date")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                }
 
                 field("Req Date"; rec."Req Date")
                 {
@@ -208,6 +213,10 @@ page 50435 SampleProdLinePatternListPart
                     begin
                         CurrPage.Update();
                     end;
+                }
+                field(Priority; Rec.Priority)
+                {
+                    ApplicationArea = all;
                 }
             }
         }

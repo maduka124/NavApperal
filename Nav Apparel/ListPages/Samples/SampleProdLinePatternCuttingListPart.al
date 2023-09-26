@@ -91,6 +91,12 @@ page 51193 SampleProdLinePattCuttListPart
                     ApplicationArea = All;
                     Editable = false;
                 }
+                field("Created Date"; Rec."Created Date")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                }
+
 
                 field("Req Date"; rec."Req Date")
                 {
@@ -177,6 +183,10 @@ page 51193 SampleProdLinePattCuttListPart
                     begin
                         CurrPage.Update();
                     end;
+                }
+                field(Priority; Rec.Priority)
+                {
+                    ApplicationArea = all;
                 }
             }
         }
