@@ -95,6 +95,8 @@ report 51403 CostBreakupReport
                 if EstCostingRec.FindSet() then
                     MFGCostPcs := EstCostingRec."MFG Cost Pcs";
 
+
+                // AVG Day Pcs
                 NoOfDates := 0;
                 NavAppProdDetailRec.Reset();
                 NavAppProdDetailRec.SetRange("Style No.", "No.");
@@ -113,13 +115,14 @@ report 51403 CostBreakupReport
 
                     until NavAppProdDetailRec.Next() = 0;
 
+                SewTotQty := 0;
                 productioOutRec.Reset();
                 productioOutRec.SetRange("Out Style No.", "No.");
                 productioOutRec.SetRange(Type, productioOutRec.Type::Saw);
 
                 if productioOutRec.FindSet() then begin
                     repeat
-                        SewTotQty := productioOutRec."Output Qty";
+                        SewTotQty += productioOutRec."Output Qty";
                     until productioOutRec.Next() = 0;
                 end;
 
@@ -179,17 +182,32 @@ report 51403 CostBreakupReport
 
                 //WASH
                 Wash := 0;
-                BOMRec.Reset();
-                BOMRec.SetRange("Style No.", "No.");
-                if BOMRec.FindFirst() then begin
-                    BOMAutoGenLineRec.Reset();
-                    BOMAutoGenLineRec.SetRange("No.", BOMRec."No");
-                    BOMAutoGenLineRec.SetFilter("Main Category Name", '=%1', 'WASHING');
-                    if BOMAutoGenLineRec.FindSet() then
-                        repeat
-                            Wash += BOMAutoGenLineRec.Value;
-                        until BOMAutoGenLineRec.Next() = 0;
-                end;
+                // BOMRec.Reset();
+                // BOMRec.SetRange("Style No.", "No.");
+                // if BOMRec.FindFirst() then begin
+                //     BOMAutoGenLineRec.Reset();
+                //     BOMAutoGenLineRec.SetRange("No.", BOMRec."No");
+                //     BOMAutoGenLineRec.SetFilter("Main Category Name", '=%1', 'WASHING');
+                //     if BOMAutoGenLineRec.FindSet() then begin
+                //         repeat
+                //             Wash += BOMAutoGenLineRec.Value;
+                //         until BOMAutoGenLineRec.Next() = 0;
+                //     end
+                //     else begin
+                //         EstCostingRec.Reset();
+                //         EstCostingRec.SetRange("Style No.", "No.");
+
+                //         if EstimateCostingRec.FindSet() then
+                //             Wash := (EstimateCostingRec."Washing (Dz.)" / 12) * EstimateCostingRec.Quantity;
+                //     end;
+
+                // end;
+
+                EstCostingRec.Reset();
+                EstCostingRec.SetRange("Style No.", "No.");
+
+                if EstCostingRec.FindSet() then
+                    Wash := (EstCostingRec."Washing (Dz.)" / 12) * EstCostingRec.Quantity;
 
 
                 //Get CommLC  
