@@ -87,7 +87,7 @@ page 50518 "Hourly Production List"
 
 
 
-        if Today >= Rec."Prod Date" then
+        if Today > Rec."Prod Date" then
             Error('You Cannot delete previous Date records');
 
         HourlyProdLinesRec.Reset();
