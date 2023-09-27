@@ -5128,32 +5128,32 @@ page 50516 HourlyProductionListPart
 
 
 
-        // if (WrkHours >= 1) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H1Edit := true;
-        //         if (WrkHours >= 2) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H2Edit := true;
-        //         if (WrkHours >= 3) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H3Edit := true;
-        //         if (WrkHours >= 4) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H4Edit := true;
-        //         if (WrkHours >= 5) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H5Edit := true;
-        //         if (WrkHours >= 6) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H6Edit := true;
-        //         if (WrkHours >= 7) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H7Edit := true;
-        //         if (WrkHours >= 8) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H8Edit := true;
-        //         if (WrkHours >= 9) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H9Edit := true;
-        //         if (WrkHours >= 10) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H10Edit := true;
-        //         if (WrkHours >= 11) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H11Edit := true;
-        //         if (WrkHours >= 12) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H12Edit := true;
-        //         if (WrkHours >= 13) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
-        //             H13Edit := true;
+        if (WrkHours >= 1) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H1Edit := true;
+        if (WrkHours >= 2) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H2Edit := true;
+        if (WrkHours >= 3) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H3Edit := true;
+        if (WrkHours >= 4) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H4Edit := true;
+        if (WrkHours >= 5) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H5Edit := true;
+        if (WrkHours >= 6) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H6Edit := true;
+        if (WrkHours >= 7) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H7Edit := true;
+        if (WrkHours >= 8) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H8Edit := true;
+        if (WrkHours >= 9) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H9Edit := true;
+        if (WrkHours >= 10) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H10Edit := true;
+        if (WrkHours >= 11) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H11Edit := true;
+        if (WrkHours >= 12) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H12Edit := true;
+        if (WrkHours >= 13) and (rec."Factory No." <> '') and (rec.Item <> 'DHU') then
+            H13Edit := true;
 
     end;
 
