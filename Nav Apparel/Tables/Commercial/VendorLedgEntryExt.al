@@ -2,7 +2,7 @@ tableextension 51191 "VendorLedgEntryExt" extends "Vendor Ledger Entry"
 {
     fields
     {
-        field(50001; "LC/Contract No."; Code[20])
+        field(50001; "LC/Contract No."; Code[200])
         {
         }
 

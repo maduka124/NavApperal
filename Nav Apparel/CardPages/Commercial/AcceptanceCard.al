@@ -118,6 +118,24 @@ page 50542 "Acceptance Card"
                     end;
                 }
 
+                field("APB NO"; Rec."APB NO")
+                {
+                    ApplicationArea = All;
+                    Caption = 'APB No';
+
+                    trigger OnValidate()
+                    var
+                        AcceptanceHeaderRec: Record AcceptanceHeader;
+                    begin
+                        AcceptanceHeaderRec.Reset();
+                        AcceptanceHeaderRec.SetRange("APB NO", Rec."APB NO");
+
+                        if AcceptanceHeaderRec.FindSet() then
+                            Error('APB No already exists');
+
+                    end;
+                }
+
                 field("B2BLC No (System)"; rec."B2BLC No (System)")
                 {
                     ApplicationArea = All;

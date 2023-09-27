@@ -223,6 +223,7 @@ page 51303 "Copy Sample Requisition Card"
                 var
                     SampleReqHeaderNewRec: Record "Sample Requsition Header";
                     SampleReqHeaderRec: Record "Sample Requsition Header";
+                    StyleMasterRec: Record "Style Master";
                     SampleReqLineNewRec: Record "Sample Requsition Line";
                     SampleReqAccNewRec: Record "Sample Requsition Acce";
                     NoSeriesManagementCode: Codeunit NoSeriesManagement;
@@ -266,14 +267,18 @@ page 51303 "Copy Sample Requisition Card"
                             SampleReqHeaderRec.Reset();
                             SampleReqHeaderRec.SetRange("No.", SampleReqNo);
 
+                            StyleMasterRec.Reset();
+                            StyleMasterRec.SetRange("No.", DestinationStyle);
+                            StyleMasterRec.FindSet();
+
                             if SampleReqHeaderRec.FindFirst() then begin
 
                                 NextReqNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."SAMPLE Nos.", Today(), true);
 
                                 SampleReqHeaderNewRec.Init();
                                 SampleReqHeaderNewRec."No." := NextReqNo;
-                                SampleReqHeaderNewRec."Buyer No." := SampleReqHeaderRec."Buyer No.";
-                                SampleReqHeaderNewRec."Buyer Name" := SampleReqHeaderRec."Buyer Name";
+                                SampleReqHeaderNewRec."Buyer No." := StyleMasterRec."Buyer No.";
+                                SampleReqHeaderNewRec."Buyer Name" := StyleMasterRec."Buyer Name";
                                 SampleReqHeaderNewRec."Style No." := DestinationStyle;
                                 SampleReqHeaderNewRec."Style Name" := DestinationStyleName;
                                 SampleReqHeaderNewRec."Garment Type Name" := SampleReqHeaderRec."Garment Type Name";
@@ -291,8 +296,8 @@ page 51303 "Copy Sample Requisition Card"
                                 SampleReqHeaderNewRec.Qty := SampleReqHeaderRec.Qty;
                                 SampleReqHeaderNewRec."Group HD" := SampleReqHeaderRec."Group HD";
                                 SampleReqHeaderNewRec.WriteToMRPStatus := SampleReqHeaderRec.WriteToMRPStatus;
-                                SampleReqHeaderNewRec."Brand No" := SampleReqHeaderRec."Brand No";
-                                SampleReqHeaderNewRec."Brand Name" := SampleReqHeaderRec."Brand Name";
+                                SampleReqHeaderNewRec."Brand No" := StyleMasterRec."Brand No.";
+                                SampleReqHeaderNewRec."Brand Name" := StyleMasterRec."Brand Name";
                                 SampleReqHeaderNewRec."Sample Type" := SampleReqHeaderRec."Sample Type";
 
                                 SampleReqHeaderNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
@@ -327,8 +332,8 @@ page 51303 "Copy Sample Requisition Card"
                                             // SampleReqLineNewRec."Complete Qty" := SampleReqLineRec."Complete Qty";
                                             // SampleReqLineNewRec."Reject Qty" := SampleReqLineRec."Reject Qty";
                                             // SampleReqLineNewRec."Reject Comment" := SampleReqLineRec."Reject Comment";
-                                            SampleReqLineNewRec."Buyer No." := SampleReqLineRec."Buyer No.";
-                                            SampleReqLineNewRec."Buyer Name" := SampleReqLineRec."Buyer Name";
+                                            SampleReqLineNewRec."Buyer No." := StyleMasterRec."Buyer No.";
+                                            SampleReqLineNewRec."Buyer Name" := StyleMasterRec."Buyer Name";
                                             // SampleReqLineNewRec."Pattern Date" := SampleReqLineRec."Pattern Date";
                                             // SampleReqLineNewRec."Pattern/Cutting Date" := SampleReqLineRec."Pattern/Cutting Date";
                                             // SampleReqLineNewRec."Cutting Date" := SampleReqLineRec."Cutting Date";
@@ -369,8 +374,8 @@ page 51303 "Copy Sample Requisition Card"
                                             // SampleReqLineNewRec."Quality Finish Checker" := SampleReqLineRec."Quality Finish Checker";
                                             SampleReqLineNewRec."Garment Type" := SampleReqLineRec."Garment Type";
                                             SampleReqLineNewRec."Garment Type No" := SampleReqLineRec."Garment Type No";
-                                            SampleReqLineNewRec."Brand Name" := SampleReqLineRec."Brand Name";
-                                            SampleReqLineNewRec."Brand No" := SampleReqLineRec."Brand No";
+                                            SampleReqLineNewRec."Brand Name" := StyleMasterRec."Brand Name";
+                                            SampleReqLineNewRec."Brand No" := StyleMasterRec."Brand No.";
                                             // SampleReqLineNewRec."Wash Receiver" := SampleReqLineRec."Wash Receiver";
 
                                             SampleReqLineNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
