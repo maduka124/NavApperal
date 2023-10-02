@@ -11,6 +11,19 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             }
         }
 
+        addlast(General)
+        {
+            field("External Document No.1"; Rec."External Document No.")
+            {
+                Caption = 'External Document No.';
+                ApplicationArea = All;
+            }
+        }
+        modify("External Document No.")
+        {
+            Visible = false;
+        }
+
         addafter("Work Description")
         {
 

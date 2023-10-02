@@ -30,6 +30,12 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
         field(50007; "AccNo."; Code[20])
         {
         }
+
+        field(50008; "Cheque printed"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
     }
 }
 
