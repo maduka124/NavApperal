@@ -75,7 +75,7 @@ page 51324 OrderShippingList
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Ship value"; Rec."Ship Qty" * Rec."Unit Price")
+                field("Ship value"; Rec."Ship value")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -95,23 +95,26 @@ page 51324 OrderShippingList
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Invoice No"; Rec."Invoice No")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'X-factory ';
-                }
-                field("Invoice Date"; Rec."Invoice Date")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+                // field("Invoice No"; Rec."Invoice No")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     Caption = 'X-factory ';
+                // }
+
                 field("Factory Invoice No"; Rec."Factory Invoice No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Factory Inv. No';
                 }
+
+                field("Invoice Date"; Rec."Invoice Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field("No of CTN"; Rec."No of CTN1")
                 {
                     ApplicationArea = All;
@@ -212,19 +215,22 @@ page 51324 OrderShippingList
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Margin Acc"; Rec."Margin Acc")
+                field("Margin Acc New"; Rec."Margin Acc New")
                 {
                     ApplicationArea = All;
+                    Caption = 'Margin Acc';
                     Editable = false;
                 }
-                field("FC Acc"; Rec."FC Acc")
+                field("FC Acc New"; Rec."FC Acc New")
                 {
                     ApplicationArea = All;
+                    Caption = 'FC Acc';
                     Editable = false;
                 }
-                field("Currant Ac Amount"; Rec."Currant Ac Amount")
+                field("Currant Ac Amount1"; Rec."Currant Ac Amount1")
                 {
                     ApplicationArea = All;
+                    Caption = 'Currant Ac Amount';
                     Editable = false;
                 }
                 field("Excess/Short"; Rec."Excess/Short")
@@ -261,6 +267,7 @@ page 51324 OrderShippingList
         BankRefHRec: Record BankReferenceHeader;
         BankRefInvRec: Record BankReferenceInvoice;
         SalesInvRec: Record "Sales Invoice Header";
+        SalesInv2Rec: Record "Sales Invoice Header";
         BomEstimateRec: Record "BOM Estimate Cost";
         LcRec: Record "Contract/LCMaster";
         StyleRec: Record "Style Master";
@@ -272,6 +279,10 @@ page 51324 OrderShippingList
         UserRec: Record "User Setup";
         MaxSeqNo: BigInteger;
         ShQty: Decimal;
+        ShipValue: Decimal;
+        NoOfCT: Decimal;
+        CBMTot: Decimal;
+        UnitPrice: Integer;
     begin
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
@@ -320,7 +331,6 @@ page 51324 OrderShippingList
                             OrderSummaryRec."Po Qty" := StylePoRec.Qty;
                             OrderSummaryRec."Unit Price" := StylePoRec."Unit Price";
                             OrderSummaryRec."Ship Date" := StylePoRec."Ship Date";
-                            OrderSummaryRec."Ship Qty" := StylePoRec."Shipped Qty";
                             OrderSummaryRec.Mode := StylePoRec.Mode;
                             OrderSummaryRec."Lc Fty" := LcRec."Factory No.";
 
@@ -330,28 +340,56 @@ page 51324 OrderShippingList
                                 OrderSummaryRec.Commission := BomEstimateRec."Commission %";
                             end;
 
+                            SalesInv2Rec.Reset();
+                            SalesInv2Rec.SetRange("Style Name", StyleRec."Style No.");
+                            SalesInv2Rec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
+                            SalesInv2Rec.SetRange("PO No", StylePoRec."PO No.");
+                            SalesInv2Rec.SetRange(Lot, StylePoRec."Lot No.");
+                            if SalesInv2Rec.FindLast() then begin
+                                OrderSummaryRec."Ex FTY Date" := SalesInv2Rec."Shipment Date";
+                                OrderSummaryRec."Invoice Date" := SalesInv2Rec."Posting Date";
+                                OrderSummaryRec."Factory Invoice No" := SalesInv2Rec."Your Reference";
+                                OrderSummaryRec."Exp No" := SalesInv2Rec."Exp No";
+                                OrderSummaryRec."Exp Date" := SalesInv2Rec."Exp Date";
+                            end;
+
+
+                            NoOfCT := 0;
+                            CBMTot := 0;
+
+                            SalesInv2Rec.Reset();
+                            SalesInv2Rec.SetRange("Style Name", StyleRec."Style No.");
+                            SalesInv2Rec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
+                            SalesInv2Rec.SetRange("PO No", StylePoRec."PO No.");
+                            SalesInv2Rec.SetRange(Lot, StylePoRec."Lot No.");
+                            if SalesInv2Rec.FindFirst() then begin
+                                repeat
+                                    NoOfCT += SalesInv2Rec."No of Cartons";
+                                    CBMTot += SalesInv2Rec.CBM;
+                                until SalesInv2Rec.Next() = 0;
+                            end;
+
+                            OrderSummaryRec."No of CTN1" := NoOfCT;
+                            OrderSummaryRec.CBM := CBMTot;
+
                             SalesInvRec.Reset();
                             SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
                             SalesInvRec.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
                             SalesInvRec.SetRange("PO No", StylePoRec."PO No.");
                             SalesInvRec.SetRange(Lot, StylePoRec."Lot No.");
                             if SalesInvRec.FindSet() then begin
-                                OrderSummaryRec."Invoice No" := SalesInvRec."Your Reference";
-                                OrderSummaryRec."Invoice Date" := SalesInvRec."Shipment Date";
-                                OrderSummaryRec."No of CTN1" := SalesInvRec."No of Cartons";
-                                OrderSummaryRec.CBM := SalesInvRec.CBM;
                                 OrderSummaryRec."BL No" := SalesInvRec."BL No";
                                 OrderSummaryRec."BL Date" := SalesInvRec."BL Date";
-                                OrderSummaryRec."Exp No" := SalesInvRec."Exp No";
-                                OrderSummaryRec."Exp Date" := SalesInvRec."Exp Date";
                                 OrderSummaryRec.Destination := SalesInvRec."Location Code";
 
                                 ShQty := 0;
+                                ShipValue := 0;
                                 SalesInvRec2.Reset();
                                 SalesInvRec2.SetRange("Style Name", StyleRec."Style No.");
-                                SalesInvRec2.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
+                                // SalesInvRec2.SetRange("Sell-to Customer No.", StyleRec."Buyer No.");
                                 SalesInvRec2.SetRange("PO No", StylePoRec."PO No.");
                                 SalesInvRec2.SetRange(Lot, StylePoRec."Lot No.");
+                                SalesInvRec2.SetFilter(Closed, '=%1', false);
                                 if SalesInvRec2.FindSet() then begin
                                     repeat
                                         SalesLineRec.Reset();
@@ -359,14 +397,21 @@ page 51324 OrderShippingList
                                         SalesLineRec.SetRange(Type, SalesLineRec.Type::Item);
                                         if SalesLineRec.FindSet() then begin
                                             repeat
+
+                                                // UnitPrice := Round(SalesLineRec."Unit Price", 1);
                                                 ShQty += SalesLineRec.Quantity;
+                                                ShipValue += SalesLineRec.Quantity * SalesLineRec."Unit Price";
+
                                             until SalesLineRec.Next() = 0;
                                         end;
                                     until SalesInvRec2.Next() = 0;
                                 end;
 
                                 OrderSummaryRec."Ship Qty" := ShQty;
-                                OrderSummaryRec."Ship value" := ShQty * StylePoRec."Unit Price";
+                                OrderSummaryRec."Ship value" := ShipValue;
+                                OrderSummaryRec."Excess/Short" := StylePoRec.Qty - ShQty;
+
+
 
                                 BankRefInvRec.Reset();
                                 BankRefInvRec.SetRange("Factory Inv No", SalesInvRec."Your Reference");
@@ -381,7 +426,7 @@ page 51324 OrderShippingList
                                         OrderSummaryRec."Bank Ref Date" := BankRefHRec."Reference Date";
                                         OrderSummaryRec."Maturity Date" := BankRefHRec."Maturity Date";
                                         OrderSummaryRec.Remarks := BankRefHRec.Remarks;
-                                        OrderSummaryRec."Factory Invoice No" := SalesInvRec."Your Reference";
+                                        // OrderSummaryRec."Factory Invoice No" := SalesInvRec."Your Reference";
 
                                         BankRefColRec.Reset();
                                         BankRefColRec.SetRange("BankRefNo.", BankRefHRec."BankRefNo.");
