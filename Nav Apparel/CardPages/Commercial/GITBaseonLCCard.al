@@ -354,14 +354,16 @@ page 50528 "GIT Baseon LC Card"
         GITBaseonLCRec: Record GITBaseonLC;
         Tot: Decimal;
     begin
-        GITBaseonLCRec.Reset();
-        GITBaseonLCRec.SetRange("B2B LC No.", rec."B2B LC No.");
-        if GITBaseonLCRec.FindSet() then begin
-            repeat
-                tot += GITBaseonLCRec."Invoice Value";
-            until GITBaseonLCRec.Next() = 0;
-            rec."B2B LC Balance" := rec."B2B LC Value" - Tot;
-            CurrPage.Update();
+        if Rec."GITLCNo." <> '' then begin
+            GITBaseonLCRec.Reset();
+            GITBaseonLCRec.SetRange("B2B LC No.", rec."B2B LC No.");
+            if GITBaseonLCRec.FindSet() then begin
+                repeat
+                    tot += GITBaseonLCRec."Invoice Value";
+                until GITBaseonLCRec.Next() = 0;
+                rec."B2B LC Balance" := rec."B2B LC Value" - Tot;
+                CurrPage.Update();
+            end;
         end;
     end;
 
