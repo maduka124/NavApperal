@@ -161,7 +161,7 @@ table 50553 FabricInspection
             DataClassification = ToBeClassified;
         }
 
-        field(28; "4 Point (Above 9 inches) "; Decimal)
+        field(28; "4 Point (Above 9 inches)"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
@@ -176,7 +176,7 @@ table 50553 FabricInspection
             DataClassification = ToBeClassified;
         }
 
-        field(31; "3 Point "; Decimal)
+        field(31; "3 Point"; Decimal)
         {
             DataClassification = ToBeClassified;
         }

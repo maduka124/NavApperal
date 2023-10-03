@@ -163,7 +163,7 @@ page 50596 "Ratio Creation ListPart"
                     Editable = SetEdit1;
                 }
 
-                field("Length Tollarance  "; Rec."Length Tollarance  ")
+                field("Length Tollarance  "; Rec."Length Tollarance")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;

@@ -61,7 +61,7 @@ table 50548 AcceptanceLine
         }
 
 
-        field(50011; "Article "; Code[50])
+        field(50011; "Article"; Code[50])
         {
             DataClassification = ToBeClassified;
         }

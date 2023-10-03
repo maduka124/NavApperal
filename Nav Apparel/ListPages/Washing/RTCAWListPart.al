@@ -50,7 +50,7 @@ page 50685 RTCAWListPart
                     begin
                         interMediRec.Reset();
                         interMediRec.SetRange(No, rec."Req No");
-                        interMediRec.SetRange("Line No", rec."Header Line No ");
+                        interMediRec.SetRange("Line No", rec."Header Line No");
                         interMediRec.SetRange("Split No", rec."Split No");
 
                         if interMediRec.FindSet() then begin

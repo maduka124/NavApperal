@@ -27,7 +27,7 @@ report 51258 FabricInspectionReport
             { }
             column("Point3__Up_to_6_9_inches_"; "3 Point (Up to 6-9 inches)")
             { }
-            column("Point4__Above_9_inches__"; "4 Point (Above 9 inches) ")
+            column("Point4__Above_9_inches__"; "4 Point (Above 9 inches)")
             { }
             // column()
             // { }

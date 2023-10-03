@@ -733,7 +733,7 @@ codeunit 50618 NavAppCodeUnit
                             ArtcleRec.Reset();
                             ArtcleRec.SetRange("No.", ItemRec."Article No.");
                             if ArtcleRec.FindSet() then
-                                AcceptanceLineRec."Article " := ArtcleRec.Article;
+                                AcceptanceLineRec."Article" := ArtcleRec.Article;
 
                             SizeRec.Reset();
                             SizeRec.SetRange("No.", ItemRec."Size Range No.");
@@ -800,7 +800,7 @@ codeunit 50618 NavAppCodeUnit
                                 ArtcleRec.Reset();
                                 ArtcleRec.SetRange("No.", ItemRec."Article No.");
                                 if ArtcleRec.FindSet() then
-                                    AcceptanceLineRec."Article " := ArtcleRec.Article;
+                                    AcceptanceLineRec."Article" := ArtcleRec.Article;
 
                                 SizeRec.Reset();
                                 SizeRec.SetRange("No.", ItemRec."Size Range No.");

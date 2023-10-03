@@ -696,7 +696,7 @@ page 50964 "NavApp Setup Card"
                     TableRelation = "No. Series".Code;
                 }
 
-                field("New BR/Down block period "; rec."New BR/Down block period ")
+                field("New BR/Down block period "; rec."New BR/Down block period")
                 {
                     ApplicationArea = All;
                     Caption = 'New BR/Down block period ';

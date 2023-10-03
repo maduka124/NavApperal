@@ -365,7 +365,7 @@ page 50475 "Maning Level Card"
                     Caption = 'Machine Operators';
                 }
 
-                field("% Of Target "; Rec."% Of Target ")
+                field("% Of Target "; Rec."% Of Target")
                 {
                     ApplicationArea = All;
                     Caption = '100% Target';
@@ -480,9 +480,9 @@ page 50475 "Maning Level Card"
                 rec.BPT := 0;
 
             if rec.BPT <> 0 then
-                rec."% Of Target " := 60 / rec.BPT
+                rec."% Of Target" := 60 / rec.BPT
             else
-                rec."% Of Target " := 0;
+                rec."% Of Target" := 0;
 
             if rec.BPT <> 0 then
                 rec."Expected Target" := ((60 / rec.BPT) * rec.Eff) / 100
@@ -495,7 +495,7 @@ page 50475 "Maning Level Card"
             else
                 rec.BPT := 0;
 
-            rec."% Of Target " := rec.Val;
+            rec."% Of Target" := rec.Val;
             rec."Expected Target" := (rec.Val * rec.Eff) / 100;
         end;
 

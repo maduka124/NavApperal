@@ -86,7 +86,7 @@ page 50711 "Wash Sample Job Creationdd"
                     Editable = false;
                 }
 
-                field(" Req Qty"; rec." Req Qty")
+                field(" Req Qty"; rec."Req Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -251,7 +251,7 @@ page 50711 "Wash Sample Job Creationdd"
                         washsampleJobcreate."Wash Type" := WashSampleReqDataRec."Wash Type";
                         washsampleJobcreate.Size := WashSampleReqDataRec.Size;
                         washsampleJobcreate."Req Date" := WashSampleReqDataRec."Req Date";
-                        washsampleJobcreate." Req Qty" := WashSampleReqDataRec."Req Qty";
+                        washsampleJobcreate."Req Qty" := WashSampleReqDataRec."Req Qty";
                         washsampleJobcreate."REC Qty" := WashSampleReqDataRec."REC Qty";
                         washsampleJobcreate."GRN No" := WashSampleReqDataRec."GRN No";
                         washsampleJobcreate."Secondary UserID" := LoginSessionsRec."Secondary UserID";

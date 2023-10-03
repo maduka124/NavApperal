@@ -32,7 +32,7 @@ table 50684 RTCAWLine
             DataClassification = ToBeClassified;
         }
 
-        field(11; "Header Line No "; Integer)
+        field(11; "Header Line No"; Integer)
         {
             DataClassification = ToBeClassified;
         }
@@ -66,7 +66,7 @@ table 50684 RTCAWLine
 
     keys
     {
-        key(Pk; "No.", "Req No", "Header Line No ", "Split No", "Line No")
+        key(Pk; "No.", "Req No", "Header Line No", "Split No", "Line No")
         {
             Clustered = true;
         }

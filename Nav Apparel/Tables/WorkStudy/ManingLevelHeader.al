@@ -161,7 +161,7 @@ table 50473 "Maning Level"
             DataClassification = ToBeClassified;
         }
 
-        field(27; "% Of Target "; Decimal)
+        field(27; "% Of Target"; Decimal)
         {
             DataClassification = ToBeClassified;
             Editable = false;

@@ -178,13 +178,13 @@ page 50622 "Fabric Requisition Card"
 
                             if RatioCreaLineRec."UOM Code" = 'YDS' then begin
                                 rec."Marker Width" := RatioCreaLineRec.Width + ((RatioCreaLineRec."Width Tollarance" * 2) / 36);
-                                rec."Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance  " * 2) / 36)) * RatioCreaLineRec.Plies;
+                                rec."Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance" * 2) / 36)) * RatioCreaLineRec.Plies;
                             end
                             else
                                 if RatioCreaLineRec."UOM Code" = 'MTS' then begin
                                     begin
                                         rec."Marker Width" := RatioCreaLineRec.Width + ((RatioCreaLineRec."Width Tollarance" * 2) / 100);
-                                        rec."Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance  " * 2) / 100)) * RatioCreaLineRec.Plies;
+                                        rec."Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance" * 2) / 100)) * RatioCreaLineRec.Plies;
                                     end;
                                 end;
 

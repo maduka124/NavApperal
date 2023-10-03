@@ -49,7 +49,7 @@ page 50547 "Acc Inv Items ListPart"
                     Editable = false;
                 }
 
-                field("Article "; Rec."Article ")
+                field("Article "; Rec."Article")
                 {
                     ApplicationArea = All;
                     Editable = false;

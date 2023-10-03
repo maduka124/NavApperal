@@ -148,7 +148,7 @@ page 50687 QCHeaderCardAW
                             if rec."Pass Qty" <= intermidiateRec."Split Qty" then begin
                                 rec."Fail Qty" := intermidiateRec."Split Qty" - rec."Pass Qty";
 
-                                "Total Pass Qty" := intermidiateRec."AW QC Pass Qty " + rec."Pass Qty";
+                                "Total Pass Qty" := intermidiateRec."AW QC Pass Qty" + rec."Pass Qty";
                                 "Total Fail Qty" := intermidiateRec."AW QC Fail Qty" + rec."Fail Qty";
 
                                 if "Total Pass Qty" > intermidiateRec."Split Qty" then
@@ -219,7 +219,7 @@ page 50687 QCHeaderCardAW
                         // if Total > intermediateRec."Split Qty" then
                         //     Error('Total Defects quantity must be equal to the job card Qty.');
 
-                        "Total Pass Qty" := intermediateRec."AW QC Pass Qty " + rec."Pass Qty";
+                        "Total Pass Qty" := intermediateRec."AW QC Pass Qty" + rec."Pass Qty";
                         "Total Fail Qty" := intermediateRec."AW QC Fail Qty" + rec."Fail Qty";
 
                         if "Total Pass Qty" > intermediateRec."Split Qty" then
@@ -240,7 +240,7 @@ page 50687 QCHeaderCardAW
                         WashsamplereqlineRec."QC Date (AW)" := rec."QC AW Date";
                         WashsamplereqlineRec.Modify();
 
-                        intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + rec."Pass Qty";
+                        intermediateRec."AW QC Pass Qty" := intermediateRec."AW QC Pass Qty" + rec."Pass Qty";
                         intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + rec."Fail Qty";
                         intermediateRec.Modify();
 

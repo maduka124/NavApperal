@@ -174,7 +174,7 @@ page 50682 RTCAWCard
                     Visible = Not j;
                     ApplicationArea = All;
                     Caption = 'Return Details';
-                    SubPageLink = "No." = field("No."), "Req No" = field("Req No"), "Header Line No " = field("Line No"), "Split No" = field("Slipt No");
+                    SubPageLink = "No." = field("No."), "Req No" = field("Req No"), "Header Line No" = field("Line No"), "Split No" = field("Slipt No");
                 }
             }
 
@@ -185,7 +185,7 @@ page 50682 RTCAWCard
                     Visible = j;
                     ApplicationArea = All;
                     Caption = 'Return Details';
-                    SubPageLink = "No." = field("No."), "Req No" = field("Req No"), "Header Line No " = field("Line No");
+                    SubPageLink = "No." = field("No."), "Req No" = field("Req No"), "Header Line No" = field("Line No");
                 }
             }
         }
@@ -226,13 +226,13 @@ page 50682 RTCAWCard
 
                             RTCAWLineRec.Reset();
                             RTCAWLineRec.SetRange("No.", rec."No.");
-                            RTCAWLineRec.SetRange("Header Line No ", rec."Line No");
+                            RTCAWLineRec.SetRange("Header Line No", rec."Line No");
 
                             if RTCAWLineRec.FindSet() then begin
                                 repeat
                                     interMediRec.Reset();
                                     interMediRec.SetRange(No, rec."Req No");
-                                    interMediRec.SetRange("Line No", RTCAWLineRec."Header Line No ");
+                                    interMediRec.SetRange("Line No", RTCAWLineRec."Header Line No");
                                     interMediRec.SetRange("Split No", RTCAWLineRec."Split No");
 
                                     if interMediRec.FindSet() then begin

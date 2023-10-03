@@ -421,7 +421,7 @@ table 50595 RatioCreationLine
             InitValue = 0.00;
         }
 
-        field(50085; "Length Tollarance  "; Decimal)
+        field(50085; "Length Tollarance"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0.00;

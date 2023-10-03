@@ -44,7 +44,7 @@ table 50723 IntermediateTable
             DataClassification = ToBeClassified;
         }
 
-        field(9; "AW QC Pass Qty "; Integer)
+        field(9; "AW QC Pass Qty"; Integer)
         {
             DataClassification = ToBeClassified;
         }

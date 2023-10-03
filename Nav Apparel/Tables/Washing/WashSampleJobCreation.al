@@ -9,12 +9,12 @@ table 50707 "Wash Sample Job Creation"
             DataClassification = ToBeClassified;
         }
 
-        field(17; " GRN No"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            ObsoleteReason = 'Removed';
-            ObsoleteState = Removed;
-        }
+        // field(17; "GRN No"; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     ObsoleteReason = 'Removed';
+        //     ObsoleteState = Removed;
+        // }
 
         field(18; "Gate Pass No"; code[20])
         {
@@ -120,7 +120,7 @@ table 50707 "Wash Sample Job Creation"
             DataClassification = ToBeClassified;
         }
 
-        field(25; " Req Qty"; Integer)
+        field(25; "Req Qty"; Integer)
         {
             DataClassification = ToBeClassified;
             InitValue = 0;

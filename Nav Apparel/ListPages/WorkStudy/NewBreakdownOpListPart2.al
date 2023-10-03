@@ -261,7 +261,7 @@ page 50466 "New Breakdown Op Listpart2"
 
                         if SwingProduction2Rec."Input Qty" <> 0 then begin
                             DateRange := Today - SwingProduction2Rec."Prod Date";
-                            if DateRange >= NavAppSetRec."New BR/Down block period " then
+                            if DateRange >= NavAppSetRec."New BR/Down block period" then
                                 Error('Can not caculate SMV.because of more than ten days after Production');
                         end;
 

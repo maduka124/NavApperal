@@ -354,7 +354,7 @@ page 50561 "Fabric Inspection Card"
                     Editable = false;
                 }
 
-                field("4 Point (Above 9 inches) "; rec."4 Point (Above 9 inches) ")
+                field("4 Point (Above 9 inches) "; rec."4 Point (Above 9 inches)")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -372,7 +372,7 @@ page 50561 "Fabric Inspection Card"
                     Editable = false;
                 }
 
-                field("3 Point "; rec."3 Point ")
+                field("3 Point "; rec."3 Point")
                 {
                     ApplicationArea = All;
                     Editable = false;

@@ -20,7 +20,7 @@ tableextension 50734 "FA Extension" extends "Fixed Asset"
 
         }
 
-        field(50005; "Features "; Text[100])
+        field(50005; "Features"; Text[100])
         {
 
         }

@@ -24,7 +24,7 @@ pageextension 50733 FACardExt extends "Fixed Asset Card"
                 ApplicationArea = All;
             }
 
-            field("Features "; rec."Features ")
+            field("Features "; rec."Features")
             {
                 ApplicationArea = All;
             }

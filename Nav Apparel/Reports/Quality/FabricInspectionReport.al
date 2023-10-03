@@ -38,7 +38,7 @@ report 51308 FabricInspectionReportQuality
             { }
             column("Two2_Point"; "2 Point")
             { }
-            column("Three3_Point_"; "3 Point ")
+            column("Three3_Point_"; "3 Point")
             { }
             column("Four4_Point"; "4 Point")
             { }
@@ -48,7 +48,7 @@ report 51308 FabricInspectionReportQuality
             { }
             column("Three3_Point__Up_to_6_9_inches_"; "3 Point (Up to 6-9 inches)")
             { }
-            column("Four4_Point__Above_9_inches__"; "4 Point (Above 9 inches) ")
+            column("Four4_Point__Above_9_inches__"; "4 Point (Above 9 inches)")
             { }
             column(Status; Status)
             { }

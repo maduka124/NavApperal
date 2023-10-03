@@ -144,11 +144,11 @@ page 50563 "Fabric Inspection ListPart1"
                     FabricInspecRec."2 Point (Up to 3-6 inches)" := Total2;
                     FabricInspecRec."2 Point" := Total2 * 2;
                     FabricInspecRec."3 Point (Up to 6-9 inches)" := Total3;
-                    FabricInspecRec."3 Point " := Total3 * 3;
-                    FabricInspecRec."4 Point (Above 9 inches) " := Total4;
+                    FabricInspecRec."3 Point" := Total3 * 3;
+                    FabricInspecRec."4 Point (Above 9 inches)" := Total4;
                     FabricInspecRec."4 Point" := Total4 * 4;
 
-                    FabricInspecRec."Points per 100 SQ Yds 1" := FabricInspecRec."1 Point" + FabricInspecRec."2 Point" + FabricInspecRec."3 Point " + FabricInspecRec."4 Point";
+                    FabricInspecRec."Points per 100 SQ Yds 1" := FabricInspecRec."1 Point" + FabricInspecRec."2 Point" + FabricInspecRec."3 Point" + FabricInspecRec."4 Point";
                     FabricInspecRec."Points per 100 SQ Yds 2" := (((FabricInspecRec."Points per 100 SQ Yds 1" / FabricInspecRec."Actual Length") * 36) / FabricInspecRec."Actual Width") * 100;
 
                     if CustRec."Fab Inspection Level" >= FabricInspecRec."Points per 100 SQ Yds 1" then

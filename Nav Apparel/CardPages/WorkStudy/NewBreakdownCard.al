@@ -431,7 +431,7 @@ page 50459 "New Breakdown Card"
         ProdOutHeaderRec.SetCurrentKey("Prod Date");
         ProdOutHeaderRec.Ascending(true);
         if ProdOutHeaderRec.FindFirst() then begin
-            if WorkDate() >= ProdOutHeaderRec."Prod Date" + NavAppSetRec."New BR/Down block period " then
+            if WorkDate() >= ProdOutHeaderRec."Prod Date" + NavAppSetRec."New BR/Down block period" then
                 EditableGB := false;
         end;
     end;
