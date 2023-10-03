@@ -14,7 +14,7 @@ tableextension 51260 "PO Archieve Extension" extends "Purchase Header Archive"
         {
         }
 
-        field(50406; "LC/Contract No."; Code[20])
+        field(50406; "LC/Contract No."; Code[50])
         {
         }
 
