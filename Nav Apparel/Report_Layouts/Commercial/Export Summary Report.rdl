@@ -3526,7 +3526,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>=Fields!Order_Qty.Value</Value>
+                                                            <Value>=code.AddTotalA(Fields!Order_Qty.Value)</Value>
                                                             <Style>
                                                               <FontFamily>Calibri</FontFamily>
                                                               <FontSize>8pt</FontSize>
@@ -3652,7 +3652,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Sum(Fields!Order_Qty.Value)</Value>
+                                    <Value>=code.GetTotalA()</Value>
                                     <Style>
                                       <FontFamily>Calibri</FontFamily>
                                       <FontSize>8pt</FontSize>
@@ -4413,7 +4413,7 @@
             <Top>4.89162cm</Top>
             <Left>0.04974cm</Left>
             <Height>1.79063cm</Height>
-            <Width>20.53661cm</Width>
+            <Width>20.53662cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -5506,6 +5506,16 @@ End Function
 
 Public Function GetTotal()
                 return totalLicBalance
+End Function
+
+Dim public totalLicBalanceA as Decimal
+Public Function AddTotalA(ByVal LicValA AS Decimal ) AS Decimal
+                totalLicBalanceA = totalLicBalanceA + LicValA
+                return LicValA
+End Function
+
+Public Function GetTotalA()
+                return totalLicBalanceA
 End Function</Code>
   <EmbeddedImages>
     <EmbeddedImage Name="ABA">
