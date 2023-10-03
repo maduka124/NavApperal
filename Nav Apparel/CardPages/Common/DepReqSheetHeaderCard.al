@@ -134,6 +134,7 @@ page 50709 "DepReqSheetHeaderCard"
                     ApplicationArea = All;
                     Caption = ' ';
                     SubPageLink = "Req No" = field("Req No");
+                    Editable = EditableGb;
                 }
             }
         }
