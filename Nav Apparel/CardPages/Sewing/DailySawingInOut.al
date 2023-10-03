@@ -568,7 +568,7 @@ page 50355 "Daily Sewing In/Out Card"
                         end;
 
                         if (Rec."Output Qty" + TotOutQty) > TotProdQty then
-                            Error('Output Qty biger than the Production Qty');
+                            Error('Po Wise Output Qty %2 biger than Hourly Output Qty %1', TotProdQty, Rec."Output Qty");
 
                         CurrPage.Update();
                     end;
