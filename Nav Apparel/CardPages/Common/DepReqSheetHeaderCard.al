@@ -12,6 +12,7 @@ page 50709 "DepReqSheetHeaderCard"
         {
             group(General)
             {
+                Editable = EditableGb;
                 field("Req No"; rec."Req No")
                 {
                     ApplicationArea = All;
@@ -372,7 +373,8 @@ page 50709 "DepReqSheetHeaderCard"
     var
         UserRec: Record "User Setup";
     begin
-        if (rec."Completely Received" = rec."Completely Received"::Yes) or (rec.Status = rec.Status::Approved) then
+        // if (rec."Completely Received" = rec."Completely Received"::Yes) or (rec.Status = rec.Status::Approved) then
+        if rec.Status = rec.Status::Approved then
             EditableGb := false
         else
             EditableGb := true;
@@ -387,7 +389,12 @@ page 50709 "DepReqSheetHeaderCard"
     trigger OnAfterGetCurrRecord()
     var
     begin
-        if rec."Completely Received" = rec."Completely Received"::Yes then
+        // if rec."Completely Received" = rec."Completely Received"::Yes then
+        //     EditableGb := false
+        // else
+        //     EditableGb := true;
+
+        if rec.Status = rec.Status::Approved then
             EditableGb := false
         else
             EditableGb := true;
