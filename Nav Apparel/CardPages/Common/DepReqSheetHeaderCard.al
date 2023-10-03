@@ -4,7 +4,7 @@ page 50709 "DepReqSheetHeaderCard"
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = DeptReqSheetHeader;
-    Caption = 'Department Requisition Sheet';
+    Caption = 'Department Requisition Sheet Copy';
 
     layout
     {
@@ -332,7 +332,7 @@ page 50709 "DepReqSheetHeaderCard"
                             DepreqLineCopy."Qty Received" := DepReqLine."Qty Received";
                             DepreqLineCopy."Qty to Received" := DepReqLine."Qty to Received";
                             DepreqLineCopy.Remarks := DepReqLine.Remarks;
-                            DepreqLineCopy."PO Raized" := DepReqLine."PO Raized";
+                            DepreqLineCopy."PO Raized" := false;
                             DepreqLineCopy.Copy := 1;
                             DepreqLineCopy.Insert();
 
