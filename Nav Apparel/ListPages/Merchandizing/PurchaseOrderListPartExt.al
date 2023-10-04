@@ -14,7 +14,13 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
             Editable = EditableGB1;
 
         }
-
+        addafter("Quantity Received")
+        {
+            field("Outstanding Quantity"; Rec."Outstanding Quantity")
+            {
+                ApplicationArea = all;
+            }
+        }
         modify(Type)
         {
             Caption = 'Type';
