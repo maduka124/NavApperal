@@ -78,6 +78,7 @@ page 50996 "PI Details Card"
                     begin
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
+                        StyleMasterRec.SetRange(Status, StyleMasterRec.Status::Confirmed);
                         if StyleMasterRec.FindSet() then begin
                             rec."Style No." := StyleMasterRec."No.";
                             rec."Season No." := StyleMasterRec."Season No.";
