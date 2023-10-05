@@ -4,7 +4,7 @@ report 51405 "Payment Journal"
     Caption = 'Cash Payment Voucher';
     UsageCategory = ReportsAndAnalysis;
     // DefaultLayout = RDLC;
-    RDLCLayout = 'Report_Layouts/PaymentJournal.rdl';
+    RDLCLayout = 'Report_Layouts/Finance/PaymentJournal.rdl';
     dataset
     {
         dataitem(GenJournalLine; "Gen. Journal Line")
