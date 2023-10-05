@@ -310,23 +310,27 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
         ProdOrderRec: Record "Production Order";
         ProdOrder2Rec: Record "Production Order";
     begin
+        //Mihiranga 2023/10/05
         StatusGB := '';
         ProdOrderRec.Reset();
         ProdOrderRec.SetRange("Source No.", rec."No.");
         ProdOrderRec.SetRange("Source Type", ProdOrderRec."Source Type"::"Sales Header");
-        ProdOrderRec.SetFilter(Status, '=%1', ProdOrderRec.Status::Released);
-        if ProdOrderRec.FindSet() then begin
-            // case ProdOrderRec.Status of
-            //     ProdOrderRec.Status::"Firm Planned":
-            //         StatusGB := 'Firm Planned';
-            //     ProdOrderRec.Status::Released:
-            //         StatusGB := 'Released';
-            //     ProdOrderRec.Status::Finished:
-            //         StatusGB := 'Finished';
-            //     ProdOrderRec.Status::Planned:
-            //         StatusGB := 'Planned';
-            // end;
-            StatusGB := 'Released';
+        // ProdOrderRec.SetFilter(Status, '=%1', ProdOrderRec.Status::Released);
+        ProdOrderRec.SetCurrentKey("Creation Date");
+        ProdOrderRec.Ascending(true);
+        if ProdOrderRec.FindLast() then begin
+
+            case ProdOrderRec.Status of
+                ProdOrderRec.Status::"Firm Planned":
+                    StatusGB := 'Firm Planned';
+                ProdOrderRec.Status::Released:
+                    StatusGB := 'Released';
+                ProdOrderRec.Status::Finished:
+                    StatusGB := 'Finished';
+                ProdOrderRec.Status::Planned:
+                    StatusGB := 'Planned';
+            end;
+            // StatusGB := 'Released';
         end
         else begin
             ProdOrder2Rec.Reset();

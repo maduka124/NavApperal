@@ -321,6 +321,7 @@ page 50358 "Daily Washing In/Out Card"
             group("Color/Size Input Detail")
             {
                 Editable = EditableGB;
+                Caption = 'Color/Size Wash Send Details';
                 part(Input; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;
@@ -332,6 +333,7 @@ page 50358 "Daily Washing In/Out Card"
             group("Color/Size Output Detail")
             {
                 Editable = EditableGB;
+                Caption = 'Color/Size Wash Received Details';
                 part(Output; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;

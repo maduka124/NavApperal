@@ -78,6 +78,7 @@ page 50996 "PI Details Card"
                     begin
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
+                        StyleMasterRec.SetRange(Status, StyleMasterRec.Status::Confirmed);
                         if StyleMasterRec.FindSet() then begin
                             rec."Style No." := StyleMasterRec."No.";
                             rec."Season No." := StyleMasterRec."Season No.";
@@ -218,7 +219,7 @@ page 50996 "PI Details Card"
                     //     end;
                     // end;
                     // end;
-
+                    /////////////////////////////////////////////////////////////////////////////////
                     //Done By Sachith on 24/03/23
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -288,25 +289,9 @@ page 50996 "PI Details Card"
                             end;
 
                         end;
-                    end;
 
-                    trigger OnValidate()
-                    var
-                        DocNo: Code[20];
-                        PipoRec2: Record "PI Po Details";
-                        PiPODetailsRec: Record PIPODetails1;
-                        StyleMasterRec: Record "Style Master";
-                        PurchHRec: Record "Purchase Header";
-                        PurchHLineRe: Record "Purchase Line";
-                        Line: BigInteger;
-
-                        SupplierRec: Record Vendor;
-                        "Suplier No": Code[20];
-                        PurchaseHeaderRec: Record "Purchase Header";
-                        BOMAutogenRec: Record "BOM Line AutoGen";
-                        BOMRec: Record bom;
-                    begin
-
+                        /////////////////////
+                        // Mihiranga 2023/10/05
                         SupplierRec.Reset();
                         SupplierRec.SetRange(Name, Rec."Supplier Name");
                         if not SupplierRec.FindSet() then
@@ -406,7 +391,126 @@ page 50996 "PI Details Card"
                             end;
                         end;
                         CurrPage.Update();
+                        ////////////////////
                     end;
+
+                    // trigger OnValidate()
+                    // var
+                    //     DocNo: Code[20];
+                    //     PipoRec2: Record "PI Po Details";
+                    //     PiPODetailsRec: Record PIPODetails1;
+                    //     StyleMasterRec: Record "Style Master";
+                    //     PurchHRec: Record "Purchase Header";
+                    //     PurchHLineRe: Record "Purchase Line";
+                    //     Line: BigInteger;
+
+                    //     SupplierRec: Record Vendor;
+                    //     "Suplier No": Code[20];
+                    //     PurchaseHeaderRec: Record "Purchase Header";
+                    //     BOMAutogenRec: Record "BOM Line AutoGen";
+                    //     BOMRec: Record bom;
+                    // begin
+
+                    //     SupplierRec.Reset();
+                    //     SupplierRec.SetRange(Name, Rec."Supplier Name");
+                    //     if not SupplierRec.FindSet() then
+                    //         Error('Invalid Supplier');
+
+                    //     PiPODetailsRec.Reset();
+                    //     if PiPODetailsRec.FindLast() then begin
+                    //         Line := PiPODetailsRec."Line No";
+                    //     end;
+                    //     //Delete All
+                    //     PiPODetailsRec.Reset();
+                    //     if PiPODetailsRec.FindSet() then begin
+                    //         PiPODetailsRec.DeleteAll();
+                    //     end;
+
+                    //     if Rec."Style Filter" = true then begin
+
+                    //         PurchHLineRe.Reset();
+                    //         PurchHLineRe.SetRange(StyleNo, Rec."Style No.");
+                    //         PurchHLineRe.SetCurrentKey("Document No.");
+                    //         PurchHLineRe.Ascending(true);
+                    //         PurchHLineRe.SetRange("Document Type", PurchHLineRe."Document Type"::Order);
+                    //         if PurchHLineRe.FindSet() then begin
+                    //             repeat
+                    //                 if DocNo <> PurchHLineRe."Document No." then begin
+                    //                     DocNo := PurchHLineRe."Document No.";
+
+                    //                     PurchHRec.Reset();
+                    //                     PurchHRec.SetRange("No.", PurchHLineRe."Document No.");
+                    //                     PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
+                    //                     if PurchHRec.FindSet() then begin
+
+                    //                         PiPODetailsRec.Reset();
+                    //                         PiPODetailsRec.SetRange("PO No.", PurchHRec."No.");
+                    //                         if not PiPODetailsRec.FindSet() then begin
+                    //                             Line += 1;
+                    //                             PiPODetailsRec.Init();
+                    //                             PiPODetailsRec."Line No" := Line;
+                    //                             PiPODetailsRec."Proforma Invoice No." := Rec."No.";
+                    //                             PiPODetailsRec.Status := PurchHRec.Status;
+                    //                             PIPODetailsRec."PI No." := PurchHRec."PI No.";
+                    //                             PIPODetailsRec."PO No." := PurchHRec."No.";
+                    //                             PurchHRec.CalcFields("Amount Including VAT");
+                    //                             PIPODetailsRec."PO Value" := PurchHRec."Amount Including VAT";
+                    //                             PiPODetailsRec."Buy-from Vendor No." := PurchHRec."Buy-from Vendor No.";
+                    //                             PiPODetailsRec."Merchandizer Group Name" := PurchHRec."Merchandizer Group Name";
+                    //                             PIPODetailsRec."Created Date" := WorkDate();
+                    //                             PIPODetailsRec."Created User" := UserId;
+                    //                             PiPODetailsRec.Insert();
+                    //                         end;
+                    //                     end;
+                    //                 end;
+                    //             until PurchHLineRe.Next() = 0;
+                    //             PipoRec2.Reset();
+                    //             if PipoRec2.FindSet() then begin
+                    //                 repeat
+                    //                     PiPODetailsRec.Reset();
+                    //                     PiPODetailsRec.SetRange("PO No.", PipoRec2."PO No.");
+                    //                     if PiPODetailsRec.FindSet() then begin
+                    //                         PiPODetailsRec.Delete();
+                    //                     end;
+                    //                 until PipoRec2.Next() = 0;
+                    //             end;
+                    //         end;
+                    //         CurrPage.Update();
+                    //     end
+                    //     else begin
+                    //         PurchHRec.Reset();
+                    //         PurchHRec.SetRange("Document Type", PurchHRec."Document Type"::Order);
+                    //         if PurchHRec.FindSet() then begin
+                    //             repeat
+                    //                 Line += 1;
+                    //                 PiPODetailsRec.Init();
+                    //                 PiPODetailsRec."Line No" := Line;
+                    //                 PiPODetailsRec."Proforma Invoice No." := Rec."No.";
+                    //                 PiPODetailsRec.Status := PurchHRec.Status;
+                    //                 PIPODetailsRec."PI No." := PurchHRec."PI No.";
+                    //                 PIPODetailsRec."PO No." := PurchHRec."No.";
+                    //                 PurchHRec.CalcFields("Amount Including VAT");
+                    //                 PIPODetailsRec."PO Value" := PurchHRec."Amount Including VAT";
+                    //                 PiPODetailsRec."Buy-from Vendor No." := PurchHRec."Buy-from Vendor No.";
+                    //                 PiPODetailsRec."Merchandizer Group Name" := PurchHRec."Merchandizer Group Name";
+                    //                 PIPODetailsRec."Created Date" := WorkDate();
+                    //                 PIPODetailsRec."Created User" := UserId;
+                    //                 PiPODetailsRec.Insert();
+                    //             until PurchHRec.Next() = 0;
+                    //         end;
+                    //         PipoRec2.Reset();
+                    //         if PipoRec2.FindSet() then begin
+                    //             repeat
+                    //                 PiPODetailsRec.Reset();
+                    //                 PiPODetailsRec.SetRange("PO No.", PipoRec2."PO No.");
+                    //                 if PiPODetailsRec.FindSet() then begin
+                    //                     PiPODetailsRec.Delete();
+                    //                 end;
+                    //             until PipoRec2.Next() = 0;
+                    //         end;
+                    //     end;
+                    //     CurrPage.Update();
+                    // end;
 
                 }
 
