@@ -18,6 +18,23 @@ pageextension 51190 PaymentJrnlList extends "Payment Journal"
                 Editable = false;
             }
         }
+        addafter("Debit Amount")
+        {
+            field(Amounts; rec.Amount)
+            {
+                ApplicationArea = All;
+            }
+            field("Amount(LCY)"; Rec."Amount (LCY)")
+            {
+                ApplicationArea = All;
+                Caption = 'Amount (LCY)';
+            }
+            field("Payment Method Code."; Rec."Payment Method Code")
+            {
+                ApplicationArea = All;
+                Caption = 'Payment Method Code';
+            }
+        }
 
         addafter("Bal. Account No.")
         {
