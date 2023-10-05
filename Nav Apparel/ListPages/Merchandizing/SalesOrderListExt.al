@@ -71,11 +71,14 @@ pageextension 51058 SalesOrderListExt extends "Sales Order List"
         ProdOrderRec: Record "Production Order";
         SalesLineRec: Record "Sales Invoice Line";
     begin
+        //Mihiranga 2023/10/05
         StatusGB := '';
         ProdOrderRec.Reset();
         ProdOrderRec.SetRange("Source No.", rec."No.");
         ProdOrderRec.SetRange("Source Type", ProdOrderRec."Source Type"::"Sales Header");
-        if ProdOrderRec.FindSet() then begin
+        ProdOrderRec.SetCurrentKey("Creation Date");
+        ProdOrderRec.Ascending(true);
+        if ProdOrderRec.FindLast() then begin
             case ProdOrderRec.Status of
                 ProdOrderRec.Status::"Firm Planned":
                     StatusGB := 'Firm Planned';
