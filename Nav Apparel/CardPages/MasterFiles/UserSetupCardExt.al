@@ -101,7 +101,7 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
             field("Estimate Costing Approve"; Rec."Estimate Costing Approve")
             {
                 ApplicationArea = All;
-               
+
             }
             field("Daily Requirement Approver"; rec."Daily Requirement Approver")
             {
@@ -117,4 +117,11 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
             }
         }
     }
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+        if (UserId <> 'SSDEVELOPER') and (UserId <> 'SOLUTIONUSER') then begin
+           Error('User Setup has not set up for the this user');
+        end;
+    end;
 }
