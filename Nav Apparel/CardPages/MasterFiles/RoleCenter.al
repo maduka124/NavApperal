@@ -1943,6 +1943,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Released Production Orders")
+                {
+                    Caption = 'Released Production Orders';
+                    RunObject = Page "Released Production Orders";
+                    ApplicationArea = all;
+                }
+
                 group("Finishing Reports")
                 {
                     Caption = 'Finishing Reports';
