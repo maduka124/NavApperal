@@ -4,7 +4,7 @@ report 51401 "Journal Voucher"
     Caption = 'Journal Voucher';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = RDLC;
-    RDLCLayout = 'Report_Layouts/JournalVoucher.rdl';
+    RDLCLayout = 'Report_Layouts/Finance/JournalVoucher.rdl';
     dataset
     {
         dataitem(GenJournalLine; "Gen. Journal Line")

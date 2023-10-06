@@ -3,7 +3,7 @@ report 51399 "Customer Cheque Print"
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = RDLC;
     // RDLCLayout = 'Report_Layouts/Print Cheque.rdl';
-    RDLCLayout = 'Report_Layouts/AVCheck.rdl';
+    RDLCLayout = 'Report_Layouts/Finance/AVCheck.rdl';
 
     UseSystemPrinter = false;
 
