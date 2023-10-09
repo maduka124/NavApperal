@@ -50,7 +50,7 @@ pageextension 51159 ReleasedProdExt extends "Released Production Orders"
         if StylePoRec.FindSet() then begin
             repeat
                 POQty += StylePoRec.Qty;
-                FinishQty += StylePoRec."Poly Bag";
+                FinishQty += StylePoRec."Finish Qty";
                 ShipQty += StylePoRec."Actual Shipment Qty";
             until StylePoRec.Next() = 0;
         end;
@@ -73,6 +73,7 @@ pageextension 51159 ReleasedProdExt extends "Released Production Orders"
 
     trigger OnOpenPage()
     var
+        StylePoRec: Record "Style Master PO";
         LoginSessionsRec: Record LoginSessions;
         LoginRec: Page "Login Card";
     begin
