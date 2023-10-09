@@ -806,7 +806,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>WASH SEND VALUE</Value>
+                                  <Value>WASH RECEIVED</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -863,7 +863,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>WASH RECEIVED</Value>
+                                  <Value>WASH SEND</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
