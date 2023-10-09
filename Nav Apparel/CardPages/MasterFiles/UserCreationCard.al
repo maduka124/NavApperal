@@ -359,6 +359,24 @@ page 50978 "Create User Card"
             //         end;
             //     end;
             // }
+            // action("Remove Contract Style Contract No")
+            // {
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     var
+            //         ContractStyleRec: Record "Contract/LCStyle";
+            //     begin
+            //         ContractStyleRec.Reset();
+            //         ContractStyleRec.SetRange("No.", '00392');
+            //         if ContractStyleRec.FindSet() then begin
+            //             ContractStyleRec.DeleteAll();
+            //             Message('00392 Record deleted');
+            //         end;
+
+            //     end;
+
+            // }
             action("Remove minus Planned Qty in wip")
             {
                 ApplicationArea = All;
