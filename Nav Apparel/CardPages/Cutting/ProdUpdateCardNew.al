@@ -406,6 +406,9 @@ page 50371 "Prod Update Card"
                                 JobPlaLineRec.SetFilter("Start Date", '<=%1', ProdDate);
                                 if JobPlaLineRec.FindFirst() then begin
 
+                                    // if LineNo = 16626 then
+                                    //     LineNo := LineNo;
+
                                     TempQty := 0;
 
                                     if JobPlaLineRec.Carder <> 0 then
