@@ -354,14 +354,29 @@ table 50101 "Daily Consumption Header"
             trigger OnLookup()
             var
                 AssortDetails: Record AssortmentDetails;
+                StyleRec: Record "Style Master";
             begin
-                AssortDetails.Reset();
-                AssortDetails.SetRange("Lot No.", "Lot No.");
-                AssortDetails.SetRange("Style No.", "Style Master No.");
-                if Page.RunModal(50109, AssortDetails) = Action::LookupOK then
-                    Validate("Colour Name", AssortDetails."Colour Name");
+                //Mihiranga 2023/10/09
+                StyleRec.Reset();
+                StyleRec.SetRange("Style No.", "Style Name");
+                if StyleRec.FindSet() then begin
+                    AssortDetails.Reset();
+                    AssortDetails.SetRange("Lot No.", "Lot No.");
+                    AssortDetails.SetRange("Style No.", StyleRec."No.");
+                    if Page.RunModal(50109, AssortDetails) = Action::LookupOK then
+                        Validate("Colour Name", AssortDetails."Colour Name");
+                end;
+
+
+                // AssortDetails.Reset();
+                // AssortDetails.SetRange("Lot No.", "Lot No.");
+                // AssortDetails.SetRange("Style No.", "Style Master No.");
+                // if Page.RunModal(50109, AssortDetails) = Action::LookupOK then
+                //     Validate("Colour Name", AssortDetails."Colour Name");
+
             end;
         }
+
 
         field(16; "Style Master No."; Code[20])
         {
