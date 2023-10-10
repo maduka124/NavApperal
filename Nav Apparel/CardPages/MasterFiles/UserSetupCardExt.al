@@ -120,8 +120,8 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
     trigger OnAfterGetCurrRecord()
     var
     begin
-        if (UserId <> 'SSDEVELOPER') and (UserId <> 'SOLUTIONUSER') then begin
-           Error('User Setup has not set up for the this user');
+        if (UserId <> 'SSDEVELOPER') and (UserId <> 'SOLUTIONUSER') and (UserId <> 'SOFTSERVE') then begin
+            Error('User Setup has not set up for the this user');
         end;
     end;
 }
