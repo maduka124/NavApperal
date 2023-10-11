@@ -279,6 +279,20 @@ codeunit 50618 NavAppCodeUnit
             exit('StrongAccent');
     end;
 
+    procedure ChangeColorWashinAnlyse1(OpList: Record WashtypeWiseanalysis): Text[50]
+
+    begin
+        if OpList."Record Type" = 'T' then
+            exit('StrongAccent');
+    end;
+
+    procedure ChangeColorWashinAnlyse2(OpList: Record WashFactoryWiseanalysisTbl): Text[50]
+
+    begin
+        if OpList."Record Type" = 'T' then
+            exit('StrongAccent');
+    end;
+
     procedure ChangeColorBooking2(OpList: Record BuyerWiseOrderBookinBalatoSew): Text[50]
 
     begin
