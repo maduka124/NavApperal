@@ -52,8 +52,22 @@ page 50353 DailyCuttingOutListPart
 
                     trigger OnValidate()
                     var
+                        ProdOutHeaderRec: Record ProductionOutHeader;
+                        One: Integer;
                     begin
                         CalTotal();
+                        // Evaluate(One, Rec."1");
+                        // ProdOutHeaderRec.Reset();
+                        // ProdOutHeaderRec.SetRange("No.", Rec."No.");
+                        // ProdOutHeaderRec.SetRange("PO No", Rec."PO No.");
+                        // ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Cut);
+                        // ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        // if ProdOutHeaderRec.FindSet() then begin
+                        //     if ProdOutHeaderRec."Input Qty" > One then
+                        //         Error('You Cannot Decrease Color/Size Output Detail Qty Coz Sewing Input Done');
+                        // end;
+
+                        Validation();
                     end;
                 }
                 field("2"; Rec."2")
@@ -65,8 +79,21 @@ page 50353 DailyCuttingOutListPart
 
                     trigger OnValidate()
                     var
+                        Two: Integer;
+                        ProdOutHeaderRec: Record ProductionOutHeader;
                     begin
                         CalTotal();
+                        // Evaluate(Two, Rec."2");
+                        // ProdOutHeaderRec.Reset();
+                        // ProdOutHeaderRec.SetRange("No.", Rec."No.");
+                        // ProdOutHeaderRec.SetRange("PO No", Rec."PO No.");
+                        // ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Cut);
+                        // ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        // if ProdOutHeaderRec.FindSet() then begin
+                        //     if ProdOutHeaderRec."Input Qty" > Two then
+                        //         Error('You Cannot Decrease Color/Size Output Detail Qty Coz Sewing Input Done');
+                        // end;
+                        Validation();
                     end;
                 }
 
@@ -81,6 +108,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -95,6 +123,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -109,6 +138,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -123,6 +153,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -137,6 +168,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -151,6 +183,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -165,6 +198,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -179,6 +213,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -193,6 +228,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -207,6 +243,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -221,6 +258,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -235,6 +273,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -249,6 +288,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -263,6 +303,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -277,6 +318,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -291,6 +333,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -305,6 +348,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -319,6 +363,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -333,6 +378,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -347,6 +393,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -361,6 +408,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -375,6 +423,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -389,6 +438,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -403,6 +453,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -417,6 +468,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -431,6 +483,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -445,6 +498,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -459,6 +513,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -473,6 +528,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -487,6 +543,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -501,6 +558,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -515,6 +573,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -529,6 +588,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -543,6 +603,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -557,6 +618,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -571,6 +633,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -585,6 +648,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -599,6 +663,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -613,6 +678,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -628,6 +694,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -643,6 +710,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -658,6 +726,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -673,6 +742,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -688,6 +758,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -703,6 +774,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -719,6 +791,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -734,6 +807,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -748,6 +822,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -762,6 +837,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -776,6 +852,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -790,6 +867,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -804,6 +882,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -819,6 +898,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -833,6 +913,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -847,6 +928,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -861,6 +943,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -875,6 +958,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -889,6 +973,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -903,6 +988,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -917,6 +1003,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -931,6 +1018,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -945,6 +1033,7 @@ page 50353 DailyCuttingOutListPart
                     var
                     begin
                         CalTotal();
+                        Validation();
                     end;
                 }
 
@@ -958,7 +1047,25 @@ page 50353 DailyCuttingOutListPart
         }
     }
 
+    procedure Validation()
 
+    var
+        ProdOutHeaderRec: Record ProductionOutHeader;
+        Number: Integer;
+        Count: Integer;
+    begin
+        // if Rec.Type = Rec.Type::Cut then begin
+        //     ProdOutHeaderRec.Reset();
+        //     ProdOutHeaderRec.SetRange("No.", Rec."No.");
+        //     ProdOutHeaderRec.SetRange("PO No", Rec."PO No.");
+        //     ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Cut);
+        //     ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+        //     if ProdOutHeaderRec.FindSet() then begin
+        //         if ProdOutHeaderRec."Input Qty" > Rec.Total then
+        //             Error('You Cannot Decrease Color/Size Output Detail Qty Coz Sewing Input Done');
+        //     end;
+        // end;
+    end;
 
     procedure CalTotal()
     var
@@ -1436,6 +1543,8 @@ page 50353 DailyCuttingOutListPart
             SetEdit := true;
         end;
 
+
+
         // ProductionOutLineRec.Reset();
         // ProductionOutLineRec.SetRange("No.", Rec."No.");
         // ProductionOutLineRec.SetRange(Type, Rec.Type);
@@ -1772,6 +1881,25 @@ page 50353 DailyCuttingOutListPart
 
         // end;
     end;
+
+    // trigger OnClosePage()
+    // var
+    //     ProdOutHeaderRec: Record ProductionOutHeader;
+    //     Number: Integer;
+    //     Count: Integer;
+    // begin
+    //     if Rec.Type = Rec.Type::Cut then begin
+    //         ProdOutHeaderRec.Reset();
+    //         ProdOutHeaderRec.SetRange("No.", Rec."No.");
+    //         ProdOutHeaderRec.SetRange("PO No", Rec."PO No.");
+    //         ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Cut);
+    //         ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+    //         if ProdOutHeaderRec.FindSet() then begin
+    //             if ProdOutHeaderRec."Input Qty" > Rec.Total then
+    //                 Error('You Cannot Decrease Color/Size Output Detail Qty Coz Sewing Input Done');
+    //         end;
+    //     end;
+    // end;
 
     var
         StyleExprTxt: Text[50];

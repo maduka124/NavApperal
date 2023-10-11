@@ -319,6 +319,17 @@ page 50351 "Daily Cutting Out Card"
                         StyleMasterPORec.FindSet();
 
                         StyleMasterPORec.ModifyAll("Cut In Qty", LineTotal);
+
+
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutHeaderRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                        if ProdOutHeaderRec.FindSet() then begin
+                            if ProdOutHeaderRec."Input Qty" > Rec."Input Qty" then
+                                Error('You Cannot Decrease Input Qty Coz Sewing Input Done');
+                        end;
                     end;
                 }
 
@@ -329,6 +340,7 @@ page 50351 "Daily Cutting Out Card"
 
                     trigger OnValidate()
                     var
+                        ProdOutHeaderRec: Record ProductionOutHeader;
                         StyleMasterPORec: Record "Style Master PO";
                         WastageRec: Record ExtraPercentageForCutting;
                         Waistage: Decimal;
@@ -353,6 +365,16 @@ page 50351 "Daily Cutting Out Card"
                         end
                         else
                             Error('Cannot find PO details.');
+
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                        ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHeaderRec.SetRange("Resource No.", Rec."Resource No.");
+                        if ProdOutHeaderRec.FindSet() then begin
+                            if ProdOutHeaderRec."Input Qty" > Rec."Output Qty" then
+                                Error('You Cannot Decrease Output Qty Coz Sewing Input Done');
+                        end;
                     end;
                 }
             }

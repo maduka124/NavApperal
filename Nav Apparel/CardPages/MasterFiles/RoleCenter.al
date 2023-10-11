@@ -2399,12 +2399,37 @@ page 50968 "Nav Apperal Role Center"
             {
                 Caption = 'Washing';
 
+                action("Allocated Style/PO For Wash")
+                {
+                    Caption = 'Allocated Style/PO For Wash';
+                    RunObject = Page "Allocated Style/PO For Wash";
+                    ApplicationArea = all;
+                }
+
                 action("OMS Washing")
                 {
                     Caption = 'OMS List';
                     RunObject = Page OMSList;
                     ApplicationArea = all;
                 }
+
+                action("Pending Style/PO For Wash")
+                {
+                    Caption = 'Pending Style/PO For Wash';
+                    RunObject = Page "Pending Style/PO For Wash";
+                    ApplicationArea = all;
+                }
+
+
+                action(" ")
+                {
+                    Caption = 'Washing Factory & Type Annalyse ';
+                    RunObject = Page WashTypeAndFactWisecard;
+                    ApplicationArea = all;
+                }
+
+
+
                 action("Sample Requests")
                 {
                     Caption = ' Washing Requisition';
