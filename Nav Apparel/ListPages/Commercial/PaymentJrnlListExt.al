@@ -20,6 +20,11 @@ pageextension 51190 PaymentJrnlList extends "Payment Journal"
         }
         addafter("Debit Amount")
         {
+            field(Status; Rec.Status)
+            {
+                ApplicationArea = All;
+                // ToolTip = 'Specifies the value of the Status field.';
+            }
             field(Amounts; rec.Amount)
             {
                 ApplicationArea = All;
@@ -34,6 +39,7 @@ pageextension 51190 PaymentJrnlList extends "Payment Journal"
                 ApplicationArea = All;
                 Caption = 'Payment Method Code';
             }
+
         }
 
         addafter("Bal. Account No.")
@@ -133,6 +139,16 @@ pageextension 51190 PaymentJrnlList extends "Payment Journal"
                 end;
             }
         }
+        // modify(SendApprovalRequestJournalBatch)
+        // {
+        //     trigger OnAfterAction()
+
+        //     begin
+        //         Rec.Status := Rec.Status::"Pending Approval";
+        //     end;
+        //     // Visible = false;
+
+        // }
 
     }
 }

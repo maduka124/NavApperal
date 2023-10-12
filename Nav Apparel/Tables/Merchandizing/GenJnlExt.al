@@ -36,6 +36,21 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
             DataClassification = ToBeClassified;
             Editable = false;
         }
+        field(50009; Status; Enum "Sales Document Status")
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Status';
+            Editable = false;
+        }
+        modify("Document Date")
+        {
+            trigger OnAfterValidate()
+            var
+            begin
+                // Status := Status::Open;
+
+            end;
+        }
     }
 }
 
