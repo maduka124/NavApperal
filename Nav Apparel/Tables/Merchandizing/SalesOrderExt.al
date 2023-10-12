@@ -83,6 +83,7 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Sell-to Customer No.")); // Change to Contract Table by Mihiranga on 02/10/2023
             ValidateTableRelation = false;
         }
+        
 
         field(50017; "LC Name"; Text[50])
         {
