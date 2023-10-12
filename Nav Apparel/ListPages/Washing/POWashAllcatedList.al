@@ -117,6 +117,7 @@ page 51427 "Allocated Style/PO For Wash"
         StylemasterPORec: Record "Style Master PO";
         ProductioOutLineRec: Record ProductionOutLine;
         AssortmentDetailsRec: Record AssorColorSizeRatio;
+        ProductionOutHeaderRec: Record ProductionOutHeader;
         NavAppProdDetailRec: Record "NavApp Prod Plans Details";
         MaxTartget: BigInteger;
         Total: BigInteger;
@@ -126,21 +127,35 @@ page 51427 "Allocated Style/PO For Wash"
         //Cut Qty;
         Total := 0;
 
-        ProductioOutLineRec.Reset();
-        ProductioOutLineRec.SetRange(Type, ProductioOutLineRec.Type::Cut);
-        ProductioOutLineRec.SetRange("Style No.", Rec."Style No");
-        ProductioOutLineRec.SetRange("PO No.", Rec."PO No");
-        ProductioOutLineRec.SetRange("Lot No.", Rec.Lot);
-        ProductioOutLineRec.SetRange("Colour Name", Rec."Color Name");
-        ProductioOutLineRec.SetRange(In_Out, 'OUT');
+        ProductionOutHeaderRec.Reset();
+        ProductionOutHeaderRec.SetRange(Type, ProductionOutHeaderRec.Type::Cut);
+        ProductionOutHeaderRec.SetRange("Style No.", Rec."Style No");
+        ProductionOutHeaderRec.SetRange("PO No", Rec."PO No");
+        ProductionOutHeaderRec.SetRange("Lot No.", Rec.Lot);
 
-        if ProductioOutLineRec.FindSet() then begin
+        if ProductionOutHeaderRec.FindSet() then begin
             repeat
-                Total += ProductioOutLineRec.Total;
-            until ProductioOutLineRec.Next() = 0;
+                ProductioOutLineRec.Reset();
+                // ProductioOutLineRec.SetRange(Type, ProductioOutLineRec.Type::Cut);
+                // ProductioOutLineRec.SetRange("Style No.", Rec."Style No");
+                // ProductioOutLineRec.SetRange("PO No.", Rec."PO No");
+                // ProductioOutLineRec.SetRange("Lot No.", Rec.Lot);
+                ProductioOutLineRec.SetRange("No.", ProductionOutHeaderRec."No.");
+                // ProductioOutLineRec.SetRange(In_Out, 'OUT');
+
+                if ProductioOutLineRec.FindSet() then begin
+                    repeat
+                        if ProductioOutLineRec."Colour Name" = Rec."Color Name" then
+                            Total += ProductioOutLineRec.Total;
+                    until ProductioOutLineRec.Next() = 0;
+
+                end;
+            until ProductionOutHeaderRec.Next() = 0;
             Rec."Cut Qty" := Total;
             Rec.Modify(true);
         end;
+
+
 
         //Sew Qty
         Total := 0;

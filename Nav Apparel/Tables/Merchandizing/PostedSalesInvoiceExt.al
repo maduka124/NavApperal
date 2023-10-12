@@ -77,7 +77,11 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
             DataClassification = ToBeClassified;
         }
 
-        field(50016; "Export Ref No."; code[50])
+        // field(50016; "Export Ref No."; code[50])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+        field(50016; "Contract No"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -94,10 +98,8 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         {
             DataClassification = ToBeClassified;
         }
-        field(50019; "Contract No"; Text[50])
-        {
-            DataClassification = ToBeClassified;
-        }
+
+
         field(50020; "BL No"; Text[50])
         {
             DataClassification = ToBeClassified;
@@ -135,6 +137,10 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
             DataClassification = ToBeClassified;
         }
         field(50098; "BankReferenceNo"; code[50])    //Correct one
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50099; "Export Ref No."; code[50])
         {
             DataClassification = ToBeClassified;
         }
