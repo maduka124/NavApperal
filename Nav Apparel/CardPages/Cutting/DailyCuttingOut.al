@@ -278,6 +278,8 @@ page 50351 "Daily Cutting Out Card"
                         StyleMasterPORec: Record "Style Master PO";
                         WastageRec: Record ExtraPercentageForCutting;
                         Waistage: Decimal;
+                        TotInputSew: Integer;
+                        TotInputCut: Integer;
                     begin
                         CurrPage.Update();
 
@@ -320,16 +322,34 @@ page 50351 "Daily Cutting Out Card"
 
                         StyleMasterPORec.ModifyAll("Cut In Qty", LineTotal);
 
-
+                        TotInputSew := 0;
                         ProdOutHeaderRec.Reset();
                         ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
                         ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
                         ProdOutHeaderRec.SetRange("Resource No.", Rec."Resource No.");
                         ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
                         if ProdOutHeaderRec.FindSet() then begin
-                            if ProdOutHeaderRec."Input Qty" > Rec."Input Qty" then
-                                Error('You Cannot Decrease Input Qty Coz Sewing Input Done');
+                            repeat
+                                TotInputSew += ProdOutHeaderRec."Input Qty";
+                            until ProdOutHeaderRec.Next() = 0;
+
                         end;
+
+                        TotInputCut := 0;
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetFilter("No.", '<>%1', Rec."No.");
+                        ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutHeaderRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Cut);
+                        if ProdOutHeaderRec.FindSet() then begin
+                            repeat
+                                TotInputCut += ProdOutHeaderRec."Input Qty";
+                            until ProdOutHeaderRec.Next() = 0;
+                        end;
+
+                        if TotInputSew > Rec."Input Qty" + TotInputCut then
+                            Error('You Cannot Decrease Input Qty Coz Sewing Input Done');
                     end;
                 }
 
@@ -344,6 +364,8 @@ page 50351 "Daily Cutting Out Card"
                         StyleMasterPORec: Record "Style Master PO";
                         WastageRec: Record ExtraPercentageForCutting;
                         Waistage: Decimal;
+                        TotInputCutOut: Integer;
+                        TotInputSew: Integer;
                     begin
                         if rec."Input Qty" < rec."Output Qty" then
                             Error('Output quantity is greater than Input quantity.');
@@ -366,16 +388,46 @@ page 50351 "Daily Cutting Out Card"
                         else
                             Error('Cannot find PO details.');
 
+                        // ProdOutHeaderRec.Reset();
+                        // ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+                        // ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                        // ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        // ProdOutHeaderRec.SetRange("Resource No.", Rec."Resource No.");
+                        // if ProdOutHeaderRec.FindSet() then begin
+                        //     if ProdOutHeaderRec."Input Qty" > Rec."Output Qty" then
+                        //         Error('You Cannot Decrease Output Qty Coz Sewing Input Done');
+                        // end;
+
+                        TotInputSew := 0;
                         ProdOutHeaderRec.Reset();
-                        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
-                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
                         ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
                         ProdOutHeaderRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
                         if ProdOutHeaderRec.FindSet() then begin
-                            if ProdOutHeaderRec."Input Qty" > Rec."Output Qty" then
-                                Error('You Cannot Decrease Output Qty Coz Sewing Input Done');
+                            repeat
+                                TotInputSew += ProdOutHeaderRec."Input Qty";
+                            until ProdOutHeaderRec.Next() = 0;
+
                         end;
+
+                        TotInputCutOut := 0;
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetFilter("No.", '<>%1', Rec."No.");
+                        ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutHeaderRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Cut);
+                        if ProdOutHeaderRec.FindSet() then begin
+                            repeat
+                                TotInputCutOut += ProdOutHeaderRec."Input Qty";
+                            until ProdOutHeaderRec.Next() = 0;
+                        end;
+
+                        if TotInputSew > Rec."Output Qty" + TotInputCutOut then
+                            Error('You Cannot Decrease Output Qty Coz Sewing Input Done');
                     end;
+
                 }
             }
 
