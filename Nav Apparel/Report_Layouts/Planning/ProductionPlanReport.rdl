@@ -3913,6 +3913,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="Merchandiser_Name">
+          <DataField>Merchandiser_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
         <Field Name="BPCD">
           <DataField>BPCD</DataField>
         </Field>
@@ -3958,6 +3964,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Order_NO">
           <DataField>Order_NO</DataField>
         </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
         <Field Name="Style_Description">
           <DataField>Style_Description</DataField>
         </Field>
@@ -3967,14 +3976,17 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="SMVFormat">
           <DataField>SMVFormat</DataField>
         </Field>
+        <Field Name="PlanTGT">
+          <DataField>PlanTGT</DataField>
+        </Field>
+        <Field Name="PRD_Days">
+          <DataField>PRD_Days</DataField>
+        </Field>
         <Field Name="Resource_No">
           <DataField>Resource_No</DataField>
         </Field>
         <Field Name="Planing_input">
           <DataField>Planing_input</DataField>
-        </Field>
-        <Field Name="Planing_inputFormat">
-          <DataField>Planing_inputFormat</DataField>
         </Field>
         <Field Name="Lot_No_">
           <DataField>Lot_No_</DataField>
@@ -4005,12 +4017,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Line_No_">
           <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="Merchandiser_Name">
-          <DataField>Merchandiser_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
         </Field>
       </Fields>
       <Query>
