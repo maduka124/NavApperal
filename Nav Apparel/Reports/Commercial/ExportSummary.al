@@ -127,14 +127,38 @@ report 50629 ExportSummartReport
 
                 POBalance := 0;
                 SalesInvoiceLineRec.Reset();
-                SalesInvoiceLineRec.SetRange("Order No.", "Order No.");
+                SalesInvoiceLineRec.SetRange("Document No.", "No.");
                 SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
                 if SalesInvoiceLineRec.FindSet() then begin
                     repeat
                         POBalance += SalesInvoiceLineRec.Quantity;
                     until SalesInvoiceLineRec.Next() = 0;
+
                 end;
 
+                SalesInvRec.Reset();
+                SalesInvRec.SetRange("Style Name", "Style Name");
+                SalesInvRec.SetRange("PO No", "PO No");
+                if SalesInvRec.FindSet() then begin
+                    TotShip := 0;
+                    SalesInvoiceLineRec.Reset();
+                    SalesInvoiceLineRec.SetRange("Document No.", SalesInvRec."No.");
+                    SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                    if SalesInvoiceLineRec.FindSet() then begin
+                        repeat
+                            TotShip += SalesInvoiceLineRec.Quantity;
+                        until SalesInvoiceLineRec.Next() = 0;
+                    end;
+                end;
+                BalanceQty := 0;
+                OrderQtyTot := 0;
+                StyleRec.Reset();
+                StyleRec.SetRange("Style No.","Style Name");
+                if StyleRec.FindSet() then begin
+                    OrderQtyTot := StyleRec."Order Qty";
+                end;
+
+                // BalanceQty := TotShip - OrderQtyTot;
                 BalanceQty := POBalance - POQty;
 
                 if "PO No" = POLc then begin
@@ -346,6 +370,10 @@ report 50629 ExportSummartReport
     }
 
     var
+        StyleRec: Record "Style Master";
+        OrderQtyTot: Integer;
+        TotShip: Integer;
+        SalesInvRec: Record "Sales Invoice Header";
         SalesShipmentLineRec: Record "Sales Shipment Line";
         BrandNameFilter: Text[50];
         ContractRec: Record "Contract/LCMaster";
