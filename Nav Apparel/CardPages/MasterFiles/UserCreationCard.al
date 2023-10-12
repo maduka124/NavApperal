@@ -414,6 +414,27 @@ page 50978 "Create User Card"
                 end;
             }
 
+            action("PO Allocation Remove(Washing)")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    PendingAllocationWashRec: Record PendingAllocationWash;
+                    WashingMasterRec: Record WashingMaster;
+                begin
+
+                    WashingMasterRec.Reset();
+                    if WashingMasterRec.FindSet() then
+                        WashingMasterRec.DeleteAll(true);
+
+                    PendingAllocationWashRec.Reset();
+                    if PendingAllocationWashRec.FindSet() then
+                        PendingAllocationWashRec.DeleteAll(true);
+
+                end;
+            }
+
             // action("Update BundleGuideNo in Laysheet")
             // {
             //     ApplicationArea = All;
