@@ -133,8 +133,7 @@ page 51423 "Pending Style/PO For Wash"
 
                             until SalesInvoiceHeaderRec.Next() = 0;
                         end;
-
-                        if ShipQty >= StyleMasterPORec.Qty then begin
+                        if ShipQty <= StyleMasterPORec.Qty then begin
 
 
                             PendingAllocationRec.Init();
