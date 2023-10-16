@@ -3,6 +3,7 @@ page 50518 "Hourly Production List"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = "Hourly Production Master";
     CardPageId = "Hourly Production Card";
     SourceTableView = sorting("No.") order(descending) where(Type = filter(Sewing));

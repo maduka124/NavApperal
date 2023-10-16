@@ -3,6 +3,7 @@ page 50357 "Daily Washing In/Out"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = ProductionOutHeader;
     SourceTableView = sorting("No.") order(descending) where(Type = filter('Wash'));
     CardPageId = "Daily Washing In/Out Card";

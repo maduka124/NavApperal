@@ -3,6 +3,7 @@ page 50666 "Bundle Guide List"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = BundleGuideHeader;
     CardPageId = "Bundle Guide Card";
     SourceTableView = sorting("BundleGuideNo.") order(descending);

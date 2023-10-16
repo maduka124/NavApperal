@@ -3,6 +3,7 @@ page 50363 "Daily Finishing Out"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = ProductionOutHeader;
     SourceTableView = sorting("No.") order(descending) where(Type = filter('Fin'));
     CardPageId = "Daily Finishing Out Card";

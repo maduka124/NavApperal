@@ -3,6 +3,7 @@ page 50365 "Daily Shipping Out"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = ProductionOutHeader;
     SourceTableView = sorting("No.") order(descending) where(Type = filter('Ship'));
     CardPageId = "Daily Shipping Out Card";

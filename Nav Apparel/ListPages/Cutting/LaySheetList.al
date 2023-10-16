@@ -3,6 +3,7 @@ page 50651 "Lay Sheet List"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = LaySheetHeader;
     CardPageId = LaySheetCard;
     SourceTableView = sorting("LaySheetNo.") order(descending);

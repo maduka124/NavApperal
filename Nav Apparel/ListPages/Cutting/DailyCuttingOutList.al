@@ -3,6 +3,7 @@ page 50352 "Daily Cutting Out"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = ProductionOutHeader;
     SourceTableView = sorting("No.") order(descending) where(Type = filter('Cut'));
     CardPageId = "Daily Cutting Out Card";

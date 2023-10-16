@@ -3,6 +3,7 @@ page 51378 "Hourly Finishing List"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = "Hourly Production Master";
     CardPageId = "Hourly Finishing Card";
     SourceTableView = sorting("No.") order(descending) where(Type = filter(Finishing));
