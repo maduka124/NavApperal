@@ -3,6 +3,7 @@ page 51267 "Bundle Card List"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
+    Editable = false;
     SourceTable = BundleCardTable;
     SourceTableView = sorting("Bundle Card No") order(descending);
     CardPageId = Bundlecard;
