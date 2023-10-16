@@ -223,6 +223,7 @@ page 50351 "Daily Cutting Out Card"
                     var
                         StyleMasterRec: Record "Style Master PO";
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
+                        ProdOutLineRec: Record ProductionOutLine;
                     begin
 
                         StyleMasterRec.Reset();
@@ -252,6 +253,15 @@ page 50351 "Daily Cutting Out Card"
                         if StyleMasterRec.FindSet() then begin
                             rec."Input Qty" := StyleMasterRec."Cut In Qty";
                             CurrPage.Update();
+                        end;
+
+                        ProdOutLineRec.Reset();
+                        ProdOutLineRec.SetRange("No.", Rec."No.");
+                        ProdOutLineRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutLineRec.SetRange(Type, ProdOutLineRec.Type::Cut);
+                        ProdOutLineRec.SetRange("Lot No.", Rec."Lot No.");
+                        if ProdOutLineRec.FindSet() then begin
+                            Error('You Cannot Change Lot No');
                         end;
 
                     end;

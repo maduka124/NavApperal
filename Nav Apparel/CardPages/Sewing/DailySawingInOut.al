@@ -214,6 +214,7 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnLookup(var text: Text): Boolean
                     var
+                        ProdOutLineRec: Record ProductionOutLine;
                         StyleMasterRec: Record "Style Master PO";
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
                         ProductionRec: Record ProductionOutHeader;
@@ -260,6 +261,14 @@ page 50355 "Daily Sewing In/Out Card"
                         if NavAppProdPlansDetRec.FindSet() then
                             rec."Ref Line No." := NavAppProdPlansDetRec."Line No.";
 
+                        ProdOutLineRec.Reset();
+                        ProdOutLineRec.SetRange("No.", Rec."No.");
+                        ProdOutLineRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutLineRec.SetRange(Type, ProdOutLineRec.Type::Saw);
+                        ProdOutLineRec.SetRange("Lot No.", Rec."Lot No.");
+                        if ProdOutLineRec.FindSet() then begin
+                            Error('You Cannot Change Lot No');
+                        end;
                     end;
 
                 }
