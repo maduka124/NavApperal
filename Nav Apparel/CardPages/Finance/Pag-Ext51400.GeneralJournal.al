@@ -26,6 +26,13 @@ pageextension 51400 GeneralJournal extends "General Journal"
                 ApplicationArea = All;
                 Caption = 'Payment Method Code';
             }
+
+            field(Status; Rec.Status)
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Status field.';
+            }
+
         }
 
 
