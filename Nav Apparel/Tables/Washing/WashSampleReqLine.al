@@ -28,10 +28,10 @@ table 50705 "Washing Sample Requsition Line"
             TableRelation = "Wash Type"."No.";
         }
 
-        field(5; "Wash Type"; Code[20])
+        field(5; "Wash Type"; Code[200])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Wash Type"."Wash Type Name";
+            TableRelation = "Wash Type"."Wash Type Name" where(Allocation = filter(1));
             ValidateTableRelation = false;
         }
 
@@ -329,6 +329,11 @@ table 50705 "Washing Sample Requsition Line"
         }
 
         field(68; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(69; "Lot No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }

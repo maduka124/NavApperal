@@ -23,6 +23,11 @@ page 51012 "Wash Type"
                 {
                     ApplicationArea = All;
                 }
+
+                field(Allocation; Rec.Allocation)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

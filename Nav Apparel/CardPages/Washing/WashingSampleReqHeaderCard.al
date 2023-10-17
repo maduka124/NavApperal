@@ -9,8 +9,10 @@ page 50701 "Washing Sample Request Card"
 
         area(Content)
         {
+
             group(General)
             {
+                Editable = EditableUser;
                 field("No."; rec."No.")
                 {
                     ApplicationArea = All;
@@ -31,8 +33,9 @@ page 50701 "Washing Sample Request Card"
                     var
                         WashSMReqLineRec: Record "Washing Sample Requsition Line";
                     begin
-                        if rec."Sample/Bulk" = rec."Sample/Bulk"::Sample then
-                            EditableGB := true
+                        if rec."Sample/Bulk" = rec."Sample/Bulk"::Sample then begin
+                            EditableGB := true;
+                        end
                         else begin
                             EditableGB := false;
                             rec."Sample Req. No" := '';
@@ -41,7 +44,28 @@ page 50701 "Washing Sample Request Card"
                             WashSMReqLineRec.SetRange("No.", rec."No.");
                             if WashSMReqLineRec.FindSet() then
                                 WashSMReqLineRec.ModifyAll("Sample Req. No", '');
+                        end;
 
+                        if rec."Sample/Bulk" <> Rec."Sample/Bulk"::Sample then begin
+
+                            WashSMReqLineRec.Reset();
+                            WashSMReqLineRec.SetRange("No.", Rec."No.");
+                            if WashSMReqLineRec.FindSet() then
+                                WashSMReqLineRec.DeleteAll(true);
+
+                            WashSMReqLineRec.Init();
+                            WashSMReqLineRec."No." := Rec."No.";
+                            WashSMReqLineRec."Line no." := 1;
+                            WashSMReqLineRec.SampleType := 'Bulk';
+                            WashSMReqLineRec.Insert();
+
+                        end
+                        else begin
+                            WashSMReqLineRec.Reset();
+                            WashSMReqLineRec.SetRange("No.", Rec."No.");
+
+                            if WashSMReqLineRec.FindSet() then
+                                WashSMReqLineRec.Delete()
                         end;
                     end;
                 }
@@ -108,6 +132,7 @@ page 50701 "Washing Sample Request Card"
                         StyleColorRec: Record StyleColor;
                         WorkCenterRec: Record "Work Center";
                         AssoRec: Record AssorColorSizeRatio;
+                        WashSMReqLineRec: Record "Washing Sample Requsition Line";
                         Color: Code[20];
                     begin
                         StyleRec.Reset();
@@ -145,6 +170,14 @@ page 50701 "Washing Sample Request Card"
                             until AssoRec.Next() = 0;
                         end;
 
+                        WashSMReqLineRec.Reset();
+                        WashSMReqLineRec.SetRange("No.", Rec."No.");
+
+                        if WashSMReqLineRec.FindSet() then begin
+                            WashSMReqLineRec."Style No." := Rec."Style No.";
+                            WashSMReqLineRec."Style Name" := Rec."Style Name";
+                            WashSMReqLineRec.Modify(true);
+                        end;
                     end;
                 }
 
@@ -152,6 +185,7 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
                     Editable = EditableGB;
+                    Visible = EditableGB;
 
                     trigger OnValidate()
                     var
@@ -219,6 +253,8 @@ page 50701 "Washing Sample Request Card"
 
                         end;
 
+                        CurrPage.Update();
+
                     end;
                 }
 
@@ -261,6 +297,57 @@ page 50701 "Washing Sample Request Card"
                     Visible = false;
                 }
 
+                field("Lot No"; Rec."Lot No")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        StyleMasterPORec: Record "Style Master PO";
+                        WashingMasterRec: Record WashingMaster;
+                        WashSMReqLineRec: Record "Washing Sample Requsition Line";
+                        WashType: Code[200];
+                    begin
+
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                        StyleMasterPORec.SetRange("Lot No.", Rec."Lot No");
+
+                        if StyleMasterPORec.FindSet() then begin
+                            Rec."PO No" := StyleMasterPORec."PO No.";
+
+                            WashingMasterRec.Reset();
+                            WashingMasterRec.SetRange("Style No", Rec."Style No.");
+                            WashingMasterRec.SetRange("PO No", Rec."PO No");
+                            WashingMasterRec.SetRange(Lot, Rec."Lot No");
+
+                            if WashingMasterRec.FindFirst() then begin
+                                rec."Wash Plant Name" := WashingMasterRec."Washing Plant";
+                                WashType := WashingMasterRec."Wash Type";
+                            end;
+
+                            WashSMReqLineRec.Reset();
+                            WashSMReqLineRec.SetRange("No.", Rec."No.");
+
+                            if WashSMReqLineRec.FindSet() then begin
+                                WashSMReqLineRec."PO No" := Rec."PO No";
+                                WashSMReqLineRec."Lot No" := Rec."Lot No";
+                                WashSMReqLineRec."Wash Type" := WashType;
+                                WashSMReqLineRec.Modify(true);
+                            end;
+
+                        end;
+
+
+                    end;
+                }
+
+                field("PO No"; rec."PO No")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field("Wash Plant Name"; rec."Wash Plant Name")
                 {
                     ApplicationArea = All;
@@ -277,11 +364,6 @@ page 50701 "Washing Sample Request Card"
                     end;
                 }
 
-                field("PO No"; rec."PO No")
-                {
-                    ApplicationArea = All;
-                }
-
                 field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
@@ -295,11 +377,6 @@ page 50701 "Washing Sample Request Card"
                     Editable = false;
                 }
 
-                // field("Washing Status"; "Washing Status")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
             }
 
             group("Sample Details")
@@ -307,6 +384,7 @@ page 50701 "Washing Sample Request Card"
                 part(WashingSampleListpart; WashingSampleListpart)
                 {
                     ApplicationArea = All;
+                    Editable = EditableUser;
                     Caption = ' ';
                     SubPageLink = "No." = FIELD("No.");
                 }
@@ -319,6 +397,83 @@ page 50701 "Washing Sample Request Card"
             {
                 ApplicationArea = all;
                 SubPageLink = "No." = FIELD("No.");
+            }
+        }
+    }
+
+    actions
+    {
+        area(Processing)
+        {
+            action(Post)
+            {
+
+                ApplicationArea = All;
+                Image = Allocations;
+
+                trigger OnAction()
+                var
+                    WashingMasterRec: Record WashingMaster;
+                    WashingReqLineRec: Record "Washing Sample Requsition Line";
+                    WashingReqLine2Rec: Record "Washing Sample Requsition Line";
+                    StyleMasterPORec: Record "Style Master PO";
+                    Total: BigInteger;
+                    UserRec: Record "User Setup";
+                begin
+
+
+
+                    Total := 0;
+
+                    WashingReqLineRec.Reset();
+                    // WashingReqLineRec.SetRange("Style No.", Rec."Style No.");
+                    // WashingReqLineRec.SetRange("PO No", Rec."PO No");
+                    // WashingReqLineRec.SetRange("Lot No", Rec."Lot No");
+                    WashingReqLineRec.SetRange("No.", Rec."No.");
+
+                    if WashingReqLineRec.FindSet() then begin
+
+                        if WashingReqLineRec."Req Qty" <> 0 then begin
+
+                            WashingMasterRec.Reset();
+                            WashingMasterRec.SetRange("Style No", WashingReqLineRec."Style No.");
+                            WashingMasterRec.SetRange("PO No", WashingReqLineRec."PO No");
+                            WashingMasterRec.SetRange(Lot, WashingReqLineRec."Lot No");
+                            WashingMasterRec.SetRange("Color Name", WashingReqLineRec."Color Name");
+
+                            if WashingMasterRec.FindSet() then begin
+
+                                if WashingMasterRec."Color Qty" > WashingReqLineRec."Req Qty" then begin
+
+                                    WashingReqLine2Rec.Reset();
+                                    WashingReqLine2Rec.SetRange("Style No.", WashingReqLineRec."Style No.");
+                                    WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
+                                    WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
+                                    WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
+
+                                    if WashingReqLine2Rec.FindSet() then begin
+                                        repeat
+
+                                            Total += WashingReqLine2Rec."Req Qty";
+                                        until WashingReqLine2Rec.Next() = 0;
+
+                                        if Total > WashingMasterRec."Color Qty" then
+                                            Error('Wash qty greater than color qty');
+
+                                        WashingMasterRec."Received Qty" := Total;
+                                        WashingMasterRec.Modify(true);
+                                    end;
+                                end
+                                else
+                                    Error('Req qty greater than color qty')
+                            end
+                            else
+                                Error('This color not in allocated list');
+                        end
+                        else
+                            Error('Req qty Should be greater than 0');
+                    end;
+                end;
             }
         }
     }
@@ -341,7 +496,15 @@ page 50701 "Washing Sample Request Card"
     var
         SampleWasLineRec: Record "Washing Sample Requsition Line";
         Inter1Rec: Record IntermediateTable;
+        WashingMasterRec: Record WashingMaster;
+        UserRec: Record "User Setup";
     begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec.UserRole <> 'SEWING RECORDER' then
+            Error('You are not authorized to delete records.');
 
         //Check whether request has been processed
         SampleWasLineRec.Reset();
@@ -368,6 +531,24 @@ page 50701 "Washing Sample Request Card"
         if Inter1Rec.FindSet() then
             Error('Request has been split. Cannot delete.');
 
+        SampleWasLineRec.Reset();
+        SampleWasLineRec.SetRange("No.", Rec."No.");
+
+        if SampleWasLineRec.FindSet() then begin
+
+            WashingMasterRec.Reset();
+            WashingMasterRec.SetRange("PO No", SampleWasLineRec."PO No");
+            WashingMasterRec.SetRange("Style No", SampleWasLineRec."Style No.");
+            WashingMasterRec.SetRange(Lot, SampleWasLineRec."Lot No");
+            WashingMasterRec.SetRange("Color Name", SampleWasLineRec."Color Name");
+
+            if WashingMasterRec.FindSet() then begin
+                WashingMasterRec."Received Qty" := WashingMasterRec."Received Qty" - SampleWasLineRec."Req Qty";
+                WashingMasterRec.Modify(true);
+            end;
+
+        end;
+
 
         //Delete lines
         SampleWasLineRec.Reset();
@@ -380,7 +561,25 @@ page 50701 "Washing Sample Request Card"
     trigger OnOpenPage()
     var
         WashSampleReqLineRec: Record "Washing Sample Requsition Line";
+        UserRec: Record "User Setup";
     begin
+
+        EditableGB := true;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if Rec."No." <> '' then
+            if UserRec.UserRole = 'SEWING RECORDER' then
+                EditableUser := true
+            else
+                EditableUser := false
+        else
+            if UserRec.UserRole = 'SEWING RECORDER' then
+                EditableUser := true
+            else
+                EditableUser := false;
+
         WashSampleReqLineRec.Reset();
         WashSampleReqLineRec.SetRange("No.", rec."No.");
 
@@ -397,16 +596,17 @@ page 50701 "Washing Sample Request Card"
     trigger OnAfterGetCurrRecord()
     var
     begin
-        if rec."Sample/Bulk" = rec."Sample/Bulk"::Sample then
-            EditableGB := true
+        if rec."Sample/Bulk" = rec."Sample/Bulk"::Sample then begin
+            EditableGB := true;
+
+        end
         else begin
             EditableGB := false;
             rec."Sample Req. No" := '';
         end;
     end;
 
-
     var
         EditableGB: Boolean;
-
+        EditableUser: Boolean;
 }

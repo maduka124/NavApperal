@@ -114,6 +114,22 @@ page 51426 POWashAllocation
                 field("Wash Type"; Rec."Wash Type")
                 {
                     ApplicationArea = All;
+
+                    // trigger OnLookup(var TExt: text): Boolean
+                    // var
+                    //     WashTypeRec: Record "Wash Type";
+                    // begin
+
+                    //     WashTypeRec.Reset();
+                    //     WashTypeRec.SetRange(Allocation, true);
+
+                    //     if Page.RunModal(51012, WashTypeRec) = Action::LookupOK then
+                    //         Rec."Wash Type" := WashTypeRec."Wash Type Name";
+
+                    //     // if Page.RunModal(22, CustRec) = Action::LookupOK then
+                    //     //     BuyerFilter := CustRec.Name;
+
+                    // end;
                 }
 
                 field(Recipe; Rec.Recipe)

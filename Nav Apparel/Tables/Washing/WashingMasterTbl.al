@@ -86,7 +86,7 @@ table 51430 WashingMaster
         field(16; "Wash Type"; Text[100])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Wash Type"."Wash Type Name";
+            TableRelation = "Wash Type"."Wash Type Name" where(Allocation = filter(1));
             ValidateTableRelation = false;
         }
 
@@ -126,6 +126,11 @@ table 51430 WashingMaster
         }
 
         field(24; "Sew Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(52; "Received Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }

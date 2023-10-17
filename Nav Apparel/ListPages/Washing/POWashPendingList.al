@@ -7,6 +7,7 @@ page 51423 "Pending Style/PO For Wash"
     CardPageId = PendingAllocationCard;
     SourceTableView = sorting() where("Wash Allocated" = filter(false));
     DeleteAllowed = false;
+    Editable = false;
 
     layout
     {
