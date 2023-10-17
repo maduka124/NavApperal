@@ -39,7 +39,7 @@ table 50741 "Washing Sample Header"
             DataClassification = ToBeClassified;
             OptionMembers = Development,Confirm;
             OptionCaption = 'Development,Confirm';
-            TableRelation = "Wash Type"."Wash Type Name";
+            TableRelation = "Wash Type"."Wash Type Name" where(Allocation = filter(true));
         }
 
         // field(7; "Wash Type No."; Code[20])
@@ -154,8 +154,8 @@ table 50741 "Washing Sample Header"
         field(31; "Sample/Bulk"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = "Sample","Bulk","Rewash";
-            OptionCaption = 'Sample,Bulk,Rewash';
+            OptionMembers = " ","Sample","Bulk","Rewash";
+            OptionCaption = ' ,Sample,Bulk,Rewash';
         }
 
         field(33; Editeble; Option)
@@ -173,7 +173,7 @@ table 50741 "Washing Sample Header"
         field(36; "PO No"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master PO"."PO No." where("Style No." = field("Style No."));
+            TableRelation = "Style Master PO"."PO No." where("Style No." = field("Style No."), "Lot No." = field("Lot No"));
             ValidateTableRelation = false;
         }
 
@@ -191,6 +191,13 @@ table 50741 "Washing Sample Header"
         field(39; "Merchandizer Group Name"; Text[200])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(40; "Lot No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Style Master PO"."Lot No." where("Style No." = field("Style No."));
+            ValidateTableRelation = false;
         }
     }
 

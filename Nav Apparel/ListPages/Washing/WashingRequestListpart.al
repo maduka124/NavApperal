@@ -79,6 +79,9 @@ page 50751 WashingSampleListpart
                         SampleReqHrdRec: Record "Washing Sample Header";
                     begin
 
+                        if Rec.SampleType = 'BULK' then
+                            EditableGB := false;
+
                         SampleTyprRec.Reset();
                         SampleTyprRec.SetRange("Sample Type Name", rec.SampleType);
 
@@ -114,6 +117,10 @@ page 50751 WashingSampleListpart
                     var
                         WashtypeRec: record "Wash Type";
                     begin
+
+                        if Rec.SampleType = 'BULK' then
+                            EditableGB := false;
+
                         WashtypeRec.Reset();
                         WashtypeRec.SetRange("Wash Type Name", rec."Wash Type");
                         if WashtypeRec.FindSet() then
@@ -131,6 +138,7 @@ page 50751 WashingSampleListpart
                 {
                     ApplicationArea = All;
                     Caption = 'Fabrication';
+                    Editable = EditableGB;
 
                     trigger OnValidate()
                     var
@@ -363,6 +371,7 @@ page 50751 WashingSampleListpart
 
     var
         SOLineNo: Code[50];
+        EditableGB: Boolean;
 
     procedure Get_Count(): Integer
     var
@@ -378,4 +387,39 @@ page 50751 WashingSampleListpart
             exit(0);
     end;
 
+    trigger OnAfterGetRecord()
+    var
+        WashReqHeaderRec: Record "Washing Sample Header";
+    begin
+
+        WashReqHeaderRec.Reset();
+        WashReqHeaderRec.SetRange("No.", Rec."No.");
+
+        if WashReqHeaderRec.FindSet() then
+            if WashReqHeaderRec."Sample/Bulk" <> WashReqHeaderRec."Sample/Bulk"::Sample then
+                EditableGB := false
+            else
+                EditableGB := true;
+    end;
+
+    trigger OnOpenPage()
+    var
+        WashReqHeaderRec: Record "Washing Sample Header";
+        WashSampleLineRec: Record "Washing Sample Requsition Line";
+    begin
+
+        if Rec.SampleType = 'BULK' then
+            EditableGB := false
+        else
+            EditableGB := true;
+
+        WashReqHeaderRec.Reset();
+        WashReqHeaderRec.SetRange("No.", Rec."No.");
+
+        if WashReqHeaderRec.FindSet() then
+            if WashReqHeaderRec."Sample/Bulk" <> WashReqHeaderRec."Sample/Bulk"::Sample then
+                EditableGB := false
+            else
+                EditableGB := true;
+    end;
 }

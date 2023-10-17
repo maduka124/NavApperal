@@ -9,6 +9,7 @@ page 51427 "Allocated Style/PO For Wash"
     CardPageId = POWashAllocatedCard;
     DeleteAllowed = false;
     InsertAllowed = false;
+    Editable = false;
 
     layout
     {
@@ -91,6 +92,11 @@ page 51427 "Allocated Style/PO For Wash"
                 field("Sew Qty"; Rec."Sew Qty")
                 {
                     ApplicationArea = All;
+                }
+
+                field("Received Qty"; Rec."Received Qty")
+                {
+                    ApplicationArea = all;
                 }
 
                 field("Washing Plant"; Rec."Washing Plant")

@@ -7,6 +7,7 @@ page 50719 WashingSampleHistry
     CardPageId = "Washing Sample Request Card";
     Caption = 'History of Sample Requests';
     SourceTableView = sorting("No.") order(descending);
+    Editable = false;
 
     layout
     {
@@ -114,7 +115,15 @@ page 50719 WashingSampleHistry
     var
         SampleWasLineRec: Record "Washing Sample Requsition Line";
         Inter1Rec: Record IntermediateTable;
+        WashingMasterRec: Record WashingMaster;
+        UserRec: Record "User Setup";
     begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec.UserRole <> 'SEWING RECORDER' then
+            Error('You are not authorized to delete records.');
 
         //Check whether request has been processed
         SampleWasLineRec.Reset();
@@ -133,6 +142,29 @@ page 50719 WashingSampleHistry
             if SampleWasLineRec."Split Status" = SampleWasLineRec."Split Status"::Yes then
                 Error('Request has been split. Cannot delete.');
         end;
+
+        SampleWasLineRec.Reset();
+        SampleWasLineRec.SetRange("No.", Rec."No.");
+
+        if SampleWasLineRec.FindSet() then begin
+
+            WashingMasterRec.Reset();
+            WashingMasterRec.SetRange("PO No", SampleWasLineRec."PO No");
+            WashingMasterRec.SetRange("Style No", SampleWasLineRec."Style No.");
+            WashingMasterRec.SetRange(Lot, SampleWasLineRec."Lot No");
+            WashingMasterRec.SetRange("Color Name", SampleWasLineRec."Color Name");
+
+            if WashingMasterRec.FindSet() then begin
+                WashingMasterRec."Received Qty" := WashingMasterRec."Received Qty" - SampleWasLineRec."Req Qty";
+                WashingMasterRec.Modify(true);
+            end;
+        end;
+
+        //Delete lines
+        SampleWasLineRec.Reset();
+        SampleWasLineRec.SetRange("No.", rec."No.");
+        if SampleWasLineRec.FindSet() then
+            SampleWasLineRec.DeleteAll();
     end;
 
 

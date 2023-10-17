@@ -1950,6 +1950,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Sample Requests Finishing")
+                {
+                    Caption = ' Washing Requisition';
+                    RunObject = Page WashingSampleHistry;
+                    ApplicationArea = all;
+                }
+
                 group("Finishing Reports")
                 {
                     Caption = 'Finishing Reports';
@@ -2103,6 +2110,13 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Upload Document Type';
                     RunObject = Page "Upload Document Type";
+                    ApplicationArea = all;
+                }
+
+                action("Sample Requests Sew")
+                {
+                    Caption = ' Washing Requisition';
+                    RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
 
@@ -2430,12 +2444,12 @@ page 50968 "Nav Apperal Role Center"
 
 
 
-                action("Sample Requests")
-                {
-                    Caption = ' Washing Requisition';
-                    RunObject = Page WashingSampleHistry;
-                    ApplicationArea = all;
-                }
+                // action("Sample Requests")
+                // {
+                //     Caption = ' Washing Requisition';
+                //     RunObject = Page WashingSampleHistry;
+                //     ApplicationArea = all;
+                // }
 
                 action("BW Quality Check")
                 {

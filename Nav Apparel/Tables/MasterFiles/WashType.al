@@ -31,6 +31,10 @@ table 51140 "Wash Type"
         {
             DataClassification = ToBeClassified;
         }
+        field(5; Allocation; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 

@@ -52,6 +52,11 @@ page 50981 "Wash Type Card"
                         end;
                     end;
                 }
+
+                field(Allocation; Rec.Allocation)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
