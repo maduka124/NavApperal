@@ -265,7 +265,6 @@ page 50355 "Daily Sewing In/Out Card"
                         // ProdOutLineRec.SetRange("No.", Rec."No.");
                         // ProdOutLineRec.SetRange("Style No.", Rec."Style No.");
                         // ProdOutLineRec.SetRange(Type, ProdOutLineRec.Type::Saw);
-                        // ProdOutLineRec.SetRange();
                         // ProdOutLineRec.SetRange("Lot No.", Rec."Lot No.");
                         // if ProdOutLineRec.FindSet() then begin
                         //     Error('You Cannot Change Lot No');

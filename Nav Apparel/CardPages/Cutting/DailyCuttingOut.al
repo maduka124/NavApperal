@@ -255,14 +255,14 @@ page 50351 "Daily Cutting Out Card"
                             CurrPage.Update();
                         end;
 
-                        ProdOutLineRec.Reset();
-                        ProdOutLineRec.SetRange("No.", Rec."No.");
-                        ProdOutLineRec.SetRange("Style No.", Rec."Style No.");
-                        ProdOutLineRec.SetRange(Type, ProdOutLineRec.Type::Cut);
-                        ProdOutLineRec.SetRange("Lot No.", Rec."Lot No.");
-                        if ProdOutLineRec.FindSet() then begin
-                            Error('You Cannot Change Lot No');
-                        end;
+                        // ProdOutLineRec.Reset();
+                        // ProdOutLineRec.SetRange("No.", Rec."No.");
+                        // ProdOutLineRec.SetRange("Style No.", Rec."Style No.");
+                        // ProdOutLineRec.SetRange(Type, ProdOutLineRec.Type::Cut);
+                        // ProdOutLineRec.SetRange("Lot No.", Rec."Lot No.");
+                        // if ProdOutLineRec.FindSet() then begin
+                        //     Error('You Cannot Change Lot No');
+                        // end;
 
                     end;
                 }
