@@ -1421,13 +1421,13 @@
                   <Width>9.66369cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.50921cm</Width>
+                  <Width>2.2973cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.66876cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.95642cm</Width>
+                  <Width>2.60232cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1486,7 +1486,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1502,6 +1502,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1521,7 +1522,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1556,7 +1557,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1592,10 +1593,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>1.50812cm</Top>
-            <Left>3.175cm</Left>
+            <Top>1.81363cm</Top>
+            <Left>2.8575cm</Left>
             <Height>0.59796cm</Height>
-            <Width>13.79808cm</Width>
+            <Width>15.23207cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
