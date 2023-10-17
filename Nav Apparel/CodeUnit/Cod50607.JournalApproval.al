@@ -55,11 +55,11 @@ codeunit 50607 "Journal Approval"
         RecRef: RecordRef;
         genjnl: Record "Gen. Journal Line";
     begin
-        with ApprovalEntry do begin
-            if not RecRef.Get("Record ID to Approve") then
-                exit;
-            RejectApproval(RecRef, ApprovalEntry."Table ID");
-        end;
+        //with ApprovalEntry do begin
+        if not RecRef.Get(ApprovalEntry."Record ID to Approve") then
+            exit;
+        RejectApproval(RecRef, ApprovalEntry."Table ID");
+        //end;
     end;
 
     local procedure RejectApproval(RecRelatedVariant: Variant; TabId: Integer)
