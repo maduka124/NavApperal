@@ -86,7 +86,7 @@ table 51425 AllocatedPoWash
         field(16; "Wash Type"; Text[100])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Wash Type"."Wash Type Name";
+            TableRelation = "Wash Type"."Wash Type Name" where(Allocation = filter(1));
             ValidateTableRelation = false;
         }
 
