@@ -74,11 +74,13 @@ page 50354 "Style Master PO Prod ListPart"
                 field("Wash In Qty"; Rec."Wash In Qty")
                 {
                     ApplicationArea = All;
+                    Caption = 'Wash Send Qty';
                 }
 
                 field("Wash Out Qty"; Rec."Wash Out Qty")
                 {
                     ApplicationArea = All;
+                    Caption = 'Wash Received Qty';
                 }
 
                 field("Finish Qty"; Rec."Finish Qty")
