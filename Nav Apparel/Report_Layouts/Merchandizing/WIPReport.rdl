@@ -103,10 +103,10 @@
                   <Width>1.49997cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.57135cm</Width>
+                  <Width>1.08828cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.08828cm</Width>
+                  <Width>1.57135cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.19074cm</Width>
@@ -799,14 +799,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox91">
+                        <Textbox Name="Textbox92">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>WASH RECEIVED</Value>
+                                  <Value>WASH SEND</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -819,7 +819,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox91</rd:DefaultName>
+                          <rd:DefaultName>Textbox92</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -856,14 +856,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox92">
+                        <Textbox Name="Textbox91">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>WASH SEND</Value>
+                                  <Value>WASH RECEIVED</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -876,7 +876,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox92</rd:DefaultName>
+                          <rd:DefaultName>Textbox91</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2016,14 +2016,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Wash_Out_Qty">
+                        <Textbox Name="Wash_In_Qty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Wash_Out_Qty.Value</Value>
+                                  <Value>=Fields!Wash_In_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2036,7 +2036,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Wash_Out_Qty</rd:DefaultName>
+                          <rd:DefaultName>Wash_In_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2073,14 +2073,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Wash_In_Qty">
+                        <Textbox Name="Wash_Out_Qty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Wash_In_Qty.Value</Value>
+                                  <Value>=Fields!Wash_Out_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2093,7 +2093,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Wash_In_Qty</rd:DefaultName>
+                          <rd:DefaultName>Wash_Out_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3057,14 +3057,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Wash_Out_Qty2">
+                        <Textbox Name="Wash_In_Qty2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Wash_Out_Qty.Value)</Value>
+                                  <Value>=Sum(Fields!Wash_In_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -3078,7 +3078,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Wash_Out_Qty</rd:DefaultName>
+                          <rd:DefaultName>Wash_In_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3115,14 +3115,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Wash_In_Qty2">
+                        <Textbox Name="Wash_Out_Qty2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Wash_In_Qty.Value)</Value>
+                                  <Value>=Sum(Fields!Wash_Out_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -3136,7 +3136,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Wash_In_Qty</rd:DefaultName>
+                          <rd:DefaultName>Wash_Out_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4321,7 +4321,7 @@
         <Height>7.04208cm</Height>
         <Style />
       </Body>
-      <Width>28.8576cm</Width>
+      <Width>28.7941cm</Width>
       <Page>
         <PageFooter>
           <Height>0.82049cm</Height>
