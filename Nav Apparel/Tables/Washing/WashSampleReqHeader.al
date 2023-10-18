@@ -199,6 +199,16 @@ table 50741 "Washing Sample Header"
             TableRelation = "Style Master PO"."Lot No." where("Style No." = field("Style No."));
             ValidateTableRelation = false;
         }
+
+        field(41; "Posting Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(42; "Posted/Not"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -2444,12 +2444,12 @@ page 50968 "Nav Apperal Role Center"
 
 
 
-                // action("Sample Requests")
-                // {
-                //     Caption = ' Washing Requisition';
-                //     RunObject = Page WashingSampleHistry;
-                //     ApplicationArea = all;
-                // }
+                action("Sample Requests")
+                {
+                    Caption = ' Washing Reuest';
+                    RunObject = Page WashingSampleHistry;
+                    ApplicationArea = all;
+                }
 
                 action("BW Quality Check")
                 {

@@ -53,6 +53,16 @@ page 51429 POWashAllocated
                     Editable = false;
                 }
 
+                field("Washing Plant"; Rec."Washing Plant")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Wash Type"; Rec."Wash Type")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Color Qty"; Rec."Color Qty")
                 {
                     ApplicationArea = All;
@@ -97,15 +107,36 @@ page 51429 POWashAllocated
                     Editable = false;
                 }
 
-                field("Washing Plant"; Rec."Washing Plant")
+                field("First Received Date"; Rec."First Received Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Wash Type"; Rec."Wash Type")
+                field("Last Received Date"; Rec."Last Received Date")
                 {
                     ApplicationArea = All;
                 }
+
+                field("Plan Date"; Rec."Plan Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Actual Date"; Rec."Actual Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Close Plan Date"; Rec."Close Plan Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Close Actual Plan Date"; Rec."Close Actual Plan Date")
+                {
+                    ApplicationArea = All;
+                }
+
 
                 field(Recipe; Rec.Recipe)
                 {

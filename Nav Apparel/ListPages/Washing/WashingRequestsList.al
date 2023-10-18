@@ -88,6 +88,8 @@ page 50719 WashingSampleHistry
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
+        LocationRec: Record Location;
     begin
 
         //Check whether user logged in or not
@@ -106,6 +108,18 @@ page 50719 WashingSampleHistry
         end
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then begin
+            LocationRec.Reset();
+
+            LocationRec.SetRange(Code, UserRec."Factory Code");
+
+            if LocationRec.FindSet() then
+                rec.SetFilter("Wash Plant Name", '=%1', LocationRec.Name);
         end;
 
     end;

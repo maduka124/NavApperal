@@ -414,6 +414,7 @@ page 50701 "Washing Sample Request Card"
                 trigger OnAction()
                 var
                     WashingMasterRec: Record WashingMaster;
+                    WashinReqHeaderRec: Record "Washing Sample Header";
                     WashingReqLineRec: Record "Washing Sample Requsition Line";
                     WashingReqLine2Rec: Record "Washing Sample Requsition Line";
                     StyleMasterPORec: Record "Style Master PO";
@@ -421,7 +422,14 @@ page 50701 "Washing Sample Request Card"
                     UserRec: Record "User Setup";
                 begin
 
+                    UserRec.Reset();
+                    UserRec.Get(UserId);
 
+                    if UserRec.UserRole <> 'SEWING RECORDER' then
+                        Error('You are not authorized to post.');
+
+                    if Rec."Posted/Not" = true then
+                        Error('This record Already Posted');
 
                     Total := 0;
 
@@ -443,29 +451,74 @@ page 50701 "Washing Sample Request Card"
 
                             if WashingMasterRec.FindSet() then begin
 
-                                if WashingMasterRec."Color Qty" > WashingReqLineRec."Req Qty" then begin
 
-                                    WashingReqLine2Rec.Reset();
-                                    WashingReqLine2Rec.SetRange("Style No.", WashingReqLineRec."Style No.");
-                                    WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
-                                    WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
-                                    WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
 
-                                    if WashingReqLine2Rec.FindSet() then begin
-                                        repeat
+                                if WashingMasterRec."Color Qty" > WashingReqLineRec."Req Qty" then
+                                    Message('Req qty greater than color qty');
 
-                                            Total += WashingReqLine2Rec."Req Qty";
-                                        until WashingReqLine2Rec.Next() = 0;
+                                WashingReqLine2Rec.Reset();
+                                WashingReqLine2Rec.SetRange("Style No.", WashingReqLineRec."Style No.");
+                                WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
+                                WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
+                                WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
 
-                                        if Total > WashingMasterRec."Color Qty" then
-                                            Error('Wash qty greater than color qty');
+                                if WashingReqLine2Rec.FindSet() then begin
+                                    repeat
 
-                                        WashingMasterRec."Received Qty" := Total;
+                                        Total += WashingReqLine2Rec."Req Qty";
+                                    until WashingReqLine2Rec.Next() = 0;
+
+                                    if Total > WashingMasterRec."Color Qty" then
+                                        Error('Wash qty greater than color qty');
+
+                                    WashingMasterRec."Received Qty" := Total;
+                                    WashingMasterRec.Modify(true);
+
+                                    Rec."Posted/Not" := true;
+                                    Rec."Posting Date" := WorkDate();
+                                    Rec.Modify(true);
+
+                                end;
+
+                                WashingReqLine2Rec.Reset();
+                                WashingReqLine2Rec.SetRange("Style No.", WashingReqLineRec."Style No.");
+                                WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
+                                WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
+                                WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
+                                WashingReqLine2Rec.SetCurrentKey("No.");
+                                WashingReqLine2Rec.Ascending(true);
+
+                                if WashingReqLine2Rec.FindFirst() then begin
+                                    WashinReqHeaderRec.Reset();
+                                    WashinReqHeaderRec.SetRange("No.", WashingReqLine2Rec."No.");
+
+                                    if WashinReqHeaderRec.FindFirst() then begin
+                                        WashingMasterRec."First Received Date" := WashinReqHeaderRec."Posting Date";
                                         WashingMasterRec.Modify(true);
                                     end;
-                                end
-                                else
-                                    Error('Req qty greater than color qty')
+
+                                end;
+
+                                WashingReqLine2Rec.Reset();
+                                WashingReqLine2Rec.SetRange("Style No.", WashingReqLineRec."Style No.");
+                                WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
+                                WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
+                                WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
+                                WashingReqLine2Rec.SetCurrentKey("No.");
+                                WashingReqLine2Rec.Ascending(true);
+
+                                if WashingReqLine2Rec.FindLast() then begin
+                                    WashinReqHeaderRec.Reset();
+                                    WashinReqHeaderRec.SetRange("No.", WashingReqLine2Rec."No.");
+
+                                    if WashinReqHeaderRec.FindFirst() then begin
+                                        WashingMasterRec."Last Received Date" := WashinReqHeaderRec."Posting Date";
+                                        WashingMasterRec.Modify(true);
+                                    end;
+                                end;
+
+                                Message('Requesest Posted');
+
                             end
                             else
                                 Error('This color not in allocated list');
@@ -590,6 +643,8 @@ page 50701 "Washing Sample Request Card"
             else
                 CurrPage.Editable(true);
         end;
+
+
     end;
 
 

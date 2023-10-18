@@ -57,7 +57,7 @@ table 51425 AllocatedPoWash
         field(11; "Sewing Factory Name"; Text[200])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Location.Name where("Sewing Unit" = filter(true));
+            TableRelation = Location.Name where("Sewing Unit" = filter(1));
             ValidateTableRelation = false;
         }
 

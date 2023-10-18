@@ -57,7 +57,7 @@ table 51430 WashingMaster
         field(11; "Sewing Factory Name"; Text[200])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Location.Name where("Sewing Unit" = filter(true));
+            TableRelation = Location.Name where("Sewing Unit" = filter(1));
             ValidateTableRelation = false;
         }
 
@@ -133,6 +133,40 @@ table 51430 WashingMaster
         field(52; "Received Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(53; "First Received Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(54; "Last Received Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(55; "Plan Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Shade Band Approval Plan Date';
+        }
+
+        field(56; "Actual Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Shade Band Actual Approval Plan Date';
+        }
+
+        field(57; "Close Plan Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Washing Plan Date';
+        }
+
+        field(58; "Close Actual Plan Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Washing Actual Plan Date';
         }
     }
 

@@ -52,6 +52,16 @@ page 51427 "Allocated Style/PO For Wash"
                     Caption = 'Color';
                 }
 
+                field("Washing Plant"; Rec."Washing Plant")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Wash Type"; Rec."Wash Type")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Color Qty"; Rec."Color Qty")
                 {
                     ApplicationArea = All;
@@ -99,17 +109,37 @@ page 51427 "Allocated Style/PO For Wash"
                     ApplicationArea = all;
                 }
 
-                field("Washing Plant"; Rec."Washing Plant")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Wash Type"; Rec."Wash Type")
-                {
-                    ApplicationArea = All;
-                }
-
                 field(Recipe; Rec.Recipe)
+                {
+                    ApplicationArea = All;
+                }
+
+                field("First Received Date"; Rec."First Received Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Last Received Date"; Rec."Last Received Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Plan Date"; Rec."Plan Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Actual Date"; Rec."Actual Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Close Plan Date"; Rec."Close Plan Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Close Actual Plan Date"; Rec."Close Actual Plan Date")
                 {
                     ApplicationArea = All;
                 }
@@ -258,9 +288,25 @@ page 51427 "Allocated Style/PO For Wash"
             Rec."Color Qty" := AssortmentDetailsRec.Total;
             Rec.Modify(true);
         end;
+    end;
 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+        LocationRec: Record Location;
+    begin
 
+        UserRec.Reset();
+        UserRec.Get(UserId);
 
+        if UserRec."Factory Code" <> '' then begin
+            LocationRec.Reset();
+
+            LocationRec.SetRange(Code, UserRec."Factory Code");
+
+            if LocationRec.FindSet() then
+                rec.SetFilter("Washing Plant", '=%1', LocationRec.Name);
+        end;
 
     end;
 }
