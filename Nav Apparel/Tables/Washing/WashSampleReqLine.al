@@ -337,6 +337,20 @@ table 50705 "Washing Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(70; "Delivery Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71; "Order Type"; Option)
+        {
+            OptionMembers = "Send","Received";
+            OptionCaption = 'Send,Received';
+
+            //Send mean Item send to the Washing Plant;
+            //Received Mean Item Received after Washin;
+        }
     }
 
     keys

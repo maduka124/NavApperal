@@ -1,11 +1,11 @@
-page 50719 WashingSampleHistry
+page 51436 WashDelivery
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Washing Sample Header";
-    CardPageId = "Washing Sample Request Card";
-    Caption = 'History of Sample Requests';
+    SourceTable = WashDeliveryHeaderTbl;
+    CardPageId = WashDeliveryCard;
+    Caption = 'Washing Delivery Requisition';
     SourceTableView = sorting("No.") order(descending);
     Editable = false;
 
@@ -48,10 +48,10 @@ page 50719 WashingSampleHistry
                     ApplicationArea = All;
                 }
 
-                field("Request From"; rec."Request From")
+                field("Delivery From"; Rec."Delivery From")
                 {
                     ApplicationArea = All;
-                    Caption = 'Requisition From';
+                    Caption = 'Delivery From';
                 }
 
                 field("Garment Type Name"; rec."Garment Type Name")
@@ -60,10 +60,10 @@ page 50719 WashingSampleHistry
                     Caption = 'Garment Type';
                 }
 
-                field("Wash Plant Name"; rec."Wash Plant Name")
+                field("Sewing Factory"; Rec."Sewing Factory")
                 {
                     ApplicationArea = All;
-                    Caption = 'Washing Plant';
+                    Caption = 'Sewing Factory';
                 }
 
                 field(Comment; rec.Comment)
@@ -110,6 +110,8 @@ page 50719 WashingSampleHistry
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
+        //Factory Wise Filtering
+
         UserRec.Reset();
         UserRec.Get(UserId);
 
@@ -119,7 +121,7 @@ page 50719 WashingSampleHistry
             LocationRec.SetRange(Code, UserRec."Factory Code");
 
             if LocationRec.FindSet() then
-                rec.SetFilter("Wash Plant Name", '=%1', LocationRec.Name);
+                rec.SetFilter("Sewing Factory", '=%1', LocationRec.Name);
         end;
 
     end;
@@ -128,7 +130,7 @@ page 50719 WashingSampleHistry
     trigger OnDeleteRecord(): Boolean
     var
         SampleWasLineRec: Record "Washing Sample Requsition Line";
-        WashReqHeaderRec: Record "Washing Sample Header";
+        WashDeliveryHeaderRec: Record WashDeliveryHeaderTbl;
         Inter1Rec: Record IntermediateTable;
         WashingMasterRec: Record WashingMaster;
         UserRec: Record "User Setup";
@@ -137,7 +139,7 @@ page 50719 WashingSampleHistry
         UserRec.Reset();
         UserRec.Get(UserId);
 
-        if UserRec.UserRole <> 'SEWING RECORDER' then
+        if UserRec.UserRole <> 'WASHING RECORDER' then
             Error('You are not authorized to delete records.');
 
         //Check whether request has been processed
@@ -160,7 +162,7 @@ page 50719 WashingSampleHistry
 
         SampleWasLineRec.Reset();
         SampleWasLineRec.SetRange("No.", Rec."No.");
-        SampleWasLineRec.SetRange("Order Type", SampleWasLineRec."Order Type"::Send);
+        SampleWasLineRec.SetRange("Order Type", SampleWasLineRec."Order Type"::Received);
 
         if SampleWasLineRec.FindSet() then begin
 
@@ -172,14 +174,16 @@ page 50719 WashingSampleHistry
 
             if WashingMasterRec.FindSet() then begin
 
-                WashReqHeaderRec.Reset();
-                WashReqHeaderRec.SetRange("No.", SampleWasLineRec."No.");
+                WashDeliveryHeaderRec.Reset();
+                WashDeliveryHeaderRec.SetRange("No.", Rec."No.");
 
-                if WashReqHeaderRec.FindSet() then begin
+                if WashDeliveryHeaderRec.FindSet() then begin
 
-                    if WashReqHeaderRec."Posted/Not" = true then begin
-                        WashingMasterRec."Received Qty" := WashingMasterRec."Received Qty" - SampleWasLineRec."Req Qty";
+                    if WashDeliveryHeaderRec."Posted/Not" = true then begin
+
+                        WashingMasterRec."Delivery Qty" := WashingMasterRec."Delivery Qty" - SampleWasLineRec."Delivery Qty";
                         WashingMasterRec.Modify(true);
+
                     end;
                 end;
             end;
@@ -191,6 +195,5 @@ page 50719 WashingSampleHistry
         if SampleWasLineRec.FindSet() then
             SampleWasLineRec.DeleteAll();
     end;
-
 
 }

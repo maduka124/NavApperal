@@ -143,6 +143,21 @@ page 51427 "Allocated Style/PO For Wash"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Delivery Qty"; Rec."Delivery Qty")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Delivery Start Date"; Rec."Delivery Start Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Delivery End Date"; Rec."Delivery End Date")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

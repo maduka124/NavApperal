@@ -110,11 +110,13 @@ page 51429 POWashAllocated
                 field("First Received Date"; Rec."First Received Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Last Received Date"; Rec."Last Received Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Plan Date"; Rec."Plan Date")
@@ -137,6 +139,23 @@ page 51429 POWashAllocated
                     ApplicationArea = All;
                 }
 
+                field("Delivery Qty"; Rec."Delivery Qty")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Delivery Start Date"; Rec."Delivery Start Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Delivery End Date"; Rec."Delivery End Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
 
                 field(Recipe; Rec.Recipe)
                 {

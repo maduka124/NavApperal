@@ -1,8 +1,8 @@
-page 50701 "Washing Sample Request Card"
+page 51437 WashDeliveryCard
 {
     PageType = Card;
-    SourceTable = "Washing Sample Header";
-    Caption = 'Washing Requisition';
+    SourceTable = WashDeliveryHeaderTbl;
+    Caption = 'Washing Delivery Note';
 
     layout
     {
@@ -115,7 +115,7 @@ page 50701 "Washing Sample Request Card"
                         UsersRec.SetRange("User ID", UserId());
 
                         if UsersRec.FindSet() then begin
-                            rec."Request From" := UsersRec."Factory Code";
+                            rec."Delivery From" := UsersRec."Factory Code";
                             CurrPage.Update();
                         end;
                     end;
@@ -196,12 +196,12 @@ page 50701 "Washing Sample Request Card"
 
                         if rec."Sample/Bulk" = rec."Sample/Bulk"::Sample then begin
 
-                            SMReqHeaderRec.Reset();
-                            SMReqHeaderRec.SetRange("No.", rec."Sample Req. No");
-                            if SMReqHeaderRec.FindSet() then begin
-                                rec."Wash Plant No." := SMReqHeaderRec."Wash Plant No.";
-                                rec."Wash Plant Name" := SMReqHeaderRec."Wash Plant Name";
-                            end;
+                            // SMReqHeaderRec.Reset();
+                            // SMReqHeaderRec.SetRange("No.", rec."Sample Req. No");
+                            // if SMReqHeaderRec.FindSet() then begin
+                            //     rec."Wash Plant No." := SMReqHeaderRec."Wash Plant No.";
+                            //     rec."Wash Plant Name" := SMReqHeaderRec."Wash Plant Name";
+                            // end;
 
                             if rec."Sample Req. No" <> '' then begin
                                 //Insert request line
@@ -220,12 +220,12 @@ page 50701 "Washing Sample Request Card"
                                     WashSMReqLineRec."Style No." := rec."Style No.";
                                     WashSMReqLineRec."Style_PO No" := rec."PO No";
                                     WashSMReqLineRec."Style Name" := rec."Style Name";
-                                    WashSMReqLineRec."Wash Plant Name" := rec."Wash Plant Name";
+                                    // WashSMReqLineRec."Wash Plant Name" := rec."Wash Plant Name";
                                     WashSMReqLineRec.Buyer := rec."Buyer Name";
                                     WashSMReqLineRec."Buyer No" := rec."Buyer No.";
                                     WashSMReqLineRec."Gament Type" := rec."Garment Type Name";
-                                    WashSMReqLineRec."Factory Name" := rec."Wash Plant Name";
-                                    WashSMReqLineRec."Location Code" := rec."Wash Plant No.";
+                                    // WashSMReqLineRec."Factory Name" := rec."Wash Plant Name";
+                                    // WashSMReqLineRec."Location Code" := rec."Wash Plant No.";
                                     WashSMReqLineRec."Req Date" := WorkDate();
                                     WashSMReqLineRec.SampleType := SMReqLineRec."Sample Name";
                                     WashSMReqLineRec."Sample No." := SMReqLineRec."Sample No.";
@@ -258,18 +258,11 @@ page 50701 "Washing Sample Request Card"
                     end;
                 }
 
-                field("Request From"; rec."Request From")
+                field("Delivery From"; Rec."Delivery From")
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Requisition From';
-                }
-
-                field("Garment Type No."; rec."Garment Type No.")
-                {
-                    ApplicationArea = All;
-                    TableRelation = "Garment Type"."No.";
-                    Visible = false;
+                    Caption = 'Delivery From';
                 }
 
                 field("Garment Type Name"; rec."Garment Type Name")
@@ -288,13 +281,6 @@ page 50701 "Washing Sample Request Card"
                             rec."Garment Type No." := GarmentTypeRec."No."
                     end;
 
-                }
-
-                field("Wash Plant No."; rec."Wash Plant No.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Wash Plant No';
-                    Visible = false;
                 }
 
                 field("Lot No"; Rec."Lot No")
@@ -322,7 +308,8 @@ page 50701 "Washing Sample Request Card"
                             WashingMasterRec.SetRange(Lot, Rec."Lot No");
 
                             if WashingMasterRec.FindFirst() then begin
-                                rec."Wash Plant Name" := WashingMasterRec."Washing Plant";
+                                Rec."Sewing Factory" := WashingMasterRec."Sewing Factory Name";
+                                Rec."Sewing Factory Code" := WashingMasterRec."Sewing Factory Code";
                                 WashType := WashingMasterRec."Wash Type";
                             end;
 
@@ -348,19 +335,19 @@ page 50701 "Washing Sample Request Card"
                     Editable = false;
                 }
 
-                field("Wash Plant Name"; rec."Wash Plant Name")
+                field("Sewing Factory"; Rec."Sewing Factory")
                 {
                     ApplicationArea = All;
-                    Caption = 'Washing Plant';
+                    Caption = 'Sewing Plant';
 
                     trigger OnValidate()
                     var
                         LocationRec: Record Location;
                     begin
                         LocationRec.Reset();
-                        LocationRec.SetRange(Name, rec."Wash Plant Name");
+                        LocationRec.SetRange(Name, rec."Sewing Factory");
                         if LocationRec.FindSet() then
-                            rec."Wash Plant No." := LocationRec.Code;
+                            rec."Sewing Factory Code" := LocationRec.Code;
                     end;
                 }
 
@@ -379,9 +366,9 @@ page 50701 "Washing Sample Request Card"
 
             }
 
-            group("Sample Details")
+            group("Delivery Details")
             {
-                part(WashingSampleListpart; WashingSampleListpart)
+                part(WashDeleveryListpart; WashDeleveryListpart)
                 {
                     ApplicationArea = All;
                     Editable = EditableUser;
@@ -391,14 +378,14 @@ page 50701 "Washing Sample Request Card"
             }
         }
 
-        area(FactBoxes)
-        {
-            part(MyFactBox; WashSampleReqPictureFactBox)
-            {
-                ApplicationArea = all;
-                SubPageLink = "No." = FIELD("No.");
-            }
-        }
+        // area(FactBoxes)
+        // {
+        //     part(MyFactBox; WashSampleReqPictureFactBox)
+        //     {
+        //         ApplicationArea = all;
+        //         SubPageLink = "No." = FIELD("No.");
+        //     }
+        // }
     }
 
     actions
@@ -414,8 +401,8 @@ page 50701 "Washing Sample Request Card"
                 trigger OnAction()
                 var
                     WashingMasterRec: Record WashingMaster;
-                    WashinReqHeaderRec: Record "Washing Sample Header";
-                    WashinReqHeader2Rec: Record "Washing Sample Header";
+                    WashinReqHeaderRec: Record WashDeliveryHeaderTbl;
+                    WashinReqHeader2Rec: Record WashDeliveryHeaderTbl;
                     WashingReqLineRec: Record "Washing Sample Requsition Line";
                     WashingReqLine2Rec: Record "Washing Sample Requsition Line";
                     StyleMasterPORec: Record "Style Master PO";
@@ -423,11 +410,10 @@ page 50701 "Washing Sample Request Card"
                     UserRec: Record "User Setup";
                 begin
 
-                    UserRec.Reset();
-                    UserRec.Get(UserId);
-
-                    if UserRec.UserRole <> 'SEWING RECORDER' then
-                        Error('You are not authorized to post.');
+                    // UserRec.Reset();
+                    // UserRec.Get(UserId);
+                    // if UserRec.UserRole <> 'SEWING RECORDER' then
+                    //     Error('You are not authorized to post.');
 
                     if Rec."Posted/Not" = true then
                         Error('This record Already Posted');
@@ -439,7 +425,7 @@ page 50701 "Washing Sample Request Card"
 
                     if WashingReqLineRec.FindSet() then begin
 
-                        if WashingReqLineRec."Req Qty" <> 0 then begin
+                        if WashingReqLineRec."Delivery Qty" <> 0 then begin
 
                             WashingMasterRec.Reset();
                             WashingMasterRec.SetRange("Style No", WashingReqLineRec."Style No.");
@@ -449,16 +435,25 @@ page 50701 "Washing Sample Request Card"
 
                             if WashingMasterRec.FindSet() then begin
 
-                                if WashingMasterRec."Color Qty" < WashingReqLineRec."Req Qty" then
-                                    Message('Req qty greater than color qty');
+                                if WashingMasterRec."Received Qty" < WashingReqLineRec."Delivery Qty" then
+                                    Error('Delivery qty greater than recieved qty');
 
                                 WashingReqLine2Rec.Reset();
                                 WashingReqLine2Rec.SetRange("Style No.", WashingReqLineRec."Style No.");
                                 WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
                                 WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
                                 WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
+                                WashingReqLine2Rec.SetRange("Order Type", WashingReqLine2Rec."Order Type"::Received);
 
                                 if WashingReqLine2Rec.FindSet() then begin
+
+                                    if WashingMasterRec."Received Qty" = 0 then
+                                        Error('There is no received qty to deliver');
+
+                                    Rec."Posted/Not" := true;
+                                    Rec."Posting Date" := WorkDate();
+                                    Rec.Modify(true);
+
                                     repeat
 
                                         WashinReqHeader2Rec.SetRange("No.", WashingReqLine2Rec."No.");
@@ -469,15 +464,11 @@ page 50701 "Washing Sample Request Card"
 
                                     until WashingReqLine2Rec.Next() = 0;
 
-                                    if Total > WashingMasterRec."Color Qty" then
-                                        Error('Wash qty greater than color qty');
+                                    if Total > WashingMasterRec."Received Qty" then
+                                        Error('Delivery total qty greater than total received qty');
 
-                                    WashingMasterRec."Received Qty" := Total;
+                                    WashingMasterRec."Delivery Qty" := Total;
                                     WashingMasterRec.Modify(true);
-
-                                    Rec."Posted/Not" := true;
-                                    Rec."Posting Date" := WorkDate();
-                                    Rec.Modify(true);
 
                                 end;
 
@@ -486,7 +477,7 @@ page 50701 "Washing Sample Request Card"
                                 WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
                                 WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
                                 WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
-                                WashingReqLine2Rec.SetRange("Order Type", WashingReqLine2Rec."Order Type"::Send);
+                                WashingReqLine2Rec.SetRange("Order Type", WashingReqLine2Rec."Order Type"::Received);
                                 WashingReqLine2Rec.SetCurrentKey("No.");
                                 WashingReqLine2Rec.Ascending(true);
 
@@ -495,7 +486,7 @@ page 50701 "Washing Sample Request Card"
                                     WashinReqHeaderRec.SetRange("No.", WashingReqLine2Rec."No.");
 
                                     if WashinReqHeaderRec.FindFirst() then begin
-                                        WashingMasterRec."First Received Date" := WashinReqHeaderRec."Posting Date";
+                                        WashingMasterRec."Delivery Start Date" := WashinReqHeaderRec."Posting Date";
                                         WashingMasterRec.Modify(true);
                                     end;
 
@@ -506,7 +497,7 @@ page 50701 "Washing Sample Request Card"
                                 WashingReqLine2Rec.SetRange("PO No", WashingReqLineRec."PO No");
                                 WashingReqLine2Rec.SetRange("Lot No", WashingReqLineRec."Lot No");
                                 WashingReqLine2Rec.SetRange("Color Code", WashingReqLineRec."Color Code");
-                                WashingReqLine2Rec.SetRange("Order Type", WashingReqLine2Rec."Order Type"::Send);
+                                WashingReqLine2Rec.SetRange("Order Type", WashingReqLine2Rec."Order Type"::Received);
                                 WashingReqLine2Rec.SetCurrentKey("No.");
                                 WashingReqLine2Rec.Ascending(true);
 
@@ -515,7 +506,7 @@ page 50701 "Washing Sample Request Card"
                                     WashinReqHeaderRec.SetRange("No.", WashingReqLine2Rec."No.");
 
                                     if WashinReqHeaderRec.FindFirst() then begin
-                                        WashingMasterRec."Last Received Date" := WashinReqHeaderRec."Posting Date";
+                                        WashingMasterRec."Delivery End Date" := WashinReqHeaderRec."Posting Date";
                                         WashingMasterRec.Modify(true);
                                     end;
                                 end;
@@ -527,7 +518,7 @@ page 50701 "Washing Sample Request Card"
                                 Error('This color not in allocated list');
                         end
                         else
-                            Error('Req qty Should be greater than 0');
+                            Error('Delivery qty Should be greater than 0');
                     end;
                 end;
             }
@@ -541,7 +532,7 @@ page 50701 "Washing Sample Request Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Wash Sample Nos.", xRec."No.", rec."No.") THEN BEGIN
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Wash Delivery Nos.", xRec."No.", rec."No.") THEN BEGIN
             NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
@@ -551,16 +542,16 @@ page 50701 "Washing Sample Request Card"
     trigger OnDeleteRecord(): Boolean
     var
         SampleWasLineRec: Record "Washing Sample Requsition Line";
-        Inter1Rec: Record IntermediateTable;
+        WashdeliveryRec: Record WashDeliveryHeaderTbl;
         WashingMasterRec: Record WashingMaster;
-        WashinReqHeaderRec: Record "Washing Sample Header";
+        Inter1Rec: Record IntermediateTable;
         UserRec: Record "User Setup";
     begin
 
         UserRec.Reset();
         UserRec.Get(UserId);
 
-        if UserRec.UserRole <> 'SEWING RECORDER' then
+        if UserRec.UserRole <> 'WASHING RECORDER' then
             Error('You are not authorized to delete records.');
 
         //Check whether request has been processed
@@ -590,7 +581,7 @@ page 50701 "Washing Sample Request Card"
 
         SampleWasLineRec.Reset();
         SampleWasLineRec.SetRange("No.", Rec."No.");
-        SampleWasLineRec.SetRange("Order Type", SampleWasLineRec."Order Type"::Send);
+        SampleWasLineRec.SetRange("Order Type", SampleWasLineRec."Order Type"::Received);
 
         if SampleWasLineRec.FindSet() then begin
 
@@ -600,22 +591,22 @@ page 50701 "Washing Sample Request Card"
             WashingMasterRec.SetRange(Lot, SampleWasLineRec."Lot No");
             WashingMasterRec.SetRange("Color Name", SampleWasLineRec."Color Name");
 
+
             if WashingMasterRec.FindSet() then begin
 
-                WashinReqHeaderRec.Reset();
-                WashinReqHeaderRec.SetRange("No.", SampleWasLineRec."No.");
+                WashdeliveryRec.Reset();
+                WashdeliveryRec.SetRange("No.", SampleWasLineRec."No.");
 
-                if WashinReqHeaderRec.FindSet() then begin
+                if WashdeliveryRec.FindSet() then begin
 
-                    if WashinReqHeaderRec."Posted/Not" = true then begin
-
-                        WashingMasterRec."Received Qty" := WashingMasterRec."Received Qty" - SampleWasLineRec."Req Qty";
+                    if WashdeliveryRec."Posted/Not" = true then begin
+                        WashingMasterRec."Delivery Qty" := WashingMasterRec."Delivery Qty" - SampleWasLineRec."Delivery Qty";
                         WashingMasterRec.Modify(true);
-
                     end;
                 end;
             end;
         end;
+
 
         //Delete lines
         SampleWasLineRec.Reset();
@@ -637,12 +628,12 @@ page 50701 "Washing Sample Request Card"
         UserRec.Get(UserId);
 
         if Rec."No." <> '' then
-            if UserRec.UserRole = 'SEWING RECORDER' then
+            if UserRec.UserRole = 'WASHING RECORDER' then
                 EditableUser := true
             else
                 EditableUser := false
         else
-            if UserRec.UserRole = 'SEWING RECORDER' then
+            if UserRec.UserRole = 'WASHING RECORDER' then
                 EditableUser := true
             else
                 EditableUser := false;
