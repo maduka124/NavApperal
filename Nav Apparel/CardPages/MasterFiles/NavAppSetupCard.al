@@ -705,7 +705,13 @@ page 50964 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Base On Min Ship Days';
-                }             
+                }
+
+                field("Wash Delivery Nos."; Rec."Wash Delivery Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Wash Delivery No';
+                }
             }
         }
     }

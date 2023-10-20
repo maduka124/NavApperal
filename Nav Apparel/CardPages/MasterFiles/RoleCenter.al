@@ -333,6 +333,14 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Washing Processing -Merchand")
+                {
+                    Caption = 'Washing Processing';
+                    RunObject = Page "Washing Processing List";
+                    ApplicationArea = all;
+                }
+
+
                 action("Wash Type")
                 {
                     Caption = 'Wash Type';
@@ -1842,6 +1850,13 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
+
+                action("Wash Delivery Sewing")
+                {
+                    Caption = 'Wash Received';
+                    RunObject = Page WashDelivery;
+                    ApplicationArea = all;
+                }
                 group("Sewing Reports")
                 {
 
@@ -2420,6 +2435,20 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Wash Delivery")
+                {
+                    Caption = 'Wash Delivery Note';
+                    RunObject = Page WashDelivery;
+                    ApplicationArea = all;
+                }
+
+                action("Washing Processing")
+                {
+                    Caption = 'Washing Processing';
+                    RunObject = Page "Washing Processing List";
+                    ApplicationArea = all;
+                }
+
                 action("OMS Washing")
                 {
                     Caption = 'OMS List';
@@ -2446,31 +2475,31 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Sample Requests")
                 {
-                    Caption = ' Washing Reuest';
+                    Caption = ' Washing Requests';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
 
-                action("BW Quality Check")
-                {
-                    RunObject = page BWQualityCheckList;
-                    Caption = ' Quality Check (Before Wash)';
-                    ApplicationArea = all;
-                }
+                // action("BW Quality Check")
+                // {
+                //     RunObject = page BWQualityCheckList;
+                //     Caption = ' Quality Check (Before Wash)';
+                //     ApplicationArea = all;
+                // }
 
-                action("Return To Customer BW")
-                {
-                    RunObject = page RTCBWList;
-                    Caption = 'Return To Customer (Before Wash)';
-                    ApplicationArea = All;
-                }
+                // action("Return To Customer BW")
+                // {
+                //     RunObject = page RTCBWList;
+                //     Caption = 'Return To Customer (Before Wash)';
+                //     ApplicationArea = All;
+                // }
 
-                action("Split Sample Requests")
-                {
-                    RunObject = page "Split Sample Requests List";
-                    ApplicationArea = all;
-                    Caption = 'Job Creation';
-                }
+                // action("Split Sample Requests")
+                // {
+                //     RunObject = page "Split Sample Requests List";
+                //     ApplicationArea = all;
+                //     Caption = 'Job Creation';
+                // }
 
                 action("Washing BOM")
                 {
@@ -2479,26 +2508,26 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Washing JobCard")
-                {
-                    RunObject = page JobCardList;
-                    Caption = 'Job Card';
-                    ApplicationArea = all;
-                }
+                // action("Washing JobCard")
+                // {
+                //     RunObject = page JobCardList;
+                //     Caption = 'Job Card';
+                //     ApplicationArea = all;
+                // }
 
-                action("Quality Check AW")
-                {
-                    RunObject = page AWQualityCheck;
-                    ApplicationArea = All;
-                    Caption = ' Quality Check (After Wash)';
-                }
+                // action("Quality Check AW")
+                // {
+                //     RunObject = page AWQualityCheck;
+                //     ApplicationArea = All;
+                //     Caption = ' Quality Check (After Wash)';
+                // }
 
-                action("Return To Customer AW")
-                {
-                    RunObject = page RTCAWHeaderList;
-                    ApplicationArea = All;
-                    Caption = 'Return To Customer (After Wash)';
-                }
+                // action("Return To Customer AW")
+                // {
+                //     RunObject = page RTCAWHeaderList;
+                //     ApplicationArea = All;
+                //     Caption = 'Return To Customer (After Wash)';
+                // }
 
                 action("Machine Types")
                 {

@@ -1,4 +1,4 @@
-page 50751 WashingSampleListpart
+page 51438 WashDeleveryListpart
 {
     PageType = ListPart;
     AutoSplitKey = true;
@@ -15,58 +15,6 @@ page 50751 WashingSampleListpart
                     ApplicationArea = All;
                     Caption = 'Seq No';
                 }
-
-                // field("Select Item"; "Select Item")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Select';
-                //     //Select Item On SampleRequetion Page
-
-                //     trigger OnValidate()
-                //     var
-                //         WashingSampleReqRec: Record "Washing Sample Requsition Line";
-                //         CountRec: Integer;
-                //     begin
-
-                //         CurrPage.Update();
-                //         CountRec := 0;
-                //         WashingSampleReqRec.Reset();
-                //         WashingSampleReqRec.SetRange("No.", "No.");
-                //         WashingSampleReqRec.SetFilter("Select Item", '=%1', true);
-
-                //         if WashingSampleReqRec.FindSet() then
-                //             CountRec := WashingSampleReqRec.Count;
-
-                //         if CountRec > 1 then
-                //             Error('You can select only one item');
-                //     end;
-                // }
-
-                // field("Sample No."; "Sample No.")
-                // {
-                //     ApplicationArea = All;
-                //     Visible = false;
-                //     trigger OnValidate()
-                //     var
-                //         SampleTyprRec: Record "Sample Type";
-                //         SampleReqHrdRec: Record "Washing Sample Header";
-                //     begin
-                //         // SampleTyprRec.Get("Sample No.");
-                //         // //SampleType := SampleTyprRec."Sample Type Name";
-
-                //         CurrPage.Update();
-                //         SampleReqHrdRec.Get("No.");
-                //         "Style No." := SampleReqHrdRec."Style No.";
-                //         "Style Name" := SampleReqHrdRec."Style Name";
-                //         "Wash Plant Name" := SampleReqHrdRec."Wash Plant Name";
-                //         Buyer := SampleReqHrdRec."Buyer Name";
-                //         "Gament Type" := SampleReqHrdRec."Garment Type Name";
-                //         "Factory Name" := SampleReqHrdRec."Wash Plant Name";
-                //         "Location Code" := SampleReqHrdRec."Wash Plant No.";
-
-                //         CurrPage.Update();
-                //     end;
-                // }
 
                 field(SampleType; rec.SampleType)
                 {
@@ -174,7 +122,7 @@ page 50751 WashingSampleListpart
                             if Page.RunModal(51065, StyleColorRec) = Action::LookupOK then begin
                                 rec."Color Code" := StyleColorRec."Color No.";
                                 rec."Color Name" := StyleColorRec.Color;
-                                Rec."Order Type" := Rec."Order Type"::Send;
+                                Rec."Order Type" := Rec."Order Type"::Received;
                             end;
                         end
                         else begin
@@ -183,7 +131,7 @@ page 50751 WashingSampleListpart
                             if Page.RunModal(51036, ColorRec) = Action::LookupOK then begin
                                 rec."Color Code" := ColorRec."No.";
                                 rec."Color Name" := ColorRec."Colour Name";
-                                Rec."Order Type" := Rec."Order Type"::Send;
+                                Rec."Order Type" := Rec."Order Type"::Received;
                             end;
                         end;
                     end;
@@ -221,119 +169,11 @@ page 50751 WashingSampleListpart
                     end;
                 }
 
-                field("Req Qty"; rec."Req Qty")
+                field("Delivery Qty"; Rec."Delivery Qty")
                 {
                     ApplicationArea = All;
 
-                    // Caption = 'Req Qty';
-                    // trigger OnValidate()
-                    // var
-                    // begin
-                    //     rec.Value := rec."Unite Price" * rec."Req Qty";
-                    // end;
                 }
-
-                // field("Req Date"; rec."Req Date")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
-
-                // field("BW QC Date"; "BW QC Date")
-                // {
-                //     ApplicationArea = all;
-                // }
-
-                // field("Req Qty BW QC Pass"; "Req Qty BW QC Pass")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Req Qty (BW QC Pass)';
-                //     Editable = false;
-                // }
-
-                // field("Req Qty BW QC Fail"; "Req Qty BW QC Fail")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Req Qty (BW QC Fail)';
-                //     Editable = false;
-                // }
-
-                // field("Unite Price"; rec."Unite Price")
-                // {
-                //     ApplicationArea = All;
-                //     trigger OnValidate()
-                //     var
-                //     begin
-                //         rec.Value := rec."Unite Price" * rec."Req Qty";
-                //     end;
-                // }
-
-                // field(Value; rec.Value)
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
-
-                // field("BW QC Date"; rec."BW QC Date")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
-
-                // field("Req Qty BW QC Pass"; rec."Req Qty BW QC Pass")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'BW QC Pass Qty';
-                // }
-
-                // field("Req Qty BW QC Fail"; rec."Req Qty BW QC Fail")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'BW QC Failed Qty';
-                // }
-
-                // field("Return Qty (BW)"; rec."Return Qty (BW)")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'BW Returned Qty';
-                // }
-
-                // field("AW QC Date"; rec."QC Date (AW)")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
-
-                // field("QC Pass Qty (AW)"; rec."QC Pass Qty (AW)")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'AW QC Pass Qty';
-                // }
-
-                // field("QC Fail Qty (AW)"; rec."QC Fail Qty (AW)")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'AW QC Failed Qty';
-                // }
-
-                // field("Return Qty (AW)"; rec."Return Qty (AW)")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'AW Returned Qty';
-                // }
-
-                // field("Dispatch Qty"; rec."Dispatch Qty")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                //     Caption = 'Final Dispatch Qty';
-                // }
 
                 field(RemarkLine; rec.RemarkLine)
                 {
@@ -343,19 +183,6 @@ page 50751 WashingSampleListpart
             }
         }
     }
-
-    procedure AssistEdit(): Boolean
-    var
-        NavAppSetup: Record "NavApp Setup";
-        NoSeriesMngment: Codeunit NoSeriesManagement;
-    begin
-        NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Wash Sample Nos.", xRec."No.", rec."No.") THEN BEGIN
-            NoSeriesMngment.SetSeries(rec."No.");
-            EXIT(TRUE);
-        END;
-    end;
-
 
     trigger OnDeleteRecord(): Boolean
     var
@@ -391,7 +218,7 @@ page 50751 WashingSampleListpart
 
     trigger OnAfterGetRecord()
     var
-        WashReqHeaderRec: Record "Washing Sample Header";
+        WashReqHeaderRec: Record WashDeliveryHeaderTbl;
     begin
 
         WashReqHeaderRec.Reset();
@@ -406,14 +233,9 @@ page 50751 WashingSampleListpart
 
     trigger OnOpenPage()
     var
-        WashReqHeaderRec: Record "Washing Sample Header";
+        WashReqHeaderRec: Record WashDeliveryHeaderTbl;
         WashSampleLineRec: Record "Washing Sample Requsition Line";
     begin
-
-        if Rec.SampleType = 'BULK' then
-            EditableGB := false
-        else
-            EditableGB := true;
 
         WashReqHeaderRec.Reset();
         WashReqHeaderRec.SetRange("No.", Rec."No.");

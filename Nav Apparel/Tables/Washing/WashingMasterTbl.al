@@ -168,6 +168,22 @@ table 51430 WashingMaster
             DataClassification = ToBeClassified;
             Caption = 'Washing Actual Plan Date';
         }
+
+        field(59; "Delivery Start Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(60; "Delivery End Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(61; "Delivery Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

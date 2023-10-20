@@ -698,7 +698,13 @@ table 51139 "NavApp Setup"
         field(71012703; "Base On Min Ship Days"; Integer)
         {
             DataClassification = ToBeClassified;
-        }    
+        }
+
+        field(71012704; "Wash Delivery Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
 
     }
 
