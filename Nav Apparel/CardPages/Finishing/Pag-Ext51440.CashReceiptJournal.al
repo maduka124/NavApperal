@@ -19,5 +19,26 @@ pageextension 51440 CashReceiptJournal extends "Cash Receipt Journal"
                 Caption = 'Payment Method Code';
             }
         }
+
+    }
+
+    actions
+    {
+        addafter("Insert Conv. LCY Rndg. Lines")
+        {
+            action("Cash Receipt Voucher")
+            {
+                ApplicationArea = All;
+                Image = Print;
+                Caption = 'Cash Receipt Voucher';
+                trigger OnAction()
+                var
+                    CashReceiptReport: Report CashReceiptReport;
+                begin
+                    CashReceiptReport.Set_value(Rec."Document No.");
+                    CashReceiptReport.RunModal();
+                end;
+            }
+        }
     }
 }
