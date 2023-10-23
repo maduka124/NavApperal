@@ -335,7 +335,7 @@ page 50355 "Daily Sewing In/Out Card"
 
 
                         if OutPutQty < (Rec."Input Qty" + InputQty) then
-                            Error('cutting out less than sewing input quantity');
+                            Error('cutting out %1 less than sewing input quantity %2', OutPutQty, InputQty);
 
                     end;
                 }
@@ -528,6 +528,7 @@ page 50355 "Daily Sewing In/Out Card"
                         InputQty := 0;
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Factory Code", Rec."Factory Code");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Style Name", Rec."Out Style Name");
                         ProductionRec.SetRange("PO No", rec."OUT PO No");
@@ -539,7 +540,9 @@ page 50355 "Daily Sewing In/Out Card"
 
                         OutPutQty := 0;
                         ProductionRec.Reset();
+                        ProductionRec.SetFilter("No.", '<>%1', Rec."No.");
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Factory Code", Rec."Factory Code");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Out Style Name", Rec."Out Style Name");
                         ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
@@ -549,7 +552,7 @@ page 50355 "Daily Sewing In/Out Card"
                             until ProductionRec.Next() = 0;
 
                         if InputQty < (Rec."Output Qty" + OutPutQty) then
-                            Error('PO wise sewing out quantity greater than the day hourly production entered total.');
+                            Error('PO wise sewing out %1  quantity greater than the day hourly production entered total. %2', OutPutQty, InputQty);
 
                         TotOutQty := 0;
                         ProductionRec.Reset();
