@@ -507,7 +507,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1425,7 +1424,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Debit_Amount.Value</Value>
+                                  <Value>=Fields!Debit_Amount.Value/Fields!ExRate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1461,7 +1460,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Credit_Amount.Value</Value>
+                                  <Value>=Fields!Credit_Amount.Value/Fields!ExRate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1490,14 +1489,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Amount__LCY_">
+                        <Textbox Name="Debit_Amount3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!Debit_Amount.Value=0,0,Fields!Amount__LCY_.Value)</Value>
+                                  <Value>=Fields!Debit_Amount.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1509,7 +1508,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Amount__LCY_</rd:DefaultName>
+                          <rd:DefaultName>Debit_Amount</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1526,14 +1525,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Amount__LCY_1">
+                        <Textbox Name="Credit_Amount3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!Credit_Amount.Value=0,0,Fields!Amount__LCY_.Value)</Value>
+                                  <Value>=Fields!Credit_Amount.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1545,7 +1544,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Amount__LCY_1</rd:DefaultName>
+                          <rd:DefaultName>Credit_Amount</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1574,14 +1573,15 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>TOTAL</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1632,7 +1632,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Debit_Amount.Value)</Value>
+                                  <Value>=Sum(Fields!Debit_Amount.Value/Fields!ExRate.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1668,7 +1668,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Credit_Amount.Value)</Value>
+                                  <Value>=Sum(Fields!Credit_Amount.Value/Fields!ExRate.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1693,18 +1693,19 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Amount__LCY_2">
+                        <Textbox Name="Debit_Amount4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!Debit_Amount.Value=0,0,Sum(Fields!Amount__LCY_.Value))</Value>
+                                  <Value>=Sum(Fields!Debit_Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1716,7 +1717,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Amount__LCY_</rd:DefaultName>
+                          <rd:DefaultName>Debit_Amount</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1733,14 +1734,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Amount__LCY_3">
+                        <Textbox Name="Credit_Amount4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!Credit_Amount.Value=0,0,Sum(Fields!Amount__LCY_.Value))</Value>
+                                  <Value>=Sum(Fields!Credit_Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1752,7 +1753,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Amount__LCY_1</rd:DefaultName>
+                          <rd:DefaultName>Credit_Amount</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2810,6 +2811,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="BillNo">
           <DataField>BillNo</DataField>
+        </Field>
+        <Field Name="ExRate">
+          <DataField>ExRate</DataField>
+        </Field>
+        <Field Name="ExRateFormat">
+          <DataField>ExRateFormat</DataField>
         </Field>
       </Fields>
       <Query>
