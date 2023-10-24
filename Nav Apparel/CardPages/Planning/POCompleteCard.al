@@ -126,13 +126,12 @@ page 51331 POCompleteCard
         //Update Po Total         
         StyleMasterPORec.Reset();
         StyleMasterPORec.SetRange("Style No.", rec."No.");
-        StyleMasterPORec.FindSet();
-
-        repeat
-            Tot += StyleMasterPORec.Qty;
-            StyleMasterPORec.TestField(BPCD);
-        until StyleMasterPORec.Next() = 0;
-
+        if StyleMasterPORec.FindSet() then begin
+            repeat
+                Tot += StyleMasterPORec.Qty;
+                StyleMasterPORec.TestField(BPCD);
+            until StyleMasterPORec.Next() = 0;
+        end;
         rec."PO Total" := Tot;
         CurrPage.Update();
 
