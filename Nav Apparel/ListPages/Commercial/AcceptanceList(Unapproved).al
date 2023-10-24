@@ -119,6 +119,8 @@ page 50541 "Acceptance List"
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
+        Rec.SetFilter("B2BLC No", '<>%1', '');
+
     end;
 
 

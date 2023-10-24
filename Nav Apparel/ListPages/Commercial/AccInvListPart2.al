@@ -61,11 +61,11 @@ page 50543 "Acc Inv ListPart2"
                             //Update Purchase order pi no
                             AcceptanceInv1Rec.Reset();
                             AcceptanceInv1Rec.SetRange("Inv No.", AcceptanceInv2Rec."Inv No.");
-                            AcceptanceInv1Rec.FindSet();
-
-                            AcceptanceInv1Rec.Select := false;
-                            AcceptanceInv1Rec."AssignedAccNo." := '';
-                            AcceptanceInv1Rec.Modify();
+                            if AcceptanceInv1Rec.FindSet() then begin
+                                AcceptanceInv1Rec.Select := false;
+                                AcceptanceInv1Rec."AssignedAccNo." := '';
+                                AcceptanceInv1Rec.Modify();
+                            end;
                         until AcceptanceInv2Rec.Next() = 0;
                     end;
 

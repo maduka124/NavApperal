@@ -10,7 +10,7 @@ table 50544 "AcceptanceInv2"
             DataClassification = ToBeClassified;
         }
 
-        field(50002; "Inv No."; Code[20])
+        field(50002; "Inv No."; Code[50])
         {
             DataClassification = ToBeClassified;
         }

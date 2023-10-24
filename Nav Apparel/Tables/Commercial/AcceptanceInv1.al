@@ -22,7 +22,7 @@ table 50546 "AcceptanceInv1"
             OptionCaption = 'Based On B2B LC,TT or Cash';
         }
 
-        field(50004; "Inv No."; Code[20])
+        field(50004; "Inv No."; Code[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -66,6 +66,10 @@ table 50546 "AcceptanceInv1"
         {
             DataClassification = ToBeClassified;
         }
+        field(50013; "Line No"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     // keys
@@ -75,6 +79,14 @@ table 50546 "AcceptanceInv1"
     //         Clustered = true;
     //     }
     // }
+
+    keys
+    {
+        key(PK; "B2BLC No. (System)", "Line No")
+        {
+            Clustered = true;
+        }
+    }
 
 
     trigger OnInsert()

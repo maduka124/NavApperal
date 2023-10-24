@@ -81,7 +81,7 @@ page 50542 "Acceptance Card"
                         if VendorRec.FindSet() then
                             rec."Suppler No." := VendorRec."No.";
 
-                        CurrPage.Update();
+                        // CurrPage.Update();
 
                         if (rec.Type = rec.Type::"TT or Cash") and (rec."Suppler No." <> '') then begin
 
@@ -147,6 +147,7 @@ page 50542 "Acceptance Card"
                         AcceptanceInv1Rec: Record AcceptanceInv1;
                         GITBaseonLCRec: Record GITBaseonLC;
                         B2BLCMasRce: Record B2BLCMaster;
+                        Inx: Integer;
                     begin
 
                         rec."Acceptance S/N" := format(rec."Acceptance S/N 2").PadLeft(7 - strlen(format(rec."Acceptance S/N 2")), '0');
@@ -164,8 +165,10 @@ page 50542 "Acceptance Card"
 
                             //Delete old records
                             AcceptanceInv1Rec.Reset();
-                            AcceptanceInv1Rec.DeleteAll();
+                            if AcceptanceInv1Rec.FindSet() then
+                                AcceptanceInv1Rec.DeleteAll();
 
+                            Inx := 0;
                             //Get invoices for the selected 'B2B LC No'
                             GITBaseonLCRec.Reset();
                             GITBaseonLCRec.SetRange("B2B LC No. (System)", rec."B2BLC No (System)");
@@ -175,9 +178,11 @@ page 50542 "Acceptance Card"
                                 repeat
 
                                     //insert invoices for the TT
+                                    Inx := Inx + 1000;
                                     AcceptanceInv1Rec.Init();
                                     AcceptanceInv1Rec.Type := rec.Type::"Based On B2B LC";
                                     AcceptanceInv1Rec."B2BLC No." := GITBaseonLCRec."B2B LC No.";
+                                    AcceptanceInv1Rec."Line No" := Inx;
                                     AcceptanceInv1Rec."B2BLC No. (System)" := GITBaseonLCRec."B2B LC No. (System)";
                                     AcceptanceInv1Rec."AccNo." := rec."AccNo.";
                                     AcceptanceInv1Rec."Created Date" := Today;
@@ -342,13 +347,12 @@ page 50542 "Acceptance Card"
         END;
     end;
 
-
     trigger OnOpenPage()
     var
     begin
         //  "Acceptance S/N" := PADSTR('', 3 - strlen(format("Acceptance S/N 2")), '0') + format("Acceptance S/N 2");
         rec."Acceptance S/N" := format(rec."Acceptance S/N 2").PadLeft(7 - strlen(format(rec."Acceptance S/N 2")), '0');
-        CurrPage.Update();
+        // CurrPage.Update();
     end;
 
     var
@@ -359,5 +363,6 @@ page 50542 "Acceptance Card"
         myInt: Integer;
     begin
         VisibleVar := true;
+
     end;
 }
