@@ -49,6 +49,9 @@ report 51439 CashReceiptReport
             var
                 myInt: Integer;
                 TotLcy: Decimal;
+                VendorRec1: Record Vendor;
+                EmpRec: Record Employee;
+                GlRec: Record "G/L Account";
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -71,12 +74,33 @@ report 51439 CashReceiptReport
                     if VendorRec.FindSet() then begin
                         AccountHead := VendorRec.Name;
                     end;
-                end
-                else begin
+                end;
+                if "Account Type" = "Account Type"::"Bank Account" then begin
                     BankAcountRec.Reset();
                     BankAcountRec.SetRange("No.", "Account No.");
                     if BankAcountRec.FindSet() then begin
                         AccountHead := BankAcountRec.Name;
+                    end;
+                end;
+                if "Account Type" = "Account Type"::Vendor then begin
+                    VendorRec1.Reset();
+                    VendorRec1.SetRange("No.", "Account No.");
+                    if VendorRec1.FindSet() then begin
+                        AccountHead := VendorRec1.Name;
+                    end;
+                end;
+                if "Account Type" = "Account Type"::Employee then begin
+                    EmpRec.Reset();
+                    EmpRec.SetRange("No.", "Account No.");
+                    if EmpRec.FindSet() then begin
+                        AccountHead := EmpRec."First Name";
+                    end;
+                end;
+                if "Account Type" = "Account Type"::"G/L Account" then begin
+                    GlRec.Reset();
+                    GlRec.SetRange("No.", "Account No.");
+                    if GlRec.FindSet() then begin
+                        AccountHead := GlRec.Name;
                     end;
                 end;
 
@@ -90,9 +114,9 @@ report 51439 CashReceiptReport
                 TotLcy := 0;
                 GenJLineRec.Reset();
                 GenJLineRec.SetRange("Document No.", "Document No.");
-                GenJLineRec.SetRange("Account Type", GenJLineRec."Account Type"::Customer);
-                if GenJLineRec.FindSet() then begin
-                    GenJLineRec.CalcSums("Amount (LCY)");
+                // GenJLineRec.SetRange("Account Type", GenJLineRec."Account Type"::Customer);
+                if GenJLineRec.FindFirst() then begin
+                    // GenJLineRec.CalcSums("Amount (LCY)");
                     TotLcy := GenJLineRec."Amount (LCY)";
                     RPTVCheck.InitTextVariable;
                     // RPTVCheck.FormatNoTextCustomized(NumberText, abs(GenJLineRec."Amount (LCY)"), GenJLineRec."Currency Code" + ' ' + '');
