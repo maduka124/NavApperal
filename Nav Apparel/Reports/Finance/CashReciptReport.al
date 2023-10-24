@@ -41,8 +41,8 @@ report 51439 CashReceiptReport
             { }
             column(BillNo; BillNo)
             { }
-            // column(factor)
-            // { }
+            column(ExRate; ExRate)
+            { }
             // column()
             // { }
             trigger OnAfterGetRecord()
@@ -55,6 +55,13 @@ report 51439 CashReceiptReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                ExRate := 0;
+                Curency.Reset();
+                Curency.SetRange("Currency Code", 'USD');
+                if Curency.FindSet() then begin
+                    ExRate := Curency."Relational Exch. Rate Amount";
+                end;
 
                 GenJLineRec.Reset();
                 GenJLineRec.SetRange("Document No.", "Document No.");
@@ -156,7 +163,7 @@ report 51439 CashReceiptReport
                     {
                         ApplicationArea = All;
                         Caption = 'Document No';
-                        Editable = false;
+                        // Editable = false;
 
                     }
                 }
@@ -171,6 +178,8 @@ report 51439 CashReceiptReport
     end;
 
     var
+        ExRate: Decimal;
+        Curency: Record "Currency Exchange Rate";
         VendorLeRec: Record "Vendor Ledger Entry";
         BillNo: Text[35];
         CustLedgRec: Record "Cust. Ledger Entry";
