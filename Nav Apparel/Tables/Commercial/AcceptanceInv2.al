@@ -56,11 +56,15 @@ table 50544 "AcceptanceInv2"
             OptionMembers = "Based On B2B LC","TT or Cash";
             OptionCaption = 'Based On B2B LC,TT or Cash';
         }
+        field(50011; "Line No"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
     {
-        key(PK; "AccNo.", "Inv No.")
+        key(PK; "AccNo.", "Inv No.", "Line No")
         {
             Clustered = true;
         }
