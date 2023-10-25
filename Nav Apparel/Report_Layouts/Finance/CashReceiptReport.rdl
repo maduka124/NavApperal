@@ -486,7 +486,7 @@
                                   <Value>=IIF(Fields!Amount__LCY_.Value&lt;0,(Fields!Amount__LCY_.Value)*-1,Fields!Amount__LCY_.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1496,7 +1496,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Debit_Amount.Value</Value>
+                                  <Value>=Fields!Debit_Amount.Value*Fields!BDRate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1532,7 +1532,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Credit_Amount.Value</Value>
+                                  <Value>=Fields!Credit_Amount.Value*Fields!BDRate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1704,7 +1704,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Debit_Amount.Value)</Value>
+                                  <Value>=Sum(Fields!Debit_Amount.Value*Fields!BDRate.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -1740,7 +1740,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Credit_Amount.Value)</Value>
+                                  <Value>=Sum(Fields!Credit_Amount.Value*Fields!BDRate.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00);''</Format>
@@ -2816,6 +2816,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="ExRateFormat">
           <DataField>ExRateFormat</DataField>
+        </Field>
+        <Field Name="BDRate">
+          <DataField>BDRate</DataField>
+        </Field>
+        <Field Name="BDRateFormat">
+          <DataField>BDRateFormat</DataField>
         </Field>
       </Fields>
       <Query>

@@ -43,6 +43,8 @@ report 51439 CashReceiptReport
             { }
             column(ExRate; ExRate)
             { }
+            column(BDRate; BDRate)
+            { }
             // column()
             // { }
             trigger OnAfterGetRecord()
@@ -57,11 +59,25 @@ report 51439 CashReceiptReport
                 comRec.CalcFields(Picture);
 
                 ExRate := 0;
-                Curency.Reset();
-                Curency.SetRange("Currency Code", 'USD');
-                if Curency.FindSet() then begin
-                    ExRate := Curency."Relational Exch. Rate Amount";
-                end;
+                if "Currency Code" <> 'USD' then begin
+                    Curency.Reset();
+                    Curency.SetRange("Currency Code", 'USD');
+                    if Curency.FindSet() then begin
+                        ExRate := Curency."Relational Exch. Rate Amount";
+                    end;
+                end else
+                    ExRate := 1;
+
+                BDRate := 0;
+                if "Currency Code" = 'USD' then begin
+                    Curency.Reset();
+                    Curency.SetRange("Currency Code", 'USD');
+                    if Curency.FindSet() then begin
+                        BDRate := Curency."Relational Exch. Rate Amount";
+                    end;
+                end else
+                    BDRate := 1;
+
 
                 GenJLineRec.Reset();
                 GenJLineRec.SetRange("Document No.", "Document No.");
@@ -132,11 +148,22 @@ report 51439 CashReceiptReport
 
                 VendorLeRec.Reset();
                 VendorLeRec.SetRange("Applies-to ID", "Document No.");
-                if VendorLeRec.FindFirst() then begin
+                if VendorLeRec.FindSet() then begin
                     // BillNo := VendorLeRec."External Document No.";
                     repeat
                         BillNo := BillNo + '|' + VendorLeRec."External Document No.";
                     until VendorLeRec.Next() = 0;
+                end;
+
+                if BillNo = '' then begin
+                    CustLedgRec.Reset();
+                    CustLedgRec.SetRange("Applies-to ID", "Document No.");
+                    // CustLedgRec.SetFilter("Factory Inv. No", '<>%1', '');
+                    if CustLedgRec.FindFirst() then begin
+                        repeat
+                            BillNo := CustLedgRec."Factory Inv. No";
+                        until CustLedgRec.Next() = 0;
+                    end;
                 end;
             end;
 
@@ -178,6 +205,7 @@ report 51439 CashReceiptReport
     end;
 
     var
+        BDRate: Decimal;
         ExRate: Decimal;
         Curency: Record "Currency Exchange Rate";
         VendorLeRec: Record "Vendor Ledger Entry";
