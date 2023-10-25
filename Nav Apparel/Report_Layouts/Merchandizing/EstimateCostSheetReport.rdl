@@ -5882,6 +5882,7 @@
                                   <Value>Manufacturing Cost</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5934,6 +5935,7 @@
                                   <Value>Dz.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5988,6 +5990,7 @@
                                   <Value>=Fields!MFG_Cost_Dz_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -6043,6 +6046,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6097,6 +6101,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6151,6 +6156,7 @@
                                   <Value>=Fields!MFG_Cost_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n4</Format>
                                   </Style>
                                 </TextRun>
@@ -6186,6 +6192,7 @@
                                   <Value>=Fields!MFG_Cost__.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -6241,6 +6248,7 @@
                                   <Value>=Fields!MFG_Cost_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -6301,6 +6309,7 @@
                                   <Value>Other Overhead</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6353,6 +6362,7 @@
                                   <Value>Dz.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6407,6 +6417,7 @@
                                   <Value>=Fields!Overhead_Dz_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -6462,6 +6473,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6516,6 +6528,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6570,6 +6583,7 @@
                                   <Value>=Fields!Overhead_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n4</Format>
                                   </Style>
                                 </TextRun>
@@ -6605,6 +6619,7 @@
                                   <Value>=Fields!Overhead__.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -6660,6 +6675,7 @@
                                   <Value>=Fields!Overhead_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -6721,7 +6737,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Calibri</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#000000</Color>
                                   </Style>
@@ -6776,6 +6792,7 @@
                                   <Value>Dz.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6830,6 +6847,7 @@
                                   <Value>=Fields!Commercial_Dz_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -6885,6 +6903,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6939,6 +6958,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6993,6 +7013,7 @@
                                   <Value>=Fields!Commercial_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n4</Format>
                                   </Style>
                                 </TextRun>
@@ -7028,6 +7049,7 @@
                                   <Value>=Fields!Commercial__.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -7083,6 +7105,7 @@
                                   <Value>=Fields!Commercial_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -7143,6 +7166,7 @@
                                   <Value>Deferred Payment</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7195,6 +7219,7 @@
                                   <Value>Dz.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7249,6 +7274,7 @@
                                   <Value>=Fields!Deferred_Payment_Dz_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -7304,6 +7330,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7358,6 +7385,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7412,6 +7440,7 @@
                                   <Value>=Fields!Deferred_Payment_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n4</Format>
                                   </Style>
                                 </TextRun>
@@ -7447,6 +7476,7 @@
                                   <Value>=Fields!Deferred_Payment__.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -7502,6 +7532,7 @@
                                   <Value>=Fields!Deferred_Payment_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -7562,6 +7593,7 @@
                                   <Value>Risk Factor</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7614,6 +7646,7 @@
                                   <Value>Dz.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7668,6 +7701,7 @@
                                   <Value>=Fields!Risk_factor_Dz_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -7723,6 +7757,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7777,6 +7812,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7831,6 +7867,7 @@
                                   <Value>=Fields!Risk_factor__Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n4</Format>
                                   </Style>
                                 </TextRun>
@@ -7866,6 +7903,7 @@
                                   <Value>=Fields!Risk_factor__.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -7921,6 +7959,7 @@
                                   <Value>=Fields!Risk_factor__Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -7981,6 +8020,7 @@
                                   <Value>TAX</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8033,6 +8073,7 @@
                                   <Value>Dz.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8087,6 +8128,7 @@
                                   <Value>=Fields!TAX_Dz_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -8142,6 +8184,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8196,6 +8239,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8250,6 +8294,7 @@
                                   <Value>=Fields!TAX__Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n4</Format>
                                   </Style>
                                 </TextRun>
@@ -8285,6 +8330,7 @@
                                   <Value>=Fields!TAX__.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -8340,6 +8386,7 @@
                                   <Value>=Fields!TAX__Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -8400,6 +8447,7 @@
                                   <Value>ABA Sourcing</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8452,6 +8500,7 @@
                                   <Value>Dz.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8506,6 +8555,7 @@
                                   <Value>=Fields!ABA_Sourcing_Dz_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -8561,6 +8611,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8615,6 +8666,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8669,6 +8721,7 @@
                                   <Value>=Fields!ABA_Sourcing__Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n4</Format>
                                   </Style>
                                 </TextRun>
@@ -8704,6 +8757,7 @@
                                   <Value>=Fields!ABA_Sourcing__.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -8759,6 +8813,7 @@
                                   <Value>=Fields!ABA_Sourcing__Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
