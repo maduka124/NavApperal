@@ -63,6 +63,11 @@ page 51429 POWashAllocated
                     ApplicationArea = All;
                 }
 
+                field(Recipe; Rec.Recipe)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Color Qty"; Rec."Color Qty")
                 {
                     ApplicationArea = All;
@@ -157,11 +162,116 @@ page 51429 POWashAllocated
                     Editable = false;
                 }
 
-                field(Recipe; Rec.Recipe)
+
+                field("SMV WHISKERS"; Rec."SMV WHISKERS")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV BRUSH"; Rec."SMV BRUSH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV BASE WASH"; Rec."SMV BASE WASH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV FINAL WASH"; Rec."SMV FINAL WASH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV ACID/ RANDOM WASH"; Rec."SMV ACID/ RANDOM WASH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV PP SPRAY"; Rec."SMV PP SPRAY")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV DESTROY"; Rec."SMV DESTROY")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV LASER WHISKERS"; Rec."SMV LASER WHISKERS")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV LASER BRUSH"; Rec."SMV LASER BRUSH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("SMV LASER DESTROY"; Rec."SMV LASER DESTROY")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Production WHISKERS"; Rec."Production WHISKERS")
                 {
                     ApplicationArea = All;
                 }
 
+                field("Production BRUSH"; Rec."Production BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production BASE WASH"; Rec."Production BASE WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production FINAL WASH"; Rec."Production FINAL WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production ACID/ RANDOM WASH"; Rec."Production ACID/ RANDOM WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production PP SPRAY"; Rec."Production PP SPRAY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production DESTROY"; Rec."Production DESTROY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production LASER WHISKERS"; Rec."Production LASER WHISKERS")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production LASER BRUSH"; Rec."Production LASER BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production LASER DESTROY"; Rec."Production LASER DESTROY")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

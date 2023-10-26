@@ -706,6 +706,18 @@ table 51139 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
+        field(71012705; "Wash Sequence SMV Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+
+        field(71012706; "Wash Production Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+
     }
 
     keys

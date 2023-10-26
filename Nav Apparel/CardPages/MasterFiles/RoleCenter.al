@@ -340,7 +340,6 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-
                 action("Wash Type")
                 {
                     Caption = 'Wash Type';
@@ -2442,9 +2441,9 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Washing Processing")
+                action("Washing Process")
                 {
-                    Caption = 'Washing Processing';
+                    Caption = 'Washing Process';
                     RunObject = Page "Washing Processing List";
                     ApplicationArea = all;
                 }
@@ -2472,11 +2471,17 @@ page 50968 "Nav Apperal Role Center"
                 }
 
 
-
                 action("Sample Requests")
                 {
                     Caption = ' Washing Requests';
                     RunObject = Page WashingSampleHistry;
+                    ApplicationArea = all;
+                }
+
+                action("Washing Sequence SMV")
+                {
+                    Caption = 'Washing Sequence SMV';
+                    RunObject = Page WashSequenceSMVList;
                     ApplicationArea = all;
                 }
 

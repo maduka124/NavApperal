@@ -184,6 +184,111 @@ table 51430 WashingMaster
             DataClassification = ToBeClassified;
         }
 
+        field(63; "SMV FINAL WASH"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(64; "SMV LASER WHISKERS"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(65; "SMV LASER DESTROY"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(66; "SMV PP SPRAY"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(67; "SMV WHISKERS"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(68; "SMV ACID/ RANDOM WASH"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(69; "SMV BASE WASH"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(70; "SMV BRUSH"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(80; "SMV DESTROY"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(81; "SMV LASER BRUSH"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(82; "SMV Updated"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(83; "Production FINAL WASH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(84; "Production LASER WHISKERS"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(85; "Production LASER DESTROY"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(86; "Production PP SPRAY"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(87; "Production WHISKERS"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(88; "Production ACID/ RANDOM WASH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(89; "Production BASE WASH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(90; "Production BRUSH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(91; "Production DESTROY"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(92; "Production LASER BRUSH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
@@ -196,6 +301,13 @@ table 51430 WashingMaster
         key(SK; "Plan Start Date")
         {
 
+        }
+    }
+
+    fieldgroups
+    {
+        fieldgroup(DropDown; "Buyer Name", "Style Name", Lot, "PO No", "Color Name")
+        {
         }
     }
 }

@@ -158,6 +158,108 @@ page 51427 "Allocated Style/PO For Wash"
                 {
                     ApplicationArea = All;
                 }
+
+                field("SMV WHISKERS"; Rec."SMV WHISKERS")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV BRUSH"; Rec."SMV BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV BASE WASH"; Rec."SMV BASE WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV FINAL WASH"; Rec."SMV FINAL WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV ACID/ RANDOM WASH"; Rec."SMV ACID/ RANDOM WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV PP SPRAY"; Rec."SMV PP SPRAY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV DESTROY"; Rec."SMV DESTROY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV LASER WHISKERS"; Rec."SMV LASER WHISKERS")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV LASER BRUSH"; Rec."SMV LASER BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("SMV LASER DESTROY"; Rec."SMV LASER DESTROY")
+                {
+                    ApplicationArea = All;
+                }
+
+
+                field("Production WHISKERS"; Rec."Production WHISKERS")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production BRUSH"; Rec."Production BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production BASE WASH"; Rec."Production BASE WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production FINAL WASH"; Rec."Production FINAL WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production ACID/ RANDOM WASH"; Rec."Production ACID/ RANDOM WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production PP SPRAY"; Rec."Production PP SPRAY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production DESTROY"; Rec."Production DESTROY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production LASER WHISKERS"; Rec."Production LASER WHISKERS")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production LASER BRUSH"; Rec."Production LASER BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production LASER DESTROY"; Rec."Production LASER DESTROY")
+                {
+                    ApplicationArea = All;
+                }
+
             }
         }
     }

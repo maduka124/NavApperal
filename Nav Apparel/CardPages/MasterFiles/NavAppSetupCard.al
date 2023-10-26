@@ -712,6 +712,18 @@ page 50964 "NavApp Setup Card"
                     ApplicationArea = All;
                     Caption = 'Wash Delivery No';
                 }
+
+                field("Wash Sequence SMV Nos."; Rec."Wash Sequence SMV Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Wash Seq/SMV Nos';
+                }
+
+                field("Wash Production Nos."; Rec."Wash Production Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Washing Production No';
+                }
             }
         }
     }
