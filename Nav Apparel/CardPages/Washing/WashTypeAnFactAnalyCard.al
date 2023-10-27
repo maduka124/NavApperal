@@ -111,12 +111,12 @@ page 51434 WashTypeAndFactWisecard
                                         WashtypeWiseanalysisRec.Aug := WashtypeWiseanalysisRec.Aug + WashingMasterRec."Color Qty";
                                     if MonthNo = 9 then
                                         WashtypeWiseanalysisRec.Sep := WashtypeWiseanalysisRec.Sep + WashingMasterRec."Color Qty";
-                                    if MonthNo = 8 then
-                                        WashtypeWiseanalysisRec.Oct := WashtypeWiseanalysisRec.Oct + WashingMasterRec."Color Qty";
                                     if MonthNo = 10 then
-                                        WashtypeWiseanalysisRec.Nov := WashtypeWiseanalysisRec.Nov + WashingMasterRec."Color Qty";
+                                        WashtypeWiseanalysisRec.Oct := WashtypeWiseanalysisRec.Oct + WashingMasterRec."Color Qty";
                                     if MonthNo = 11 then
                                         WashtypeWiseanalysisRec.Nov := WashtypeWiseanalysisRec.Nov + WashingMasterRec."Color Qty";
+                                    if MonthNo = 12 then
+                                        WashtypeWiseanalysisRec.Dec := WashtypeWiseanalysisRec.Nov + WashingMasterRec."Color Qty";
 
                                     WashtypeWiseanalysisRec.Total := WashtypeWiseanalysisRec.Total + WashingMasterRec."Color Qty";
                                     WashtypeWiseanalysisRec.Modify(true);
