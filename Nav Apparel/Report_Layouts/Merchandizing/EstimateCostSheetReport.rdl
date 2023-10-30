@@ -11694,6 +11694,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Value>=((Sum(Fields!TotFab.Value)+Sum(Fields!NotFab.Value)+Fields!Printing__Dz__.Value+Fields!Embroidery__Dz__.Value+Fields!Washing__Dz__.Value+Fields!Others__Dz__.Value)/Fields!FOB_Dz_.Value)*100</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n3</Format>
                                   </Style>
                                 </TextRun>
@@ -11769,6 +11770,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Value>0.000</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>

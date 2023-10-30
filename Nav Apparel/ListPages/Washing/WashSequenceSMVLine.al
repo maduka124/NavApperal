@@ -43,6 +43,27 @@ page 51447 WashSequenceSMVLine
                 {
                     ApplicationArea = All;
                     Caption = 'Sequence';
+
+                    trigger OnValidate()
+                    var
+                        WashSequenceSMVLineRec: Record WashSequenceSMVLine;
+                    begin
+
+                        WashSequenceSMVLineRec.Reset();
+                        WashSequenceSMVLineRec.SetRange(No, Rec.No);
+
+                        if WashSequenceSMVLineRec.FindSet() then begin
+
+                            repeat
+                                if Rec.Seq <> 0 then begin
+                                    if Rec.Seq = WashSequenceSMVLineRec.Seq then
+                                        Error('This Seuence no already used in %1', WashSequenceSMVLineRec."Processing Code");
+                                end;
+                            until WashSequenceSMVLineRec.Next() = 0;
+
+                        end;
+
+                    end;
                 }
             }
         }

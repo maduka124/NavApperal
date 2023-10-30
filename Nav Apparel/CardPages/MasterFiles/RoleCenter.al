@@ -2470,6 +2470,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Washing Production")
+                {
+                    Caption = 'Washing Production';
+                    RunObject = Page WashingProductionlist;
+                    ApplicationArea = all;
+                }
 
                 action("Sample Requests")
                 {
