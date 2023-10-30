@@ -170,7 +170,6 @@ page 51433 Washtypeanalys
                     WashtypeWiseanalysisRec.Total := WashtypeWiseanalysisRec.Total + WashingMasterRec."Color Qty";
                     WashtypeWiseanalysisRec.Insert();
 
-
                 end
                 else begin
                     if MonthNo = 1 then
@@ -196,7 +195,7 @@ page 51433 Washtypeanalys
                     if MonthNo = 11 then
                         WashtypeWiseanalysisRec.Nov := WashtypeWiseanalysisRec.Nov + WashingMasterRec."Color Qty";
                     if MonthNo = 12 then
-                        WashtypeWiseanalysisRec.Nov := WashtypeWiseanalysisRec.Nov + WashingMasterRec."Color Qty";
+                        WashtypeWiseanalysisRec.Dec := WashtypeWiseanalysisRec.Dec + WashingMasterRec."Color Qty";
 
                     WashtypeWiseanalysisRec.Total := WashtypeWiseanalysisRec.Total + WashingMasterRec."Color Qty";
                     WashtypeWiseanalysisRec.Modify(true);

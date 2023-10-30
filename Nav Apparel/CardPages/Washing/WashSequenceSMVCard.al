@@ -480,7 +480,33 @@ page 51446 WashSequenceSMVCard
     trigger OnDeleteRecord(): Boolean
     var
         WashSeqSmvLineRec: Record WashSequenceSMVLine;
+        WashMasterRec: Record WashingMaster;
     begin
+
+        WashMasterRec.Reset();
+        WashMasterRec.SetRange("Style No", Rec."Style No.");
+        WashMasterRec.SetRange("PO No", Rec."PO No");
+        WashMasterRec.SetRange(Lot, Rec."Lot No");
+        WashMasterRec.SetRange("Color Name", Rec."Color Name");
+
+        if WashMasterRec.FindFirst() then begin
+
+            WashMasterRec."SMV ACID/ RANDOM WASH" := 0;
+            WashMasterRec."SMV BASE WASH" := 0;
+            WashMasterRec."SMV BRUSH" := 0;
+            WashMasterRec."SMV DESTROY" := 0;
+            WashMasterRec."SMV FINAL WASH" := 0;
+            WashMasterRec."SMV LASER BRUSH" := 0;
+            WashMasterRec."SMV LASER DESTROY" := 0;
+            WashMasterRec."SMV LASER WHISKERS" := 0;
+            WashMasterRec."SMV PP SPRAY" := 0;
+            WashMasterRec."SMV WHISKERS" := 0;
+
+            if Rec.Posting = true then
+                WashMasterRec."SMV Updated" := false;
+
+            WashMasterRec.Modify(true);
+        end;
 
         WashSeqSmvLineRec.Reset();
         WashSeqSmvLineRec.SetRange(No, Rec.No);

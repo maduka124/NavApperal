@@ -226,51 +226,61 @@ page 51429 POWashAllocated
                 field("Production WHISKERS"; Rec."Production WHISKERS")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production BRUSH"; Rec."Production BRUSH")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production BASE WASH"; Rec."Production BASE WASH")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production FINAL WASH"; Rec."Production FINAL WASH")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production ACID/ RANDOM WASH"; Rec."Production ACID/ RANDOM WASH")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production PP SPRAY"; Rec."Production PP SPRAY")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production DESTROY"; Rec."Production DESTROY")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production LASER WHISKERS"; Rec."Production LASER WHISKERS")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production LASER BRUSH"; Rec."Production LASER BRUSH")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Production LASER DESTROY"; Rec."Production LASER DESTROY")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
         }

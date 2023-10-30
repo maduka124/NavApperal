@@ -27,6 +27,7 @@ page 51441 "Washing Processing"
                 field("Processing Name"; Rec."Processing Name")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(SMV; Rec.SMV)
