@@ -289,6 +289,56 @@ table 51430 WashingMaster
             DataClassification = ToBeClassified;
         }
 
+        field(93; "Balance FINAL WASH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(94; "Balance LASER WHISKERS"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(95; "Balance LASER DESTROY"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(96; "Balance PP SPRAY"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(97; "Balance WHISKERS"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(98; "Balance ACID/ RANDOM WASH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(99; "Balance BASE WASH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(100; "Balance BRUSH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(101; "Balance DESTROY"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(102; "Balance LASER BRUSH"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

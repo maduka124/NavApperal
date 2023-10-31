@@ -1861,14 +1861,14 @@ page 50968 "Nav Apperal Role Center"
                 }
                 action(" Washing Requisition")
                 {
-                    Caption = ' Washing Requisition';
+                    Caption = ' Washing Received';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
 
                 action("Wash Delivery Sewing")
                 {
-                    Caption = 'Wash Received';
+                    Caption = 'Wash Send';
                     RunObject = Page WashDelivery;
                     ApplicationArea = all;
                 }
@@ -1990,7 +1990,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Sample Requests Finishing")
                 {
-                    Caption = ' Washing Requisition';
+                    Caption = ' Wash Received';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
@@ -2460,14 +2460,14 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Wash Delivery")
                 {
-                    Caption = 'Wash Delivery Note';
+                    Caption = 'Wash Send';
                     RunObject = Page WashDelivery;
                     ApplicationArea = all;
                 }
 
                 action("Washing Process")
                 {
-                    Caption = 'Washing Process';
+                    Caption = 'Wash Process';
                     RunObject = Page "Washing Processing List";
                     ApplicationArea = all;
                 }
@@ -2487,30 +2487,30 @@ page 50968 "Nav Apperal Role Center"
                 }
 
 
-                action(" ")
+                action("Washing Factory & Type Analyse")
                 {
-                    Caption = 'Washing Factory & Type Annalyse ';
+                    Caption = 'Washing Factory & Type Analyse';
                     RunObject = Page WashTypeAndFactWisecard;
                     ApplicationArea = all;
                 }
 
                 action("Washing Production")
                 {
-                    Caption = 'Washing Production';
+                    Caption = 'Wash Production';
                     RunObject = Page WashingProductionlist;
                     ApplicationArea = all;
                 }
 
                 action("Sample Requests")
                 {
-                    Caption = ' Washing Requests';
+                    Caption = ' Washing Received';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
 
                 action("Washing Sequence SMV")
                 {
-                    Caption = 'Washing Sequence SMV';
+                    Caption = 'Wash Sequence SMV';
                     RunObject = Page WashSequenceSMVList;
                     ApplicationArea = all;
                 }
@@ -2575,7 +2575,7 @@ page 50968 "Nav Apperal Role Center"
                 {
                     RunObject = page SampleWashingRequestsWIP;
                     ApplicationArea = All;
-                    Caption = 'Washing Requests WIP';
+                    Caption = 'Wash Requests WIP';
                 }
 
                 group("Washing Reports")
@@ -3572,6 +3572,12 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Planning Efficiency Dashboard';
                     RunObject = Page "Planning Efficiency Dashboard1";
+                    ApplicationArea = all;
+                }
+                action("Washing Factory & Type Analyse Dashbord")
+                {
+                    Caption = 'Washing Factory & Type Analyse';
+                    RunObject = Page WashTypeAndFactWisecard;
                     ApplicationArea = all;
                 }
                 group("Dashboard Reports")
