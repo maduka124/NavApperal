@@ -282,6 +282,66 @@ page 51429 POWashAllocated
                     ApplicationArea = All;
                     Editable = false;
                 }
+
+                field("Balance LASER DESTROY"; Rec."Balance LASER DESTROY")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance WHISKERS"; Rec."Balance WHISKERS")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance BRUSH"; Rec."Balance BRUSH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance BASE WASH"; Rec."Balance BASE WASH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance FINAL WASH"; Rec."Balance FINAL WASH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance ACID/ RANDOM WASH"; Rec."Balance ACID/ RANDOM WASH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance PP SPRAY"; Rec."Balance PP SPRAY")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance DESTROY"; Rec."Balance DESTROY")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance LASER WHISKERS"; Rec."Balance LASER WHISKERS")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Balance LASER BRUSH"; Rec."Balance LASER BRUSH")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
             }
         }
     }

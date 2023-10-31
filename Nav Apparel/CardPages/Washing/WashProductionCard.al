@@ -203,11 +203,6 @@ page 51453 WashProductionCard
                 {
                     ApplicationArea = All;
                 }
-
-                field(PostingStatus; Rec.PostingStatus)
-                {
-                    ApplicationArea = All;
-                }
             }
 
             group(Production)
@@ -331,10 +326,10 @@ page 51453 WashProductionCard
                                         WashProdLineSeqRec.Ascending(true);
 
                                         if WashProdLineSeqRec.FindSet() then begin
-                                            // repeat
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS"
                                             end
                                             else begin
 
@@ -351,8 +346,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BASE WASH" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BASE WASH" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('BASE WASH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
@@ -360,8 +357,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
@@ -369,8 +368,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BRUSH" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BRUSH" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('BRUSH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
@@ -378,8 +379,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production FINAL WASH" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('FINAL WASH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
@@ -387,8 +390,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production DESTROY" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production DESTROY" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('DESTROY Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
@@ -396,8 +401,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER BRUSH" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('LASER BRUSH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
@@ -405,8 +412,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER DESTROY" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('LASER DESTROY Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
@@ -414,8 +423,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('LASER WHISKERS Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
@@ -423,8 +434,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production PP SPRAY" then
-                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production PP SPRAY" then begin
+                                                            WashinPorLine."Production WHISKERS" := WashingMasterRec."Production WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Balance WHISKERS";
+                                                        end
                                                         else
                                                             Error('PP SPRAY Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
@@ -455,6 +468,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
                                             end
                                             else begin
 
@@ -471,8 +485,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -480,8 +496,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BASE WASH" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BASE WASH" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
@@ -490,8 +508,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BRUSH" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production BRUSH" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty %1 greater than BRUSH Qty Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
@@ -499,8 +519,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
@@ -508,8 +530,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
@@ -517,8 +541,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
@@ -526,8 +552,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
@@ -535,8 +563,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" < WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
@@ -544,8 +574,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production PP SPRAY" then
-                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production PP SPRAY" then begin
+                                                            WashingMasterRec."Production ACID/ RANDOM WASH" := WashingMasterRec."Production ACID/ RANDOM WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance ACID/ RANDOM WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production ACID/ RANDOM WASH";
+                                                        end
                                                         else
                                                             Error('ACID/ RANDOM WASH Qty Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
@@ -575,6 +607,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
                                             end
                                             else begin
 
@@ -591,8 +624,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end
                                                         else
                                                             Error('BASE WASH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -600,8 +635,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end
                                                         else
                                                             Error('BASE WASH Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
@@ -609,63 +646,70 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end else
                                                             Error('BASE WASH Qty %1 greater than BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end else
                                                             Error('BASE WASH Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end else
                                                             Error('BASE WASH Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end else
                                                             Error('BASE WASH Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end else
                                                             Error('BASE WASH Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end else
                                                             Error('BASE WASH Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production PP SPRAY" then
-                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production PP SPRAY" then begin
+                                                            WashingMasterRec."Production BASE WASH" := WashingMasterRec."Production BASE WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance BASE WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BASE WASH";
+                                                        end else
                                                             Error('BASE WASH Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
 
@@ -695,6 +739,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                             end
                                             else begin
 
@@ -711,81 +756,90 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
 
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                        end else
                                                             Error('BRUSH Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
                                                 end;
@@ -814,6 +868,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production LASER WHISKERS" := Rec."Day Production Qty";
+                                                WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
                                             end
                                             else begin
 
@@ -830,90 +885,100 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
 
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
 
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production LASER WHISKERS" := WashingMasterRec."Production LASER WHISKERS" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER WHISKERS" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER WHISKERS";
+                                                        end else
                                                             Error('LASER WHISKERS Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
                                                 end;
@@ -942,6 +1007,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
                                             end
                                             else begin
 
@@ -958,8 +1024,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end
                                                         else
                                                             Error('LASER BRUSH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -967,81 +1035,90 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
 
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
 
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production LASER BRUSH" := WashingMasterRec."Production LASER BRUSH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER BRUSH";
+                                                        end else
                                                             Error('LASER BRUSH Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
                                                 end;
@@ -1069,6 +1146,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production FINAL WASH" := Rec."Day Production Qty";
+                                                WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
                                             end
                                             else begin
 
@@ -1085,8 +1163,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end
                                                         else
                                                             Error('FINAL WASH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -1094,81 +1174,90 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
 
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
 
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production FINAL WASH" := WashingMasterRec."Production FINAL WASH" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance FINAL WASH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production FINAL WASH";
+                                                        end else
                                                             Error('FINAL WASH Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
                                                 end;
@@ -1197,6 +1286,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production DESTROY" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
                                             end
                                             else begin
 
@@ -1213,8 +1303,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end
                                                         else
                                                             Error('DESTROY Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -1222,81 +1314,90 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
 
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
 
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashinPorLine."Production BASE WASH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashinPorLine."Production BRUSH" := WashingMasterRec."Production DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production DESTROY";
+                                                        end else
                                                             Error('DESTROY Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
                                                 end;
@@ -1324,6 +1425,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
                                             end
                                             else begin
 
@@ -1340,8 +1442,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end
                                                         else
                                                             Error('LASER DESTROY Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -1349,81 +1453,90 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
 
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
 
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
 
                                                     if ProcessCode = 'PP SPRAY' then begin
                                                         PreProdQty := WashingMasterRec."Production PP SPRAY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production LASER DESTROY" := WashingMasterRec."Production LASER DESTROY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance LASER DESTROY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production LASER DESTROY";
+                                                        end else
                                                             Error('LASER DESTROY Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;
                                                 end;
@@ -1451,6 +1564,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
                                             end
                                             else begin
 
@@ -1467,8 +1581,10 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end
                                                         else
                                                             Error('PP SPRAY Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -1476,72 +1592,80 @@ page 51453 WashProductionCard
                                                     if ProcessCode = 'BASE WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production BASE WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
 
                                                     if ProcessCode = 'ACID/ RANDOM WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production ACID/ RANDOM WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
 
                                                     if ProcessCode = 'BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production BRUSH" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'FINAL WASH' then begin
                                                         PreProdQty := WashingMasterRec."Production FINAL WASH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
 
                                                     if ProcessCode = 'DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER BRUSH' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER BRUSH";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
 
                                                     if ProcessCode = 'LASER DESTROY' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER DESTROY";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
 
                                                     if ProcessCode = 'LASER WHISKERS' then begin
                                                         PreProdQty := WashingMasterRec."Production LASER WHISKERS";
 
-                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then
-                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty"
-                                                        else
+                                                        if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
+                                                            WashingMasterRec."Production PP SPRAY" := WashingMasterRec."Production PP SPRAY" + Rec."Day Production Qty";
+                                                            WashingMasterRec."Balance PP SPRAY" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production PP SPRAY";
+                                                        end else
                                                             Error('PP SPRAY Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
                                                 end;
