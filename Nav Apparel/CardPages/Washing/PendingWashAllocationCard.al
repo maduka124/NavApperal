@@ -53,14 +53,16 @@ page 51424 PendingAllocationCard
 
                     if AllocatedPORec.FindSet() then begin
                         repeat
-                            if AllocatedPORec."Washing Plant" = '' then begin
-                                Error('Wash Plant is Empty');
-                                if AllocatedPORec."Wash Type" = '' then
-                                    Error('Wash Type is Empty');
-                            end
-                            else begin
-                                if AllocatedPORec."Wash Type" = '' then
-                                    Error('Wash Type is Empty');
+                            if AllocatedPORec."Line No" <> 0 then begin
+                                if AllocatedPORec."Washing Plant" = '' then begin
+                                    Error('Wash Plant is Empty');
+                                    if AllocatedPORec."Wash Type" = '' then
+                                        Error('Wash Type is Empty');
+                                end
+                                else begin
+                                    if AllocatedPORec."Wash Type" = '' then
+                                        Error('Wash Type is Empty');
+                                end;
                             end;
                         until AllocatedPORec.Next() = 0;
                     end;
@@ -79,30 +81,32 @@ page 51424 PendingAllocationCard
 
                             if Not WashingMasterRec.FindSet() then begin
 
-                                WashingMasterRec.Init();
-                                LineNo += 1;
-                                WashingMasterRec."Line No" := LineNo;
-                                WashingMasterRec."Buyer Code" := Rec."Buyer Code";
-                                WashingMasterRec."Buyer Name" := Rec."Buyer Name";
-                                WashingMasterRec."Style No" := Rec."Style No";
-                                WashingMasterRec."Style Name" := Rec."Style Name";
-                                WashingMasterRec."PO No" := Rec."PO No";
-                                WashingMasterRec.Lot := Rec.Lot;
-                                WashingMasterRec."Color Code" := AllocatedPORec."Color Code";
-                                WashingMasterRec."Color Name" := AllocatedPORec."Color Name";
-                                WashingMasterRec."Color Qty" := AllocatedPORec."Color Qty";
-                                WashingMasterRec."PO Qty" := AllocatedPORec."PO Qty";
-                                WashingMasterRec."Shipment Date" := Rec."Shipment Date";
-                                WashingMasterRec."Sewing Factory Code" := Rec."Sewing Factory Code";
-                                WashingMasterRec."Sewing Factory Name" := Rec."Sewing Factory Name";
-                                WashingMasterRec."Plan Start Date" := Rec."Plan Start Date";
-                                WashingMasterRec."Plan End Date" := rec."Plan End Date";
-                                WashingMasterRec."Washing Plant" := AllocatedPORec."Washing Plant";
-                                WashingMasterRec."Wash Type" := AllocatedPORec."Wash Type";
-                                WashingMasterRec.Recipe := AllocatedPORec.Recipe;
-                                WashingMasterRec."Plan Max Target" := Rec."Plan Max Target";
-                                WashingMasterRec."Washing Plant Code" := AllocatedPORec."Washing Plant Code";
-                                WashingMasterRec.Insert();
+                                if AllocatedPORec."Line No" <> 0 then begin
+                                    WashingMasterRec.Init();
+                                    LineNo += 1;
+                                    WashingMasterRec."Line No" := LineNo;
+                                    WashingMasterRec."Buyer Code" := Rec."Buyer Code";
+                                    WashingMasterRec."Buyer Name" := Rec."Buyer Name";
+                                    WashingMasterRec."Style No" := Rec."Style No";
+                                    WashingMasterRec."Style Name" := Rec."Style Name";
+                                    WashingMasterRec."PO No" := Rec."PO No";
+                                    WashingMasterRec.Lot := Rec.Lot;
+                                    WashingMasterRec."Color Code" := AllocatedPORec."Color Code";
+                                    WashingMasterRec."Color Name" := AllocatedPORec."Color Name";
+                                    WashingMasterRec."Color Qty" := AllocatedPORec."Color Qty";
+                                    WashingMasterRec."PO Qty" := AllocatedPORec."PO Qty";
+                                    WashingMasterRec."Shipment Date" := Rec."Shipment Date";
+                                    WashingMasterRec."Sewing Factory Code" := Rec."Sewing Factory Code";
+                                    WashingMasterRec."Sewing Factory Name" := Rec."Sewing Factory Name";
+                                    WashingMasterRec."Plan Start Date" := Rec."Plan Start Date";
+                                    WashingMasterRec."Plan End Date" := rec."Plan End Date";
+                                    WashingMasterRec."Washing Plant" := AllocatedPORec."Washing Plant";
+                                    WashingMasterRec."Wash Type" := AllocatedPORec."Wash Type";
+                                    WashingMasterRec.Recipe := AllocatedPORec.Recipe;
+                                    WashingMasterRec."Plan Max Target" := Rec."Plan Max Target";
+                                    WashingMasterRec."Washing Plant Code" := AllocatedPORec."Washing Plant Code";
+                                    WashingMasterRec.Insert();
+                                end;
                             end;
 
                             AllocatedPORec."Wash Allocated Color" := true;
