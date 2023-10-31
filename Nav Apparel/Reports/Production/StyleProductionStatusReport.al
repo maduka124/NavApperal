@@ -50,6 +50,8 @@ report 51449 StyleProductionStatus
             { }
             column(LineInTot; LineInTot)
             { }
+            column(BuyerName; BuyerName)
+            { }
             // dataitem("Hourly Production Lines"; "Hourly Production Lines")
             // {
             //     DataItemLinkReference = "NavApp Prod Plans Details";
@@ -67,6 +69,7 @@ report 51449 StyleProductionStatus
                 B3: Decimal;
                 B4: Decimal;
                 CutIN: Decimal;
+                BalV: Decimal;
 
             begin
                 comRec.Get;
@@ -160,6 +163,7 @@ report 51449 StyleProductionStatus
                 BalIn := 0;
                 LineIn := 0;
                 LineOut := 0;
+                BalV := 0;
                 ProdOutRec.Reset();
                 ProdOutRec.SetRange("No.", "No.");
                 ProdOutRec.SetRange("Style No.", "Style No.");
@@ -171,19 +175,25 @@ report 51449 StyleProductionStatus
                     repeat
                         LineIn += ProdOutRec."Input Qty";
                         LineOut += ProdOutRec."Output Qty";
-                        BalIn += ProdOutRec."Input Qty" - CutIN;
+                        BalV += ProdOutRec."Input Qty";
                         BalOut += ProdOutRec."Output Qty" - ProdOutRec."Input Qty";
                     until ProdOutRec.Next() = 0;
                 end;
 
+                BalIn := BalV - CutIN;
+
+                LineInTot := 0;
                 ProdOutRec.Reset();
-                ProdOutRec.SetRange("No.", "No.");
+                // ProdOutRec.SetRange("No.", "No.");
                 ProdOutRec.SetRange("Style No.", "Style No.");
                 ProdOutRec.SetRange("Resource No.", "Resource No.");
                 ProdOutRec.SetRange(Type, ProdOutRec.Type::Saw);
                 if ProdOutRec.FindSet() then begin
-                    ProdOutRec.CalcSums("Input Qty");
-                    LineInTot := ProdOutRec."Input Qty";
+                    repeat
+                        LineInTot += ProdOutRec."Input Qty";
+                    until ProdOutRec.Next() = 0;
+                    // ProdOutRec.CalcSums("Input Qty");
+                    // LineInTot := ProdOutRec."Input Qty";
                 end;
 
 
@@ -191,6 +201,7 @@ report 51449 StyleProductionStatus
                 StyleMasterRec.SetRange("No.", "Style No.");
                 if StyleMasterRec.FindSet() then begin
                     OrderQty := StyleMasterRec."Order Qty";
+                    BuyerName := StyleMasterRec."Buyer Name";
                 end;
             end;
 
@@ -237,6 +248,7 @@ report 51449 StyleProductionStatus
 
 
     var
+        BuyerName: text[200];
         LineInTot: Decimal;
         BalInTotal: Decimal;
         PoTotal: Decimal;
