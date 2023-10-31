@@ -1013,6 +1013,14 @@ page 50968 "Nav Apperal Role Center"
                             ApplicationArea = all;
                         }
 
+                        action("Style Production Status Report")
+                        {
+                            Caption = 'Style Production Status Report';
+                            Enabled = true;
+                            RunObject = report StyleProductionStatus;
+                            ApplicationArea = all;
+                        }
+
                         action("Month Wise Ship Balance Report Style/PO1")
                         {
                             Caption = 'Shipping Balances Report';
@@ -1618,6 +1626,14 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Style Production Status Report Store")
+                    {
+                        Caption = 'Style Production Status Report';
+                        Enabled = true;
+                        RunObject = report StyleProductionStatus;
+                        ApplicationArea = all;
+                    }
+
                     action("Transfer Order Report")
                     {
                         Caption = 'Transfer Order Report';
@@ -1899,6 +1915,14 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Size Colour Wise Quantity Breakdown';
                         Enabled = true;
                         RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+
+                    action("Style Production Status Report Style")
+                    {
+                        Caption = 'Style Production Status Report';
+                        Enabled = true;
+                        RunObject = report StyleProductionStatus;
                         ApplicationArea = all;
                     }
 
