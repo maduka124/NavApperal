@@ -82,7 +82,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 var
                     _settings: JsonObject;
                 begin
-                    _settings.Add('LicenseKey', 'Mzk2MDUzLTM3NTAyNy0yNDc3NjgteyJ3IjoiIiwiaWQiOiJWU0NBSUV2YWwiLCJuIjoiTkVUUk9OSUMiLCJ1IjoiIiwiZSI6MjMxMCwidiI6IjQuMCIsImYiOlsxMDAxXSwiZWQiOiJCYXNlIn0=');
+                    _settings.Add('LicenseKey', 'NTM1MDMtMjE3NDUyLTc2MzA1OC17InciOiIiLCJpZCI6IlZTQ0FJRXZhbCIsIm4iOiJORVRST05JQyIsInUiOiIiLCJlIjoyMzExLCJ2IjoiNC4wIiwiZiI6WzEwMDFdLCJlZCI6IkJhc2UifQ==');
                     _settings.Add('Start', gdtconVSControlAddInStart);
                     _settings.Add('End', gdtconVSControlAddInEnd);
                     _settings.Add('WorkDate', gdtconVSControlAddInWorkdate);
