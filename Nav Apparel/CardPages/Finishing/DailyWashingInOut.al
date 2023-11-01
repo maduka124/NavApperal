@@ -286,6 +286,8 @@ page 50358 "Daily Washing In/Out Card"
 
                     trigger OnValidate()
                     var
+                        InputQty: Integer;
+                        ProdOutHRec: Record ProductionOutHeader;
                         StyleMasterPORec: Record "Style Master PO";
                     begin
                         //Check Input qty with sewing out qty
@@ -296,6 +298,31 @@ page 50358 "Daily Washing In/Out Card"
 
                         if rec."Input Qty" > StyleMasterPORec."Sawing Out Qty" then
                             Error('Input quantity is greater than total sewing out quantity.');
+
+
+                        InputQty := 0;
+                        ProdOutHRec.Reset();
+                        ProdOutHRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutHRec.SetRange("PO No", Rec."PO No");
+                        ProdOutHRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHRec.SetRange(Type, ProdOutHRec.Type::Wash);
+                        ProdOutHRec.SetFilter("No.", '<>%1', Rec."No.");
+                        if ProdOutHRec.FindSet() then begin
+                            repeat
+                                InputQty += ProdOutHRec."Input Qty";
+                            until ProdOutHRec.Next() = 0;
+                        end;
+
+
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                        StyleMasterPORec.SetRange("PO No.", Rec."PO No");
+                        StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
+                        if StyleMasterPORec.FindSet() then begin
+                            if InputQty + Rec."Input Qty" < StyleMasterPORec."Wash Out Qty" + Rec."Output Qty" then begin
+                                Error('Wash Received Qty Cannot higher than the Wash Send Qty');
+                            end;
+                        end;
 
                         CurrPage.Update();
                     end;
@@ -309,10 +336,59 @@ page 50358 "Daily Washing In/Out Card"
 
                     trigger OnValidate()
                     var
+                        InputQty: Integer;
+                        StyleMasterPORec: Record "Style Master PO";
+                        ProdOutHRec: Record ProductionOutHeader;
                     begin
                         //Check Input qty with out qty
-                        if rec."Output Qty" > rec."Input Qty" then
-                            Error('Output quantity is greater than the input quantity.');
+                        if Rec.Type = Rec.Type::Wash then begin
+                            StyleMasterPORec.Reset();
+                            StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                            StyleMasterPORec.SetRange("PO No.", Rec."PO No");
+                            StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
+                            if StyleMasterPORec.FindSet() then begin
+                                if StyleMasterPORec."Wash In Qty" + Rec."Input Qty" < StyleMasterPORec."Wash Out Qty" then begin
+                                    Error('Wash Received Qty %1 Cannot higher than the Wash Send Qty %2', StyleMasterPORec."Wash Out Qty", StyleMasterPORec."Wash In Qty");
+                                end;
+                            end;
+                        end else begin
+                            if rec."Output Qty" > rec."Input Qty" then
+                                Error('Output quantity is greater than the input quantity.');
+                        end;
+
+                        // StyleMasterPORec.Reset();
+                        // StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                        // StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
+                        // StyleMasterPORec.FindSet();
+
+                        // if rec."Output Qty" < StyleMasterPORec."Wash Out Qty" then
+                        //     Error('Output quantity is greater than the input quantity.');
+
+
+                        InputQty := 0;
+                        ProdOutHRec.Reset();
+                        ProdOutHRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutHRec.SetRange("PO No", Rec."PO No");
+                        ProdOutHRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHRec.SetRange(Type, ProdOutHRec.Type::Wash);
+                        ProdOutHRec.SetFilter("No.", '<>%1', Rec."No.");
+                        if ProdOutHRec.FindSet() then begin
+                            repeat
+                                InputQty += ProdOutHRec."Input Qty";
+                            until ProdOutHRec.Next() = 0;
+                        end;
+
+
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                        StyleMasterPORec.SetRange("PO No.", Rec."PO No");
+                        StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
+                        if StyleMasterPORec.FindSet() then begin
+                            if InputQty + Rec."Input Qty" < StyleMasterPORec."Wash Out Qty" + Rec."Output Qty" then begin
+                                Error('Wash Received Qty Cannot higher than the Wash Send Qty');
+                            end;
+                        end;
+                        // CurrPage.Update();
                         CurrPage.Update();
                     end;
                 }
@@ -429,7 +505,7 @@ page 50358 "Daily Washing In/Out Card"
             end;
 
             if LineTotal_In <> rec."Input Qty" then begin
-                Error('Input quantity should match color/size total quantity.');
+
                 exit;
             end;
 
@@ -445,10 +521,24 @@ page 50358 "Daily Washing In/Out Card"
                 until ProductionOutLine.Next() = 0;
             end;
 
-            if LineTotal_Out <> rec."Output Qty" then begin
-                Error('Output quantity should match color/size total quantity.');
+            //Mihiranga 2023/11/01
+            // if Rec.Type <> Rec.Type::Wash then begin
+                if LineTotal_Out <> rec."Output Qty" then begin
+                    Error('Output quantity should match color/size total quantity.');
+                // end;
                 exit;
             end;
+
+
+            // ProductionOutLine.Reset();
+            // ProductionOutLine.SetRange("No.", Rec."No.");
+            // ProductionOutLine.SetRange("Style No.", Rec."Style No.");
+            // ProductionOutLine.SetRange("Lot No.", Rec."Lot No.");
+            // if ProductionOutLine.FindSet() then begin
+            //     if Rec."Output Qty" <> ProductionOutLine.Total then begin
+            //         Error('Wash Received qty %1 and color/size total quantity %2 does not match', Rec."Output Qty", ProductionOutLine.Total);
+            //     end;
+            // end;
         end;
 
     end;
