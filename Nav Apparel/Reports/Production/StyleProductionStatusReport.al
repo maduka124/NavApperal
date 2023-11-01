@@ -52,16 +52,6 @@ report 51449 StyleProductionStatus
             { }
             column(BuyerName; BuyerName)
             { }
-            // dataitem("Hourly Production Lines"; "Hourly Production Lines")
-            // {
-            //     DataItemLinkReference = "NavApp Prod Plans Details";
-            //     DataItemLink = "Style No." = field("Style No."), "Work Center No." = field("Resource No."), "Factory No." = field("Factory No.");
-            //     DataItemTableView = where(Item = filter('PASS PCS'), Type = filter('Sewing'));
-
-            //     column(Total; Total)
-            //     { }
-
-            // }
             trigger OnAfterGetRecord()
             var
                 B1: Decimal;
@@ -222,10 +212,12 @@ report 51449 StyleProductionStatus
             {
                 group(GroupName)
                 {
+                    Caption = 'Filter By';
                     field(StyleFilter; StyleFilter)
                     {
                         ApplicationArea = All;
                         TableRelation = "Style Master"."No.";
+                        Caption = 'Style';
 
 
                     }
