@@ -377,7 +377,7 @@ page 50701 "Washing Sample Request Card"
                     Editable = false;
                 }
 
-                field("Posted/Not"; "Posted/Not")
+                field("Posted/Not"; rec."Posted/Not")
                 {
                     ApplicationArea = All;
                 }
