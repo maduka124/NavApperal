@@ -260,6 +260,56 @@ page 51427 "Allocated Style/PO For Wash"
                     ApplicationArea = All;
                 }
 
+                field("Balance LASER DESTROY"; Rec."Balance LASER DESTROY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance WHISKERS"; Rec."Balance WHISKERS")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance BRUSH"; Rec."Balance BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance BASE WASH"; Rec."Balance BASE WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance FINAL WASH"; Rec."Balance FINAL WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance ACID/ RANDOM WASH"; Rec."Balance ACID/ RANDOM WASH")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance PP SPRAY"; Rec."Balance PP SPRAY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance DESTROY"; Rec."Balance DESTROY")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance LASER WHISKERS"; Rec."Balance LASER WHISKERS")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Balance LASER BRUSH"; Rec."Balance LASER BRUSH")
+                {
+                    ApplicationArea = All;
+                }
+
             }
         }
     }

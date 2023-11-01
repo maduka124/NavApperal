@@ -377,6 +377,11 @@ page 50701 "Washing Sample Request Card"
                     Editable = false;
                 }
 
+                field("Posted/Not"; "Posted/Not")
+                {
+                    ApplicationArea = All;
+                }
+
             }
 
             group("Sample Details")
@@ -463,9 +468,12 @@ page 50701 "Washing Sample Request Card"
 
                                         WashinReqHeader2Rec.SetRange("No.", WashingReqLine2Rec."No.");
 
-                                        if WashinReqHeader2Rec.FindSet() then
+                                        if WashinReqHeader2Rec.FindSet() then begin
+                                            if Rec."No." = WashinReqHeader2Rec."No." then
+                                                Total += WashingReqLine2Rec."Req Qty";
                                             if WashinReqHeader2Rec."Posted/Not" = true then
-                                                Total += WashingReqLine2Rec."Delivery Qty";
+                                                Total += WashingReqLine2Rec."Req Qty";
+                                        end;
 
                                     until WashingReqLine2Rec.Next() = 0;
 
