@@ -1013,13 +1013,7 @@ page 50968 "Nav Apperal Role Center"
                             ApplicationArea = all;
                         }
 
-                        action("Style Production Status Report")
-                        {
-                            Caption = 'Style Production Status Report';
-                            Enabled = true;
-                            RunObject = report StyleProductionStatus;
-                            ApplicationArea = all;
-                        }
+
 
                         action("Month Wise Ship Balance Report Style/PO1")
                         {
@@ -1146,7 +1140,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report SewingProductionDetails;
                         ApplicationArea = all;
                     }
-
+                    action("Style Production Status Report")
+                    {
+                        Caption = 'Style Production Status Report';
+                        Enabled = true;
+                        RunObject = report StyleProductionStatus;
+                        ApplicationArea = all;
+                    }
                     action("Target Sheet Report")
                     {
                         Caption = 'Target Sheet Report';
