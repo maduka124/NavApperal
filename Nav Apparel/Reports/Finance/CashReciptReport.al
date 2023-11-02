@@ -11,6 +11,7 @@ report 51439 CashReceiptReport
         dataitem("Gen. Journal Line"; "Gen. Journal Line")
         {
             DataItemTableView = where("Bal. Account Type" = filter('G/L Account'), "Journal Template Name" = filter('CASH RECE'));
+            RequestFilterFields = "Document No.";
             column(Document_No_; "Document No.")
             { }
             column(Posting_Date; "Posting Date")
@@ -45,64 +46,35 @@ report 51439 CashReceiptReport
             { }
             column(Type2; Type2)
             { }
+            // column(BillNo; INV)
+            // { }
+            // column(Remaining_Amount; RemainAmt)
+            // { }
+            column(ExRate; ExRate)
+            { }
+            column(BDRate; BDRate)
+            { }
+
             dataitem("Cust. Ledger Entry"; "Cust. Ledger Entry")
             {
                 DataItemLinkReference = "Gen. Journal Line";
-                DataItemLink = "Applies-to ID" = field("Document No.");
-                // DataItemTableView = where(i = filter(Invoice));
-                column(BillNo; INV)
+                DataItemLink = "Applies-to ID" = field("Document No."), "Applied Line No." = field("Line No.");
+                CalcFields = "Factory Inv. No", "Remaining Amount";
+                column(BillNo; "Factory Inv. No")
                 { }
                 column(Remaining_Amount; "Remaining Amount")
                 { }
-                column(ExRate; ExRate)
+                column(BillNo2; "Document No.")
                 { }
-                column(BDRate; BDRate)
-                { }
+
                 trigger OnAfterGetRecord()
                 var
                     myInt: Integer;
                 begin
-
-
-                    CustLedgRec.Reset();
-                    CustLedgRec.SetRange("Document No.", "Document No.");
-                    // CustLedgRec.SetFilter("Factory Inv. No", '<>%1', '');
-                    if CustLedgRec.FindSet() then begin
-                        // repeat
-                        BillNo := CustLedgRec."Document No.";
-                        // until CustLedgRec.Next() = 0;
-                    end;
-
-                    SalesInvRec.Reset();
-                    SalesInvRec.SetRange("No.", BillNo);
-                    if SalesInvRec.FindSet() then begin
-                        INV := SalesInvRec."Your Reference";
-                    end;
-
-                    ExRate := 0;
-                    if "Currency Code" <> 'USD' then begin
-                        Curency.Reset();
-                        Curency.SetRange("Currency Code", 'USD');
-                        if Curency.FindSet() then begin
-                            ExRate := Curency."Relational Exch. Rate Amount";
-                        end;
-                    end else
-                        ExRate := 1;
-
-                    BDRate := 0;
-                    if "Currency Code" = 'USD' then begin
-                        Curency.Reset();
-                        Curency.SetRange("Currency Code", 'USD');
-                        if Curency.FindSet() then begin
-                            BDRate := Curency."Relational Exch. Rate Amount";
-                        end;
-                    end else
-                        BDRate := 1;
+                    if "Gen. Journal Line"."Credit Amount" <> 0 then
+                        Visbool := false;
                 end;
-
             }
-            // column()
-            // { }
             trigger OnAfterGetRecord()
             var
                 myInt: Integer;
@@ -113,6 +85,48 @@ report 51439 CashReceiptReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                // BillNo2 := '';
+                // if "Account Type" = "Account Type"::Customer then begin
+                //     CustLedgRec.Reset();
+                //     CustLedgRec.SetRange("Document No.", "Document No.");
+                //     CustLedgRec.SetFilter("Document No.", '<>%1', '');
+                //     if CustLedgRec.FindSet() then begin
+                //         CustLedgRec.CalcFields("Factory Inv. No");
+                //         CustLedgRec.CalcFields("Remaining Amount");
+                //         BillNo2 := CustLedgRec."Document No.";
+                //         INV := CustLedgRec."Factory Inv. No";
+                //         RemainAmt := CustLedgRec."Remaining Amount";
+                //     end;
+                // end;
+                // SalesInvRec.Reset();
+                // SalesInvRec.SetRange("No.", BillNo2);
+                // if SalesInvRec.FindSet() then begin
+                //     // INV := SalesInvRec."Your Reference";
+                //     // RemainAmt := SalesInvRec.Amount;
+                // end;
+
+                ExRate := 0;
+                if "Currency Code" <> 'USD' then begin
+                    Curency.Reset();
+                    Curency.SetRange("Currency Code", 'USD');
+                    if Curency.FindSet() then begin
+                        ExRate := Curency."Relational Exch. Rate Amount";
+                    end;
+                end else
+                    ExRate := 1;
+
+                BDRate := 0;
+                if "Currency Code" = 'USD' then begin
+                    Curency.Reset();
+                    Curency.SetRange("Currency Code", 'USD');
+                    if Curency.FindSet() then begin
+                        BDRate := Curency."Relational Exch. Rate Amount";
+                    end;
+                end else
+                    BDRate := 1;
+
+
 
                 Type1 := 1;
                 Type2 := 1;
@@ -192,39 +206,15 @@ report 51439 CashReceiptReport
                     RPTVCheck.FormatNoTextCustomized(NumberText, abs(TotLcy), '' + ' ' + '');
                 end;
 
-                // VendorLeRec.Reset();
-                // VendorLeRec.SetRange("Applies-to ID", "Document No.");
-                // VendorLeRec.SetRange("Document Type", VendorLeRec."Document Type"::Invoice);
-                // if VendorLeRec.FindSet() then begin
-                //     BillNo := VendorLeRec."External Document No.";
-                //     repeat
-                //         BillNo := BillNo + '|' + VendorLeRec."External Document No.";
-                //     until VendorLeRec.Next() = 0;
-                // end;
 
-                // if BillNo = '' then begin
-                //     CustLedgRec.Reset();
-                //     CustLedgRec.SetRange("Applies-to ID", "Document No.");
-                //     // CustLedgRec.SetFilter("Factory Inv. No", '<>%1', '');
-                //     if CustLedgRec.FindSet() then begin
-                //         // repeat
-                //         BillNo := CustLedgRec."Document No.";
-                //         // until CustLedgRec.Next() = 0;
-                //     end;
-                // end;
 
-                // SalesInvRec.Reset();
-                // SalesInvRec.SetRange("No.", BillNo);
-                // if SalesInvRec.FindSet() then begin
-                //     INV := SalesInvRec."Your Reference";
-                // end;
             end;
 
             trigger OnPreDataItem()
             var
 
             begin
-                SetRange("Document No.", FilterDoc);
+                // SetRange("Document No.", FilterDoc);
             end;
         }
 
@@ -236,17 +226,17 @@ report 51439 CashReceiptReport
         {
             area(Content)
             {
-                group(GroupName)
-                {
-                    Caption = 'Filter By';
-                    field(FilterDoc; FilterDoc)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Document No';
-                        // Editable = false;
+                // group(GroupName)
+                // {
+                //     Caption = 'Filter By';
+                //     // field(FilterDoc; FilterDoc)
+                //     // {
+                //     //     ApplicationArea = All;
+                //     //     Caption = 'Document No';
+                //     //     // Editable = false;
 
-                    }
-                }
+                //     // }
+                // }
             }
         }
     }
@@ -258,6 +248,7 @@ report 51439 CashReceiptReport
     end;
 
     var
+        RemainAmt: Decimal;
         Type1: Integer;
         Type2: Integer;
         INV: Text[35];
@@ -266,7 +257,7 @@ report 51439 CashReceiptReport
         ExRate: Decimal;
         Curency: Record "Currency Exchange Rate";
         VendorLeRec: Record "Vendor Ledger Entry";
-        BillNo: Text[100];
+        BillNo2: Text[100];
         CustLedgRec: Record "Cust. Ledger Entry";
         FilterDoc: Code[20];
         BankAcountRec: Record "Bank Account";
@@ -279,4 +270,5 @@ report 51439 CashReceiptReport
         VendorName: Text[200];
         myInt: Integer;
         VendorRec: Record Customer;
+        Visbool: Boolean;
 }

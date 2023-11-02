@@ -1389,26 +1389,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1427,7 +1407,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Remaining_Amount.Value/Fields!ExRate.Value)*Fields!Type1.Value</Value>
+                                  <Value>=(Fields!Debit_Amount.Value/Fields!ExRate.Value)*Fields!Type1.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1453,7 +1433,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1502,7 +1481,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Remaining_Amount.Value*Fields!BDRate.Value)*Fields!Type1.Value</Value>
+                                  <Value>=(Fields!Debit_Amount.Value*Fields!BDRate.Value)*Fields!Type1.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1641,7 +1620,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum((Fields!Remaining_Amount.Value/Fields!ExRate.Value)*Fields!Type1.Value)</Value>
+                                  <Value>=Sum((Fields!Debit_Amount.Value/Fields!ExRate.Value)*Fields!Type1.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1715,7 +1694,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum((Fields!Remaining_Amount.Value*Fields!BDRate.Value)*Fields!Type1.Value)</Value>
+                                  <Value>=Sum((Fields!Debit_Amount.Value*Fields!BDRate.Value)*Fields!Type1.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2868,15 +2847,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Type2">
           <DataField>Type2</DataField>
         </Field>
-        <Field Name="BillNo">
-          <DataField>BillNo</DataField>
-        </Field>
-        <Field Name="Remaining_Amount">
-          <DataField>Remaining_Amount</DataField>
-        </Field>
-        <Field Name="Remaining_AmountFormat">
-          <DataField>Remaining_AmountFormat</DataField>
-        </Field>
         <Field Name="ExRate">
           <DataField>ExRate</DataField>
         </Field>
@@ -2888,6 +2858,18 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="BDRateFormat">
           <DataField>BDRateFormat</DataField>
+        </Field>
+        <Field Name="BillNo">
+          <DataField>BillNo</DataField>
+        </Field>
+        <Field Name="Remaining_Amount">
+          <DataField>Remaining_Amount</DataField>
+        </Field>
+        <Field Name="Remaining_AmountFormat">
+          <DataField>Remaining_AmountFormat</DataField>
+        </Field>
+        <Field Name="BillNo2">
+          <DataField>BillNo2</DataField>
         </Field>
       </Fields>
       <Query>

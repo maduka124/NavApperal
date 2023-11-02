@@ -16,6 +16,12 @@ tableextension 51202 CustomerLedgEntryExt extends "Cust. Ledger Entry"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Invoice Header"."Your Reference" where("No." = field("Document No.")));
         }
+        field(50004; "Applied Line No."; Integer)
+        {
+            FieldClass = FlowField;
+            CalcFormula = lookup("Gen. Journal Line"."Line No." where("Applies-to ID" = field("Applies-to ID")));
+            Editable = false;
+        }
     }
 }
 
