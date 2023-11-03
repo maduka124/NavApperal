@@ -1861,15 +1861,15 @@ page 50968 "Nav Apperal Role Center"
                 }
                 action(" Washing Requisition")
                 {
-                    Caption = ' Washing Received';
+                    Caption = ' Washing Send';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
 
                 action("Wash Delivery Sewing")
                 {
-                    Caption = 'Wash Send';
-                    RunObject = Page WashDelivery;
+                    Caption = 'Wash Received';
+                    RunObject = Page WashReceivedSew;
                     ApplicationArea = all;
                 }
                 group("Sewing Reports")
@@ -1990,7 +1990,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Sample Requests Finishing")
                 {
-                    Caption = ' Wash Received';
+                    Caption = ' Wash Send';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
@@ -2458,6 +2458,20 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Closed Style/PO Of Wash")
+                {
+                    Caption = 'Closed Style/PO Of Wash';
+                    RunObject = Page "Closed Style/PO Of Wash";
+                    ApplicationArea = all;
+                }
+
+                action("Wash Close")
+                {
+                    Caption = 'Wash Close';
+                    RunObject = Page WashClosedList;
+                    ApplicationArea = all;
+                }
+
                 action("Wash Delivery")
                 {
                     Caption = 'Wash Send';
@@ -2504,7 +2518,7 @@ page 50968 "Nav Apperal Role Center"
                 action("Sample Requests")
                 {
                     Caption = ' Washing Received';
-                    RunObject = Page WashingSampleHistry;
+                    RunObject = Page WashReveivedWasplant;
                     ApplicationArea = all;
                 }
 

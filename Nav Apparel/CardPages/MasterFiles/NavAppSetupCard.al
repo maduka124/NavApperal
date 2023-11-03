@@ -724,6 +724,12 @@ page 50964 "NavApp Setup Card"
                     ApplicationArea = All;
                     Caption = 'Washing Production No';
                 }
+
+                field("Wash Colse Nos."; Rec."Wash Colse Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Wash Close No';
+                }
             }
         }
     }

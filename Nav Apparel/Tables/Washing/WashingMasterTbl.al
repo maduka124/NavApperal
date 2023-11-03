@@ -339,6 +339,43 @@ table 51430 WashingMaster
             DataClassification = ToBeClassified;
         }
 
+        field(103; "Close Reject"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(106; "Close Sample"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(107; "Close Left Over"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(108; "Close Production Loss"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(109; "Close CST%"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(110; "Closing Status"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = "Open","Closed";
+            OptionCaption = 'Open,Closed';
+        }
+
+        field(111; "Wash Close/Open"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

@@ -1,10 +1,15 @@
-page 51429 POWashAllocated
+page 51467 "Closed Style/PO Of Wash"
 {
-    PageType = ListPart;
+    PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = WashingMaster;
+    SourceTableView = sorting("Plan Start Date") where("Wash Close/Open" = filter(false));
+    // order(descending) where("Wash Allocated" = filter(true))
+    CardPageId = POWashAllocatedCard;
     DeleteAllowed = false;
+    InsertAllowed = false;
+    Editable = false;
 
     layout
     {
@@ -16,41 +21,35 @@ page 51429 POWashAllocated
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
-                    Editable = false;
                 }
 
                 field("Buyer Name"; Rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
-                    Editable = false;
                 }
 
                 field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
-                    Editable = false;
                 }
 
                 field("PO No"; Rec."PO No")
                 {
                     ApplicationArea = All;
                     Caption = 'PO';
-                    Editable = false;
                 }
 
                 field(Lot; Rec.Lot)
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Color Name"; Rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
-                    Editable = false;
                 }
 
                 field("Washing Plant"; Rec."Washing Plant")
@@ -63,65 +62,66 @@ page 51429 POWashAllocated
                     ApplicationArea = All;
                 }
 
-                field(Recipe; Rec.Recipe)
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Color Qty"; Rec."Color Qty")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
-                field("Shipment Date"; Rec."Shipment Date")
+                field("Plan Max Target"; Rec."Plan Max Target")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    Caption = 'Plan Target';
                 }
 
                 field("Sewing Factory Name"; Rec."Sewing Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Sew Factory';
-                    // Editable = false;
-
-                    trigger OnValidate()
-                    var
-                        LocationRec: Record Location;
-                    begin
-
-
-                        LocationRec.Reset();
-                        LocationRec.SetRange(Name, Rec."Sewing Factory Name");
-
-                        if LocationRec.FindSet() then
-                            Rec."Sewing Factory Code" := LocationRec.Code;
-                    end;
                 }
 
                 field("Plan Start Date"; Rec."Plan Start Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Plan End Date"; Rec."Plan End Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                }
+
+                field("Shipment Date"; Rec."Shipment Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Cut Qty"; Rec."Cut Qty")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Sew Qty"; Rec."Sew Qty")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Received Qty"; Rec."Received Qty")
+                {
+                    ApplicationArea = all;
+                }
+
+                field(Recipe; Rec.Recipe)
+                {
+                    ApplicationArea = All;
                 }
 
                 field("First Received Date"; Rec."First Received Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Last Received Date"; Rec."Last Received Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Plan Date"; Rec."Plan Date")
@@ -147,232 +147,361 @@ page 51429 POWashAllocated
                 field("Delivery Qty"; Rec."Delivery Qty")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Delivery Start Date"; Rec."Delivery Start Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Delivery End Date"; Rec."Delivery End Date")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
-
 
                 field("SMV WHISKERS"; Rec."SMV WHISKERS")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV BRUSH"; Rec."SMV BRUSH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV BASE WASH"; Rec."SMV BASE WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV FINAL WASH"; Rec."SMV FINAL WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV ACID/ RANDOM WASH"; Rec."SMV ACID/ RANDOM WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV PP SPRAY"; Rec."SMV PP SPRAY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV DESTROY"; Rec."SMV DESTROY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV LASER WHISKERS"; Rec."SMV LASER WHISKERS")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV LASER BRUSH"; Rec."SMV LASER BRUSH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("SMV LASER DESTROY"; Rec."SMV LASER DESTROY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
+
 
                 field("Production WHISKERS"; Rec."Production WHISKERS")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production BRUSH"; Rec."Production BRUSH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production BASE WASH"; Rec."Production BASE WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production FINAL WASH"; Rec."Production FINAL WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production ACID/ RANDOM WASH"; Rec."Production ACID/ RANDOM WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production PP SPRAY"; Rec."Production PP SPRAY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production DESTROY"; Rec."Production DESTROY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production LASER WHISKERS"; Rec."Production LASER WHISKERS")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production LASER BRUSH"; Rec."Production LASER BRUSH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Production LASER DESTROY"; Rec."Production LASER DESTROY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance LASER DESTROY"; Rec."Balance LASER DESTROY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance WHISKERS"; Rec."Balance WHISKERS")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance BRUSH"; Rec."Balance BRUSH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance BASE WASH"; Rec."Balance BASE WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance FINAL WASH"; Rec."Balance FINAL WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance ACID/ RANDOM WASH"; Rec."Balance ACID/ RANDOM WASH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance PP SPRAY"; Rec."Balance PP SPRAY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance DESTROY"; Rec."Balance DESTROY")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance LASER WHISKERS"; Rec."Balance LASER WHISKERS")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Balance LASER BRUSH"; Rec."Balance LASER BRUSH")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Close Reject"; Rec."Close Reject")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Close Sample"; Rec."Close Sample")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Close Left Over"; Rec."Close Left Over")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Close Production Loss"; Rec."Close Production Loss")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Closing Status"; Rec."Closing Status")
                 {
                     ApplicationArea = All;
-                    // Editable = false;
                 }
+
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    var
+        LocationRec: Record Location;
+        StylemasterPORec: Record "Style Master PO";
+        ProductioOutLineRec: Record ProductionOutLine;
+        AssortmentDetailsRec: Record AssorColorSizeRatio;
+        ProductionOutHeaderRec: Record ProductionOutHeader;
+        NavAppProdDetailRec: Record "NavApp Prod Plans Details";
+        MaxTartget: BigInteger;
+        Total: BigInteger;
+
+    begin
+
+        //Cut Qty;
+        Total := 0;
+
+        ProductionOutHeaderRec.Reset();
+        ProductionOutHeaderRec.SetRange(Type, ProductionOutHeaderRec.Type::Cut);
+        ProductionOutHeaderRec.SetRange("Style No.", Rec."Style No");
+        ProductionOutHeaderRec.SetRange("PO No", Rec."PO No");
+        ProductionOutHeaderRec.SetRange("Lot No.", Rec.Lot);
+
+        if ProductionOutHeaderRec.FindSet() then begin
+            repeat
+                ProductioOutLineRec.Reset();
+                // ProductioOutLineRec.SetRange(Type, ProductioOutLineRec.Type::Cut);
+                // ProductioOutLineRec.SetRange("Style No.", Rec."Style No");
+                // ProductioOutLineRec.SetRange("PO No.", Rec."PO No");
+                // ProductioOutLineRec.SetRange("Lot No.", Rec.Lot);
+                ProductioOutLineRec.SetRange("No.", ProductionOutHeaderRec."No.");
+                // ProductioOutLineRec.SetRange(In_Out, 'OUT');
+
+                if ProductioOutLineRec.FindSet() then begin
+                    repeat
+                        if ProductioOutLineRec."Colour Name" = Rec."Color Name" then
+                            Total += ProductioOutLineRec.Total;
+                    until ProductioOutLineRec.Next() = 0;
+
+                end;
+            until ProductionOutHeaderRec.Next() = 0;
+            Rec."Cut Qty" := Total;
+            Rec.Modify(true);
+        end;
+
+
+
+        //Sew Qty
+        Total := 0;
+
+        ProductioOutLineRec.Reset();
+        ProductioOutLineRec.SetRange(Type, ProductioOutLineRec.Type::Saw);
+        ProductioOutLineRec.SetRange("Style No.", Rec."Style No");
+        ProductioOutLineRec.SetRange("PO No.", Rec."PO No");
+        ProductioOutLineRec.SetRange("Lot No.", Rec.Lot);
+        ProductioOutLineRec.SetRange("Colour Name", Rec."Color Name");
+        ProductioOutLineRec.SetRange(In_Out, 'OUT');
+
+        if ProductioOutLineRec.FindSet() then begin
+            repeat
+                Total += ProductioOutLineRec.Total;
+            until ProductioOutLineRec.Next() = 0;
+            Rec."Sew Qty" := Total;
+            Rec.Modify(true);
+        end;
+
+        //Get Max target and Sewfactory
+        MaxTartget := 0;
+
+        NavAppProdDetailRec.Reset();
+        NavAppProdDetailRec.SetRange("Style No.", Rec."Style No");
+        NavAppProdDetailRec.SetRange("PO No.", Rec."PO No");
+        NavAppProdDetailRec.SetRange("Lot No.", Rec.Lot);
+
+        if NavAppProdDetailRec.FindFirst() then begin
+            Rec."Sewing Factory Code" := NavAppProdDetailRec."Factory No.";
+            Rec.Modify(true);
+
+            repeat
+                if NavAppProdDetailRec.Target > MaxTartget then
+                    MaxTartget := NavAppProdDetailRec.Target;
+            until NavAppProdDetailRec.Next() = 0;
+        end;
+
+        Rec."Plan Max Target" := MaxTartget;
+        Rec.Modify(true);
+
+        LocationRec.Reset();
+        LocationRec.SetRange(Code, NavAppProdDetailRec."Factory No.");
+        if LocationRec.FindSet() then begin
+            Rec."Sewing Factory Name" := LocationRec.Name;
+            Rec.Modify(true);
+        end;
+
+        //Get plan Start Date
+        NavAppProdDetailRec.Reset();
+        NavAppProdDetailRec.SetRange("Style No.", Rec."Style No");
+        NavAppProdDetailRec.SetRange("PO No.", Rec."PO No");
+        NavAppProdDetailRec.SetRange("Lot No.", Rec.Lot);
+        NavAppProdDetailRec.SetCurrentKey(PlanDate);
+        NavAppProdDetailRec.Ascending(true);
+
+        if NavAppProdDetailRec.FindFirst() then begin
+            Rec."Plan Start Date" := NavAppProdDetailRec.PlanDate;
+            Rec.Modify(true);
+        end;
+
+        //Get Last Plan Date
+        NavAppProdDetailRec.Reset();
+        NavAppProdDetailRec.SetRange("Style No.", Rec."Style No");
+        NavAppProdDetailRec.SetRange("PO No.", Rec."PO No");
+        NavAppProdDetailRec.SetRange("Lot No.", Rec.Lot);
+        NavAppProdDetailRec.SetCurrentKey(PlanDate);
+        NavAppProdDetailRec.Ascending(true);
+
+        if NavAppProdDetailRec.FindLast() then begin
+            Rec."Plan End Date" := NavAppProdDetailRec.PlanDate;
+            Rec.Modify(true);
+        end;
+
+        //Get Ship Date
+        StylemasterPORec.Reset();
+        StylemasterPORec.SetRange("Style No.", Rec."Style No");
+        StylemasterPORec.SetRange("PO No.", Rec."PO No");
+        StylemasterPORec.SetRange("Lot No.", Rec.Lot);
+
+        if StylemasterPORec.FindSet() then begin
+            Rec."Shipment Date" := StylemasterPORec."Ship Date";
+            Rec.Modify(true);
+        end;
+
+        //Color Qty
+        AssortmentDetailsRec.Reset();
+        AssortmentDetailsRec.SetRange("Style No.", Rec."Style No");
+        AssortmentDetailsRec.SetRange("Lot No.", Rec.Lot);
+        AssortmentDetailsRec.SetRange("PO No.", Rec."PO No");
+        AssortmentDetailsRec.SetRange("Colour Name", Rec."Color Name");
+
+        if AssortmentDetailsRec.FindSet() then begin
+            Rec."Color Qty" := AssortmentDetailsRec.Total;
+            Rec.Modify(true);
+        end;
+    end;
+
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+        LocationRec: Record Location;
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then begin
+            LocationRec.Reset();
+
+            LocationRec.SetRange(Code, UserRec."Factory Code");
+
+            if LocationRec.FindSet() then begin
+                rec.SetFilter("Washing Plant", '=%1', LocationRec.Name);
+                Rec.SetFilter("Closing Status", '=%1', Rec."Closing Status"::Closed);
+            end;
+
+        end;
+
+    end;
 }
