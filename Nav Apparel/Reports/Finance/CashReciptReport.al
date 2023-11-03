@@ -28,7 +28,7 @@ report 51439 CashReceiptReport
             { }
             column(Debit_Amount; "Debit Amount")
             { }
-            column(Credit_Amount; "Credit Amount")
+            column(Credit_Amount; Credit2)
             { }
             column(Amount__LCY_; "Amount (LCY)")
             { }
@@ -48,12 +48,18 @@ report 51439 CashReceiptReport
             { }
             // column(BillNo; INV)
             // { }
-            // column(Remaining_Amount; RemainAmt)
-            // { }
+            column(Credit2; Credit2)
+            { }
             column(ExRate; ExRate)
             { }
             column(BDRate; BDRate)
             { }
+            // column(BillNo; BillNo)
+            // { }
+            // column(Remaining_Amount; RMAmt)
+            // { }
+            // column(BillNo2; BillNo2)
+            // { }
 
             dataitem("Cust. Ledger Entry"; "Cust. Ledger Entry")
             {
@@ -66,6 +72,11 @@ report 51439 CashReceiptReport
                 { }
                 column(BillNo2; "Document No.")
                 { }
+                column(ExRate2; ExRate2)
+                { }
+                column(BDRate2; BDRate2)
+                { }
+
 
                 trigger OnAfterGetRecord()
                 var
@@ -73,6 +84,31 @@ report 51439 CashReceiptReport
                 begin
                     if "Gen. Journal Line"."Credit Amount" <> 0 then
                         Visbool := false;
+
+                    ExRate2 := 0;
+                    if "Currency Code" <> 'USD' then begin
+                        Curency.Reset();
+                        Curency.SetRange("Currency Code", 'USD');
+                        Curency.SetCurrentKey("Starting Date");
+                        Curency.Ascending(true);
+                        if Curency.FindLast() then begin
+                            ExRate2 := Curency."Relational Exch. Rate Amount";
+                        end;
+                    end else
+                        ExRate2 := 0;
+
+                    BDRate := 0;
+                    if "Currency Code" = 'USD' then begin
+                        Curency.Reset();
+                        Curency.SetRange("Currency Code", 'USD');
+                        Curency.SetCurrentKey("Starting Date");
+                        Curency.Ascending(true);
+                        if Curency.FindLast() then begin
+                            BDRate2 := Curency."Relational Exch. Rate Amount";
+                        end;
+                    end else
+                        BDRate2 := 0;
+
                 end;
             }
             trigger OnAfterGetRecord()
@@ -86,48 +122,39 @@ report 51439 CashReceiptReport
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                // BillNo2 := '';
-                // if "Account Type" = "Account Type"::Customer then begin
-                //     CustLedgRec.Reset();
-                //     CustLedgRec.SetRange("Document No.", "Document No.");
-                //     CustLedgRec.SetFilter("Document No.", '<>%1', '');
-                //     if CustLedgRec.FindSet() then begin
-                //         CustLedgRec.CalcFields("Factory Inv. No");
-                //         CustLedgRec.CalcFields("Remaining Amount");
-                //         BillNo2 := CustLedgRec."Document No.";
-                //         INV := CustLedgRec."Factory Inv. No";
-                //         RemainAmt := CustLedgRec."Remaining Amount";
-                //     end;
-                // end;
-                // SalesInvRec.Reset();
-                // SalesInvRec.SetRange("No.", BillNo2);
-                // if SalesInvRec.FindSet() then begin
-                //     // INV := SalesInvRec."Your Reference";
-                //     // RemainAmt := SalesInvRec.Amount;
-                // end;
-
-                ExRate := 0;
-                if "Currency Code" <> 'USD' then begin
-                    Curency.Reset();
-                    Curency.SetRange("Currency Code", 'USD');
-                    if Curency.FindSet() then begin
-                        ExRate := Curency."Relational Exch. Rate Amount";
-                    end;
+                Credit2 := 0;
+                if "Account Type" <> "Account Type"::Customer then begin
+                    Credit2 := "Credit Amount";
+                    ExRate2 := 0;
+                    BDRate2 := 0;
                 end else
-                    ExRate := 1;
+                    Credit2 := 0;
 
-                BDRate := 0;
-                if "Currency Code" = 'USD' then begin
-                    Curency.Reset();
-                    Curency.SetRange("Currency Code", 'USD');
-                    if Curency.FindSet() then begin
-                        BDRate := Curency."Relational Exch. Rate Amount";
-                    end;
-                end else
-                    BDRate := 1;
+                    ExRate := 0;
+                    if "Currency Code" <> 'USD' then begin
+                        Curency.Reset();
+                        Curency.SetRange("Currency Code", 'USD');
+                        Curency.SetCurrentKey("Starting Date");
+                        Curency.Ascending(true);
+                        if Curency.FindLast() then begin
+                            ExRate := Curency."Relational Exch. Rate Amount";
+                        end;
+                    end else
+                        ExRate := 1;
 
-
-
+                    BDRate := 0;
+                    if "Currency Code" = 'USD' then begin
+                        Curency.Reset();
+                        Curency.SetRange("Currency Code", 'USD');
+                        Curency.SetCurrentKey("Starting Date");
+                        Curency.Ascending(true);
+                        if Curency.FindLast() then begin
+                            BDRate := Curency."Relational Exch. Rate Amount";
+                        end;
+                    end else
+                        BDRate := 1;
+            
+               
                 Type1 := 1;
                 Type2 := 1;
                 if "Account Type" = "Account Type"::Customer then begin
@@ -248,17 +275,20 @@ report 51439 CashReceiptReport
     end;
 
     var
-        RemainAmt: Decimal;
+        BDRate2: Decimal;
+        ExRate2: Decimal;
+        RMAmt: Decimal;
+        BillNo2: Code[50];
+        BillNo: text[50];
+        CustLeRec: Record "Cust. Ledger Entry";
+        Credit1: Decimal;
+        Credit2: Decimal;
         Type1: Integer;
         Type2: Integer;
         INV: Text[35];
-        SalesInvRec: Record "Sales Invoice Header";
         BDRate: Decimal;
         ExRate: Decimal;
         Curency: Record "Currency Exchange Rate";
-        VendorLeRec: Record "Vendor Ledger Entry";
-        BillNo2: Text[100];
-        CustLedgRec: Record "Cust. Ledger Entry";
         FilterDoc: Code[20];
         BankAcountRec: Record "Bank Account";
         RPTVCheck: Report "Check-Customized";
@@ -268,7 +298,6 @@ report 51439 CashReceiptReport
         AccountHead: Text[200];
         GenJLineRec: Record "Gen. Journal Line";
         VendorName: Text[200];
-        myInt: Integer;
         VendorRec: Record Customer;
         Visbool: Boolean;
 }

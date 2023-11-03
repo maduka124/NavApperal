@@ -35,7 +35,6 @@ pageextension 51440 CashReceiptJournal extends "Cash Receipt Journal"
                 trigger OnAction()
                 var
                     CashReceiptReport: Report CashReceiptReport;
-                    CashReceiptGL: Report CashReceiptReportGL;
                     GenJRec: Record "Gen. Journal Line";
 
                 begin
@@ -44,14 +43,11 @@ pageextension 51440 CashReceiptJournal extends "Cash Receipt Journal"
                     GenJRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
                     GenJRec.SetRange("Document No.", Rec."Document No.");
                     if GenJRec.FindFirst() then
-                        // repeat
-                                Report.RunModal(51439, true, true, GenJRec);
-                    //     end;
+                        Report.RunModal(51439, true, true, GenJRec);
+
                 end;
 
-                // until GenJRec.Next() = 0;
 
-                // end;
             }
         }
     }

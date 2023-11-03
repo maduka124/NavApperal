@@ -11,6 +11,124 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Document_No_">
+          <DataField>Document_No_</DataField>
+        </Field>
+        <Field Name="Posting_Date">
+          <DataField>Posting_Date</DataField>
+        </Field>
+        <Field Name="VendorName">
+          <DataField>VendorName</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="AmountFormat">
+          <DataField>AmountFormat</DataField>
+        </Field>
+        <Field Name="Account_No_">
+          <DataField>Account_No_</DataField>
+        </Field>
+        <Field Name="AccountHead">
+          <DataField>AccountHead</DataField>
+        </Field>
+        <Field Name="Debit_Amount">
+          <DataField>Debit_Amount</DataField>
+        </Field>
+        <Field Name="Debit_AmountFormat">
+          <DataField>Debit_AmountFormat</DataField>
+        </Field>
+        <Field Name="Credit_Amount">
+          <DataField>Credit_Amount</DataField>
+        </Field>
+        <Field Name="Credit_AmountFormat">
+          <DataField>Credit_AmountFormat</DataField>
+        </Field>
+        <Field Name="Amount__LCY_">
+          <DataField>Amount__LCY_</DataField>
+        </Field>
+        <Field Name="Amount__LCY_Format">
+          <DataField>Amount__LCY_Format</DataField>
+        </Field>
+        <Field Name="HeadAmount">
+          <DataField>HeadAmount</DataField>
+        </Field>
+        <Field Name="HeadAmountFormat">
+          <DataField>HeadAmountFormat</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="NumberText_2_">
+          <DataField>NumberText_2_</DataField>
+        </Field>
+        <Field Name="NumberText_1_">
+          <DataField>NumberText_1_</DataField>
+        </Field>
+        <Field Name="Account_Type">
+          <DataField>Account_Type</DataField>
+        </Field>
+        <Field Name="Type1">
+          <DataField>Type1</DataField>
+        </Field>
+        <Field Name="Type2">
+          <DataField>Type2</DataField>
+        </Field>
+        <Field Name="Credit2">
+          <DataField>Credit2</DataField>
+        </Field>
+        <Field Name="Credit2Format">
+          <DataField>Credit2Format</DataField>
+        </Field>
+        <Field Name="ExRate">
+          <DataField>ExRate</DataField>
+        </Field>
+        <Field Name="ExRateFormat">
+          <DataField>ExRateFormat</DataField>
+        </Field>
+        <Field Name="BDRate">
+          <DataField>BDRate</DataField>
+        </Field>
+        <Field Name="BDRateFormat">
+          <DataField>BDRateFormat</DataField>
+        </Field>
+        <Field Name="BillNo">
+          <DataField>BillNo</DataField>
+        </Field>
+        <Field Name="Remaining_Amount">
+          <DataField>Remaining_Amount</DataField>
+        </Field>
+        <Field Name="Remaining_AmountFormat">
+          <DataField>Remaining_AmountFormat</DataField>
+        </Field>
+        <Field Name="BillNo2">
+          <DataField>BillNo2</DataField>
+        </Field>
+        <Field Name="ExRate2">
+          <DataField>ExRate2</DataField>
+        </Field>
+        <Field Name="ExRate2Format">
+          <DataField>ExRate2Format</DataField>
+        </Field>
+        <Field Name="BDRate2">
+          <DataField>BDRate2</DataField>
+        </Field>
+        <Field Name="BDRate2Format">
+          <DataField>BDRate2Format</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1444,7 +1562,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Remaining_Amount.Value/Fields!ExRate.Value)*Fields!Type2.Value</Value>
+                                  <Value>=(Fields!Remaining_Amount.Value+Fields!Credit_Amount.Value)/(Fields!ExRate.Value+Fields!ExRate2.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1518,7 +1636,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Remaining_Amount.Value*Fields!BDRate.Value)*Fields!Type2.Value</Value>
+                                  <Value>=(Fields!Credit_Amount.Value+Fields!Remaining_Amount.Value)*(Fields!BDRate2.Value+Fields!BDRate.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1657,7 +1775,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum((Fields!Remaining_Amount.Value/Fields!ExRate.Value)*Fields!Type2.Value)</Value>
+                                  <Value>=Sum((Fields!Remaining_Amount.Value+Fields!Credit_Amount.Value)/(Fields!ExRate.Value+Fields!ExRate2.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1731,7 +1849,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum((Fields!Remaining_Amount.Value*Fields!BDRate.Value)*Fields!Type2.Value)</Value>
+                                  <Value>=Sum(Fields!Credit_Amount.Value+Fields!Remaining_Amount.Value)*(Fields!BDRate2.Value+Fields!BDRate.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2579,7 +2697,7 @@
       <Width>19.91489cm</Width>
       <Page>
         <PageFooter>
-          <Height>1.32292cm</Height>
+          <Height>1.20827cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2644,7 +2762,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox71</rd:DefaultName>
-              <Top>0.22931cm</Top>
+              <Top>0.17639cm</Top>
               <Left>9.06886cm</Left>
               <Height>0.97896cm</Height>
               <Width>6.37646cm</Width>
@@ -2727,6 +2845,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2778,104 +2902,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Document_No_">
-          <DataField>Document_No_</DataField>
-        </Field>
-        <Field Name="Posting_Date">
-          <DataField>Posting_Date</DataField>
-        </Field>
-        <Field Name="VendorName">
-          <DataField>VendorName</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Amount">
-          <DataField>Amount</DataField>
-        </Field>
-        <Field Name="AmountFormat">
-          <DataField>AmountFormat</DataField>
-        </Field>
-        <Field Name="Account_No_">
-          <DataField>Account_No_</DataField>
-        </Field>
-        <Field Name="AccountHead">
-          <DataField>AccountHead</DataField>
-        </Field>
-        <Field Name="Debit_Amount">
-          <DataField>Debit_Amount</DataField>
-        </Field>
-        <Field Name="Debit_AmountFormat">
-          <DataField>Debit_AmountFormat</DataField>
-        </Field>
-        <Field Name="Credit_Amount">
-          <DataField>Credit_Amount</DataField>
-        </Field>
-        <Field Name="Credit_AmountFormat">
-          <DataField>Credit_AmountFormat</DataField>
-        </Field>
-        <Field Name="Amount__LCY_">
-          <DataField>Amount__LCY_</DataField>
-        </Field>
-        <Field Name="Amount__LCY_Format">
-          <DataField>Amount__LCY_Format</DataField>
-        </Field>
-        <Field Name="HeadAmount">
-          <DataField>HeadAmount</DataField>
-        </Field>
-        <Field Name="HeadAmountFormat">
-          <DataField>HeadAmountFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="NumberText_2_">
-          <DataField>NumberText_2_</DataField>
-        </Field>
-        <Field Name="NumberText_1_">
-          <DataField>NumberText_1_</DataField>
-        </Field>
-        <Field Name="Account_Type">
-          <DataField>Account_Type</DataField>
-        </Field>
-        <Field Name="Type1">
-          <DataField>Type1</DataField>
-        </Field>
-        <Field Name="Type2">
-          <DataField>Type2</DataField>
-        </Field>
-        <Field Name="ExRate">
-          <DataField>ExRate</DataField>
-        </Field>
-        <Field Name="ExRateFormat">
-          <DataField>ExRateFormat</DataField>
-        </Field>
-        <Field Name="BDRate">
-          <DataField>BDRate</DataField>
-        </Field>
-        <Field Name="BDRateFormat">
-          <DataField>BDRateFormat</DataField>
-        </Field>
-        <Field Name="BillNo">
-          <DataField>BillNo</DataField>
-        </Field>
-        <Field Name="Remaining_Amount">
-          <DataField>Remaining_Amount</DataField>
-        </Field>
-        <Field Name="Remaining_AmountFormat">
-          <DataField>Remaining_AmountFormat</DataField>
-        </Field>
-        <Field Name="BillNo2">
-          <DataField>BillNo2</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
