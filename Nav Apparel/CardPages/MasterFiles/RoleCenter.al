@@ -3088,6 +3088,20 @@ page 50968 "Nav Apperal Role Center"
             {
                 Caption = 'Finance';
 
+                action("Paybale Chart Finance")
+                {
+                    Caption = 'Paybale Chart';
+                    RunObject = Page "Payable Chart - Approved";
+                    ApplicationArea = all;
+                }
+
+                action("Paid Chart Finance")
+                {
+                    Caption = 'Paid Chart';
+                    RunObject = Page "Paid Chart - Approved";
+                    ApplicationArea = all;
+                }
+
                 //     action("General Journals")
                 //     {
                 //         Caption = 'General Journals';
@@ -3233,7 +3247,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report CostBreakupReport;
                         ApplicationArea = all;
                     }
-    
+
                     //Done By sachith On 01/09/23
                     action("Order Completion Report - Finace")
                     {
