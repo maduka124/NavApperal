@@ -171,7 +171,7 @@ report 51449 StyleProductionStatus
                     until ProdOutRec.Next() = 0;
                 end;
 
-                BalIn := BalV - CutIN;
+                BalIn := LineIn - CutOut;
 
                 LineInTot := 0;
                 ProdOutRec.Reset();
