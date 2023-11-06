@@ -112,6 +112,7 @@ report 51449 StyleProductionStatus
 
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
+                StylePoRec.SetRange("PO No.", "PO No");
                 if StylePoRec.FindSet() then begin
                     StylePoRec.CalcSums("Cut Out Qty");
                     CutOutTotal := StylePoRec."Cut Out Qty";
@@ -127,7 +128,7 @@ report 51449 StyleProductionStatus
                     StylePoRec.CalcSums("Cut In Qty");
                     B3 := StylePoRec."Cut In Qty";
 
-                    BalInTotal := B2 - B3;
+                    // BalInTotal := B2 - B3;
 
                     StylePoRec.CalcSums(Qty);
                     PoTotal := StylePoRec.Qty;
@@ -186,11 +187,20 @@ report 51449 StyleProductionStatus
                     // LineInTot := ProdOutRec."Input Qty";
                 end;
 
+                OrderQty := 0;
+                StylePoRec.Reset();
+                StylePoRec.SetRange("Style No.", "Style No.");
+                StylePoRec.SetRange("PO No.", "PO No");
+                if StylePoRec.FindSet() then begin
+                    repeat
+                        OrderQty += StylePoRec.Qty;
+                    until StylePoRec.Next() = 0;
+                end;
 
                 StyleMasterRec.Reset();
                 StyleMasterRec.SetRange("No.", "Style No.");
                 if StyleMasterRec.FindSet() then begin
-                    OrderQty := StyleMasterRec."Order Qty";
+
                     BuyerName := StyleMasterRec."Buyer Name";
                 end;
             end;
