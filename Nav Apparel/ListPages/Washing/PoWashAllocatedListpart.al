@@ -370,9 +370,43 @@ page 51429 POWashAllocated
                 field("Closing Status"; Rec."Closing Status")
                 {
                     ApplicationArea = All;
-                    // Editable = false;
+                    Editable = EditableGB;
                 }
             }
         }
     }
+
+    trigger OnOpenPage()
+    var
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
+    begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            if LoginSessionsRec.FindSet() then
+                if LoginSessionsRec."Secondary UserID" = 'ADMIN' then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+        end
+        else begin   //logged in
+            if LoginSessionsRec."Secondary UserID" = 'ADMIN' then
+                EditableGB := true
+            else
+                EditableGB := false;
+        end;
+    end;
+
+    var
+        EditableGB: Boolean;
 }

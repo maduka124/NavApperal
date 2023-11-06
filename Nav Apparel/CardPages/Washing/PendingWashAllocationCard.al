@@ -33,6 +33,7 @@ page 51424 PendingAllocationCard
             {
                 ApplicationArea = All;
                 Image = Allocate;
+                Visible = not VisibleGB;
 
                 trigger OnAction()
                 var
@@ -121,6 +122,40 @@ page 51424 PendingAllocationCard
                     end;
                 end;
             }
+
+            action("Wash Remove")
+            {
+                ApplicationArea = All;
+                Image = Cancel;
+                Visible = not VisibleGB;
+
+                trigger OnAction()
+                begin
+
+                    Rec.Cancel := true;
+                    Rec.Modify(true);
+
+                    CurrPage.Close();
+
+                end;
+            }
+
+            action("Return To Pending")
+            {
+                ApplicationArea = All;
+                Image = Return;
+                Visible = VisibleGB;
+
+                trigger OnAction()
+                begin
+
+                    Rec.Cancel := false;
+                    Rec.Modify(true);
+
+                    CurrPage.Close();
+
+                end;
+            }
         }
     }
 
@@ -132,6 +167,10 @@ page 51424 PendingAllocationCard
         LineNo: Integer;
     begin
 
+        if Rec.Cancel = true then
+            VisibleGB := true
+        else
+            VisibleGB := false;
 
         // Get Last Line 
         AllocatedPORec.Reset();
@@ -193,4 +232,6 @@ page 51424 PendingAllocationCard
         end;
     end;
 
+    var
+        VisibleGB: Boolean;
 }

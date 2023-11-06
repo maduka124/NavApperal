@@ -1,11 +1,11 @@
-page 51423 "Pending Style/PO For Wash"
+page 51468 "Cancel Style/PO For Wash"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = PendingAllocationWash;
     CardPageId = PendingAllocationCard;
-    SourceTableView = sorting() where("Wash Allocated" = filter(false), Cancel = filter(false));
+    SourceTableView = sorting() where("Wash Allocated" = filter(false), Cancel = filter(true));
     DeleteAllowed = false;
     Editable = false;
 
@@ -207,90 +207,92 @@ page 51423 "Pending Style/PO For Wash"
                             PendingAllocationRec.Insert();
                         end;
                     end
-                    else begin
+                    // else begin
 
-                        StyleMaster2PORec.Reset();
-                        StyleMaster2PORec.SetRange("Style No.", PendingAllocation2Rec."Style No");
-                        StyleMaster2PORec.SetRange("Lot No.", PendingAllocation2Rec.Lot);
+                    //     StyleMaster2PORec.Reset();
+                    //     StyleMaster2PORec.SetRange("Style No.", PendingAllocation2Rec."Style No");
+                    //     StyleMaster2PORec.SetRange("Lot No.", PendingAllocation2Rec.Lot);
 
-                        if StyleMaster2PORec.FindSet() then begin
-                            if PendingAllocation2Rec."PO No" <> StyleMaster2PORec."PO No." then begin
-                                PendingAllocation2Rec."PO No" := StyleMaster2PORec."PO No.";
-                                PendingAllocation2Rec.Modify(true);
-                            end;
+                    //     if StyleMaster2PORec.FindSet() then begin
+                    //         if PendingAllocation2Rec."PO No" <> StyleMaster2PORec."PO No." then begin
+                    //             PendingAllocation2Rec."PO No" := StyleMaster2PORec."PO No.";
+                    //             PendingAllocation2Rec.Modify(true);
+                    //         end;
 
-                            if PendingAllocation2Rec."PO Qty" <> StyleMaster2PORec.Qty then begin
-                                PendingAllocation2Rec."PO Qty" := StyleMaster2PORec.Qty;
-                                PendingAllocation2Rec.Modify(true);
-                            end;
-                        end;
+                    //         if PendingAllocation2Rec."PO Qty" <> StyleMaster2PORec.Qty then begin
+                    //             PendingAllocation2Rec."PO Qty" := StyleMaster2PORec.Qty;
+                    //             PendingAllocation2Rec.Modify(true);
+                    //         end;
+                    //     end;
 
-                        NavAppProdDetailRec.Reset();
-                        NavAppProdDetailRec.SetRange("PO No.", Rec."PO No");
-                        NavAppProdDetailRec.SetRange("Style No.", Rec."Style No");
-                        NavAppProdDetailRec.SetRange("Lot No.", Rec.Lot);
-                        NavAppProdDetailRec.SetCurrentKey(PlanDate);
-                        NavAppProdDetailRec.Ascending(true);
+                    //     NavAppProdDetailRec.Reset();
+                    //     NavAppProdDetailRec.SetRange("PO No.", Rec."PO No");
+                    //     NavAppProdDetailRec.SetRange("Style No.", Rec."Style No");
+                    //     NavAppProdDetailRec.SetRange("Lot No.", Rec.Lot);
+                    //     NavAppProdDetailRec.SetCurrentKey(PlanDate);
+                    //     NavAppProdDetailRec.Ascending(true);
 
-                        if NavAppProdDetailRec.FindFirst() then begin
+                    //     if NavAppProdDetailRec.FindFirst() then begin
 
-                            if NavAppProdDetailRec.PlanDate <> rec."Plan Start Date" then begin
-                                PendingAllocation2Rec."Plan Start Date" := NavAppProdDetailRec.PlanDate;
-                                PendingAllocation2Rec.Modify(true);
-                            end;
+                    //         if NavAppProdDetailRec.PlanDate <> rec."Plan Start Date" then begin
+                    //             PendingAllocation2Rec."Plan Start Date" := NavAppProdDetailRec.PlanDate;
+                    //             PendingAllocation2Rec.Modify(true);
+                    //         end;
 
-                        end;
+                    //     end;
 
-                        NavAppProdDetailRec.Reset();
-                        NavAppProdDetailRec.SetRange("PO No.", Rec."PO No");
-                        NavAppProdDetailRec.SetRange("Style No.", Rec."Style No");
-                        NavAppProdDetailRec.SetRange("Lot No.", Rec.Lot);
-                        NavAppProdDetailRec.SetCurrentKey(PlanDate);
-                        NavAppProdDetailRec.Ascending(true);
+                    //     NavAppProdDetailRec.Reset();
+                    //     NavAppProdDetailRec.SetRange("PO No.", Rec."PO No");
+                    //     NavAppProdDetailRec.SetRange("Style No.", Rec."Style No");
+                    //     NavAppProdDetailRec.SetRange("Lot No.", Rec.Lot);
+                    //     NavAppProdDetailRec.SetCurrentKey(PlanDate);
+                    //     NavAppProdDetailRec.Ascending(true);
 
-                        if NavAppProdDetailRec.FindLast() then begin
+                    //     if NavAppProdDetailRec.FindLast() then begin
 
-                            if NavAppProdDetailRec."Factory No." <> Rec."Sewing Factory Code" then begin
-                                PendingAllocation2Rec."Sewing Factory Code" := NavAppProdDetailRec."Factory No.";
-                                PendingAllocation2Rec.Modify(true);
+                    //         if NavAppProdDetailRec."Factory No." <> Rec."Sewing Factory Code" then begin
+                    //             PendingAllocation2Rec."Sewing Factory Code" := NavAppProdDetailRec."Factory No.";
+                    //             PendingAllocation2Rec.Modify(true);
 
-                                LocationRec.Reset();
-                                LocationRec.SetRange(Code, NavAppProdDetailRec."Factory No.");
-                                if LocationRec.FindSet() then begin
-                                    PendingAllocationRec."Sewing Factory Name" := LocationRec.Name;
-                                    PendingAllocation2Rec.Modify(true);
-                                end;
+                    //             LocationRec.Reset();
+                    //             LocationRec.SetRange(Code, NavAppProdDetailRec."Factory No.");
+                    //             if LocationRec.FindSet() then begin
+                    //                 PendingAllocationRec."Sewing Factory Name" := LocationRec.Name;
+                    //                 PendingAllocation2Rec.Modify(true);
+                    //             end;
 
 
-                            end;
+                    //         end;
 
-                            if NavAppProdDetailRec.PlanDate <> rec."Plan End Date" then begin
-                                PendingAllocation2Rec."Plan End Date" := NavAppProdDetailRec.PlanDate;
-                                PendingAllocation2Rec.Modify(true);
-                            end;
-                        end;
+                    //         if NavAppProdDetailRec.PlanDate <> rec."Plan End Date" then begin
+                    //             PendingAllocation2Rec."Plan End Date" := NavAppProdDetailRec.PlanDate;
+                    //             PendingAllocation2Rec.Modify(true);
+                    //         end;
+                    //     end;
 
-                        NavAppProdDetailRec.Reset();
-                        NavAppProdDetailRec.SetRange("Style No.", StyleMasterPORec."Style No.");
-                        NavAppProdDetailRec.SetRange("PO No.", StyleMasterPORec."PO No.");
-                        NavAppProdDetailRec.SetRange("Lot No.", StyleMasterPORec."Lot No.");
+                    //     NavAppProdDetailRec.Reset();
+                    //     NavAppProdDetailRec.SetRange("Style No.", StyleMasterPORec."Style No.");
+                    //     NavAppProdDetailRec.SetRange("PO No.", StyleMasterPORec."PO No.");
+                    //     NavAppProdDetailRec.SetRange("Lot No.", StyleMasterPORec."Lot No.");
 
-                        MaxTartget := 0;
+                    //     MaxTartget := 0;
 
-                        if NavAppProdDetailRec.FindFirst() then begin
-                            PendingAllocationRec."Sewing Factory Code" := NavAppProdDetailRec."Factory No.";
+                    //     if NavAppProdDetailRec.FindFirst() then begin
+                    //         PendingAllocationRec."Sewing Factory Code" := NavAppProdDetailRec."Factory No.";
 
-                            repeat
-                                if NavAppProdDetailRec.Target > MaxTartget then
-                                    MaxTartget := NavAppProdDetailRec.Target;
-                            until NavAppProdDetailRec.Next() = 0;
+                    //         repeat
+                    //             if NavAppProdDetailRec.Target > MaxTartget then
+                    //                 MaxTartget := NavAppProdDetailRec.Target;
+                    //         until NavAppProdDetailRec.Next() = 0;
 
-                            if MaxTartget <> Rec."Plan Max Target" then begin
-                                PendingAllocation2Rec."Plan Max Target" := MaxTartget;
-                                PendingAllocation2Rec.Modify(true);
-                            end;
-                        end;
-                    end;
+                    //         if MaxTartget <> Rec."Plan Max Target" then begin
+                    //             PendingAllocation2Rec."Plan Max Target" := MaxTartget;
+                    //             PendingAllocation2Rec.Modify(true);
+                    //         end;
+                    //     end;
+
+
+                    // end;
                 end;
             until StyleMasterPORec.Next() = 0;
         end;

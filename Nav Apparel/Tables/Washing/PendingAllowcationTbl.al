@@ -81,6 +81,11 @@ table 51422 PendingAllocationWash
         {
             DataClassification = ToBeClassified;
         }
+
+        field(16; "Cancel"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
