@@ -739,7 +739,7 @@ page 51453 WashProductionCard
 
                                             if Rec."Process Seq No" = 1 then begin
                                                 WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                             end
                                             else begin
 
@@ -758,7 +758,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production WHISKERS" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production WHISKERS");
                                                     end;
@@ -768,7 +768,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production BASE WASH" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than BASE WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production BASE WASH");
                                                     end;
@@ -778,7 +778,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production ACID/ RANDOM WASH" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than ACID/ RANDOM WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production ACID/ RANDOM WASH");
                                                     end;
@@ -788,7 +788,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production FINAL WASH" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than FINAL WASH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production FINAL WASH");
                                                     end;
@@ -798,7 +798,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production DESTROY" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production DESTROY");
                                                     end;
@@ -808,7 +808,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production LASER BRUSH" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than LASER BRUSH Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER BRUSH");
                                                     end;
@@ -818,7 +818,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than LASER DESTROY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER DESTROY");
                                                     end;
@@ -828,7 +828,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production LASER WHISKERS" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than LASER WHISKERS Qty %2', Rec."Day Production Qty", WashingMasterRec."Production LASER WHISKERS");
                                                     end;
@@ -838,7 +838,7 @@ page 51453 WashProductionCard
 
                                                         if Rec."Day Production Qty" <= WashingMasterRec."Production LASER DESTROY" then begin
                                                             WashingMasterRec."Production BRUSH" := WashingMasterRec."Production BRUSH" + Rec."Day Production Qty";
-                                                            WashingMasterRec."Production BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
+                                                            WashingMasterRec."Balance BRUSH" := WashingMasterRec."Cut Qty" - WashingMasterRec."Production BRUSH";
                                                         end else
                                                             Error('BRUSH Qty %1 greater than PP SPRAY Qty %2', Rec."Day Production Qty", WashingMasterRec."Production PP SPRAY");
                                                     end;

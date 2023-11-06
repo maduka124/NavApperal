@@ -2,7 +2,7 @@ page 50701 "Washing Sample Request Card"
 {
     PageType = Card;
     SourceTable = "Washing Sample Header";
-    Caption = 'Washing Requisition';
+    Caption = 'Wash Send';
 
     layout
     {

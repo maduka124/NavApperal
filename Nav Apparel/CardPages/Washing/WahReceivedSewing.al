@@ -1,4 +1,4 @@
-page 51437 WashDeliveryCard
+page 51466 WashReciedsew
 {
     PageType = Card;
     SourceTable = WashDeliveryHeaderTbl;

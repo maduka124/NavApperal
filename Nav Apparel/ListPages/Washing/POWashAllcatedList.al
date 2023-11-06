@@ -5,7 +5,7 @@ page 51427 "Allocated Style/PO For Wash"
     UsageCategory = Lists;
     SourceTable = WashingMaster;
     SourceTableView = sorting("Plan Start Date");
-    // order(descending) where("Wash Allocated" = filter(true))
+    // order(descending) where("Wash Allocated" = filter(true)) where("Wash Close/Open" = filter(true))
     CardPageId = POWashAllocatedCard;
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -310,6 +310,31 @@ page 51427 "Allocated Style/PO For Wash"
                     ApplicationArea = All;
                 }
 
+                field("Close Reject"; Rec."Close Reject")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Close Sample"; Rec."Close Sample")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Close Left Over"; Rec."Close Left Over")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Close Production Loss"; Rec."Close Production Loss")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Closing Status"; Rec."Closing Status")
+                {
+                    ApplicationArea = All;
+                }
+
             }
         }
     }
@@ -471,8 +496,11 @@ page 51427 "Allocated Style/PO For Wash"
 
             LocationRec.SetRange(Code, UserRec."Factory Code");
 
-            if LocationRec.FindSet() then
+            if LocationRec.FindSet() then begin
                 rec.SetFilter("Washing Plant", '=%1', LocationRec.Name);
+                Rec.SetFilter("Closing Status", '=%1', Rec."Closing Status"::Open);
+            end;
+
         end;
 
     end;

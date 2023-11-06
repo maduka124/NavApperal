@@ -718,6 +718,12 @@ table 51139 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
+        field(71012707; "Wash Colse Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+
     }
 
     keys
