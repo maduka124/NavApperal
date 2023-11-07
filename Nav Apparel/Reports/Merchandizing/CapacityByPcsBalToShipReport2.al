@@ -70,6 +70,7 @@ report 51412 CapacityByPcsBalToShipReport2
                 var
                     PostSalesInvHeaderRec: Record "Sales Invoice Header";
                     PostSalesInvLineRec: Record "Sales Invoice Line";
+                    BalShip: BigInteger;
                 begin
                     UnitPriceRound := Round("Unit Price", 0.01, '=');
 
@@ -91,8 +92,14 @@ report 51412 CapacityByPcsBalToShipReport2
                         until PostSalesInvHeaderRec.Next() = 0;
                     end;
 
-                    if ActualShipmentQty >= Qty then
+                    if ActualShipmentQty >= Qty then begin
                         ActualShipmentQty := Qty;
+                        BalShip := ActualShipmentQty - Qty;
+
+                        if BalShip = 0 then
+                            CurrReport.Skip();
+                    end;
+
                 end;
 
                 //Done By Sachith on 14/03/23
@@ -100,6 +107,7 @@ report 51412 CapacityByPcsBalToShipReport2
                 begin
                     SetRange("Style Master PO"."Ship Date", stDate, endDate);
                     SetFilter(Qty, '>%1', 0);
+                    // SetFilter(, '>%1', 0);
                 end;
             }
 
