@@ -2465,6 +2465,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Cancel Style/PO For Wash")
+                {
+                    Caption = 'Removed Style/PO';
+                    RunObject = Page "Cancel Style/PO For Wash";
+                    ApplicationArea = all;
+                }
+
                 action("Wash Close")
                 {
                     Caption = 'Wash Close';

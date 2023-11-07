@@ -40,7 +40,7 @@ report 50621 ProductionPlanReport
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
-                DataItemTableView = sorting("Line No.");
+                DataItemTableView = sorting(StartDateTime);
 
                 column(Eff; Eff)
                 { }
