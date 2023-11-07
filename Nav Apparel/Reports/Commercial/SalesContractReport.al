@@ -6,7 +6,6 @@ report 51245 SalesContractReport
     RDLCLayout = 'Report_Layouts/Commercial/SalesContractReport.rdl';
     DefaultLayout = RDLC;
 
-
     dataset
     {
         dataitem("Contract/LCMaster"; "Contract/LCMaster")
@@ -30,13 +29,9 @@ report 51245 SalesContractReport
             { }
             column(Factory; Factory)
             { }
-            column(OrderQty; OrderQty)
-            { }
             column(Contract_Value; "Contract Value")
             { }
             column(Quantity__Pcs_; "Quantity (Pcs)")
-            { }
-            column(BBLCOPENED; BBLCOPENED)
             { }
             column(UDNo; UDNo)
             { }
@@ -48,157 +43,108 @@ report 51245 SalesContractReport
             { }
             column(UDBalanceValue; UDBalanceValue)
             { }
+            // column(OrderQty; OrderQty)
+            // { }
+            column(BBLCOPENED; BBLCOPENED)
+            { }
 
-            dataitem("Contract/LCStyle"; "Contract/LCStyle")
+            // column(PoQty; POQty)
+            // { }
+
+            dataitem("Sales Invoice Header"; "Sales Invoice Header")
             {
                 DataItemLinkReference = "Contract/LCMaster";
-                DataItemLink = "No." = field("No.");
-                //DataItemTableView = sorting("No.", "Style No.");
+                DataItemLink = "Contract No" = field("Contract No"), "Bill-to Customer No." = field("Buyer No.");
+                DataItemTableView = where(Closed = filter(false));
 
-                column(PoQtySum; Qty)
+                column(Style_Name; "Style Name")
+                { }
+                column(GarmentType; GarmentType)
+                { }
+                column(UnitPrice; "Unit Price")
+                { }
+                column(ShipDate; "Shipment Date")
+                { }
+                column(PoNo; "PO No")
+                { }
+                column(Color; Color)
+                { }
+                column(PoQty; POQty)
+                { }
+                column(TotalPO; "Unit Price" * "PO QTY")
+                { }
+                column(ShippedQty; ShipQty)
+                { }
+                column(ShValue; Amount)
+                { }
+                column(Diff; ShipQty - "PO QTY")
+                { }
+                column(AMT; AMT)
+                { }
+                column(Remaining_Amount; "Remaining Amount")
                 { }
 
-                dataitem("Style Master"; "Style Master")
-                {
-                    DataItemLinkReference = "Contract/LCStyle";
-                    DataItemLink = "No." = field("Style No.");
-
-                    dataitem("Style Master PO"; "Style Master PO")
-                    {
-                        DataItemLinkReference = "Style Master";
-                        DataItemLink = "Style No." = field("No.");
-                        //DataItemTableView = sorting("Style No.", "Lot No.");
-
-                        column(Style_Name; "Style Master"."Style No.")
-                        { }
-                        column(Qty; QTYG)
-                        { }
-                        column(GarmentType; GarmentType)
-                        { }
-                        column(UnitPrice; UnitPrice)
-                        { }
-                        column(PoQty; Qty)
-                        { }
-                        column(ShippedQty; ShipQty)
-                        { }
-                        column(PoNo; "Style Master PO"."PO No.")
-                        { }
-                        column(ShipDate; ShipDate)
-                        { }
-                        column(Color; Color)
-                        { }
-                        column(ShValue; ShValue)
-                        { }
+                trigger OnAfterGetRecord()
+                var
+                    myInt: Integer;
+                begin
+                    AMT := 0;
+                    SalesInvRec.Reset();
+                    // SalesInvRec.SetRange("No.", "No.");
+                    SalesInvRec.SetRange("Contract No", "Contract No");
+                    SalesInvRec.SetRange(Closed, false);
+                    if SalesInvRec.FindSet() then begin
+                        SalesInvRec.CalcFields("Remaining Amount");
+                        repeat
+                            AMT += SalesInvRec."Remaining Amount";
+                        until SalesInVLineRec.Next() = 0;
+                    end;
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", "Style No");
+                    if StyleRec.FindFirst() then begin
+                        GarmentType := StyleRec."Garment Type Name";
+                        // StyleName := StyleRec."Style No.";
+                    end;
+                    POQty := 0;
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", "Style No");
+                    StylePoRec.SetRange("Lot No.", Lot);
+                    StylePoRec.SetRange("PO No.", "PO No");
+                    if StylePoRec.FindSet() then begin
+                        POQty += StylePoRec.Qty;
+                    end;
 
 
-                        trigger OnAfterGetRecord()
-                        begin
-                            StylePoRec.Reset();
-                            StylePoRec.SetRange("Style No.", "Style No.");
-                            StylePoRec.SetRange("PO No.", "PO No.");
-                            StylePoRec.SetRange("Lot No.", "Lot No.");
-                            if StylePoRec.FindSet() then begin
-                                UnitPrice := StylePoRec."Unit Price";
-                                ShipDate := StylePoRec."Ship Date";
-                            end;
+                    // OrderQty := 0;
+                    AssormentDetailRec.Reset();
+                    AssormentDetailRec.SetRange("Style No.", "Style No");
+                    AssormentDetailRec.SetRange("PO No.", "PO No");
+                    if AssormentDetailRec.FindSet() then begin
+                        Color := AssormentDetailRec."Colour Name";
+                    end;
 
-                            PoQty := 0;
-                            StylePoRec.Reset();
-                            StylePoRec.SetRange("Style No.", "Style No.");
-                            StylePoRec.SetRange("PO No.", "PO No.");
-                            StylePoRec.SetRange("Lot No.", "Lot No.");
-                            if StylePoRec.FindSet() then begin
-                                repeat
-                                    PoQty += StylePoRec.Qty;
-                                until StylePoRec.Next() = 0;
-                            end;
+                    ShipQty := 0;
+                    ShValue := 0;
+                    SalesInVLineRec.Reset();
+                    SalesInVLineRec.SetRange("Document No.", "No.");
+                    SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
+                    if SalesInVLineRec.FindSet() then begin
+                        repeat
+                            ShipQty += SalesInVLineRec.Quantity;
+                            ShValue += SalesInVLineRec.Quantity * SalesInVLineRec."Unit Price";
+                        until SalesInVLineRec.Next() = 0;
 
-                            StyleRec.Reset();
-                            StyleRec.SetRange("No.", "Style No.");
-                            if StyleRec.FindFirst() then begin
-                                GarmentType := StyleRec."Garment Type Name";
-                            end;
-
-                            // OrderQty := 0;
-                            AssormentDetailRec.Reset();
-                            AssormentDetailRec.SetRange("Style No.", "Style No.");
-                            AssormentDetailRec.SetRange("PO No.", "PO No.");
-                            if AssormentDetailRec.FindSet() then begin
-                                Color := AssormentDetailRec."Colour Name";
-                            end;
-
-                            ShipQty := 0;
-
-                            // if "PO No." = '53848-55 C-761' then begin
-                            //     st := "Style Master"."Style No.";
-                            //     po := "Style Master PO"."PO No."
-                            // end;
-
-
-                            SalesInvoiceHRec.Reset();
-                            SalesInvoiceHRec.SetRange("Style Name", "Style Master"."Style No.");
-                            SalesInvoiceHRec.SetRange("PO No", "Style Master PO"."PO No.");
-                            // SalesInvoiceHRec.SetRange(EntryType, SalesInvoiceHRec.EntryType::FG);
-                            // SalesInvoiceHRec.SetRange("Bal. Account Type", SalesInvoiceHRec."Bal. Account Type"::"G/L Account");
-                            if SalesInvoiceHRec.FindSet() then begin
-                                repeat
-                                    ShipDate := SalesInvoiceHRec."Shipment Date";
-
-                                    SalesInVLineRec.Reset();
-                                    SalesInVLineRec.SetRange("Document No.", SalesInvoiceHRec."No.");
-                                    // SalesInVLineRec.SetRange(Type, SalesInVLineRec.Type::Item);
-                                    if SalesInVLineRec.FindSet() then begin
-                                        repeat
-                                            ShipQty += SalesInVLineRec.Quantity;
-                                            ShValue += SalesInVLineRec.Quantity * SalesInVLineRec."Unit Price";
-                                        until SalesInVLineRec.Next() = 0;
-                                        // ShValue += ShipQty * "Unit Price";
-                                    end;
-                                until SalesInvoiceHRec.Next() = 0;
-                            end;
-                        end;
-                    }
-                }
+                    end;
+                end;
             }
-
 
             trigger OnAfterGetRecord()
             var
-                UDRec: Record UDHeader;
+                myInt: Integer;
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                ContracStyleRec.Reset();
-                ContracStyleRec.SetRange("No.", ContracStyleRec."No.");
-                if ContracStyleRec.FindSet() then begin
-                    repeat
-                        QTYG += ContracStyleRec.Qty;
-                    until ContracStyleRec.Next() = 0;
-                end;
-
-                BBLCOPENED := 0;
-                B2BRec.Reset();
-                B2BRec.SetRange("LC/Contract No.", "Contract No");
-                if B2BRec.FindSet() then begin
-                    repeat
-                        BBLCOPENED += B2BRec."B2B LC Value";
-                    until B2BRec.Next() = 0;
-                end;
-
-                Amount := "Contract Value";
-                "BBLC AMOUNT" := ("Contract Value" * BBLC) / 100;
-
-                BBLCOPENED := 0;
-                B2BRec.Reset();
-                B2BRec.SetRange("LC/Contract No.", "Contract No");
-                if B2BRec.FindSet() then begin
-                    repeat
-                        BBLCOPENED += B2BRec."B2B LC Value";
-                    until B2BRec.Next() = 0;
-                end;
-
-                "BBLC BALANCE" := "BBLC AMOUNT" - BBLCOPENED;
 
                 //UD Values
                 UDRec.Reset();
@@ -211,43 +157,67 @@ report 51245 SalesContractReport
                     UDNo := UDRec."No.";
                 end;
 
+                BBLCOPENED := 0;
+                B2BRec.Reset();
+                B2BRec.SetRange("LC/Contract No.", "Contract No");
+                if B2BRec.FindSet() then begin
+                    repeat
+                        BBLCOPENED += B2BRec."B2B LC Value";
+                    until B2BRec.Next() = 0;
+                end;
+
+                ContractSLcRec.Reset();
+                ContractSLcRec.SetRange("No.", "No.");
+                if ContractSLcRec.FindSet() then begin
+
+
+                end;
+
+
             end;
         }
     }
 
+    // requestpage
+    // {
+    //     layout
+    //     {
+    //         area(Content)
+    //         {
+    //             group(GroupName)
+    //             {
+    //                 // field(Name; SourceExpression)
+    //                 // {
+    //                 //     ApplicationArea = All;
+
+    //                 // }
+    //             }
+    //         }
+    //     }
+    // }
+
+
+
     var
-        ShValue: Decimal;
-        "BBLC BALANCE": Decimal;
-        "BBLC Opened": Decimal;
-        Amount: Decimal;
-        BalanceBBLC: Decimal;
-        "BBLC AMOUNT": Decimal;
-        Style1: Code[20];
-        PONo1: Code[20];
-        SalesInvoiceHRec: Record "Sales Invoice Header";
-        BBLCOPENED: Decimal;
-        B2BRec: Record B2BLCMaster;
-        PoQtySum: BigInteger;
-        ShipmentLineRec: Record "Sales Shipment Line";
-        ShipDate: Date;
-        PoQty: BigInteger;
-        SalesInVLineRec: Record "Sales Invoice Line";
-        ContracStyleRec: Record "Contract/LCStyle";
+        AMT: Decimal;
+        SalesInvRec: Record "Sales Invoice Header";
+        ContractSLcRec: Record "Contract/LCStyle";
         StylePoRec: Record "Style Master PO";
-        QTYG: BigInteger;
-        OrderQty: BigInteger;
+        POQty: Integer;
+        ShValue: Decimal;
+        ShipQty: Decimal;
+        SalesInVLineRec: Record "Sales Invoice Line";
         AssormentDetailRec: Record AssortmentDetails;
-        AssormentQty: Integer;
-        AssorColorRationRec: Record AssorColorSizeRatio;
-        comRec: Record "Company Information";
         Color: Text[50];
         GarmentType: text[50];
         StyleRec: Record "Style Master";
-        ShipQty: BigInteger;
-        UnitPrice: Decimal;
+        BBLCOPENED: Decimal;
+        B2BRec: Record B2BLCMaster;
         UDQty: BigInteger;
         UDValue: Decimal;
         UDBalance: BigInteger;
         UDBalanceValue: Decimal;
         UDNo: Code[20];
+        UDRec: Record UDHeader;
+        comRec: Record "Company Information";
 }

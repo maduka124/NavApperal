@@ -1350,14 +1350,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="ShValue">
+                        <Textbox Name="AMT">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!UnitPrice.Value*Fields!ShippedQty.Value)</Value>
+                                  <Value>=Sum(Fields!ShValue.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1369,7 +1369,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>ShValue</rd:DefaultName>
+                          <rd:DefaultName>AMT</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1479,7 +1479,7 @@
             <Top>2.00201cm</Top>
             <Left>0cm</Left>
             <Height>3cm</Height>
-            <Width>27.27348cm</Width>
+            <Width>27.27347cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -2100,14 +2100,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox24">
+                        <Textbox Name="TotalPO">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!UnitPrice.Value*Fields!PoQty.Value)</Value>
+                                  <Value>=Fields!TotalPO.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2120,7 +2120,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox24</rd:DefaultName>
+                          <rd:DefaultName>TotalPO</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2221,7 +2221,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ShippedQty.Value-Fields!PoQty.Value)</Value>
+                                  <Value>=Fields!Diff.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2390,19 +2390,19 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PoQty3">
+                        <Textbox Name="Textbox30">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!PoQty.Value)</Value>
+                                  <Value>=Fields!Quantity__Pcs_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n0</Format>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2411,7 +2411,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PoQty</rd:DefaultName>
+                          <rd:DefaultName>Textbox24</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2512,7 +2512,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!UnitPrice.Value * Fields!PoQty.Value)</Value>
+                                  <Value>=Sum(Fields!TotalPO.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2628,7 +2628,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=SUM(Fields!ShippedQty.Value - Fields!PoQty.Value)</Value>
+                                  <Value>=SUM(Fields!Diff.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2679,7 +2679,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox29">
+                        <Textbox Name="Textbox33">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -3134,20 +3134,11 @@
                               <PaddingBottom>2pt</PaddingBottom>
                             </Style>
                           </Textbox>
+                          <rd:Selected>true</rd:Selected>
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>
                         <TablixMember>
-                          <Group Name="GarmentType">
-                            <GroupExpressions>
-                              <GroupExpression>=Fields!GarmentType.Value</GroupExpression>
-                            </GroupExpressions>
-                          </Group>
-                          <SortExpressions>
-                            <SortExpression>
-                              <Value>=Fields!GarmentType.Value</Value>
-                            </SortExpression>
-                          </SortExpressions>
                           <TablixHeader>
                             <Size>3.51163cm</Size>
                             <CellContents>
@@ -3205,16 +3196,6 @@
                           </TablixHeader>
                           <TablixMembers>
                             <TablixMember>
-                              <Group Name="ShipDate">
-                                <GroupExpressions>
-                                  <GroupExpression>=Fields!ShipDate.Value</GroupExpression>
-                                </GroupExpressions>
-                              </Group>
-                              <SortExpressions>
-                                <SortExpression>
-                                  <Value>=Fields!ShipDate.Value</Value>
-                                </SortExpression>
-                              </SortExpressions>
                               <TablixHeader>
                                 <Size>2.92363cm</Size>
                                 <CellContents>
@@ -3275,11 +3256,7 @@
                               </TablixHeader>
                               <TablixMembers>
                                 <TablixMember>
-                                  <Group Name="Details">
-                                    <GroupExpressions>
-                                      <GroupExpression>=Fields!Color.Value</GroupExpression>
-                                    </GroupExpressions>
-                                  </Group>
+                                  <Group Name="Details" />
                                 </TablixMember>
                               </TablixMembers>
                             </TablixMember>
@@ -3288,6 +3265,9 @@
                       </TablixMembers>
                     </TablixMember>
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=Fields!Style_Name.Value=""</Hidden>
+                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>
@@ -3560,7 +3540,7 @@
       <Width>28.63048cm</Width>
       <Page>
         <PageFooter>
-          <Height>1.32292cm</Height>
+          <Height>1.34409cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -3864,6 +3844,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="ShippedQty">
           <DataField>ShippedQty</DataField>
         </Field>
+        <Field Name="Diff">
+          <DataField>Diff</DataField>
+        </Field>
         <Field Name="PoNo">
           <DataField>PoNo</DataField>
         </Field>
@@ -3878,6 +3861,18 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="ShValueFormat">
           <DataField>ShValueFormat</DataField>
+        </Field>
+        <Field Name="TotalPO">
+          <DataField>TotalPO</DataField>
+        </Field>
+        <Field Name="TotalPOFormat">
+          <DataField>TotalPOFormat</DataField>
+        </Field>
+        <Field Name="AMT">
+          <DataField>AMT</DataField>
+        </Field>
+        <Field Name="AMTFormat">
+          <DataField>AMTFormat</DataField>
         </Field>
       </Fields>
       <Query>
