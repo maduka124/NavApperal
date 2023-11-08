@@ -42,6 +42,10 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
             Caption = 'Status';
             Editable = false;
         }
+        field(50010; "Account Name"; text[200])
+        {
+        }
+
         modify("Document Date")
         {
             trigger OnAfterValidate()
