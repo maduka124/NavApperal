@@ -148,6 +148,11 @@ table 50457 "New Breakdown"
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
+
+        field(28; "Order Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 

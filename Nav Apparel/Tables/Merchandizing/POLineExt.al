@@ -60,6 +60,10 @@ tableextension 50918 "POLine Extension" extends "Purchase Line"
         {
             DataClassification = ToBeClassified;
         }
+        field(50013; "Account Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

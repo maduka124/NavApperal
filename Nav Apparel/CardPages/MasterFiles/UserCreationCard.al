@@ -377,6 +377,38 @@ page 50978 "Create User Card"
             //     end;
 
             // }
+
+            action("Order Qty Update NB")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    NewBreackDownTec: Record "New Breakdown";
+                    NewBreackDown2Tec: Record "New Breakdown";
+                    StyleMsterRec: Record "Style Master";
+                begin
+
+                    NewBreackDown2Tec.Reset();
+                    NewBreackDownTec.Reset();
+
+                    if NewBreackDownTec.FindFirst() then begin
+                        repeat
+
+                            NewBreackDown2Tec.SetRange("Style No.", NewBreackDownTec."Style No.");
+
+                            if NewBreackDown2Tec.FindSet() then begin
+                                StyleMsterRec.Reset();
+                                StyleMsterRec.SetRange("Style No.", NewBreackDown2Tec."Style Name");
+                                if StyleMsterRec.FindSet() then begin
+                                    NewBreackDown2Tec."Order Qty" := StyleMsterRec."Order Qty";
+                                    NewBreackDown2Tec.Modify(true);
+                                end;
+                            end;
+                        until NewBreackDownTec.Next() = 0;
+                    end;
+                end;
+            }
             action("Remove minus Planned Qty in wip")
             {
                 ApplicationArea = All;

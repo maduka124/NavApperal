@@ -41,7 +41,75 @@ pageextension 51190 PaymentJrnlList extends "Payment Journal"
             }
 
         }
+        modify("Account No.")
+        {
+            trigger OnAfterValidate()
+            var
+                GLRec: Record "G/L Account";
+                EmpRec: Record Employee;
+                BankRec: Record "Bank Account";
+                VendorRec: Record Vendor;
+                CustomerRec: Record Customer;
+                FixREc: Record "Fixed Asset";
+            begin
+                FixREc.Reset();
+                FixREc.SetRange("No.", Rec."Account No.");
+                if FixREc.FindSet() then begin
+                    Rec."Account Name" := FixREc.Description;
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
 
+                GLRec.Reset();
+                GLRec.SetRange("No.", Rec."Account No.");
+                if GLRec.FindSet() then begin
+                    Rec."Account Name" := GLRec.Name;
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
+
+                EmpRec.Reset();
+                EmpRec.SetRange("No.", Rec."Account No.");
+                if EmpRec.FindSet() then begin
+                    Rec."Account Name" := EmpRec."First Name";
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
+
+                BankRec.Reset();
+                BankRec.SetRange("No.", Rec."Account No.");
+                if BankRec.FindSet() then begin
+                    Rec."Account Name" := BankRec.Name;
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
+
+                VendorRec.Reset();
+                VendorRec.SetRange("No.", Rec."Account No.");
+                if VendorRec.FindSet() then begin
+                    Rec."Account Name" := VendorRec.Name;
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
+
+                CustomerRec.Reset();
+                CustomerRec.SetRange("No.", Rec."Account No.");
+                if CustomerRec.FindSet() then begin
+                    Rec."Account Name" := CustomerRec.Name;
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
+            end;
+        }
+        addafter("Account No.")
+        {
+            field("Account Name 1"; Rec."Account Name")
+            {
+                Caption = 'Account Name';
+                ApplicationArea = All;
+                Editable = false;
+            }
+        }
         addafter("Bal. Account No.")
         {
             field("Cheque printed"; Rec."Cheque printed")
@@ -51,6 +119,7 @@ pageextension 51190 PaymentJrnlList extends "Payment Journal"
             }
         }
     }
+
 
     actions
     {

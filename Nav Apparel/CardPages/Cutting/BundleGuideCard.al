@@ -237,7 +237,7 @@ page 50665 "Bundle Guide Card"
             {
                 ApplicationArea = All;
                 Image = CreateMovement;
-
+                Visible = VisibleGB;
                 trigger OnAction()
                 var
                     BundleGuideLineRec: Record BundleGuideLine;
@@ -331,8 +331,9 @@ page 50665 "Bundle Guide Card"
                             BundleGuideLineRec.SetRange("Style No", rec."Style No.");
                             BundleGuideLineRec.SetCurrentKey("Bundle No");
                             BundleGuideLineRec.Ascending(true);
-                            if BundleGuideLineRec.FindLast() then
+                            if BundleGuideLineRec.FindLast() then begin
                                 BundleNo := BundleGuideLineRec."Bundle No";
+                            end;
                         end
                         else
                             BundleNo := Rec."Bundle No Start";
@@ -344,12 +345,14 @@ page 50665 "Bundle Guide Card"
                     //Get Max Tempqty
                     if LocationRec."Bundle Guide Sequence" = LocationRec."Bundle Guide Sequence"::Continue then begin
                         if Rec."Sticker Seq Start" = 0 then begin
+
                             BundleGuideLineRec.Reset();
-                            BundleGuideLineRec.SetRange("Style No", rec."Style No.");
-                            BundleGuideLineRec.SetCurrentKey(TempQty);
+                            BundleGuideLineRec.SetRange("Style No", Rec."Style No.");
+                            BundleGuideLineRec.SetCurrentKey("BundleGuideNo.", "Bundle No");
                             BundleGuideLineRec.Ascending(true);
-                            if BundleGuideLineRec.FindLast() then
+                            if BundleGuideLineRec.FindLast() then begin
                                 TempQty := BundleGuideLineRec.TempQty;
+                            end;
                         end
                         else
                             TempQty := Rec."Sticker Seq Start";
@@ -839,6 +842,7 @@ page 50665 "Bundle Guide Card"
 
                                                     if (TempQty + BundleQty) < 10000 then
                                                         StickerSeq := Format(z + 1) + '-' + Format(TempQty + BundleQty)
+
                                                     else begin
                                                         if TempQty <= 9999 then
                                                             StickerSeq := Format(z + 1) + '-' + Format(BundleQty - (9999 - TempQty))
@@ -860,7 +864,8 @@ page 50665 "Bundle Guide Card"
                                                     BundleGuideLineRec.Qty := BundleQty;
 
                                                     if (TempQty + BundleQty) < 10000 then
-                                                        BundleGuideLineRec.TempQty := TempQty + BundleQty - TempQty1
+                                                        BundleGuideLineRec.TempQty := TempQty + BundleQty
+                                                    // - TempQty1
                                                     else begin
                                                         if TempQty <= 9999 then
                                                             BundleGuideLineRec.TempQty := BundleQty - (9999 - TempQty)
@@ -1757,7 +1762,30 @@ page 50665 "Bundle Guide Card"
     end;
 
 
+    trigger OnAfterGetCurrRecord()
+    var
+        BundleGuideHeaderRec: Record BundleGuideHeader;
+    begin
+        BundleGuideHeaderRec.Reset();
+        BundleGuideHeaderRec.SetRange("Style No.", Rec."Style No.");
+        BundleGuideHeaderRec.SetCurrentKey("BundleGuideNo.");
+        BundleGuideHeaderRec.Ascending(true);
+
+        if BundleGuideHeaderRec.FindLast() then
+            if Rec."BundleGuideNo." = '' then begin
+                VisibleGB := true;
+            end
+            else begin
+                if BundleGuideHeaderRec."BundleGuideNo." = Rec."BundleGuideNo." then
+                    VisibleGB := true
+                else
+                    VisibleGB := false;
+            end;
+    end;
+
+
     var
         EditableGB: Boolean;
         EditableGBLay: Boolean;
+        VisibleGB: Boolean;
 }

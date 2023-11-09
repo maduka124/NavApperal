@@ -48,6 +48,11 @@ page 50458 "New Breakdown"
                     Caption = 'Garment Type';
                 }
 
+                field("Order Qty"; Rec."Order Qty")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("CostingSMV"; rec.CostingSMV)
                 {
                     ApplicationArea = All;
