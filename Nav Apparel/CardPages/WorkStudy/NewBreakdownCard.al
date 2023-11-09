@@ -65,6 +65,7 @@ page 50459 "New Breakdown Card"
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then begin
                             rec."Style No." := StyleMasterRec."No.";
+                            Rec."Order Qty" := StyleMasterRec."Order Qty";
                             rec."Buyer No." := StyleMasterRec."Buyer No.";
                             rec."Season No." := StyleMasterRec."Season No.";
                             rec."Garment Type No." := StyleMasterRec."Garment Type No.";

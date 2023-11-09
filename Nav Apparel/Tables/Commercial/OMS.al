@@ -114,11 +114,13 @@ table 51327 OMS
         field(22; "Wash IN"; BigInteger)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Wash Send';
 
         }
         field(23; "Wash OUT"; BigInteger)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Wash Received';
 
         }
         field(24; "Poly OUT"; BigInteger)
