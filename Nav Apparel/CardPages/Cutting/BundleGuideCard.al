@@ -237,7 +237,7 @@ page 50665 "Bundle Guide Card"
             {
                 ApplicationArea = All;
                 Image = CreateMovement;
-
+                Visible = VisibleGB;
                 trigger OnAction()
                 var
                     BundleGuideLineRec: Record BundleGuideLine;
@@ -1762,7 +1762,30 @@ page 50665 "Bundle Guide Card"
     end;
 
 
+    trigger OnAfterGetCurrRecord()
+    var
+        BundleGuideHeaderRec: Record BundleGuideHeader;
+    begin
+        BundleGuideHeaderRec.Reset();
+        BundleGuideHeaderRec.SetRange("Style No.", Rec."Style No.");
+        BundleGuideHeaderRec.SetCurrentKey("BundleGuideNo.");
+        BundleGuideHeaderRec.Ascending(true);
+
+        if BundleGuideHeaderRec.FindLast() then
+            if Rec."BundleGuideNo." = '' then begin
+                VisibleGB := true;
+            end
+            else begin
+                if BundleGuideHeaderRec."BundleGuideNo." = Rec."BundleGuideNo." then
+                    VisibleGB := true
+                else
+                    VisibleGB := false;
+            end;
+    end;
+
+
     var
         EditableGB: Boolean;
         EditableGBLay: Boolean;
+        VisibleGB: Boolean;
 }
