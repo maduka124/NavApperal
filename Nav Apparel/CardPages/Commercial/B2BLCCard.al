@@ -389,6 +389,7 @@ page 50522 "B2B LC Card"
                     ApplicationArea = All;
                     MultiLine = true;
                     RowSpan = 10;
+                
                 }
             }
 
