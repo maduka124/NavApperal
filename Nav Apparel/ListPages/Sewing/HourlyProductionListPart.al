@@ -1042,6 +1042,9 @@ page 50516 HourlyProductionListPart
         end;
 
 
+        if WorkingHrs > 10 then
+            WorkingHrs := 10;
+
         TotNavaHours := 0;
         NavAppProdRec.Reset();
         NavAppProdRec.SetRange("Resource No.", Rec."Work Center No.");
@@ -1184,7 +1187,16 @@ page 50516 HourlyProductionListPart
             //     if NavAppProdRec."Lot No." = '1' then
             //         Message('VDL7');
             // end;
-            // if NavAppProdRec."Resource No." = 'LINE-09' then begin
+            // if NavAppProdRec."Resource No." = 'AFL-17' then begin
+            //     Message('VDL7');
+            // end;
+            // if NavAppProdRec."Resource No." = 'AFL-19' then begin
+            //     Message('VDL7');
+            // end;
+            // if NavAppProdRec."Resource No." = 'AFL-21' then begin
+            //     Message('VDL7');
+            // end;
+            // if NavAppProdRec."Resource No." = 'AFL-05' then begin
             //     Message('VDL7');
             // end;
 
