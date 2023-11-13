@@ -855,6 +855,7 @@ page 50986 "BOM Estimate Cost Card"
 
                     group("Commission")
                     {
+                        Caption = 'LC Commission';
                         field("Commission %"; rec."Commission %")
                         {
                             ApplicationArea = All;
@@ -943,6 +944,7 @@ page 50986 "BOM Estimate Cost Card"
 
                     group("Deferred Payment")
                     {
+                        Caption = 'Cash Commission';
                         field("Deferred Payment %"; rec."Deferred Payment %")
                         {
                             ApplicationArea = All;

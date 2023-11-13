@@ -730,6 +730,11 @@ page 50964 "NavApp Setup Card"
                     ApplicationArea = All;
                     Caption = 'Wash Close No';
                 }
+
+                field("Buyer PO Duplicate"; Rec."Buyer PO Duplicate")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

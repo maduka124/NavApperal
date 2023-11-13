@@ -7163,10 +7163,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Deferred Payment</Value>
+                                  <Value>Commission Cash</Value>
                                   <Style>
+                                    <FontStyle>Normal</FontStyle>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>10.5pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -10470,9 +10473,14 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Commision</Value>
+                                  <Value>Commission LC</Value>
                                   <Style>
+                                    <FontStyle>Normal</FontStyle>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>

@@ -90,7 +90,26 @@ page 51069 "Style Master PO ListPart"
                         SalseInvoiceRec: Record "Sales Invoice Header";
                         SalesHeader2Rec: Record "Sales Header";
                         AssorDetailRec: Record AssortmentDetails;
+                        StyleMasterPORec: Record "Style Master PO";
+                        NavAppRec: Record "NavApp Setup";
                     begin
+
+                        CurrPage.Update();
+
+                        NavAppRec.Reset();
+                        NavAppRec.FindSet();
+
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                        StyleMasterPORec.SetRange("PO No.", Rec."PO No.");
+
+                        if StyleMasterPORec.FindSet() then begin
+
+                            if NavAppRec."Buyer PO Duplicate" = NavAppRec."Buyer PO Duplicate"::NO then
+                                Error('This po no already exist');
+                        end;
+
+
                         SalseInvoiceRec.Reset();
                         SalseInvoiceRec.SetRange("po No", xRec."PO No.");
                         SalseInvoiceRec.SetRange("Style No", rec."Style No.");
