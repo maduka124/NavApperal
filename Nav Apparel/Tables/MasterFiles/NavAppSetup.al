@@ -724,6 +724,13 @@ table 51139 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
+        field(71012708; "Buyer PO Duplicate"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = "NO","YES";
+            OptionCaption = 'NO,YES';
+        }
+
     }
 
     keys
