@@ -100,6 +100,7 @@ page 50989 "Copy BOM Card"
 
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Merchandizer Group Name", "Mercha Group Name");
+                        StyleMasterRec.SetRange(Type, StyleMasterRec.Type::Costing);
                         StyleMasterRec.SetFilter(EstimateBOM, '=%1', '');
 
                         if StyleMasterRec.Findset() then begin

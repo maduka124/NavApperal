@@ -20,7 +20,7 @@ table 50457 "New Breakdown"
         field(3; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No.";
+            TableRelation = "Style Master"."Style No." where(Type = filter(Costing));
             ValidateTableRelation = false;
         }
 
