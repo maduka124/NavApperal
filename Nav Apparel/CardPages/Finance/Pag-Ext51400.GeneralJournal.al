@@ -35,6 +35,32 @@ pageextension 51400 GeneralJournal extends "General Journal"
 
         }
 
+        modify("Account No.")
+        {
+            trigger OnAfterValidate()
+            var
+                GenJurnaLineRec: Record "Gen. Journal Line";
+                UserRec: Record "User Setup";
+            begin
+
+                UserRec.Reset();
+                UserRec.get(UserId);
+
+                if (UserRec."User ID" = 'APPROVAL.PAL') OR (UserRec."User ID" = 'PAL.ACCOUNTS') then begin
+                    GenJurnaLineRec.Reset();
+                    GenJurnaLineRec.SetRange("Journal Template Name", 'GENERAL');
+
+                    if GenJurnaLineRec.FindSet() then begin
+                        repeat
+                            GenJurnaLineRec."Shortcut Dimension 1 Code" := 'PAL';
+                            GenJurnaLineRec."Shortcut Dimension 2 Code" := 'PAL-SEW';
+                            GenJurnaLineRec.Modify(true);
+                        until GenJurnaLineRec.Next() = 0;
+                    end;
+                end;
+            end;
+        }
+
 
     }
     actions
@@ -73,5 +99,44 @@ pageextension 51400 GeneralJournal extends "General Journal"
 
     }
     var
+
+    trigger OnAfterGetCurrRecord()
+    var
+        GenJurnaLineRec: Record "Gen. Journal Line";
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.get(UserId);
+
+        if (UserRec."User ID" = 'APPROVAL.PAL') OR (UserRec."User ID" = 'PAL.ACCOUNTS') then begin
+            GenJurnaLineRec.Reset();
+            GenJurnaLineRec.SetRange("Journal Template Name", 'GENERAL');
+            // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+
+            if GenJurnaLineRec.FindSet() then begin
+                repeat
+                    GenJurnaLineRec."Shortcut Dimension 1 Code" := 'PAL';
+                    GenJurnaLineRec."Shortcut Dimension 2 Code" := 'PAL-SEW';
+                    GenJurnaLineRec.Modify(true);
+                until GenJurnaLineRec.Next() = 0;
+            end;
+        end
+        else begin
+            GenJurnaLineRec.Reset();
+            GenJurnaLineRec.SetRange("Journal Template Name", 'GENERAL');
+            // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+
+            if GenJurnaLineRec.FindSet() then begin
+                repeat
+                    GenJurnaLineRec."Shortcut Dimension 1 Code" := '';
+                    GenJurnaLineRec."Shortcut Dimension 2 Code" := '';
+                    GenJurnaLineRec.Modify(true);
+                until GenJurnaLineRec.Next() = 0;
+            end;
+
+        end;
+
+    end;
 
 }
