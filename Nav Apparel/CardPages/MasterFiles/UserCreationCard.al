@@ -409,6 +409,25 @@ page 50978 "Create User Card"
             //         end;
             //     end;
             // }
+            action("Remove Reservation Entry Records")
+            {
+                ApplicationArea = All;
+                Image = RemoveLine;
+
+                trigger OnAction()
+                var
+                    ReseveRec: Record "Reservation Entry";
+                begin
+
+                    ReseveRec.Reset();
+                    ReseveRec.SetRange("Source ID", 'AFL-PO-02209');
+                    if ReseveRec.FindSet() then begin
+                        ReseveRec.DeleteAll();
+                        Message('AFL-PO-02209 Record deleted');
+                    end;
+                end;
+
+            }
             action("Remove minus Planned Qty in wip")
             {
                 ApplicationArea = All;
@@ -765,6 +784,7 @@ page 50978 "Create User Card"
 
 
     var
+
         ApprovalNo: Code[20];
         PONo: Code[20];
         PurchaseNo: Code[20];
