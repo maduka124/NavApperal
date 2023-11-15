@@ -94,7 +94,7 @@ page 51069 "Style Master PO ListPart"
                         NavAppRec: Record "NavApp Setup";
                     begin
 
-                        CurrPage.Update();
+                        // CurrPage.Update();
 
                         NavAppRec.Reset();
                         NavAppRec.FindSet();
@@ -105,10 +105,11 @@ page 51069 "Style Master PO ListPart"
 
                         if StyleMasterPORec.FindSet() then begin
 
-                            if NavAppRec."Buyer PO Duplicate" = NavAppRec."Buyer PO Duplicate"::NO then
-                                Error('This po no already exist');
+                            if StyleMasterPORec."PO No." <> '' then begin
+                                if NavAppRec."Buyer PO Duplicate" = NavAppRec."Buyer PO Duplicate"::NO then
+                                    Error('This po no already exist');
+                            end;
                         end;
-
 
                         SalseInvoiceRec.Reset();
                         SalseInvoiceRec.SetRange("po No", xRec."PO No.");

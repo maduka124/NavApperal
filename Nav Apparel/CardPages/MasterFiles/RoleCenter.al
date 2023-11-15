@@ -3269,6 +3269,14 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("GenaralLedgerReport")
+                    {
+                        Caption = 'General Ledger Report';
+                        Enabled = true;
+                        RunObject = report "General Ledger Report";
+                        ApplicationArea = all;
+                    }
+
                     //Done By sachith On 01/09/23
                     action("Order Completion Report - Finace")
                     {
