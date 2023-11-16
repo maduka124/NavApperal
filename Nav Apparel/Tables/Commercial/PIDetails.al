@@ -54,7 +54,7 @@ table 51079 "PI Details Header"
             // ValidateTableRelation = false;
         }
 
-        field(71012590; "PI No"; text[50])
+        field(71012590; "PI No"; text[200])
         {
             DataClassification = ToBeClassified;
         }
