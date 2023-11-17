@@ -47,16 +47,11 @@ pageextension 51400 GeneralJournal extends "General Journal"
                 UserRec.get(UserId);
 
                 if (UserRec."User ID" = 'APPROVAL.PAL') OR (UserRec."User ID" = 'PAL.ACCOUNTS') then begin
-                    GenJurnaLineRec.Reset();
-                    GenJurnaLineRec.SetRange("Journal Template Name", 'GENERAL');
 
-                    if GenJurnaLineRec.FindSet() then begin
-                        repeat
-                            GenJurnaLineRec."Shortcut Dimension 1 Code" := 'PAL';
-                            GenJurnaLineRec."Shortcut Dimension 2 Code" := 'PAL-SEW';
-                            GenJurnaLineRec.Modify(true);
-                        until GenJurnaLineRec.Next() = 0;
-                    end;
+                    Rec."Shortcut Dimension 1 Code" := 'PAL';
+                    Rec."Shortcut Dimension 2 Code" := 'PAL-SEW';
+                    Rec.Modify(true);
+
                 end;
             end;
         }

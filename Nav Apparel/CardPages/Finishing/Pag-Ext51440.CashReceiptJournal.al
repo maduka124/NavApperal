@@ -29,7 +29,20 @@ pageextension 51440 CashReceiptJournal extends "Cash Receipt Journal"
                 VendorRec: Record Vendor;
                 CustomerRec: Record Customer;
                 FixREc: Record "Fixed Asset";
+                GenJurnaLineRec: Record "Gen. Journal Line";
+                UserRec: Record "User Setup";
             begin
+
+                UserRec.Reset();
+                UserRec.get(UserId);
+
+                if (UserRec."User ID" = 'APPROVAL.PAL') OR (UserRec."User ID" = 'PAL.ACCOUNTS') then begin
+
+                    Rec."Shortcut Dimension 1 Code" := 'PAL';
+                    Rec."Shortcut Dimension 2 Code" := 'PAL-SEW';
+                    Rec.Modify(true);
+                end;
+
                 FixREc.Reset();
                 FixREc.SetRange("No.", Rec."Account No.");
                 if FixREc.FindSet() then begin
@@ -124,12 +137,46 @@ pageextension 51440 CashReceiptJournal extends "Cash Receipt Journal"
     trigger OnAfterGetRecord()
     var
         myInt: Integer;
+        GenJurnaLineRec: Record "Gen. Journal Line";
+        UserRec: Record "User Setup";
     begin
         EditableGB := true;
 
         if Rec."Account Type" = Rec."Account Type"::"G/L Account" then begin
             EditableGB := false;
         end;
+
+        UserRec.Reset();
+        UserRec.get(UserId);
+
+        if (UserRec."User ID" = 'APPROVAL.PAL') OR (UserRec."User ID" = 'PAL.ACCOUNTS') then begin
+            GenJurnaLineRec.Reset();
+            GenJurnaLineRec.SetRange("Journal Template Name", 'CASH RECE');
+            // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+
+            if GenJurnaLineRec.FindSet() then begin
+                repeat
+                    GenJurnaLineRec."Shortcut Dimension 1 Code" := 'PAL';
+                    GenJurnaLineRec."Shortcut Dimension 2 Code" := 'PAL-SEW';
+                    GenJurnaLineRec.Modify(true);
+                until GenJurnaLineRec.Next() = 0;
+            end;
+        end
+        else begin
+            GenJurnaLineRec.Reset();
+            GenJurnaLineRec.SetRange("Journal Template Name", 'CASH RECE');
+            // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+
+            if GenJurnaLineRec.FindSet() then begin
+                repeat
+                    GenJurnaLineRec."Shortcut Dimension 1 Code" := '';
+                    GenJurnaLineRec."Shortcut Dimension 2 Code" := '';
+                    GenJurnaLineRec.Modify(true);
+                until GenJurnaLineRec.Next() = 0;
+            end;
+
+        end;
+
     end;
 
     var

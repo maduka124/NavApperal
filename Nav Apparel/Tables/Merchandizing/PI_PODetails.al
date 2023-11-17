@@ -5,7 +5,7 @@ table 50916 "PI Po Details"
 
     fields
     {
-        field(71012581; "PI No."; Code[20])
+        field(71012581; "PI No."; Code[200])
         {
             DataClassification = ToBeClassified;
         }
