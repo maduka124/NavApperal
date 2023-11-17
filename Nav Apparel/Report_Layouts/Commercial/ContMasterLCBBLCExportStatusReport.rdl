@@ -261,7 +261,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!B2B_LC_Value.Value)</Value>
+                                  <Value>=Fields!Total.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1530,7 +1530,11 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details" />
+                  <Group Name="Details">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!B2B_LC_No.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                   <SortExpressions>
                     <SortExpression>
                       <Value>=Fields!B2B_LC_No.Value</Value>
@@ -1539,9 +1543,6 @@
                   <TablixMembers>
                     <TablixMember />
                   </TablixMembers>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!B2B_LC_No.Value=Previous(Fields!B2B_LC_No.Value),True,False)</Hidden>
-                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>
@@ -2608,7 +2609,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2987,9 +2987,6 @@
                       <GroupExpression>=Fields!Invoice_No.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
-                  <Visibility>
-                    <Hidden>=Fields!Invoice_No.Value=""</Hidden>
-                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>
@@ -3098,7 +3095,7 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>8.37026cm</Height>
+        <Height>7.92576cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3436,9 +3433,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="InvNo">
           <DataField>InvNo</DataField>
         </Field>
-        <Field Name="Invoice_No">
-          <DataField>Invoice_No</DataField>
-        </Field>
         <Field Name="Invoice_Amount">
           <DataField>Invoice_Amount</DataField>
         </Field>
@@ -3450,9 +3444,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="FOBValueFormat">
           <DataField>FOBValueFormat</DataField>
-        </Field>
-        <Field Name="BankRefNo_">
-          <DataField>BankRefNo_</DataField>
         </Field>
         <Field Name="Release_Amount">
           <DataField>Release_Amount</DataField>
@@ -3477,6 +3468,18 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Margin_A_C_AmountFormat">
           <DataField>Margin_A_C_AmountFormat</DataField>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
+        </Field>
+        <Field Name="TotalFormat">
+          <DataField>TotalFormat</DataField>
+        </Field>
+        <Field Name="BankRefNo_">
+          <DataField>BankRefNo_</DataField>
+        </Field>
+        <Field Name="Invoice_No">
+          <DataField>Invoice_No</DataField>
         </Field>
       </Fields>
       <Query>

@@ -24,7 +24,7 @@ report 50630 ExportStatusReport1
             { }
             column(tot; Qty * UniPrice)
             { }
-            column(B2B_LC_Value; "B2B LC Value")
+            column(B2B_LC_Value; LcValue)
             { }
             column(BBLC; BBLC)
             { }
@@ -42,68 +42,69 @@ report 50630 ExportStatusReport1
             { }
             column(BBLCAmount; BBLCAmount)
             { }
-            // column(FOBValue; FOBValue)
-            // { }
             column(QtyPcs; QtyPcs)
             { }
+            column("InvNo"; InvNo)
+            { }
+            column(Invoice_Amount; AmtIncValue)
+            { }
+            column(FOBValue; FOBValue)
+            { }
+            column(Release_Amount; ReleaseAmt)
+            { }
+            column(FC_A_C_Amount; FCACAMT)
+            { }
+            column(Current_A_C_Amount; CurrentACAMT)
+            { }
+            column(Margin_A_C_Amount; MarginAcAmt)
+            { }
+            column(Total; Total)
+            { }
 
-
-            dataitem("Contract/LCStyle"; "Contract/LCStyle")
+            dataitem(BankReferenceHeader; BankReferenceHeader)
             {
                 DataItemLinkReference = B2BLCMaster;
-                DataItemLink = "No." = field("Contract Sys No.");
+                DataItemLink = "LC/Contract No." = field("LC/Contract No."), "Buyer No" = field("Buyer No.");
                 DataItemTableView = sorting("No.");
 
-                dataitem("Sales Invoice Header"; "Sales Invoice Header")
-                {
-                    DataItemLinkReference = "Contract/LCStyle";
-                    DataItemLink = "Style No" = field("Style No.");
-                    DataItemTableView = sorting("No.");
+                column(BankRefNo_; "BankRefNo.")
+                { }
+                column(Invoice_No; FtyInvoiceNo)
+                { }
 
-                    column("InvNo"; "No.")
-                    { }
-                    column(Invoice_No; "Your Reference")
-                    { }
-                    column(Invoice_Amount; "Amount Including VAT")
-                    { }
-                    column(FOBValue; FOBValue)
-                    { }
-
-                    dataitem(BankRefCollectionLine; "BankRefCollectionLine")
-                    {
-                        DataItemLinkReference = "Sales Invoice Header";
-                        DataItemLink = "Factory Invoice No" = field("Your Reference");
-
-                        column(BankRefNo_; "BankRefNo.")
-                        { }
-                        column(Release_Amount; "Release Amount")
-                        { }
-                        column(FC_A_C_Amount; "FC A/C Amount")
-                        { }
-                        column(Current_A_C_Amount; "Current A/C Amount")
-                        { }
-                        column(Margin_A_C_Amount; "Margin A/C Amount")
-                        { }
-
-                    }
-
-                    trigger OnAfterGetRecord()
-                    var
-                        SalesInVRec: Record "Sales Invoice Header";
-                    begin
-
-                        FOBValue := 0;
-                        SalesInVRec.Reset();
-                        SalesInVRec.SetRange("Style No", "Style No");
-                        if StyleRec.FindSet() then begin
-                            repeat
-                                FOBValue += SalesInVRec."Amount Including VAT";
-                            until SalesInVRec.Next() = 0;
-
-                        end;
+                trigger OnAfterGetRecord()
+                var
+                    SalesInVRec: Record "Sales Invoice Header";
+                begin
+                    FOBValue := 0;
+                    SalesInVRec.Reset();
+                    SalesInVRec.SetRange("Contract No", "LC/Contract No.");
+                    if StyleRec.FindSet() then begin
+                        InvNo := SalesInVRec."No.";
+                        repeat
+                            FOBValue += SalesInVRec."Amount Including VAT";
+                        until SalesInVRec.Next() = 0;
                     end;
-                }
+                    AmtIncValue := FOBValue;
+                    BanKInv.Reset();
+                    BanKInv.SetRange("No.", "No.");
+                    if BanKInv.FindSet() then begin
+                        FtyInvoiceNo := BanKInv."Factory Inv No";
+                    end;
+
+                    BankRecColHRec.Reset();
+                    BankRecColHRec.SetRange("BankRefNo.", "BankRefNo.");
+                    if BankRecColHRec.FindSet() then begin
+                        MarginAcAmt := BankRecColHRec."Margin A/C Amount";
+                        Total := BankRecColHRec.Total;
+                        // BankRefNo := BankRecColHRec."BankRefNo.";
+                        ReleaseAmt := BankRecColHRec."Release Amount";
+                        FCACAMT := BankRecColHRec."FC A/C Amount";
+                        CurrentACAMT := BankRecColHRec."Current A/C Amount";
+                    end;
+                end;
             }
+
 
             trigger OnPreDataItem()
             begin
@@ -112,6 +113,8 @@ report 50630 ExportStatusReport1
 
 
             trigger OnAfterGetRecord()
+            var
+                SalesInVRec: Record "Sales Invoice Header";
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -125,7 +128,6 @@ report 50630 ExportStatusReport1
                     ContractValue := ContractRec."Contract Value";
                     ContractName := ContractRec."Contract No";
                     BBLCAmount := (ContractRec."Contract Value" * ContractRec.BBLC) / 100;
-
                     ConStRec.Reset();
                     ConStRec.SetRange("No.", ContractRec."No.");
                     if ConStRec.FindSet() then begin
@@ -141,23 +143,35 @@ report 50630 ExportStatusReport1
                     end;
                 end;
 
+                B2BTot := 0;
                 BankRecColHRec.Reset();
                 BankRecColHRec.SetRange("LC/Contract No.", "LC/Contract No.");
                 if BankRecColHRec.FindSet() then begin
-                    MarginAcAmt := BankRecColHRec."Margin A/C Amount";
-                    Total := BankRecColHRec.Total;
-                    BankRefNo := BankRecColHRec."BankRefNo.";
-                    ReleaseAmt := BankRecColHRec."Release Amount";
-                    FCACAMT := BankRecColHRec."FC A/C Amount";
-                    CurrentACAMT := BankRecColHRec."Current A/C Amount";
 
-                    BankRefColLineRec.Reset();
-                    BankRefColLineRec.SetRange("BankRefNo.", BankRecColHRec."BankRefNo.");
-                    if BankRefColLineRec.FindFirst() then begin
-                        FtyInvoiceNo := BankRefColLineRec."Factory Invoice No";
-
-                    end;
+                    repeat
+                        B2BTot += BankRecColHRec.Total;
+                    until BankRefColLineRec.Next() = 0;
                 end;
+                LcValue := 0;
+                B2bMasterRec.Reset();
+                B2bMasterRec.SetRange("No.", "No.");
+                B2bMasterRec.SetRange("LC/Contract No.", ContractNoFilter);
+                B2bMasterRec.SetRange("B2B LC No", "B2B LC No");
+                if B2bMasterRec.FindSet() then begin
+                    LcValue := B2bMasterRec."LC Value";
+                end;
+
+                Total := 0;
+                B2bMasterRec.Reset();
+                B2bMasterRec.SetRange("LC/Contract No.", ContractNoFilter);
+                if B2bMasterRec.FindSet() then begin
+                    repeat
+                        Total += B2bMasterRec."LC Value";
+                    until B2bMasterRec.Next() = 0;
+                end;
+
+
+
             end;
         }
     }
@@ -195,6 +209,14 @@ report 50630 ExportStatusReport1
 
 
     var
+        Total: Decimal;
+        B2bMasterRec: Record B2BLCMaster;
+        BanKInv: Record BankReferenceInvoice;
+        B2BTot: Decimal;
+        BankRefHRec: Record BankRefCollectionHeader;
+        InvNo: Code[20];
+        AmtIncValue: Decimal;
+        BankRefNoV: Code[50];
         QtyPcs: Decimal;
         FOBValue: Decimal;
         BBLCAmount: Decimal;
@@ -206,20 +228,13 @@ report 50630 ExportStatusReport1
         FCACAMT: Decimal;
         CurrentACAMT: Decimal;
         ReleaseAmt: Decimal;
-        BankRefNo: Code[20];
-        Total: Decimal;
         MarginAcAmt: Decimal;
         BankRecColHRec: Record BankRefCollectionHeader;
-        ContractNo: Code[50];
-        B2bLcValue: Decimal;
         LcValue: Decimal;
-        Buyername: Text[100];
-        OpeningDate: Date;
-        ExDate: Date;
-        B2bLcNo: Code[20];
         B2bRec: Record B2BLCMaster;
         FtyInvoiceNo: Text[50];
         BankRefColLineRec: Record BankRefCollectionLine;
+        BankRefHeRec: Record BankReferenceHeader;
         StyleRec: Record "Style Master PO";
         UniPrice: Decimal;
         ConStRec: Record "Contract/LCStyle";
