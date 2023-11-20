@@ -77,7 +77,7 @@ report 51245 SalesContractReport
                 { }
                 column(ShValue; Amount)
                 { }
-                column(Diff; ShipQty - "PO QTY")
+                column(Diff; ShipQty - POQty)
                 { }
                 column(AMT; AMT)
                 { }
