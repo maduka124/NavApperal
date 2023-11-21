@@ -236,42 +236,42 @@ pageextension 51190 PaymentJrnlList extends "Payment Journal"
 
     }
 
-    trigger OnAfterGetRecord()
-    var
-        GenJurnaLineRec: Record "Gen. Journal Line";
-        UserRec: Record "User Setup";
-    begin
+    // trigger OnAfterGetRecord()
+    // var
+    //     GenJurnaLineRec: Record "Gen. Journal Line";
+    //     UserRec: Record "User Setup";
+    // begin
 
-        UserRec.Reset();
-        UserRec.Get(UserId);
+    //     UserRec.Reset();
+    //     UserRec.Get(UserId);
 
-        if (UserRec."User ID" = 'APPROVAL.PAL') OR (UserRec."User ID" = 'PAL.ACCOUNTS') then begin
-            GenJurnaLineRec.Reset();
-            GenJurnaLineRec.SetRange("Journal Template Name", 'PAYMENTS');
-            // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+    //     if (UserRec."User ID" = 'APPROVAL.PAL') OR (UserRec."User ID" = 'PAL.ACCOUNTS') then begin
+    //         GenJurnaLineRec.Reset();
+    //         GenJurnaLineRec.SetRange("Journal Template Name", 'PAYMENTS');
+    //         // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
 
-            if GenJurnaLineRec.FindSet() then begin
-                repeat
-                    GenJurnaLineRec."Shortcut Dimension 1 Code" := 'PAL';
-                    GenJurnaLineRec."Shortcut Dimension 2 Code" := 'PAL-SEW';
-                    GenJurnaLineRec.Modify(true);
-                until GenJurnaLineRec.Next() = 0;
-            end;
-        end
-        else begin
-            GenJurnaLineRec.Reset();
-            GenJurnaLineRec.SetRange("Journal Template Name", 'PAYMENTS');
-            // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+    //         if GenJurnaLineRec.FindSet() then begin
+    //             repeat
+    //                 GenJurnaLineRec."Shortcut Dimension 1 Code" := 'PAL';
+    //                 GenJurnaLineRec."Shortcut Dimension 2 Code" := 'PAL-SEW';
+    //                 GenJurnaLineRec.Modify(true);
+    //             until GenJurnaLineRec.Next() = 0;
+    //         end;
+    //     end
+    //     else begin
+    //         GenJurnaLineRec.Reset();
+    //         GenJurnaLineRec.SetRange("Journal Template Name", 'PAYMENTS');
+    //         // GenJurnaLineRec.SetRange("Journal Batch Name", 'DEFAULT');
 
-            if GenJurnaLineRec.FindSet() then begin
-                repeat
-                    GenJurnaLineRec."Shortcut Dimension 1 Code" := '';
-                    GenJurnaLineRec."Shortcut Dimension 2 Code" := '';
-                    GenJurnaLineRec.Modify(true);
-                until GenJurnaLineRec.Next() = 0;
-            end;
+    //         if GenJurnaLineRec.FindSet() then begin
+    //             repeat
+    //                 GenJurnaLineRec."Shortcut Dimension 1 Code" := '';
+    //                 GenJurnaLineRec."Shortcut Dimension 2 Code" := '';
+    //                 GenJurnaLineRec.Modify(true);
+    //             until GenJurnaLineRec.Next() = 0;
+    //         end;
 
-        end;
+    //     end;
 
-    end;
+    // end;
 }
