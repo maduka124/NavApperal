@@ -55,7 +55,8 @@ report 51245 SalesContractReport
             {
                 DataItemLinkReference = "Contract/LCMaster";
                 DataItemLink = "Contract No" = field("Contract No"), "Bill-to Customer No." = field("Buyer No.");
-                DataItemTableView = where(Closed = filter(false));
+                DataItemTableView = sorting("Order No.") where(Closed = filter(false));
+
 
                 column(Style_Name; "Style Name")
                 { }
@@ -111,7 +112,13 @@ report 51245 SalesContractReport
                     StylePoRec.SetRange("Lot No.", Lot);
                     StylePoRec.SetRange("PO No.", "PO No");
                     if StylePoRec.FindSet() then begin
-                        POQty += StylePoRec.Qty;
+                        POQty := StylePoRec.Qty;
+
+                        if ("PO No" = POLC) and (Lot = LotLC) then begin
+                            POQty := 0;
+                        end;
+                        POLC := "PO No";
+                        LotLC := Lot;
                     end;
 
 
@@ -199,6 +206,8 @@ report 51245 SalesContractReport
 
 
     var
+        POLC: Code[20];
+        LotLC: Code[20];
         AMT: Decimal;
         SalesInvRec: Record "Sales Invoice Header";
         ContractSLcRec: Record "Contract/LCStyle";
