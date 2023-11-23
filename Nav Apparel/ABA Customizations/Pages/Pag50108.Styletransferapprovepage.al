@@ -25,6 +25,7 @@ page 50108 "Style Transfer Approve Card"
                 field("From Prod. Order No."; Rec."From Prod. Order No.")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("From Style Name"; Rec."From Style Name")
                 {
@@ -33,6 +34,7 @@ page 50108 "Style Transfer Approve Card"
                 field("To Prod. Order No."; Rec."To Prod. Order No.")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("To Style Name"; Rec."To Style Name")
                 {
@@ -62,6 +64,7 @@ page 50108 "Style Transfer Approve Card"
             }
         }
 
+
     }
     actions
     {
@@ -75,15 +78,108 @@ page 50108 "Style Transfer Approve Card"
                 PromotedCategory = Process;
                 trigger OnAction()
                 var
+                    StyleRec: Record "Style Master";
+                    ItemJRec: Record "Item Journal Line";
                     UserSetup: Record "User Setup";
+                    StyleTLineRec: Record "Style Transfer Line";
+                    Inx: Integer;
+                    GenIssueLine: Record "General Issue Line";
+                    ItemJnlMgt: Codeunit ItemJnlManagement;
+                    PositiveFactoty: Code[20];
+                    NegativeFactoty: Code[20];
+                    PostNoGen: Code[20];
+                    NosManagement: Codeunit NoSeriesManagement;
+                    InventSetup: Record "Inventory Setup";
+                    ItemJnalBatch: Record "Item Journal Batch";
+                    ItemJnalRec: Record "Item Journal Line";
                 begin
+                    PostNoGen := '';
+                    InventSetup.Get();
+                    InventSetup.TestField("Posted Gen. Issue Nos.");
+
+                    PostNoGen := NosManagement.GetNextNo(InventSetup."Posted Gen. Issue Nos.", Today, true);
+
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", Rec."To Style No");
+                    if StyleRec.FindSet() then begin
+                        PositiveFactoty := StyleRec."Factory Code";
+                    end;
+
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", Rec."From Style No");
+                    if StyleRec.FindSet() then begin
+                        NegativeFactoty := StyleRec."Factory Code";
+                    end;
+
                     UserSetup.Get(UserId);
                     if not UserSetup."Head of Department" then
                         Error('You do not have permission to perform this action');
 
+
+
+                    UserSetup.Get(UserId);
+
+                    ItemJRec.Reset();
+                    ItemJRec.SetRange("Journal Template Name", 'ITEM');
+                    ItemJRec.SetRange("Journal Batch Name", 'DEFAULT');
+                    if ItemJRec.FindLast() then
+                        Inx := ItemJRec."Line No.";
+
+                    StyleTLineRec.Reset();
+                    StyleTLineRec.SetRange("Document No.", Rec."No.");
+                    StyleTLineRec.SetFilter("Required Quantity", '<>%1', 0);
+                    if StyleTLineRec.FindSet() then begin
+                        repeat
+
+                            Inx += 10000;
+                            ItemJRec.Init();
+                            ItemJRec."Journal Template Name" := 'ITEM';
+                            ItemJRec."Journal Batch Name" := 'DEFAULT';
+                            ItemJRec."Line No." := Inx;
+                            ItemJRec.Insert(true);
+                            ItemJRec.Validate("Posting Date", rec."Document Date");
+                            ItemJRec."Document No." := rec."No.";
+                            ItemJRec."Location Code" := PositiveFactoty;
+                            ItemJRec.Validate("Item No.", StyleTLineRec."Item Code");
+                            ItemJRec."Main Category Name" := StyleTLineRec."Main Category Name";
+                            ItemJRec."Line Approved" := true;
+                            ItemJRec.Validate("Entry Type", ItemJRec."Entry Type"::"Positive Adjmt.");
+                            ItemJRec.Validate(Quantity, StyleTLineRec."Required Quantity");
+                            ItemJRec.Modify(true);
+
+                            Inx += 10000;
+                            ItemJRec.Init();
+                            ItemJRec."Journal Template Name" := 'ITEM';
+                            ItemJRec."Journal Batch Name" := 'DEFAULT';
+                            ItemJRec."Line No." := Inx;
+                            ItemJRec.Insert(true);
+                            ItemJRec.Validate("Posting Date", rec."Document Date");
+                            ItemJRec."Document No." := rec."No.";
+                            ItemJRec."Location Code" := NegativeFactoty;
+                            ItemJRec.Validate("Item No.", StyleTLineRec."Item Code");
+                            ItemJRec."Main Category Name" := StyleTLineRec."Main Category Name";
+                            ItemJRec."Line Approved" := true;
+                            ItemJRec.Validate("Entry Type", ItemJRec."Entry Type"::"Negative Adjmt.");
+                            ItemJRec.Validate(Quantity, StyleTLineRec."Required Quantity");
+                            ItemJRec.Modify(true);
+
+                        until StyleTLineRec.Next() = 0;
+                        Commit();
+
+                    end;
+
+                    ItemJRec.Reset();
+                    ItemJRec.SetRange("Journal Template Name", 'ITEM');
+                    ItemJnlMgt.SetName('DEFAULT', ItemJRec);
+                    ItemJRec.SetRange("Journal Batch Name", 'DEFAULT');
+                    Page.RunModal(40, ItemJRec);
+
+
                     rec.Status := rec.Status::Approved;
                     rec.Modify();
                     Message('Document No %1 is approved', rec."No.");
+
+
                     CurrPage.Close();
                 end;
             }
@@ -137,4 +233,5 @@ page 50108 "Style Transfer Approve Card"
             //   }
         }
     }
+
 }

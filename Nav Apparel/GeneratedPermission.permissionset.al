@@ -949,7 +949,6 @@ permissionset 50100 GeneratedPermission
         page "Payable Chart - Approved" = X,
         page "PI Details Card" = X,
         page "PI Infor ListPart" = X,
-        page "PI Po Details ListPart 1" = X,
         page "PI Po Details ListPart 2" = X,
         page "PI Po Item Details ListPart" = X,
         page "Picture URL Dialog" = X,

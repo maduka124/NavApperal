@@ -13,65 +13,31 @@ table 50103 "Style transfer Header"
         }
         field(2; "From Prod. Order No."; Code[20])
         {
-            Caption = 'From Prod. Order No.';
             DataClassification = ToBeClassified;
-            TableRelation = "Production Order"."No." where(Status = filter(Released));
-            trigger OnValidate()
-            var
-                ProdOrderRec: Record "Production Order";
-                StyleTransLines: Record "Style Transfer Line";
-                ProdOrdComp: Record "Prod. Order Component";
-                Inx: Integer;
-                GrpItem: Code[20];
-            begin
-                Inx := 0;
-                if "From Prod. Order No." <> '' then
-                    ProdOrderRec.Get(ProdOrderRec.Status::Released, "From Prod. Order No.");
-
-                "From Style Name" := ProdOrderRec."Style Name";
-
-                ProdOrdComp.Reset();
-                ProdOrdComp.SetCurrentKey("Item No.", "Variant Code", "Location Code", Status, "Due Date");
-                ProdOrdComp.SetRange("Prod. Order No.", "From Prod. Order No.");
-                ProdOrdComp.SetFilter("Remaining Quantity", '<>%1', 0);
-                if ProdOrdComp.FindFirst() then begin
-                    repeat
-                        if GrpItem <> ProdOrdComp."Item No." then begin
-                            Inx += 10000;
-                            StyleTransLines.Init();
-                            StyleTransLines."Document No." := Rec."No.";
-                            StyleTransLines."Line No." := Inx;
-                            StyleTransLines.Validate("Main Category", ProdOrdComp."Item Cat. Code");
-                            StyleTransLines."From Prod. Order No." := "From Prod. Order No.";
-                            StyleTransLines."To Prod. Order No." := "To Prod. Order No.";
-                            StyleTransLines.Validate("Item Code", ProdOrdComp."Item No.");
-                            StyleTransLines.Insert();
-                            GrpItem := ProdOrdComp."Item No.";
-                        end;
-                    until ProdOrdComp.Next() = 0;
-                end;
-            end;
         }
         field(3; "From Style Name"; Text[50])
         {
             Caption = 'From Style Name';
             DataClassification = ToBeClassified;
-            Editable = false;
+
+            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"));
+            ValidateTableRelation = false;
+
+            trigger OnValidate()
+            var
+                StyleRec: Record "Style Master";
+            begin
+                StyleRec.Reset();
+                StyleRec.SetRange("Style No.", Rec."From Style Name");
+                if StyleRec.FindSet() then begin
+                    Rec."From Style No" := StyleRec."No.";
+                    Rec.Modify();
+                end;
+            end;
         }
         field(4; "To Prod. Order No."; Code[20])
         {
-            Caption = 'To Prod. Order No.';
-            DataClassification = ToBeClassified;
-            TableRelation = "Production Order"."No." where(Status = filter(Released));
-            trigger OnValidate()
-            var
-                ProdOrderRec: Record "Production Order";
-            begin
-                if "To Prod. Order No." <> '' then
-                    ProdOrderRec.Get(ProdOrderRec.Status::Released, "To Prod. Order No.");
 
-                "To Style Name" := ProdOrderRec."Style Name";
-            end;
         }
         field(5; "To Style Name"; Text[50])
         {
@@ -97,6 +63,7 @@ table 50103 "Style transfer Header"
         {
             DataClassification = ToBeClassified;
             TableRelation = Customer;
+            Caption = 'From Buyer Code';
             trigger OnValidate()
             var
                 CustRec: Record Customer;
@@ -111,36 +78,13 @@ table 50103 "Style transfer Header"
         field(10; Buyer; Text[100])
         {
             DataClassification = ToBeClassified;
-            //TableRelation = Customer.Name;
-            //ValidateTableRelation = false;
-        }
-        field(11; "Style No."; Code[50])
-        {
-            DataClassification = ToBeClassified;
-            Caption = 'Style Name';
-            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"));
-            ValidateTableRelation = false;
+
         }
         field(12; PO; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style No."));
+            TableRelation = "Style Master PO"."PO No." where("Style No." = field("From Style No"));
             ValidateTableRelation = false;
-
-            trigger OnValidate()
-            var
-                ProdOrder: Record "Production Order";
-            begin
-                ProdOrder.Reset();
-                ProdOrder.SetRange(Status, ProdOrder.Status::Released);
-                ProdOrder.SetRange(BuyerCode, "Buyer Code");
-                ProdOrder.SetRange("Style Name", "Style No.");
-                ProdOrder.SetRange(PO, PO);
-                if not ProdOrder.FindFirst() then
-                    Error('There is no Production order');
-
-                Validate("From Prod. Order No.", ProdOrder."No.");
-            end;
         }
 
         field(13; "To Buyer Code"; Code[20])
@@ -168,13 +112,64 @@ table 50103 "Style transfer Header"
         {
             DataClassification = ToBeClassified;
             Caption = 'To Style Name';
-            TableRelation = "Style Master"."Style No." where("Buyer No." = field("To Buyer Code"));
-            ValidateTableRelation = false;
+            // TableRelation = "Style Master"."Style No." where("Buyer No." = field("To Buyer Code"));
+            // ValidateTableRelation = false;
+
+            trigger OnLookup()
+            var
+                StyleRec: Record "Style Master";
+            begin
+                StyleRec.Reset();
+                StyleRec.SetRange("Buyer No.", Rec."To Buyer Code");
+                if StyleRec.FindSet() then begin
+                    if Page.RunModal(51067, StyleRec) = Action::LookupOK then begin
+                        Rec."To Style No." := StyleRec."Style No.";
+                        rec."To Style No" := StyleRec."No.";
+                        Modify();
+                    end;
+                end;
+            end;
+
+
         }
         field(16; "To PO"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("To Buyer Code"), "Style Name" = field("To Style No."));
+            // TableRelation = "Production Order".PO where(Status = filter('Released'), BuyerCode = field("To Buyer Code"), "Style Name" = field("To Style No."));
+            TableRelation = "Style Master PO"."PO No." where("Style No." = field("To Style No"));
+            ValidateTableRelation = false;
+
+
+        }
+        field(17; "To Style No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(18; "From Lot"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Style Master PO"."Lot No." where("PO No." = field(PO), "Style No." = field("From Style No"));
+            ValidateTableRelation = false;
+            trigger OnValidate()
+            var
+                ProdOrder: Record "Production Order";
+            begin
+                // ProdOrder.Reset();
+                // ProdOrder.SetRange(Status, ProdOrder.Status::Released);
+                // ProdOrder.SetRange(BuyerCode, "Buyer Code");
+                // ProdOrder.SetRange("Style Name", "From Style Name");
+                // ProdOrder.SetRange(PO, PO);
+                // // ProdOrder.SetRange("Lot No.", Rec."From Lot");
+                // if not ProdOrder.FindFirst() then
+                //     Error('There is no Production order');
+
+                // Validate("From Prod. Order No.", ProdOrder."No.");
+            end;
+        }
+        field(19; "To Lot"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Style Master PO"."Lot No." where("Style No." = field("To Style No"), "PO No." = field("To PO"));
             ValidateTableRelation = false;
 
             trigger OnValidate()
@@ -184,14 +179,20 @@ table 50103 "Style transfer Header"
                 ProdOrder.Reset();
                 ProdOrder.SetRange(Status, ProdOrder.Status::Released);
                 ProdOrder.SetRange(BuyerCode, "To Buyer Code");
-                ProdOrder.SetRange("Style Name", "To Style No.");
+                ProdOrder.SetRange("Style No.", "To Style No");
                 ProdOrder.SetRange(PO, "To PO");
+                // ProdOrder.SetRange("Lot No.", "To Lot");
                 if not ProdOrder.FindFirst() then
-                    Error('There is no Production order');
+                    // Error('There is no Production order');
 
                 Validate("To Prod. Order No.", ProdOrder."No.");
             end;
         }
+        field(20; "From Style No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
 
     }
     keys

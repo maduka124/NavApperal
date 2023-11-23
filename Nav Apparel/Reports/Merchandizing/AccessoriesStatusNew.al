@@ -57,10 +57,23 @@ report 51262 AccessoriesStatusReportNew
                 { }
                 column(Master_Category_Name; "Master Category Name")
                 { }
+                column(Transfer_Qty; "Transfer Qty")
+                { }
+
 
                 trigger OnPreDataItem()
                 begin
                     SetRange(AccessoriesStatusReportNew."Secondary UserID", LoginSessionsRec."Secondary UserID");
+                end;
+
+                trigger OnAfterGetRecord()
+                var
+                    ItemLeRec: Record "Item Ledger Entry";
+                begin
+                    ItemLeRec.Reset();
+                    ItemLeRec.SetRange("Style No.", StyleNo);
+                    ItemLeRec.SetRange("Item No.", "Item No");
+
                 end;
             }
 
@@ -336,6 +349,21 @@ report 51262 AccessoriesStatusReportNew
                 AcceRec."Issue Qty" := IssueQty * -1;
                 AcceRec."Stock Balance" := AcceRec."GRN Qty" - AcceRec."Issue Qty";
                 AcceRec.Balance := AcceRec."PO Qty" - AcceRec."GRN Qty";
+
+                TransferQty := 0;
+                ItemJLineRec.Reset();
+                ItemJLineRec.SetRange("Style No.", FilterNo);
+                ItemJLineRec.SetRange("Item No.", AcceRec."Item No");
+                ItemJLineRec.SetRange("Journal Template Name", 'ITEM');
+                ItemJLineRec.SetRange("Journal Batch Name", 'DEFAULT');
+                ItemJLineRec.SetRange("Entry Type", ItemJLineRec."Entry Type"::"Positive Adjmt.");
+                if ItemJLineRec.FindSet() then begin
+                    repeat
+                        TransferQty += ItemJLineRec.Quantity;
+                    until ItemJLineRec.Next() = 0;
+                end;
+
+                AcceRec."Transfer Qty" := TransferQty;
                 AcceRec.Modify();
             until AcceRec.Next() = 0;
         end
@@ -349,6 +377,8 @@ report 51262 AccessoriesStatusReportNew
     end;
 
     var
+        TransferQty: Decimal;
+        ItemJLineRec: Record "Item Journal Line";
         EditableGB: Boolean;
         MaxSeqNo: BigInteger;
         LoginSessionsRec: Record LoginSessions;

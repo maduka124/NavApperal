@@ -94,6 +94,11 @@ table 51263 "AccessoriesStatusReportNew"
         {
             DataClassification = ToBeClassified;
         }
+        field(71012599; "Transfer Qty"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
