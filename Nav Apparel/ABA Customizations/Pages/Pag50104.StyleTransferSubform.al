@@ -3,6 +3,7 @@ page 50104 "Style Transfer Subform"
     Caption = 'Style Transfer Subform';
     PageType = ListPart;
     SourceTable = "Style Transfer Line";
+    SourceTableView = where("Main Category" = filter(<> ''));
     AutoSplitKey = true;
     DelayedInsert = true;
     MultipleNewLines = true;

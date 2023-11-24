@@ -438,4 +438,15 @@ codeunit 50607 "Journal Approval"
             end;
         end;
     end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, 22, 'OnAfterInitItemLedgEntry', '', true, true)]
+    local procedure UpdateItemLedEntry(var NewItemLedgEntry: Record "Item Ledger Entry"; var ItemJournalLine: Record "Item Journal Line")
+    begin
+        NewItemLedgEntry."Style No." := ItemJournalLine."Style No.";
+        NewItemLedgEntry.PO := ItemJournalLine.PO;
+        NewItemLedgEntry."Lot No." := ItemJournalLine."Lot No.";
+        // NewItemLedgEntry."CP Req No" := ItemJournalLine."CP Req No";
+    end;
+
 }

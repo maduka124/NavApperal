@@ -44,64 +44,86 @@ report 50630 ExportStatusReport1
             { }
             column(QtyPcs; QtyPcs)
             { }
-            column("InvNo"; InvNo)
-            { }
-            column(Invoice_Amount; AmtIncValue)
-            { }
             column(FOBValue; FOBValue)
-            { }
-            column(Release_Amount; ReleaseAmt)
-            { }
-            column(FC_A_C_Amount; FCACAMT)
-            { }
-            column(Current_A_C_Amount; CurrentACAMT)
-            { }
-            column(Margin_A_C_Amount; MarginAcAmt)
             { }
             column(Total; Total)
             { }
 
-            dataitem(BankReferenceHeader; BankReferenceHeader)
+
+            dataitem("Sales Invoice Header"; "Sales Invoice Header")
             {
                 DataItemLinkReference = B2BLCMaster;
-                DataItemLink = "LC/Contract No." = field("LC/Contract No."), "Buyer No" = field("Buyer No.");
-                DataItemTableView = sorting("No.");
+                DataItemLink = "Contract No" = field("LC/Contract No.");
+                DataItemTableView = sorting("No.") where(Closed = filter(false));
 
-                column(BankRefNo_; "BankRefNo.")
+                column(BankRefNo_; BankRefNoV)
                 { }
-                column(Invoice_No; FtyInvoiceNo)
+                column(Invoice_No; "Your Reference")
+                { }
+                column("InvNo"; "No.")
+                { }
+                column(Invoice_Amount; Amount)
+                { }
+                column(Release_Amount; ReleaseAmt)
+                { }
+                column(FC_A_C_Amount; FCACAMT)
+                { }
+                column(Current_A_C_Amount; CurrentACAMT)
+                { }
+                column(Margin_A_C_Amount; MarginAcAmt)
+                { }
+                column(ReleaseAmount; ReleaseAmount)
                 { }
 
                 trigger OnAfterGetRecord()
                 var
                     SalesInVRec: Record "Sales Invoice Header";
+                    BankRefeInvoiceRec: Record BankReferenceInvoice;
                 begin
+                    AmtIncValue := 0;
                     FOBValue := 0;
-                    SalesInVRec.Reset();
-                    SalesInVRec.SetRange("Contract No", "LC/Contract No.");
-                    if StyleRec.FindSet() then begin
-                        InvNo := SalesInVRec."No.";
-                        repeat
-                            FOBValue += SalesInVRec."Amount Including VAT";
-                        until SalesInVRec.Next() = 0;
-                    end;
-                    AmtIncValue := FOBValue;
+     
+
                     BanKInv.Reset();
                     BanKInv.SetRange("No.", "No.");
                     if BanKInv.FindSet() then begin
                         FtyInvoiceNo := BanKInv."Factory Inv No";
                     end;
 
-                    BankRecColHRec.Reset();
-                    BankRecColHRec.SetRange("BankRefNo.", "BankRefNo.");
-                    if BankRecColHRec.FindSet() then begin
-                        MarginAcAmt := BankRecColHRec."Margin A/C Amount";
-                        Total := BankRecColHRec.Total;
-                        // BankRefNo := BankRecColHRec."BankRefNo.";
-                        ReleaseAmt := BankRecColHRec."Release Amount";
-                        FCACAMT := BankRecColHRec."FC A/C Amount";
-                        CurrentACAMT := BankRecColHRec."Current A/C Amount";
+                    //Get Bank Ref for the invoice
+                    BankRefeInvoiceRec.Reset();
+                    BankRefeInvoiceRec.SetRange("Invoice No", "No.");
+                    if BankRefeInvoiceRec.FindSet() then
+                        BankRefNoV := BankRefeInvoiceRec.BankRefNo
+                    else
+                        BankRefNoV := '';
+
+
+                    ReleaseAmount := 0;
+                    BankRefColLineRec.Reset();
+                    BankRefColLineRec.SetRange("Invoice No", "No.");
+                    BankRefColLineRec.SetRange("BankRefNo.", BankRefNoV);
+                    if BankRefColLineRec.FindSet() then begin
+                        ReleaseAmount := BankRefColLineRec."Release Amount";
                     end;
+
+
+                    MarginAcAmt := 0;
+                    FCACAMT := 0;
+                    CurrentACAMT := 0;
+                    ReleaseAmt := 0;
+                    BankRefColLineRec.Reset();
+                    BankRefColLineRec.SetRange("Invoice No", "No.");
+                    BankRefColLineRec.SetRange("BankRefNo.", BankRefNoV);
+                    if BankRefColLineRec.FindSet() then begin
+                        ReleaseAmt += BankRefColLineRec."Release Amount";
+                        FCACAMT := BankRefColLineRec."FC A/C Amount";
+                        CurrentACAMT := BankRefColLineRec."Current A/C Amount";
+                        MarginAcAmt := BankRefColLineRec."Margin A/C Amount";
+                    end;
+
+
+
                 end;
             }
 
@@ -170,8 +192,6 @@ report 50630 ExportStatusReport1
                     until B2bMasterRec.Next() = 0;
                 end;
 
-
-
             end;
         }
     }
@@ -209,6 +229,7 @@ report 50630 ExportStatusReport1
 
 
     var
+        ReleaseAmount: Decimal;
         Total: Decimal;
         B2bMasterRec: Record B2BLCMaster;
         BanKInv: Record BankReferenceInvoice;

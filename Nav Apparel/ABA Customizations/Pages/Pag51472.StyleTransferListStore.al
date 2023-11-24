@@ -1,4 +1,4 @@
-page 50106 "Style transfer List"
+page 51472 "Style transfer List Store"
 {
     ApplicationArea = All;
     Caption = 'Style transfer List';
@@ -6,9 +6,9 @@ page 50106 "Style transfer List"
     SourceTable = "Style transfer Header";
     // SourceTableView = where(Status = filter(Approved));
     UsageCategory = Lists;
+    Editable = false;
 
-
-    CardPageId = 50105;
+    CardPageId = 51470;
     layout
     {
         area(content)

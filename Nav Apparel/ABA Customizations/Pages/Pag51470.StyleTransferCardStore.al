@@ -1,8 +1,9 @@
-page 50105 "Style Transfer Card"
+page 51470 "Style Transfer Card Store"
 {
     Caption = 'Style Transfer Card';
     PageType = Card;
     SourceTable = "Style transfer Header";
+    Editable = false;
 
     layout
     {
@@ -51,12 +52,6 @@ page 50105 "Style Transfer Card"
                     begin
                         Inx := 0;
 
-                        StyleTransLines.Reset();
-                        StyleTransLines.SetRange("Document No.", Rec."No.");
-                        if StyleTransLines.FindSet() then begin
-                            StyleTransLines.DeleteAll();
-                        end;
-
                         PurchRcLineRec.Reset();
                         PurchRcLineRec.SetRange("Buyer No.", Rec."Buyer Code");
                         PurchRcLineRec.SetRange(PONo, Rec.PO);
@@ -83,10 +78,6 @@ page 50105 "Style Transfer Card"
                     end;
 
                 }
-                // field("From Prod. Order No."; Rec."From Prod. Order No.")
-                // {
-                //     ApplicationArea = All;
-                // }
 
                 field("To Buyer Code"; Rec."To Buyer Code")
                 {
@@ -122,14 +113,7 @@ page 50105 "Style Transfer Card"
                 {
                     ApplicationArea = All;
                 }
-                // field("To Prod. Order No."; Rec."To Prod. Order No.")
-                // {
-                //     ApplicationArea = All;
-                // }
-                // field("To Style Name"; Rec."To Style Name")
-                // {
-                //     ApplicationArea = All;
-                // }
+
                 field("Document Date"; Rec."Document Date")
                 {
                     ApplicationArea = All;
@@ -159,34 +143,20 @@ page 50105 "Style Transfer Card"
     {
         area(Processing)
         {
-            action("Send for Approval")
+
+            action(Reopen)
             {
                 ApplicationArea = All;
-                Image = SendApprovalRequest;
+                Image = ReOpen;
                 Promoted = true;
                 PromotedCategory = Process;
                 trigger OnAction()
                 begin
-                    rec.Status := rec.Status::"Pending Approval";
-                    rec.Modify();
-                    Message('Approval request sent successfully');
+                    rec.Status := Rec.Status::Open;
+                    Message('Document Reopened');
+                    Rec.Modify();
                 end;
             }
-            // action(Reopen)
-            // {
-            //     ApplicationArea = All;
-            //     Image = ReOpen;
-            //     Promoted = true;
-            //     PromotedCategory = Process;
-            //     trigger OnAction()
-            //     begin
-            //         if Rec.Status = Rec.Status::Approved then
-            //             // Error('Document already approved');
-
-            //         rec.Status := Rec.Status::Open;
-            //         Rec.Modify();
-            //     end;
-            // }
             action(Print)
             {
                 ApplicationArea = all;
@@ -202,50 +172,6 @@ page 50105 "Style Transfer Card"
             }
         }
     }
-    trigger OnAfterGetRecord()
-    var
-        StyleHRec: Record "Style transfer Header";
-        StyleLinRec: Record "Style Transfer Line";
-        PositiveTotal: Decimal;
-        NegativeTotal: Decimal;
-        // ItemLeRec: Record "Item Ledger Entry";
-        ItemLeRec: Record "Item Journal Line";
-    begin
-        StyleHRec.Reset();
-        StyleHRec.SetRange("No.", Rec."No.");
-        StyleHRec.SetRange(Status, Rec.Status::Approved);
-        if StyleHRec.FindSet() then begin
-            StyleLinRec.Reset();
-            StyleLinRec.SetRange("Document No.", StyleHRec."No.");
-            if StyleLinRec.FindSet() then begin
-                NegativeTotal := 0;
-                PositiveTotal := 0;
-                ItemLeRec.Reset();
-                ItemLeRec.SetRange("Item No.", StyleLinRec."Item Code");
-                ItemLeRec.SetRange("Journal Template Name", 'ITEM');
-                ItemLeRec.SetRange("Journal Batch Name", 'DEFAULT');
-                ItemLeRec.SetRange("Entry Type", ItemLeRec."Entry Type"::"Negative Adjmt.");
-                if ItemLeRec.FindSet() then begin
-                    ItemLeRec.CalcSums(Quantity);
-                    NegativeTotal := ItemLeRec.Quantity;
-                end;
-                ItemLeRec.Reset();
-                ItemLeRec.SetRange("Item No.", StyleLinRec."Item Code");
-                ItemLeRec.SetFilter("Journal Template Name", '<>%1', 'ITEM');
-                ItemLeRec.SetFilter("Journal Batch Name", '<>%1', 'DEFAULT');
-                ItemLeRec.SetFilter("Document No.", '<>%1', StyleLinRec."Document No.");
-                ItemLeRec.SetFilter("Entry Type", '<>%1', ItemLeRec."Entry Type"::"Negative Adjmt.");
-                ItemLeRec.SetFilter("Entry Type", '<>%1', ItemLeRec."Entry Type"::"Positive Adjmt.");
-                if ItemLeRec.FindSet() then begin
-                    ItemLeRec.CalcSums(Quantity);
-                    PositiveTotal := ItemLeRec.Quantity;
-                end;
-                StyleLinRec."Available Inventory" := PositiveTotal - (NegativeTotal * -1);
-                StyleLinRec.Modify();
-                CurrPage.Update();
-            end;
-        end;
-    end;
 
     trigger OnOpenPage()
     var

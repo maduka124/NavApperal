@@ -17,47 +17,20 @@
             // "schemaUpdateMode": "ForceSync"
             
 
-            ////SL-Developments
-            // "type": "al",
-            // "request": "launch",
-            // "name": "Your own server",
-            // "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/SL-Developments",
-            // "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
-            // "dependencyPublishingOption": "Ignore",        
-            // "breakOnError": true,
-            // "launchBrowser": false,
-            // "environmentType": "Sandbox",
-            // "environmentName": "SL-Developments",
-            // "serverInstance": "SL-Developments",
-            // "schemaUpdateMode": "ForceSync"
-
-            ////LiveCopy 4-4
-            // "type": "al",
-            // "request": "launch",
-            // "name": "Your own server",
-            // "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyOfLive14-4-2023",
-            // "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
-            // "dependencyPublishingOption": "Ignore",        
-            // "breakOnError": true,
-            // "launchBrowser": false,
-            // "environmentType": "Sandbox",
-            // "environmentName": "CopyOfLive14-4-2023",
-            // "serverInstance": "CopyOfLive14-4-2023",
-            // "schemaUpdateMode": "ForceSync"
 
 
             ////LiveCopy 20-4
             //  "type": "al",
             // "request": "launch",
             // "name": "Your own server",
-            // "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyOfLive20-4-2023",
+            // "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyOfLive15-11",
             // "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
             // "dependencyPublishingOption": "Ignore",        
             // "breakOnError": true,
             // "launchBrowser": false,
             // "environmentType": "Sandbox",
-            // "environmentName": "CopyOfLive20-4-2023",
-            // "serverInstance": "CopyOfLive20-4-2023",
+            // "environmentName": "CopyOfLive15-11",
+            // "serverInstance": "CopyOfLive015-11",
             // "schemaUpdateMode": "ForceSync"
 
 
@@ -65,14 +38,14 @@
              "type": "al",
             "request": "launch",
             "name": "Your own server",
-            "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyOfLive12-6-2023",
+            "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyOfLive16-11",
             "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
             "dependencyPublishingOption": "Ignore",        
             "breakOnError": true,
             "launchBrowser": false,
             "environmentType": "Sandbox",
-            "environmentName": "CopyOfLive12-6-2023",
-            "serverInstance": "CopyOfLive12-6-2023",
+            "environmentName": "CopyOfLive16-11",
+            "serverInstance": "CopyOfLive16-11",
             "schemaUpdateMode": "ForceSync"
         }
     ] 

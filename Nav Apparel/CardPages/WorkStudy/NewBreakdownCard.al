@@ -388,6 +388,7 @@ page 50459 "New Breakdown Card"
                 rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
                 rec."Style Stage" := 'COSTING';
                 rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+
             end;
 
             CurrPage.Update();
@@ -417,6 +418,7 @@ page 50459 "New Breakdown Card"
 
     trigger OnAfterGetCurrRecord()
     var
+        StyleRec: Record "Style Master";
         NavAppSetRec: Record "NavApp Setup";
         ProdOutHeaderRec: Record ProductionOutHeader;
         FirstDate: Date;
@@ -434,6 +436,14 @@ page 50459 "New Breakdown Card"
         if ProdOutHeaderRec.FindFirst() then begin
             if WorkDate() >= ProdOutHeaderRec."Prod Date" + NavAppSetRec."New BR/Down block period" then
                 EditableGB := false;
+        end;
+
+        StyleRec.Reset();
+        StyleRec.SetRange("No.", Rec."Style No.");
+        if StyleRec.FindSet() then begin
+            // Visible
+            StyleRec.CostingSMV := 1;
+            StyleRec.Modify();
         end;
     end;
 

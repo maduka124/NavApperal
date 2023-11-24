@@ -1495,7 +1495,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("SS Transfers")
                 {
-                    RunObject = page "Style transfer List";
+                    RunObject = page "Style transfer List Store";
                     RunPageView = where(Status = filter(Approved));
                     ApplicationArea = All;
                 }

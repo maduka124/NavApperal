@@ -9,7 +9,7 @@ page 50757 "Style SMV Pending List"
     InsertAllowed = false;
     DeleteAllowed = false;
     Caption = 'SMV Pending Style List';
-    ///CardPageId = "New Breakdown Card";
+    CardPageId = "New Breakdown Card";
 
     layout
     {
